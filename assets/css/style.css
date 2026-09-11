@@ -1,0 +1,700 @@
+/* ==========================================================================
+   PT MONTANA GLOBAL INVESTAMA — BOOTSTRAP 5 ENHANCED DESIGN SYSTEM
+   Aesthetic: Clean White Corporate Luxury with Solid Gold & Royal Blue Accents
+   RULE: NO GRADIENTS ALLOWED (Pure Solid Colors Only)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap');
+
+:root {
+  /* Solid Color System - No Gradients */
+  --mgi-white: #FFFFFF;
+  --mgi-bg-light: #F8F9FA;
+  --mgi-bg-subtle: #F1F5F9;
+  --mgi-bg-warm: #FAF8F5;
+
+  /* Official Brand Colors (Solid) */
+  --mgi-blue: #1D3589;
+  --mgi-blue-dark: #142563;
+  --mgi-blue-light: #2563EB;
+  --mgi-blue-subtle: #EEF2FF;
+
+  --mgi-gold: #C5A059;
+  --mgi-gold-dark: #A4803B;
+  --mgi-gold-light: #D4AF37;
+  --mgi-gold-subtle: #FCF8EE;
+  --mgi-gold-border: #E8D7B0;
+
+  /* Solid Typography & Neutrals */
+  --mgi-text-dark: #0F172A;
+  --mgi-text-body: #334155;
+  --mgi-text-muted: #64748B;
+  --mgi-text-light: #94A3B8;
+  --mgi-border: #E2E8F0;
+
+  /* Functional Solid Accents */
+  --mgi-success: #059669;
+  --mgi-success-bg: #ECFDF5;
+  --mgi-warning: #D97706;
+  --mgi-warning-bg: #FFFBEB;
+  --mgi-info: #0284C7;
+  --mgi-info-bg: #F0F9FF;
+}
+
+/* ==========================================================================
+   Base Typography & Layout Overrides
+   ========================================================================== */
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--mgi-white);
+  color: var(--mgi-text-body);
+  line-height: 1.68;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  color: var(--mgi-text-dark);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.font-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
+/* Text Colors */
+.text-mgi-blue {
+  color: var(--mgi-blue) !important;
+}
+
+.text-mgi-gold {
+  color: var(--mgi-gold-dark) !important;
+}
+
+.text-mgi-dark {
+  color: var(--mgi-text-dark) !important;
+}
+
+.text-mgi-muted {
+  color: var(--mgi-text-muted) !important;
+}
+
+/* Backgrounds (Solid only) */
+.bg-mgi-light {
+  background-color: var(--mgi-bg-light) !important;
+}
+
+.bg-mgi-subtle {
+  background-color: var(--mgi-bg-subtle) !important;
+}
+
+.bg-mgi-warm {
+  background-color: var(--mgi-bg-warm) !important;
+}
+
+.bg-mgi-blue {
+  background-color: var(--mgi-blue) !important;
+}
+
+.bg-mgi-gold {
+  background-color: var(--mgi-gold) !important;
+}
+
+.bg-mgi-gold-subtle {
+  background-color: var(--mgi-gold-subtle) !important;
+}
+
+/* Brand Solid Color Utilities */
+.bg-royal {
+  background-color: var(--mgi-blue) !important;
+  color: #FFFFFF !important;
+}
+
+.bg-gold {
+  background-color: var(--mgi-gold) !important;
+  color: #FFFFFF !important;
+}
+
+.text-royal {
+  color: var(--mgi-blue) !important;
+}
+
+.text-gold {
+  color: var(--mgi-gold-dark) !important;
+}
+
+.border-royal {
+  border-color: var(--mgi-blue) !important;
+}
+
+.border-gold {
+  border-color: var(--mgi-gold) !important;
+}
+
+/* ==========================================================================
+   Section Headers & Badges (Solid)
+   ========================================================================== */
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border-radius: 50rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--mgi-gold-dark);
+  background-color: var(--mgi-gold-subtle);
+  border: 1px solid var(--mgi-gold-border);
+  margin-bottom: 14px;
+}
+
+.section-tag.blue {
+  color: var(--mgi-blue);
+  background-color: var(--mgi-blue-subtle);
+  border-color: #C7D2FE;
+}
+
+/* ==========================================================================
+   Custom Buttons (Solid Only, No Gradients)
+   ========================================================================== */
+.btn-gold {
+  background-color: var(--mgi-gold);
+  color: #FFFFFF !important;
+  font-weight: 700;
+  border: 1px solid var(--mgi-gold);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-gold:hover,
+.btn-gold:focus {
+  background-color: var(--mgi-gold-dark);
+  border-color: var(--mgi-gold-dark);
+  color: #FFFFFF !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(197, 160, 89, 0.28);
+}
+
+.btn-mgi-blue {
+  background-color: var(--mgi-blue);
+  color: #FFFFFF !important;
+  font-weight: 700;
+  border: 1px solid var(--mgi-blue);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-mgi-blue:hover,
+.btn-mgi-blue:focus {
+  background-color: var(--mgi-blue-dark);
+  border-color: var(--mgi-blue-dark);
+  color: #FFFFFF !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(29, 53, 137, 0.25);
+}
+
+.btn-outline-gold {
+  background-color: transparent;
+  color: var(--mgi-gold-dark);
+  border: 1.5px solid var(--mgi-gold);
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-outline-gold:hover,
+.btn-outline-gold:focus {
+  background-color: var(--mgi-gold);
+  color: #FFFFFF !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(197, 160, 89, 0.25);
+}
+
+.btn-outline-mgi {
+  background-color: #FFFFFF;
+  color: var(--mgi-text-dark);
+  border: 1.5px solid var(--mgi-border);
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-outline-mgi:hover,
+.btn-outline-mgi:focus {
+  border-color: var(--mgi-blue);
+  color: var(--mgi-blue);
+  background-color: var(--mgi-blue-subtle);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Filter Buttons (Halaman Investasi) — High Contrast
+   ========================================================================== */
+.filter-btn {
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+.filter-btn.active,
+.filter-btn.btn-gold {
+  background-color: var(--mgi-gold) !important;
+  border-color: var(--mgi-gold) !important;
+  color: #142563 !important; /* Teks Navy Gelap kontras tinggi agar terbaca jelas tanpa perlu di-hover */
+  font-weight: 800 !important;
+  box-shadow: 0 4px 12px rgba(197, 160, 89, 0.35);
+}
+
+.filter-btn.btn-outline-gold {
+  background-color: transparent;
+  color: var(--mgi-gold-dark) !important;
+  border: 1.5px solid var(--mgi-gold) !important;
+  font-weight: 600;
+}
+
+.filter-btn.btn-outline-gold:hover {
+  background-color: var(--mgi-gold) !important;
+  color: #142563 !important;
+  border-color: var(--mgi-gold) !important;
+}
+
+/* ==========================================================================
+   Navigation Bar Overrides (Vibrant Solid Royal Navy & Gold)
+   ========================================================================== */
+.topbar-mgi {
+  background-color: #0D1B48;
+  border-bottom: 1px solid #1E293B;
+  color: #E2E8F0;
+  font-size: 0.82rem;
+  letter-spacing: 0.2px;
+}
+
+.topbar-mgi a:hover {
+  color: var(--mgi-gold-light) !important;
+}
+
+.site-navbar {
+  background-color: #142563;
+  border-bottom: 3.5px solid var(--mgi-gold);
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.15);
+}
+
+.site-navbar.scrolled {
+  background-color: #0E1B48;
+  border-bottom-color: var(--mgi-gold-light);
+  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.25);
+}
+
+.navbar-logo-badge {
+  background-color: #FFFFFF;
+  padding: 6px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.navbar-logo-badge:hover {
+  transform: scale(1.02);
+}
+
+.site-navbar .nav-link {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #FFFFFF !important;
+  padding: 0.55rem 0.95rem !important;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+  letter-spacing: 0.2px;
+}
+
+.site-navbar .nav-link:hover {
+  color: #FFD700 !important;
+  background-color: rgba(255, 255, 255, 0.08);
+  transform: translateY(-1px);
+}
+
+.site-navbar .nav-link.active {
+  color: #FFD700 !important;
+  font-weight: 700;
+  background-color: rgba(197, 160, 89, 0.18);
+  position: relative;
+}
+
+.site-navbar .nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0.95rem;
+  right: 0.95rem;
+  height: 2.5px;
+  background-color: #FFD700;
+  border-radius: 2px;
+}
+
+.btn-navbar-cta {
+  background-color: var(--mgi-gold);
+  border: 2px solid var(--mgi-gold-light);
+  color: #142563 !important;
+  font-weight: 700;
+  font-size: 0.92rem;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 14px rgba(197, 160, 89, 0.35);
+}
+
+.btn-navbar-cta:hover,
+.btn-navbar-cta:focus {
+  background-color: var(--mgi-gold-light);
+  border-color: #FCEBA4;
+  color: #0A1333 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(197, 160, 89, 0.5);
+}
+
+.border-gold {
+  border: 1.5px solid var(--mgi-gold) !important;
+}
+
+/* ==========================================================================
+   Page Headers (Clean Corporate Light Theme with Gold Tag)
+   ========================================================================== */
+.page-header {
+  background-color: var(--mgi-white);
+  padding: 56px 0 44px 0;
+  border-bottom: 1.5px solid var(--mgi-border);
+  color: var(--mgi-text-dark);
+}
+
+.page-header h1 {
+  color: var(--mgi-text-dark) !important;
+}
+
+.page-header .text-gold {
+  color: var(--mgi-gold-dark) !important;
+}
+
+.page-header .text-royal {
+  color: var(--mgi-blue) !important;
+}
+
+.page-header p.lead,
+.page-header p.text-muted {
+  color: var(--mgi-text-muted) !important;
+}
+
+.page-header .badge-tag {
+  background-color: var(--mgi-gold-subtle);
+  color: var(--mgi-gold-dark);
+  font-weight: 700;
+  border: 1px solid var(--mgi-gold-border);
+  box-shadow: none;
+}
+
+/* ==========================================================================
+   Project Cards & Catalog
+   ========================================================================== */
+.mgi-card {
+  background-color: #FFFFFF;
+  border: 1.5px solid var(--mgi-border);
+  border-radius: 14px;
+  transition: all 0.25s ease-in-out;
+  overflow: hidden;
+}
+
+.mgi-card:hover {
+  border-color: var(--mgi-gold);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+}
+
+.project-card-cover {
+  height: 220px;
+  background-color: var(--mgi-bg-subtle);
+  overflow: hidden;
+  position: relative;
+}
+
+.project-card-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.mgi-card:hover .project-card-cover img {
+  transform: scale(1.03);
+}
+
+/* Fast-Scan Key Metrics Box (Solid Theme) */
+.project-metrics-box {
+  background-color: #F8F9FA;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.mgi-card:hover .project-metrics-box {
+  background-color: #FFFFFF;
+  border-color: #CBD5E1;
+}
+
+/* Solid Progress Bar */
+.progress-solid {
+  background-color: #E2E8F0;
+  height: 8px;
+  border-radius: 50rem;
+  overflow: hidden;
+}
+
+.progress-bar-gold {
+  background-color: var(--mgi-gold);
+  transition: width 0.8s ease-in-out;
+}
+
+.progress-bar-gold.completed {
+  background-color: var(--mgi-success);
+}
+
+/* Solid Badges */
+.badge-solid-open {
+  background-color: var(--mgi-success-bg);
+  color: var(--mgi-success);
+  border: 1px solid #A7F3D0;
+  font-weight: 700;
+}
+
+.badge-solid-funded {
+  background-color: var(--mgi-blue-subtle);
+  color: var(--mgi-blue);
+  border: 1px solid #C7D2FE;
+  font-weight: 700;
+}
+
+.badge-solid-coming {
+  background-color: var(--mgi-warning-bg);
+  color: var(--mgi-warning);
+  border: 1px solid #FDE68A;
+  font-weight: 700;
+}
+
+.badge-solid-closed {
+  background-color: #F1F5F9;
+  color: var(--mgi-text-muted);
+  border: 1px solid #CBD5E1;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   BEP & ROI Simulator Box (Solid)
+   ========================================================================== */
+.simulator-card {
+  background-color: #FFFFFF;
+  border: 2px solid var(--mgi-gold-border);
+  border-radius: 16px;
+  padding: 36px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+}
+
+.sim-slider {
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;
+  background: #E2E8F0;
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.sim-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--mgi-gold);
+  cursor: pointer;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.chip-btn {
+  background-color: #FFFFFF;
+  border: 1.5px solid var(--mgi-border);
+  color: var(--mgi-text-muted);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chip-btn:hover,
+.chip-btn.active {
+  border-color: var(--mgi-gold);
+  color: var(--mgi-gold-dark);
+  background-color: var(--mgi-gold-subtle);
+}
+
+.result-card-box {
+  background-color: var(--mgi-bg-light);
+  border: 1.5px solid var(--mgi-border);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.result-card-box.featured {
+  background-color: var(--mgi-gold-subtle);
+  border-color: var(--mgi-gold);
+}
+
+/* ==========================================================================
+   Custom Tables (Solid)
+   ========================================================================== */
+.table-mgi {
+  border: 1.5px solid var(--mgi-border);
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #FFFFFF;
+}
+
+.table-mgi thead th {
+  background-color: var(--mgi-bg-subtle);
+  color: var(--mgi-blue);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  letter-spacing: 0.5px;
+  padding: 16px 20px;
+  border-bottom: 2px solid var(--mgi-border);
+}
+
+.table-mgi tbody td {
+  padding: 16px 20px;
+  color: var(--mgi-text-body);
+  border-bottom: 1px solid var(--mgi-border);
+}
+
+.table-mgi tfoot td {
+  background-color: var(--mgi-gold-subtle);
+  color: var(--mgi-gold-dark);
+  font-weight: 800;
+  font-size: 1.05rem;
+  padding: 18px 20px;
+  border-top: 2px solid var(--mgi-gold);
+}
+
+/* ==========================================================================
+   Timeline / Transformasi (Solid)
+   ========================================================================== */
+.timeline-list {
+  position: relative;
+  padding-left: 50px;
+}
+
+.timeline-list::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 20px;
+  width: 2px;
+  background-color: var(--mgi-gold-border);
+}
+
+.timeline-entry {
+  position: relative;
+  margin-bottom: 36px;
+}
+
+.timeline-marker-circle {
+  position: absolute;
+  left: -50px;
+  top: 4px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  border: 2.5px solid var(--mgi-gold);
+  color: var(--mgi-gold-dark);
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 8px rgba(197, 160, 89, 0.2);
+  z-index: 2;
+}
+
+/* ==========================================================================
+   Ekosistem & Preparation (Solid)
+   ========================================================================== */
+.entity-card-box {
+  background-color: #FFFFFF;
+  border: 1.5px solid var(--mgi-border);
+  border-radius: 12px;
+  padding: 28px;
+  transition: all 0.2s ease-in-out;
+}
+
+.entity-card-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.entity-card-box.border-gold {
+  border-top: 4px solid var(--mgi-gold) !important;
+}
+
+.entity-card-box.border-blue {
+  border-top: 4px solid var(--mgi-blue) !important;
+}
+
+.entity-card-box.border-emerald {
+  border-top: 4px solid var(--mgi-success) !important;
+}
+
+/* ==========================================================================
+   Footer (Solid Deep Midnight Navy & Gold)
+   ========================================================================== */
+.site-footer {
+  background-color: #0A1333;
+  border-top: 4px solid var(--mgi-gold);
+  padding-top: 64px;
+  padding-bottom: 32px;
+  color: #94A3B8;
+}
+
+.text-footer-muted {
+  color: #CBD5E1 !important;
+}
+
+.bg-footer-card {
+  background-color: #111E48 !important;
+}
+
+.footer-link {
+  color: #94A3B8;
+  text-decoration: none;
+  font-size: 0.92rem;
+  transition: all 0.2s ease;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.footer-link:hover {
+  color: #FFD700 !important;
+  padding-left: 4px;
+}

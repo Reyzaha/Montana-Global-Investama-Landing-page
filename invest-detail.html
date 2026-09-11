@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Proyek Investasi — PT Montana Global Investama</title>
+  <meta name="description" content="Detail alokasi permodalan, tabel funding target, rekanan Sinergi Foundation, summary kelayakan, serta simulator interaktif BEP dan ROI.">
+
+  <!-- Bootstrap 5.3.3 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Custom Core Stylesheet (Solid Theme, No Gradients) -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-light">
+
+  <!-- Global Header Navigation -->
+  <div id="global-navbar"></div>
+
+  <!-- Detail Header Hero -->
+  <header class="bg-white border-bottom border-subtle py-5" style="margin-top: var(--header-height);">
+    <div class="container">
+      <!-- Breadcrumbs -->
+      <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb small">
+          <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none text-muted"><i class="bi bi-house-door me-1"></i>Home</a></li>
+          <li class="breadcrumb-item"><a href="invest.html" class="text-decoration-none text-muted">Investasi</a></li>
+          <li class="breadcrumb-item active text-gold fw-semibold" aria-current="page" id="breadcrumbTitle">Detail Proyek</li>
+        </ol>
+      </nav>
+
+      <div class="row g-4 align-items-center">
+        <!-- Project Info & Funding Bar -->
+        <div class="col-12 col-lg-7">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <span class="badge bg-royal text-white px-3 py-2 fw-medium rounded-pill" id="detailCategory">Alat Berat & Infrastruktur</span>
+            <span id="detailBadgeContainer"></span>
+          </div>
+
+          <h1 id="detailTitle" class="fw-bold mb-2 text-dark">
+            Memuat Proyek...
+          </h1>
+
+          <p id="detailTagline" class="text-gold fw-semibold fs-5 mb-4">
+            ...
+          </p>
+
+          <!-- Funding Progress Card -->
+          <div class="card mgi-card shadow-sm p-4 bg-white border-0" id="detailProgressWrap" style="border-top: 5px solid #C5A059 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Visual Cover -->
+        <div class="col-12 col-lg-5">
+          <div class="card mgi-card border-0 overflow-hidden shadow-sm" style="border-top: 5px solid #1D3589 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
+            <img id="detailCoverImg" src="assets/img/project-excavator.svg" alt="Cover Proyek" class="w-100 object-fit-cover" style="height: 340px; background-color: #F8F9FA;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Body -->
+  <main class="container py-5">
+    <div class="row g-4 justify-content-center">
+      <div class="col-12 col-lg-10">
+
+        <!-- 1. Alokasi Penggunaan Modal (Use of Funds & Asset Acquisition) -->
+        <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionWhatProvide" style="border-top: 5px solid #1D3589 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
+          <div class="card-header bg-white border-bottom border-subtle py-3 px-4">
+            <h2 class="h5 mb-0 fw-bold text-dark d-flex align-items-center gap-2">
+              <i class="bi bi-pie-chart-fill text-royal fs-5"></i>
+              Alokasi Penggunaan Modal (Use of Funds &amp; Asset Acquisition)
+            </h2>
+          </div>
+          <div class="card-body p-4" id="whatProvideContent">
+            <p class="text-muted mb-0">Memuat deskripsi alokasi...</p>
+          </div>
+        </section>
+
+        <!-- 2. Target Pendanaan & Struktur Rencana Anggaran Biaya (RAB) -->
+        <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionFundingTarget" style="border-top: 5px solid #C5A059 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
+          <div class="card-header bg-white border-bottom border-subtle py-3 px-4">
+            <h2 class="h5 mb-0 fw-bold text-dark d-flex align-items-center gap-2">
+              <i class="bi bi-table text-gold fs-5"></i>
+              Target Pendanaan &amp; Rencana Anggaran Biaya (Capital Expenditure Breakdown)
+            </h2>
+          </div>
+          <div class="card-body p-4">
+            <p class="text-muted small mb-3">
+              Rincian alokasi belanja modal (*CAPEX*) pengadaan aset produktif secara transparan beserta kuantitas unit dan harga perolehan.
+            </p>
+            <div id="fundingTableContainer" class="table-responsive">
+              <!-- Rendered via MGIComponents.renderFundingTable -->
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Kerangka Kemitraan & Kepastian Kontrak Kerja (Offtake Agreement) -->
+        <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionSinergiFoundation" style="border-top: 5px solid #1D3589 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
+          <div class="card-header bg-white border-bottom border-subtle py-3 px-4">
+            <h2 class="h5 mb-0 fw-bold text-dark d-flex align-items-center gap-2">
+              <i class="bi bi-building-check text-royal fs-5"></i>
+              Struktur Kemitraan Strategis &amp; Jaminan Penyerapan Pasar (Offtake &amp; Synergy Framework)
+            </h2>
+          </div>
+          <div class="card-body p-4" id="sinergiFoundationContent">
+            <p class="text-muted mb-0">Memuat informasi kemitraan...</p>
+          </div>
+        </section>
+
+        <!-- 4. Ringkasan Prospektus & Analisis Kelayakan Investasi (Investment Feasibility Summary) -->
+        <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionSummary" style="border-top: 5px solid #C5A059 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
+          <div class="card-header bg-white border-bottom border-subtle py-3 px-4">
+            <h2 class="h5 mb-0 fw-bold text-dark d-flex align-items-center gap-2">
+              <i class="bi bi-file-earmark-bar-graph-fill text-gold fs-5"></i>
+              Ringkasan Kelayakan Investasi &amp; Profil Risiko (Investment Feasibility &amp; Risk Profile)
+            </h2>
+          </div>
+          <div class="card-body p-4" id="summaryContent">
+            <p class="text-muted mb-0">Memuat ringkasan kelayakan proyek...</p>
+          </div>
+        </section>
+
+        <!-- 5. Interactive BEP & ROI Simulator -->
+        <section class="mb-4" id="sectionSimulation">
+          <div id="bepSimulatorMount">
+            <!-- Rendered via MGISimulator.init() -->
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <div id="global-footer"></div>
+
+  <!-- Bootstrap 5 Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- App Core JS -->
+  <script src="assets/js/renderer.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/components.js"></script>
+  <script src="assets/js/bep-roi-simulator.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      MGIComponents.renderNavbar('invest');
+      MGIComponents.renderFooter();
+
+      // Strict Access Guard: Check if user is logged in
+      const isAuthenticated = MGIAuth.isLoggedIn();
+
+      // Read project ID from query string (?id=proj-001)
+      const projectId = MGI.getQueryParam('id') || 'proj-001';
+
+      // Fetch all projects data
+      const data = await MGI.fetchData('data/projects.json');
+      if (!data || !data.projects) return;
+
+      // Find matching project
+      let project = data.projects.find(p => p.id === projectId);
+      if (!project) {
+        project = data.projects[0];
+      }
+
+      // Populate Header Basic Public Info
+      document.title = `${project.title} — PT Montana Global Investama`;
+      document.getElementById('breadcrumbTitle').textContent = project.title;
+      document.getElementById('detailCategory').textContent = project.category || 'Investasi Proyek';
+      document.getElementById('detailBadgeContainer').innerHTML = MGIComponents.renderStatusBadge(project.status);
+      document.getElementById('detailTitle').textContent = project.title;
+      document.getElementById('detailTagline').textContent = (project.detail && project.detail.tagline) ? `"${project.detail.tagline}"` : '';
+      document.getElementById('detailCoverImg').src = project.image || 'assets/img/project-excavator.svg';
+
+      // If user is not authenticated, lock the detail content and trigger modal with return redirect on dismissal
+      if (!isAuthenticated) {
+        // Render Locked Access Screen inside main content
+        const mainContent = document.querySelector('main.container');
+        if (mainContent) {
+          mainContent.innerHTML = `
+            <div class="row justify-content-center py-4">
+              <div class="col-12 col-lg-8">
+                <div class="card mgi-card bg-white p-4 p-md-5 rounded-4 shadow-sm text-center" style="border: 2px solid #CBD5E1; border-top: 6px solid #C5A059 !important;">
+                  <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-mgi-gold-subtle text-gold mb-3 mx-auto" style="width: 72px; height: 72px; font-size: 2rem; border: 2px solid #C5A059;">
+                    <i class="bi bi-shield-lock-fill"></i>
+                  </div>
+                  <span class="badge bg-royal text-white px-3 py-1 rounded-pill small fw-bold mb-3 mx-auto">Kepatuhan APU-PPT &amp; GCG</span>
+                  <h3 class="fw-bold text-dark mb-2">Akses Terbatas: Dokumen Prospektus &amp; Simulasi</h3>
+                  <p class="text-secondary small mb-4 lh-base mx-auto" style="max-width: 600px;">
+                    Sesuai prinsip transparansi dan regulasi keterbukaan informasi penanaman modal, rincian belanja modal (CAPEX), kontrak penyerapan (*offtake agreement*), serta kalkulator simulasi BEP/ROI hanya dapat diakses oleh investor terdaftar.
+                  </p>
+                  <div class="d-flex flex-column flex-sm-row justify-content-center gap-3 mb-3">
+                    <a href="login.html?redirect=${encodeURIComponent(window.location.href)}" class="btn btn-mgi-blue px-4 py-2 rounded-pill fw-bold d-flex align-items-center justify-content-center gap-2 shadow-sm">
+                      <i class="bi bi-box-arrow-in-right"></i>
+                      <span>Masuk ke Akun Investor</span>
+                    </a>
+                    <a href="register.html?redirect=${encodeURIComponent(window.location.href)}" class="btn btn-gold px-4 py-2 rounded-pill fw-bold d-flex align-items-center justify-content-center gap-2 text-white shadow-sm">
+                      <i class="bi bi-person-plus-fill"></i>
+                      <span>Daftar Akun Baru</span>
+                    </a>
+                  </div>
+                  <div class="pt-3 border-top border-subtle">
+                    <a href="invest.html" class="btn btn-link text-muted small text-decoration-none">
+                      <i class="bi bi-arrow-left me-1"></i> Kembali ke Katalog Portofolio Publik
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        // Render minimal lock message on header progress card
+        const progressWrap = document.getElementById('detailProgressWrap');
+        if (progressWrap) {
+          progressWrap.innerHTML = `
+            <div class="p-3 bg-light rounded-3 text-center border border-subtle">
+              <i class="bi bi-lock-fill text-gold fs-4 d-block mb-1"></i>
+              <div class="fw-bold text-dark small mb-1">Data Progres &amp; Keuangan Terkunci</div>
+              <div class="text-muted small mb-2" style="font-size: 0.78rem;">Silakan masuk atau mendaftar untuk melihat rincian alokasi dan simulasi BEP.</div>
+              <button type="button" onclick="MGIAuth.promptAuthModal(window.location.href)" class="btn btn-gold btn-sm px-4 rounded-pill fw-semibold text-white">
+                Buka Kunci Akses
+              </button>
+            </div>
+          `;
+        }
+
+        // Display Auth Modal
+        MGIAuth.promptAuthModal(window.location.href);
+
+        // When user dismisses modal via (X) or "Kembali", redirect back to invest.html
+        const modalEl = document.getElementById('mgiAuthModal');
+        if (modalEl) {
+          modalEl.addEventListener('hidden.bs.modal', () => {
+            if (!MGIAuth.isLoggedIn()) {
+              window.location.href = 'invest.html';
+            }
+          }, { once: true });
+        }
+
+        return;
+      }
+
+      // Populate Progress Bar for Authenticated Investors
+      const progressWrap = document.getElementById('detailProgressWrap');
+      progressWrap.innerHTML = `
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="text-uppercase fw-semibold small text-muted">Progres Pendanaan</span>
+          <span class="badge bg-light text-dark border border-subtle small fw-semibold">
+            <i class="bi bi-clock-history text-gold me-1"></i>${project.info.remaining_days || '18 Hari Tersisa'}
+          </span>
+        </div>
+        ${MGIComponents.renderProgressBar(project.funding.collected, project.funding.target)}
+        <div class="row g-2 mt-3 pt-3 border-top border-subtle text-center">
+          <div class="col-4 border-end border-subtle">
+            <div class="text-muted small text-uppercase" style="font-size: 0.7rem;">Tenor</div>
+            <strong class="text-dark fs-6">${project.info.tenor}</strong>
+          </div>
+          <div class="col-4 border-end border-subtle">
+            <div class="text-muted small text-uppercase" style="font-size: 0.7rem;">Proyeksi Return</div>
+            <strong class="text-success fs-6">${project.info.return}</strong>
+          </div>
+          <div class="col-4">
+            <div class="text-muted small text-uppercase" style="font-size: 0.7rem;">Min. Tiket</div>
+            <strong class="text-royal fs-6">${project.info.min_investment || 'Rp 10.000.000'}</strong>
+          </div>
+        </div>
+      `;
+
+      // Populate Section 1: What Your Invest Will Provide
+      if (project.detail && project.detail.what_will_provide) {
+        document.getElementById('whatProvideContent').innerHTML = `<p class="lh-lg mb-0 text-secondary">${project.detail.what_will_provide.content}</p>`;
+      }
+
+      // Populate Section 2: Funding Target Table
+      if (project.detail && project.detail.funding_target) {
+        document.getElementById('fundingTableContainer').innerHTML = MGIComponents.renderFundingTable(project.detail.funding_target);
+      }
+
+      // Populate Section 3: About Sinergi Foundation
+      if (project.detail && project.detail.about_sinergi_foundation) {
+        document.getElementById('sinergiFoundationContent').innerHTML = `<p class="lh-lg mb-0 text-secondary">${project.detail.about_sinergi_foundation.content}</p>`;
+      }
+
+      // Populate Section 4: Summary
+      if (project.detail && project.detail.summary) {
+        document.getElementById('summaryContent').innerHTML = `<p class="lh-lg mb-0 text-secondary">${project.detail.summary.content}</p>`;
+      }
+
+      // Populate Section 5: BEP & ROI Interactive Simulator
+      if (project.detail && project.detail.simulation) {
+        MGISimulator.init('bepSimulatorMount', project.detail.simulation);
+      }
+    });
+  </script>
+</body>
+</html>

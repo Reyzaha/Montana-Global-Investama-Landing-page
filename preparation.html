@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Struktur &amp; Alur Kerja Antar Entitas — Montana Group</title>
+  <meta name="description" content="Penjelasan struktur sinergi dan alur kerja terpadu antara PT Montana Global Investama (Holding), PT Montana Indo Utama (MIU), Montana Sentra Industri, dan Mypurcase.">
+
+  <!-- Bootstrap 5.3.3 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Custom Core Stylesheet (Solid Theme, No Gradients) -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-light">
+
+  <!-- Global Header Navigation -->
+  <div id="global-navbar"></div>
+
+  <!-- Page Header -->
+  <header class="page-header text-center">
+    <div class="container">
+      <span class="badge-tag mb-3 d-inline-block">Sinergi Operasional Ekosistem</span>
+      <h1 id="prepTitle" class="fw-bold mb-3">
+        Struktur &amp; Alur Kerja Antar Entitas <br>
+        <span class="text-gold">Montana Group</span>
+      </h1>
+      <p id="prepSubtitle" class="text-muted lead mx-auto mb-0" style="max-width: 760px;">
+        Harmonisasi peran antara pengelolaan modal investasi, digitalisasi rantai pasok pengadaan, dan utilisasi unit operasional di lapangan.
+      </p>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="container py-5">
+
+    <!-- Intro Box -->
+    <div class="card mgi-card shadow-sm border-0 bg-white p-4 p-md-5 mb-5 text-center mx-auto" style="max-width: 860px; border-top: 5px solid #C5A059 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
+      <p id="prepIntro" class="fs-6 text-secondary lh-lg mb-0">
+        Menjelaskan bagaimana dana investor mengalir dan bagaimana entitas-entitas dalam Montana Group saling berkoordinasi dalam satu alur kerja operasional yang transparan, akuntabel, dan terproteksi aset nyata.
+      </p>
+    </div>
+
+    <!-- 1. The Core Entities Summary -->
+    <div class="text-center mb-4">
+      <span class="badge-tag mb-2 d-inline-block">Peran & Fokus Kerja</span>
+      <h2 class="fw-bold text-dark mb-2">Entitas Dalam Alur Kerja Ekosistem</h2>
+      <p class="text-muted">Pembagian kewenangan yang jelas dan saling menguatkan antar entitas di bawah naungan grup.</p>
+    </div>
+
+    <div class="row g-4 mb-5" id="entitiesContainer">
+      <!-- Rendered via MGIDiagrams.renderPreparation -->
+      <div class="col-12 text-center text-muted py-4">
+        <div class="spinner-border text-gold me-2" role="status"></div>
+        <span>Memuat data entitas...</span>
+      </div>
+    </div>
+
+    <!-- 2. Integrated Workflow (Step by Step Flow) -->
+    <div class="mt-5 pt-4">
+      <div class="text-center mb-4">
+        <span class="badge-tag mb-2 d-inline-block">Siklus Modal & Eksekusi</span>
+        <h2 class="fw-bold text-dark mb-2">5 Tahap Alur Kerja Investasi Terpadu</h2>
+        <p class="text-muted lead mx-auto" style="max-width: 700px;">
+          Bagaimana modal investor berpindah secara aman dari penempatan awal hingga pembagian hasil operasional.
+        </p>
+      </div>
+
+      <div id="workflowContainer">
+        <!-- Rendered via MGIDiagrams.renderPreparation -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Global Footer -->
+  <div id="global-footer"></div>
+
+  <!-- Bootstrap 5 Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- App Core JS -->
+  <script src="assets/js/renderer.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/components.js"></script>
+  <script src="assets/js/diagram-renderer.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      MGIComponents.renderNavbar('preparation');
+      MGIComponents.renderFooter();
+
+      // Fetch preparation data
+      const data = await MGI.fetchData('data/preparation.json');
+      if (!data) return;
+
+      if (data.title) {
+        document.getElementById('prepTitle').innerHTML = `Struktur &amp; Alur Kerja Antar Entitas <br><span class="text-gold">Montana Group</span>`;
+      }
+      if (data.subtitle) document.getElementById('prepSubtitle').textContent = data.subtitle;
+      if (data.intro) document.getElementById('prepIntro').textContent = data.intro;
+
+      // Render Entities & Workflow
+      MGIDiagrams.renderPreparation('entitiesContainer', 'workflowContainer', data);
+    });
+  </script>
+</body>
+</html>

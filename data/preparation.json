@@ -1,0 +1,75 @@
+{
+  "title": "Struktur Kerja & Sinergi Operasional Antar Entitas",
+  "subtitle": "Alur Koordinasi Terpadu: Pengelolaan Modal, Pengadaan Rantai Pasok, dan Eksekusi Lapangan",
+  "intro": "Menjelaskan bagaimana dana investor mengalir dan bagaimana entitas-entitas dalam Montana Group saling berkoordinasi dalam satu alur kerja operasional yang transparan, akuntabel, dan terproteksi aset riil.",
+  "entities_summary": [
+    {
+      "code": "MGI",
+      "name": "PT Montana Global Investama",
+      "role": "Induk Usaha (Holding), Manajer Investasi, dan Pengelola Modal Grup",
+      "fokus_kerja": "Pengelolaan modal, GCG, manajemen risiko, hubungan investor",
+      "output_utama": "Alokasi modal, laporan kinerja portofolio",
+      "color": "gold",
+      "icon": "building"
+    },
+    {
+      "code": "MIU",
+      "name": "PT Montana Indo Utama (MIU)",
+      "role": "Unit Usaha Operasional — Impor, Distribusi CBU, Workshop & Utilisasi Alat Berat",
+      "fokus_kerja": "Impor & distribusi alat berat CBU Jepang, workshop sentral Kebumen, suku cadang original, armada Montana Towing, serta utilisasi operasional lapangan",
+      "output_utama": "Unit alat berat CBU grade A siap pakai, rekondisi prima (min. 90%), armada towing siaga, dan produktivitas kontrak proyek riil",
+      "color": "blue",
+      "icon": "truck"
+    },
+    {
+      "code": "MSI",
+      "name": "Montana Sentra Industri",
+      "role": "Unit Usaha Berbasis Industri / Manufaktur",
+      "fokus_kerja": "Pengembangan industri, fasilitas rekayasa teknik dan perakitan manufaktur",
+      "output_utama": "Dukungan fasilitas industri, rekayasa permesinan presisi",
+      "color": "navy",
+      "icon": "gear-wide-connected"
+    },
+    {
+      "code": "Mypurcase",
+      "name": "Mypurcase",
+      "role": "Sistem / Platform Pengadaan (Procurement) Internal Ekosistem",
+      "fokus_kerja": "Digitalisasi pengadaan (procurement), integrasi vendor & lelang impor",
+      "output_utama": "Rantai pasok pengadaan efisien, akuntabilitas anggaran, harga bersaing",
+      "color": "gold",
+      "icon": "cart-check"
+    }
+  ],
+  "workflow": [
+    {
+      "step": 1,
+      "title": "1. Penempatan Modal Investasi",
+      "actor": "Investor → PT Montana Global Investama (MGI)",
+      "desc": "Investor melakukan penempatan dana atau penyertaan modal sesuai dengan skema investasi proyek riil yang dipilih secara legal dan amanah."
+    },
+    {
+      "step": 2,
+      "title": "2. Alokasi Modal Sesuai Rencana",
+      "actor": "MGI → Unit Usaha (MIU / Montana Sentra Industri)",
+      "desc": "MGI mengalokasikan permodalan sesuai rencana penggunaan dana (use of funds) yang telah dikurasi dan diaudit untuk masing-masing proyek."
+    },
+    {
+      "step": 3,
+      "title": "3. Proses Pengadaan Barang & Jasa",
+      "actor": "Unit Usaha → Mypurcase",
+      "desc": "Unit usaha mengajukan kebutuhan pembelian unit alat berat, suku cadang, atau material industri melalui sistem pengadaan terpadu Mypurcase."
+    },
+    {
+      "step": 4,
+      "title": "4. Eksekusi Pembelian ke Pemasok",
+      "actor": "Mypurcase → Vendor / Pemasok Eksternal",
+      "desc": "Mypurcase mengeksekusi pembelian langsung ke pemasok resmi, dealer alat berat Jepang, maupun vendor material industri dengan harga terstandarisasi."
+    },
+    {
+      "step": 5,
+      "title": "5. Pelaporan Kinerja & Distribusi Hasil",
+      "actor": "Unit Usaha → MGI & Investor",
+      "desc": "Unit usaha melaporkan kinerja operasional dan keuangan secara berkala kepada MGI sesuai standar GCG, untuk diteruskan dalam bentuk bagi hasil kepada investor."
+    }
+  ]
+}

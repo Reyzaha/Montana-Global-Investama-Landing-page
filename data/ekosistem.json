@@ -1,0 +1,115 @@
+{
+  "title": "Bagan Ekosistem Korporat Montana Group",
+  "subtitle": "Holding Investasi & Peta Ekosistem Unit Usaha Terpadu",
+  "intro": "Struktur holding PT Montana Global Investama memposisikan diri sebagai manajer investasi dan pemegang kendali strategis yang menaungi unit-unit usaha operasional berdaya saing di bawahnya.",
+  "root_entity": "mgi-holding",
+  "table_summary": [
+    {
+      "entitas": "PT Montana Global Investama",
+      "level": "0 (Holding)",
+      "induk_langsung": "—",
+      "fungsi_utama": "Manajer investasi & pengelola modal grup, tata kelola GCG, manajemen risiko"
+    },
+    {
+      "entitas": "PT Montana Indo Utama (MIU)",
+      "level": "1",
+      "induk_langsung": "PT Montana Global Investama",
+      "fungsi_utama": "Impor & distribusi alat berat CBU Jepang, workshop sentral Kebumen, armada Montana Towing, purna jual, dan utilisasi operasional proyek lapangan"
+    },
+    {
+      "entitas": "Montana Sentra Industri",
+      "level": "1",
+      "induk_langsung": "PT Montana Global Investama",
+      "fungsi_utama": "Unit usaha berbasis industri / manufaktur dan rekayasa teknik permesinan"
+    },
+    {
+      "entitas": "Mypurcase",
+      "level": "1",
+      "induk_langsung": "PT Montana Global Investama",
+      "fungsi_utama": "Sistem / platform pengadaan (procurement) internal ekosistem Montana Group"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "mgi-holding",
+      "label": "PT Montana Global Investama",
+      "short_label": "MGI Holding",
+      "type": "holding",
+      "category": "Holding & Investment Manager",
+      "parent": null,
+      "level": 0,
+      "icon": "building",
+      "badge": "Holding & Pengelola Modal",
+      "description": "Induk usaha (holding), manajer investasi, dan pengelola modal grup. Mengelola serta mengalokasikan modal secara terukur pada sektor potensial dengan standar GCG dan manajemen risiko berlapis."
+    },
+    {
+      "id": "miu",
+      "label": "PT Montana Indo Utama (MIU)",
+      "short_label": "Montana Indo Utama",
+      "type": "subsidiary",
+      "category": "Distribusi CBU, Workshop & Operasional",
+      "parent": "mgi-holding",
+      "level": 1,
+      "icon": "truck",
+      "badge": "Distribusi & Operasional",
+      "description": "Entitas operasional terpadu sejak 2022. Spesialis penyediaan dan impor unit alat berat CBU Jepang (excavator, bulldozer, breaker) dengan jaminan mutu minimal 90%, pangkalan workshop overhaul & pool seluas 4.500 m² di Kebumen, armada Montana Towing, serta utilisasi operasional dan eksekusi kontrak proyek riil."
+    },
+    {
+      "id": "montana-sentra-industri",
+      "label": "Montana Sentra Industri",
+      "short_label": "Montana Sentra Industri",
+      "type": "subsidiary",
+      "category": "Industri & Manufaktur",
+      "parent": "mgi-holding",
+      "level": 1,
+      "icon": "gear-wide-connected",
+      "badge": "Industri & Manufaktur",
+      "description": "Unit usaha berbasis industri dan manufaktur yang mengembangkan fasilitas pendukung teknik permesinan, perakitan komponen, dan rekayasa industri dalam ekosistem Montana Group."
+    },
+    {
+      "id": "mypurcase",
+      "label": "Mypurcase",
+      "short_label": "Mypurcase",
+      "type": "subsidiary",
+      "category": "Sistem Pengadaan Terpadu",
+      "parent": "mgi-holding",
+      "level": 1,
+      "icon": "cart-check",
+      "badge": "Platform Pengadaan",
+      "description": "Sistem dan platform pengadaan (procurement) internal ekosistem Montana Group untuk efisiensi rantai pasok suku cadang, unit mesin impor, dan kebutuhan operasional lintas entitas."
+    },
+    {
+      "id": "workshop-kebumen",
+      "label": "Fasilitas Workshop & Pool Kebumen",
+      "short_label": "Workshop Sentral",
+      "type": "facility",
+      "category": "Pusat Rekondisi & Purna Jual",
+      "parent": "miu",
+      "level": 2,
+      "icon": "wrench-adjustable",
+      "badge": "Fasilitas Teknis",
+      "description": "Pusat inspeksi, rekondisi, perawatan mesin, dan pool unit alat berat di Kebumen, Jawa Tengah dengan teknisi bersertifikasi dan armada Montana Towing."
+    },
+    {
+      "id": "sinergi-foundation",
+      "label": "Sinergi Foundation & Mitra Strategis",
+      "short_label": "Sinergi Foundation",
+      "type": "partner",
+      "category": "Kemitraan Strategis & Offtake",
+      "parent": "mgi-holding",
+      "level": 1,
+      "icon": "handshake",
+      "badge": "Mitra Strategis",
+      "description": "Yayasan dan mitra strategis pendukung penyerapan proyek kemasyarakatan, offtake kontrak kerja daerah, dan pelatihan operator alat berat lokal."
+    }
+  ],
+  "governance_summary": {
+    "title": "Prinsip Integrasi Ekosistem Terpadu",
+    "points": [
+      "Pemisahan Fungsi Strategis & Operasional: MGI berfokus pada strategi pengelolaan modal, manajemen risiko, dan GCG, sementara MIU (Montana Indo Utama), Montana Sentra Industri, dan Mypurcase menjalankan eksekusi teknis sesuai spesialisasinya.",
+      "Efisiensi Rantai Pasok Terpadu (Procurement): Kebutuhan pengadaan suku cadang dan peralatan industri dikordinasikan melalui sistem terpadu Mypurcase untuk menjamin transparansi harga dan meminimalisir biaya perantara.",
+      "Proteksi Aset Berbasis Fisik Nyata: Modal investor dialokasikan langsung pada unit alat berat CBU Jepang dan aset industri riil dengan legalitas lengkap dan jaminan kondisi prima.",
+      "Transparansi & Akuntabilitas Multi-Level: Pelaporan berkala dari unit operasional ke holding MGI dan selanjutnya dilaporkan secara berkala kepada para investor secara terbuka."
+    ]
+  }
+}

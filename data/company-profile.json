@@ -1,0 +1,149 @@
+{
+  "company_name": "PT Montana Global Investama",
+  "short_name": "MGI",
+  "group_name": "Montana Group",
+  "tagline_id": "Tumbuh Bersama Melalui Investasi Terpercaya",
+  "tagline_en": "Growing Together Through Trusted Investments",
+  "founded_year": "2022",
+  "headquarters": "Jl. Nasional III No.88, Pejuritan, Kec. Karanganyar, Kab. Kebumen, Jawa Tengah",
+  "stats": [
+    { "label": "Total Nilai Kelolaan (AUM)", "value": "Rp 75M+", "desc": "Aset Produktif Berkelanjutan" },
+    { "label": "Tingkat Keberhasilan Proyek", "value": "100%", "desc": "Tepat Waktu & Akuntabel" },
+    { "label": "Rata-Rata Proyeksi Return", "value": "≥30%", "desc": "Imbal Hasil Kompetitif Riil" },
+    { "label": "Unit Usaha Terintegrasi", "value": "4 Entitas", "desc": "Sinergi Ekosistem Mandiri" }
+  ],
+  "about_group": {
+    "title": "Tentang Montana Group",
+    "subtitle": "Kelompok Usaha Sektor Riil Berdaya Saing Tinggi & Berkelanjutan",
+    "description": "Montana Group adalah kelompok usaha yang dipimpin oleh PT Montana Global Investama (MGI) selaku perusahaan manajer investasi dan pemegang kendali strategis (holding), yang menaungi beberapa unit usaha operasional di bawahnya. Model ini memungkinkan MGI berfokus pada pengelolaan modal, tata kelola (GCG), dan manajemen risiko tingkat grup, sementara setiap unit usaha menjalankan operasional sesuai bidang keahliannya masing-masing.",
+    "positioning": "Dengan struktur holding ini, PT Montana Global Investama memposisikan diri sebagai mitra investasi bagi investor eksternal yang ingin berpartisipasi pada pertumbuhan sektor riil (khususnya alat berat, industri, dan rantai pasok/pengadaan) melalui satu pintu masuk investasi yang dikelola secara profesional, transparan, dan mengikuti prinsip Good Corporate Governance (GCG)."
+  },
+  "entities": [
+    {
+      "code": "MGI",
+      "name": "PT Montana Global Investama",
+      "slogan": "Growing Together Through Trusted Investments",
+      "role": "Induk Usaha (Holding), Manajer Investasi, dan Pengelola Modal Grup",
+      "level": "Level 0 (Holding)",
+      "badge": "Holding & Investment Manager",
+      "color": "gold",
+      "description": "Perusahaan manajer investasi dan pengelolaan aset strategis yang mengelola serta mengalokasikan modal secara terukur pada sektor-sektor potensial, termasuk unit-unit usaha dalam ekosistem Montana Group, guna menciptakan hasil investasi berimbal hasil optimal (risk-adjusted returns). Seluruh aktivitas dijalankan dengan standar tinggi Good Corporate Governance (GCG), manajemen risiko berlapis, serta kepatuhan penuh terhadap regulasi jasa keuangan di Indonesia.",
+      "focus": "Pengelolaan modal, GCG, manajemen risiko, hubungan investor",
+      "output": "Alokasi modal, laporan kinerja portofolio terverifikasi"
+    },
+    {
+      "code": "MIU",
+      "name": "PT Montana Indo Utama (MIU)",
+      "slogan": "Excellence in Heavy Machinery & Field Operations",
+      "role": "Unit Usaha Operasional — Impor, Distribusi CBU, Workshop Sentral & Utilisasi Alat Berat",
+      "level": "Level 1 (Unit Usaha)",
+      "badge": "Distribusi CBU, Workshop & Operasional",
+      "color": "blue",
+      "description": "Entitas operasional terpadu sejak 2022 yang mengintegrasikan impor langsung dan distribusi unit alat berat CBU Jepang (excavator, bulldozer, hydraulic breaker) dengan jaminan mutu minimal 90% (Grade A), pengelolaan workshop sentral & pool rekondisi seluas 4.500 m² di Kebumen, pengoperasian armada Montana Towing untuk mobilisasi dan servis darurat, serta utilisasi operasional dan eksekusi kontrak kerja sewa produktif pada proyek konstruksi sipil, infrastruktur nasional, pertambangan kuari, dan industri riil.",
+      "focus": "Impor & distribusi alat berat CBU Jepang, workshop overhaul & rekondisi, armada Montana Towing, dan utilisasi operasional proyek lapangan",
+      "output": "Unit alat berat CBU siap pakai Grade A, pangkalan workshop Kebumen, armada towing siaga, serta ketercapaian target produksi kontrak kerja proyek riil",
+      "location": "Jl. Nasional III No.88, Pejuritan, Kec. Karanganyar, Kab. Kebumen, Jawa Tengah"
+    },
+    {
+      "code": "MSI",
+      "name": "Montana Sentra Industri",
+      "slogan": "Industrial Strength & Precision",
+      "role": "Unit Usaha Berbasis Industri / Manufaktur",
+      "level": "Level 1 (Unit Usaha)",
+      "badge": "Industri & Manufaktur",
+      "color": "navy",
+      "description": "Entitas dalam ekosistem Montana Group yang berfokus pada pengembangan sektor industri dan manufaktur, penyediaan fasilitas penunjang rekayasa teknik permesinan, serta perakitan komponen industri bernilai tambah tinggi.",
+      "focus": "Pengembangan industri, rekayasa manufaktur, fasilitas bengkel fabrikasi",
+      "output": "Dukungan manufaktur industri, komponen rekayasa teknik presisi"
+    },
+    {
+      "code": "Mypurcase",
+      "name": "Mypurcase",
+      "slogan": "Smart Procurement Solution",
+      "role": "Sistem / Platform Pengadaan (Procurement) Internal Ekosistem",
+      "level": "Level 1 (Platform Pengadaan)",
+      "badge": "Sistem Rantai Pasok",
+      "color": "gold",
+      "description": "Sistem dan platform pengadaan terpadu yang melayani proses purchasing dan rantai pasok suku cadang, unit mesin, dan kebutuhan operasional lintas entitas dalam Montana Group secara efisien, transparan, dan terukur.",
+      "focus": "Digitalisasi pengadaan (procurement), manajemen vendor dan lelang impor, audit faktur",
+      "output": "Rantai pasok efisien, harga bersaing, akuntabilitas serapan anggaran"
+    }
+  ],
+  "sections": [
+    {
+      "type": "text",
+      "id": "tentang-kami",
+      "title": "Tentang Kami",
+      "subtitle": "Membangun Masa Depan Melalui Sinergi Investasi Produktif",
+      "content": "PT Montana Global Investama (MGI) adalah entitas pengelola investasi strategis dan manajer modal profesional yang berfokus pada pembiayaan sektor riil bernilai tambah tinggi. Kami memadukan keahlian analitis, kepatuhan tata kelola yang ketat, dan eksekusi lapangan yang tangguh untuk menghasilkan imbal hasil optimal yang terukur bagi para pemodal, sekaligus menggerakkan pertumbuhan ekonomi produktif di Indonesia.",
+      "quote": "Kepercayaan investor adalah amanah tertinggi yang kami jaga dengan integritas, kepatuhan, dan disiplin risiko tanpa kompromi."
+    },
+    {
+      "type": "vision_mission",
+      "id": "visi-misi",
+      "title": "Visi & Misi Perusahaan",
+      "subtitle": "Arah Strategis Menuju Keunggulan Pengelolaan Modal Terkemuka",
+      "vision": "Menjadi perusahaan pengelolaan investasi terdepan dan paling tepercaya di Indonesia yang menghubungkan modal strategis dengan potensi sektor riil bernilai tinggi secara berkesinambungan.",
+      "missions": [
+        "Eksekusi Investment Excellence melalui kurasi proyek berstandar kelayakan tinggi dan mitigasi risiko komprehensif.",
+        "Membangun Kemitraan Berorientasi Nilai yang transparan, profesional, dan memberikan manfaat nyata jangka panjang.",
+        "Menerapkan Tata Kelola Perusahaan yang Baik (Good Corporate Governance) dan kepatuhan regulasi secara berintegritas.",
+        "Mengoptimalkan produktivitas ekosistem bisnis melalui integrasi teknologi, pengadaan tepat guna, dan tata kelola terpadu.",
+        "Memberikan imbal hasil investasi yang unggul dan berkelanjutan dengan prinsip kehati-hatian finansial."
+      ]
+    },
+    {
+      "type": "cards",
+      "id": "core-values",
+      "title": "Nilai-Nilai Perusahaan",
+      "subtitle": "Fondasi Moral & Profesional Dalam Setiap Pengambilan Keputusan",
+      "items": [
+        {
+          "icon": "shield-check",
+          "name": "Integritas",
+          "desc": "Menjunjung tinggi kejujuran, etika bisnis luhur, dan keterbukaan dalam setiap transaksi dan kemitraan."
+        },
+        {
+          "icon": "award",
+          "name": "Profesionalisme",
+          "desc": "Didukung tim ahli berpengalaman dengan dedikasi tinggi terhadap standar eksekusi terbaik di industri."
+        },
+        {
+          "icon": "eye",
+          "name": "Transparansi",
+          "desc": "Penyajian laporan kinerja berkala, audit independen, dan visibilitas alokasi modal secara menyeluruh kepada investor."
+        },
+        {
+          "icon": "zap",
+          "name": "Inovasi",
+          "desc": "Adaptasi teknologi digital cerdas dan skema investasi progresif untuk mengoptimalkan efisiensi sektor riil."
+        },
+        {
+          "icon": "people",
+          "name": "Kolaborasi Ekosistem",
+          "desc": "Menciptakan sinergi erat lintas entitas (MIU, Montana Sentra Industri, Mypurcase, MGI) guna memaksimalkan penciptaan nilai kolektif."
+        }
+      ]
+    },
+    {
+      "type": "gcg",
+      "id": "tata-kelola",
+      "title": "Prinsip Good Corporate Governance (GCG)",
+      "subtitle": "5 Pilar Tata Kelola Perusahaan Berstandar Tinggi",
+      "items": [
+        { "code": "T", "name": "Transparansi", "desc": "Keterbukaan informasi material dan relevan kepada seluruh pemangku kepentingan." },
+        { "code": "A", "name": "Akuntabilitas", "desc": "Kejelasan fungsi, struktur, sistem, dan pertanggungjawaban pengelolaan investasi." },
+        { "code": "R", "name": "Responsibilitas", "desc": "Kepatuhan penuh terhadap hukum, regulasi jasa keuangan, dan tanggung jawab sosial-lingkungan." },
+        { "code": "I", "name": "Independensi", "desc": "Pengambilan keputusan profesional objektif bebas dari benturan kepentingan." },
+        { "code": "F", "name": "Fairness (Kewajaran)", "desc": "Perlakuan adil dan setara bagi seluruh investor dalam pemenuhan hak-hak pemodal." }
+      ]
+    }
+  ],
+  "contact": {
+    "corporate_office": "Jl. Sunburst CBD Jl. Kapten Soebijanto Djojohadikusumo No.8 Lot I, Lengkong Gudang, Kec. Serpong, Kota Tangerang Selatan, Banten 15321",
+    "operational_office": "Jl. Nasional III No.88, Pejuritan, Kec. Karanganyar, Kab. Kebumen, Jawa Tengah",
+    "email": "Montanaglobalinvestamaom@gmail.com",
+    "work_hours": "Senin – Jumat: 08.00 – 17.00 WIB",
+    "google_maps_url": "https://maps.google.com/?q=Jl.+Kapten+Soebijanto+Djojohadikusumo+No.8+Lot+I+Serpong+Tangerang+Selatan"
+  }
+}

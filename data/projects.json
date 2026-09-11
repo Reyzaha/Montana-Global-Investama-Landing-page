@@ -1,0 +1,388 @@
+{
+  "currency": "IDR",
+  "disclaimer_text": "Target ilustratif berdasarkan proyeksi kinerja, bukan jaminan — hasil aktual mengikuti kinerja riil usaha dan dapat lebih rendah dari target. Investasi pada instrumen sektor riil mengandung risiko fluktuasi pasar dan operasional. Harap membaca seluruh dokumen penawaran dan Risk Disclosure Statement secara cermat.",
+  "projects": [
+    {
+      "id": "proj-001",
+      "title": "Pengadaan Unit Alat Berat CBU Jepang Batch IV",
+      "category": "Alat Berat & Infrastruktur",
+      "image": "assets/img/komatsu.jpg",
+      "funding": {
+        "collected": 15500000000,
+        "target": 20000000000,
+        "currency": "IDR"
+      },
+      "status": "Open",
+      "featured": true,
+      "info": {
+        "lokasi": "Kebumen & Cilacap, Jawa Tengah",
+        "target": "Rp 20.000.000.000",
+        "tenor": "36 Bulan",
+        "return": "≥30% (p.a.)",
+        "risk": "Menengah - Terukur",
+        "min_investment": "Rp 10.000.000",
+        "payout": "Bagi Hasil Kuartalan",
+        "remaining_days": "18 Hari Tersisa",
+        "asset_backed": "Unit CBU Grade A & BPKB"
+      },
+      "detail": {
+        "tagline": "Ekspansi Unit Produktif CBU Jepang Siap Operasi Proyek Nasional",
+        "what_will_provide": {
+          "type": "text",
+          "title": "Alokasi Penggunaan Modal (Use of Funds & Asset Acquisition)",
+          "content": "Dana investasi yang terhimpun akan dialokasikan langsung untuk pengadaan unit alat berat impor Completly Built Up (CBU) langsung dari Jepang dengan kondisi grade A (reconditioned & operational certified). Pengadaan mencakup Excavator Hydraulic Komatsu PC138US, PC200-8, serta Bulldozer Caterpillar D6R yang memiliki tingkat utilisasi sangat tinggi untuk kontrak jangka panjang proyek infrastruktur jalan tol, normalisasi sungai, dan tambang kuari di Jawa Tengah dan DIY. Setiap unit dilengkapi sistem telematika GPS tracking dan asuransi all-risk komprehensif."
+        },
+        "funding_target": {
+          "type": "table",
+          "title": "Target Pendanaan & Rencana Anggaran Biaya (CAPEX Breakdown)",
+          "columns": [
+            "No",
+            "Item Pengadaan / Spesifikasi",
+            "Qty",
+            "Harga Satuan (IDR)",
+            "Total Alokasi (IDR)"
+          ],
+          "rows": [
+            {
+              "no": 1,
+              "item": "Excavator Komatsu PC138US-8 (CBU Japan Grade A)",
+              "quantity": 6,
+              "unit_price": 850000000,
+              "total": 5100000000
+            },
+            {
+              "no": 2,
+              "item": "Excavator Komatsu PC200-8 Hybrid Ready",
+              "quantity": 5,
+              "unit_price": 1450000000,
+              "total": 7250000000
+            },
+            {
+              "no": 3,
+              "item": "Bulldozer Caterpillar D6R Heavy Duty",
+              "quantity": 3,
+              "unit_price": 1650000000,
+              "total": 4950000000
+            },
+            {
+              "no": 4,
+              "item": "Mobilisasi, Sertifikasi Kelayakan & Bea Impor CBU",
+              "quantity": 1,
+              "unit_price": 1700000000,
+              "total": 1700000000
+            },
+            {
+              "no": 5,
+              "item": "Cadangan Operasional, Maintenance & Telematics GPS",
+              "quantity": 1,
+              "unit_price": 1000000000,
+              "total": 1000000000
+            }
+          ],
+          "grand_total": 20000000000
+        },
+        "about_sinergi_foundation": {
+          "type": "text",
+          "title": "Struktur Kemitraan Strategis & Jaminan Penyerapan Pasar (Offtake Framework)",
+          "content": "Pengadaan dan pemanfaatan unit-unit ini didukung oleh kemitraan strategis dengan Sinergi Foundation dan asosiasi kontraktor terpercaya. Melalui kerangka kerja sama ini, unit alat berat yang diadakan memiliki kepastian kontrak kerja (offtake agreement) berkelanjutan pada proyek strategis daerah. Sinergi Foundation juga mengawasi aspek dampak sosial ekonomi, pemberdayaan operator lokal, dan program pelatihan vokasi teknik alat berat bersertifikasi nasional."
+        },
+        "summary": {
+          "type": "text",
+          "title": "Ringkasan Kelayakan Investasi & Profil Risiko (Feasibility Summary)",
+          "content": "Proyek Pengadaan Alat Berat CBU Jepang Batch IV menyajikan profil investasi dengan fundamental yang sangat kuat: didukung aset fisik berwujud (tangible asset-backed) yang nilainya dapat dimonetisasi atau dilikuidasi sewaktu-waktu, permintaan sewa pasar alat berat yang konsisten tinggi, serta proteksi asuransi peralatan penuh. Dengan proyeksi imbal hasil indikatif ≥30% selama periode 36 bulan dan pembagian hasil operasional per kuartal, proyek ini menawarkan kombinasi ideal antara keamanan modal dan profitabilitas optimal."
+        },
+        "simulation": {
+          "tenor_bulan": 36,
+          "estimasi_return_persen": 30,
+          "modal_kerja_bulanan_persen": 2.2,
+          "minimum_investasi": 10000000,
+          "default_investasi": 50000000,
+          "catatan": "Kalkulasi simulasi bersifat estimasi matematis proyeksi bisnis. Mengacu pada ketentuan Risk Disclosure Statement MGI."
+        }
+      }
+    },
+    {
+      "id": "proj-002",
+      "title": "Modernisasi Armada Logistik & Dump Truck Sindikasi",
+      "category": "Logistik & Transportasi Industri",
+      "image": "assets/img/sumitomo.jpg",
+      "funding": {
+        "collected": 12000000000,
+        "target": 12000000000,
+        "currency": "IDR"
+      },
+      "status": "Fully Funded",
+      "featured": true,
+      "info": {
+        "lokasi": "Cilegon & Surabaya Koridor Logistik",
+        "target": "Rp 12.000.000.000",
+        "tenor": "24 Bulan",
+        "return": "≥26% (p.a.)",
+        "risk": "Rendah - Menengah",
+        "min_investment": "Rp 10.000.000",
+        "payout": "Bagi Hasil Bulanan",
+        "remaining_days": "Pendanaan Terpenuhi",
+        "asset_backed": "Armada Truk Hino & GPS"
+      },
+      "detail": {
+        "tagline": "Sindikasi Armada Angkut Material Industri Berbasis Kontrak Jangka Panjang",
+        "what_will_provide": {
+          "type": "text",
+          "title": "What Your Invest Will Provide",
+          "content": "Investasi mendanai peremajaan dan penambahan 12 unit Dump Truck Tronton 10 Roda kapasitas 24 kubik dan 4 unit Prime Mover dengan trailer lowbed untuk mendukung rantai pasok semen dan agregat konstruksi jalur industri lintas pulau Jawa."
+        },
+        "funding_target": {
+          "type": "table",
+          "title": "Funding Target & Alokasi Anggaran",
+          "columns": [
+            "No",
+            "Item Pengadaan / Spesifikasi",
+            "Qty",
+            "Harga Satuan (IDR)",
+            "Total Alokasi (IDR)"
+          ],
+          "rows": [
+            {
+              "no": 1,
+              "item": "Dump Truck Tronton Hino 500 New Generation",
+              "quantity": 8,
+              "unit_price": 950000000,
+              "total": 7600000000
+            },
+            {
+              "no": 2,
+              "item": "Prime Mover Heavy Hauler 6x4",
+              "quantity": 3,
+              "unit_price": 1150000000,
+              "total": 3450000000
+            },
+            {
+              "no": 3,
+              "item": "Sistem Telematika Fleet IoT & Safety Sensor",
+              "quantity": 11,
+              "unit_price": 45000000,
+              "total": 495000000
+            },
+            {
+              "no": 4,
+              "item": "Biaya Registrasi, Pajak & Legalitas Operasional",
+              "quantity": 1,
+              "unit_price": 455000000,
+              "total": 455000000
+            }
+          ],
+          "grand_total": 12000000000
+        },
+        "about_sinergi_foundation": {
+          "type": "text",
+          "title": "About Sinergi Foundation & Program Safety Logistics",
+          "content": "Didukung kemitraan bersama pemangku kepentingan industri logistik hijau, armada ini mengimplementasikan program keselamatan berkendara Zero Accident dan pembagian insentif keselamatan kerja bagi supir profesional terlatih."
+        },
+        "summary": {
+          "type": "text",
+          "title": "Summary & Kesimpulan Kelayakan Proyek",
+          "content": "Proyek telah mencapai 100% pendanaan (Fully Funded) dalam waktu rekor 18 hari kerja, mencerminkan tingginya kepercayaan investor terhadap sektor logistik riil yang memiliki kepastian kontrak kerja multi-tahun."
+        },
+        "simulation": {
+          "tenor_bulan": 24,
+          "estimasi_return_persen": 26,
+          "modal_kerja_bulanan_persen": 2.0,
+          "minimum_investasi": 10000000,
+          "default_investasi": 25000000,
+          "catatan": "Proyek berstatus Fully Funded. Simulasi dapat digunakan sebagai referensi produk serupa di masa mendatang."
+        }
+      }
+    },
+    {
+      "id": "proj-003",
+      "title": "Pusat Rekondisi & Workshop Alat Berat Terpadu MGI",
+      "category": "Fasilitas & Workshop",
+      "image": "assets/img/iseki.jpg",
+      "funding": {
+        "collected": 4200000000,
+        "target": 15000000000,
+        "currency": "IDR"
+      },
+      "status": "Open",
+      "featured": true,
+      "info": {
+        "lokasi": "Semarang Industrial Estate, Jawa Tengah",
+        "target": "Rp 15.000.000.000",
+        "tenor": "36 Bulan",
+        "return": "≥32% (p.a.)",
+        "risk": "Menengah",
+        "min_investment": "Rp 15.000.000",
+        "payout": "Bagi Hasil Kuartalan",
+        "remaining_days": "28 Hari Tersisa",
+        "asset_backed": "Workshop 8.500 m² & Mesin"
+      },
+      "detail": {
+        "tagline": "Pusat Perawatan Presisi, Rekondisi Hidrolik & Gudang Spare Part Sentral",
+        "what_will_provide": {
+          "type": "text",
+          "title": "What Your Invest Will Provide",
+          "content": "Pengembangan fasilitas pusat rekondisi alat berat modern seluas 8.500 m2 yang dilengkapi Overhead Crane 20 Ton, ruang dyno test hidrolik, oven cat industri, serta sentra inventori suku cadang CBU Jepang untuk melayani unit internal ekosistem maupun pihak ketiga."
+        },
+        "funding_target": {
+          "type": "table",
+          "title": "Funding Target & Alokasi Anggaran",
+          "columns": [
+            "No",
+            "Item Pengadaan / Spesifikasi",
+            "Qty",
+            "Harga Satuan (IDR)",
+            "Total Alokasi (IDR)"
+          ],
+          "rows": [
+            {
+              "no": 1,
+              "item": "Pengadaan Lahan & Konstruksi Bangunan Workshop Baja Ringan",
+              "quantity": 1,
+              "unit_price": 6200000000,
+              "total": 6200000000
+            },
+            {
+              "no": 2,
+              "item": "Instalasi Overhead Crane 20 Ton & Test Bench Hidrolik",
+              "quantity": 2,
+              "unit_price": 1400000000,
+              "total": 2800000000
+            },
+            {
+              "no": 3,
+              "item": "Sentra Pengadaan Batch Awal Suku Cadang Impor Jepang",
+              "quantity": 1,
+              "unit_price": 3500000000,
+              "total": 3500000000
+            },
+            {
+              "no": 4,
+              "item": "Sistem ERP Inventory Mypurcase & Digital Diagnostics",
+              "quantity": 1,
+              "unit_price": 1200000000,
+              "total": 1200000000
+            },
+            {
+              "no": 5,
+              "item": "Cadangan Likuiditas Operasional & Sertifikasi K3",
+              "quantity": 1,
+              "unit_price": 1300000000,
+              "total": 1300000000
+            }
+          ],
+          "grand_total": 15000000000
+        },
+        "about_sinergi_foundation": {
+          "type": "text",
+          "title": "About Sinergi Foundation & Vokasi Teknisi",
+          "content": "Workshop ini terintegrasi dengan program pelatihan teknisi magang dari SMK vokasi binaan di Jawa Tengah, menciptakan lapangan kerja teknis bersertifikasi bagi generasi muda."
+        },
+        "summary": {
+          "type": "text",
+          "title": "Summary & Kesimpulan Kelayakan Proyek",
+          "content": "Fasilitas ini menjadi tulang punggung efisiensi operasional seluruh ekosistem MGI. Memberikan kepastian downtime alat berat yang minimal dan margin pendapatan berulang dari layanan maintenance eksternal."
+        },
+        "simulation": {
+          "tenor_bulan": 36,
+          "estimasi_return_persen": 32,
+          "modal_kerja_bulanan_persen": 2.3,
+          "minimum_investasi": 15000000,
+          "default_investasi": 50000000,
+          "catatan": "Imbal hasil diperhitungkan dari kombinasi sewa infrastruktur workshop dan margin bisnis suku cadang."
+        }
+      }
+    },
+    {
+      "id": "proj-004",
+      "title": "Integrasi E-Procurement B2B Mypurcase Industrial Platform",
+      "category": "Teknologi & Rantai Pasok",
+      "image": "assets/img/piping.png",
+      "funding": {
+        "collected": 0,
+        "target": 8000000000,
+        "currency": "IDR"
+      },
+      "status": "Coming Soon",
+      "featured": false,
+      "info": {
+        "lokasi": "Nasional / Cloud Terpadu",
+        "target": "Rp 8.000.000.000",
+        "tenor": "30 Bulan",
+        "return": "≥35% (p.a.)",
+        "risk": "Menengah - Tinggi",
+        "min_investment": "Rp 20.000.000",
+        "payout": "Bagi Hasil Kuartalan",
+        "remaining_days": "Segera Dibuka",
+        "asset_backed": "SaaS Platform & Piutang B2B"
+      },
+      "detail": {
+        "tagline": "Platform Pengadaan Sparepart & Peralatan Industri Terverifikasi",
+        "what_will_provide": {
+          "type": "text",
+          "title": "What Your Invest Will Provide",
+          "content": "Pengembangan teknologi SaaS procurement B2B untuk menyatukan vendor alat berat, kontraktor, dan perusahaan tambang ke dalam satu ekosistem transaksi transparan dengan integrasi pembiayaan MGI."
+        },
+        "funding_target": {
+          "type": "table",
+          "title": "Funding Target & Alokasi Anggaran",
+          "columns": [
+            "No",
+            "Item Pengadaan / Spesifikasi",
+            "Qty",
+            "Harga Satuan (IDR)",
+            "Total Alokasi (IDR)"
+          ],
+          "rows": [
+            {
+              "no": 1,
+              "item": "Pengembangan Core Platform & Smart Contract Ledger",
+              "quantity": 1,
+              "unit_price": 3200000000,
+              "total": 3200000000
+            },
+            {
+              "no": 2,
+              "item": "Infrastruktur Cloud High-Availability & ISO Security",
+              "quantity": 1,
+              "unit_price": 1800000000,
+              "total": 1800000000
+            },
+            {
+              "no": 3,
+              "item": "Akuisisi Merchant & Integrasi Supplier Jepang",
+              "quantity": 1,
+              "unit_price": 1800000000,
+              "total": 1800000000
+            },
+            {
+              "no": 4,
+              "item": "Modal Kerja Kliring & Settlement Pembiayaan",
+              "quantity": 1,
+              "unit_price": 1200000000,
+              "total": 1200000000
+            }
+          ],
+          "grand_total": 8000000000
+        },
+        "about_sinergi_foundation": {
+          "type": "text",
+          "title": "About Sinergi Foundation",
+          "content": "Kolaborasi mencakup digitalisasi pengadaan untuk vendor UMKM lokal agar memiliki akses pasar setara dengan pemasok skala besar."
+        },
+        "summary": {
+          "type": "text",
+          "title": "Summary",
+          "content": "Platform ini melengkapi ekosistem digital Montana Global Investama untuk mendiversifikasi arus pendapatan ke sektor teknologi finansial rantai pasok industri."
+        },
+        "simulation": {
+          "tenor_bulan": 30,
+          "estimasi_return_persen": 35,
+          "modal_kerja_bulanan_persen": 2.5,
+          "minimum_investasi": 20000000,
+          "default_investasi": 50000000,
+          "catatan": "Status Coming Soon. Registrasi minat awal dapat dilakukan melalui Investor Relations."
+        }
+      }
+    }
+  ]
+}

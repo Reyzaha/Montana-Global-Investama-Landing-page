@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrasi Akun Investor — PT Montana Global Investama</title>
+  <meta name="description"
+    content="Daftar sebagai investor terverifikasi (Perorangan atau Perusahaan) untuk mengakses prospektus proyek, dokumen belanja modal, dan simulasi BEP/ROI.">
+
+  <!-- Bootstrap 5.3.3 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <!-- Bootstrap Icons 1.11.3 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Google Fonts: Inter, Outfit, Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
+  <!-- Custom Core Stylesheet (Solid Theme, No Gradients) -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <style>
+    .auth-card-wrap {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .account-type-card {
+      border: 2px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 16px 20px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      background-color: #FFFFFF;
+      height: 100%;
+    }
+
+    .account-type-card:hover {
+      border-color: #C5A059;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .account-type-card.active {
+      border-color: #1D3589;
+      background-color: #EEF2FF;
+      box-shadow: 0 4px 12px rgba(29, 53, 137, 0.12);
+    }
+
+    .account-type-card.active .type-icon {
+      background-color: #1D3589;
+      color: #FFFFFF;
+    }
+
+    .type-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background-color: #F1F5F9;
+      color: #1D3589;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      transition: all 0.2s ease;
+    }
+
+    .password-toggle-btn {
+      border-left: 0;
+      background-color: #FFFFFF;
+      color: #64748B;
+    }
+
+    .password-toggle-btn:hover {
+      color: #1D3589;
+      background-color: #F8FAFC;
+    }
+  </style>
+</head>
+
+<body class="bg-light">
+
+  <!-- Global Header Navigation -->
+  <div id="global-navbar"></div>
+
+  <!-- Page Header -->
+  <header class="page-header text-center">
+    <div class="container">
+      <span class="badge-tag mb-3 d-inline-block">
+        <i class="bi bi-person-badge-fill me-1"></i> Portal Registrasi Investor
+      </span>
+      <h1 class="fw-bold mb-3">
+        Daftar Akun <span class="text-royal">Investor</span> <span class="text-gold">MGI</span>
+      </h1>
+      <p class="text-muted lead mx-auto mb-0" style="max-width: 680px;">
+        Pilih kategori investor Anda untuk membuka akses eksklusif ke rincian anggaran proyek, kepatuhan GCG, dan
+        simulasi BEP/ROI interaktif.
+      </p>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="container py-5">
+    <div class="auth-card-wrap">
+
+      <!-- Alert Notification Container -->
+      <div id="registerAlert"></div>
+
+      <div class="card mgi-card shadow-sm border border-subtle bg-white p-4 p-md-5 rounded-4">
+
+        <!-- Selector Tipe Akun (Radio Cards) -->
+        <div class="mb-4">
+          <label class="form-label fw-bold text-dark mb-2">Pilih Kategori Investor <span
+              class="text-danger">*</span></label>
+          <div class="row g-3">
+            <div class="col-12 col-md-6">
+              <div class="account-type-card active d-flex align-items-center gap-3" id="cardPerorangan"
+                onclick="selectAccountType('perorangan')">
+                <div class="type-icon">
+                  <i class="bi bi-person-fill"></i>
+                </div>
+                <div>
+                  <h6 class="fw-bold mb-1 text-dark">Perorangan (Individu)</h6>
+                  <p class="text-secondary small mb-0">Pemodal mandiri, profesional, &amp; private investor.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="account-type-card d-flex align-items-center gap-3" id="cardPerusahaan"
+                onclick="selectAccountType('perusahaan')">
+                <div class="type-icon">
+                  <i class="bi bi-building"></i>
+                </div>
+                <div>
+                  <h6 class="fw-bold mb-1 text-dark">Perusahaan (Institusi)</h6>
+                  <p class="text-secondary small mb-0">Badan usaha PT, CV, holding, atau unit kemitraan.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="border-subtle my-4">
+
+        <!-- FORM REGISTRASI -->
+        <form id="registerForm" novalidate>
+
+          <!-- HIDDEN INPUT UNTUK TIPE AKUN -->
+          <input type="hidden" id="accountTypeInput" value="perorangan">
+
+          <!-- ============================================================= -->
+          <!-- 1. SECTION FORM PERORANGAN -->
+          <!-- ============================================================= -->
+          <div id="sectionPerorangan">
+            <div class="row g-3">
+              <!-- Nama Lengkap -->
+              <div class="col-12">
+                <label for="fullNamePerorangan" class="form-label fw-bold text-dark small">
+                  Nama Lengkap Sesuai Identitas <span class="text-danger">*</span>
+                </label>
+                <input type="text" class="form-control form-control-lg fs-6 py-2 px-3 border-subtle"
+                  id="fullNamePerorangan" placeholder="Contoh: Budi Pratama, S.E." required>
+                <div class="invalid-feedback">Silakan masukkan nama lengkap Anda.</div>
+              </div>
+
+              <!-- Alamat Email -->
+              <div class="col-12 col-md-6">
+                <label for="emailPerorangan" class="form-label fw-bold text-dark small">
+                  Alamat Email Aktif <span class="text-danger">*</span>
+                </label>
+                <input type="email" class="form-control form-control-lg fs-6 py-2 px-3 border-subtle"
+                  id="emailPerorangan" placeholder="nama@email.com" required>
+                <div class="invalid-feedback">Format email tidak valid.</div>
+              </div>
+
+              <!-- Kewarganegaraan -->
+              <div class="col-12 col-md-6">
+                <label for="citizenshipPerorangan" class="form-label fw-bold text-dark small">
+                  Kewarganegaraan <span class="text-danger">*</span>
+                </label>
+                <select class="form-select form-select-lg fs-6 py-2 px-3 border-subtle" id="citizenshipPerorangan"
+                  required>
+                  <option value="Indonesia (WNI)" selected>Indonesia (WNI)</option>
+                  <option value="Warga Negara Asing (WNA)">Warga Negara Asing (WNA)</option>
+                </select>
+                <div class="invalid-feedback">Pilih status kewarganegaraan.</div>
+              </div>
+
+              <!-- Nomor Telepon -->
+              <div class="col-12">
+                <label for="phonePerorangan" class="form-label fw-bold text-dark small">
+                  Nomor Telepon (WhatsApp) <span class="text-danger">*</span>
+                </label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-subtle fw-semibold text-secondary">+62</span>
+                  <input type="tel" class="form-control form-control-lg fs-6 py-2 px-3 border-subtle"
+                    id="phonePerorangan" placeholder="81234567890" required pattern="^[0-9]{8,15}$">
+                </div>
+                <div class="form-text small text-muted">Digunakan untuk konfirmasi resmi oleh Relationship Manager.
+                </div>
+                <div class="invalid-feedback">Masukkan nomor telepon yang valid (hanya angka, 8-15 digit).</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============================================================= -->
+          <!-- 2. SECTION FORM PERUSAHAAN -->
+          <!-- ============================================================= -->
+          <div id="sectionPerusahaan" style="display: none;">
+            <div class="row g-3">
+              <!-- Nama Bisnis / Perusahaan -->
+              <div class="col-12 col-md-6">
+                <label for="businessName" class="form-label fw-bold text-dark small">
+                  Nama Bisnis / Perusahaan <span class="text-danger">*</span>
+                </label>
+                <input type="text" class="form-control form-control-lg fs-6 py-2 px-3 border-subtle" id="businessName"
+                  placeholder="Contoh: PT Montana Global Investama">
+                <div class="invalid-feedback">Masukkan nama bisnis/perusahaan Anda.</div>
+              </div>
+
+              <!-- Badan Hukum Usaha (Selection List) -->
+              <div class="col-12 col-md-6">
+                <label for="legalEntity" class="form-label fw-bold text-dark small">
+                  Badan Hukum Usaha <span class="text-danger">*</span>
+                </label>
+                <select class="form-select form-select-lg fs-6 py-2 px-3 border-subtle" id="legalEntity">
+                  <option value="" disabled selected>Pilih Badan Usaha</option>
+                  <option value="Perseroan Terbatas (PT)">Perseroan Terbatas (PT)</option>
+                  <option value="Persekutuan Komanditer (CV)">Persekutuan Komanditer (CV)</option>
+                  <option value="PT Perorangan">PT Perorangan</option>
+                  <option value="Usaha Dagang (UD)">Usaha Dagang (UD)</option>
+                  <option value="Tidak ada">Tidak ada</option>
+                </select>
+                <div class="invalid-feedback">Pilih badan hukum usaha.</div>
+
+                <!-- Box Note Dokumen Screening Dinamis -->
+                <div id="legalEntityDocNote" class="mt-3 p-3 rounded-3"
+                  style="display: none; background-color: #DDF2FD; border: 1.5px solid #BAE6FD; color: #0F172A; font-size: 0.88rem; line-height: 1.55;">
+                  <div class="fw-semibold mb-2 text-dark">
+                    Harap menyiapkan dokumen berikut untuk proses screening, bisa menyusul jika belum lengkap:
+                  </div>
+                  <ul class="mb-0 ps-3 text-dark" id="legalEntityDocList" style="list-style-type: disc;">
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Alamat Perusahaan -->
+              <div class="col-12">
+                <label for="companyAddress" class="form-label fw-bold text-dark small">
+                  Alamat Perusahaan <span class="text-danger">*</span>
+                </label>
+                <textarea class="form-control fs-6 p-3 border-subtle" id="companyAddress" rows="2"
+                  placeholder="Alamat kantor operasional atau domisili hukum perusahaan..."></textarea>
+                <div class="invalid-feedback">Masukkan alamat perusahaan.</div>
+              </div>
+
+              <!-- Nama Kontak Person (PIC) -->
+              <div class="col-12 col-md-6">
+                <label for="picName" class="form-label fw-bold text-dark small">
+                  Nama Kontak Person (PIC) <span class="text-danger">*</span>
+                </label>
+                <input type="text" class="form-control form-control-lg fs-6 py-2 px-3 border-subtle" id="picName"
+                  placeholder="Nama perwakilan resmi perusahaan">
+                <div class="invalid-feedback">Masukkan nama kontak person.</div>
+              </div>
+
+              <!-- Jabatan Kontak Person -->
+              <div class="col-12 col-md-6">
+                <label for="picPosition" class="form-label fw-bold text-dark small">
+                  Jabatan Kontak Person <span class="text-danger">*</span>
+                </label>
+                <input type="text" class="form-control form-control-lg fs-6 py-2 px-3 border-subtle" id="picPosition"
+                  placeholder="Contoh: Direktur Utama / Finance Manager">
+                <div class="invalid-feedback">Masukkan jabatan kontak person.</div>
+              </div>
+
+              <!-- Alamat Email Perusahaan -->
+              <div class="col-12 col-md-6">
+                <label for="emailPerusahaan" class="form-label fw-bold text-dark small">
+                  Alamat Email Perusahaan <span class="text-danger">*</span>
+                </label>
+                <input type="email" class="form-control form-control-lg fs-6 py-2 px-3 border-subtle"
+                  id="emailPerusahaan" placeholder="corporate@domainperusahaan.com">
+                <div class="invalid-feedback">Masukkan format email korporasi yang valid.</div>
+              </div>
+
+              <!-- Nomor Telepon Perusahaan -->
+              <div class="col-12 col-md-6">
+                <label for="phonePerusahaan" class="form-label fw-bold text-dark small">
+                  Nomor Telepon Perusahaan / PIC <span class="text-danger">*</span>
+                </label>
+                <input type="tel" class="form-control form-control-lg fs-6 py-2 px-3 border-subtle" id="phonePerusahaan"
+                  placeholder="081234567890 / 021-500xxx">
+                <div class="invalid-feedback">Masukkan nomor telepon perusahaan atau PIC.</div>
+              </div>
+
+              <!-- Omzet Tahunan Usaha (Selection List) -->
+              <div class="col-12">
+                <label for="annualTurnover" class="form-label fw-bold text-dark small">
+                  Omzet Tahunan Usaha <span class="text-danger">*</span>
+                </label>
+                <select class="form-select form-select-lg fs-6 py-2 px-3 border-subtle" id="annualTurnover">
+                  <option value="" disabled selected>Pilih Kisaran Omzet Tahunan Usaha</option>
+                  <option value="Di bawah Rp500 Juta">Di bawah Rp500 Juta</option>
+                  <option value="Rp500 Juta – Rp2,5 Miliar">Rp500 Juta – Rp2,5 Miliar</option>
+                  <option value="Rp2,5 Miliar – Rp10 Miliar">Rp2,5 Miliar – Rp10 Miliar</option>
+                  <option value="Rp10 Miliar – Rp50 Miliar">Rp10 Miliar – Rp50 Miliar</option>
+                  <option value="Rp50 Miliar – Rp250 Miliar">Rp50 Miliar – Rp250 Miliar</option>
+                  <option value="Di atas Rp250 Miliar">Di atas Rp250 Miliar</option>
+                </select>
+                <div class="invalid-feedback">Pilih kisaran omzet tahunan perusahaan Anda.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============================================================= -->
+          <!-- 3. SECTION KATA SANDI & KONFIRMASI (BERSAMA) -->
+          <!-- ============================================================= -->
+          <div class="row g-3 mt-2">
+            <!-- Kata Sandi -->
+            <div class="col-12 col-md-6">
+              <label for="passwordInput" class="form-label fw-bold text-dark small">
+                Kata Sandi <span class="text-danger">*</span>
+              </label>
+              <div class="input-group">
+                <input type="password" class="form-control form-control-lg fs-6 py-2 px-3 border-subtle"
+                  id="passwordInput" placeholder="Minimal 8 karakter" required minlength="6">
+                <button class="btn border-subtle password-toggle-btn" type="button"
+                  onclick="togglePasswordVisibility('passwordInput', this)">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+              <div class="invalid-feedback">Kata sandi minimal 6 karakter.</div>
+            </div>
+
+            <!-- Konfirmasi Kata Sandi -->
+            <div class="col-12 col-md-6">
+              <label for="confirmPasswordInput" class="form-label fw-bold text-dark small">
+                Konfirmasi Kata Sandi <span class="text-danger">*</span>
+              </label>
+              <div class="input-group">
+                <input type="password" class="form-control form-control-lg fs-6 py-2 px-3 border-subtle"
+                  id="confirmPasswordInput" placeholder="Ulangi kata sandi" required minlength="6">
+                <button class="btn border-subtle password-toggle-btn" type="button"
+                  onclick="togglePasswordVisibility('confirmPasswordInput', this)">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+              <div class="invalid-feedback" id="confirmErrorFeedback">Konfirmasi kata sandi tidak cocok.</div>
+            </div>
+          </div>
+
+          <!-- Kepatuhan & Persetujuan -->
+          <div class="mt-4 p-3 bg-light rounded-3 border border-subtle">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="termsAgree" required checked>
+              <label class="form-check-label small text-secondary" for="termsAgree">
+                Saya menyetujui bahwa informasi yang saya berikan adalah benar, dan saya sepakat untuk mematuhi
+                ketentuan kerahasiaan (*Non-Disclosure Agreement*), kepatuhan APU-PPT, serta prinsip tata kelola
+                investasi PT Montana Global Investama.
+              </label>
+              <div class="invalid-feedback">Anda wajib menyetujui ketentuan untuk mendaftar.</div>
+            </div>
+          </div>
+
+          <!-- Tombol Submit -->
+          <div class="mt-4">
+            <button type="submit" class="btn btn-gold w-100 py-3 rounded-3 fw-bold fs-5 shadow-sm text-white"
+              id="submitRegisterBtn">
+              <i class="bi bi-person-check-fill me-2"></i> Daftar Sebagai Investor
+            </button>
+          </div>
+
+        </form>
+
+        <!-- Tautan Menuju Login -->
+        <div class="text-center mt-4 pt-3 border-top border-subtle">
+          <p class="text-secondary small mb-0">
+            Sudah memiliki akun investor terdaftar?
+            <a href="login.html" class="text-royal fw-bold text-decoration-none">
+              Masuk ke Akun Anda <i class="bi bi-arrow-right small"></i>
+            </a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <div id="global-footer"></div>
+
+  <!-- Bootstrap 5 Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- App Core JS -->
+  <script src="assets/js/renderer.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/components.js"></script>
+
+  <script>
+    // Switch between Perorangan & Perusahaan
+    function selectAccountType(type) {
+      const cardPerorangan = document.getElementById('cardPerorangan');
+      const cardPerusahaan = document.getElementById('cardPerusahaan');
+      const secPerorangan = document.getElementById('sectionPerorangan');
+      const secPerusahaan = document.getElementById('sectionPerusahaan');
+      const typeInput = document.getElementById('accountTypeInput');
+
+      typeInput.value = type;
+
+      if (type === 'perorangan') {
+        cardPerorangan.classList.add('active');
+        cardPerusahaan.classList.remove('active');
+        secPerorangan.style.display = 'block';
+        secPerusahaan.style.display = 'none';
+
+        // Toggle required attributes
+        document.getElementById('fullNamePerorangan').required = true;
+        document.getElementById('emailPerorangan').required = true;
+        document.getElementById('citizenshipPerorangan').required = true;
+        document.getElementById('phonePerorangan').required = true;
+
+        document.getElementById('businessName').required = false;
+        document.getElementById('legalEntity').required = false;
+        document.getElementById('companyAddress').required = false;
+        document.getElementById('picName').required = false;
+        document.getElementById('picPosition').required = false;
+        document.getElementById('emailPerusahaan').required = false;
+        document.getElementById('phonePerusahaan').required = false;
+        document.getElementById('annualTurnover').required = false;
+      } else {
+        cardPerusahaan.classList.add('active');
+        cardPerorangan.classList.remove('active');
+        secPerorangan.style.display = 'none';
+        secPerusahaan.style.display = 'block';
+
+        // Toggle required attributes
+        document.getElementById('fullNamePerorangan').required = false;
+        document.getElementById('emailPerorangan').required = false;
+        document.getElementById('citizenshipPerorangan').required = false;
+        document.getElementById('phonePerorangan').required = false;
+
+        document.getElementById('businessName').required = true;
+        document.getElementById('legalEntity').required = true;
+        document.getElementById('companyAddress').required = true;
+        document.getElementById('picName').required = true;
+        document.getElementById('picPosition').required = true;
+        document.getElementById('emailPerusahaan').required = true;
+        document.getElementById('phonePerusahaan').required = true;
+        document.getElementById('annualTurnover').required = true;
+      }
+    }
+
+    // Toggle password eye visibility
+    function togglePasswordVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      const icon = btn.querySelector('i');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('bi-eye');
+        icon.classList.add('bi-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('bi-eye-slash');
+        icon.classList.add('bi-eye');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      MGIComponents.renderNavbar('register');
+      MGIComponents.renderFooter();
+
+      // Read redirect target from query parameter (?redirect=...)
+      const redirectParam = MGI.getQueryParam('redirect');
+      if (redirectParam) {
+        MGIAuth.setRedirectUrl(redirectParam);
+      }
+
+      // Dynamic Screening Documents Note per Badan Hukum Usaha
+      const legalEntitySelect = document.getElementById('legalEntity');
+      const docNoteBox = document.getElementById('legalEntityDocNote');
+      const docList = document.getElementById('legalEntityDocList');
+
+      const screeningDocsMap = {
+        'Perseroan Terbatas (PT)': [
+          'SK Kemenkumham',
+          'Profil perusahaan / pitch deck',
+          'Laporan keuangan laba rugi lengkap',
+          'Laporan neraca lengkap'
+        ],
+        'Persekutuan Komanditer (CV)': [
+          'Nomor Induk Berusaha (NIB)',
+          'Profil perusahaan / pitch deck',
+          'Laporan keuangan laba rugi lengkap',
+          'Laporan neraca lengkap'
+        ],
+        'PT Perorangan': [
+          'Nomor Induk Berusaha (NIB)',
+          'Profil perusahaan / pitch deck',
+          'Laporan keuangan laba rugi lengkap',
+          'Laporan neraca lengkap'
+        ],
+        'Usaha Dagang (UD)': [
+          'Nomor Induk Berusaha (NIB)',
+          'Profil perusahaan / pitch deck',
+          'Laporan keuangan laba rugi lengkap',
+          'Laporan neraca lengkap'
+        ]
+      };
+
+      function updateScreeningDocNote() {
+        const val = legalEntitySelect.value;
+        const docs = screeningDocsMap[val];
+        if (docs && docs.length > 0) {
+          docList.innerHTML = docs.map(d => `<li class="mb-1">${d}</li>`).join('');
+          docNoteBox.style.display = 'block';
+        } else {
+          docNoteBox.style.display = 'none';
+        }
+      }
+
+      legalEntitySelect.addEventListener('change', updateScreeningDocNote);
+
+      const form = document.getElementById('registerForm');
+      const alertContainer = document.getElementById('registerAlert');
+      const submitBtn = document.getElementById('submitRegisterBtn');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const accountType = document.getElementById('accountTypeInput').value;
+        const pass = document.getElementById('passwordInput').value;
+        const confirmPass = document.getElementById('confirmPasswordInput').value;
+        const confirmInput = document.getElementById('confirmPasswordInput');
+
+        let isPassValid = true;
+        if (pass !== confirmPass) {
+          confirmInput.classList.add('is-invalid');
+          isPassValid = false;
+        } else {
+          confirmInput.classList.remove('is-invalid');
+        }
+
+        const isFormValid = form.checkValidity() && isPassValid;
+        form.classList.add('was-validated');
+
+        if (!isFormValid) {
+          return;
+        }
+
+        // Prepare User Data
+        let userData = {
+          type: accountType,
+          password: pass,
+          registeredAt: new Date().toISOString()
+        };
+
+        if (accountType === 'perorangan') {
+          userData.fullName = document.getElementById('fullNamePerorangan').value.trim();
+          userData.email = document.getElementById('emailPerorangan').value.trim();
+          userData.citizenship = document.getElementById('citizenshipPerorangan').value;
+          userData.phone = document.getElementById('phonePerorangan').value.trim();
+        } else {
+          userData.businessName = document.getElementById('businessName').value.trim();
+          userData.legalEntity = document.getElementById('legalEntity').value;
+          userData.companyAddress = document.getElementById('companyAddress').value.trim();
+          userData.picName = document.getElementById('picName').value.trim();
+          userData.picPosition = document.getElementById('picPosition').value.trim();
+          userData.email = document.getElementById('emailPerusahaan').value.trim();
+          userData.phone = document.getElementById('phonePerusahaan').value.trim();
+          userData.annualTurnover = document.getElementById('annualTurnover').value;
+        }
+
+        // Submit via MGIAuth
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `
+          <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          Mendaftarkan akun investor Anda...
+        `;
+
+        setTimeout(() => {
+          const result = MGIAuth.register(userData);
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `<i class="bi bi-person-check-fill me-2"></i> Daftar Sebagai Investor`;
+
+          if (result.success) {
+            alertContainer.innerHTML = `
+              <div class="alert alert-success border-0 shadow-sm rounded-3 p-4 d-flex align-items-start gap-3 mb-4" role="alert">
+                <i class="bi bi-check-circle-fill fs-3 text-success flex-shrink-0"></i>
+                <div>
+                  <h5 class="alert-heading fw-bold mb-1">Registrasi Berhasil!</h5>
+                  <p class="small mb-0 lh-base">
+                    ${result.message} Anda telah masuk secara otomatis. Mengalihkan Anda dalam 1,5 detik...
+                  </p>
+                </div>
+              </div>
+            `;
+            alertContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            const targetUrl = MGIAuth.getRedirectUrl() || 'invest.html';
+            setTimeout(() => {
+              window.location.href = targetUrl;
+            }, 1500);
+          } else {
+            alertContainer.innerHTML = `
+              <div class="alert alert-danger border-0 shadow-sm rounded-3 p-4 d-flex align-items-start gap-3 mb-4" role="alert">
+                <i class="bi bi-exclamation-triangle-fill fs-3 text-danger flex-shrink-0"></i>
+                <div>
+                  <h5 class="alert-heading fw-bold mb-1">Registrasi Ditolak</h5>
+                  <p class="small mb-0 lh-base">${result.message}</p>
+                </div>
+              </div>
+            `;
+            alertContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }, 800);
+      });
+    });
+  </script>
+</body>
+
+</html>
