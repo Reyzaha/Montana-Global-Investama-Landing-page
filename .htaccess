@@ -1,0 +1,17 @@
+# PT MONTANA GLOBAL INVESTAMA — URL REWRITE & SECURITY SHIELD
+RewriteEngine On
+
+# 1. BLOKIR AKSES KE /admin ATAU /admin/ APAPUN
+# Alihkan siapa saja yang mencoba mengakses /admin langsung ke homepage publik (301 Permanent Redirect)
+RewriteRule ^admin(/.*)?$ /index.html [R=301,L]
+
+# 2. Block direct access to hidden files/folders (.git, .env, etc.)
+RewriteRule (^\.|/\.) - [F]
+
+# 3. Security Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
