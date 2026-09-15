@@ -28,47 +28,52 @@ const MGIComponents = {
     `).join('');
 
     // Check Authentication Status
+    // Aktifkan tombol Masuk & Daftar (serta info investor jika login) di header navbar
+    const SHOW_HEADER_AUTH = true;
     const isAuth = typeof MGIAuth !== 'undefined' && MGIAuth.isLoggedIn();
     const user = isAuth ? MGIAuth.getCurrentUser() : null;
 
     let authCtaHtml = '';
-    if (isAuth && user) {
-      const typeLabel = user.type === 'perusahaan' ? 'Korporasi' : 'Perorangan';
-      const displayName = user.fullName || user.businessName || user.email.split('@')[0];
+    if (SHOW_HEADER_AUTH) {
+      if (isAuth && user) {
+        const typeLabel = user.type === 'perusahaan' ? 'Korporasi' : 'Perorangan';
+        const displayName = user.fullName || user.businessName || user.email.split('@')[0];
 
-      authCtaHtml = `
-        <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0">
-          <div class="dropdown">
-            <button class="btn btn-navbar-cta btn-sm px-3 py-2 rounded-pill dropdown-toggle d-flex align-items-center gap-2 shadow-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-person-circle fs-6"></i>
-              <span class="text-truncate fw-bold" style="max-width: 140px;">${displayName}</span>
-              <span class="badge bg-royal text-white small ms-1">${typeLabel}</span>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2">
-              <li class="px-3 py-2 border-bottom">
-                <div class="small fw-bold text-dark text-truncate">${displayName}</div>
-                <div class="text-muted small text-truncate" style="font-size: 0.75rem;">${user.email}</div>
-                <div class="badge bg-mgi-gold-subtle text-gold small mt-1">Investor ${typeLabel}</div>
-              </li>
-              <li><a class="dropdown-item py-2" href="invest.html"><i class="bi bi-briefcase me-2 text-gold"></i>Portofolio Investasi</a></li>
-              <li><a class="dropdown-item py-2" href="contact.html"><i class="bi bi-geo-alt me-2 text-gold"></i>Lokasi & Layanan</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item py-2 text-danger fw-semibold" href="javascript:void(0)" onclick="MGIAuth.logout()"><i class="bi bi-box-arrow-right me-2"></i>Keluar (Logout)</a></li>
-            </ul>
+        authCtaHtml = `
+          <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0">
+            <div class="dropdown">
+              <button class="btn btn-navbar-cta btn-sm px-3 py-2 rounded-pill dropdown-toggle d-flex align-items-center gap-2 shadow-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle fs-6"></i>
+                <span class="text-truncate fw-bold" style="max-width: 140px;">${displayName}</span>
+                <span class="badge bg-royal text-white small ms-1">${typeLabel}</span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2">
+                <li class="px-3 py-2 border-bottom">
+                  <div class="small fw-bold text-dark text-truncate">${displayName}</div>
+                  <div class="text-muted small text-truncate" style="font-size: 0.75rem;">${user.email}</div>
+                  <div class="badge bg-mgi-gold-subtle text-gold small mt-1">Investor ${typeLabel}</div>
+                </li>
+                <li><a class="dropdown-item py-2 fw-bold text-dark" href="investor-dashboard.html"><i class="bi bi-briefcase-fill me-2 text-gold"></i>Portofolio Investasi</a></li>
+                <li><a class="dropdown-item py-2" href="invest.html"><i class="bi bi-grid me-2 text-gold"></i>Katalog Proyek Terbuka</a></li>
+                <li><a class="dropdown-item py-2" href="contact.html"><i class="bi bi-geo-alt me-2 text-gold"></i>Lokasi & Layanan</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item py-2 text-danger fw-semibold" href="javascript:void(0)" onclick="MGIAuth.logout('index.html')"><i class="bi bi-box-arrow-right me-2"></i>Keluar (Logout)</a></li>
+              </ul>
+            </div>
           </div>
-        </div>
-      `;
-    } else {
-      authCtaHtml = `
-        <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0">
-          <a href="login.html" class="btn btn-outline-light btn-sm px-3 py-2 rounded-pill fw-semibold text-white">
-            <i class="bi bi-box-arrow-in-right me-1"></i> Masuk
-          </a>
-          <a href="register.html" class="btn btn-navbar-cta btn-sm px-3 py-2 rounded-pill shadow-sm">
-            <i class="bi bi-person-plus-fill me-1"></i> Daftar
-          </a>
-        </div>
-      `;
+        `;
+      } else {
+        authCtaHtml = `
+          <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0">
+            <a href="login.html" class="btn btn-navbar-login btn-sm px-3 py-2 rounded-pill shadow-sm">
+              <i class="bi bi-box-arrow-in-right me-1"></i> Masuk
+            </a>
+            <a href="register.html" class="btn btn-navbar-cta btn-sm px-3 py-2 rounded-pill shadow-sm">
+              <i class="bi bi-person-plus-fill me-1"></i> Daftar
+            </a>
+          </div>
+        `;
+      }
     }
 
     navContainer.innerHTML = `
@@ -96,8 +101,10 @@ const MGIComponents = {
       </nav>
     `;
 
-    // Ensure Auth Modal is present in DOM
-    MGIComponents.renderAuthModal();
+    // Ensure Auth Modal is present in DOM only if enabled
+    if (typeof MGIAuth !== 'undefined' && MGIAuth.REQUIRE_AUTH_FOR_DETAILS) {
+      MGIComponents.renderAuthModal();
+    }
 
     // Scroll styling enhancement
     const header = document.getElementById('mainHeader');
@@ -234,7 +241,7 @@ const MGIComponents = {
     if (!info) return '';
     const ret = info.return || '≥30% (p.a.)';
     const tenor = info.tenor || '36 Bulan';
-    const minTicket = info.min_investment || 'Rp 10 Juta';
+    const minTicket = info.min_investment || 'Rp 500 Juta';
 
     return `
       <div class="project-metrics-box p-3 rounded-3 mb-3 bg-light border border-subtle">

@@ -1,0 +1,306 @@
+/* PT MONTANA GLOBAL INVESTAMA — ADMIN DASHBOARD STYLES */
+:root {
+  --admin-navy-dark: #0E1838;
+  --admin-navy: #142563;
+  --admin-navy-light: #1E3380;
+  --admin-gold: #C5A059;
+  --admin-gold-hover: #B08B43;
+  --admin-gold-subtle: rgba(197, 160, 89, 0.12);
+  --admin-bg: #F4F6F9;
+  --admin-surface: #FFFFFF;
+  --admin-border: #E2E8F0;
+  --admin-text-main: #0F172A;
+  --admin-text-muted: #64748B;
+}
+
+body {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--admin-bg);
+  color: var(--admin-text-main);
+  min-height: 100vh;
+}
+
+/* Sidebar & Navigation */
+.admin-sidebar {
+  width: 260px;
+  background: var(--admin-navy-dark);
+  color: #FFFFFF;
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-sidebar .brand-box {
+  padding: 24px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-sidebar .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  color: #CBD5E1;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.93rem;
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.admin-sidebar .nav-link:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.05);
+  border-left-color: var(--admin-gold);
+}
+
+.admin-sidebar .nav-link.active {
+  color: #FFFFFF;
+  background: rgba(197, 160, 89, 0.15);
+  border-left-color: var(--admin-gold);
+  font-weight: 600;
+}
+
+.admin-sidebar .nav-link i {
+  font-size: 1.15rem;
+  color: var(--admin-gold);
+}
+
+/* Main Content Wrapper */
+.admin-main {
+  margin-left: 260px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-topbar {
+  background: var(--admin-surface);
+  height: 70px;
+  border-bottom: 1px solid var(--admin-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  position: sticky;
+  top: 0;
+  z-index: 900;
+}
+
+.admin-content {
+  padding: 32px;
+  flex: 1;
+}
+
+/* Luxury Cards */
+.admin-card {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+  margin-bottom: 24px;
+}
+
+.admin-card-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--admin-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-card-body {
+  padding: 24px;
+}
+
+/* KPI Metric Cards */
+.kpi-card {
+  background: #FFFFFF;
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--admin-gold);
+}
+
+.kpi-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  background: var(--admin-gold-subtle);
+  color: var(--admin-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.kpi-value {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--admin-navy-dark);
+  line-height: 1.2;
+}
+
+.kpi-label {
+  font-size: 0.82rem;
+  color: var(--admin-text-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Custom Buttons */
+.btn-mgi-primary {
+  background: var(--admin-navy);
+  border: 1px solid var(--admin-navy);
+  color: #FFFFFF;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 8px 18px;
+}
+
+.btn-mgi-primary:hover {
+  background: var(--admin-navy-dark);
+  color: #FFFFFF;
+}
+
+.btn-mgi-gold {
+  background: var(--admin-gold);
+  border: 1px solid var(--admin-gold);
+  color: #FFFFFF;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 8px 18px;
+}
+
+.btn-mgi-gold:hover {
+  background: var(--admin-gold-hover);
+  color: #FFFFFF;
+}
+
+/* Tables */
+.admin-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.admin-table th {
+  background: #F8FAFC;
+  color: var(--admin-text-muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.admin-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--admin-border);
+  vertical-align: middle;
+  font-size: 0.9rem;
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-table tr:hover td {
+  background: #F8FAFC;
+}
+
+/* Status Badges */
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.badge-open {
+  background: #DCFCE7;
+  color: #15803D;
+}
+
+.badge-funded {
+  background: #DBEAFE;
+  color: #1D4ED8;
+}
+
+.badge-coming {
+  background: #FEF3C7;
+  color: #B45309;
+}
+
+.badge-closed {
+  background: #F1F5F9;
+  color: #475569;
+}
+
+/* Form Styles */
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--admin-navy-dark);
+  margin-bottom: 6px;
+}
+
+.form-control, .form-select {
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.92rem;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--admin-gold);
+  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.2);
+}
+
+.live-rupiah-preview {
+  font-size: 0.8rem;
+  color: var(--admin-gold);
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+@media (max-width: 992px) {
+  .admin-sidebar {
+    transform: translateX(-100%);
+  }
+  .admin-sidebar.show {
+    transform: translateX(0);
+  }
+  .admin-main {
+    margin-left: 0;
+  }
+}

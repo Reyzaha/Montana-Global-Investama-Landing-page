@@ -154,21 +154,41 @@
       MGIComponents.renderNavbar('invest');
       MGIComponents.renderFooter();
 
-      // Strict Access Guard: Check if user is logged in
-      const isAuthenticated = MGIAuth.isLoggedIn();
+      // Access Guard: Cek apakah autentikasi diwajibkan untuk deploy statis
+      const requireAuth = (typeof MGIAuth !== 'undefined' && MGIAuth.REQUIRE_AUTH_FOR_DETAILS) || false;
+      const isAuthenticated = requireAuth ? MGIAuth.isLoggedIn() : true;
 
       // Read project ID from query string (?id=proj-001)
       const projectId = MGI.getQueryParam('id') || 'proj-001';
 
-      // Fetch all projects data
-      const data = await MGI.fetchData('data/projects.json');
-      if (!data || !data.projects) return;
+      // Fetch dynamic API first (mendukung server-side gating & watermarking)
+      let data = null;
+      try {
+        const res = await fetch(`api/projects.php?id=${encodeURIComponent(projectId)}`, { cache: 'no-store' });
+        if (res.ok) {
+          const apiJson = await res.json();
+          data = (apiJson && apiJson.data) ? apiJson.data : apiJson;
+        }
+      } catch (err) {
+        console.warn('[MGI Detail] Dynamic API unreachable, using static fallback:', err);
+      }
+
+      if (!data) {
+        data = await MGI.fetchData('data/projects.json');
+      }
+      if (!data || (!data.projects && !data.project)) return;
 
       // Find matching project
-      let project = data.projects.find(p => p.id === projectId);
-      if (!project) {
+      let project = data.project || (data.projects ? data.projects.find(p => p.id === projectId) : null);
+      if (!project && data.projects) {
         project = data.projects[0];
       }
+      if (!project) return;
+
+      // Access Guard: Cek apakah data di-gated dari server atau client belum login
+      const isServerGated = project.detail && project.detail.is_gated;
+      const isClientUnauthenticated = !MGIAuth.isLoggedIn() && (data.require_auth_for_details ?? MGIAuth.REQUIRE_AUTH_FOR_DETAILS);
+      const isGated = isServerGated || isClientUnauthenticated;
 
       // Populate Header Basic Public Info
       document.title = `${project.title} — PT Montana Global Investama`;
@@ -179,8 +199,8 @@
       document.getElementById('detailTagline').textContent = (project.detail && project.detail.tagline) ? `"${project.detail.tagline}"` : '';
       document.getElementById('detailCoverImg').src = project.image || 'assets/img/project-excavator.svg';
 
-      // If user is not authenticated, lock the detail content and trigger modal with return redirect on dismissal
-      if (!isAuthenticated) {
+      // If project content is gated, lock the detail view
+      if (isGated) {
         // Render Locked Access Screen inside main content
         const mainContent = document.querySelector('main.container');
         if (mainContent) {
@@ -194,7 +214,7 @@
                   <span class="badge bg-royal text-white px-3 py-1 rounded-pill small fw-bold mb-3 mx-auto">Kepatuhan APU-PPT &amp; GCG</span>
                   <h3 class="fw-bold text-dark mb-2">Akses Terbatas: Dokumen Prospektus &amp; Simulasi</h3>
                   <p class="text-secondary small mb-4 lh-base mx-auto" style="max-width: 600px;">
-                    Sesuai prinsip transparansi dan regulasi keterbukaan informasi penanaman modal, rincian belanja modal (CAPEX), kontrak penyerapan (*offtake agreement*), serta kalkulator simulasi BEP/ROI hanya dapat diakses oleh investor terdaftar.
+                    ${(project.detail && project.detail.gated_notice) || 'Sesuai prinsip transparansi dan regulasi keterbukaan informasi penanaman modal terbatas, rincian belanja modal (CAPEX), kontrak penyerapan (offtake agreement), serta kalkulator simulasi BEP/ROI hanya dapat diakses oleh investor terdaftar.'}
                   </p>
                   <div class="d-flex flex-column flex-sm-row justify-content-center gap-3 mb-3">
                     <a href="login.html?redirect=${encodeURIComponent(window.location.href)}" class="btn btn-mgi-blue px-4 py-2 rounded-pill fw-bold d-flex align-items-center justify-content-center gap-2 shadow-sm">
@@ -248,6 +268,23 @@
         return;
       }
 
+      // Add Confidential Watermark Notice if viewer watermark is set
+      if (project.detail && project.detail.viewer_watermark) {
+        const watermarkBanner = document.createElement('div');
+        watermarkBanner.className = 'alert alert-light border border-warning-subtle py-2 px-3 small d-flex flex-wrap align-items-center justify-content-between mb-4 rounded-3 shadow-sm';
+        watermarkBanner.style.backgroundColor = '#FEFCE8';
+        watermarkBanner.style.borderLeft = '5px solid #C5A059';
+        watermarkBanner.innerHTML = `
+          <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-shield-check text-warning fs-5" style="color: #C5A059 !important;"></i>
+            <span class="text-dark"><strong>Dokumen Terbatas:</strong> ${project.detail.viewer_watermark}</span>
+          </div>
+          <span class="badge bg-gold text-white px-2 py-1 rounded-pill small">Sesi Terverifikasi</span>
+        `;
+        const contentCol = document.querySelector('main.container .col-12.col-lg-10');
+        if (contentCol) contentCol.prepend(watermarkBanner);
+      }
+
       // Populate Progress Bar for Authenticated Investors
       const progressWrap = document.getElementById('detailProgressWrap');
       progressWrap.innerHTML = `
@@ -269,7 +306,7 @@
           </div>
           <div class="col-4">
             <div class="text-muted small text-uppercase" style="font-size: 0.7rem;">Min. Tiket</div>
-            <strong class="text-royal fs-6">${project.info.min_investment || 'Rp 10.000.000'}</strong>
+            <strong class="text-royal fs-6">${project.info.min_investment || 'Rp 500.000.000'}</strong>
           </div>
         </div>
       `;

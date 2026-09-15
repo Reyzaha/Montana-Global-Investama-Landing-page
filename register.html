@@ -319,20 +319,31 @@
           <!-- 3. SECTION KATA SANDI & KONFIRMASI (BERSAMA) -->
           <!-- ============================================================= -->
           <div class="row g-3 mt-2">
-            <!-- Kata Sandi -->
+            <!-- Kata Sandi Akun -->
             <div class="col-12 col-md-6">
               <label for="passwordInput" class="form-label fw-bold text-dark small">
-                Kata Sandi <span class="text-danger">*</span>
+                Kata Sandi Akun <span class="text-danger">*</span>
               </label>
               <div class="input-group">
                 <input type="password" class="form-control form-control-lg fs-6 py-2 px-3 border-subtle"
-                  id="passwordInput" placeholder="Minimal 8 karakter" required minlength="6">
+                  id="passwordInput" placeholder="Minimal 8 karakter" required minlength="8" oninput="checkPasswordStrength(this.value)">
                 <button class="btn border-subtle password-toggle-btn" type="button"
                   onclick="togglePasswordVisibility('passwordInput', this)">
                   <i class="bi bi-eye"></i>
                 </button>
               </div>
-              <div class="invalid-feedback">Kata sandi minimal 6 karakter.</div>
+              <div class="invalid-feedback">Kata sandi minimal 8 karakter.</div>
+              <!-- Realtime Password Strength Meter -->
+              <div class="mt-2" id="passwordStrengthWrap">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span class="text-muted" style="font-size: 0.75rem;">Kekuatan Sandi:</span>
+                  <span class="fw-bold" id="passwordStrengthLabel" style="font-size: 0.75rem; color: #64748B;">Belum Diisi</span>
+                </div>
+                <div class="progress" style="height: 5px;">
+                  <div class="progress-bar" id="passwordStrengthBar" role="progressbar" style="width: 0%; background-color: #CBD5E1;"></div>
+                </div>
+                <div class="text-muted mt-1" style="font-size: 0.72rem;">Minimal 8 karakter alfanumerik &amp; simbol demi perlindungan dana Anda.</div>
+              </div>
             </div>
 
             <!-- Konfirmasi Kata Sandi -->
@@ -342,7 +353,7 @@
               </label>
               <div class="input-group">
                 <input type="password" class="form-control form-control-lg fs-6 py-2 px-3 border-subtle"
-                  id="confirmPasswordInput" placeholder="Ulangi kata sandi" required minlength="6">
+                  id="confirmPasswordInput" placeholder="Ulangi kata sandi" required minlength="8">
                 <button class="btn border-subtle password-toggle-btn" type="button"
                   onclick="togglePasswordVisibility('confirmPasswordInput', this)">
                   <i class="bi bi-eye"></i>
@@ -352,16 +363,31 @@
             </div>
           </div>
 
-          <!-- Kepatuhan & Persetujuan -->
-          <div class="mt-4 p-3 bg-light rounded-3 border border-subtle">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="termsAgree" required checked>
-              <label class="form-check-label small text-secondary" for="termsAgree">
-                Saya menyetujui bahwa informasi yang saya berikan adalah benar, dan saya sepakat untuk mematuhi
-                ketentuan kerahasiaan (*Non-Disclosure Agreement*), kepatuhan APU-PPT, serta prinsip tata kelola
-                investasi PT Montana Global Investama.
+          <!-- Kepatuhan & Persetujuan Regulasi Lengkap (UU PDP, APU-PPT, NDA) -->
+          <div class="mt-4 p-3 p-md-4 bg-light rounded-3 border border-subtle">
+            <div class="small fw-bold text-dark text-uppercase mb-3" style="letter-spacing: 0.5px;">
+              <i class="bi bi-shield-check text-royal me-1"></i> Deklarasi Kepatuhan Hukum &amp; Regulasi Investasi
+            </div>
+            
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="termsPdp" required checked>
+              <label class="form-check-label small text-secondary lh-base" for="termsPdp">
+                <strong>Persetujuan Pelindungan Data Pribadi (UU No. 27 Tahun 2022):</strong> Saya menyetujui pemrosesan data identitas saya oleh PT Montana Global Investama untuk tujuan verifikasi nasabah (KYC), administrasi kepemilikan aset, dan pelaporan perpajakan sesuai perundang-undangan.
               </label>
-              <div class="invalid-feedback">Anda wajib menyetujui ketentuan untuk mendaftar.</div>
+            </div>
+
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="termsApuPpt" required checked>
+              <label class="form-check-label small text-secondary lh-base" for="termsApuPpt">
+                <strong>Deklarasi Anti-Pencucian Uang &amp; Pencegahan Pendanaan Terorisme (APU-PPT):</strong> Saya menyatakan dengan sesungguhnya bahwa dana yang ditempatkan bersumber dari aktivitas usaha yang sah secara hukum dan bukan merupakan hasil tindak pidana.
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="termsNda" required checked>
+              <label class="form-check-label small text-secondary lh-base" for="termsNda">
+                <strong>Perjanjian Kerahasiaan Prospektus &amp; Keterbukaan Risiko (NDA):</strong> Saya sepakat menjaga kerahasiaan dokumen penawaran dan menyadari bahwa investasi sektor riil memiliki risiko operasional dan pasar yang terukur.
+              </label>
             </div>
           </div>
 
@@ -369,7 +395,7 @@
           <div class="mt-4">
             <button type="submit" class="btn btn-gold w-100 py-3 rounded-3 fw-bold fs-5 shadow-sm text-white"
               id="submitRegisterBtn">
-              <i class="bi bi-person-check-fill me-2"></i> Daftar Sebagai Investor
+              <i class="bi bi-person-check-fill me-2"></i> Daftar Sebagai Investor Terverifikasi
             </button>
           </div>
 
@@ -468,6 +494,49 @@
       }
     }
 
+    // Dynamic Password Strength Meter
+    function checkPasswordStrength(val) {
+      const bar = document.getElementById('passwordStrengthBar');
+      const label = document.getElementById('passwordStrengthLabel');
+      if (!bar || !label) return;
+
+      if (!val || val.length === 0) {
+        bar.style.width = '0%';
+        bar.style.backgroundColor = '#CBD5E1';
+        label.innerText = 'Belum Diisi';
+        label.style.color = '#64748B';
+        return;
+      }
+
+      let score = 0;
+      if (val.length >= 8) score++;
+      if (/[a-z]/.test(val) && /[A-Z]/.test(val)) score++;
+      if (/[0-9]/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val)) score++;
+
+      if (val.length < 8) {
+        bar.style.width = '20%';
+        bar.style.backgroundColor = '#EF4444';
+        label.innerText = 'Terlalu Pendek (< 8 Karakter)';
+        label.style.color = '#EF4444';
+      } else if (score <= 2) {
+        bar.style.width = '45%';
+        bar.style.backgroundColor = '#F59E0B';
+        label.innerText = 'Sedang';
+        label.style.color = '#F59E0B';
+      } else if (score === 3) {
+        bar.style.width = '75%';
+        bar.style.backgroundColor = '#10B981';
+        label.innerText = 'Kuat';
+        label.style.color = '#10B981';
+      } else {
+        bar.style.width = '100%';
+        bar.style.backgroundColor = '#059669';
+        label.innerText = 'Sangat Kuat (Aman)';
+        label.style.color = '#059669';
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       MGIComponents.renderNavbar('register');
       MGIComponents.renderFooter();
@@ -476,6 +545,12 @@
       const redirectParam = MGI.getQueryParam('redirect');
       if (redirectParam) {
         MGIAuth.setRedirectUrl(redirectParam);
+      }
+
+      // Hook up password strength meter
+      const passInput = document.getElementById('passwordInput');
+      if (passInput) {
+        passInput.addEventListener('input', (e) => checkPasswordStrength(e.target.value));
       }
 
       // Dynamic Screening Documents Note per Badan Hukum Usaha
@@ -537,11 +612,37 @@
         const confirmInput = document.getElementById('confirmPasswordInput');
 
         let isPassValid = true;
+        if (pass.length < 8) {
+          alertContainer.innerHTML = `
+            <div class="alert alert-danger border-0 shadow-sm rounded-3 p-3 mb-3 d-flex align-items-center gap-2">
+              <i class="bi bi-shield-x fs-4 text-danger"></i>
+              <div>Kata sandi wajib memiliki panjang minimal 8 karakter demi keamanan akun Anda.</div>
+            </div>
+          `;
+          alertContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          return;
+        }
+
         if (pass !== confirmPass) {
           confirmInput.classList.add('is-invalid');
           isPassValid = false;
         } else {
           confirmInput.classList.remove('is-invalid');
+        }
+
+        // Compliance validation
+        const termsPdp = document.getElementById('termsPdp');
+        const termsApuPpt = document.getElementById('termsApuPpt');
+        const termsNda = document.getElementById('termsNda');
+        if ((termsPdp && !termsPdp.checked) || (termsApuPpt && !termsApuPpt.checked) || (termsNda && !termsNda.checked)) {
+          alertContainer.innerHTML = `
+            <div class="alert alert-warning border-0 shadow-sm rounded-3 p-3 mb-3 d-flex align-items-center gap-2">
+              <i class="bi bi-exclamation-triangle-fill fs-4 text-warning"></i>
+              <div>Anda wajib menyetujui seluruh deklarasi kepatuhan hukum (UU PDP, APU-PPT, dan Perjanjian Kerahasiaan NDA) sebelum mendaftar.</div>
+            </div>
+          `;
+          alertContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          return;
         }
 
         const isFormValid = form.checkValidity() && isPassValid;
@@ -584,7 +685,7 @@
         setTimeout(() => {
           const result = MGIAuth.register(userData);
           submitBtn.disabled = false;
-          submitBtn.innerHTML = `<i class="bi bi-person-check-fill me-2"></i> Daftar Sebagai Investor`;
+          submitBtn.innerHTML = `<i class="bi bi-person-check-fill me-2"></i> Daftar Sebagai Investor Terverifikasi`;
 
           if (result.success) {
             alertContainer.innerHTML = `

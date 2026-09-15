@@ -20,7 +20,7 @@
         "tenor": "36 Bulan",
         "return": "≥30% (p.a.)",
         "risk": "Menengah - Terukur",
-        "min_investment": "Rp 10.000.000",
+        "min_investment": "Rp 500.000.000",
         "payout": "Bagi Hasil Kuartalan",
         "remaining_days": "18 Hari Tersisa",
         "asset_backed": "Unit CBU Grade A & BPKB"
@@ -95,8 +95,9 @@
           "tenor_bulan": 36,
           "estimasi_return_persen": 30,
           "modal_kerja_bulanan_persen": 2.2,
-          "minimum_investasi": 10000000,
-          "default_investasi": 50000000,
+          "minimum_investasi": 500000000,
+          "maximum_investasi": 500000000000,
+          "default_investasi": 500000000,
           "catatan": "Kalkulasi simulasi bersifat estimasi matematis proyeksi bisnis. Mengacu pada ketentuan Risk Disclosure Statement MGI."
         }
       }
@@ -119,7 +120,7 @@
         "tenor": "24 Bulan",
         "return": "≥26% (p.a.)",
         "risk": "Rendah - Menengah",
-        "min_investment": "Rp 10.000.000",
+        "min_investment": "Rp 500.000.000",
         "payout": "Bagi Hasil Bulanan",
         "remaining_days": "Pendanaan Terpenuhi",
         "asset_backed": "Armada Truk Hino & GPS"
@@ -187,8 +188,9 @@
           "tenor_bulan": 24,
           "estimasi_return_persen": 26,
           "modal_kerja_bulanan_persen": 2.0,
-          "minimum_investasi": 10000000,
-          "default_investasi": 25000000,
+          "minimum_investasi": 500000000,
+          "maximum_investasi": 500000000000,
+          "default_investasi": 500000000,
           "catatan": "Proyek berstatus Fully Funded. Simulasi dapat digunakan sebagai referensi produk serupa di masa mendatang."
         }
       }
@@ -211,7 +213,7 @@
         "tenor": "36 Bulan",
         "return": "≥32% (p.a.)",
         "risk": "Menengah",
-        "min_investment": "Rp 15.000.000",
+        "min_investment": "Rp 500.000.000",
         "payout": "Bagi Hasil Kuartalan",
         "remaining_days": "28 Hari Tersisa",
         "asset_backed": "Workshop 8.500 m² & Mesin"
@@ -286,8 +288,9 @@
           "tenor_bulan": 36,
           "estimasi_return_persen": 32,
           "modal_kerja_bulanan_persen": 2.3,
-          "minimum_investasi": 15000000,
-          "default_investasi": 50000000,
+          "minimum_investasi": 500000000,
+          "maximum_investasi": 500000000000,
+          "default_investasi": 500000000,
           "catatan": "Imbal hasil diperhitungkan dari kombinasi sewa infrastruktur workshop dan margin bisnis suku cadang."
         }
       }
@@ -310,7 +313,7 @@
         "tenor": "30 Bulan",
         "return": "≥35% (p.a.)",
         "risk": "Menengah - Tinggi",
-        "min_investment": "Rp 20.000.000",
+        "min_investment": "Rp 500.000.000",
         "payout": "Bagi Hasil Kuartalan",
         "remaining_days": "Segera Dibuka",
         "asset_backed": "SaaS Platform & Piutang B2B"
@@ -378,8 +381,9 @@
           "tenor_bulan": 30,
           "estimasi_return_persen": 35,
           "modal_kerja_bulanan_persen": 2.5,
-          "minimum_investasi": 20000000,
-          "default_investasi": 50000000,
+          "minimum_investasi": 500000000,
+          "maximum_investasi": 500000000000,
+          "default_investasi": 500000000,
           "catatan": "Status Coming Soon. Registrasi minat awal dapat dilakukan melalui Investor Relations."
         }
       }

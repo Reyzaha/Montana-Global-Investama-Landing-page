@@ -24,8 +24,34 @@ const MGI = {
     return MGI.formatRupiah(number);
   },
 
-  // Utility: Fetch JSON data with graceful fallback
+  // Endpoint mapping: Maps static JSON paths to dynamic backend REST API endpoints
+  apiMap: {
+    'data/projects.json': 'api/projects.php',
+    'data/company-profile.json': 'api/company-profile.php',
+    'data/transformasi.json': 'api/transformasi.php',
+    'data/preparation.json': 'api/preparation.php',
+    'data/ekosistem.json': 'api/ekosistem.php'
+  },
+
+  // Utility: Fetch JSON data with API-First strategy and graceful static fallback
   fetchData: async function (endpoint) {
+    const apiTarget = this.apiMap[endpoint] || endpoint;
+    
+    // 1. Try fetching from dynamic Backend API first
+    if (apiTarget !== endpoint) {
+      try {
+        const apiResponse = await fetch(apiTarget, { cache: 'no-store' });
+        if (apiResponse.ok) {
+          const apiData = await apiResponse.json();
+          // Check if response is standardized wrapper or raw object
+          return (apiData && apiData.data && apiData.success !== undefined) ? apiData.data : apiData;
+        }
+      } catch (apiErr) {
+        console.warn(`[MGI Renderer] Dynamic API (${apiTarget}) unavailable, falling back to static JSON (${endpoint})...`);
+      }
+    }
+
+    // 2. Fallback to static JSON file
     try {
       const response = await fetch(endpoint, { cache: 'no-store' });
       if (!response.ok) {

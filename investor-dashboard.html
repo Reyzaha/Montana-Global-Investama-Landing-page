@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Portofolio Investor — PT Montana Global Investama</title>
+  <meta name="description" content="Dashboard portofolio investasi riil, pantau alokasi unit alat berat, imbal hasil kuartalan, rekening pencairan dividen, dan update kampanye operasional PT Montana Global Investama.">
+
+  <!-- Google Fonts: Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Core Theme CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <style>
+    .dashboard-hero {
+      background: #142563;
+      color: #FFFFFF;
+      padding: 50px 0 40px;
+      border-bottom: 4px solid #C5A059;
+      position: relative;
+    }
+
+    .nav-dashboard-tabs {
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 8px;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+      border: 1px solid #E2E8F0;
+    }
+
+    .nav-dashboard-tabs .nav-link {
+      color: #475569;
+      font-weight: 600;
+      font-size: 0.92rem;
+      border-radius: 8px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-dashboard-tabs .nav-link:hover {
+      color: #142563;
+      background: rgba(20, 37, 99, 0.05);
+    }
+
+    .nav-dashboard-tabs .nav-link.active {
+      color: #FFFFFF;
+      background: #142563;
+    }
+
+    .nav-dashboard-tabs .nav-link.active i {
+      color: #C5A059 !important;
+    }
+
+    .dash-metric-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+      height: 100%;
+    }
+
+    .dash-metric-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: #C5A059;
+    }
+
+    .dash-metric-value {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #0E1838;
+      line-height: 1.2;
+      margin: 8px 0 4px;
+    }
+
+    .campaign-feed-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 24px;
+      box-shadow: 0 3px 10px rgba(15, 23, 42, 0.03);
+    }
+
+    .bank-card-visual {
+      background: #142563;
+      color: #FFFFFF;
+      border-radius: 16px;
+      padding: 26px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(20, 37, 99, 0.25);
+      border: 1px solid #C5A059;
+    }
+
+    /* Print View Styling for Official Portfolio Statement */
+    @media print {
+      #global-navbar, #global-footer, .nav-dashboard-tabs, .btn, #tab-projects, #tab-updates, #tab-bank, #tab-profile, #rmSupportCard {
+        display: none !important;
+      }
+      body {
+        background: #FFFFFF !important;
+        color: #000000 !important;
+      }
+      .dashboard-hero {
+        background: #142563 !important;
+        color: #FFFFFF !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        padding: 24px 0 !important;
+        border-bottom: 3px solid #C5A059 !important;
+      }
+      .dash-metric-card, .card {
+        box-shadow: none !important;
+        border: 1px solid #CBD5E1 !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      .print-watermark {
+        display: block !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-light">
+
+  <!-- Global Navigation Bar -->
+  <div id="global-navbar"></div>
+
+  <!-- Hero Header Greeting -->
+  <header class="dashboard-hero">
+    <div class="container">
+      <div class="row align-items-center justify-content-between g-4">
+        <div class="col-12 col-lg-8">
+          <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white text-dark small fw-bold mb-3 shadow-sm">
+            <span class="spinner-grow spinner-grow-sm text-success" style="width: 8px; height: 8px;"></span>
+            <span>PORTAL INVESTOR RESMI PT MONTANA GLOBAL INVESTAMA</span>
+          </div>
+          <h2 class="fw-bold mb-2">Selamat Datang, <span id="dashInvestorName" class="text-warning" style="color: #C5A059 !important;">Investor</span>!</h2>
+          <p class="text-white-50 mb-3 lh-base" id="dashInvestorSubtitle">
+            Akses pemantauan modal terintegrasi, laporan hasil usaha berkala, unit alat berat produktif, dan kepatuhan transparansi Good Corporate Governance (GCG).
+          </p>
+          <div class="d-flex flex-wrap align-items-center gap-2">
+            <span class="badge bg-warning text-dark px-3 py-2 rounded-pill small fw-bold" id="dashAccountTypeBadge" style="background: #C5A059 !important; color: #fff !important;">
+              Investor Perorangan
+            </span>
+            <span class="badge bg-success text-white px-3 py-2 rounded-pill small fw-bold" id="dashStatusBadge">
+              <i class="bi bi-shield-check me-1"></i> Akun Terverifikasi (Active)
+            </span>
+            <span class="badge bg-white text-dark border px-3 py-2 rounded-pill small" id="dashInvestorEmail">
+              investor@email.com
+            </span>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-4 text-lg-end">
+          <a href="invest.html" class="btn btn-gold px-4 py-2 rounded-pill fw-bold text-white shadow-sm d-inline-flex align-items-center gap-2">
+            <i class="bi bi-plus-circle-fill"></i>
+            <span>Jelajahi Proyek Baru</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Dashboard Content Area -->
+  <main class="container py-4 my-2">
+
+    <!-- 5 Module Tabs Navigation -->
+    <ul class="nav nav-dashboard-tabs nav-pills mb-4 d-flex flex-wrap gap-1" id="investorDashboardTabs" role="tablist">
+      <li class="nav-item flex-fill">
+        <button class="nav-link active w-100 justify-content-center" id="tab-portfolio-btn" data-bs-toggle="pill" data-bs-target="#tab-portfolio" type="button">
+          <i class="bi bi-pie-chart-fill text-gold"></i>
+          <span>My Portofolio</span>
+        </button>
+      </li>
+      <li class="nav-item flex-fill">
+        <button class="nav-link w-100 justify-content-center" id="tab-projects-btn" data-bs-toggle="pill" data-bs-target="#tab-projects" type="button">
+          <i class="bi bi-briefcase-fill text-gold"></i>
+          <span>Project Investor</span>
+        </button>
+      </li>
+      <li class="nav-item flex-fill">
+        <button class="nav-link w-100 justify-content-center" id="tab-updates-btn" data-bs-toggle="pill" data-bs-target="#tab-updates" type="button">
+          <i class="bi bi-broadcast text-gold"></i>
+          <span>Campaign Update</span>
+        </button>
+      </li>
+      <li class="nav-item flex-fill">
+        <button class="nav-link w-100 justify-content-center" id="tab-bank-btn" data-bs-toggle="pill" data-bs-target="#tab-bank" type="button">
+          <i class="bi bi-credit-card-2-front-fill text-gold"></i>
+          <span>Bank Account</span>
+        </button>
+      </li>
+      <li class="nav-item flex-fill">
+        <button class="nav-link w-100 justify-content-center" id="tab-profile-btn" data-bs-toggle="pill" data-bs-target="#tab-profile" type="button">
+          <i class="bi bi-person-badge-fill text-gold"></i>
+          <span>Profile Investor</span>
+        </button>
+      </li>
+    </ul>
+
+    <!-- Tabs Content -->
+    <div class="tab-content" id="investorDashboardTabContent">
+
+      <!-- ======================================================== -->
+      <!-- 1. TAB: MY PORTOFOLIO -->
+      <!-- ======================================================== -->
+      <div class="tab-pane fade show active" id="tab-portfolio" role="tabpanel">
+        <!-- 4 KPI Metrics -->
+        <div class="row g-3 mb-4">
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="dash-metric-card">
+              <span class="text-uppercase text-muted fw-bold small" style="font-size: 0.75rem;">Total Modal Ditempatkan</span>
+              <div class="dash-metric-value text-dark" id="metricTotalInvested">Rp 0</div>
+              <small class="text-secondary">Akumulasi Pokok Investasi Riil</small>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="dash-metric-card">
+              <span class="text-uppercase text-muted fw-bold small" style="font-size: 0.75rem;">Rata-Rata Imbal Hasil</span>
+              <div class="dash-metric-value text-success" id="metricEstRoi">≥30% (p.a.)</div>
+              <small class="text-secondary">Proyeksi Kinerja Usaha Riil</small>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="dash-metric-card">
+              <span class="text-uppercase text-muted fw-bold small" style="font-size: 0.75rem;">Bagi Hasil Telah Diterima</span>
+              <div class="dash-metric-value text-primary" id="metricTotalPayout">Rp 0</div>
+              <small class="text-secondary">Penyaluran Hasil Kuartalan</small>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="dash-metric-card">
+              <span class="text-uppercase text-muted fw-bold small" style="font-size: 0.75rem;">Jadwal Bagi Hasil Berikutnya</span>
+              <div class="dash-metric-value text-warning fs-4" id="metricNextPayout" style="color: #C5A059 !important;">-</div>
+              <small class="text-secondary">Distribusi Otomatis ke Rekening</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabel Rincian Portofolio Aktif -->
+        <div class="card bg-white border rounded-4 p-4 shadow-sm mb-4">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 border-bottom pb-3 mb-3">
+            <div>
+              <h5 class="fw-bold text-dark mb-1">Rincian Penempatan Portofolio Proyek</h5>
+              <p class="text-muted small mb-0">Daftar instrumen sindikasi riil dan aset fisik berwujud yang mendukung alokasi modal Anda.</p>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <button type="button" onclick="printPortfolioStatement()" class="btn btn-sm btn-outline-primary rounded-pill px-3 shadow-sm d-inline-flex align-items-center gap-1">
+                <i class="bi bi-printer-fill"></i> Cetak Ringkasan Portofolio
+              </button>
+              <a href="invest.html" class="btn btn-sm btn-outline-dark rounded-pill px-3">
+                <i class="bi bi-plus-circle me-1"></i> Tambah Penempatan
+              </a>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="table-light">
+                <tr class="small text-uppercase">
+                  <th>Proyek &amp; Nomor Sertifikat</th>
+                  <th>Unit Fisik Teralokasi</th>
+                  <th>Modal Terpasang</th>
+                  <th>Tenor &amp; ROI</th>
+                  <th>Periode Kontrak</th>
+                  <th>Bagi Hasil Diterima</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="portfolioTableBody">
+                <tr>
+                  <td colspan="7" class="text-center py-4 text-muted">
+                    <span class="spinner-border spinner-border-sm me-2"></span> Memuat portofolio Anda...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Info Card: Jaminan Perlindungan Aset Riil -->
+        <div class="card bg-light border-0 rounded-4 p-4 shadow-sm mb-4" style="border-left: 5px solid #C5A059 !important;">
+          <div class="d-flex align-items-start gap-3">
+            <div class="bg-mgi-gold-subtle text-gold p-3 rounded-circle fs-4" style="color: #C5A059; background: rgba(197, 160, 89, 0.15);">
+              <i class="bi bi-shield-check"></i>
+            </div>
+            <div>
+              <h6 class="fw-bold text-dark mb-1">Jaminan Perlindungan Aset Riil (Asset-Backed Assurance)</h6>
+              <p class="small text-secondary mb-0 lh-base">
+                Seluruh modal penempatan investasi pemodal dialokasikan secara transparan untuk pengadaan unit alat berat impor CBU Jepang Grade A di bawah operasional PT Montana Indo Utama (MIU). Setiap unit mesin dilindungi polis asuransi komprehensif, dilengkapi GPS tracking 24 jam, serta memiliki kontrak kerja penyerapan pasar (*offtake agreement*) berkelanjutan.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dedicated Relationship Manager (RM) Support Card -->
+        <div class="card bg-white border rounded-4 p-4 shadow-sm" id="rmSupportCard">
+          <div class="row align-items-center g-3">
+            <div class="col-12 col-md-8 d-flex align-items-center gap-3">
+              <div class="p-3 rounded-circle fs-3 text-white d-flex align-items-center justify-content-center" style="width: 56px; height: 56px; background: #142563;">
+                <i class="bi bi-headset"></i>
+              </div>
+              <div>
+                <h6 class="fw-bold text-dark mb-1">Executive Relationship Manager (Investor Relations)</h6>
+                <p class="small text-muted mb-0">
+                  Konsultasikan jadwal pembagian dividen kuartalan, penambahan kuota unit alat berat, atau pembaruan data korporasi bersama Relationship Manager resmi MGI.
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-md-4 text-md-end">
+              <a id="rmWhatsappLink" href="https://wa.me/6282211118208?text=Halo%20Tim%20Hubungan%20Investor%20MGI%2C%20saya%20ingin%20berkonsultasi%20mengenai%20alokasi%20portofolio%20investasi%20saya." target="_blank" rel="noopener noreferrer" class="btn btn-success rounded-pill px-4 py-2 fw-bold text-white shadow-sm d-inline-flex align-items-center gap-2">
+                <i class="bi bi-whatsapp"></i>
+                <span>Hubungi Tim RM</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- 2. TAB: PROJECT INVESTOR -->
+      <!-- ======================================================== -->
+      <div class="tab-pane fade" id="tab-projects" role="tabpanel">
+        <div class="mb-4">
+          <h5 class="fw-bold text-dark mb-1">Proyek Investasi yang Diikuti</h5>
+          <p class="text-muted small mb-0">Pantau perkembangan operasional proyek yang sedang Anda danai atau ajukan peminatan pada proyek terbuka lainnya.</p>
+        </div>
+
+        <div id="investorProjectsContainer" class="row g-4 mb-5">
+          <!-- Dynamic cards for investor's active projects -->
+        </div>
+
+        <!-- Peluang Proyek Baru (Status Open) -->
+        <div class="border-top pt-4 mt-2">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div>
+              <h5 class="fw-bold text-dark mb-1">Peluang Investasi Proyek Terbuka (Open Opportunities)</h5>
+              <p class="text-muted small mb-0">Diversifikasikan penempatan modal Anda pada proyek alat berat dan industri riil lainnya.</p>
+            </div>
+            <a href="invest.html" class="btn btn-sm btn-link text-decoration-none fw-bold">Lihat Semua Proyek &rarr;</a>
+          </div>
+
+          <div id="availableProjectsContainer" class="row g-4">
+            <!-- Dynamic open projects cards -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- 3. TAB: CAMPAIGN UPDATE -->
+      <!-- ======================================================== -->
+      <div class="tab-pane fade" id="tab-updates" role="tabpanel">
+        <div class="mb-4">
+          <h5 class="fw-bold text-dark mb-1">Laporan Perkembangan Proyek Riil (Campaign &amp; Field Updates)</h5>
+          <p class="text-muted small mb-0">Transparansi operasional langsung dari pool &amp; workshop alat berat Kebumen serta penugasan armada di lapangan.</p>
+        </div>
+
+        <div id="campaignUpdatesContainer">
+          <!-- Dynamic feed cards -->
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- 4. TAB: BANK ACCOUNT -->
+      <!-- ======================================================== -->
+      <div class="tab-pane fade" id="tab-bank" role="tabpanel">
+        <div class="row g-4">
+          <!-- Kartu Rekening Visual -->
+          <div class="col-12 col-lg-5">
+            <div class="bank-card-visual mb-4">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <span class="badge bg-white text-dark px-3 py-1 rounded-pill small fw-bold" id="cardBankBadge">BANK REKENING</span>
+                <i class="bi bi-credit-card-2-front fs-2 text-warning" style="color: #C5A059 !important;"></i>
+              </div>
+              <div class="small text-white-50 mb-1">Nomor Rekening Penerima Bagi Hasil:</div>
+              <div class="fs-4 fw-bold letter-spacing-1 mb-4" id="cardAccNumber">Belum Terdaftar</div>
+              <div class="d-flex justify-content-between align-items-end">
+                <div>
+                  <div class="small text-white-50" style="font-size: 0.75rem;">NAMA PEMILIK REKENING:</div>
+                  <div class="fw-bold text-white fs-6" id="cardAccHolder">-</div>
+                </div>
+                <div class="text-end">
+                  <div class="small text-white-50" style="font-size: 0.75rem;">KANTOR CABANG:</div>
+                  <div class="small text-white" id="cardBranch">-</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-3 bg-white rounded-3 border small text-muted">
+              <i class="bi bi-info-circle-fill text-primary me-1" style="color: #142563 !important;"></i>
+              <strong>Catatan Kepatuhan Perbankan:</strong> Nama pemilik rekening harus sesuai dengan identitas resmi investor yang terdaftar guna kelancaran rekonsiliasi transfer dividen kuartalan.
+            </div>
+          </div>
+
+          <!-- Form Edit Rekening -->
+          <div class="col-12 col-lg-7">
+            <div class="card bg-white border rounded-4 p-4 shadow-sm">
+              <h5 class="fw-bold text-dark border-bottom pb-3 mb-3">Pembaruan Rekening Bank Penyaluran</h5>
+              
+              <div id="bankAlert" class="alert alert-success d-none py-2 small" role="alert"></div>
+
+              <form id="bankForm" onsubmit="saveBankAccount(event)">
+                <div class="mb-3">
+                  <label class="form-label fw-bold text-dark small">Pilih Nama Bank <span class="text-danger">*</span></label>
+                  <select id="inputBankName" class="form-select" required>
+                    <option value="">-- Pilih Bank --</option>
+                    <option value="Bank Central Asia (BCA)">Bank Central Asia (BCA)</option>
+                    <option value="Bank Mandiri">Bank Mandiri</option>
+                    <option value="Bank Negara Indonesia (BNI)">Bank Negara Indonesia (BNI)</option>
+                    <option value="Bank Rakyat Indonesia (BRI)">Bank Rakyat Indonesia (BRI)</option>
+                    <option value="Bank Syariah Indonesia (BSI)">Bank Syariah Indonesia (BSI)</option>
+                    <option value="CIMB Niaga">CIMB Niaga</option>
+                    <option value="Bank Permata">Bank Permata</option>
+                    <option value="Bank Danamon">Bank Danamon</option>
+                    <option value="Bank OCBC NISP">Bank OCBC NISP</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label fw-bold text-dark small">Nomor Rekening <span class="text-danger">*</span></label>
+                  <input type="text" id="inputAccNumber" class="form-control" placeholder="Contoh: 8820394821" required>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label fw-bold text-dark small">Nama Pemilik Rekening (Sesuai Buku Tabungan) <span class="text-danger">*</span></label>
+                  <input type="text" id="inputAccHolder" class="form-control" placeholder="Nama Lengkap Investor / Nama Perusahaan" required>
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label fw-bold text-dark small">Kantor Cabang Bank</label>
+                  <input type="text" id="inputBranch" class="form-control" placeholder="Contoh: KCP Sudirman Jakarta">
+                </div>
+
+                <button type="submit" id="btnSaveBank" class="btn btn-mgi-primary px-4 py-2 rounded-pill fw-bold text-white shadow-sm d-inline-flex align-items-center gap-2" style="background: #142563;">
+                  <i class="bi bi-check2-circle"></i>
+                  <span>Simpan Data Rekening</span>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- 5. TAB: PROFILE INVESTOR -->
+      <!-- ======================================================== -->
+      <div class="tab-pane fade" id="tab-profile" role="tabpanel">
+        <div class="row g-4">
+          <!-- Profil Data Diri -->
+          <div class="col-12 col-lg-7">
+            <div class="card bg-white border rounded-4 p-4 shadow-sm mb-4">
+              <h5 class="fw-bold text-dark border-bottom pb-3 mb-3">Informasi Akun Investor</h5>
+              
+              <div id="profileAlert" class="alert alert-success d-none py-2 small" role="alert"></div>
+
+              <form id="profileForm" onsubmit="updateProfile(event)">
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold text-dark small">Tipe Akun</label>
+                    <input type="text" id="profAccountType" class="form-control bg-light" readonly>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold text-dark small">Alamat Email Terdaftar</label>
+                    <input type="text" id="profEmail" class="form-control bg-light" readonly>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold text-dark small">Nama Lengkap / Entitas <span class="text-danger">*</span></label>
+                    <input type="text" id="profFullName" class="form-control" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold text-dark small">Nomor Telepon / WhatsApp <span class="text-danger">*</span></label>
+                    <input type="text" id="profPhone" class="form-control" required>
+                  </div>
+
+                  <!-- Khusus Korporasi -->
+                  <div id="corporateFieldsSection" class="col-12 d-none">
+                    <div class="p-3 bg-light rounded-3 border mb-2">
+                      <h6 class="fw-bold text-dark small mb-3">Rincian Dokumen &amp; Legalitas Perusahaan</h6>
+                      <div class="row g-3">
+                        <div class="col-md-6">
+                          <label class="form-label fw-bold text-dark small">Nama Badan Usaha</label>
+                          <input type="text" id="profBusinessName" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label fw-bold text-dark small">Bentuk Badan Hukum</label>
+                          <input type="text" id="profLegalEntity" class="form-control bg-white" readonly>
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label fw-bold text-dark small">Nama PIC Resmi</label>
+                          <input type="text" id="profPicName" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label fw-bold text-dark small">Jabatan PIC</label>
+                          <input type="text" id="profPicPosition" class="form-control">
+                        </div>
+                        <div class="col-12">
+                          <label class="form-label fw-bold text-dark small">Alamat Domisili Hukum Perusahaan</label>
+                          <textarea id="profCompanyAddress" class="form-control" rows="2"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <button type="submit" id="btnUpdateProf" class="btn btn-mgi-primary px-4 py-2 rounded-pill fw-bold text-white shadow-sm" style="background: #142563;">
+                  <i class="bi bi-save me-1"></i> Perbarui Profil Kontak
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Ganti Kata Sandi & Status Keamanan -->
+          <div class="col-12 col-lg-5">
+            <div class="card bg-white border rounded-4 p-4 shadow-sm mb-4">
+              <h5 class="fw-bold text-dark border-bottom pb-3 mb-3">Ubah Kata Sandi</h5>
+              
+              <div id="passwordAlert" class="alert d-none py-2 small" role="alert"></div>
+
+              <form id="passwordForm" onsubmit="changePassword(event)">
+                <div class="mb-3">
+                  <label class="form-label fw-bold text-dark small">Kata Sandi Lama <span class="text-danger">*</span></label>
+                  <input type="password" id="oldPassword" class="form-control" placeholder="••••••••" required>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label fw-bold text-dark small">Kata Sandi Baru <span class="text-danger">*</span></label>
+                  <input type="password" id="newPassword" class="form-control" placeholder="Minimal 8 karakter alfanumerik" required minlength="8">
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label fw-bold text-dark small">Konfirmasi Kata Sandi Baru <span class="text-danger">*</span></label>
+                  <input type="password" id="confirmPassword" class="form-control" placeholder="Ulangi kata sandi baru" required minlength="8">
+                </div>
+
+                <button type="submit" id="btnChangePass" class="btn btn-outline-dark px-4 py-2 rounded-pill fw-bold shadow-sm">
+                  <i class="bi bi-key-fill me-1"></i> Update Sandi Akun
+                </button>
+              </form>
+            </div>
+
+            <!-- Sesi Aktif & Kepatuhan Keamanan Card -->
+            <div class="card bg-white border rounded-4 p-4 shadow-sm mb-4">
+              <h6 class="fw-bold text-dark border-bottom pb-2 mb-3">
+                <i class="bi bi-shield-lock-fill text-primary me-2" style="color: #142563 !important;"></i> Sesi Aktif &amp; Keamanan Akun
+              </h6>
+              <ul class="list-unstyled small mb-0">
+                <li class="d-flex justify-content-between py-2 border-bottom">
+                  <span class="text-muted">Alamat IP Terkoneksi:</span>
+                  <strong class="text-dark font-monospace" id="secClientIp">-</strong>
+                </li>
+                <li class="d-flex justify-content-between py-2 border-bottom">
+                  <span class="text-muted">Waktu Mulai Sesi:</span>
+                  <strong class="text-dark" id="secLoginTime">-</strong>
+                </li>
+                <li class="d-flex justify-content-between py-2 border-bottom">
+                  <span class="text-muted">Enkripsi Jaringan:</span>
+                  <span class="badge bg-success-subtle text-success border border-success-subtle">
+                    <i class="bi bi-lock-fill me-1"></i> TLS 1.3 / AES-256
+                  </span>
+                </li>
+                <li class="d-flex justify-content-between py-2">
+                  <span class="text-muted">Kepatuhan Regulasi:</span>
+                  <span class="badge bg-primary-subtle text-primary border border-primary-subtle">
+                    <i class="bi bi-patch-check-fill me-1"></i> UU PDP &amp; APU-PPT
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Logout Shortcut Card -->
+            <div class="card bg-white border rounded-4 p-4 shadow-sm text-center">
+              <p class="text-muted small mb-3">Selesai mengelola portofolio investasi Anda?</p>
+              <button type="button" onclick="MGIAuth.logout('index.html')" class="btn btn-outline-danger rounded-pill px-4 py-2 fw-bold d-inline-flex align-items-center justify-content-center gap-2 mx-auto">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Keluar dari Sesi Investor</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.tab-content -->
+
+  </main>
+
+  <!-- Global Footer -->
+  <div id="global-footer"></div>
+
+  <!-- Bootstrap 5 Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Core Application Scripts -->
+  <script src="assets/js/renderer.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/components.js"></script>
+
+  <script>
+    let dashboardData = null;
+    let currentCsrfToken = '';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      // 1. Render Navigation & Footer
+      MGIComponents.renderNavbar('invest');
+      MGIComponents.renderFooter();
+
+      // 2. Strict Authentication Guard
+      if (!MGIAuth.isLoggedIn()) {
+        window.location.href = `login.html?redirect=${encodeURIComponent('investor-dashboard.html')}`;
+        return;
+      }
+
+      // Load data via secure server session (HttpOnly cookie)
+      loadDashboardData();
+    });
+
+    async function loadDashboardData() {
+      try {
+        const res = await fetch('api/investor/dashboard.php');
+        const json = await res.json();
+
+        if (!json.success) {
+          if (json.status === 401 || res.status === 401) {
+            MGIAuth.logout(`login.html?redirect=${encodeURIComponent('investor-dashboard.html')}`);
+          }
+          return;
+        }
+
+        dashboardData = json.data;
+        if (json.data && json.data.csrf_token) {
+          currentCsrfToken = json.data.csrf_token;
+        }
+        renderDashboardView();
+      } catch (err) {
+        console.error('Failed to load dashboard data:', err);
+      }
+    }
+
+    // Trigger Print View for Official Investment Statement
+    function printPortfolioStatement() {
+      const portfolioTabBtn = document.getElementById('tab-portfolio-btn');
+      if (portfolioTabBtn && !portfolioTabBtn.classList.contains('active')) {
+        const tab = new bootstrap.Tab(portfolioTabBtn);
+        tab.show();
+      }
+      setTimeout(() => {
+        window.print();
+      }, 250);
+    }
+
+    function renderDashboardView() {
+      if (!dashboardData) return;
+
+      const p = dashboardData.profile;
+      const m = dashboardData.metrics;
+      const b = dashboardData.bank_account;
+      const ports = dashboardData.portfolios || [];
+      const updates = dashboardData.campaign_updates || [];
+      const openProjs = dashboardData.open_projects || [];
+      const sec = dashboardData.session_security;
+
+      // A. Header Greeting
+      document.getElementById('dashInvestorName').textContent = p.fullName;
+      document.getElementById('dashInvestorEmail').textContent = p.email;
+      const isCorp = p.type === 'perusahaan';
+      document.getElementById('dashAccountTypeBadge').textContent = isCorp ? 'Investor Korporasi / Perusahaan' : 'Investor Perorangan (Individu)';
+      if (isCorp) {
+        document.getElementById('dashInvestorSubtitle').textContent = `Perusahaan: ${p.business_name} (${p.legal_entity || 'Badan Usaha'}) — PIC: ${p.pic_name} (${p.pic_position || 'Manajemen'}).`;
+      }
+
+      // Personalize RM WhatsApp Link
+      const rmLink = document.getElementById('rmWhatsappLink');
+      if (rmLink && p) {
+        const greetingName = isCorp ? `${p.pic_name} (${p.business_name})` : p.fullName;
+        const msg = encodeURIComponent(`Halo Tim Hubungan Investor PT Montana Global Investama, saya ${greetingName} (${p.email}) ingin berkonsultasi mengenai alokasi portofolio investasi saya.`);
+        rmLink.href = `https://wa.me/6282211118208?text=${msg}`;
+      }
+
+      // B. Tab 1: My Portofolio Metrics
+      document.getElementById('metricTotalInvested').textContent = MGI.formatRupiahCompact(m.total_invested);
+      document.getElementById('metricEstRoi').textContent = m.est_roi_rate || '≥30% (p.a.)';
+      document.getElementById('metricTotalPayout').textContent = MGI.formatRupiahCompact(m.total_payout_received);
+      document.getElementById('metricNextPayout').textContent = m.next_payout_date 
+        ? new Date(m.next_payout_date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
+        : 'Tercapai Penuh';
+
+      // Portfolios Table
+      const ptb = document.getElementById('portfolioTableBody');
+      if (ports.length === 0) {
+        ptb.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted">Belum ada instrumen proyek yang aktif. Silakan pilih penempatan pada katalog terbuka.</td></tr>`;
+      } else {
+        ptb.innerHTML = ports.map(item => `
+          <tr>
+            <td>
+              <div class="fw-bold text-dark">${item.project_title}</div>
+              <small class="text-muted">No. Kontrak: <code>${item.contract_number}</code></small>
+            </td>
+            <td><span class="badge bg-light text-dark border">${item.allocated_units || 'Unit CBU Grade A'}</span></td>
+            <td><strong class="text-dark">${MGI.formatRupiah(item.amount)}</strong></td>
+            <td>
+              <div class="small fw-bold text-dark">${item.tenor}</div>
+              <div class="small text-success fw-bold">${item.return_rate}</div>
+            </td>
+            <td>
+              <div class="small text-muted">${item.start_date} s/d ${item.end_date}</div>
+            </td>
+            <td>
+              <span class="text-primary fw-bold">${MGI.formatRupiah(item.payout_received)}</span>
+            </td>
+            <td>
+              <span class="badge bg-success text-white">Aktif Berjalan</span>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      // C. Tab 2: Project Investor
+      const ipc = document.getElementById('investorProjectsContainer');
+      if (ports.length === 0) {
+        ipc.innerHTML = `<div class="col-12"><div class="p-4 bg-white rounded-3 border text-center text-muted">Anda belum memiliki proyek aktif.</div></div>`;
+      } else {
+        ipc.innerHTML = ports.map(port => `
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card h-100 border rounded-4 overflow-hidden shadow-sm bg-white">
+              <img src="${port.project_image || 'assets/img/komatsu.jpg'}" class="card-img-top" style="height: 180px; object-fit: cover;" alt="">
+              <div class="card-body p-4">
+                <span class="badge bg-royal text-white px-3 py-1 rounded-pill small mb-2" style="background: #142563;">Penempatan Sindikasi</span>
+                <h5 class="fw-bold text-dark mb-2">${port.project_title}</h5>
+                <p class="text-muted small mb-3">Unit: <strong>${port.allocated_units || 'Alat Berat CBU'}</strong></p>
+                <div class="p-3 bg-light rounded-3 mb-3 border">
+                  <div class="d-flex justify-content-between small mb-1">
+                    <span class="text-muted">Modal Terpasang:</span>
+                    <strong class="text-dark">${MGI.formatRupiah(port.amount)}</strong>
+                  </div>
+                  <div class="d-flex justify-content-between small">
+                    <span class="text-muted">Proyeksi Return:</span>
+                    <strong class="text-success">${port.return_rate}</strong>
+                  </div>
+                </div>
+                <a href="invest-detail.html?id=${encodeURIComponent(port.project_id)}" class="btn btn-outline-dark w-100 rounded-pill py-2 small fw-bold">
+                  Buka Prospektus &amp; RAB &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Open Opportunities
+      const apc = document.getElementById('availableProjectsContainer');
+      apc.innerHTML = openProjs.map(op => `
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="card h-100 border rounded-3 p-3 bg-white shadow-sm">
+            <img src="${op.image || 'assets/img/komatsu.jpg'}" class="rounded-3 mb-3" style="height: 120px; object-fit: cover;" alt="">
+            <h6 class="fw-bold text-dark mb-1 text-truncate">${op.title}</h6>
+            <div class="small text-muted mb-2">${op.lokasi || 'Jawa Tengah'}</div>
+            <div class="small fw-bold text-success mb-3">${op.return_rate} &bull; ${op.tenor}</div>
+            <a href="invest-detail.html?id=${encodeURIComponent(op.id)}" class="btn btn-sm btn-mgi-blue w-100 rounded-pill text-white" style="background: #142563;">
+              Pelajari &amp; Ikuti
+            </a>
+          </div>
+        </div>
+      `).join('');
+
+      // D. Tab 3: Campaign Updates Feed
+      const cuc = document.getElementById('campaignUpdatesContainer');
+      if (updates.length === 0) {
+        cuc.innerHTML = `<div class="p-4 bg-white rounded-3 border text-center text-muted">Belum ada pembaruan kampanye terbaru.</div>`;
+      } else {
+        cuc.innerHTML = updates.map(u => `
+          <div class="campaign-feed-card p-4">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 border-bottom pb-3 mb-3">
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-warning text-dark px-3 py-1 rounded-pill small fw-bold" style="background: #C5A059 !important; color: #fff !important;">
+                  ${u.category || 'Operasional Lapangan'}
+                </span>
+                <span class="text-secondary small">&bull; Proyek: <strong>${u.project_title || 'MGI Ekosistem'}</strong></span>
+              </div>
+              <div class="text-muted small">
+                <i class="bi bi-calendar3 me-1"></i> ${new Date(u.update_date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+              </div>
+            </div>
+            <h5 class="fw-bold text-dark mb-3">${u.title}</h5>
+            <div class="row g-3">
+              ${u.image_url ? `
+                <div class="col-12 col-md-4">
+                  <img src="${u.image_url}" class="img-fluid rounded-3 border" alt="" style="width: 100%; height: 180px; object-fit: cover;">
+                </div>
+                <div class="col-12 col-md-8">
+                  <p class="text-secondary small lh-base mb-0">${u.content}</p>
+                </div>
+              ` : `
+                <div class="col-12">
+                  <p class="text-secondary small lh-base mb-0">${u.content}</p>
+                </div>
+              `}
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // E. Tab 4: Bank Account View
+      if (b) {
+        document.getElementById('cardBankBadge').textContent = b.bank_name;
+        document.getElementById('cardAccNumber').textContent = b.account_number;
+        document.getElementById('cardAccHolder').textContent = b.account_holder;
+        document.getElementById('cardBranch').textContent = b.branch || '-';
+
+        document.getElementById('inputBankName').value = b.bank_name;
+        document.getElementById('inputAccNumber').value = b.account_number;
+        document.getElementById('inputAccHolder').value = b.account_holder;
+        document.getElementById('inputBranch').value = b.branch || '';
+      } else {
+        document.getElementById('inputAccHolder').value = p.fullName;
+      }
+
+      // F. Tab 5: Profile View & Active Session Security
+      document.getElementById('profAccountType').value = isCorp ? 'Perusahaan (Korporasi)' : 'Perorangan (Individu)';
+      document.getElementById('profEmail').value = p.email;
+      document.getElementById('profFullName').value = p.fullName;
+      document.getElementById('profPhone').value = p.phone || '';
+
+      if (sec) {
+        const ipEl = document.getElementById('secClientIp');
+        const loginEl = document.getElementById('secLoginTime');
+        if (ipEl) ipEl.textContent = sec.client_ip || '127.0.0.1';
+        if (loginEl) loginEl.textContent = sec.login_time || new Date().toLocaleString('id-ID');
+      }
+
+      if (isCorp) {
+        document.getElementById('corporateFieldsSection').classList.remove('d-none');
+        document.getElementById('profBusinessName').value = p.business_name || '';
+        document.getElementById('profLegalEntity').value = p.legal_entity || 'Perseroan Terbatas (PT)';
+        document.getElementById('profPicName').value = p.pic_name || '';
+        document.getElementById('profPicPosition').value = p.pic_position || '';
+        document.getElementById('profCompanyAddress').value = p.company_address || '';
+      }
+    }
+
+    async function saveBankAccount(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnSaveBank');
+      const alertBox = document.getElementById('bankAlert');
+
+      const payload = {
+        bank_name: document.getElementById('inputBankName').value,
+        account_number: document.getElementById('inputAccNumber').value.trim(),
+        account_holder: document.getElementById('inputAccHolder').value.trim(),
+        branch: document.getElementById('inputBranch').value.trim(),
+        csrf_token: currentCsrfToken
+      };
+
+      btn.disabled = true;
+      btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span> Menyimpan...`;
+
+      try {
+        const res = await fetch('api/investor/dashboard.php?action=save_bank', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': currentCsrfToken
+          },
+          body: JSON.stringify(payload)
+        });
+        const json = await res.json();
+
+        if (json.success) {
+          alertBox.className = 'alert alert-success py-2 small';
+          alertBox.textContent = json.message || 'Rekening bank berhasil disimpan.';
+          alertBox.classList.remove('d-none');
+          loadDashboardData();
+        } else {
+          alertBox.className = 'alert alert-danger py-2 small';
+          alertBox.textContent = json.message || 'Gagal menyimpan rekening bank.';
+          alertBox.classList.remove('d-none');
+        }
+      } catch (err) {
+        alertBox.className = 'alert alert-danger py-2 small';
+        alertBox.textContent = 'Terjadi kesalahan koneksi server.';
+        alertBox.classList.remove('d-none');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i class="bi bi-check2-circle me-1"></i> Simpan Data Rekening`;
+      }
+    }
+
+    async function updateProfile(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnUpdateProf');
+      const alertBox = document.getElementById('profileAlert');
+
+      const payload = {
+        full_name: document.getElementById('profFullName').value.trim(),
+        phone: document.getElementById('profPhone').value.trim(),
+        business_name: document.getElementById('profBusinessName')?.value.trim(),
+        pic_name: document.getElementById('profPicName')?.value.trim(),
+        pic_position: document.getElementById('profPicPosition')?.value.trim(),
+        company_address: document.getElementById('profCompanyAddress')?.value.trim(),
+        csrf_token: currentCsrfToken
+      };
+
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('api/investor/dashboard.php?action=update_profile', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': currentCsrfToken
+          },
+          body: JSON.stringify(payload)
+        });
+        const json = await res.json();
+
+        if (json.success) {
+          alertBox.className = 'alert alert-success py-2 small';
+          alertBox.textContent = json.message || 'Profil berhasil diperbarui.';
+          alertBox.classList.remove('d-none');
+          // Update local session
+          const curr = MGIAuth.getCurrentUser();
+          if (curr) {
+            curr.fullName = payload.full_name;
+            MGIAuth.setCurrentUserSession(curr);
+          }
+          loadDashboardData();
+        } else {
+          alertBox.className = 'alert alert-danger py-2 small';
+          alertBox.textContent = json.message || 'Gagal memperbarui profil.';
+          alertBox.classList.remove('d-none');
+        }
+      } catch (err) {
+        alertBox.className = 'alert alert-danger py-2 small';
+        alertBox.textContent = 'Terjadi kesalahan koneksi server.';
+        alertBox.classList.remove('d-none');
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    async function changePassword(e) {
+      e.preventDefault();
+      const alertBox = document.getElementById('passwordAlert');
+      const oldPassword = document.getElementById('oldPassword').value;
+      const newPassword = document.getElementById('newPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      if (newPassword.length < 8) {
+        alertBox.className = 'alert alert-danger py-2 small';
+        alertBox.textContent = 'Kata sandi baru minimal 8 karakter demi standar keamanan.';
+        alertBox.classList.remove('d-none');
+        return;
+      }
+
+      if (newPassword !== confirmPassword) {
+        alertBox.className = 'alert alert-danger py-2 small';
+        alertBox.textContent = 'Konfirmasi kata sandi baru tidak cocok.';
+        alertBox.classList.remove('d-none');
+        return;
+      }
+
+      const btn = document.getElementById('btnChangePass');
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('api/investor/dashboard.php?action=change_password', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': currentCsrfToken
+          },
+          body: JSON.stringify({
+            old_password: oldPassword,
+            new_password: newPassword,
+            csrf_token: currentCsrfToken
+          })
+        });
+        const json = await res.json();
+
+        if (json.success) {
+          alertBox.className = 'alert alert-success py-2 small';
+          alertBox.textContent = json.message || 'Kata sandi berhasil diperbarui.';
+          alertBox.classList.remove('d-none');
+          document.getElementById('passwordForm').reset();
+        } else {
+          alertBox.className = 'alert alert-danger py-2 small';
+          alertBox.textContent = json.message || 'Gagal mengubah kata sandi.';
+          alertBox.classList.remove('d-none');
+        }
+      } catch (err) {
+        alertBox.className = 'alert alert-danger py-2 small';
+        alertBox.textContent = 'Terjadi kesalahan server.';
+        alertBox.classList.remove('d-none');
+      } finally {
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+
+</html>
