@@ -183,7 +183,24 @@
       if (!project && data.projects) {
         project = data.projects[0];
       }
-      if (!project) return;
+      if (!project) {
+        const mainContent = document.querySelector('main.container');
+        if (mainContent) {
+          mainContent.innerHTML = `
+            <div class="row justify-content-center py-5">
+              <div class="col-12 col-lg-8 text-center bg-white p-5 rounded-4 border border-subtle shadow-sm">
+                <i class="bi bi-folder-x text-gold fs-1 d-block mb-3"></i>
+                <h3 class="fw-bold text-dark mb-2">Proyek Belum Tersedia / Sudah Ditutup</h3>
+                <p class="text-secondary small mb-4">Detail proyek investasi yang Anda tuju saat ini tidak tersedia atau telah selesai masa penawarannya.</p>
+                <a href="invest.html" class="btn btn-gold rounded-pill px-4 py-2 fw-bold text-white shadow-sm">
+                  <i class="bi bi-arrow-left me-1"></i> Kembali ke Katalog Portofolio
+                </a>
+              </div>
+            </div>
+          `;
+        }
+        return;
+      }
 
       // Access Guard: Cek apakah data di-gated dari server atau client belum login
       const isServerGated = project.detail && project.detail.is_gated;

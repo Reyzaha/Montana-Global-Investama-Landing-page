@@ -63,7 +63,7 @@ Catat output kredensial yang dihasilkan di layar terminal.
 
 ## 5. Akses & Login Administrator dengan MFA Google Authenticator
 
-1. Buka browser: `http://<IP_VPS_ANDA>/admin/login.php` atau `http://domain-anda.com/admin/login.php`
+1. Buka browser: `http://<IP_VPS_ANDA>/portal-admin-mgi-gateway/login.php` atau `https://domain-anda.com/portal-admin-mgi-gateway/login.php`
 2. Masukkan kredensial:
    - **Username**: `admin`
    - **Password**: `Montana@2026!Secure`

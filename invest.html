@@ -88,13 +88,35 @@
 
       function renderProjects(filtered) {
         if (!filtered || filtered.length === 0) {
-          grid.innerHTML = `
-            <div class="col-12 text-center py-5 bg-white rounded-3 border border-subtle shadow-sm my-3">
-              <i class="bi bi-inbox fs-1 text-muted d-block mb-3"></i>
-              <p class="fs-5 text-muted mb-3">Tidak ada proyek yang sesuai dengan filter yang dipilih.</p>
-              <button class="btn btn-outline-gold btn-sm rounded-pill px-4" onclick="document.querySelector('[data-filter=\\'all\\']').click()">Reset Filter</button>
-            </div>
-          `;
+          if (!allProjects || allProjects.length === 0) {
+            grid.innerHTML = `
+              <div class="col-12 text-center py-5 bg-white rounded-4 border border-subtle shadow-sm my-3 px-4">
+                <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-mgi-gold-subtle text-gold mb-3" style="width: 70px; height: 70px; font-size: 2rem;">
+                  <i class="bi bi-clock-history"></i>
+                </div>
+                <h4 class="fw-bold text-dark mb-2">Belum Ada Proyek Terbuka Saat Ini</h4>
+                <p class="text-secondary small mx-auto mb-4" style="max-width: 560px;">
+                  Seluruh alokasi batch pendanaan sebelumnya telah terpenuhi (*fully funded*). Tim manajemen investasi kami sedang mempersiapkan penawaran proyek sindikasi alat berat dan logistik batch berikutnya.
+                </p>
+                <div class="d-flex flex-wrap justify-content-center gap-2">
+                  <a href="contact.html" class="btn btn-gold btn-sm rounded-pill px-4 py-2 fw-bold text-white shadow-sm">
+                    <i class="bi bi-headset me-1"></i> Hubungi Tim Investor Relations
+                  </a>
+                  <a href="about.html" class="btn btn-outline-secondary btn-sm rounded-pill px-4 py-2">
+                    Profil Perusahaan
+                  </a>
+                </div>
+              </div>
+            `;
+          } else {
+            grid.innerHTML = `
+              <div class="col-12 text-center py-5 bg-white rounded-3 border border-subtle shadow-sm my-3">
+                <i class="bi bi-inbox fs-1 text-muted d-block mb-3"></i>
+                <p class="fs-5 text-muted mb-3">Tidak ada proyek yang sesuai dengan filter yang dipilih.</p>
+                <button class="btn btn-outline-gold btn-sm rounded-pill px-4" onclick="document.querySelector('[data-filter=\\'all\\']').click()">Reset Filter</button>
+              </div>
+            `;
+          }
           return;
         }
         grid.innerHTML = filtered.map(p => `

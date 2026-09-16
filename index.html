@@ -24,24 +24,24 @@
   <main>
     <section class="py-5 bg-white border-bottom position-relative">
       <div class="container py-lg-4">
-        <div class="row align-items-center g-5">
-          <div class="col-lg-7">
-            <span class="section-tag">
+        <div class="row align-items-center g-5 justify-content-center" id="heroRow">
+          <div class="col-lg-10 col-xl-9 text-center" id="heroTextCol">
+            <span class="section-tag mb-3 d-inline-block">
               <i class="bi bi-award-fill me-1"></i> Manajer Investasi & Sektor Riil
             </span>
             <h1 class="display-4 fw-bold text-mgi-dark lh-tight mb-3">
               Tumbuh Bersama Melalui <br>
               <span class="text-mgi-blue">Investasi</span> <span class="text-mgi-gold">Terpercaya</span>
             </h1>
-            <p class="lead text-mgi-muted mb-4 pe-lg-4" style="font-size: 1.15rem; line-height: 1.75;">
+            <p class="lead text-mgi-muted mb-4 mx-auto" style="font-size: 1.15rem; line-height: 1.75; max-width: 780px;">
               PT Montana Global Investama (MGI) menghadirkan instrumen investasi sektor riil berbasis aset fisik
               produktif dengan prinsip kehati-hatian, kepatuhan Good Corporate Governance (GCG), dan proyeksi imbal
               hasil terukur.
             </p>
-            <div class="d-flex flex-wrap gap-3 mb-4">
+            <div class="d-flex flex-wrap justify-content-center gap-3 mb-4" id="heroCtaBtns">
               <a href="invest.html"
                 class="btn btn-gold btn-lg px-4 rounded-pill shadow-sm d-inline-flex align-items-center gap-2">
-                <span>Jelajahi Proyek Investasi</span>
+                <span>Jelajahi Portofolio</span>
                 <i class="bi bi-arrow-right"></i>
               </a>
               <a href="about.html" class="btn btn-outline-mgi btn-lg px-4 rounded-pill">
@@ -50,7 +50,7 @@
             </div>
 
             <!-- Stats Bar Dynamic (Bootstrap Row) -->
-            <div class="row g-2 pt-4 border-top mt-2" id="heroStatsContainer">
+            <div class="row g-2 pt-4 border-top mt-2 justify-content-center" id="heroStatsContainer">
               <div class="col-6 col-sm-3">
                 <div class="p-2 p-md-3 bg-light rounded-3 h-100 border border-subtle">
                   <div class="fs-4 fw-bold text-royal lh-1 mb-1">Rp 75M+</div>
@@ -82,73 +82,8 @@
             </div>
           </div>
 
-          <!-- Featured Project Spotlight Card with Real Photo -->
-          <div class="col-lg-5">
-            <div class="card border-0 shadow-lg p-0 rounded-4 overflow-hidden position-relative bg-white">
-              <div class="position-relative" style="height: 190px; background-color: #0F172A;">
-                <img src="assets/img/komatsu.jpg" alt="Komatsu PC138US" class="w-100 h-100 object-fit-cover"
-                  onerror="this.src='assets/img/project-excavator.svg'">
-                <div class="position-absolute top-0 start-0 m-3">
-                  <span class="badge bg-gold text-white px-3 py-1 rounded-pill small fw-bold shadow-sm">
-                    <i class="bi bi-star-fill small me-1"></i> PROYEK UNGGULAN
-                  </span>
-                </div>
-                <div class="position-absolute top-0 end-0 m-3 d-flex flex-column align-items-end gap-1">
-                  <span class="badge badge-solid-open px-3 py-1 rounded-pill shadow-sm">● Open</span>
-                  <span class="badge bg-dark text-white px-2 py-1 rounded-pill small fw-semibold" style="font-size: 0.7rem;">
-                    <i class="bi bi-clock-history text-gold me-1"></i>18 Hari Tersisa
-                  </span>
-                </div>
-              </div>
-
-              <div class="p-4">
-                <h4 class="fw-bold text-dark mb-2">
-                  Pengadaan Alat Berat CBU Jepang Batch IV
-                </h4>
-                <p class="text-secondary small mb-3 lh-base">
-                  Fasilitas pendanaan unit excavator dan bulldozer berdaya utilisasi tinggi dengan kepastian kontrak
-                  proyek infrastruktur strategis nasional.
-                </p>
-
-                <div class="p-3 bg-light rounded-3 border border-subtle mb-3">
-                  <div class="d-flex justify-content-between small mb-2">
-                    <span class="text-muted">Dana Terkumpul</span>
-                    <strong class="text-royal">Rp 15.500.000.000 (78%)</strong>
-                  </div>
-                  <div class="progress progress-solid" style="height: 8px;">
-                    <div class="progress-bar progress-bar-gold" style="width: 78%; background-color: #C5A059;"></div>
-                  </div>
-                </div>
-
-                <div class="row g-2 mb-4 text-center small">
-                  <div class="col-4">
-                    <div class="p-2 border border-subtle rounded bg-light">
-                      <div class="fw-bold text-success fs-6 lh-1 mb-1">≥30%</div>
-                      <div class="text-muted text-uppercase fw-semibold" style="font-size: 0.65rem;">ROI (p.a.)</div>
-                    </div>
-                  </div>
-                  <div class="col-4">
-                    <div class="p-2 border border-subtle rounded bg-light">
-                      <div class="fw-bold text-dark fs-6 lh-1 mb-1">36 Bulan</div>
-                      <div class="text-muted text-uppercase fw-semibold" style="font-size: 0.65rem;">Tenor</div>
-                    </div>
-                  </div>
-                  <div class="col-4">
-                    <div class="p-2 border border-subtle rounded bg-light">
-                      <div class="fw-bold text-royal fs-6 lh-1 mb-1">Rp 500 Jt</div>
-                      <div class="text-muted text-uppercase fw-semibold" style="font-size: 0.65rem;">Min. Tiket</div>
-                    </div>
-                  </div>
-                </div>
-
-                <button type="button" onclick="MGIAuth.handleProtectedDetail('proj-001')"
-                  class="btn btn-gold w-100 py-2 fw-semibold rounded-pill d-flex align-items-center justify-content-center gap-2 shadow-sm">
-                  <span>Hitung Simulasi BEP &amp; ROI</span>
-                  <i class="bi bi-arrow-right"></i>
-                </button>
-              </div>
-            </div>
-          </div>
+          <!-- Featured Project Spotlight Card (Dynamically displayed if projects exist) -->
+          <div class="col-lg-5 d-none" id="heroFeaturedProjectCol"></div>
         </div>
       </div>
     </section>
@@ -219,8 +154,8 @@
       </div>
     </section>
 
-    <!-- Featured Projects Catalog -->
-    <section class="py-5 bg-white">
+    <!-- Featured Projects Catalog (Displayed only when active projects exist) -->
+    <section class="py-5 bg-white d-none" id="homeProjectsSection">
       <div class="container py-lg-4">
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
           <div>
@@ -308,15 +243,127 @@
       MGIComponents.renderNavbar('home');
       MGIComponents.renderFooter();
 
-      // Load Projects Data for Preview
-      const data = await MGI.fetchData('data/projects.json');
-      if (data && data.projects) {
-        const grid = document.getElementById('homeProjectsGrid');
-        grid.innerHTML = data.projects.slice(0, 3).map(p => `
-          <div class="col">
-            ${MGIComponents.renderProjectCard(p)}
-          </div>
-        `).join('');
+      // Load Projects Data: Dynamically show or hide sections based on active projects
+      try {
+        const data = await MGI.fetchData('data/projects.json');
+        const projectsList = (data && Array.isArray(data.projects)) ? data.projects : [];
+        const hasActiveProjects = projectsList.length > 0;
+
+        const heroFeaturedCol = document.getElementById('heroFeaturedProjectCol');
+        const heroTextCol = document.getElementById('heroTextCol');
+        const heroCtaBtns = document.getElementById('heroCtaBtns');
+        const homeProjectsSection = document.getElementById('homeProjectsSection');
+
+        if (hasActiveProjects) {
+          // Jika ada proyek riil yang aktif, tampilkan spotlight card di hero
+          const featured = projectsList.find(p => p.featured) || projectsList[0];
+          if (featured && heroFeaturedCol) {
+            const collectedAmount = featured.funding ? (featured.funding.collected || 0) : 0;
+            const targetAmount = featured.funding ? (featured.funding.target || 1) : 1;
+            const progressPct = Math.min(100, Math.round((collectedAmount / targetAmount) * 100));
+
+            heroFeaturedCol.innerHTML = `
+              <div class="card border-0 shadow-lg p-0 rounded-4 overflow-hidden position-relative bg-white">
+                <div class="position-relative" style="height: 190px; background-color: #0F172A;">
+                  <img src="${featured.image || 'assets/img/komatsu.jpg'}" alt="${featured.title}" class="w-100 h-100 object-fit-cover"
+                    onerror="this.src='assets/img/project-excavator.svg'">
+                  <div class="position-absolute top-0 start-0 m-3">
+                    <span class="badge bg-gold text-white px-3 py-1 rounded-pill small fw-bold shadow-sm">
+                      <i class="bi bi-star-fill small me-1"></i> PROYEK UNGGULAN
+                    </span>
+                  </div>
+                  <div class="position-absolute top-0 end-0 m-3 d-flex flex-column align-items-end gap-1">
+                    <span class="badge badge-solid-open px-3 py-1 rounded-pill shadow-sm">● ${featured.status || 'Open'}</span>
+                    ${featured.info && featured.info.remaining_days ? `<span class="badge bg-dark text-white px-2 py-1 rounded-pill small fw-semibold" style="font-size: 0.7rem;"><i class="bi bi-clock-history text-gold me-1"></i>${featured.info.remaining_days}</span>` : ''}
+                  </div>
+                </div>
+
+                <div class="p-4">
+                  <h4 class="fw-bold text-dark mb-2">${featured.title}</h4>
+                  <p class="text-secondary small mb-3 lh-base">${(featured.detail && featured.detail.tagline) || featured.category || ''}</p>
+
+                  <div class="p-3 bg-light rounded-3 border border-subtle mb-3">
+                    <div class="d-flex justify-content-between small mb-2">
+                      <span class="text-muted">Dana Terkumpul</span>
+                      <strong class="text-royal">${MGI.formatRupiah(collectedAmount)} (${progressPct}%)</strong>
+                    </div>
+                    <div class="progress progress-solid" style="height: 8px;">
+                      <div class="progress-bar progress-bar-gold" style="width: ${progressPct}%; background-color: #C5A059;"></div>
+                    </div>
+                  </div>
+
+                  <div class="row g-2 mb-4 text-center small">
+                    <div class="col-4">
+                      <div class="p-2 border border-subtle rounded bg-light">
+                        <div class="fw-bold text-success fs-6 lh-1 mb-1">${(featured.info && featured.info.return) || '≥30%'}</div>
+                        <div class="text-muted text-uppercase fw-semibold" style="font-size: 0.65rem;">ROI (p.a.)</div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="p-2 border border-subtle rounded bg-light">
+                        <div class="fw-bold text-dark fs-6 lh-1 mb-1">${(featured.info && featured.info.tenor) || '36 Bulan'}</div>
+                        <div class="text-muted text-uppercase fw-semibold" style="font-size: 0.65rem;">Tenor</div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="p-2 border border-subtle rounded bg-light">
+                        <div class="fw-bold text-royal fs-6 lh-1 mb-1">${(featured.info && featured.info.min_investment) || 'Rp 500 Jt'}</div>
+                        <div class="text-muted text-uppercase fw-semibold" style="font-size: 0.65rem;">Min. Tiket</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button type="button" onclick="MGIAuth.handleProtectedDetail('${featured.id}')"
+                    class="btn btn-gold w-100 py-2 fw-semibold rounded-pill d-flex align-items-center justify-content-center gap-2 shadow-sm">
+                    <span>Hitung Simulasi BEP &amp; ROI</span>
+                    <i class="bi bi-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+            `;
+            heroFeaturedCol.classList.remove('d-none');
+            if (heroTextCol) {
+              heroTextCol.className = 'col-lg-7 text-start';
+            }
+            if (heroCtaBtns) {
+              heroCtaBtns.className = 'd-flex flex-wrap gap-3 mb-4';
+            }
+          }
+
+          // Tampilkan section katalog proyek di home
+          if (homeProjectsSection) {
+            homeProjectsSection.classList.remove('d-none');
+            const grid = document.getElementById('homeProjectsGrid');
+            if (grid) {
+              grid.innerHTML = projectsList.slice(0, 3).map(p => `
+                <div class="col">
+                  ${MGIComponents.renderProjectCard(p)}
+                </div>
+              `).join('');
+            }
+          }
+        } else {
+          // Tidak ada project yang sedang berjalan: sembunyikan spotlight card dan section project di home
+          if (heroFeaturedCol) {
+            heroFeaturedCol.classList.add('d-none');
+            heroFeaturedCol.innerHTML = '';
+          }
+          if (heroTextCol) {
+            heroTextCol.className = 'col-lg-10 col-xl-9 text-center';
+          }
+          if (heroCtaBtns) {
+            heroCtaBtns.className = 'd-flex flex-wrap justify-content-center gap-3 mb-4';
+          }
+          if (homeProjectsSection) {
+            homeProjectsSection.classList.add('d-none');
+          }
+        }
+      } catch (projErr) {
+        // Fallback aman jika error: sembunyikan section proyek di home
+        const heroFeaturedCol = document.getElementById('heroFeaturedProjectCol');
+        const homeProjectsSection = document.getElementById('homeProjectsSection');
+        if (heroFeaturedCol) heroFeaturedCol.classList.add('d-none');
+        if (homeProjectsSection) homeProjectsSection.classList.add('d-none');
       }
 
       // Load Stats dynamically from company-profile.json

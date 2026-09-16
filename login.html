@@ -64,11 +64,7 @@
       background-color: #F8FAFC;
     }
 
-    .demo-box-pill {
-      border: 1.5px dashed #CBD5E1;
-      border-radius: 10px;
-      background-color: #F8FAFC;
-    }
+
   </style>
 </head>
 
@@ -181,27 +177,7 @@
 
         </form>
 
-        <!-- Quick Demo Accounts for Easy Testing -->
-        <div class="demo-box-pill p-3 mt-4">
-          <div class="d-flex align-items-center justify-content-between mb-2">
-            <span class="small fw-bold text-dark">
-              <i class="bi bi-lightning-charge-fill text-gold me-1"></i> Akun Demo Cepat (Pengujian)
-            </span>
-          </div>
-          <p class="text-secondary small mb-2" style="font-size: 0.78rem;">
-            Klik salah satu tombol berikut untuk mengisi otomatis akun uji coba:
-          </p>
-          <div class="d-flex gap-2">
-            <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill w-50 py-1"
-              onclick="fillDemoAccount('perorangan')">
-              <i class="bi bi-person me-1"></i> Demo Perorangan
-            </button>
-            <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill w-50 py-1"
-              onclick="fillDemoAccount('perusahaan')">
-              <i class="bi bi-building me-1"></i> Demo Korporasi
-            </button>
-          </div>
-        </div>
+
 
         <!-- Tautan Menuju Register -->
         <div class="text-center mt-4 pt-3 border-top border-subtle">
@@ -287,16 +263,7 @@
       modal.show();
     }
 
-    function fillDemoAccount(type) {
-      setLoginType(type);
-      if (type === 'perorangan') {
-        document.getElementById('loginEmail').value = 'investor@gmail.com';
-        document.getElementById('loginPassword').value = 'password123';
-      } else {
-        document.getElementById('loginEmail').value = 'corporate@holding.com';
-        document.getElementById('loginPassword').value = 'password123';
-      }
-    }
+
 
     document.addEventListener('DOMContentLoaded', () => {
       MGIComponents.renderNavbar('login');
