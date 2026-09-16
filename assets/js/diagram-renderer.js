@@ -185,8 +185,8 @@ const MGIDiagrams = {
               <i class="bi ${iconName} ${iconColorClass} fs-4"></i>
             </div>
             <h5 class="fw-bold text-dark mb-1">${node.label}</h5>
-            <div class="small text-gold fw-bold mb-3">${node.category}</div>
-            <p class="small text-secondary mb-3 lh-base">${node.description}</p>
+            <div class="small text-gold fw-bold mb-3">${node.category || ''}</div>
+            <p class="small text-secondary mb-3 lh-base">${node.description || ''}</p>
             ${childrenHtml}
           </div>
         </div>
@@ -204,8 +204,8 @@ const MGIDiagrams = {
             <span class="badge bg-light text-dark border border-subtle small fw-bold">Level 1 (Eksternal)</span>
           </div>
           <h5 class="fw-bold text-dark mb-1">${p.label}</h5>
-          <div class="small text-gold fw-bold mb-2">${p.category}</div>
-          <p class="small text-secondary mb-0 lh-base">${p.description}</p>
+          <div class="small text-gold fw-bold mb-2">${p.category || ''}</div>
+          <p class="small text-secondary mb-0 lh-base">${p.description || ''}</p>
         </div>
       </div>
     `).join('');
@@ -260,7 +260,7 @@ const MGIDiagrams = {
           <h2 class="fw-bold text-dark mb-2">${root.label}</h2>
           <div class="small fw-bold text-royal text-uppercase tracking-wide mb-3">${root.category || 'Holding & Investment Manager'}</div>
           <p class="text-secondary small mb-0 lh-lg" style="max-width: 620px;">
-            ${root.description}
+            ${root.description || ''}
           </p>
         </div>
 

@@ -79,41 +79,76 @@
       MGIComponents.renderNavbar('ekosistem');
       MGIComponents.renderFooter();
 
-      // Fetch ekosistem data
-      const data = await MGI.fetchData('data/ekosistem.json');
-      if (!data) return;
-
-      if (data.title) {
-        document.getElementById('ekoTitle').innerHTML = `Bagan Ekosistem Terpadu <br><span class="text-gold">Montana Group</span>`;
-      }
-      if (data.subtitle) document.getElementById('ekoSubtitle').textContent = data.subtitle;
-
-      // Render Tree
-      MGIDiagrams.renderEkosistem('ekosistemTreeMount', null, data);
-
-      // Render Governance Points with bold top borders
-      if (data.governance_summary && data.governance_summary.points) {
-        const govContainer = document.getElementById('govPointsContainer');
-        govContainer.innerHTML = data.governance_summary.points.map((pt, i) => {
-          const parts = pt.split(':');
-          const title = parts[0] || `Prinsip ${i + 1}`;
-          const desc = parts[1] || pt;
-          const isGold = i % 2 === 1;
-          const topCol = isGold ? '#C5A059' : '#1D3589';
-          const iconCol = isGold ? 'text-gold' : 'text-royal';
-          return `
-            <div class="col-12 col-md-6 col-lg-3">
-              <div class="p-3 bg-white rounded-3 shadow-sm h-100 d-flex flex-column" style="border: 1.5px solid #CBD5E1; border-top: 4px solid ${topCol} !important;">
-                <div class="${iconCol} fw-bold mb-2 small text-uppercase">
-                  <i class="bi bi-shield-check me-1"></i> ${title}
-                </div>
-                <p class="text-secondary small mb-0 lh-base">
-                  ${desc}
-                </p>
+      try {
+        // Fetch ekosistem data (API-First with static fallback)
+        const data = await MGI.fetchData('data/ekosistem.json');
+        
+        if (!data || !data.nodes || data.nodes.length === 0) {
+          const mount = document.getElementById('ekosistemTreeMount');
+          if (mount) {
+            mount.innerHTML = `
+              <div class="alert alert-warning text-center p-4 rounded-3 shadow-sm mx-auto my-4" style="max-width: 600px;">
+                <i class="bi bi-exclamation-triangle-fill text-warning fs-3 d-block mb-2"></i>
+                <h5 class="fw-bold">Gagal Memuat Bagan Ekosistem</h5>
+                <p class="text-muted small mb-3">Terjadi kendala saat mengambil data struktur ekosistem. Silakan pastikan server lokal Anda aktif atau muat ulang halaman.</p>
+                <button class="btn btn-outline-dark btn-sm px-4" onclick="location.reload()">
+                  <i class="bi bi-arrow-clockwise me-1"></i> Muat Ulang
+                </button>
               </div>
+            `;
+          }
+          return;
+        }
+
+        if (data.title) {
+          document.getElementById('ekoTitle').innerHTML = `Bagan Ekosistem Terpadu <br><span class="text-gold">Montana Group</span>`;
+        }
+        if (data.subtitle) document.getElementById('ekoSubtitle').textContent = data.subtitle;
+
+        // Render Tree
+        MGIDiagrams.renderEkosistem('ekosistemTreeMount', null, data);
+
+        // Render Governance Points with bold top borders
+        if (data.governance_summary && data.governance_summary.points) {
+          const govContainer = document.getElementById('govPointsContainer');
+          if (govContainer) {
+            govContainer.innerHTML = data.governance_summary.points.map((pt, i) => {
+              const parts = pt.split(':');
+              const title = parts[0] || `Prinsip ${i + 1}`;
+              const desc = parts[1] || pt;
+              const isGold = i % 2 === 1;
+              const topCol = isGold ? '#C5A059' : '#1D3589';
+              const iconCol = isGold ? 'text-gold' : 'text-royal';
+              return `
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="p-3 bg-white rounded-3 shadow-sm h-100 d-flex flex-column" style="border: 1.5px solid #CBD5E1; border-top: 4px solid ${topCol} !important;">
+                    <div class="${iconCol} fw-bold mb-2 small text-uppercase">
+                      <i class="bi bi-shield-check me-1"></i> ${title}
+                    </div>
+                    <p class="text-secondary small mb-0 lh-base">
+                      ${desc}
+                    </p>
+                  </div>
+                </div>
+              `;
+            }).join('');
+          }
+        }
+      } catch (err) {
+        console.error('[Ekosistem Page] Error:', err);
+        const mount = document.getElementById('ekosistemTreeMount');
+        if (mount) {
+          mount.innerHTML = `
+            <div class="alert alert-danger text-center p-4 rounded-3 shadow-sm mx-auto my-4" style="max-width: 600px;">
+              <i class="bi bi-x-circle-fill text-danger fs-3 d-block mb-2"></i>
+              <h5 class="fw-bold">Terjadi Kesalahan</h5>
+              <p class="text-muted small mb-3">Tidak dapat menampilkan bagan: ${err.message || 'Error tidak terduga'}</p>
+              <button class="btn btn-outline-danger btn-sm px-4" onclick="location.reload()">
+                <i class="bi bi-arrow-clockwise me-1"></i> Muat Ulang
+              </button>
             </div>
           `;
-        }).join('');
+        }
       }
     });
   </script>

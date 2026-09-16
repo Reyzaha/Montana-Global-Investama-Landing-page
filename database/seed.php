@@ -349,7 +349,7 @@ try {
                 $n['parent'] ?? null,
                 $n['level'] ?? 0,
                 $n['badge'] ?? null,
-                $n['role_desc'] ?? null,
+                $n['description'] ?? null,
                 $idx + 1
             ]);
         }
