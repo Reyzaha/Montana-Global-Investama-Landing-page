@@ -1,0 +1,52 @@
+{
+  "years": ["2020", "2021", "2022", "2023", "2024", "2025", "2026 (P)"],
+  "mgi": {
+    "title": "Konsolidasi Grup PT Montana Global Investama",
+    "subtitle": "Pertumbuhan Nilai Aset Terkelola (AUM) & Skala Portofolio Investasi Sektor Riil",
+    "badge": "Holding & Investment Manager",
+    "badgeClass": "bg-dark",
+    "chartLabel": "Nilai Aset Terkelola / AUM (Rp Miliar)",
+    "data": [24, 42, 80, 136, 214, 317, 435],
+    "unit": "Miliar IDR",
+    "kpis": [
+      { "label": "Total Aset Terkelola (2025)", "value": "Rp 317 M", "note": "Target 2026: Rp 435 M", "icon": "bi-bank2", "color": "text-royal" },
+      { "label": "Tingkat Ketepatan Bagi Hasil", "value": "100%", "note": "On-Time Payout Rekam Jejak", "icon": "bi-check-circle-fill", "color": "text-success" },
+      { "label": "Rasio Default (NPA)", "value": "0.0%", "note": "Underlying Asset Terproteksi", "icon": "bi-shield-fill-check", "color": "text-gold" },
+      { "label": "Batch Sindikasi Teralokasi", "value": "18 Batch", "note": "Alat Berat & Logistik", "icon": "bi-layers-fill", "color": "text-primary" }
+    ]
+  },
+  "miu": {
+    "title": "PT Montana Indo Utama (MIU)",
+    "subtitle": "Pertumbuhan Populasi Armada Alat Berat CBU Jepang & Utilisasi Kontrak Operasional",
+    "badge": "Distribusi, Workshop & Operasional CBU",
+    "badgeClass": "bg-royal text-white",
+    "chartLabel": "Populasi Unit Alat Berat Aktif (Unit)",
+    "secondaryChartLabel": "Nilai Aset Armada (Rp Miliar)",
+    "data": [16, 28, 45, 68, 92, 124, 165],
+    "assetValue": [24, 42, 68, 105, 148, 205, 275],
+    "unit": "Unit",
+    "kpis": [
+      { "label": "Populasi Armada Aktif (2025)", "value": "124 Unit", "note": "Target 2026: 165+ Unit", "icon": "bi-truck-flatbed", "color": "text-royal" },
+      { "label": "Tingkat Utilisasi Mesin", "value": "94.8%", "note": "Tersewa Kontrak Jangka Panjang", "icon": "bi-speedometer2", "color": "text-success" },
+      { "label": "Standar Mutu Unit", "value": "Grade A CBU", "note": "Komatsu, Kobelco, Hino Asli Jepang", "icon": "bi-award-fill", "color": "text-gold" },
+      { "label": "Cakupan Operasional", "value": "4 Pulau", "note": "Jawa, Sumatera, Kalsel, Sulsel", "icon": "bi-geo-alt-fill", "color": "text-primary" }
+    ]
+  },
+  "msi": {
+    "title": "Montana Sentra Industri (MSI)",
+    "subtitle": "Evolusi Kapasitas Fabrikasi Manufaktur, Komponen Suku Cadang & Ketahanan Rantai Pasok",
+    "badge": "Manufaktur & Fabrikasi Industri",
+    "badgeClass": "bg-gold text-white",
+    "chartLabel": "Kapasitas Output Fabrikasi (Ton/Tahun)",
+    "secondaryChartLabel": "Nilai Output Komponen (Rp Miliar)",
+    "data": [0, 0, 350, 820, 1650, 2800, 4200],
+    "assetValue": [0, 0, 8, 21, 46, 82, 125],
+    "unit": "Ton/Tahun",
+    "kpis": [
+      { "label": "Output Fabrikasi (2025)", "value": "2.800 Ton", "note": "Target 2026: 4.200 Ton/Thn", "icon": "bi-gear-wide-connected", "color": "text-gold" },
+      { "label": "Substitusi Impor Komponen", "value": "72%", "note": "Kemandirian Suku Cadang Unit", "icon": "bi-shield-check", "color": "text-success" },
+      { "label": "Efisiensi Maintenance Grup", "value": "28.5%", "note": "Penghematan Capex & Opex", "icon": "bi-graph-down-arrow", "color": "text-royal" },
+      { "label": "Mitra Industri Aktif", "value": "45+ Mitra", "note": "Smelter, Quarry & Konstruksi", "icon": "bi-building-fill-check", "color": "text-primary" }
+    ]
+  }
+}

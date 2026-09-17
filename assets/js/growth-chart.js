@@ -4,7 +4,7 @@
  * Menampilkan performa segmen: Konsolidasi MGI, PT Montana Indo Utama (MIU), dan Montana Sentra Industri (MSI).
  */
 
-const MGIGrowthData = {
+let MGIGrowthData = {
   years: ['2020', '2021', '2022', '2023', '2024', '2025', '2026 (P)'],
   
   // Data Konsolidasi Holding MGI (Nilai Aset Terkelola / AUM dalam Miliar IDR)
@@ -86,7 +86,26 @@ function renderGrowthKpis(kpis) {
   `).join('');
 }
 
-function initGrowthChart(activeSegment = 'mgi') {
+let hasFetchedGrowthData = false;
+
+async function loadGrowthData() {
+  if (hasFetchedGrowthData) return;
+  try {
+    const res = await fetch('api/growth.php');
+    if (res.ok) {
+      const json = await res.json();
+      if (json && json.years && json.mgi) {
+        MGIGrowthData = json;
+        hasFetchedGrowthData = true;
+      }
+    }
+  } catch (e) {
+    console.warn('Fallback to local default growth data:', e);
+  }
+}
+
+async function initGrowthChart(activeSegment = 'mgi') {
+  await loadGrowthData();
   const ctx = document.getElementById('mgiGrowthCanvas');
   if (!ctx) return;
 
