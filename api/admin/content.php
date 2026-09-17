@@ -23,6 +23,34 @@ try {
         if ($method === 'GET') {
             $stmt = $db->query("SELECT * FROM transformasi_steps ORDER BY step_order ASC");
             $rows = $stmt->fetchAll();
+
+            // Auto-populate from data/transformasi.json if DB table is currently empty
+            if (empty($rows)) {
+                $jsonFile = __DIR__ . '/../../data/transformasi.json';
+                if (file_exists($jsonFile)) {
+                    $jsonData = json_decode(file_get_contents($jsonFile), true);
+                    if (!empty($jsonData['journey'])) {
+                        $insStmt = $db->prepare("
+                            INSERT INTO transformasi_steps (step_order, year_or_phase, title, subtitle, description, highlights, status)
+                            VALUES (?, ?, ?, ?, ?, ?, ?)
+                        ");
+                        foreach ($jsonData['journey'] as $j) {
+                            $insStmt->execute([
+                                (int)($j['step'] ?? 1),
+                                $j['year_or_phase'] ?? '',
+                                $j['title'] ?? '',
+                                $j['tagline'] ?? ($j['subtitle'] ?? ''),
+                                $j['description'] ?? '',
+                                json_encode($j['achievements'] ?? [], JSON_UNESCAPED_UNICODE),
+                                $j['status'] ?? 'completed'
+                            ]);
+                        }
+                        $stmt = $db->query("SELECT * FROM transformasi_steps ORDER BY step_order ASC");
+                        $rows = $stmt->fetchAll();
+                    }
+                }
+            }
+
             sendJsonResponse($rows);
         }
 
@@ -92,6 +120,43 @@ try {
         if ($method === 'GET') {
             $stmt = $db->query("SELECT * FROM ekosistem_nodes ORDER BY level ASC, sort_order ASC");
             $rows = $stmt->fetchAll();
+
+            // Auto-populate from data/ekosistem.json if DB table is empty on VPS
+            if (empty($rows)) {
+                $jsonFile = __DIR__ . '/../../data/ekosistem.json';
+                if (file_exists($jsonFile)) {
+                    $jsonData = json_decode(file_get_contents($jsonFile), true);
+                    if (!empty($jsonData['nodes'])) {
+                        $insertStmt = $db->prepare("
+                            INSERT IGNORE INTO ekosistem_nodes (
+                                id, label, short_label, subtitle, parent_id,
+                                level, badge, type, category, icon,
+                                role_desc, sort_order
+                            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ");
+                        $order = 1;
+                        foreach ($jsonData['nodes'] as $node) {
+                            $insertStmt->execute([
+                                $node['id'],
+                                $node['label'],
+                                $node['short_label'] ?? $node['label'],
+                                $node['subtitle'] ?? null,
+                                $node['parent'] ?? null,
+                                (int)($node['level'] ?? 0),
+                                $node['badge'] ?? null,
+                                $node['type'] ?? 'subsidiary',
+                                $node['category'] ?? null,
+                                $node['icon'] ?? 'building',
+                                $node['description'] ?? null,
+                                $order++
+                            ]);
+                        }
+                        $stmt = $db->query("SELECT * FROM ekosistem_nodes ORDER BY level ASC, sort_order ASC");
+                        $rows = $stmt->fetchAll();
+                    }
+                }
+            }
+
             sendJsonResponse($rows);
         }
 
@@ -184,6 +249,57 @@ try {
 
             $stmtWf = $db->query("SELECT * FROM preparation_workflow ORDER BY step_number ASC");
             $workflow = $stmtWf->fetchAll();
+
+            // Auto-populate from data/preparation.json if DB tables are empty
+            $jsonFile = __DIR__ . '/../../data/preparation.json';
+            if (file_exists($jsonFile)) {
+                $prepData = json_decode(file_get_contents($jsonFile), true);
+
+                if (empty($entities) && !empty($prepData['entities_summary'])) {
+                    $insEnt = $db->prepare("
+                        INSERT IGNORE INTO preparation_entities (
+                            code, name, slogan, role, level, badge, color, description, focus, output, location, sort_order
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ");
+                    $order = 1;
+                    foreach ($prepData['entities_summary'] as $e) {
+                        $insEnt->execute([
+                            $e['code'],
+                            $e['name'],
+                            $e['slogan'] ?? '',
+                            $e['role'] ?? '',
+                            $e['level'] ?? 'Level 1',
+                            $e['badge'] ?? $e['code'],
+                            $e['color'] ?? 'gold',
+                            $e['description'] ?? '',
+                            $e['fokus_kerja'] ?? ($e['focus'] ?? ''),
+                            $e['output_utama'] ?? ($e['output'] ?? ''),
+                            $e['location'] ?? 'Indonesia',
+                            $order++
+                        ]);
+                    }
+                    $stmtEnt = $db->query("SELECT * FROM preparation_entities ORDER BY sort_order ASC");
+                    $entities = $stmtEnt->fetchAll();
+                }
+
+                if (empty($workflow) && !empty($prepData['workflow'])) {
+                    $insWf = $db->prepare("
+                        INSERT INTO preparation_workflow (step_number, title, actor, description, badge)
+                        VALUES (?, ?, ?, ?, ?)
+                    ");
+                    foreach ($prepData['workflow'] as $w) {
+                        $insWf->execute([
+                            (int)($w['step'] ?? 1),
+                            $w['title'] ?? '',
+                            $w['actor'] ?? '',
+                            $w['desc'] ?? ($w['description'] ?? ''),
+                            "Tahap " . ($w['step'] ?? 1)
+                        ]);
+                    }
+                    $stmtWf = $db->query("SELECT * FROM preparation_workflow ORDER BY step_number ASC");
+                    $workflow = $stmtWf->fetchAll();
+                }
+            }
 
             sendJsonResponse([
                 'entities' => $entities,
