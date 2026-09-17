@@ -9,7 +9,7 @@ services:
     container_name: mgi_web_app
     restart: always
     ports:
-      - "80:80"
+      - "8085:80"
     environment:
       - DB_HOST=mgi-db
       - DB_PORT=3306

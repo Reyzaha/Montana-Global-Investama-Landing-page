@@ -50,6 +50,31 @@ docker compose ps
 
 ---
 
+## 3b. Konfigurasi Nginx Reverse Proxy & SSL (Domain montanaglobalinvestama.com)
+
+Sesuai arsitektur resmi Team IT Montana:
+
+1. **Salin file konfigurasi Nginx** dari project ke `sites-available`:
+   ```bash
+   sudo cp /var/www/mgi/nginx/montanaglobalinvestama.conf /etc/nginx/sites-available/montanaglobalinvestama.com
+   ```
+2. **Aktifkan konfigurasi dengan membuat symlink** ke `sites-enabled`:
+   ```bash
+   sudo ln -s /etc/nginx/sites-available/montanaglobalinvestama.com /etc/nginx/sites-enabled/
+   ```
+3. **Uji sintaks dan reload Nginx**:
+   ```bash
+   sudo nginx -t
+   sudo systemctl reload nginx
+   ```
+4. **Pasang SSL Let's Encrypt Gratis (Certbot)**:
+   ```bash
+   sudo certbot --nginx -d montanaglobalinvestama.com -d www.montanaglobalinvestama.com
+   ```
+   *Certbot otomatis membuat sertifikat SSL dan menambahkan konfigurasi port 443 HTTPS & auto-redirect.*
+
+---
+
 ## 4. Inisialisasi Akun Superadmin Baru (Siap MFA)
 
 Jalankan perintah berikut di dalam container untuk membuat akun Superadmin fresh yang siap di-scan Google Authenticator:
