@@ -128,8 +128,30 @@ require_once __DIR__ . '/includes/header.php';
                     </select>
                   </div>
                   <div class="col-md-6">
-                    <label class="form-label">Path / URL Gambar Proyek</label>
-                    <input type="text" id="pImage" class="form-control" value="assets/img/komatsu.jpg">
+                    <label class="form-label fw-semibold">Attachment / Foto Sampul Proyek <span class="text-danger">*</span></label>
+                    <div class="d-flex align-items-center gap-3 p-2 bg-light rounded border">
+                      <!-- Thumbnail Preview -->
+                      <div class="position-relative border rounded p-1 bg-white flex-shrink-0" style="width: 72px; height: 52px; overflow: hidden;">
+                        <img id="projectImagePreview" src="../assets/img/komatsu.jpg" alt="Preview" class="w-100 h-100 rounded" style="object-fit: cover;" onerror="this.src='../assets/img/project-excavator.svg'">
+                      </div>
+                      
+                      <!-- Upload Controller -->
+                      <div class="flex-grow-1 overflow-hidden">
+                        <input type="hidden" id="pImage" value="assets/img/komatsu.jpg">
+                        <input type="file" id="pImageUpload" class="d-none" accept="image/png, image/jpeg, image/webp, image/gif, image/svg+xml" onchange="handleProjectImageUpload(this)">
+                        
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                          <button type="button" class="btn btn-outline-primary btn-sm d-flex align-items-center gap-1 shadow-sm" onclick="document.getElementById('pImageUpload').click()" id="btnUploadImageTrigger">
+                            <i class="bi bi-cloud-arrow-up-fill"></i>
+                            <span>Upload Attachment Gambar</span>
+                          </button>
+                          <span class="small text-muted" id="uploadImageStatus" style="font-size: 0.75rem;">Maks. 10MB</span>
+                        </div>
+                        <div class="small text-muted font-monospace text-truncate" id="currentImagePathDisplay" style="font-size: 0.72rem;">
+                          assets/img/komatsu.jpg
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div class="col-md-2 d-flex align-items-end">
                     <div class="form-check mb-2">
@@ -474,6 +496,9 @@ require_once __DIR__ . '/includes/header.php';
     document.getElementById('pCategory').value = 'Alat Berat & Infrastruktur';
     document.getElementById('pStatus').value = 'Open';
     document.getElementById('pImage').value = 'assets/img/komatsu.jpg';
+    document.getElementById('projectImagePreview').src = '../assets/img/komatsu.jpg';
+    document.getElementById('currentImagePathDisplay').textContent = 'assets/img/komatsu.jpg';
+    document.getElementById('uploadImageStatus').innerHTML = 'Maks. 10MB';
     document.getElementById('pFeatured').checked = false;
     document.getElementById('pFundingTarget').value = '20000000000';
     document.getElementById('pFundingCollected').value = '0';
@@ -533,7 +558,11 @@ require_once __DIR__ . '/includes/header.php';
       document.getElementById('pTitle').value = p.title;
       document.getElementById('pCategory').value = p.category;
       document.getElementById('pStatus').value = p.status;
-      document.getElementById('pImage').value = p.image;
+      const imgPath = p.image || 'assets/img/komatsu.jpg';
+      document.getElementById('pImage').value = imgPath;
+      document.getElementById('projectImagePreview').src = `../${imgPath}`;
+      document.getElementById('currentImagePathDisplay').textContent = imgPath;
+      document.getElementById('uploadImageStatus').innerHTML = 'Maks. 10MB';
       document.getElementById('pFeatured').checked = p.featured == 1;
       document.getElementById('pFundingTarget').value = p.funding_target;
       document.getElementById('pFundingCollected').value = p.funding_collected;
@@ -693,6 +722,47 @@ require_once __DIR__ . '/includes/header.php';
     } catch (e) {
       console.error(e);
       AdminApp.showToast('Gagal menghapus proyek.', 'danger');
+  }
+
+  async function handleProjectImageUpload(input) {
+    if (!input.files || !input.files[0]) return;
+    const file = input.files[0];
+    
+    const statusEl = document.getElementById('uploadImageStatus');
+    const btnTrigger = document.getElementById('btnUploadImageTrigger');
+    const pathDisplay = document.getElementById('currentImagePathDisplay');
+    const previewImg = document.getElementById('projectImagePreview');
+    const hiddenInput = document.getElementById('pImage');
+
+    statusEl.innerHTML = `<span class="spinner-border spinner-border-sm text-primary me-1"></span> Mengunggah ${file.name}...`;
+    btnTrigger.disabled = true;
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('folder', 'projects');
+
+    try {
+      const res = await fetch('../api/admin/upload.php', {
+        method: 'POST',
+        body: formData
+      });
+      const json = await res.json();
+
+      if (json.success && json.data && json.data.file_path) {
+        hiddenInput.value = json.data.file_path;
+        pathDisplay.textContent = json.data.file_path;
+        previewImg.src = `../${json.data.file_path}`;
+        statusEl.innerHTML = `<span class="text-success fw-bold"><i class="bi bi-check-circle-fill me-1"></i> Terunggah</span>`;
+        AdminApp.showToast('Foto attachment proyek berhasil diunggah!', 'success');
+      } else {
+        statusEl.innerHTML = `<span class="text-danger fw-bold"><i class="bi bi-exclamation-triangle-fill me-1"></i> ${json.message || 'Gagal upload'}</span>`;
+        AdminApp.showToast(json.message || 'Gagal mengunggah gambar', 'danger');
+      }
+    } catch (err) {
+      statusEl.innerHTML = `<span class="text-danger fw-bold">Koneksi upload gagal</span>`;
+      AdminApp.showToast('Koneksi upload gagal', 'danger');
+    } finally {
+      btnTrigger.disabled = false;
     }
   }
 </script>
