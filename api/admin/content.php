@@ -15,6 +15,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 try {
     $db = getDB();
+    ensureCmsSchema($db);
 
     // =========================================================================
     // 1. TRANSFORMASI ROADMAP MILESTONES
@@ -121,12 +122,17 @@ try {
             $stmt = $db->query("SELECT * FROM ekosistem_nodes ORDER BY level ASC, sort_order ASC");
             $rows = $stmt->fetchAll();
 
-            // Auto-populate from data/ekosistem.json if DB table is empty on VPS
-            if (empty($rows)) {
-                $jsonFile = __DIR__ . '/../../data/ekosistem.json';
-                if (file_exists($jsonFile)) {
-                    $jsonData = json_decode(file_get_contents($jsonFile), true);
-                    if (!empty($jsonData['nodes'])) {
+            $jsonFile = __DIR__ . '/../../data/ekosistem.json';
+            $jsonMap = [];
+            if (file_exists($jsonFile)) {
+                $jsonData = json_decode(file_get_contents($jsonFile), true);
+                if (!empty($jsonData['nodes'])) {
+                    foreach ($jsonData['nodes'] as $jn) {
+                        $jsonMap[$jn['id']] = $jn;
+                    }
+
+                    // Auto-populate from data/ekosistem.json if DB table is empty on VPS
+                    if (empty($rows)) {
                         $insertStmt = $db->prepare("
                             INSERT IGNORE INTO ekosistem_nodes (
                                 id, label, short_label, subtitle, parent_id,
@@ -157,7 +163,21 @@ try {
                 }
             }
 
-            sendJsonResponse($rows);
+            // Sanitize rows with fallback values
+            $sanitized = [];
+            foreach ($rows as $r) {
+                $id = $r['id'];
+                $fb = $jsonMap[$id] ?? [];
+                $r['short_label'] = !empty($r['short_label']) ? $r['short_label'] : ($fb['short_label'] ?? $r['label']);
+                $r['type'] = !empty($r['type']) ? $r['type'] : ($fb['type'] ?? ($r['level'] == 0 ? 'holding' : ($r['level'] == 2 ? 'facility' : 'subsidiary')));
+                $r['category'] = !empty($r['category']) ? $r['category'] : ($fb['category'] ?? '');
+                $r['icon'] = !empty($r['icon']) ? $r['icon'] : ($fb['icon'] ?? 'building');
+                $r['badge'] = !empty($r['badge']) ? $r['badge'] : ($fb['badge'] ?? '');
+                $r['role_desc'] = !empty($r['role_desc']) ? $r['role_desc'] : ($fb['description'] ?? '');
+                $sanitized[] = $r;
+            }
+
+            sendJsonResponse($sanitized);
         }
 
         if ($method === 'POST' || $method === 'PUT') {
@@ -501,3 +521,109 @@ function syncPreparationJson(PDO $db): void {
         error_log("[CMS Sync Preparation Error] " . $e->getMessage());
     }
 }
+
+/**
+ * Self-healing automatic schema migration for CMS tables & columns
+ */
+function ensureCmsSchema(PDO $db): void {
+    // 1. Check ekosistem_nodes table and columns
+    try {
+        $db->exec("
+            CREATE TABLE IF NOT EXISTS `ekosistem_nodes` (
+              `id` VARCHAR(50) PRIMARY KEY,
+              `label` VARCHAR(255) NOT NULL,
+              `short_label` VARCHAR(150) NULL,
+              `subtitle` VARCHAR(255) NULL,
+              `parent_id` VARCHAR(50) NULL,
+              `level` INT NOT NULL DEFAULT 0,
+              `badge` VARCHAR(100) NULL,
+              `type` VARCHAR(50) NULL,
+              `category` VARCHAR(150) NULL,
+              `icon` VARCHAR(50) NULL DEFAULT 'building',
+              `role_desc` TEXT NULL,
+              `sort_order` INT NOT NULL DEFAULT 0,
+              `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        ");
+
+        $cols = $db->query("DESCRIBE ekosistem_nodes")->fetchAll(PDO::FETCH_COLUMN);
+        if (!in_array('short_label', $cols)) {
+            $db->exec("ALTER TABLE ekosistem_nodes ADD COLUMN `short_label` VARCHAR(150) NULL AFTER `label`");
+        }
+        if (!in_array('type', $cols)) {
+            $db->exec("ALTER TABLE ekosistem_nodes ADD COLUMN `type` VARCHAR(50) NULL AFTER `badge`");
+        }
+        if (!in_array('category', $cols)) {
+            $db->exec("ALTER TABLE ekosistem_nodes ADD COLUMN `category` VARCHAR(150) NULL AFTER `type`");
+        }
+        if (!in_array('icon', $cols)) {
+            $db->exec("ALTER TABLE ekosistem_nodes ADD COLUMN `icon` VARCHAR(50) NULL DEFAULT 'building' AFTER `category`");
+        }
+        if (!in_array('role_desc', $cols)) {
+            $db->exec("ALTER TABLE ekosistem_nodes ADD COLUMN `role_desc` TEXT NULL AFTER `icon`");
+        }
+    } catch (Exception $e) {
+        error_log("[CMS Schema Migration ekosistem_nodes Error] " . $e->getMessage());
+    }
+
+    // 2. Ensure transformasi_steps
+    try {
+        $db->exec("
+            CREATE TABLE IF NOT EXISTS `transformasi_steps` (
+              `id` INT AUTO_INCREMENT PRIMARY KEY,
+              `step_order` INT NOT NULL DEFAULT 1,
+              `year_or_phase` VARCHAR(50) NOT NULL,
+              `title` VARCHAR(255) NOT NULL,
+              `subtitle` VARCHAR(255) NULL,
+              `description` TEXT NOT NULL,
+              `highlights` JSON NULL,
+              `status` VARCHAR(50) NOT NULL DEFAULT 'completed',
+              `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+              `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        ");
+    } catch (Exception $e) {
+        error_log("[CMS Schema Migration transformasi_steps Error] " . $e->getMessage());
+    }
+
+    // 3. Ensure preparation_entities
+    try {
+        $db->exec("
+            CREATE TABLE IF NOT EXISTS `preparation_entities` (
+              `code` VARCHAR(50) PRIMARY KEY,
+              `name` VARCHAR(255) NOT NULL,
+              `slogan` VARCHAR(255) NULL,
+              `role` VARCHAR(255) NOT NULL,
+              `level` VARCHAR(100) NOT NULL,
+              `badge` VARCHAR(100) NOT NULL,
+              `color` VARCHAR(50) NOT NULL DEFAULT 'gold',
+              `description` TEXT NOT NULL,
+              `focus` TEXT NOT NULL,
+              `output` TEXT NOT NULL,
+              `location` VARCHAR(255) NULL,
+              `sort_order` INT NOT NULL DEFAULT 0,
+              `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        ");
+    } catch (Exception $e) {
+        error_log("[CMS Schema Migration preparation_entities Error] " . $e->getMessage());
+    }
+
+    // 4. Ensure preparation_workflow
+    try {
+        $db->exec("
+            CREATE TABLE IF NOT EXISTS `preparation_workflow` (
+              `id` INT AUTO_INCREMENT PRIMARY KEY,
+              `step_number` INT NOT NULL DEFAULT 1,
+              `title` VARCHAR(255) NOT NULL,
+              `actor` VARCHAR(255) NOT NULL,
+              `description` TEXT NOT NULL,
+              `badge` VARCHAR(100) NULL,
+              `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        ");
+    } catch (Exception $e) {
+        error_log("[CMS Schema Migration preparation_workflow Error] " . $e->getMessage());
+    }
+}
+
