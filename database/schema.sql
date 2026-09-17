@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `admin_users` (
   `email` VARCHAR(191) NOT NULL UNIQUE,
   `password_hash` VARCHAR(255) NOT NULL,
   `full_name` VARCHAR(150) NOT NULL DEFAULT 'Super Administrator',
-  `role` ENUM('superadmin', 'editor') NOT NULL DEFAULT 'superadmin',
+  `role` ENUM('superadmin', 'admin', 'editor') NOT NULL DEFAULT 'admin',
   `is_active` TINYINT(1) NOT NULL DEFAULT 1,
   `mfa_secret` VARCHAR(64) NULL,
   `mfa_enabled` TINYINT(1) NOT NULL DEFAULT 0,

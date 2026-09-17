@@ -63,6 +63,13 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
       <div class="px-3 mt-4 mb-2 text-uppercase text-white-50" style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px;">Sistem &amp; Tautan</div>
 
+      <?php if (($adminUser['role'] ?? '') === 'superadmin'): ?>
+      <a href="admins.php" class="nav-link <?= $currentPage === 'admins.php' ? 'active' : '' ?>">
+        <i class="bi bi-person-gear"></i>
+        <span>Manajemen Admin</span>
+      </a>
+      <?php endif; ?>
+
       <a href="settings.php" class="nav-link <?= $currentPage === 'settings.php' ? 'active' : '' ?>">
         <i class="bi bi-sliders"></i>
         <span>Pengaturan Sistem</span>
