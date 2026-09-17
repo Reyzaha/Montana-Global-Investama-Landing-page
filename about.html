@@ -104,17 +104,17 @@
         </div>
 
         <!-- Segment Selector Tabs -->
-        <div class="d-inline-flex flex-wrap p-1 bg-light rounded-pill border border-subtle gap-1">
-          <button class="btn btn-sm btn-royal rounded-pill px-3 py-2 fw-semibold growth-tab-btn active" data-segment="mgi">
+        <div class="d-flex flex-wrap gap-2">
+          <button class="btn btn-sm btn-royal rounded-3 px-3 py-2 fw-semibold growth-tab-btn active shadow-sm" data-segment="mgi">
             <i class="bi bi-pie-chart-fill me-1"></i> Konsolidasi MGI
           </button>
-          <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-2 fw-semibold growth-tab-btn" data-segment="miu">
+          <button class="btn btn-sm btn-outline-secondary rounded-3 px-3 py-2 fw-semibold growth-tab-btn" data-segment="miu">
             <i class="bi bi-truck-flatbed me-1"></i> PT MIU (Alat Berat)
           </button>
-          <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-2 fw-semibold growth-tab-btn" data-segment="msi">
+          <button class="btn btn-sm btn-outline-secondary rounded-3 px-3 py-2 fw-semibold growth-tab-btn" data-segment="msi">
             <i class="bi bi-gear-wide-connected me-1"></i> MSI (Manufaktur)
           </button>
-          <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-2 fw-semibold growth-tab-btn" data-segment="compare">
+          <button class="btn btn-sm btn-outline-secondary rounded-3 px-3 py-2 fw-semibold growth-tab-btn" data-segment="compare">
             <i class="bi bi-arrow-left-right me-1"></i> Bandingan MIU vs MSI
           </button>
         </div>
@@ -308,11 +308,11 @@
         document.querySelectorAll('.growth-tab-btn').forEach(btn => {
           btn.addEventListener('click', (e) => {
             document.querySelectorAll('.growth-tab-btn').forEach(b => {
-              b.classList.remove('active', 'btn-royal');
+              b.classList.remove('active', 'btn-royal', 'shadow-sm');
               b.classList.add('btn-outline-secondary');
             });
             const targetBtn = e.currentTarget;
-            targetBtn.classList.add('active', 'btn-royal');
+            targetBtn.classList.add('active', 'btn-royal', 'shadow-sm');
             targetBtn.classList.remove('btn-outline-secondary');
 
             const segment = targetBtn.getAttribute('data-segment');
