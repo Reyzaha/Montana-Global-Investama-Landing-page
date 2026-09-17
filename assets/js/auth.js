@@ -26,12 +26,14 @@ const MGIAuth = {
         xhr.setRequestHeader('X-CSRF-Token', this.csrfToken);
       }
       xhr.send(JSON.stringify(payload));
-      if (xhr.status >= 200 && xhr.status < 500) {
-        const res = JSON.parse(xhr.responseText);
-        if (res && res.data && res.data.csrf_token) {
-          this.csrfToken = res.data.csrf_token;
-        }
-        return res;
+      if (xhr.status >= 200 && xhr.status <= 500 && xhr.responseText) {
+        try {
+          const res = JSON.parse(xhr.responseText);
+          if (res && res.data && res.data.csrf_token) {
+            this.csrfToken = res.data.csrf_token;
+          }
+          return res;
+        } catch (parseErr) {}
       }
     } catch (e) {
       console.warn(`[MGIAuth] Backend API (action=${action}) unavailable:`, e);

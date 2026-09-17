@@ -232,7 +232,7 @@ try {
 
             $stmtIns = $db->prepare("
                 INSERT INTO investors (account_type, email, password_hash, full_name, citizenship, phone, status)
-                VALUES ('perorangan', ?, ?, ?, ?, 'active')
+                VALUES ('perorangan', ?, ?, ?, ?, ?, 'active')
             ");
             $stmtIns->execute([$email, $hash, $fullName, $citizenship, $phone]);
             $investorId = (int)$db->lastInsertId();
