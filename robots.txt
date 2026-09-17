@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /backend/
+Disallow: /portal-admin-mgi-gateway/
+Disallow: /database/
+
+Sitemap: https://montanaglobalinvestama.com/sitemap.xml

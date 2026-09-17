@@ -15,6 +15,11 @@ $error = $_GET['error'] ?? '';
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Administrator &amp; MFA — PT Montana Global Investama</title>
+  <!-- Favicon Icons -->
+  <link rel="icon" type="image/png" href="../assets/img/mgi-official-logo.png">
+  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="../assets/img/mgi-official-logo.png">
+
   <!-- Google Fonts Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
