@@ -730,3 +730,52 @@ h6,
   color: #FFD700 !important;
   padding-left: 4px;
 }
+
+/* ==========================================================================
+   MGI Solid Theme Utility Helpers
+   ========================================================================== */
+.bg-royal {
+  background-color: var(--mgi-blue) !important;
+  color: #FFFFFF !important;
+}
+
+.text-royal {
+  color: var(--mgi-blue) !important;
+}
+
+.bg-gold {
+  background-color: var(--mgi-gold) !important;
+  color: #FFFFFF !important;
+}
+
+.text-gold {
+  color: var(--mgi-gold) !important;
+}
+
+.btn-royal {
+  background-color: var(--mgi-blue);
+  border-color: var(--mgi-blue);
+  color: #FFFFFF;
+}
+
+.btn-royal:hover, 
+.btn-royal:focus, 
+.btn-royal.active {
+  background-color: var(--mgi-blue-dark) !important;
+  border-color: var(--mgi-blue-dark) !important;
+  color: #FFFFFF !important;
+}
+
+.btn-gold {
+  background-color: var(--mgi-gold);
+  border-color: var(--mgi-gold);
+  color: #FFFFFF;
+}
+
+.btn-gold:hover, 
+.btn-gold:focus, 
+.btn-gold.active {
+  background-color: var(--mgi-gold-dark) !important;
+  border-color: var(--mgi-gold-dark) !important;
+  color: #FFFFFF !important;
+}
