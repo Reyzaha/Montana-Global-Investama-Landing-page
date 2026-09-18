@@ -167,7 +167,7 @@ const MGIComponents = {
                 <i class="bi bi-geo-alt text-gold me-1"></i> Jl. Sunburst CBD No.8 Lot I, Serpong, Tangerang Selatan
               </div>
               <div class="small text-footer-muted mb-2">
-                <i class="bi bi-envelope text-gold me-1"></i> Montanaglobalinvestamaom@gmail.com
+                <i class="bi bi-envelope text-gold me-1"></i> corporate@montanaglobalinvestama.com
               </div>
               <div class="small text-footer-muted">
                 <i class="bi bi-clock text-gold me-1"></i> Senin – Jumat (08.00 – 17.00 WIB)
@@ -263,22 +263,27 @@ const MGIComponents = {
     `;
   },
 
-  // 6. Render Secondary Meta Row (Location, Payout, Risk)
+  // 6. Render Secondary Meta Row (Location, Stock & Capitalization)
   renderMetaRow: function (info) {
     if (!info) return '';
     const lokasi = info.lokasi ? info.lokasi.split(',')[0] : 'Jawa Tengah';
     const payout = info.payout || 'Bagi Hasil Kuartalan';
-    const risk = info.risk || 'Menengah - Terukur';
+    const stock = info.stock_available || 'Unit Komatsu Siaga';
+    const cap = info.capitalization_value || 'Aset Produktif';
 
     return `
       <div class="small text-secondary mb-3 pt-2 border-top border-subtle">
         <div class="d-flex justify-content-between align-items-center mb-1">
           <span><i class="bi bi-geo-alt-fill text-gold me-1"></i>${lokasi}</span>
-          <span><i class="bi bi-calendar2-check text-royal me-1"></i>${payout}</span>
+          <span class="text-royal fw-semibold"><i class="bi bi-calendar2-check text-royal me-1"></i>${payout}</span>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <span class="text-muted" style="font-size: 0.75rem;">Stok Tersedia:</span>
+          <span class="fw-bold text-success" style="font-size: 0.78rem;"><i class="bi bi-check2-circle me-1"></i>${stock}</span>
         </div>
         <div class="d-flex justify-content-between align-items-center">
-          <span class="text-muted" style="font-size: 0.75rem;">Profil Risiko:</span>
-          <span class="fw-semibold text-dark" style="font-size: 0.78rem;"><i class="bi bi-shield-check text-royal me-1"></i>${risk}</span>
+          <span class="text-muted" style="font-size: 0.75rem;">Nilai Kapitalisasi:</span>
+          <span class="fw-bold text-dark" style="font-size: 0.78rem;">${cap}</span>
         </div>
       </div>
     `;
@@ -289,15 +294,19 @@ const MGIComponents = {
     if (!project) return '';
     const info = project.info || {};
     const remainingDays = info.remaining_days || '18 Hari Tersisa';
-    const assetTag = info.asset_backed || 'Asset-Backed';
+    const assetTag = info.asset_backed || 'Underlying Komatsu CBU';
+    const city = project.city || (info.lokasi ? info.lokasi.split(',')[0] : 'Jawa Tengah');
 
     return `
       <div class="card mgi-card h-100 shadow-sm border-0 d-flex flex-column">
         <div class="project-card-cover position-relative">
           <img src="${project.image || 'assets/img/project-excavator.svg'}" alt="${project.title}">
-          <div class="position-absolute top-0 start-0 m-3">
+          <div class="position-absolute top-0 start-0 m-3 d-flex flex-column gap-1">
             <span class="badge bg-gold text-white px-2 py-1 rounded-pill small fw-bold shadow-sm">
-              ${project.category || 'Investasi Proyek'}
+              <i class="bi bi-geo-alt-fill me-1"></i>${city}
+            </span>
+            <span class="badge bg-dark text-white px-2 py-1 rounded-pill small fw-bold shadow-sm" style="font-size: 0.7rem;">
+              KOMATSU ONLY
             </span>
           </div>
           <div class="position-absolute top-0 end-0 m-3">
@@ -328,7 +337,7 @@ const MGIComponents = {
 
           <div class="mt-auto pt-1">
             <button type="button" onclick="MGIAuth.handleProtectedDetail('${project.id}')" class="btn btn-outline-mgi w-100 py-2 fw-semibold d-flex align-items-center justify-content-center gap-2">
-              <span>Lihat Detail &amp; Simulasi BEP</span>
+              <span>Lihat Detail Project &amp; Simulasi</span>
               <i class="bi bi-arrow-right"></i>
             </button>
           </div>

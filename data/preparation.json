@@ -1,41 +1,41 @@
 {
   "title": "Struktur Kerja & Sinergi Operasional Antar Entitas",
-  "subtitle": "Alur Koordinasi Terpadu: Pengelolaan Modal, Pengadaan Rantai Pasok, dan Eksekusi Lapangan",
-  "intro": "Menjelaskan bagaimana dana investor mengalir dan bagaimana entitas-entitas dalam Montana Group saling berkoordinasi dalam satu alur kerja operasional yang transparan, akuntabel, dan terproteksi aset riil.",
+  "subtitle": "Pengelola Project, Supply Import Langsung, dan System Pengadaan Terpadu",
+  "intro": "Menjelaskan bagaimana dana project investasi mengalir secara aman dan bagaimana entitas Montana Group (MIU, MSI, Mypurcase, MGI) berkoordinasi dalam supply import dari Jepang/Cina sampai ke customer dan eksekusi project di lapangan.",
   "entities_summary": [
     {
       "code": "MGI",
       "name": "PT Montana Global Investama",
-      "role": "Induk Usaha (Holding), Manajer Investasi, dan Pengelola Modal Grup",
-      "fokus_kerja": "Pengelolaan modal, GCG, manajemen risiko, hubungan investor",
-      "output_utama": "Alokasi modal, laporan kinerja portofolio",
+      "role": "Pengelola Project & Permodalan Grup",
+      "fokus_kerja": "Pengelolaan project investasi, GCG, kepatuhan, relasi investor",
+      "output_utama": "Alokasi permodalan project, transparansi imbal hasil terukur",
       "color": "gold",
       "icon": "building"
     },
     {
       "code": "MIU",
       "name": "PT Montana Indo Utama (MIU)",
-      "role": "Unit Usaha Operasional — Impor, Distribusi CBU, Workshop & Utilisasi Alat Berat",
-      "fokus_kerja": "Impor & distribusi alat berat CBU Jepang, workshop sentral Kebumen, suku cadang original, armada Montana Towing, serta utilisasi operasional lapangan",
-      "output_utama": "Unit alat berat CBU grade A siap pakai, rekondisi prima (min. 90%), armada towing siaga, dan produktivitas kontrak proyek riil",
+      "role": "Kantor, Workshop Sentral & Armada Montana Towing",
+      "fokus_kerja": "Workshop Kebumen, armada khusus Komatsu CBU Jepang, armada Montana Towing, operasional Jawa Tengah, Bali, dan NTB",
+      "output_utama": "125 unit Komatsu Grade A siap pakai, kantor & pool Kebumen, armada towing siaga",
       "color": "blue",
       "icon": "truck"
     },
     {
       "code": "MSI",
-      "name": "Montana Sentra Industri",
-      "role": "Unit Usaha Berbasis Industri / Manufaktur",
-      "fokus_kerja": "Pengembangan industri, fasilitas rekayasa teknik dan perakitan manufaktur",
-      "output_utama": "Dukungan fasilitas industri, rekayasa permesinan presisi",
+      "name": "Montana Sentra Industri (MSI)",
+      "role": "Supply Import dari Jepang atau Cina ke Indonesia",
+      "fokus_kerja": "Fokus kepada import dari Jepang atau Cina ke Indonesia sampai pada alamat customer",
+      "output_utama": "Pengiriman door-to-door unit mesin dan alat berat impor langsung sampai lokasi",
       "color": "navy",
-      "icon": "gear-wide-connected"
+      "icon": "ship"
     },
     {
       "code": "Mypurcase",
       "name": "Mypurcase",
-      "role": "Sistem / Platform Pengadaan (Procurement) Internal Ekosistem",
-      "fokus_kerja": "Digitalisasi pengadaan (procurement), integrasi vendor & lelang impor",
-      "output_utama": "Rantai pasok pengadaan efisien, akuntabilitas anggaran, harga bersaing",
+      "role": "System dan Pengadaan Terpadu Ekosistem",
+      "fokus_kerja": "System dan pengadaan terpadu dan purchasing unit dan mesin secara efisien",
+      "output_utama": "Purchasing terpadu hemat biaya, transparansi alokasi belanja modal",
       "color": "gold",
       "icon": "cart-check"
     }
@@ -43,33 +43,33 @@
   "workflow": [
     {
       "step": 1,
-      "title": "1. Penempatan Modal Investasi",
+      "title": "1. Penempatan Modal Project Investasi",
       "actor": "Investor → PT Montana Global Investama (MGI)",
-      "desc": "Investor melakukan penempatan dana atau penyertaan modal sesuai dengan skema investasi proyek riil yang dipilih secara legal dan amanah."
+      "desc": "Investor melakukan penempatan dana pada project investasi riil pilihan dengan proyeksi imbal hasil agresif dan menguntungkan."
     },
     {
       "step": 2,
-      "title": "2. Alokasi Modal Sesuai Rencana",
-      "actor": "MGI → Unit Usaha (MIU / Montana Sentra Industri)",
-      "desc": "MGI mengalokasikan permodalan sesuai rencana penggunaan dana (use of funds) yang telah dikurasi dan diaudit untuk masing-masing proyek."
+      "title": "2. Alokasi Modal & Pemilihan Unit",
+      "actor": "MGI → Unit Usaha (MIU & MSI)",
+      "desc": "MGI mengalokasikan permodalan project untuk akuisisi unit alat berat Komatsu CBU Jepang dan supply import material industri."
     },
     {
       "step": 3,
-      "title": "3. Proses Pengadaan Barang & Jasa",
+      "title": "3. System dan Pengadaan Terpadu",
       "actor": "Unit Usaha → Mypurcase",
-      "desc": "Unit usaha mengajukan kebutuhan pembelian unit alat berat, suku cadang, atau material industri melalui sistem pengadaan terpadu Mypurcase."
+      "desc": "Purchasing unit dan mesin dikoordinasikan melalui sistem terpadu Mypurcase secara efisien dan transparan."
     },
     {
       "step": 4,
-      "title": "4. Eksekusi Pembelian ke Pemasok",
-      "actor": "Mypurcase → Vendor / Pemasok Eksternal",
-      "desc": "Mypurcase mengeksekusi pembelian langsung ke pemasok resmi, dealer alat berat Jepang, maupun vendor material industri dengan harga terstandarisasi."
+      "title": "4. Supply Import Door-to-Door",
+      "actor": "MSI → Alamat Customer / Pool",
+      "desc": "MSI mengawal import langsung dari Jepang atau Cina hingga unit tiba sempurna di alamat customer atau pool workshop."
     },
     {
       "step": 5,
-      "title": "5. Pelaporan Kinerja & Distribusi Hasil",
-      "actor": "Unit Usaha → MGI & Investor",
-      "desc": "Unit usaha melaporkan kinerja operasional dan keuangan secara berkala kepada MGI sesuai standar GCG, untuk diteruskan dalam bentuk bagi hasil kepada investor."
+      "title": "5. Utilisasi Project & Distribusi Hasil",
+      "actor": "MIU → MGI & Investor",
+      "desc": "Unit Komatsu dioperasikan pada kontrak kerja riil di kota-kota strategis, menghasilkan dividen kuartalan yang ditransfer ke rekening investor."
     }
   ]
 }

@@ -1,32 +1,32 @@
 {
   "title": "Bagan Ekosistem Korporat Montana Group",
-  "subtitle": "Holding Investasi & Peta Ekosistem Unit Usaha Terpadu",
-  "intro": "Struktur holding PT Montana Global Investama memposisikan diri sebagai manajer investasi dan pemegang kendali strategis yang menaungi unit-unit usaha operasional berdaya saing di bawahnya.",
+  "subtitle": "Holding Project Investasi & Peta Ekosistem Unit Usaha Terpadu",
+  "intro": "Struktur holding PT Montana Global Investama menaungi entitas operasional terpadu: MIU (Kantor & Workshop Kebumen, Armada Towing), MSI (Supply Import Jepang/Cina ke Customer), dan Mypurcase (System & Pengadaan Terpadu).",
   "root_entity": "mgi-holding",
   "table_summary": [
     {
       "entitas": "PT Montana Global Investama",
       "level": "0 (Holding)",
       "induk_langsung": "—",
-      "fungsi_utama": "Manajer investasi & pengelola modal grup, tata kelola GCG, manajemen risiko"
+      "fungsi_utama": "Manajer investasi & pengelola modal project grup, strategi agresif terukur, tata kelola GCG"
     },
     {
       "entitas": "PT Montana Indo Utama (MIU)",
       "level": "1",
       "induk_langsung": "PT Montana Global Investama",
-      "fungsi_utama": "Impor & distribusi alat berat CBU Jepang, workshop sentral Kebumen, armada Montana Towing, purna jual, dan utilisasi operasional proyek lapangan"
+      "fungsi_utama": "Kantor & workshop sentral Kebumen, armada Montana Towing, distribusi & utilisasi alat berat Komatsu CBU Jepang Grade A (ekspansi Jawa Tengah, Bali, NTB)"
     },
     {
-      "entitas": "Montana Sentra Industri",
+      "entitas": "Montana Sentra Industri (MSI)",
       "level": "1",
       "induk_langsung": "PT Montana Global Investama",
-      "fungsi_utama": "Unit usaha berbasis industri / manufaktur dan rekayasa teknik permesinan"
+      "fungsi_utama": "Supply import langsung mesin dan alat berat dari Jepang atau Cina ke Indonesia sampai pada alamat customer"
     },
     {
       "entitas": "Mypurcase",
       "level": "1",
       "induk_langsung": "PT Montana Global Investama",
-      "fungsi_utama": "Sistem / platform pengadaan (procurement) internal ekosistem Montana Group"
+      "fungsi_utama": "System dan pengadaan terpadu, purchasing unit dan mesin secara efisien lintas entitas grup"
     }
   ],
   "nodes": [
@@ -35,81 +35,81 @@
       "label": "PT Montana Global Investama",
       "short_label": "MGI Holding",
       "type": "holding",
-      "category": "Holding & Investment Manager",
+      "category": "Holding & Project Investment Manager",
       "parent": null,
       "level": 0,
       "icon": "building",
-      "badge": "Holding & Pengelola Modal",
-      "description": "Induk usaha (holding), manajer investasi, dan pengelola modal grup. Mengelola serta mengalokasikan modal secara terukur pada sektor potensial dengan standar GCG dan manajemen risiko berlapis."
+      "badge": "Holding & Pengelola Modal Project",
+      "description": "Induk usaha (holding), manajer investasi, dan pengelola modal project grup. Menghadirkan instrumen project investasi riil dengan prinsip agresif dan menguntungkan berimbal hasil menarik serta tata kelola GCG ketat."
     },
     {
       "id": "miu",
       "label": "PT Montana Indo Utama (MIU)",
       "short_label": "Montana Indo Utama",
       "type": "subsidiary",
-      "category": "Distribusi CBU, Workshop & Operasional",
+      "category": "Kantor, Workshop Sentral & Armada Towing",
       "parent": "mgi-holding",
       "level": 1,
       "icon": "truck",
-      "badge": "Distribusi & Operasional",
-      "description": "Entitas operasional terpadu sejak 2022. Spesialis penyediaan dan impor unit alat berat CBU Jepang (excavator, bulldozer, breaker) dengan jaminan mutu minimal 90%, pangkalan workshop overhaul & pool seluas 4.500 m² di Kebumen, armada Montana Towing, serta utilisasi operasional dan eksekusi kontrak proyek riil."
+      "badge": "Kantor & Workshop Sentral",
+      "description": "Entitas operasional terpadu yang berevolusi dari CV Montana Machine. Fokus pada armada alat berat khusus merek Komatsu CBU Jepang Grade A, fasilitas kantor & workshop sentral pool 4.500 m² di Kebumen, armada Montana Towing siaga 24 jam, serta utilisasi operasional di Jawa Tengah, Bali, dan NTB."
     },
     {
       "id": "montana-sentra-industri",
-      "label": "Montana Sentra Industri",
+      "label": "Montana Sentra Industri (MSI)",
       "short_label": "Montana Sentra Industri",
       "type": "subsidiary",
-      "category": "Industri & Manufaktur",
+      "category": "Supply Import Jepang & Cina",
       "parent": "mgi-holding",
       "level": 1,
-      "icon": "gear-wide-connected",
-      "badge": "Industri & Manufaktur",
-      "description": "Unit usaha berbasis industri dan manufaktur yang mengembangkan fasilitas pendukung teknik permesinan, perakitan komponen, dan rekayasa industri dalam ekosistem Montana Group."
+      "icon": "ship",
+      "badge": "Supply Import Laut & Ekspedisi",
+      "description": "Fokus pada supply import unit mesin dan alat berat langsung dari Jepang atau Cina ke Indonesia melalui jalur laut hingga sampai ke alamat customer secara efisien dan aman."
     },
     {
       "id": "mypurcase",
       "label": "Mypurcase",
       "short_label": "Mypurcase",
       "type": "subsidiary",
-      "category": "Sistem Pengadaan Terpadu",
+      "category": "System & Pengadaan Terpadu Digital",
       "parent": "mgi-holding",
       "level": 1,
       "icon": "cart-check",
-      "badge": "Platform Pengadaan",
-      "description": "Sistem dan platform pengadaan (procurement) internal ekosistem Montana Group untuk efisiensi rantai pasok suku cadang, unit mesin impor, dan kebutuhan operasional lintas entitas."
+      "badge": "Aplikasi Pengadaan Digital",
+      "description": "System dan platform pengadaan terpadu untuk purchasing unit dan mesin secara efisien, transparan, dan terukur lintas entitas dalam ekosistem Montana Group."
     },
     {
       "id": "workshop-kebumen",
-      "label": "Fasilitas Workshop & Pool Kebumen",
-      "short_label": "Workshop Sentral",
+      "label": "Kantor, Workshop & Pool Sentral Kebumen",
+      "short_label": "Kantor & Workshop MIU",
       "type": "facility",
-      "category": "Pusat Rekondisi & Purna Jual",
+      "category": "Pusat Rekondisi & Pool Armada",
       "parent": "miu",
       "level": 2,
       "icon": "wrench-adjustable",
-      "badge": "Fasilitas Teknis",
-      "description": "Pusat inspeksi, rekondisi, perawatan mesin, dan pool unit alat berat di Kebumen, Jawa Tengah dengan teknisi bersertifikasi dan armada Montana Towing."
+      "badge": "Fasilitas Kantor & Workshop",
+      "description": "Pangkalan workshop seluas 4.500 m² di Kebumen dengan teknisi berpengalaman, stok unit Komatsu tersedia, dan armada Montana Towing."
     },
     {
       "id": "sinergi-foundation",
-      "label": "Sinergi Foundation & Mitra Strategis",
-      "short_label": "Sinergi Foundation",
+      "label": "Mitra Strategis & Sponsor Offtake",
+      "short_label": "Sponsor & Mitra Strategis",
       "type": "partner",
-      "category": "Kemitraan Strategis & Offtake",
+      "category": "Sponsor & Penyerapan Kontrak",
       "parent": "mgi-holding",
       "level": 1,
       "icon": "handshake",
-      "badge": "Mitra Strategis",
-      "description": "Yayasan dan mitra strategis pendukung penyerapan proyek kemasyarakatan, offtake kontrak kerja daerah, dan pelatihan operator alat berat lokal."
+      "badge": "Sponsor & Mitra",
+      "description": "Sponsor dan mitra strategis penyerapan kontrak kerja proyek di berbagai kota, asosiasi industri, dan konsorsium kontraktor terpercaya."
     }
   ],
   "governance_summary": {
     "title": "Prinsip Integrasi Ekosistem Terpadu",
     "points": [
-      "Pemisahan Fungsi Strategis & Operasional: MGI berfokus pada strategi pengelolaan modal, manajemen risiko, dan GCG, sementara MIU (Montana Indo Utama), Montana Sentra Industri, dan Mypurcase menjalankan eksekusi teknis sesuai spesialisasinya.",
-      "Efisiensi Rantai Pasok Terpadu (Procurement): Kebutuhan pengadaan suku cadang dan peralatan industri dikordinasikan melalui sistem terpadu Mypurcase untuk menjamin transparansi harga dan meminimalisir biaya perantara.",
-      "Proteksi Aset Berbasis Fisik Nyata: Modal investor dialokasikan langsung pada unit alat berat CBU Jepang dan aset industri riil dengan legalitas lengkap dan jaminan kondisi prima.",
-      "Transparansi & Akuntabilitas Multi-Level: Pelaporan berkala dari unit operasional ke holding MGI dan selanjutnya dilaporkan secara berkala kepada para investor secara terbuka."
+      "Pengelola Project & Permodalan: MGI mengelola portofolio project investasi dengan prinsip agresif dan menguntungkan berimbal hasil menarik.",
+      "Supply Import Langsung (MSI): Impor langsung unit alat berat dan mesin dari Jepang atau Cina ke Indonesia sampai pada alamat customer.",
+      "System dan Pengadaan Terpadu (Mypurcase): Purchasing unit dan mesin secara efisien, memangkas biaya perantara tanpa beban administrasi berlebih.",
+      "Proteksi Aset Fisik Nyata: Armada 125 unit khusus Komatsu Grade A, stok tersedia di pool, dan nilai kapitalisasi terukur di setiap kota operasional."
     ]
   }
 }

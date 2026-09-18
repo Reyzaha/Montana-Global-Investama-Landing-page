@@ -27,9 +27,9 @@
       "level": "Level 0 (Holding)",
       "badge": "Holding & Investment Manager",
       "color": "gold",
-      "description": "Perusahaan manajer investasi dan pengelolaan aset strategis yang mengelola serta mengalokasikan modal secara terukur pada sektor-sektor potensial, termasuk unit-unit usaha dalam ekosistem Montana Group, guna menciptakan hasil investasi berimbal hasil optimal (risk-adjusted returns). Seluruh aktivitas dijalankan dengan standar tinggi Good Corporate Governance (GCG), manajemen risiko berlapis, serta kepatuhan penuh terhadap regulasi jasa keuangan di Indonesia.",
-      "focus": "Pengelolaan modal, GCG, manajemen risiko, hubungan investor",
-      "output": "Alokasi modal, laporan kinerja portofolio terverifikasi"
+      "description": "Perusahaan manajer investasi dan holding sektor riil berbasis aset fisik produktif yang mengelola serta mengalokasikan permodalan project secara agresif dan menguntungkan dengan imbal hasil terukur, tata kelola GCG ketat, serta kepatuhan regulasi di Indonesia.",
+      "focus": "Pengelolaan project investasi, GCG, kepatuhan legalitas, hubungan investor",
+      "output": "Alokasi modal project, laporan kinerja portofolio terverifikasi"
     },
     {
       "code": "MIU",
@@ -39,34 +39,34 @@
       "level": "Level 1 (Unit Usaha)",
       "badge": "Distribusi CBU, Workshop & Operasional",
       "color": "blue",
-      "description": "Entitas operasional terpadu sejak 2022 yang mengintegrasikan impor langsung dan distribusi unit alat berat CBU Jepang (excavator, bulldozer, hydraulic breaker) dengan jaminan mutu minimal 90% (Grade A), pengelolaan workshop sentral & pool rekondisi seluas 4.500 m² di Kebumen, pengoperasian armada Montana Towing untuk mobilisasi dan servis darurat, serta utilisasi operasional dan eksekusi kontrak kerja sewa produktif pada proyek konstruksi sipil, infrastruktur nasional, pertambangan kuari, dan industri riil.",
-      "focus": "Impor & distribusi alat berat CBU Jepang, workshop overhaul & rekondisi, armada Montana Towing, dan utilisasi operasional proyek lapangan",
-      "output": "Unit alat berat CBU siap pakai Grade A, pangkalan workshop Kebumen, armada towing siaga, serta ketercapaian target produksi kontrak kerja proyek riil",
+      "description": "Entitas operasional terpadu yang berawal dari CV Montana Machine kemudian bertransformasi mengintegrasikan impor langsung dan distribusi unit alat berat khusus Komatsu CBU Jepang Grade A, fasilitas kantor & workshop sentral pool 4.500 m² di Kebumen, serta armada Montana Towing untuk mobilisasi dan respon cepat di lapangan.",
+      "focus": "Impor & distribusi alat berat Komatsu CBU Jepang, kantor & workshop sentral Kebumen, armada Montana Towing, serta utilisasi operasional project",
+      "output": "Unit alat berat Komatsu CBU Grade A siap pakai, kantor & workshop Kebumen, armada towing siaga, serta ketercapaian kontrak kerja riil",
       "location": "Jl. Nasional III No.88, Pejuritan, Kec. Karanganyar, Kab. Kebumen, Jawa Tengah"
     },
     {
       "code": "MSI",
       "name": "Montana Sentra Industri",
-      "slogan": "Industrial Strength & Precision",
-      "role": "Unit Usaha Berbasis Industri / Manufaktur",
+      "slogan": "Direct Import & Industrial Supply",
+      "role": "Unit Usaha Supply Import & Rantai Pasok Industri",
       "level": "Level 1 (Unit Usaha)",
-      "badge": "Industri & Manufaktur",
+      "badge": "Supply Import Langsung",
       "color": "navy",
-      "description": "Entitas dalam ekosistem Montana Group yang berfokus pada pengembangan sektor industri dan manufaktur, penyediaan fasilitas penunjang rekayasa teknik permesinan, serta perakitan komponen industri bernilai tambah tinggi.",
-      "focus": "Pengembangan industri, rekayasa manufaktur, fasilitas bengkel fabrikasi",
-      "output": "Dukungan manufaktur industri, komponen rekayasa teknik presisi"
+      "description": "Entitas rantai pasok industri dalam Montana Group yang berfokus kepada supply import mesin dan alat berat langsung dari Jepang atau Cina ke Indonesia secara door-to-door hingga tiba di alamat customer, didukung jalur logistik laut dan pengurusan kepabeanan terintegrasi.",
+      "focus": "Import langsung unit mesin dan alat berat dari Jepang atau Cina ke Indonesia sampai pada alamat customer",
+      "output": "Kepastian pasokan mesin industri dan alat berat impor langsung, efisiensi waktu logistik laut, pengiriman aman ke customer"
     },
     {
       "code": "Mypurcase",
       "name": "Mypurcase",
-      "slogan": "Smart Procurement Solution",
-      "role": "Sistem / Platform Pengadaan (Procurement) Internal Ekosistem",
+      "slogan": "Smart Procurement & Purchasing Platform",
+      "role": "Sistem dan Pengadaan Terpadu Ekosistem",
       "level": "Level 1 (Platform Pengadaan)",
-      "badge": "Sistem Rantai Pasok",
+      "badge": "Sistem Pengadaan Digital",
       "color": "gold",
-      "description": "Sistem dan platform pengadaan terpadu yang melayani proses purchasing dan rantai pasok suku cadang, unit mesin, dan kebutuhan operasional lintas entitas dalam Montana Group secara efisien, transparan, dan terukur.",
-      "focus": "Digitalisasi pengadaan (procurement), manajemen vendor dan lelang impor, audit faktur",
-      "output": "Rantai pasok efisien, harga bersaing, akuntabilitas serapan anggaran"
+      "description": "Sistem dan platform pengadaan terpadu yang melayani proses purchasing unit, mesin, dan suku cadang secara efisien, transparan, dan terukur lintas entitas dalam Montana Group.",
+      "focus": "System dan pengadaan terpadu, purchasing unit dan mesin secara efisien, integrasi vendor impor",
+      "output": "Rantai pasok pengadaan efisien, harga bersaing, transparansi realisasi belanja modal"
     }
   ],
   "sections": [
@@ -142,7 +142,7 @@
   "contact": {
     "corporate_office": "Jl. Sunburst CBD Jl. Kapten Soebijanto Djojohadikusumo No.8 Lot I, Lengkong Gudang, Kec. Serpong, Kota Tangerang Selatan, Banten 15321",
     "operational_office": "Jl. Nasional III No.88, Pejuritan, Kec. Karanganyar, Kab. Kebumen, Jawa Tengah",
-    "email": "Montanaglobalinvestamaom@gmail.com",
+    "email": "corporate@montanaglobalinvestama.com",
     "work_hours": "Senin – Jumat: 08.00 – 17.00 WIB",
     "google_maps_url": "https://maps.google.com/?q=Jl.+Kapten+Soebijanto+Djojohadikusumo+No.8+Lot+I+Serpong+Tangerang+Selatan"
   }

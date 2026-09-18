@@ -24,42 +24,41 @@ let MGIGrowthData = {
     ]
   },
 
-  // Data PT Montana Indo Utama (MIU) - Alat Berat & Armada Logistik
+  // Data PT Montana Indo Utama (MIU) - Alat Berat Khusus Komatsu & Armada Towing
   miu: {
     title: 'PT Montana Indo Utama (MIU)',
-    subtitle: 'Pertumbuhan Populasi Armada Alat Berat CBU Jepang & Utilisasi Kontrak Operasional',
-    badge: 'Distribusi, Workshop & Operasional CBU',
+    subtitle: 'Populasi Armada Khusus Komatsu CBU Jepang, Nilai Kapitalisasi & Ekspansi Wilayah',
+    badge: 'Armada Komatsu & Workshop Sentral',
     badgeClass: 'bg-royal text-white',
-    chartLabel: 'Populasi Unit Alat Berat Aktif (Unit)',
-    secondaryChartLabel: 'Nilai Aset Armada (Rp Miliar)',
-    data: [16, 28, 45, 68, 92, 124, 165],
-    assetValue: [24, 42, 68, 105, 148, 205, 275],
+    chartLabel: 'Populasi Unit Komatsu Aktif (Unit)',
+    secondaryChartLabel: 'Nilai Kapitalisasi Unit (Rp Miliar)',
+    data: [16, 28, 45, 68, 92, 125, 165],
+    assetValue: [24, 42, 68, 105, 148, 208, 280],
     unit: 'Unit',
     kpis: [
-      { label: 'Populasi Armada Aktif (2025)', value: '124 Unit', note: 'Target 2026: 165+ Unit', icon: 'bi-truck-flatbed', color: 'text-royal' },
-      { label: 'Tingkat Utilisasi Mesin', value: '94.8%', note: 'Tersewa Kontrak Jangka Panjang', icon: 'bi-speedometer2', color: 'text-success' },
-      { label: 'Standar Mutu Unit', value: 'Grade A CBU', note: 'Komatsu, Kobelco, Hino Asli Jepang', icon: 'bi-award-fill', color: 'text-gold' },
-      { label: 'Cakupan Operasional', value: '4 Pulau', note: 'Jawa, Sumatera, Kalsel, Sulsel', icon: 'bi-geo-alt-fill', color: 'text-primary' }
+      { label: 'Populasi Komatsu Aktif', value: '125 Unit', note: 'Eksklusif Merek Komatsu', icon: 'bi-truck-flatbed', color: 'text-royal' },
+      { label: 'Nilai Kapitalisasi Unit', value: 'Rp 208 M+', note: 'Aset Fisik Liquid Grade A', icon: 'bi-cash-coin', color: 'text-gold' },
+      { label: 'Stok Unit Tersedia di Pool', value: '24 Unit Ready', note: 'Pool Kebumen & Siap Mobilisasi', icon: 'bi-check2-square', color: 'text-success' },
+      { label: 'Wilayah Operasional Aktif', value: 'Jateng, Bali, NTB', note: 'Rencana Ekspansi Berkelanjutan', icon: 'bi-geo-alt-fill', color: 'text-primary' }
     ]
   },
 
-  // Data Montana Sentra Industri (MSI) - Manufaktur & Fabrikasi Komponen
+  // Data Montana Sentra Industri (MSI) - Supply Import Jepang & Cina
   msi: {
     title: 'Montana Sentra Industri (MSI)',
-    subtitle: 'Evolusi Kapasitas Fabrikasi Manufaktur, Komponen Suku Cadang & Ketahanan Rantai Pasok',
-    badge: 'Manufaktur & Fabrikasi Industri',
+    subtitle: 'Supply Import Langsung dari Jepang atau Cina ke Indonesia Sampai ke Alamat Customer',
+    badge: 'Supply Import Direct to Customer',
     badgeClass: 'bg-gold text-white',
-    chartLabel: 'Kapasitas Output Fabrikasi (Ton/Tahun)',
-    secondaryChartLabel: 'Nilai Output Komponen (Rp Miliar)',
-    // Didirikan 2022/2023 sebagai penguatan rantai pasok industri grup
+    chartLabel: 'Kapasitas Output & Supply Unit (Ton/Thn)',
+    secondaryChartLabel: 'Nilai Logistik Impor (Rp Miliar)',
     data: [0, 0, 350, 820, 1650, 2800, 4200],
     assetValue: [0, 0, 8, 21, 46, 82, 125],
     unit: 'Ton/Tahun',
     kpis: [
-      { label: 'Output Fabrikasi (2025)', value: '2.800 Ton', note: 'Target 2026: 4.200 Ton/Thn', icon: 'bi-gear-wide-connected', color: 'text-gold' },
-      { label: 'Substitusi Impor Komponen', value: '72%', note: 'Kemandirian Suku Cadang Unit', icon: 'bi-shield-check', color: 'text-success' },
-      { label: 'Efisiensi Maintenance Grup', value: '28.5%', note: 'Penghematan Capex & Opex', icon: 'bi-graph-down-arrow', color: 'text-royal' },
-      { label: 'Mitra Industri Aktif', value: '45+ Mitra', note: 'Smelter, Quarry & Konstruksi', icon: 'bi-building-fill-check', color: 'text-primary' }
+      { label: 'Volume Supply Import (2025)', value: '2.800 Ton', note: 'Target 2026: 4.200 Ton/Thn', icon: 'bi-ship', color: 'text-gold' },
+      { label: 'Pengiriman Door-to-Door', value: '100%', note: 'Sampai Alamat Customer', icon: 'bi-box-seam-fill', color: 'text-success' },
+      { label: 'Efisiensi Rantai Pasok', value: '31.2%', note: 'Pangkas Biaya Perantara', icon: 'bi-graph-down-arrow', color: 'text-royal' },
+      { label: 'Asal Pengadaan Import', value: 'Jepang & Cina', note: 'Mitra Manufaktur Resmi', icon: 'bi-globe-americas', color: 'text-primary' }
     ]
   }
 };
