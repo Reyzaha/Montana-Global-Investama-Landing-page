@@ -94,7 +94,7 @@ try {
             $detail = [
                 'tagline' => $detailRow['tagline'] ?? '',
                 'is_gated' => true,
-                'gated_notice' => 'Sesuai prinsip keterbukaan informasi terbatas dan kepatuhan APU-PPT/GCG, rincian belanja modal (CAPEX Breakdown) serta simulator BEP/ROI hanya dapat diakses oleh investor terdaftar.',
+                'gated_notice' => 'Sesuai prinsip keterbukaan informasi terbatas dan kepatuhan tata kelola perusahaan (TARIF), rincian belanja modal (CAPEX Breakdown) serta simulator BEP/ROI hanya dapat diakses oleh investor terdaftar.',
                 'what_will_provide' => [
                     'type' => 'text',
                     'title' => $detailRow['what_will_provide_title'] ?? 'Alokasi Penggunaan Modal',

@@ -8,7 +8,7 @@
       "entitas": "PT Montana Global Investama",
       "level": "0 (Holding)",
       "induk_langsung": "—",
-      "fungsi_utama": "Manajer investasi & pengelola modal project grup, strategi agresif terukur, tata kelola GCG"
+      "fungsi_utama": "Manajer investasi & pengelola modal project grup, strategi agresif terukur, tata kelola perusahaan (TARIF)"
     },
     {
       "entitas": "PT Montana Indo Utama (MIU)",
@@ -40,7 +40,7 @@
       "level": 0,
       "icon": "building",
       "badge": "Holding & Pengelola Modal Project",
-      "description": "Induk usaha (holding), manajer investasi, dan pengelola modal project grup. Menghadirkan instrumen project investasi riil dengan prinsip agresif dan menguntungkan berimbal hasil menarik serta tata kelola GCG ketat."
+      "description": "Induk usaha (holding), manajer investasi, dan pengelola modal project grup. Menghadirkan instrumen project investasi riil dengan prinsip agresif dan menguntungkan berimbal hasil menarik serta tata kelola perusahaan yang baik (TARIF)."
     },
     {
       "id": "miu",
@@ -89,18 +89,6 @@
       "icon": "wrench-adjustable",
       "badge": "Fasilitas Kantor & Workshop",
       "description": "Pangkalan workshop seluas 4.500 m² di Kebumen dengan teknisi berpengalaman, stok unit Komatsu tersedia, dan armada Montana Towing."
-    },
-    {
-      "id": "sinergi-foundation",
-      "label": "Mitra Strategis & Sponsor Offtake",
-      "short_label": "Sponsor & Mitra Strategis",
-      "type": "partner",
-      "category": "Sponsor & Penyerapan Kontrak",
-      "parent": "mgi-holding",
-      "level": 1,
-      "icon": "handshake",
-      "badge": "Sponsor & Mitra",
-      "description": "Sponsor dan mitra strategis penyerapan kontrak kerja proyek di berbagai kota, asosiasi industri, dan konsorsium kontraktor terpercaya."
     }
   ],
   "governance_summary": {

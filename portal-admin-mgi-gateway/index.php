@@ -107,7 +107,7 @@ require_once __DIR__ . '/includes/header.php';
       <div class="admin-card-header">
         <h6 class="fw-bold text-dark mb-0 d-flex align-items-center gap-2">
           <i class="bi bi-shield-check text-success"></i>
-          <span>Log Kepatuhan &amp; Aktivitas (GCG)</span>
+          <span>Log Kepatuhan &amp; Tata Kelola</span>
         </h6>
       </div>
       <div class="admin-card-body p-0">

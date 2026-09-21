@@ -12,7 +12,7 @@ const MGIComponents = {
     const navItems = [
       { id: 'home', label: 'Home', href: 'index.html' },
       { id: 'about', label: 'About Us', href: 'about.html' },
-      { id: 'invest', label: 'Investasi', href: 'invest.html' },
+      { id: 'invest', label: 'Project Investasi', href: 'invest.html' },
       { id: 'transformasi', label: 'Transformasi', href: 'transformasi.html' },
       { id: 'preparation', label: 'Preparation', href: 'preparation.html' },
       { id: 'ekosistem', label: 'Ekosistem', href: 'ekosistem.html' },
@@ -53,8 +53,8 @@ const MGIComponents = {
                   <div class="text-muted small text-truncate" style="font-size: 0.75rem;">${user.email}</div>
                   <div class="badge bg-mgi-gold-subtle text-gold small mt-1">Investor ${typeLabel}</div>
                 </li>
-                <li><a class="dropdown-item py-2 fw-bold text-dark" href="investor-dashboard.html"><i class="bi bi-briefcase-fill me-2 text-gold"></i>Portofolio Investasi</a></li>
-                <li><a class="dropdown-item py-2" href="invest.html"><i class="bi bi-grid me-2 text-gold"></i>Katalog Proyek Terbuka</a></li>
+                <li><a class="dropdown-item py-2 fw-bold text-dark" href="investor-dashboard.html"><i class="bi bi-briefcase-fill me-2 text-gold"></i>Portofolio Project Investasi</a></li>
+                <li><a class="dropdown-item py-2" href="invest.html"><i class="bi bi-grid me-2 text-gold"></i>Katalog Project Terbuka</a></li>
                 <li><a class="dropdown-item py-2" href="contact.html"><i class="bi bi-geo-alt me-2 text-gold"></i>Lokasi & Layanan</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item py-2 text-danger fw-semibold" href="javascript:void(0)" onclick="MGIAuth.logout('index.html')"><i class="bi bi-box-arrow-right me-2"></i>Keluar (Logout)</a></li>
@@ -69,7 +69,7 @@ const MGIComponents = {
               <i class="bi bi-box-arrow-in-right me-1"></i> Masuk
             </a>
             <a href="register.html" class="btn btn-navbar-cta btn-sm px-3 py-2 rounded-pill shadow-sm">
-              <i class="bi bi-person-plus-fill me-1"></i> Daftar
+              <i class="bi bi-person-plus me-1"></i> Buka Akun
             </a>
           </div>
         `;
@@ -77,24 +77,18 @@ const MGIComponents = {
     }
 
     navContainer.innerHTML = `
-      <!-- Main Navigation Bar (Clean Corporate with Solid Royal Navy & Gold Accent) -->
-      <nav class="navbar navbar-expand-lg site-navbar sticky-top py-3" id="mainHeader">
+      <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top border-bottom">
         <div class="container">
-          <a class="navbar-brand d-flex align-items-center py-0" href="index.html" title="PT Montana Global Investama">
-            <div class="navbar-logo-badge">
-              <img src="assets/img/mgi-official-logo.png" alt="MGI Logo" height="56" class="d-inline-block align-text-top">
-            </div>
+          <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+            <img src="assets/img/mgi-official-logo.png" alt="PT Montana Global Investama Logo" height="42" class="d-inline-block align-text-top">
           </a>
-
-          <button class="navbar-toggler border-gold shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mgiNavbar" aria-controls="mgiNavbar" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="bi bi-list fs-2 text-white"></i>
+          <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
           </button>
-
-          <div class="collapse navbar-collapse" id="mgiNavbar">
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-1">
+          <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
               ${linksHtml}
             </ul>
-
             ${authCtaHtml}
           </div>
         </div>
@@ -133,10 +127,10 @@ const MGIComponents = {
                 </div>
               </a>
               <p class="text-footer-muted small mb-3 lh-base">
-                <strong>PT Montana Global Investama</strong> adalah entitas manajer investasi dan pemegang kendali strategis (holding) sektor riil berbasis aset fisik produktif, menghadirkan pertumbuhan nilai terukur melalui kepatuhan tata kelola terpercaya dan integrasi ekosistem terpadu.
+                <strong>PT Montana Global Investama</strong> adalah entitas manajer investasi project dan pemegang kendali strategis (holding) sektor riil berbasis aset fisik produktif, menghadirkan pertumbuhan nilai per project terukur melalui kepatuhan tata kelola terpercaya dan integrasi ekosistem terpadu.
               </p>
               <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded bg-footer-card border border-secondary small fw-bold text-gold">
-                <i class="bi bi-shield-check text-white"></i> Standar Tata Kelola GCG &amp; APU-PPT
+                <i class="bi bi-shield-check text-white"></i> Standar Tata Kelola Perusahaan &amp; Kepatuhan Regulasi
               </div>
             </div>
 
@@ -145,7 +139,7 @@ const MGIComponents = {
               <ul class="list-unstyled mb-0">
                 <li><a href="index.html" class="footer-link">Halaman Utama</a></li>
                 <li><a href="about.html" class="footer-link">Company Profile</a></li>
-                <li><a href="invest.html" class="footer-link">Portofolio Investasi</a></li>
+                <li><a href="invest.html" class="footer-link">Portofolio Project Investasi</a></li>
                 <li><a href="transformasi.html" class="footer-link">Transformasi Perusahaan</a></li>
                 <li><a href="contact.html" class="footer-link">Kontak Kami</a></li>
               </ul>
@@ -157,17 +151,17 @@ const MGIComponents = {
                 <li><a href="preparation.html" class="footer-link">Struktur Alur Kerja Entitas</a></li>
                 <li><a href="ekosistem.html" class="footer-link">Bagan Ekosistem Terpadu</a></li>
                 <li><a href="javascript:void(0)" onclick="MGIAuth.handleProtectedDetail('proj-001')" class="footer-link">Simulasi BEP &amp; ROI</a></li>
-                <li><a href="about.html#tata-kelola" class="footer-link">Tata Kelola &amp; Prinsip GCG</a></li>
+                <li><a href="about.html#tata-kelola" class="footer-link">Tata Kelola Perusahaan (TARIF)</a></li>
               </ul>
             </div>
 
             <div class="col-lg-3 col-md-6">
               <h6 class="fw-bold text-gold text-uppercase mb-3 small tracking-wide">Hubungi Kami</h6>
               <div class="small text-footer-muted mb-2">
-                <i class="bi bi-geo-alt text-gold me-1"></i> Jl. Sunburst CBD No.8 Lot I, Serpong, Tangerang Selatan
+                <i class="bi bi-geo-alt text-gold me-1"></i> Roseville Soho &amp; Suite, Sunburst CBD Lot I.8, Serpong, Tangerang Selatan
               </div>
               <div class="small text-footer-muted mb-2">
-                <i class="bi bi-envelope text-gold me-1"></i> corporate@montanaglobalinvestama.com
+                <i class="bi bi-envelope text-gold me-1"></i> kontak@montanaglobalinvestama.com
               </div>
               <div class="small text-footer-muted">
                 <i class="bi bi-clock text-gold me-1"></i> Senin – Jumat (08.00 – 17.00 WIB)
@@ -175,20 +169,14 @@ const MGIComponents = {
             </div>
           </div>
 
-          <!-- Mandatory Legal Disclaimer Card (Solid Theme) -->
-          <div class="card border border-warning bg-footer-card p-3 p-md-4 rounded-3 mb-4 shadow-none">
-            <div class="d-flex align-items-start gap-3">
-              <i class="bi bi-exclamation-triangle-fill text-gold fs-5 flex-shrink-0 mt-1"></i>
-              <div class="small text-footer-muted lh-base">
-                <strong class="text-white d-block mb-1">PEMBERITAHUAN RISIKO & KEPATUHAN (RISK DISCLOSURE STATEMENT):</strong>
-                Seluruh proyeksi imbal hasil, estimasi pengembalian modal pokok (BEP), dan kalkulasi ROI yang ditampilkan di website ini bersifat ilustrasi matematis berbasis kinerja historis dan proyeksi bisnis, bukan merupakan jaminan kepastian hasil. Investasi pada sektor riil dan pengadaan mesin/alat berat mengandung risiko fluktuasi pasar, operasional proyek, dan risiko likuiditas. Calon investor diwajibkan mempelajari seluruh prospektus/proposal penawaran dan menandatangani Risk Disclosure Statement sebelum berpartisipasi.
-              </div>
-            </div>
-          </div>
-
           <div class="d-flex flex-column flex-md-row justify-content-between align-items-center pt-3 border-top border-secondary small text-footer-muted">
             <div class="mb-2 mb-md-0">
               &copy; ${new Date().getFullYear()} PT Montana Global Investama. Seluruh Hak Cipta Dilindungi Undang-Undang.
+            </div>
+            <div class="d-flex align-items-center gap-3">
+              <span>Private &amp; Confidential</span>
+              <span>•</span>
+              <a href="mailto:kontak@montanaglobalinvestama.com" class="text-gold text-decoration-none fw-semibold">kontak@montanaglobalinvestama.com</a>
             </div>
           </div>
         </div>
@@ -398,7 +386,7 @@ const MGIComponents = {
         <div class="d-flex align-items-start gap-3">
           <i class="bi bi-shield-exclamation text-warning fs-5 flex-shrink-0 mt-1"></i>
           <div>
-            <strong class="text-warning-emphasis d-block mb-1">Kepatuhan Keterbukaan Risiko (Risk Disclosure):</strong>
+            <strong class="text-warning-emphasis d-block mb-1">Kepatuhan Keterbukaan Informasi:</strong>
             <span class="text-mgi-body small">${text}</span>
           </div>
         </div>
@@ -428,7 +416,7 @@ const MGIComponents = {
               </div>
               <h4 class="fw-bold text-dark mb-2">Prospektus &amp; Simulasi BEP</h4>
               <p class="text-secondary small mb-4 lh-base">
-                Untuk memenuhi kepatuhan regulasi <strong>Good Corporate Governance (GCG)</strong> serta kerangka <strong>APU-PPT</strong>, rincian anggaran belanja modal (RAB), spesifikasi aset fisik, dan simulasi BEP/ROI hanya dapat diakses oleh investor terdaftar.
+                Untuk memenuhi standar <strong>Tata Kelola Perusahaan yang Baik</strong> serta kepatuhan regulasi penawaran investasi, rincian alokasi belanja modal, spesifikasi aset fisik, dan simulasi BEP/ROI hanya dapat diakses oleh investor terdaftar.
               </p>
 
               <div class="d-grid gap-2 mb-3">

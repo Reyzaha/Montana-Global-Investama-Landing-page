@@ -5,68 +5,85 @@
   "tagline_id": "Tumbuh Bersama Melalui Investasi Terpercaya",
   "tagline_en": "Growing Together Through Trusted Investments",
   "founded_year": "2022",
-  "headquarters": "Jl. Nasional III No.88, Pejuritan, Kec. Karanganyar, Kab. Kebumen, Jawa Tengah",
+  "headquarters": "Roseville Soho & Suite, Sunburst CBD Lot I.8, Jl. Kapten Soebijanto Djojohadikusumo, Lengkong Gudang, Serpong, Tangerang Selatan",
   "stats": [
-    { "label": "Total Nilai Kelolaan (AUM)", "value": "Rp 75M+", "desc": "Aset Produktif Berkelanjutan" },
-    { "label": "Tingkat Keberhasilan Proyek", "value": "100%", "desc": "Tepat Waktu & Akuntabel" },
-    { "label": "Rata-Rata Proyeksi Return", "value": "≥30%", "desc": "Imbal Hasil Kompetitif Riil" },
-    { "label": "Unit Usaha Terintegrasi", "value": "4 Entitas", "desc": "Sinergi Ekosistem Mandiri" }
+    {
+      "label": "Mitra Pemodal",
+      "value": "0",
+      "desc": "Institusi & Perorangan"
+    },
+    {
+      "label": "Dana Produktif Dikelola",
+      "value": "0",
+      "desc": "Berkelanjutan & Terus Tumbuh"
+    },
+    {
+      "label": "Tingkat Keberhasilan",
+      "value": "0%",
+      "desc": "Ketepatan Waktu & Akuntabilitas"
+    },
+    {
+      "label": "Unit Usaha Terpadu",
+      "value": "3 Pilar",
+      "desc": "Saling Menguatkan di Lapangan"
+    }
   ],
   "about_group": {
     "title": "Tentang Montana Group",
     "subtitle": "Kelompok Usaha Sektor Riil Berdaya Saing Tinggi & Berkelanjutan",
-    "description": "Montana Group adalah kelompok usaha yang dipimpin oleh PT Montana Global Investama (MGI) selaku perusahaan manajer investasi dan pemegang kendali strategis (holding), yang menaungi beberapa unit usaha operasional di bawahnya. Model ini memungkinkan MGI berfokus pada pengelolaan modal, tata kelola (GCG), dan manajemen risiko tingkat grup, sementara setiap unit usaha menjalankan operasional sesuai bidang keahliannya masing-masing.",
-    "positioning": "Dengan struktur holding ini, PT Montana Global Investama memposisikan diri sebagai mitra investasi bagi investor eksternal yang ingin berpartisipasi pada pertumbuhan sektor riil (khususnya alat berat, industri, dan rantai pasok/pengadaan) melalui satu pintu masuk investasi yang dikelola secara profesional, transparan, dan mengikuti prinsip Good Corporate Governance (GCG)."
+    "description": "Montana Group adalah kelompok usaha yang dipimpin oleh PT Montana Global Investama (MGI) selaku holding dan manajer investasi project, yang menaungi tiga pilar usaha operasional teruji di lapangan. Model ini memungkinkan MGI berfokus pada tata kelola, alokasi modal per project, dan manajemen risiko tingkat grup, sementara setiap unit usaha menjalankan eksekusi operasional sesuai bidang keahliannya masing-masing.",
+    "positioning": "Dengan struktur holding ini, PT Montana Global Investama memposisikan diri sebagai wadah project investasi per project terpercaya bagi pemodal yang ingin berpartisipasi pada pertumbuhan sektor riil (khususnya alat berat, industri logistik, dan rantai pasok pengadaan) melalui satu pintu masuk project investasi yang dikelola secara profesional, transparan, dan berlandaskan kerangka tata kelola TARIF."
   },
   "entities": [
     {
       "code": "MGI",
       "name": "PT Montana Global Investama",
-      "slogan": "Growing Together Through Trusted Investments",
-      "role": "Induk Usaha (Holding), Manajer Investasi, dan Pengelola Modal Grup",
+      "slogan": "Tumbuh Bersama Melalui Investasi Terpercaya",
+      "role": "Holding & Manajer Project Investasi (Tata Kelola, Alokasi Modal Per Project, Manajemen Risiko)",
       "level": "Level 0 (Holding)",
-      "badge": "Holding & Investment Manager",
+      "badge": "Holding & Project Investment Manager",
       "color": "gold",
-      "description": "Perusahaan manajer investasi dan holding sektor riil berbasis aset fisik produktif yang mengelola serta mengalokasikan permodalan project secara agresif dan menguntungkan dengan imbal hasil terukur, tata kelola GCG ketat, serta kepatuhan regulasi di Indonesia.",
-      "focus": "Pengelolaan project investasi, GCG, kepatuhan legalitas, hubungan investor",
-      "output": "Alokasi modal project, laporan kinerja portofolio terverifikasi"
+      "description": "PT Montana Global Investama berperan sebagai holding dan manajer project investasi (tata kelola, alokasi modal per project, manajemen risiko), menghadirkan instrumen project investasi per project sektor riil berbasis aset fisik bernilai tinggi dengan proyeksi pengembalian modal 2-3 tahun.",
+      "focus": "Pengelolaan portofolio project investasi per project, tata kelola TARIF, mitigasi risiko, hubungan investor",
+      "output": "Alokasi modal per project terukur, kepatuhan laporan berkala, monitoring kinerja proyek"
     },
     {
       "code": "MIU",
       "name": "PT Montana Indo Utama (MIU)",
-      "slogan": "Excellence in Heavy Machinery & Field Operations",
-      "role": "Unit Usaha Operasional — Impor, Distribusi CBU, Workshop Sentral & Utilisasi Alat Berat",
+      "slogan": "Integrated Heavy Equipment Solutions",
+      "role": "Solusi Alat Berat Terintegrasi — Penjualan, Supply, Deployment & Operational Support",
       "level": "Level 1 (Unit Usaha)",
-      "badge": "Distribusi CBU, Workshop & Operasional",
+      "badge": "Alat Berat & Operational Support",
       "color": "blue",
-      "description": "Entitas operasional terpadu yang berawal dari CV Montana Machine kemudian bertransformasi mengintegrasikan impor langsung dan distribusi unit alat berat khusus Komatsu CBU Jepang Grade A, fasilitas kantor & workshop sentral pool 4.500 m² di Kebumen, serta armada Montana Towing untuk mobilisasi dan respon cepat di lapangan.",
-      "focus": "Impor & distribusi alat berat Komatsu CBU Jepang, kantor & workshop sentral Kebumen, armada Montana Towing, serta utilisasi operasional project",
-      "output": "Unit alat berat Komatsu CBU Grade A siap pakai, kantor & workshop Kebumen, armada towing siaga, serta ketercapaian kontrak kerja riil",
+      "description": "Integrated Heavy Equipment Solutions. Mendukung kebutuhan alat berat melalui supply, deployment, dan operational support untuk proyek sektor riil.",
+      "focus": "Penjualan & supply unit alat berat, deployment ke lokasi proyek, perawatan berkala, workshop sentral Kebumen, dan operational support sektor riil",
+      "output": "Ketersediaan armada unit alat berat siap kerja, keandalan operasional lapangan, servis darurat siaga, dan kepastian produktivitas proyek",
       "location": "Jl. Nasional III No.88, Pejuritan, Kec. Karanganyar, Kab. Kebumen, Jawa Tengah"
     },
     {
       "code": "MSI",
-      "name": "Montana Sentra Industri",
-      "slogan": "Direct Import & Industrial Supply",
-      "role": "Unit Usaha Supply Import & Rantai Pasok Industri",
+      "name": "PT Montana Sentra Industri (MSI)",
+      "slogan": "Import & Logistics Partner",
+      "role": "Mitra Impor & Logistik — Solusi Impor Alat Berat, Customs Clearance & Distribusi Door-to-Door",
       "level": "Level 1 (Unit Usaha)",
-      "badge": "Supply Import Langsung",
+      "badge": "Import & Logistics Partner",
       "color": "navy",
-      "description": "Entitas rantai pasok industri dalam Montana Group yang berfokus kepada supply import mesin dan alat berat langsung dari Jepang atau Cina ke Indonesia secara door-to-door hingga tiba di alamat customer, didukung jalur logistik laut dan pengurusan kepabeanan terintegrasi.",
-      "focus": "Import langsung unit mesin dan alat berat dari Jepang atau Cina ke Indonesia sampai pada alamat customer",
-      "output": "Kepastian pasokan mesin industri dan alat berat impor langsung, efisiensi waktu logistik laut, pengiriman aman ke customer"
+      "description": "Import & Logistics Partner. Menyediakan solusi impor alat berat, customs clearance, dan distribusi door-to-door untuk kebutuhan proyek dan industri.",
+      "focus": "Solusi pengadaan impor alat berat, pengurusan customs clearance pelabuhan terpadu, dan manajemen pengiriman logistik door-to-door ke lokasi proyek dan industri",
+      "output": "Kelancaran izin impor kepabeanan, kepastian pasokan armada internasional, efisiensi rantai distribusi, dan pengiriman aman tepat waktu",
+      "location": "Jl. Nasional III No.88, Pejuritan, Kec. Karanganyar, Kab. Kebumen, Jawa Tengah"
     },
     {
       "code": "Mypurcase",
       "name": "Mypurcase",
-      "slogan": "Smart Procurement & Purchasing Platform",
-      "role": "Sistem dan Pengadaan Terpadu Ekosistem",
+      "slogan": "Platform B2B Procurement Digital",
+      "role": "Platform Pengadaan Digital — Penghubung Pembelian, Supplier, Pengadaan & Rantai Pasok",
       "level": "Level 1 (Platform Pengadaan)",
-      "badge": "Sistem Pengadaan Digital",
+      "badge": "Platform B2B Procurement",
       "color": "gold",
-      "description": "Sistem dan platform pengadaan terpadu yang melayani proses purchasing unit, mesin, dan suku cadang secara efisien, transparan, dan terukur lintas entitas dalam Montana Group.",
-      "focus": "System dan pengadaan terpadu, purchasing unit dan mesin secara efisien, integrasi vendor impor",
-      "output": "Rantai pasok pengadaan efisien, harga bersaing, transparansi realisasi belanja modal"
+      "description": "Platform B2B Procurement yang menghubungkan kebutuhan pembelian dengan supplier, proses pengadaan, dan rantai pasok secara digital, efisien, dan transparan.",
+      "focus": "Digitalisasi pengadaan B2B, integrasi kebutuhan pembelian dengan supplier terverifikasi, otomatisasi alur purchasing, dan transparansi rantai pasok",
+      "output": "Proses pengadaan digital cepat dan transparan, efisiensi belanja modal, pelacakan transaksi real-time, dan tata kelola akuntabel"
     }
   ],
   "sections": [
@@ -75,21 +92,21 @@
       "id": "tentang-kami",
       "title": "Tentang Kami",
       "subtitle": "Membangun Masa Depan Melalui Sinergi Investasi Produktif",
-      "content": "PT Montana Global Investama (MGI) adalah entitas pengelola investasi strategis dan manajer modal profesional yang berfokus pada pembiayaan sektor riil bernilai tambah tinggi. Kami memadukan keahlian analitis, kepatuhan tata kelola yang ketat, dan eksekusi lapangan yang tangguh untuk menghasilkan imbal hasil optimal yang terukur bagi para pemodal, sekaligus menggerakkan pertumbuhan ekonomi produktif di Indonesia.",
-      "quote": "Kepercayaan investor adalah amanah tertinggi yang kami jaga dengan integritas, kepatuhan, dan disiplin risiko tanpa kompromi."
+      "content": "PT Montana Global Investama (MGI) berperan sebagai holding & manajer investasi (tata kelola, alokasi modal, manajemen risiko), sementara eksekusi operasional dijalankan oleh tiga unit usaha teruji di lapangan: PT Montana Indo Utama, PT Montana Sentra Industri, dan Mypurcase.",
+      "quote": "Di Montana Global Investama, setiap keputusan investasi berlandaskan pada tiga prinsip utama: aset yang nyata dan terukur, tata kelola yang transparan dan akuntabel, serta kemitraan strategis yang menciptakan nilai berkelanjutan."
     },
     {
       "type": "vision_mission",
       "id": "visi-misi",
       "title": "Visi & Misi Perusahaan",
-      "subtitle": "Arah Strategis Menuju Keunggulan Pengelolaan Modal Terkemuka",
-      "vision": "Menjadi perusahaan pengelolaan investasi terdepan dan paling tepercaya di Indonesia yang menghubungkan modal strategis dengan potensi sektor riil bernilai tinggi secara berkesinambungan.",
+      "subtitle": "Arah Strategis Menuju Keunggulan Pengelolaan Modal Terpercaya",
+      "vision": "Menjadi perusahaan pengelolaan investasi terdepan dan paling terpercaya di Indonesia yang menghubungkan modal strategis dengan potensi sektor riil bernilai tinggi secara berkesinambungan.",
       "missions": [
-        "Eksekusi Investment Excellence melalui kurasi proyek berstandar kelayakan tinggi dan mitigasi risiko komprehensif.",
-        "Membangun Kemitraan Berorientasi Nilai yang transparan, profesional, dan memberikan manfaat nyata jangka panjang.",
-        "Menerapkan Tata Kelola Perusahaan yang Baik (Good Corporate Governance) dan kepatuhan regulasi secara berintegritas.",
-        "Mengoptimalkan produktivitas ekosistem bisnis melalui integrasi teknologi, pengadaan tepat guna, dan tata kelola terpadu.",
-        "Memberikan imbal hasil investasi yang unggul dan berkelanjutan dengan prinsip kehati-hatian finansial."
+        "Mengalokasikan permodalan secara tepat guna pada aset fisik produktif bernilai tinggi dengan perlindungan legal dan asuransi.",
+        "Membangun kemitraan strategis offtake jangka menengah hingga panjang untuk menjamin kepastian penyerapan unit proyek.",
+        "Menerapkan prinsip tata kelola yang baik secara konsisten melalui kerangka TARIF dalam setiap keputusan dan alokasi modal.",
+        "Mengoptimalkan sinergi ekosistem (MGI, MIU, MSI, Mypurcase) untuk menciptakan efisiensi biaya dan perlindungan nilai terintegrasi.",
+        "Memberikan transparansi dan pelaporan kinerja berkala demi menjaga akuntabilitas dan kepercayaan mitra pemodal."
       ]
     },
     {
@@ -114,36 +131,61 @@
           "desc": "Penyajian laporan kinerja berkala, audit independen, dan visibilitas alokasi modal secara menyeluruh kepada investor."
         },
         {
-          "icon": "zap",
-          "name": "Inovasi",
-          "desc": "Adaptasi teknologi digital cerdas dan skema investasi progresif untuk mengoptimalkan efisiensi sektor riil."
+          "icon": "gear-wide-connected",
+          "name": "Kemitraan Strategis",
+          "desc": "Membangun ekosistem terintegrasi melalui kepastian kerja sama dan kontrak jangka menengah hingga panjang."
         },
         {
           "icon": "people",
-          "name": "Kolaborasi Ekosistem",
-          "desc": "Menciptakan sinergi erat lintas entitas (MIU, Montana Sentra Industri, Mypurcase, MGI) guna memaksimalkan penciptaan nilai kolektif."
+          "name": "Sinergi Ekosistem",
+          "desc": "Menciptakan sinergi erat lintas entitas (MIU, MSI, Mypurcase, MGI) guna memaksimalkan penciptaan nilai kolektif."
         }
       ]
     },
     {
       "type": "gcg",
       "id": "tata-kelola",
-      "title": "Prinsip Good Corporate Governance (GCG)",
-      "subtitle": "5 Pilar Tata Kelola Perusahaan Berstandar Tinggi",
+      "title": "Tata Kelola sebagai Fondasi Kepercayaan",
+      "subtitle": "Prinsip tata kelola yang baik, transparan, akuntabel, dan terukur diterapkan secara konsisten melalui kerangka TARIF dalam setiap proses pengambilan keputusan dan alokasi modal.",
       "items": [
-        { "code": "T", "name": "Transparansi", "desc": "Keterbukaan informasi material dan relevan kepada seluruh pemangku kepentingan." },
-        { "code": "A", "name": "Akuntabilitas", "desc": "Kejelasan fungsi, struktur, sistem, dan pertanggungjawaban pengelolaan investasi." },
-        { "code": "R", "name": "Responsibilitas", "desc": "Kepatuhan penuh terhadap hukum, regulasi jasa keuangan, dan tanggung jawab sosial-lingkungan." },
-        { "code": "I", "name": "Independensi", "desc": "Pengambilan keputusan profesional objektif bebas dari benturan kepentingan." },
-        { "code": "F", "name": "Fairness (Kewajaran)", "desc": "Perlakuan adil dan setara bagi seluruh investor dalam pemenuhan hak-hak pemodal." }
+        {
+          "code": "T",
+          "name": "Transparency",
+          "desc": "Keterbukaan informasi material dan relevan kepada seluruh pemangku kepentingan.",
+          "icon": "eye"
+        },
+        {
+          "code": "A",
+          "name": "Accountability",
+          "desc": "Kejelasan fungsi, struktur, sistem, dan pertanggungjawaban pengelolaan investasi.",
+          "icon": "clipboard-check"
+        },
+        {
+          "code": "R",
+          "name": "Responsibility",
+          "desc": "Kepatuhan penuh terhadap hukum, regulasi, dan tanggung jawab sosial-lingkungan.",
+          "icon": "people"
+        },
+        {
+          "code": "I",
+          "name": "Independency",
+          "desc": "Pengambilan keputusan profesional objektif bebas dari benturan kepentingan.",
+          "icon": "balance"
+        },
+        {
+          "code": "F",
+          "name": "Fairness",
+          "desc": "Perlakuan adil dan setara bagi seluruh investor dalam pemenuhan hak-hak pemodal.",
+          "icon": "equal"
+        }
       ]
     }
   ],
   "contact": {
-    "corporate_office": "Jl. Sunburst CBD Jl. Kapten Soebijanto Djojohadikusumo No.8 Lot I, Lengkong Gudang, Kec. Serpong, Kota Tangerang Selatan, Banten 15321",
+    "corporate_office": "Roseville Soho & Suite, Sunburst CBD Lot I.8, Jl. Kapten Soebijanto Djojohadikusumo, Lengkong Gudang, Serpong, Tangerang Selatan",
     "operational_office": "Jl. Nasional III No.88, Pejuritan, Kec. Karanganyar, Kab. Kebumen, Jawa Tengah",
-    "email": "corporate@montanaglobalinvestama.com",
+    "email": "kontak@montanaglobalinvestama.com",
     "work_hours": "Senin – Jumat: 08.00 – 17.00 WIB",
-    "google_maps_url": "https://maps.google.com/?q=Jl.+Kapten+Soebijanto+Djojohadikusumo+No.8+Lot+I+Serpong+Tangerang+Selatan"
+    "google_maps_url": "https://maps.google.com/?q=Roseville+Soho+Sunburst+CBD+Serpong+Tangerang+Selatan"
   }
 }

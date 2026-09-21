@@ -41,6 +41,21 @@ try {
             $stmtUp->execute([$key, $valStr]);
         }
 
+        // Auto-sync Google Search Console verification token into index.html
+        if (isset($input['gsc_verification_token'])) {
+            $token = trim((string)$input['gsc_verification_token']);
+            $indexFile = __DIR__ . '/../../index.html';
+            if (file_exists($indexFile) && !empty($token)) {
+                $html = file_get_contents($indexFile);
+                $html = preg_replace(
+                    '/<meta name="google-site-verification" content="[^"]*">/',
+                    '<meta name="google-site-verification" content="' . htmlspecialchars($token, ENT_QUOTES, 'UTF-8') . '">',
+                    $html
+                );
+                file_put_contents($indexFile, $html);
+            }
+        }
+
         logAdminActivity('update_settings', 'system_settings', null, 'Admin updated system settings');
 
         sendJsonResponse(null, 200, 'Pengaturan sistem berhasil diperbarui.');

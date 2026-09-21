@@ -220,7 +220,7 @@ CREATE TABLE IF NOT EXISTS `system_settings` (
   `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 14. Tabel Audit Log Aktivitas Admin (Compliance & GCG)
+-- 14. Tabel Audit Log Aktivitas Admin (Kepatuhan & Tata Kelola)
 CREATE TABLE IF NOT EXISTS `admin_logs` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `admin_id` INT NULL,

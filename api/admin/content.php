@@ -408,6 +408,56 @@ try {
         }
     }
 
+    // =========================================================================
+    // 4. COMPANY PROFILE & TATA KELOLA (TARIF)
+    // =========================================================================
+    if ($section === 'profile') {
+        $jsonFile = __DIR__ . '/../../data/company-profile.json';
+
+        if ($method === 'GET') {
+            if (file_exists($jsonFile)) {
+                $data = json_decode(file_get_contents($jsonFile), true);
+                sendJsonResponse($data);
+            }
+
+            // Fallback from DB
+            $stmt = $db->prepare("SELECT setting_value FROM company_profile WHERE setting_key = 'main_profile' LIMIT 1");
+            $stmt->execute();
+            $row = $stmt->fetch();
+            if ($row && !empty($row['setting_value'])) {
+                sendJsonResponse(json_decode($row['setting_value'], true));
+            }
+
+            sendJsonError('Data profil perusahaan tidak ditemukan.', 404);
+        }
+
+        if ($method === 'POST' || $method === 'PUT') {
+            $input = getJsonInput();
+            if (empty($input)) {
+                sendJsonError('Data profil perusahaan kosong.');
+            }
+
+            $jsonString = json_encode($input, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            
+            // 1. Save to JSON file
+            file_put_contents($jsonFile, $jsonString);
+
+            // 2. Save to MySQL table
+            try {
+                $syncStmt = $db->prepare("
+                    INSERT INTO company_profile (setting_key, setting_value)
+                    VALUES ('main_profile', :val)
+                    ON DUPLICATE KEY UPDATE setting_value = :val2
+                ");
+                $syncStmt->execute([':val' => $jsonString, ':val2' => $jsonString]);
+            } catch (Exception $dbEx) {}
+
+            logAdminActivity('update', 'company_profile', 'main_profile', 'Admin memperbarui profil perusahaan & tata kelola');
+
+            sendJsonResponse($input, 200, 'Profil perusahaan dan tata kelola berhasil disimpan.');
+        }
+    }
+
     sendJsonError("Section CMS '{$section}' tidak valid.", 400);
 
 } catch (Exception $e) {

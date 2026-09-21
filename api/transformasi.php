@@ -8,6 +8,15 @@ require_once __DIR__ . '/../backend/config/db.php';
 require_once __DIR__ . '/../backend/helpers/response.php';
 
 try {
+    $staticFile = __DIR__ . '/../data/transformasi.json';
+    
+    // Priority to latest static file data if exists
+    if (file_exists($staticFile)) {
+        header('Content-Type: application/json; charset=utf-8');
+        readfile($staticFile);
+        exit;
+    }
+
     $db = getDB();
     $stmt = $db->query("SELECT * FROM transformasi_steps ORDER BY step_order ASC");
     $steps = $stmt->fetchAll();
@@ -29,8 +38,9 @@ try {
 
     $response = [
         'title' => 'Perjalanan Transformasi Montana Group',
-        'subtitle' => 'Rekam Jejak Evolusi Dari Spesialis Alat Berat Menuju Ekosistem Holding Investasi Terpadu',
-        'intro' => 'Transformasi Montana Group dibangun di atas fondasi rekam jejak riil di sektor alat berat, inovasi berkelanjutan, dan dedikasi menciptakan nilai ekonomi optimal melalui tata kelola yang amanah.',
+        'subtitle' => 'Dari Kebumen Menuju Ekosistem Investasi Nasional',
+        'intro' => 'Bermula dari satu unit alat berat di Kebumen (2022), Montana Group tumbuh menjadi holding investasi multi-sektor yang modern.',
+        'quote' => 'Kami mengintegrasikan keandalan operasional dan transformasi digital untuk membangun ekosistem sektor riil yang berkelanjutan, efisien, dan transparan.',
         'journey' => $journey
     ];
 
@@ -38,11 +48,5 @@ try {
     echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     exit;
 } catch (Exception $e) {
-    $staticFile = __DIR__ . '/../data/transformasi.json';
-    if (file_exists($staticFile)) {
-        header('Content-Type: application/json; charset=utf-8');
-        readfile($staticFile);
-        exit;
-    }
     sendJsonError('Gagal memuat timeline transformasi: ' . $e->getMessage(), 500);
 }

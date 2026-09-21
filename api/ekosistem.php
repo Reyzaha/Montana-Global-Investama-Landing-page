@@ -39,7 +39,7 @@ try {
                     'parent' => $n['parent_id'] ?? ($fallback['parent'] ?? null),
                     'level' => isset($n['level']) ? (int)$n['level'] : ($fallback['level'] ?? 0),
                     'badge' => $n['badge'] ?: ($fallback['badge'] ?? ''),
-                    'type' => $n['type'] ?? ($fallback['type'] ?? (($n['badge'] === 'Mitra Strategis' || $id === 'sinergi-foundation') ? 'partner' : ($n['level'] == 0 ? 'holding' : ($n['level'] == 2 ? 'facility' : 'subsidiary')))),
+                    'type' => $n['type'] ?? ($fallback['type'] ?? (($n['badge'] === 'Mitra Strategis') ? 'partner' : ($n['level'] == 0 ? 'holding' : ($n['level'] == 2 ? 'facility' : 'subsidiary')))),
                     'category' => $n['category'] ?? ($fallback['category'] ?? ''),
                     'icon' => $n['icon'] ?? ($fallback['icon'] ?? 'building'),
                     'description' => $n['role_desc'] ?: ($fallback['description'] ?? '')

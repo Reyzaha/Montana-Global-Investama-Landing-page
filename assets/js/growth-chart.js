@@ -10,17 +10,17 @@ let MGIGrowthData = {
   // Data Konsolidasi Holding MGI (Nilai Aset Terkelola / AUM dalam Miliar IDR)
   mgi: {
     title: 'Konsolidasi Grup PT Montana Global Investama',
-    subtitle: 'Pertumbuhan Nilai Aset Terkelola (AUM) & Skala Portofolio Investasi Sektor Riil',
-    badge: 'Holding & Investment Manager',
+    subtitle: 'Pertumbuhan Nilai Aset Terkelola (AUM) & Skala Portofolio Project Investasi Sektor Riil',
+    badge: 'Holding & Project Investment Manager',
     badgeClass: 'bg-dark',
     chartLabel: 'Nilai Aset Terkelola / AUM (Rp Miliar)',
     data: [24, 42, 80, 136, 214, 317, 435],
     unit: 'Miliar IDR',
     kpis: [
-      { label: 'Total Aset Terkelola (2025)', value: 'Rp 317 M', note: 'Target 2026: Rp 435 M', icon: 'bi-bank2', color: 'text-royal' },
+      { label: 'Total Aset Terkelola (2025)', value: 'Rp 100 M', note: 'Target 2026: Rp 150 M', icon: 'bi-bank2', color: 'text-royal' },
       { label: 'Tingkat Ketepatan Bagi Hasil', value: '100%', note: 'On-Time Payout Rekam Jejak', icon: 'bi-check-circle-fill', color: 'text-success' },
       { label: 'Rasio Default (NPA)', value: '0.0%', note: 'Underlying Asset Terproteksi', icon: 'bi-shield-fill-check', color: 'text-gold' },
-      { label: 'Batch Sindikasi Teralokasi', value: '18 Batch', note: 'Alat Berat & Logistik', icon: 'bi-layers-fill', color: 'text-primary' }
+      { label: 'Batch Sindikasi Teralokasi', value: '18 Batch', note: 'Jabodetabek, Surabaya, Denpasar, Makassar', icon: 'bi-layers-fill', color: 'text-primary' }
     ]
   },
 

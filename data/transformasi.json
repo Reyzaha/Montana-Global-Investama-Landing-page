@@ -1,84 +1,91 @@
 {
   "title": "Perjalanan Transformasi Montana Group",
-  "subtitle": "Rekam Jejak Evolusi Dari CV Montana Machine Menuju Ekosistem Holding Project Investasi Terpadu",
-  "intro": "Transformasi Montana Group dibangun di atas fondasi rekam jejak riil: berawal dari CV Montana Machine, berkembang pesat melalui PT Montana Indo Utama (MIU) dan armada Montana Towing, hingga berdirinya PT Montana Global Investama (MGI) selaku holding pengelola modal project.",
+  "subtitle": "Dari Kebumen Menuju Ekosistem Investasi Nasional",
+  "intro": "Bermula dari satu unit alat berat di Kebumen (2022), Montana Group tumbuh menjadi holding investasi multi-sektor yang modern.",
+  "quote": "Kami mengintegrasikan keandalan operasional dan transformasi digital untuk membangun ekosistem sektor riil yang berkelanjutan, efisien, dan transparan.",
   "journey": [
     {
       "step": 1,
-      "year_or_phase": "Awal Berdiri",
-      "badge": "Milestone 1",
-      "title": "Cikal Bakal: CV Montana Machine",
-      "tagline": "Akar Keahlian Mekanikal & Perdagangan Permesinan",
-      "description": "Perjalanan berawal dari CV Montana Machine yang berfokus pada spesialisasi perbaikan, overhaul, dan penyediaan suku cadang serta permesinan teknis. Fondasi teknis yang kuat ini menjadi modal berharga bagi standarisasi mutu seluruh unit di masa depan.",
+      "year_or_phase": "2022",
+      "badge": "Fondasi Awal",
+      "icon": "truck",
+      "title": "CV Montana Machine",
+      "tagline": "Distribusi Alat Berat CBU Jepang Berkualitas Tinggi di Kebumen",
+      "description": "Bermula dari satu unit alat berat di Kebumen, meletakkan fondasi teknis, kualitas, dan distribusi alat berat CBU Jepang berkualitas tinggi.",
       "achievements": [
-        "Membangun reputasi awal sebagai spesialis teknis mesin dan mekanikal berpresisi tinggi",
-        "Menjalin relasi pertama dengan importir permesinan dan bengkel industri regional",
-        "Meletakkan kultur disiplin kualitas dan pemeliharaan alat berat berstandar tinggi"
+        "Memulai distribusi alat berat CBU Jepang berkualitas tinggi pertama di Kebumen",
+        "Menjalin jaringan kerja sama penyediaan unit dan rekondisi mesin",
+        "Membangun standar kualitas dan inspeksi mekanikal ketat"
       ]
     },
     {
       "step": 2,
-      "year_or_phase": "2022",
-      "badge": "Milestone 2",
-      "title": "Evolusi Menjadi PT Montana Indo Utama (MIU) & Armada Montana Towing",
-      "tagline": "Fasilitas Workshop Sentral Kebumen & Ekspansi Distribusi CBU Jepang",
-      "description": "Mengukuhkan badan hukum korporat melalui PT Montana Indo Utama (MIU) untuk impor langsung dan distribusi unit alat berat khusus Komatsu CBU Jepang Grade A. Dilengkapi kantor dan workshop sentral seluas 4.500 m² di Kebumen serta armada resmi Montana Towing untuk mobilisasi dan servis darurat di lapangan.",
+      "year_or_phase": "Ekspansi",
+      "badge": "Solusi Alat Berat",
+      "icon": "gear-fill",
+      "title": "PT Montana Indo Utama (MIU)",
+      "tagline": "Integrated Heavy Equipment Solutions",
+      "description": "Menyediakan solusi terintegrasi mulai dari pengadaan, deployment, hingga dukungan operasional alat berat untuk memenuhi kebutuhan proyek sektor riil.",
       "achievements": [
-        "Fokus eksklusif pada keandalan unit alat berat Komatsu CBU Jepang Grade A",
-        "Pengoperasian pool & workshop rekondisi terpadu seluas 4.500 m² di Kebumen, Jawa Tengah",
-        "Peluncuran armada Montana Towing siaga 24 jam untuk pengiriman unit dan penanganan teknis cepat"
+        "Pengembangan workshop sentral & pool seluas 4.500 m² di Kebumen",
+        "Peluncuran armada Montana Towing untuk penanganan operasional darurat dan mobilisasi cepat",
+        "Penyediaan solusi deployment dan kontrak kerja alat berat berkesinambungan"
       ]
     },
     {
       "step": 3,
-      "year_or_phase": "Fase Korporasi",
-      "badge": "Milestone 3",
-      "title": "Pembentukan PT Montana Global Investama (MGI)",
-      "tagline": "Holding Pengelola Permodalan & Project Investasi Sektor Riil",
-      "description": "Montana Group mendirikan PT Montana Global Investama (MGI) sebagai holding dan manajer investasi profesional guna membuka akses sindikasi permodalan project riil yang agresif dan menguntungkan dengan prinsip Good Corporate Governance (GCG).",
+      "year_or_phase": "Impor & Logistik",
+      "badge": "Rantai Pasok",
+      "icon": "box-seam-fill",
+      "title": "PT Montana Sentra Industri (MSI)",
+      "tagline": "Import & Logistics Partner",
+      "description": "Mendukung proses impor, customs clearance, manajemen logistik, dan distribusi door-to-door melalui jaringan mitra yang terintegrasi.",
       "achievements": [
-        "Penetapan MGI sebagai induk holding pengelola portofolio project investasi",
-        "Penerapan standar GCG ketat, audit berkala, dan manajemen kepatuhan legalitas",
-        "Menghadirkan instrumen project investasi berbasis underlying asset produktif bagi pemodal"
+        "Solusi impor langsung mesin dan alat berat dari Jepang dan Cina",
+        "Pengurusan customs clearance terpadu di pelabuhan utama",
+        "Pengiriman logistik aman door-to-door langsung ke lokasi proyek"
       ]
     },
     {
       "step": 4,
-      "year_or_phase": "Fase Ekspansi",
-      "badge": "Milestone 4",
-      "title": "Sinergi Supply Import: Penguatan Montana Sentra Industri (MSI)",
-      "tagline": "Direct Import dari Jepang & Cina Langsung ke Alamat Customer",
-      "description": "Penguatan peran Montana Sentra Industri (MSI) sebagai entitas yang berfokus pada supply import mesin dan unit alat berat langsung dari Jepang atau Cina ke Indonesia secara door-to-door hingga tiba di alamat customer, memangkas rantai perantara dan biaya logistik.",
+      "year_or_phase": "Struktural",
+      "badge": "Holding Terbentuk",
+      "icon": "buildings",
+      "title": "PT Montana Global Investama Holding",
+      "tagline": "Holding & Manajer Investasi Sektor Riil",
+      "description": "Mengembangkan kapabilitas dari distribusi lokal menuju pengelolaan portofolio proyek dan investasi lintas sektor secara terstruktur dengan tata kelola TARIF.",
       "achievements": [
-        "Penyediaan jalur supply import langsung unit mesin dan alat berat dari Jepang dan Cina",
-        "Pengiriman terjamin aman sampai ke alamat customer dengan kepastian waktu",
-        "Peningkatan efisiensi pengadaan unit armada proyek secara menyeluruh"
+        "MGI memegang peran holding pengelola modal, tata kelola, dan mitigasi risiko",
+        "Penerapan kerangka tata kelola TARIF secara konsisten",
+        "Membuka pintu kemitraan investasi proyek berbasis aset fisik riil bagi pemodal"
       ]
     },
     {
       "step": 5,
-      "year_or_phase": "Fase Digitalisasi",
-      "badge": "Milestone 5",
-      "title": "Peluncuran Mypurcase",
-      "tagline": "Sistem dan Pengadaan Terpadu Purchasing Unit & Mesin Efisien",
-      "description": "Mypurcase hadir sebagai sistem dan platform pengadaan terpadu internal ekosistem untuk purchasing unit, mesin, dan suku cadang secara efisien, transparan, dan terukur lintas entitas.",
+      "year_or_phase": "Digitalisasi",
+      "badge": "Platform Digital",
+      "icon": "laptop",
+      "title": "Mypurcase Diluncurkan",
+      "tagline": "B2B Procurement & Purchasing Platform",
+      "description": "Mendigitalisasi proses pengadaan dan rantai pasok B2B untuk meningkatkan efisiensi, transparansi, dan keterlacakan transaksi antar entitas dan supplier.",
       "achievements": [
-        "Digitalisasi menyeluruh proses purchasing unit dan mesin ekosistem",
-        "Efisiensi serapan anggaran dan penawaran harga bersaing langsung dari pemasok",
-        "Transparansi pelaporan realisasi belanja modal project"
+        "Digitalisasi transaksi pengadaan suku cadang, mesin, dan unit",
+        "Efisiensi serapan belanja modal dan transparansi harga supplier",
+        "Sistem pelacakan pengadaan secara digital dan real-time"
       ]
     },
     {
       "step": 6,
-      "year_or_phase": "2026 dan seterusnya",
-      "badge": "Milestone 6",
-      "title": "Ekspansi Nasional (Bali & NTB) & Portal Project Investor",
-      "tagline": "Ekspansi Multi-Kota, Transparansi Laba Rugi, & Pertumbuhan Agresif",
-      "description": "Montana Group memperluas jangkauan operasional unit Komatsu ke Bali dan NTB, serta meluncurkan Investor Portal terintegrasi dengan modul Billing dan transparansi nominal laba rugi real-time bagi para mitra pemodal.",
+      "year_or_phase": "2026+",
+      "badge": "Masa Depan",
+      "icon": "graph-up-arrow",
+      "title": "Ekosistem Investasi Digital",
+      "tagline": "Simulasi Proyeksi Interaktif & Akses Konsultasi Transparan",
+      "description": "Menghadirkan simulasi proyeksi investasi secara interaktif serta akses konsultasi yang lebih mudah untuk mendukung transparansi dan pemahaman investor.",
       "achievements": [
-        "Ekspansi operasional aktif project per kota: Kebumen, Cilacap, Semarang, Bali, dan NTB",
-        "Pengelolaan armada 125+ unit Komatsu dengan nilai kapitalisasi tinggi dan stok siap operasi",
-        "Portal Investor resmi dengan fitur Billing terverifikasi dan pelaporan performa transparan"
+        "Simulasi interaktif perhitungan estimasi BEP dan target ROI 2-3 tahun",
+        "Layanan konsultasi eksklusif terverifikasi dilindungi skema NDA",
+        "Ekspansi operasional ke simpul strategis nasional: Jabodetabek, Surabaya, Denpasar, dan Makassar"
       ]
     }
   ]

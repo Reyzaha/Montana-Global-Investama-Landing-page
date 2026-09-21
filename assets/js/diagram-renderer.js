@@ -4,45 +4,109 @@
  */
 
 const MGIDiagrams = {
-  // 1. Render Timeline for Transformasi Page (Bootstrap 5)
+  // 1. Render Timeline for Transformasi Page (Matches PDF Halaman 5 Exactly)
   renderTimeline: function (containerId, journeyData) {
     const container = document.getElementById(containerId);
     if (!container || !journeyData || !journeyData.journey) return;
 
     const items = journeyData.journey;
-    const timelineHtml = items.map((item, index) => {
-      const achievementsHtml = item.achievements && item.achievements.length > 0 ? `
-        <div class="mt-3 pt-3 border-top border-subtle">
-          <div class="small fw-bold text-dark mb-2 text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px;">Milestone Pencapaian:</div>
-          <ul class="list-unstyled mb-0 small text-secondary">
-            ${item.achievements.map(ach => `<li class="mb-1 d-flex align-items-start gap-2"><i class="bi bi-check2-circle text-gold flex-shrink-0 mt-1"></i><span>${ach}</span></li>`).join('')}
-          </ul>
-        </div>
-      ` : '';
 
-      return `
-        <div class="timeline-entry mb-4 position-relative ps-5">
-          <div class="timeline-marker-circle position-absolute start-0 top-0 bg-royal text-white rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm" style="width: 38px; height: 38px; font-size: 1rem; border: 3px solid #C5A059;">
-            ${item.step || (index + 1)}
-          </div>
-          <div class="card mgi-card border border-subtle bg-white p-4 rounded-3 shadow-sm">
-            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
-              <span class="badge bg-gold text-white px-3 py-1 rounded-pill small fw-bold">
-                ${item.badge || 'Milestone ' + (index + 1)} • ${item.year_or_phase}
-              </span>
+    // Timeline Icon mapping according to PDF page 5
+    const stepIcons = {
+      1: 'bi-truck',
+      2: 'bi-truck-flatbed',
+      3: 'bi-box-seam-fill',
+      4: 'bi-buildings-fill',
+      5: 'bi-laptop',
+      6: 'bi-graph-up-arrow'
+    };
+
+    // Desktop Alternating Nodes: Odd items (1, 3, 5) have content on TOP, Even items (2, 4, 6) have content on BOTTOM
+    const desktopNodesHtml = items.map((item, index) => {
+      const stepNum = item.step || (index + 1);
+      const isTop = (stepNum % 2 !== 0); // 1, 3, 5 are TOP; 2, 4, 6 are BOTTOM
+      const iconName = stepIcons[stepNum] || 'bi-circle-fill';
+
+      if (isTop) {
+        return `
+          <div class="pdf-timeline-node">
+            <!-- Top Content Block -->
+            <div class="pdf-node-content pdf-node-top">
+              <p class="pdf-node-desc mb-2">${item.description}</p>
+              <h6 class="pdf-node-title mb-1">${item.title}</h6>
+              <span class="pdf-phase-label">${item.year_or_phase}</span>
+              <div class="pdf-node-stem mt-2"></div>
             </div>
-            <h4 class="fw-bold text-dark mb-1">${item.title}</h4>
-            ${item.tagline ? `<div class="text-royal fw-semibold small mb-3">${item.tagline}</div>` : ''}
-            <p class="text-secondary mb-0 lh-base">${item.description}</p>
-            ${achievementsHtml}
+
+            <!-- Central Badge Circle (on the axis line) -->
+            <div class="pdf-node-badge my-1">
+              <i class="bi ${iconName}"></i>
+            </div>
+
+            <!-- Bottom Empty Space to Balance Height -->
+            <div class="pdf-node-empty"></div>
+          </div>
+        `;
+      } else {
+        return `
+          <div class="pdf-timeline-node">
+            <!-- Top Empty Space to Balance Height -->
+            <div class="pdf-node-empty"></div>
+
+            <!-- Central Badge Circle (on the axis line) -->
+            <div class="pdf-node-badge my-1">
+              <i class="bi ${iconName}"></i>
+            </div>
+
+            <!-- Bottom Content Block -->
+            <div class="pdf-node-content pdf-node-bottom">
+              <div class="pdf-node-stem mb-2"></div>
+              <span class="pdf-phase-label">${item.year_or_phase}</span>
+              <h6 class="pdf-node-title mb-1">${item.title}</h6>
+              <p class="pdf-node-desc mt-1">${item.description}</p>
+            </div>
+          </div>
+        `;
+      }
+    }).join('');
+
+    // Mobile Fallback: Clean Vertical Timeline with left axis line
+    const mobileNodesHtml = items.map((item, index) => {
+      const stepNum = item.step || (index + 1);
+      const iconName = stepIcons[stepNum] || 'bi-circle-fill';
+      return `
+        <div class="pdf-mobile-entry">
+          <div class="pdf-mobile-badge">
+            <i class="bi ${iconName}"></i>
+          </div>
+          <div class="pdf-mobile-card">
+            <span class="pdf-phase-label">${item.year_or_phase}</span>
+            <h6 class="pdf-node-title">${item.title}</h6>
+            <p class="pdf-node-desc">${item.description}</p>
           </div>
         </div>
       `;
     }).join('');
 
     container.innerHTML = `
-      <div class="timeline-list position-relative" style="border-left: 2px solid #E2E8F0; margin-left: 18px; padding-left: 8px;">
-        ${timelineHtml}
+      <div class="pdf-timeline-container">
+        <!-- Desktop Alternating Track (Visible on lg and up) -->
+        <div class="d-none d-lg-flex pdf-timeline-track">
+          ${desktopNodesHtml}
+        </div>
+
+        <!-- Mobile/Tablet Clean Vertical List (Visible on < lg) -->
+        <div class="d-block d-lg-none pdf-timeline-mobile-list mb-4">
+          ${mobileNodesHtml}
+        </div>
+
+        <!-- Pita Bar Quote Bawah Sesuai PDF Halaman 5 -->
+        <div class="dark-quote-strip d-flex align-items-center justify-content-center gap-3 shadow-sm text-center mx-auto mt-4" style="max-width: 960px;">
+          <i class="bi bi-quote text-gold fs-3 flex-shrink-0"></i>
+          <div class="fst-italic text-white" style="font-size: 0.95rem; line-height: 1.6;">
+            "${journeyData.quote || 'Kami mengintegrasikan keandalan operasional dan transformasi digital untuk membangun ekosistem sektor riil yang berkelanjutan, efisien, dan transparan.'}"
+          </div>
+        </div>
       </div>
     `;
   },
@@ -258,7 +322,7 @@ const MGIDiagrams = {
             </span>
           </div>
           <h2 class="fw-bold text-dark mb-2">${root.label}</h2>
-          <div class="small fw-bold text-royal text-uppercase tracking-wide mb-3">${root.category || 'Holding & Investment Manager'}</div>
+          <div class="small fw-bold text-royal text-uppercase tracking-wide mb-3">${root.category || 'Holding & Project Investment Manager'}</div>
           <p class="text-secondary small mb-0 lh-lg" style="max-width: 620px;">
             ${root.description || ''}
           </p>
@@ -276,17 +340,17 @@ const MGIDiagrams = {
           ${level1Html}
         </div>
 
-        <!-- Connecting Line to Strategic Partner -->
-        <div class="d-flex flex-column align-items-center my-3">
-          <div style="width: 3px; height: 24px; background-color: #CBD5E1;"></div>
-          <div class="badge bg-secondary text-white px-3 py-1 rounded-pill small fw-bold">Dukungan Offtake & Kemitraan Strategis</div>
-          <div style="width: 3px; height: 24px; background-color: #CBD5E1;"></div>
-        </div>
-
-        <!-- Strategic Partner Row -->
-        <div class="row text-start justify-content-center">
-          ${partnerHtml}
-        </div>
+        <!-- Strategic Partner Row (Render only if exists) -->
+        ${partners.length > 0 ? `
+          <div class="d-flex flex-column align-items-center my-3">
+            <div style="width: 3px; height: 24px; background-color: #CBD5E1;"></div>
+            <div class="badge bg-secondary text-white px-3 py-1 rounded-pill small fw-bold">Dukungan Offtake & Kemitraan Strategis</div>
+            <div style="width: 3px; height: 24px; background-color: #CBD5E1;"></div>
+          </div>
+          <div class="row text-start justify-content-center">
+            ${partnerHtml}
+          </div>
+        ` : ''}
 
         <!-- Table Summary -->
         ${tableHtml}

@@ -36,6 +36,12 @@ require_once __DIR__ . '/includes/header.php';
       <span>Sinergi Preparation</span>
     </button>
   </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link fw-bold px-3 py-2" id="tab-profile-btn" data-bs-toggle="pill" data-bs-target="#tab-profile" type="button" role="tab" onclick="loadCompanyProfile()">
+      <i class="bi bi-shield-check me-2 text-warning" style="color: #C5A059 !important;"></i>
+      <span>Profil &amp; Tata Kelola (TARIF)</span>
+    </button>
+  </li>
 </ul>
 
 <div class="tab-content" id="contentTabsContent">
@@ -273,6 +279,129 @@ require_once __DIR__ . '/includes/header.php';
         </table>
       </div>
     </div>
+  </div>
+
+  <!-- ================= TAB 5: PROFIL PERUSAHAAN & TATA KELOLA (TARIF) ================= -->
+  <div class="tab-pane fade" id="tab-profile" role="tabpanel">
+    <form id="profileForm" onsubmit="saveCompanyProfile(event)">
+      <!-- Bagian 1: Identitas & Tagline -->
+      <div class="admin-card mb-4">
+        <div class="admin-card-header bg-white d-flex align-items-center gap-2">
+          <i class="bi bi-building text-primary" style="color: #142563 !important;"></i>
+          <span class="fw-bold text-dark">1. Identitas &amp; Tagline Korporat</span>
+        </div>
+        <div class="p-4">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold small">Nama Resmi Perusahaan</label>
+              <input type="text" id="profCompanyName" class="form-control" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-bold small">Nama Singkat / Inisial</label>
+              <input type="text" id="profShortName" class="form-control" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-bold small">Nama Grup</label>
+              <input type="text" id="profGroupName" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold small">Tagline Utama (Bahasa Indonesia)</label>
+              <input type="text" id="profTaglineId" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold small">Tagline (Bahasa Inggris)</label>
+              <input type="text" id="profTaglineEn" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bagian 2: Visi & Misi Perusahaan -->
+      <div class="admin-card mb-4">
+        <div class="admin-card-header bg-white d-flex align-items-center gap-2">
+          <i class="bi bi-compass text-warning" style="color: #C5A059 !important;"></i>
+          <span class="fw-bold text-dark">2. Visi &amp; Misi Korporat</span>
+        </div>
+        <div class="p-4">
+          <div class="mb-3">
+            <label class="form-label fw-bold small">Visi Perusahaan</label>
+            <textarea id="profVision" class="form-control" rows="2" required></textarea>
+          </div>
+          <div>
+            <label class="form-label fw-bold small">Misi Perusahaan (1 baris = 1 poin misi)</label>
+            <textarea id="profMissions" class="form-control" rows="5" required></textarea>
+            <small class="text-muted" style="font-size: 0.75rem;">Pisahkan setiap poin misi dengan menekan tombol Enter.</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bagian 3: Nilai-Nilai Perusahaan -->
+      <div class="admin-card mb-4">
+        <div class="admin-card-header bg-white d-flex align-items-center gap-2">
+          <i class="bi bi-gem text-success"></i>
+          <span class="fw-bold text-dark">3. Nilai-Nilai Utama Perusahaan (Core Values)</span>
+        </div>
+        <div class="p-4">
+          <div class="row g-3" id="profValuesContainer">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Bagian 4: Prinsip Tata Kelola Perusahaan (TARIF) -->
+      <div class="admin-card mb-4">
+        <div class="admin-card-header bg-white d-flex align-items-center gap-2">
+          <i class="bi bi-shield-check text-primary" style="color: #142563 !important;"></i>
+          <span class="fw-bold text-dark">4. Tata Kelola Perusahaan yang Baik (Kerangka TARIF)</span>
+        </div>
+        <div class="p-4">
+          <p class="text-muted small mb-3">Prinsip tata kelola perusahaan yang baik, transparan, dan akuntabel diimplementasikan melalui 5 pilar TARIF:</p>
+          <div class="row g-3" id="profTarifContainer">
+            <!-- Rendered dynamically (T, A, R, I, F) -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Bagian 5: Alamat & Kontak Resmi -->
+      <div class="admin-card mb-4">
+        <div class="admin-card-header bg-white d-flex align-items-center gap-2">
+          <i class="bi bi-geo-alt text-danger"></i>
+          <span class="fw-bold text-dark">5. Alamat Kantor &amp; Kontak Resmi</span>
+        </div>
+        <div class="p-4">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold small">Kantor Pusat (Corporate Office)</label>
+              <textarea id="profCorpOffice" class="form-control" rows="3" required></textarea>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold small">Kantor Operasional &amp; Workshop (Operational Office)</label>
+              <textarea id="profOpOffice" class="form-control" rows="3" required></textarea>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-bold small">Email Resmi Perusahaan</label>
+              <input type="email" id="profEmail" class="form-control" required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-bold small">Jam Kerja Operasional</label>
+              <input type="text" id="profWorkHours" class="form-control" required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-bold small">Link Google Maps</label>
+              <input type="text" id="profMapsUrl" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tombol Simpan Profil -->
+      <div class="d-flex justify-content-end gap-2 mb-4">
+        <button type="submit" id="btnSaveProfile" class="btn btn-mgi-primary px-4 py-2 d-flex align-items-center gap-2 shadow-sm">
+          <i class="bi bi-cloud-arrow-up-fill"></i>
+          <span>Simpan Perubahan Profil &amp; Tata Kelola</span>
+        </button>
+      </div>
+    </form>
   </div>
 
 </div>
@@ -1314,6 +1443,161 @@ require_once __DIR__ . '/includes/header.php';
       }
     } catch (e) {
       AdminApp.showToast('Gagal menghapus tahapan.', 'danger');
+    }
+  }
+
+  // =========================================================================
+  // 5. PROFIL PERUSAHAAN & TATA KELOLA (TARIF) CONTROLLER
+  // =========================================================================
+  let companyProfileData = null;
+
+  async function loadCompanyProfile() {
+    try {
+      const res = await fetch('../api/admin/content.php?section=profile');
+      const json = await res.json();
+      if (json.success && json.data) {
+        companyProfileData = json.data;
+        renderCompanyProfileForm();
+      } else {
+        AdminApp.showToast('Gagal memuat profil perusahaan.', 'danger');
+      }
+    } catch (e) {
+      console.error(e);
+      AdminApp.showToast('Gagal terhubung ke API profil perusahaan.', 'danger');
+    }
+  }
+
+  function renderCompanyProfileForm() {
+    if (!companyProfileData) return;
+    const p = companyProfileData;
+
+    document.getElementById('profCompanyName').value = p.company_name || '';
+    document.getElementById('profShortName').value = p.short_name || '';
+    document.getElementById('profGroupName').value = p.group_name || '';
+    document.getElementById('profTaglineId').value = p.tagline_id || '';
+    document.getElementById('profTaglineEn').value = p.tagline_en || '';
+
+    // Visi & Misi
+    const vmSection = (p.sections || []).find(s => s.type === 'vision_mission') || {};
+    document.getElementById('profVision').value = vmSection.vision || '';
+    document.getElementById('profMissions').value = (vmSection.missions || []).join('\n');
+
+    // Core Values
+    const valSection = (p.sections || []).find(s => s.id === 'core-values') || {};
+    const valContainer = document.getElementById('profValuesContainer');
+    if (valContainer && valSection.items) {
+      valContainer.innerHTML = valSection.items.map((item, idx) => `
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card p-3 border rounded-3 bg-light h-100">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <i class="bi bi-${item.icon || 'star'} text-warning"></i>
+              <input type="text" class="form-control form-control-sm fw-bold prof-value-name" data-val-idx="${idx}" value="${item.name}">
+            </div>
+            <textarea class="form-control form-control-sm prof-value-desc" data-val-idx="${idx}" rows="3">${item.desc}</textarea>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // TARIF Items
+    const tarifSection = (p.sections || []).find(s => s.id === 'tata-kelola') || {};
+    const tarifContainer = document.getElementById('profTarifContainer');
+    if (tarifContainer && tarifSection.items) {
+      tarifContainer.innerHTML = tarifSection.items.map((item, idx) => `
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card p-3 border rounded-3 bg-light h-100">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <span class="badge bg-royal text-white font-monospace fs-6 px-2">${item.code}</span>
+              <input type="text" class="form-control form-control-sm fw-bold prof-tarif-name" data-tarif-idx="${idx}" value="${item.name}">
+            </div>
+            <textarea class="form-control form-control-sm prof-tarif-desc" data-tarif-idx="${idx}" rows="3">${item.desc}</textarea>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Kontak
+    const contact = p.contact || {};
+    document.getElementById('profCorpOffice').value = contact.corporate_office || '';
+    document.getElementById('profOpOffice').value = contact.operational_office || '';
+    document.getElementById('profEmail').value = contact.email || '';
+    document.getElementById('profWorkHours').value = contact.work_hours || '';
+    document.getElementById('profMapsUrl').value = contact.google_maps_url || '';
+  }
+
+  async function saveCompanyProfile(e) {
+    e.preventDefault();
+    if (!companyProfileData) return;
+
+    // Capture values
+    companyProfileData.company_name = document.getElementById('profCompanyName').value.trim();
+    companyProfileData.short_name = document.getElementById('profShortName').value.trim();
+    companyProfileData.group_name = document.getElementById('profGroupName').value.trim();
+    companyProfileData.tagline_id = document.getElementById('profTaglineId').value.trim();
+    companyProfileData.tagline_en = document.getElementById('profTaglineEn').value.trim();
+
+    // Visi Misi
+    const vmSection = (companyProfileData.sections || []).find(s => s.type === 'vision_mission');
+    if (vmSection) {
+      vmSection.vision = document.getElementById('profVision').value.trim();
+      vmSection.missions = document.getElementById('profMissions').value.split('\n').map(m => m.trim()).filter(Boolean);
+    }
+
+    // Values
+    const valSection = (companyProfileData.sections || []).find(s => s.id === 'core-values');
+    if (valSection && valSection.items) {
+      document.querySelectorAll('.prof-value-name').forEach(inp => {
+        const idx = Number(inp.dataset.valIdx);
+        if (valSection.items[idx]) valSection.items[idx].name = inp.value.trim();
+      });
+      document.querySelectorAll('.prof-value-desc').forEach(inp => {
+        const idx = Number(inp.dataset.valIdx);
+        if (valSection.items[idx]) valSection.items[idx].desc = inp.value.trim();
+      });
+    }
+
+    // TARIF
+    const tarifSection = (companyProfileData.sections || []).find(s => s.id === 'tata-kelola');
+    if (tarifSection && tarifSection.items) {
+      document.querySelectorAll('.prof-tarif-name').forEach(inp => {
+        const idx = Number(inp.dataset.tarifIdx);
+        if (tarifSection.items[idx]) tarifSection.items[idx].name = inp.value.trim();
+      });
+      document.querySelectorAll('.prof-tarif-desc').forEach(inp => {
+        const idx = Number(inp.dataset.tarifIdx);
+        if (tarifSection.items[idx]) tarifSection.items[idx].desc = inp.value.trim();
+      });
+    }
+
+    // Contact
+    if (!companyProfileData.contact) companyProfileData.contact = {};
+    companyProfileData.contact.corporate_office = document.getElementById('profCorpOffice').value.trim();
+    companyProfileData.contact.operational_office = document.getElementById('profOpOffice').value.trim();
+    companyProfileData.contact.email = document.getElementById('profEmail').value.trim();
+    companyProfileData.contact.work_hours = document.getElementById('profWorkHours').value.trim();
+    companyProfileData.contact.google_maps_url = document.getElementById('profMapsUrl').value.trim();
+
+    const btn = document.getElementById('btnSaveProfile');
+    btn.disabled = true;
+    btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span> Menyimpan...`;
+
+    try {
+      const res = await fetch('../api/admin/content.php?section=profile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(companyProfileData)
+      });
+      const json = await res.json();
+      if (json.success) {
+        AdminApp.showToast('Profil perusahaan & data tata kelola berhasil disimpan!', 'success');
+      } else {
+        AdminApp.showToast(json.message || 'Gagal menyimpan profil.', 'danger');
+      }
+    } catch (e) {
+      AdminApp.showToast('Gagal menyimpan profil perusahaan.', 'danger');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = `<i class="bi bi-cloud-arrow-up-fill me-2"></i><span>Simpan Perubahan Profil &amp; Tata Kelola</span>`;
     }
   }
 </script>
