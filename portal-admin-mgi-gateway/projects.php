@@ -8,7 +8,7 @@ require_once __DIR__ . '/includes/header.php';
     <h5 class="fw-bold text-dark mb-1">Manajemen Portofolio Proyek</h5>
     <p class="text-muted small mb-0">Kelola informasi proyek riil, rencana anggaran biaya (RAB), dan parameter simulasi BEP/ROI.</p>
   </div>
-  <button type="button" class="btn btn-mgi-gold d-flex align-items-center gap-2 shadow-sm" onclick="openCreateModal()">
+  <button type="button" class="btn btn-mgi-gold d-flex align-items-center gap-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#projectModal" onclick="openCreateModal()">
     <i class="bi bi-plus-circle-fill"></i>
     <span>Tambah Proyek Baru</span>
   </button>
@@ -558,7 +558,14 @@ require_once __DIR__ . '/includes/header.php';
     updateMoneyPreview('simDefault', 'previewSimDefault');
 
     // Reset to tab 1
-    bootstrap.Tab.getInstance(document.getElementById('tab-basic-btn'))?.show();
+    const tabEl = document.getElementById('tab-basic-btn');
+    if (tabEl) {
+      const tab = bootstrap.Tab.getOrCreateInstance(tabEl);
+      if (tab) tab.show();
+    }
+    if (!modalInstance) {
+      modalInstance = new bootstrap.Modal(document.getElementById('projectModal'));
+    }
     modalInstance.show();
   }
 

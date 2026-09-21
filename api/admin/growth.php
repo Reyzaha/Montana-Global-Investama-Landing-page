@@ -29,9 +29,18 @@ try {
         }
 
         // Simpan data baru ke data/growth.json
+        $dataDir = dirname($dataFile);
+        if (!is_dir($dataDir)) {
+            @mkdir($dataDir, 0775, true);
+        }
+        if (file_exists($dataFile) && !is_writable($dataFile)) {
+            @chmod($dataFile, 0664);
+        }
+
         $encoded = json_encode($input, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-        if (file_put_contents($dataFile, $encoded) === false) {
-            sendJsonError('Gagal menyimpan file data pertumbuhan. Periksa permission file.', 500);
+        $saved = @file_put_contents($dataFile, $encoded);
+        if ($saved === false) {
+            sendJsonError('Gagal menyimpan file data pertumbuhan. Periksa permission folder data/ di server hosting (jalankan: chmod 775 data && chmod 664 data/growth.json).', 500);
         }
 
         // Catat aktivitas admin

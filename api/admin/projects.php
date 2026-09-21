@@ -20,6 +20,7 @@ function cleanMoney(mixed $val): string {
 
 try {
     $db = getDB();
+    ensureProjectsSchema($db);
 
     // 1. GET: Ambil daftar proyek atau single proyek
     if ($method === 'GET') {
@@ -355,4 +356,186 @@ try {
         $db->rollBack();
     }
     sendJsonError('Terjadi kesalahan operasi proyek: ' . $e->getMessage(), 500);
+}
+
+/**
+ * Auto-migration & seed for projects tables
+ */
+function ensureProjectsSchema(PDO $db): void {
+    try {
+        $db->exec("
+            CREATE TABLE IF NOT EXISTS `projects` (
+              `id` VARCHAR(50) PRIMARY KEY,
+              `title` VARCHAR(255) NOT NULL,
+              `category` VARCHAR(100) NOT NULL,
+              `image` VARCHAR(255) NOT NULL DEFAULT 'assets/img/komatsu.jpg',
+              `funding_collected` BIGINT NOT NULL DEFAULT 0,
+              `funding_target` BIGINT NOT NULL DEFAULT 0,
+              `currency` VARCHAR(10) NOT NULL DEFAULT 'IDR',
+              `status` VARCHAR(50) NOT NULL DEFAULT 'Open',
+              `featured` TINYINT(1) NOT NULL DEFAULT 0,
+              `lokasi` VARCHAR(255) NOT NULL,
+              `target_display` VARCHAR(100) NULL,
+              `tenor` VARCHAR(50) NOT NULL DEFAULT '36 Bulan',
+              `return_rate` VARCHAR(50) NOT NULL DEFAULT '≥30% (p.a.)',
+              `risk_level` VARCHAR(100) NOT NULL,
+              `min_investment` VARCHAR(100) NOT NULL DEFAULT 'Rp 500.000.000',
+              `payout` VARCHAR(100) NOT NULL DEFAULT 'Bagi Hasil Kuartalan',
+              `remaining_days` VARCHAR(100) NOT NULL DEFAULT '18 Hari Tersisa',
+              `asset_backed` VARCHAR(255) NOT NULL DEFAULT 'Unit CBU Grade A & BPKB',
+              `sort_order` INT NOT NULL DEFAULT 0,
+              `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+              `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        ");
+
+        $db->exec("
+            CREATE TABLE IF NOT EXISTS `project_details` (
+              `id` INT AUTO_INCREMENT PRIMARY KEY,
+              `project_id` VARCHAR(50) NOT NULL,
+              `tagline` VARCHAR(255) NULL,
+              `what_will_provide_title` VARCHAR(255) NOT NULL DEFAULT 'Alokasi Penggunaan Modal (Use of Funds & Asset Acquisition)',
+              `what_will_provide_content` TEXT NOT NULL,
+              `sinergi_title` VARCHAR(255) NOT NULL DEFAULT 'Struktur Kemitraan Strategis & Jaminan Penyerapan Pasar (Offtake Framework)',
+              `sinergi_content` TEXT NOT NULL,
+              `summary_title` VARCHAR(255) NOT NULL DEFAULT 'Ringkasan Kelayakan Investasi & Profil Risiko (Feasibility Summary)',
+              `summary_content` TEXT NOT NULL,
+              `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+              `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+              CONSTRAINT `fk_project_detail` FOREIGN KEY (`project_id`) 
+                REFERENCES `projects`(`id`) ON DELETE CASCADE
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        ");
+
+        $db->exec("
+            CREATE TABLE IF NOT EXISTS `funding_items` (
+              `id` INT AUTO_INCREMENT PRIMARY KEY,
+              `project_id` VARCHAR(50) NOT NULL,
+              `no_urut` INT NOT NULL DEFAULT 1,
+              `item_name` VARCHAR(255) NOT NULL,
+              `quantity` INT NOT NULL DEFAULT 1,
+              `unit_price` BIGINT NOT NULL DEFAULT 0,
+              `total` BIGINT NOT NULL DEFAULT 0,
+              `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+              CONSTRAINT `fk_funding_item_project` FOREIGN KEY (`project_id`) 
+                REFERENCES `projects`(`id`) ON DELETE CASCADE
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        ");
+
+        $db->exec("
+            CREATE TABLE IF NOT EXISTS `project_simulation` (
+              `project_id` VARCHAR(50) PRIMARY KEY,
+              `tenor_bulan` INT NOT NULL DEFAULT 36,
+              `estimasi_return_persen` DECIMAL(5,2) NOT NULL DEFAULT 30.00,
+              `modal_kerja_bulanan_persen` DECIMAL(5,2) NOT NULL DEFAULT 2.20,
+              `minimum_investasi` BIGINT NOT NULL DEFAULT 500000000,
+              `maximum_investasi` BIGINT NOT NULL DEFAULT 500000000000,
+              `default_investasi` BIGINT NOT NULL DEFAULT 500000000,
+              `notes` TEXT NULL,
+              `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+              CONSTRAINT `fk_simulation_project` FOREIGN KEY (`project_id`) 
+                REFERENCES `projects`(`id`) ON DELETE CASCADE
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        ");
+
+        // If table projects is completely empty, populate from data/projects.json
+        $count = $db->query("SELECT COUNT(*) FROM projects")->fetchColumn();
+        if ((int)$count === 0) {
+            $jsonFile = __DIR__ . '/../../data/projects.json';
+            if (file_exists($jsonFile)) {
+                $raw = json_decode(file_get_contents($jsonFile), true);
+                $projectsList = $raw['projects'] ?? [];
+                $insP = $db->prepare("
+                    INSERT INTO projects (
+                        id, title, category, image, funding_collected, funding_target,
+                        currency, status, featured, lokasi, target_display, tenor,
+                        return_rate, risk_level, min_investment, payout, remaining_days, asset_backed, sort_order
+                    ) VALUES (?, ?, ?, ?, ?, ?, 'IDR', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ");
+                $insD = $db->prepare("
+                    INSERT INTO project_details (
+                        project_id, tagline, what_will_provide_title, what_will_provide_content,
+                        sinergi_title, sinergi_content, summary_title, summary_content
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                ");
+                $insF = $db->prepare("
+                    INSERT INTO funding_items (project_id, no_urut, item_name, quantity, unit_price, total)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                ");
+                $insS = $db->prepare("
+                    INSERT INTO project_simulation (
+                        project_id, tenor_bulan, estimasi_return_persen, modal_kerja_bulanan_persen,
+                        minimum_investasi, maximum_investasi, default_investasi, notes
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                ");
+
+                foreach ($projectsList as $idx => $p) {
+                    $pid = $p['id'];
+                    $info = $p['info'] ?? [];
+                    $fnd = $p['funding'] ?? [];
+                    $insP->execute([
+                        $pid,
+                        $p['title'],
+                        $p['category'] ?? 'Alat Berat & Infrastruktur',
+                        $p['image'] ?? 'assets/img/komatsu.jpg',
+                        (int)($fnd['collected'] ?? 0),
+                        (int)($fnd['target'] ?? 0),
+                        $p['status'] ?? 'Open',
+                        !empty($p['featured']) ? 1 : 0,
+                        $info['lokasi'] ?? '',
+                        $info['target'] ?? '',
+                        $info['tenor'] ?? '36 Bulan',
+                        $info['return'] ?? '≥30% (p.a.)',
+                        'Menengah - Terukur',
+                        $info['min_investment'] ?? 'Rp 500.000.000',
+                        $info['payout'] ?? 'Bagi Hasil Kuartalan',
+                        $info['remaining_days'] ?? '30 Hari Tersisa',
+                        $info['asset_backed'] ?? 'Unit CBU Grade A & BPKB',
+                        $idx + 1
+                    ]);
+
+                    $det = $p['detail'] ?? [];
+                    $wwp = $det['what_will_provide'] ?? [];
+                    $sin = $det['sinergi_mitra'] ?? ($det['sinergi'] ?? []);
+                    $sum = $det['summary'] ?? [];
+                    $insD->execute([
+                        $pid,
+                        $det['tagline'] ?? '',
+                        $wwp['title'] ?? 'Alokasi Penggunaan Modal',
+                        $wwp['content'] ?? '',
+                        $sin['title'] ?? 'Struktur Kemitraan',
+                        $sin['content'] ?? '',
+                        $sum['title'] ?? 'Ringkasan Kelayakan',
+                        $sum['content'] ?? ''
+                    ]);
+
+                    $rows = $det['funding_target']['rows'] ?? [];
+                    foreach ($rows as $rIdx => $r) {
+                        $insF->execute([
+                            $pid,
+                            $rIdx + 1,
+                            $r['item'] ?? 'Unit Item',
+                            (int)($r['quantity'] ?? 1),
+                            (int)($r['unit_price'] ?? 0),
+                            (int)($r['total'] ?? 0)
+                        ]);
+                    }
+
+                    $sim = $det['simulation'] ?? [];
+                    $insS->execute([
+                        $pid,
+                        (int)($sim['tenor_bulan'] ?? 36),
+                        (float)($sim['estimasi_return_persen'] ?? 30.00),
+                        (float)($sim['modal_kerja_bulanan_persen'] ?? 2.20),
+                        (int)($sim['minimum_investasi'] ?? 500000000),
+                        (int)($sim['maximum_investasi'] ?? 500000000000),
+                        (int)($sim['default_investasi'] ?? 500000000),
+                        $sim['notes'] ?? 'Simulasi bersifat indikatif.'
+                    ]);
+                }
+            }
+        }
+    } catch (Exception $e) {
+        error_log("[CMS Ensure Projects Schema Error] " . $e->getMessage());
+    }
 }
