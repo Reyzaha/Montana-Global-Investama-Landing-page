@@ -806,42 +806,48 @@ require_once __DIR__ . '/includes/header.php';
 
     // Render 4 KPIs
     const kpiContainer = document.getElementById('kpiEditorCardsContainer');
-    kpiContainer.innerHTML = seg.kpis.map((kpi, idx) => `
+    kpiContainer.innerHTML = (seg.kpis || []).map((kpi, idx) => {
+      const kpiVal = kpi.value !== undefined ? kpi.value : (kpi.val !== undefined ? kpi.val : '');
+      const kpiDesc = kpi.note !== undefined ? kpi.note : (kpi.desc !== undefined ? kpi.desc : '');
+      return `
       <div class="col-12 col-md-6 col-lg-3">
         <div class="card p-3 border rounded-3 bg-white h-100 shadow-sm">
           <div class="small fw-bold text-muted text-uppercase mb-1">Kartu KPI #${idx + 1}</div>
           <div class="mb-2">
             <label class="form-label small mb-1">Judul / Label</label>
-            <input type="text" class="form-control form-control-sm kpi-label-input" data-kpi-idx="${idx}" value="${kpi.label}">
+            <input type="text" class="form-control form-control-sm kpi-label-input" data-kpi-idx="${idx}" value="${kpi.label || ''}">
           </div>
           <div class="mb-2">
             <label class="form-label small mb-1 fw-bold text-success">Angka / Nilai Persentase</label>
-            <input type="text" class="form-control form-control-sm fw-bold text-success kpi-val-input" data-kpi-idx="${idx}" value="${kpi.val}">
+            <input type="text" class="form-control form-control-sm fw-bold text-success kpi-val-input" data-kpi-idx="${idx}" value="${kpiVal}">
           </div>
           <div>
             <label class="form-label small mb-1 text-muted">Keterangan Subteks</label>
-            <input type="text" class="form-control form-control-sm text-muted kpi-desc-input" data-kpi-idx="${idx}" value="${kpi.desc}">
+            <input type="text" class="form-control form-control-sm text-muted kpi-desc-input" data-kpi-idx="${idx}" value="${kpiDesc}">
           </div>
         </div>
       </div>
-    `).join('');
+      `;
+    }).join('');
 
     // Render Growth Table
     const thead = document.getElementById('growthDataTableHead');
     const tbody = document.getElementById('growthDataTableBody');
 
+    const yearsList = adminGrowthData.years || [];
     thead.innerHTML = `
       <th style="width: 260px;">Metrik Performa</th>
-      ${adminGrowthData.years.map(y => `<th class="text-center">${y}</th>`).join('')}
+      ${yearsList.map(y => `<th class="text-center">${y}</th>`).join('')}
     `;
 
+    const metricTitle = seg.chartLabel || seg.metricName || 'Performa Utama';
     let rowsHtml = `
       <tr>
         <td>
-          <div class="fw-bold text-dark">${seg.metricName}</div>
-          <small class="text-muted">Nilai grafik utama (${seg.unit})</small>
+          <div class="fw-bold text-dark">${metricTitle}</div>
+          <small class="text-muted">Nilai grafik utama (${seg.unit || ''})</small>
         </td>
-        ${seg.data.map((val, idx) => `
+        ${(seg.data || []).map((val, idx) => `
           <td class="text-center">
             <input type="number" step="any" class="form-control form-control-sm text-center metric-val-input" data-year-idx="${idx}" value="${val}">
           </td>
@@ -880,11 +886,17 @@ require_once __DIR__ . '/includes/header.php';
     });
     document.querySelectorAll('.kpi-val-input').forEach(inp => {
       const idx = Number(inp.dataset.kpiIdx);
-      if (seg.kpis[idx]) seg.kpis[idx].val = inp.value.trim();
+      if (seg.kpis[idx]) {
+        seg.kpis[idx].value = inp.value.trim();
+        seg.kpis[idx].val = inp.value.trim();
+      }
     });
     document.querySelectorAll('.kpi-desc-input').forEach(inp => {
       const idx = Number(inp.dataset.kpiIdx);
-      if (seg.kpis[idx]) seg.kpis[idx].desc = inp.value.trim();
+      if (seg.kpis[idx]) {
+        seg.kpis[idx].note = inp.value.trim();
+        seg.kpis[idx].desc = inp.value.trim();
+      }
     });
 
     // Capture Table Values
@@ -910,17 +922,29 @@ require_once __DIR__ . '/includes/header.php';
     try {
       const res = await fetch('../api/admin/growth.php', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify(adminGrowthData)
       });
-      const json = await res.json();
+      const text = await res.text();
+      let json;
+      try {
+        json = JSON.parse(text);
+      } catch (err) {
+        console.error('Server response is not valid JSON:', text);
+        AdminApp.showToast('Respon server tidak valid. Silakan coba lagi.', 'danger');
+        return;
+      }
       if (json.success) {
-        AdminApp.showToast('Data performa pertumbuhan dan persentase KPI berhasil disimpan!', 'success');
+        AdminApp.showToast(json.message || 'Data performa pertumbuhan dan persentase KPI berhasil disimpan!', 'success');
       } else {
         AdminApp.showToast(json.message || 'Gagal menyimpan data.', 'danger');
       }
     } catch (e) {
-      AdminApp.showToast('Koneksi server gagal.', 'danger');
+      console.error('Save Growth Error:', e);
+      AdminApp.showToast('Gagal memproses data: ' + (e.message || 'Koneksi bermasalah'), 'danger');
     } finally {
       btn.disabled = false;
       btn.innerHTML = `<i class="bi bi-cloud-arrow-up-fill me-2"></i><span>Simpan Semua Perubahan Grafik &amp; KPI</span>`;

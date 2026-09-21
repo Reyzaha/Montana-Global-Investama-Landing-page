@@ -57,14 +57,20 @@ try {
             ]);
         }
 
-        // List all projects
+        // List all projects (compatible with MySQL ONLY_FULL_GROUP_BY)
         $stmt = $db->query("
             SELECT p.*, 
-                   COUNT(f.id) as item_count,
-                   (p.funding_collected / p.funding_target * 100) as funding_percent
+                   COALESCE(sub.item_count, 0) as item_count,
+                   CASE 
+                       WHEN p.funding_target > 0 THEN ROUND((p.funding_collected / p.funding_target * 100), 2)
+                       ELSE 0 
+                   END as funding_percent
             FROM projects p
-            LEFT JOIN funding_items f ON p.id = f.project_id
-            GROUP BY p.id
+            LEFT JOIN (
+                SELECT project_id, COUNT(id) as item_count
+                FROM funding_items
+                GROUP BY project_id
+            ) sub ON p.id = sub.project_id
             ORDER BY p.sort_order ASC, p.created_at DESC
         ");
         $projects = $stmt->fetchAll();

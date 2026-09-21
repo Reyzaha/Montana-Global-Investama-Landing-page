@@ -343,6 +343,11 @@ require_once __DIR__ . '/includes/header.php';
   document.addEventListener('DOMContentLoaded', () => {
     modalInstance = new bootstrap.Modal(document.getElementById('projectModal'));
     loadProjects();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('action') === 'create') {
+      openCreateModal();
+    }
   });
 
   function updateMoneyPreview(inputId, previewId) {
@@ -351,17 +356,37 @@ require_once __DIR__ . '/includes/header.php';
   }
 
   async function loadProjects() {
+    const tb = document.getElementById('projectsListBody');
     try {
       const res = await fetch('../api/admin/projects.php');
-      const json = await res.json();
+      const text = await res.text();
+      let json;
+      try {
+        json = JSON.parse(text);
+      } catch (err) {
+        console.error('Projects API response not JSON:', text);
+        if (tb) {
+          tb.innerHTML = `<tr><td colspan="7" class="text-center py-5 text-danger"><i class="bi bi-exclamation-triangle-fill me-2"></i>Respon server tidak valid atau database belum terhubung. <button class="btn btn-sm btn-outline-secondary ms-2" onclick="loadProjects()">Coba Lagi</button></td></tr>`;
+        }
+        return;
+      }
       if (!json.success) {
-        if (json.status === 401) window.location.href = 'login.php';
+        if (json.status === 401) {
+          window.location.href = 'login.php';
+          return;
+        }
+        if (tb) {
+          tb.innerHTML = `<tr><td colspan="7" class="text-center py-5 text-danger"><i class="bi bi-exclamation-circle me-2"></i>${json.message || 'Gagal memuat proyek.'} <button class="btn btn-sm btn-outline-secondary ms-2" onclick="loadProjects()">Coba Lagi</button></td></tr>`;
+        }
         return;
       }
       projectsData = json.data || [];
       renderProjectsTable();
     } catch (e) {
       console.error(e);
+      if (tb) {
+        tb.innerHTML = `<tr><td colspan="7" class="text-center py-5 text-danger"><i class="bi bi-wifi-off me-2"></i>Koneksi ke API proyek gagal. <button class="btn btn-sm btn-outline-secondary ms-2" onclick="loadProjects()">Coba Lagi</button></td></tr>`;
+      }
       AdminApp.showToast('Gagal memuat data proyek dari server.', 'danger');
     }
   }
