@@ -712,12 +712,24 @@ require_once __DIR__ . '/includes/header.php';
     btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span> Menyimpan...`;
 
     try {
+      payload._method = mode === 'create' ? 'POST' : 'PUT';
       const res = await fetch('../api/admin/projects.php', {
-        method: mode === 'create' ? 'POST' : 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify(payload)
       });
-      const json = await res.json();
+      const text = await res.text();
+      let json;
+      try {
+        json = JSON.parse(text);
+      } catch (err) {
+        console.error('Save Project Server Error:', text);
+        AdminApp.showToast('Respon server tidak valid saat menyimpan proyek.', 'danger');
+        return;
+      }
 
       if (json.success) {
         AdminApp.showToast(json.message || 'Proyek berhasil disimpan.', 'success');
@@ -728,7 +740,7 @@ require_once __DIR__ . '/includes/header.php';
       }
     } catch (e) {
       console.error(e);
-      AdminApp.showToast('Terjadi kesalahan koneksi server.', 'danger');
+      AdminApp.showToast('Terjadi kesalahan koneksi server: ' + (e.message || ''), 'danger');
     } finally {
       btn.disabled = false;
       btn.innerHTML = `<i class="bi bi-cloud-arrow-up-fill me-2"></i><span>Simpan Data Proyek</span>`;
@@ -741,19 +753,33 @@ require_once __DIR__ . '/includes/header.php';
     }
 
     try {
-      const res = await fetch(`../api/admin/projects.php?id=${encodeURIComponent(id)}`, {
-        method: 'DELETE'
+      const res = await fetch(`../api/admin/projects.php?action=delete&id=${encodeURIComponent(id)}`, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({ _method: 'DELETE', id: id })
       });
-      const json = await res.json();
+      const text = await res.text();
+      let json;
+      try {
+        json = JSON.parse(text);
+      } catch (err) {
+        console.error('Delete Project Server Error:', text);
+        AdminApp.showToast('Respon server tidak valid saat menghapus proyek.', 'danger');
+        return;
+      }
       if (json.success) {
-        AdminApp.showToast(json.message, 'success');
+        AdminApp.showToast(json.message || 'Proyek berhasil dihapus.', 'success');
         loadProjects();
       } else {
-        AdminApp.showToast(json.message, 'danger');
+        AdminApp.showToast(json.message || 'Gagal menghapus proyek.', 'danger');
       }
     } catch (e) {
       console.error(e);
-      AdminApp.showToast('Gagal menghapus proyek.', 'danger');
+      AdminApp.showToast('Gagal menghapus proyek: ' + (e.message || ''), 'danger');
+    }
   }
 
   async function handleProjectImageUpload(input) {

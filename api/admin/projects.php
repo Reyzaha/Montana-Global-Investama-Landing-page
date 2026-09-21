@@ -10,6 +10,16 @@ require_once __DIR__ . '/../../backend/helpers/auth_helper.php';
 
 $admin = requireAdminAuth();
 $method = $_SERVER['REQUEST_METHOD'];
+$input = getJsonInput();
+
+// Handle method spoofing from client to avoid Nginx PUT/DELETE restrictions
+if (isset($input['_method'])) {
+    $method = strtoupper($input['_method']);
+} elseif (isset($_GET['_method'])) {
+    $method = strtoupper($_GET['_method']);
+} elseif (isset($_GET['action']) && $_GET['action'] === 'delete') {
+    $method = 'DELETE';
+}
 
 // Helper to sanitize BIGINT money string
 function cleanMoney(mixed $val): string {
@@ -329,7 +339,7 @@ try {
 
     // 4. DELETE: Hapus Proyek
     if ($method === 'DELETE') {
-        $id = trim($_GET['id'] ?? '');
+        $id = trim($_GET['id'] ?? ($input['id'] ?? ''));
         if (empty($id)) {
             sendJsonError('ID Proyek wajib disertakan untuk penghapusan.');
         }
