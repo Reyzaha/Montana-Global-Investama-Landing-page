@@ -8,24 +8,24 @@
   "headquarters": "Roseville Soho & Suite, Sunburst CBD Lot I.8, Jl. Kapten Soebijanto Djojohadikusumo, Lengkong Gudang, Serpong, Tangerang Selatan",
   "stats": [
     {
-      "label": "Mitra Pemodal",
-      "value": "0",
-      "desc": "Institusi & Perorangan"
+      "label": "Kapitalisasi Armada",
+      "value": "Rp 100M+",
+      "desc": "Aset Fisik Produktif"
     },
     {
-      "label": "Dana Produktif Dikelola",
-      "value": "0",
-      "desc": "Berkelanjutan & Terus Tumbuh"
+      "label": "Armada Komatsu",
+      "value": "125+ Unit",
+      "desc": "CBU Siap Operasi"
     },
     {
-      "label": "Tingkat Keberhasilan",
-      "value": "0%",
-      "desc": "Ketepatan Waktu & Akuntabilitas"
+      "label": "Fasilitas Sentral",
+      "value": "4.500 m²",
+      "desc": "Pool & Workshop Kebumen"
     },
     {
-      "label": "Unit Usaha Terpadu",
+      "label": "Ekosistem Usaha",
       "value": "3 Pilar",
-      "desc": "Saling Menguatkan di Lapangan"
+      "desc": "MIU, MSI & Mypurcase"
     }
   ],
   "about_group": {

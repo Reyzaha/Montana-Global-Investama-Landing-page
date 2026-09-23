@@ -34,9 +34,25 @@ try {
     // Gated condition: Jika gated aktif dan pengunjung belum login
     $isGated = $requireAuth && !$isAuthenticated;
 
-    // Query projects
-    $query = "SELECT * FROM projects ORDER BY sort_order ASC, created_at DESC";
-    $stmt = $db->query($query);
+    // Filter kota jika ada parameter ?city=
+    $cityFilter = trim($_GET['city'] ?? '');
+    $whereSql = "";
+    $queryParams = [];
+    if (!empty($cityFilter) && $cityFilter !== 'all') {
+        $whereSql = "WHERE (c.slug = ? OR LOWER(p.city) = LOWER(?) OR CAST(p.city_id AS CHAR) = ?)";
+        $queryParams = [$cityFilter, $cityFilter, $cityFilter];
+    }
+
+    // Query projects with city info
+    $query = "
+        SELECT p.*, c.name as city_name, c.slug as city_slug, c.icon as city_icon
+        FROM projects p
+        LEFT JOIN cities c ON p.city_id = c.id
+        {$whereSql}
+        ORDER BY p.sort_order ASC, p.created_at DESC
+    ";
+    $stmt = $db->prepare($query);
+    $stmt->execute($queryParams);
     $rawProjects = $stmt->fetchAll();
 
     $projects = [];
@@ -158,6 +174,10 @@ try {
 
         $projects[] = [
             'id' => $p['id'],
+            'city_id' => !empty($p['city_id']) ? (int)$p['city_id'] : null,
+            'city' => !empty($p['city']) ? $p['city'] : ($p['city_name'] ?? ''),
+            'city_slug' => $p['city_slug'] ?? '',
+            'city_icon' => $p['city_icon'] ?? 'bi-geo-alt-fill',
             'title' => $p['title'],
             'category' => $p['category'],
             'image' => $p['image'],
@@ -213,6 +233,14 @@ try {
         
         $investorSession = getInvestorSession();
         $isGated = ($investorSession === null);
+
+        if (!empty($cityFilter) && $cityFilter !== 'all' && isset($staticData['projects']) && is_array($staticData['projects'])) {
+            $staticData['projects'] = array_values(array_filter($staticData['projects'], function($p) use ($cityFilter) {
+                return (isset($p['city_slug']) && strtolower($p['city_slug']) === strtolower($cityFilter)) ||
+                       (isset($p['city']) && strtolower($p['city']) === strtolower($cityFilter)) ||
+                       (isset($p['city_id']) && (string)$p['city_id'] === (string)$cityFilter);
+            }));
+        }
 
         if ($isGated && isset($staticData['projects']) && is_array($staticData['projects'])) {
             foreach ($staticData['projects'] as &$sp) {

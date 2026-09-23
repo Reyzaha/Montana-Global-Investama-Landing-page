@@ -51,6 +51,11 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         <span>Kelola Proyek Investasi</span>
       </a>
 
+      <a href="cities.php" class="nav-link <?= $currentPage === 'cities.php' ? 'active' : '' ?>">
+        <i class="bi bi-geo-alt-fill"></i>
+        <span>Kelola Segmen Kota</span>
+      </a>
+
       <a href="investors.php" class="nav-link <?= $currentPage === 'investors.php' ? 'active' : '' ?>">
         <i class="bi bi-people-fill"></i>
         <span>Manajemen Investor</span>

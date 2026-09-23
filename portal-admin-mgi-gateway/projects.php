@@ -6,12 +6,18 @@ require_once __DIR__ . '/includes/header.php';
 <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
   <div>
     <h5 class="fw-bold text-dark mb-1">Manajemen Portofolio Proyek</h5>
-    <p class="text-muted small mb-0">Kelola informasi proyek riil, rencana anggaran biaya (RAB), dan parameter simulasi BEP/ROI.</p>
+    <p class="text-muted small mb-0">Kelola informasi proyek riil, penempatan segmen kota, rencana anggaran (RAB), dan simulasi ROI.</p>
   </div>
-  <button type="button" class="btn btn-mgi-gold d-flex align-items-center gap-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#projectModal" onclick="openCreateModal()">
-    <i class="bi bi-plus-circle-fill"></i>
-    <span>Tambah Proyek Baru</span>
-  </button>
+  <div class="d-flex align-items-center gap-2">
+    <a href="cities.php" class="btn btn-outline-primary d-flex align-items-center gap-2 shadow-sm bg-white">
+      <i class="bi bi-geo-alt-fill text-warning"></i>
+      <span>Kelola Segmen Kota</span>
+    </a>
+    <button type="button" class="btn btn-mgi-gold d-flex align-items-center gap-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#projectModal" onclick="openCreateModal()">
+      <i class="bi bi-plus-circle-fill"></i>
+      <span>Tambah Proyek Baru</span>
+    </button>
+  </div>
 </div>
 
 <!-- Table Card -->
@@ -22,13 +28,16 @@ require_once __DIR__ . '/includes/header.php';
       <span class="fw-bold text-dark">Daftar Proyek Aktif</span>
     </div>
     <div class="d-flex align-items-center gap-2">
-      <input type="text" id="filterSearch" class="form-control form-control-sm" placeholder="Cari judul proyek..." style="width: 220px;" oninput="renderProjectsTable()">
-      <select id="filterStatus" class="form-select form-select-sm" style="width: 140px;" onchange="renderProjectsTable()">
+      <input type="text" id="filterSearch" class="form-control form-control-sm" placeholder="Cari judul proyek..." style="width: 200px;" oninput="renderProjectsTable()">
+      <select id="filterStatus" class="form-select form-select-sm" style="width: 130px;" onchange="renderProjectsTable()">
         <option value="">Semua Status</option>
         <option value="Open">Open</option>
         <option value="Fully Funded">Fully Funded</option>
         <option value="Coming Soon">Coming Soon</option>
         <option value="Closed">Closed</option>
+      </select>
+      <select id="filterCity" class="form-select form-select-sm" style="width: 135px;" onchange="renderProjectsTable()">
+        <option value="">Semua Kota</option>
       </select>
     </div>
   </div>
@@ -102,7 +111,11 @@ require_once __DIR__ . '/includes/header.php';
             <!-- TAB 1: INFO UTAMA & FINANSIAL -->
             <div class="tab-pane fade show active" id="tab-basic">
               <div class="card p-4 border-0 rounded-3 shadow-sm bg-white mb-3">
-                <h6 class="fw-bold text-dark border-bottom pb-2 mb-3">Identitas &amp; Status Proyek</h6>
+                <div class="d-flex align-items-center justify-content-between border-bottom pb-2 mb-3">
+                  <h6 class="fw-bold text-dark mb-0"><i class="bi bi-info-circle-fill text-primary me-2"></i>1. Identitas, Wilayah Kota &amp; Status Proyek</h6>
+                  <span class="badge bg-primary-subtle text-primary border border-primary-subtle">Wajib Dilengkapi</span>
+                </div>
+
                 <div class="row g-3">
                   <div class="col-md-3">
                     <label class="form-label">ID Proyek (Unik) <span class="text-danger">*</span></label>
@@ -114,20 +127,43 @@ require_once __DIR__ . '/includes/header.php';
                     <input type="text" id="pTitle" class="form-control" placeholder="Pengadaan Unit Alat Berat CBU..." required>
                   </div>
                   <div class="col-md-3">
-                    <label class="form-label">Kategori</label>
+                    <label class="form-label">Kategori Proyek</label>
                     <input type="text" id="pCategory" class="form-control" value="Alat Berat &amp; Infrastruktur">
                   </div>
 
+                  <!-- SEGMEN KOTA PILIHAN ADMIN -->
                   <div class="col-md-4">
+                    <div class="d-flex align-items-center justify-content-between mb-1">
+                      <label class="form-label fw-bold text-dark mb-0">
+                        <i class="bi bi-geo-alt-fill text-warning me-1"></i> Segmen Kota <span class="text-danger">*</span>
+                      </label>
+                      <a href="cities.php" target="_blank" class="small text-primary text-decoration-none fw-semibold" title="Buka manajemen kota">
+                        <i class="bi bi-plus-circle-fill me-1"></i>Kelola Kota
+                      </a>
+                    </div>
+                    <select id="pCityId" class="form-select border-primary fw-semibold" required>
+                      <option value="">-- Pilih Kota Wilayah Proyek --</option>
+                    </select>
+                    <small class="text-muted" style="font-size: 0.72rem;">Menentukan penempatan di segmen "Per Kota" pada halaman investasi</small>
+                  </div>
+
+                  <div class="col-md-5">
+                    <label class="form-label">Detail Alamat / Lokasi Operasional</label>
+                    <input type="text" id="pLokasi" class="form-control" placeholder="Kebumen &amp; Cilacap, Jawa Tengah">
+                    <small class="text-muted" style="font-size: 0.72rem;">Area pool, kecamatan, atau zona kawasan industri</small>
+                  </div>
+
+                  <div class="col-md-3">
                     <label class="form-label">Status Proyek <span class="text-danger">*</span></label>
-                    <select id="pStatus" class="form-select" required>
+                    <select id="pStatus" class="form-select fw-semibold" required>
                       <option value="Open">Open</option>
                       <option value="Fully Funded">Fully Funded</option>
                       <option value="Coming Soon">Coming Soon</option>
                       <option value="Closed">Closed</option>
                     </select>
                   </div>
-                  <div class="col-md-6">
+
+                  <div class="col-md-9">
                     <label class="form-label fw-semibold">Attachment / Foto Sampul Proyek <span class="text-danger">*</span></label>
                     <div class="d-flex align-items-center gap-3 p-2 bg-light rounded border">
                       <!-- Thumbnail Preview -->
@@ -153,17 +189,19 @@ require_once __DIR__ . '/includes/header.php';
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-2 d-flex align-items-end">
-                    <div class="form-check mb-2">
-                      <input class="form-check-input" type="checkbox" id="pFeatured">
+
+                  <div class="col-md-3 d-flex align-items-center">
+                    <div class="form-check p-3 bg-light rounded border w-100 mb-0">
+                      <input class="form-check-input ms-0 me-2" type="checkbox" id="pFeatured">
                       <label class="form-check-label fw-bold text-dark" for="pFeatured">Sorotan (Featured)</label>
+                      <div class="text-muted" style="font-size: 0.7rem;">Ditampilkan di hero syndication</div>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div class="card p-4 border-0 rounded-3 shadow-sm bg-white">
-                <h6 class="fw-bold text-dark border-bottom pb-2 mb-3">Target Finansial &amp; Metrik Investor</h6>
+                <h6 class="fw-bold text-dark border-bottom pb-2 mb-3"><i class="bi bi-cash-stack text-success me-2"></i>2. Target Finansial &amp; Metrik Investor</h6>
                 <div class="row g-3">
                   <div class="col-md-6">
                     <label class="form-label">Target Pendanaan (Rupiah) <span class="text-danger">*</span></label>
@@ -176,19 +214,14 @@ require_once __DIR__ . '/includes/header.php';
                     <div class="live-rupiah-preview" id="previewFundingCollected">Rp 0</div>
                   </div>
 
-                  <div class="col-md-4">
-                    <label class="form-label">Lokasi Proyek</label>
-                    <input type="text" id="pLokasi" class="form-control" placeholder="Kebumen &amp; Cilacap, Jawa Tengah">
-                  </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <label class="form-label">Tenor Investasi</label>
                     <input type="text" id="pTenor" class="form-control" value="36 Bulan">
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <label class="form-label">Proyeksi Return Rate</label>
                     <input type="text" id="pReturnRate" class="form-control" value="≥30% (p.a.)">
                   </div>
-
                   <div class="col-md-3">
                     <label class="form-label">Profil Risiko</label>
                     <input type="text" id="pRiskLevel" class="form-control" value="Menengah - Terukur">
@@ -197,15 +230,16 @@ require_once __DIR__ . '/includes/header.php';
                     <label class="form-label">Tiket Min. Investasi</label>
                     <input type="text" id="pMinInvest" class="form-control" value="Rp 500.000.000">
                   </div>
-                  <div class="col-md-3">
+
+                  <div class="col-md-4">
                     <label class="form-label">Jadwal Bagi Hasil</label>
                     <input type="text" id="pPayout" class="form-control" value="Bagi Hasil Kuartalan">
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-4">
                     <label class="form-label">Sisa Waktu Penawaran</label>
                     <input type="text" id="pRemainingDays" class="form-control" value="18 Hari Tersisa">
                   </div>
-                  <div class="col-12">
+                  <div class="col-md-4">
                     <label class="form-label">Proteksi Aset Riil (Asset-Backed)</label>
                     <input type="text" id="pAssetBacked" class="form-control" value="Unit CBU Grade A &amp; BPKB">
                   </div>
@@ -338,10 +372,12 @@ require_once __DIR__ . '/includes/header.php';
 
 <script>
   let projectsData = [];
+  let citiesData = [];
   let modalInstance = null;
 
   document.addEventListener('DOMContentLoaded', () => {
     modalInstance = new bootstrap.Modal(document.getElementById('projectModal'));
+    loadCities();
     loadProjects();
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -349,6 +385,32 @@ require_once __DIR__ . '/includes/header.php';
       openCreateModal();
     }
   });
+
+  async function loadCities() {
+    try {
+      const res = await fetch('../api/admin/cities.php');
+      const json = await res.json();
+      if (json.success && Array.isArray(json.data)) {
+        citiesData = json.data;
+
+        // Populate table city filter
+        const fCity = document.getElementById('filterCity');
+        if (fCity) {
+          fCity.innerHTML = '<option value="">Semua Kota</option>' + 
+            citiesData.map(c => `<option value="${c.id}">${c.name}${c.is_active_segment ? '' : ' (Non-aktif)'}</option>`).join('');
+        }
+
+        // Populate modal city select
+        const pCity = document.getElementById('pCityId');
+        if (pCity) {
+          pCity.innerHTML = '<option value="">-- Pilih Segmen Kota --</option>' + 
+            citiesData.map(c => `<option value="${c.id}">${c.name} (${c.is_active_segment ? 'Segmen Aktif' : 'Non-aktif'})</option>`).join('');
+        }
+      }
+    } catch (e) {
+      console.error('Failed to load cities in projects manager:', e);
+    }
+  }
 
   function updateMoneyPreview(inputId, previewId) {
     const val = document.getElementById(inputId).value;
@@ -394,12 +456,14 @@ require_once __DIR__ . '/includes/header.php';
   function renderProjectsTable() {
     const search = document.getElementById('filterSearch').value.toLowerCase().trim();
     const status = document.getElementById('filterStatus').value;
+    const cityFilter = document.getElementById('filterCity').value;
     const tb = document.getElementById('projectsListBody');
 
     let filtered = projectsData.filter(p => {
       const matchSearch = !search || p.title.toLowerCase().includes(search) || p.id.toLowerCase().includes(search);
       const matchStatus = !status || p.status === status;
-      return matchSearch && matchStatus;
+      const matchCity = !cityFilter || p.city_id == cityFilter || (p.city && p.city.toLowerCase() === cityFilter.toLowerCase());
+      return matchSearch && matchStatus && matchCity;
     });
 
     if (filtered.length === 0) {
@@ -424,8 +488,10 @@ require_once __DIR__ . '/includes/header.php';
           </td>
           <td>
             <div class="fw-bold text-dark">${p.title}</div>
-            <div class="text-muted small">
-              <code>${p.id}</code> &bull; ${p.category} ${p.featured == 1 ? '<span class="badge bg-warning text-dark ms-1">Featured</span>' : ''}
+            <div class="text-muted small mt-1">
+              <code>${p.id}</code> &bull; ${p.category}
+              ${p.city ? `<span class="badge bg-primary-subtle text-primary border border-primary-subtle ms-1"><i class="bi bi-geo-alt-fill me-1"></i>${p.city}</span>` : '<span class="badge bg-secondary-subtle text-secondary ms-1">Belum Ada Kota</span>'}
+              ${p.featured == 1 ? '<span class="badge bg-warning text-dark ms-1">Featured</span>' : ''}
             </div>
           </td>
           <td>
@@ -527,6 +593,7 @@ require_once __DIR__ . '/includes/header.php';
     document.getElementById('pFeatured').checked = false;
     document.getElementById('pFundingTarget').value = '20000000000';
     document.getElementById('pFundingCollected').value = '0';
+    document.getElementById('pCityId').value = '';
     document.getElementById('pLokasi').value = 'Kebumen & Cilacap, Jawa Tengah';
     document.getElementById('pTenor').value = '36 Bulan';
     document.getElementById('pReturnRate').value = '≥30% (p.a.)';
@@ -598,6 +665,7 @@ require_once __DIR__ . '/includes/header.php';
       document.getElementById('pFeatured').checked = p.featured == 1;
       document.getElementById('pFundingTarget').value = p.funding_target;
       document.getElementById('pFundingCollected').value = p.funding_collected;
+      document.getElementById('pCityId').value = p.city_id || '';
       document.getElementById('pLokasi').value = p.lokasi;
       document.getElementById('pTenor').value = p.tenor;
       document.getElementById('pReturnRate').value = p.return_rate;
@@ -674,10 +742,16 @@ require_once __DIR__ . '/includes/header.php';
       }
     });
 
+    const citySelect = document.getElementById('pCityId');
+    const selectedCityId = citySelect.value ? Number(citySelect.value) : null;
+    const selectedCityName = citySelect.selectedIndex > 0 ? citySelect.options[citySelect.selectedIndex].text.split(' (')[0].trim() : '';
+
     const payload = {
       id: id,
       title: title,
       category: document.getElementById('pCategory').value,
+      city_id: selectedCityId,
+      city: selectedCityName,
       status: document.getElementById('pStatus').value,
       image: document.getElementById('pImage').value,
       featured: document.getElementById('pFeatured').checked,

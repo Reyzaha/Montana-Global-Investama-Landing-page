@@ -72,9 +72,24 @@ CREATE TABLE IF NOT EXISTS `investor_companies` (
     REFERENCES `investors`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 4. Tabel Proyek Investasi Utama
+-- 4. Tabel Manajemen Segmen Kota Proyek
+CREATE TABLE IF NOT EXISTS `cities` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `name` VARCHAR(100) NOT NULL,
+  `slug` VARCHAR(100) NOT NULL UNIQUE,
+  `icon` VARCHAR(50) NOT NULL DEFAULT 'bi-geo-alt-fill',
+  `description` VARCHAR(255) NULL,
+  `is_active_segment` TINYINT(1) NOT NULL DEFAULT 1,
+  `sort_order` INT NOT NULL DEFAULT 0,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 5. Tabel Proyek Investasi Utama
 CREATE TABLE IF NOT EXISTS `projects` (
   `id` VARCHAR(50) PRIMARY KEY,
+  `city_id` INT NULL,
+  `city` VARCHAR(100) NULL,
   `title` VARCHAR(255) NOT NULL,
   `category` VARCHAR(150) NOT NULL DEFAULT 'Alat Berat & Infrastruktur',
   `image` VARCHAR(255) NOT NULL DEFAULT 'assets/img/komatsu.jpg',
@@ -94,7 +109,9 @@ CREATE TABLE IF NOT EXISTS `projects` (
   `asset_backed` VARCHAR(255) NOT NULL DEFAULT 'Unit CBU Grade A & BPKB',
   `sort_order` INT NOT NULL DEFAULT 0,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT `fk_projects_city` FOREIGN KEY (`city_id`) 
+    REFERENCES `cities`(`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 5. Tabel Detail Deskripsi Proyek

@@ -27,6 +27,7 @@ const MGI = {
   // Endpoint mapping: Maps static JSON paths to dynamic backend REST API endpoints
   apiMap: {
     'data/projects.json': 'api/projects.php',
+    'data/cities.json': 'api/cities.php',
     'data/company-profile.json': 'api/company-profile.php',
     'data/transformasi.json': 'api/transformasi.php',
     'data/preparation.json': 'api/preparation.php',

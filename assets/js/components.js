@@ -40,18 +40,18 @@ const MGIComponents = {
         const displayName = user.fullName || user.businessName || user.email.split('@')[0];
 
         authCtaHtml = `
-          <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0">
+          <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
             <div class="dropdown">
-              <button class="btn btn-navbar-cta btn-sm px-3 py-2 rounded-pill dropdown-toggle d-flex align-items-center gap-2 shadow-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="btn btn-corporate-gold btn-sm px-3 py-2 rounded-1 dropdown-toggle d-flex align-items-center gap-2 shadow-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-person-circle fs-6"></i>
                 <span class="text-truncate fw-bold" style="max-width: 140px;">${displayName}</span>
-                <span class="badge bg-royal text-white small ms-1">${typeLabel}</span>
+                <span class="badge bg-royal text-white small ms-1 rounded-1">${typeLabel}</span>
               </button>
               <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2">
                 <li class="px-3 py-2 border-bottom">
                   <div class="small fw-bold text-dark text-truncate">${displayName}</div>
                   <div class="text-muted small text-truncate" style="font-size: 0.75rem;">${user.email}</div>
-                  <div class="badge bg-mgi-gold-subtle text-gold small mt-1">Investor ${typeLabel}</div>
+                  <div class="badge bg-mgi-gold-subtle text-gold small mt-1 rounded-1">Investor ${typeLabel}</div>
                 </li>
                 <li><a class="dropdown-item py-2 fw-bold text-dark" href="investor-dashboard.html"><i class="bi bi-briefcase-fill me-2 text-gold"></i>Portofolio Project Investasi</a></li>
                 <li><a class="dropdown-item py-2" href="invest.html"><i class="bi bi-grid me-2 text-gold"></i>Katalog Project Terbuka</a></li>
@@ -64,12 +64,12 @@ const MGIComponents = {
         `;
       } else {
         authCtaHtml = `
-          <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0">
-            <a href="login.html" class="btn btn-navbar-login btn-sm px-3 py-2 rounded-pill shadow-sm">
+          <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
+            <a href="login.html" class="btn btn-corporate-outline btn-sm px-3 py-2 rounded-1">
               <i class="bi bi-box-arrow-in-right me-1"></i> Masuk
             </a>
-            <a href="register.html" class="btn btn-navbar-cta btn-sm px-3 py-2 rounded-pill shadow-sm">
-              <i class="bi bi-person-plus me-1"></i> Buka Akun
+            <a href="register.html" class="btn btn-corporate-gold btn-sm px-3 py-2 rounded-1 shadow-sm">
+              <i class="bi bi-shield-lock me-1"></i> Portal Investor
             </a>
           </div>
         `;
@@ -77,7 +77,7 @@ const MGIComponents = {
     }
 
     navContainer.innerHTML = `
-      <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top border-bottom">
+      <nav class="navbar navbar-expand-xl navbar-light bg-white sticky-top border-bottom shadow-sm">
         <div class="container">
           <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
             <img src="assets/img/mgi-official-logo.png" alt="PT Montana Global Investama Logo" height="42" class="d-inline-block align-text-top">
@@ -86,7 +86,7 @@ const MGIComponents = {
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarContent">
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav mx-auto mb-2 mb-xl-0">
               ${linksHtml}
             </ul>
             ${authCtaHtml}
@@ -104,9 +104,9 @@ const MGIComponents = {
     const header = document.getElementById('mainHeader');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 30) {
-        header.classList.add('scrolled');
+        if (header) header.classList.add('scrolled');
       } else {
-        header.classList.remove('scrolled');
+        if (header) header.classList.remove('scrolled');
       }
     });
   },
@@ -122,20 +122,20 @@ const MGIComponents = {
           <div class="row g-4 mb-5">
             <div class="col-lg-4 col-md-6">
               <a href="index.html" class="d-inline-block mb-3">
-                <div class="bg-white p-2 rounded-3 d-inline-block shadow-sm">
+                <div class="bg-white p-2 rounded-2 d-inline-block shadow-sm">
                   <img src="assets/img/mgi-official-logo.png" alt="MGI Logo" height="48">
                 </div>
               </a>
               <p class="text-footer-muted small mb-3 lh-base">
                 <strong>PT Montana Global Investama</strong> adalah entitas manajer investasi project dan pemegang kendali strategis (holding) sektor riil berbasis aset fisik produktif, menghadirkan pertumbuhan nilai per project terukur melalui kepatuhan tata kelola terpercaya dan integrasi ekosistem terpadu.
               </p>
-              <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded bg-footer-card border border-secondary small fw-bold text-gold">
+              <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-1 bg-footer-card border border-secondary small fw-bold text-gold">
                 <i class="bi bi-shield-check text-white"></i> Standar Tata Kelola Perusahaan &amp; Kepatuhan Regulasi
               </div>
             </div>
 
             <div class="col-lg-2 col-md-6">
-              <h6 class="fw-bold text-gold text-uppercase mb-3 small tracking-wide">Navigasi Utama</h6>
+              <h6 class="fw-bold text-white text-uppercase mb-3 small tracking-wide pb-1 d-inline-block" style="border-bottom: 2px solid var(--mgi-gold);">Navigasi Utama</h6>
               <ul class="list-unstyled mb-0">
                 <li><a href="index.html" class="footer-link">Halaman Utama</a></li>
                 <li><a href="about.html" class="footer-link">Company Profile</a></li>
@@ -146,17 +146,17 @@ const MGIComponents = {
             </div>
 
             <div class="col-lg-3 col-md-6">
-              <h6 class="fw-bold text-gold text-uppercase mb-3 small tracking-wide">Struktur & Sinergi</h6>
+              <h6 class="fw-bold text-white text-uppercase mb-3 small tracking-wide pb-1 d-inline-block" style="border-bottom: 2px solid var(--mgi-gold);">Struktur &amp; Sinergi</h6>
               <ul class="list-unstyled mb-0">
                 <li><a href="preparation.html" class="footer-link">Struktur Alur Kerja Entitas</a></li>
                 <li><a href="ekosistem.html" class="footer-link">Bagan Ekosistem Terpadu</a></li>
-                <li><a href="javascript:void(0)" onclick="MGIAuth.handleProtectedDetail('proj-001')" class="footer-link">Simulasi BEP &amp; ROI</a></li>
+                <li><a href="javascript:void(0)" onclick="MGIAuth.handleProtectedDetail('proj-kebumen')" class="footer-link">Simulasi BEP &amp; ROI</a></li>
                 <li><a href="about.html#tata-kelola" class="footer-link">Tata Kelola Perusahaan (TARIF)</a></li>
               </ul>
             </div>
 
             <div class="col-lg-3 col-md-6">
-              <h6 class="fw-bold text-gold text-uppercase mb-3 small tracking-wide">Hubungi Kami</h6>
+              <h6 class="fw-bold text-white text-uppercase mb-3 small tracking-wide pb-1 d-inline-block" style="border-bottom: 2px solid var(--mgi-gold);">Hubungi Kami</h6>
               <div class="small text-footer-muted mb-2">
                 <i class="bi bi-geo-alt text-gold me-1"></i> Roseville Soho &amp; Suite, Sunburst CBD Lot I.8, Serpong, Tangerang Selatan
               </div>
@@ -201,7 +201,7 @@ const MGIComponents = {
       icon = 'bi-clock-fill';
     }
 
-    return `<span class="badge ${badgeClass} px-3 py-1 rounded-pill d-inline-flex align-items-center gap-1"><i class="bi ${icon} small"></i> ${status}</span>`;
+    return `<span class="badge ${badgeClass} px-2.5 py-1 rounded-1 d-inline-flex align-items-center gap-1" style="font-size: 0.75rem; font-weight: 600;"><i class="bi ${icon} small"></i> ${status}</span>`;
   },
 
   // 4. Render Funding Progress Bar (Solid Colors)
@@ -290,10 +290,10 @@ const MGIComponents = {
         <div class="project-card-cover position-relative">
           <img src="${project.image || 'assets/img/project-excavator.svg'}" alt="${project.title}">
           <div class="position-absolute top-0 start-0 m-3 d-flex flex-column gap-1">
-            <span class="badge bg-gold text-white px-2 py-1 rounded-pill small fw-bold shadow-sm">
+            <span class="badge bg-gold text-white px-2.5 py-1 rounded-1 small fw-bold shadow-sm">
               <i class="bi bi-geo-alt-fill me-1"></i>${city}
             </span>
-            <span class="badge bg-dark text-white px-2 py-1 rounded-pill small fw-bold shadow-sm" style="font-size: 0.7rem;">
+            <span class="badge bg-dark text-white px-2 py-0.5 rounded-1 small fw-semibold shadow-sm" style="font-size: 0.68rem; letter-spacing: 0.5px;">
               KOMATSU ONLY
             </span>
           </div>

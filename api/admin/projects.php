@@ -71,12 +71,16 @@ try {
         // List all projects (compatible with MySQL ONLY_FULL_GROUP_BY)
         $stmt = $db->query("
             SELECT p.*, 
+                   c.name as city_name,
+                   c.slug as city_slug,
+                   c.icon as city_icon,
                    COALESCE(sub.item_count, 0) as item_count,
                    CASE 
                        WHEN p.funding_target > 0 THEN ROUND((p.funding_collected / p.funding_target * 100), 2)
                        ELSE 0 
                    END as funding_percent
             FROM projects p
+            LEFT JOIN cities c ON p.city_id = c.id
             LEFT JOIN (
                 SELECT project_id, COUNT(id) as item_count
                 FROM funding_items
@@ -109,17 +113,27 @@ try {
         $fundingTarget = cleanMoney($input['funding_target'] ?? '0');
         $fundingCollected = cleanMoney($input['funding_collected'] ?? '0');
 
+        $cityId = !empty($input['city_id']) ? (int)$input['city_id'] : null;
+        $cityName = trim($input['city'] ?? '');
+        if ($cityId && empty($cityName)) {
+            $stmtC = $db->prepare("SELECT name FROM cities WHERE id = ?");
+            $stmtC->execute([$cityId]);
+            $cityName = $stmtC->fetchColumn() ?: '';
+        }
+
         $db->beginTransaction();
 
         $stmtIns = $db->prepare("
             INSERT INTO projects (
-                id, title, category, image, funding_collected, funding_target,
+                id, city_id, city, title, category, image, funding_collected, funding_target,
                 currency, status, featured, lokasi, target_display, tenor,
                 return_rate, risk_level, min_investment, payout, remaining_days, asset_backed
-            ) VALUES (?, ?, ?, ?, ?, ?, 'IDR', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'IDR', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
         $stmtIns->execute([
             $id,
+            $cityId,
+            $cityName,
             $title,
             $input['category'] ?? 'Alat Berat & Infrastruktur',
             $input['image'] ?? 'assets/img/komatsu.jpg',
@@ -213,20 +227,29 @@ try {
             sendJsonError("Proyek '{$id}' tidak ditemukan.", 404);
         }
 
-        $fundingTarget = cleanMoney($input['funding_target'] ?? '0');
-        $fundingCollected = cleanMoney($input['funding_collected'] ?? '0');
+        $cityId = isset($input['city_id']) ? (!empty($input['city_id']) ? (int)$input['city_id'] : null) : ($existing['city_id'] ?? null);
+        $cityName = trim($input['city'] ?? ($existing['city'] ?? ''));
+        if ($cityId && empty($cityName)) {
+            $stmtC = $db->prepare("SELECT name FROM cities WHERE id = ?");
+            $stmtC->execute([$cityId]);
+            $cityName = $stmtC->fetchColumn() ?: '';
+        } elseif (!$cityId) {
+            $cityName = null;
+        }
 
         $db->beginTransaction();
 
         $stmtUp = $db->prepare("
             UPDATE projects SET
-                title = ?, category = ?, image = ?, funding_collected = ?, funding_target = ?,
+                city_id = ?, city = ?, title = ?, category = ?, image = ?, funding_collected = ?, funding_target = ?,
                 status = ?, featured = ?, lokasi = ?, target_display = ?, tenor = ?,
                 return_rate = ?, risk_level = ?, min_investment = ?, payout = ?,
                 remaining_days = ?, asset_backed = ?
             WHERE id = ?
         ");
         $stmtUp->execute([
+            $cityId,
+            $cityName,
             $input['title'] ?? $existing['title'],
             $input['category'] ?? 'Alat Berat & Infrastruktur',
             $input['image'] ?? 'assets/img/komatsu.jpg',

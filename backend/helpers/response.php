@@ -29,7 +29,7 @@ function sendJsonResponse(mixed $data = null, int $statusCode = 200, string $mes
         header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, X-CSRF-Token');
     }
 
-    if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
         exit(0);
     }
 
