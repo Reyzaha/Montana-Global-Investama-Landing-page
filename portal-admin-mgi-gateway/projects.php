@@ -6,13 +6,9 @@ require_once __DIR__ . '/includes/header.php';
 <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
   <div>
     <h5 class="fw-bold text-dark mb-1">Manajemen Portofolio Proyek</h5>
-    <p class="text-muted small mb-0">Kelola informasi proyek riil, penempatan segmen kota, rencana anggaran (RAB), dan simulasi ROI.</p>
+    <p class="text-muted small mb-0">Kelola informasi proyek riil, rencana anggaran (RAB), dan simulasi ROI.</p>
   </div>
   <div class="d-flex align-items-center gap-2">
-    <a href="cities.php" class="btn btn-outline-primary d-flex align-items-center gap-2 shadow-sm bg-white">
-      <i class="bi bi-geo-alt-fill text-warning"></i>
-      <span>Kelola Segmen Kota</span>
-    </a>
     <button type="button" class="btn btn-mgi-gold d-flex align-items-center gap-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#projectModal" onclick="openCreateModal()">
       <i class="bi bi-plus-circle-fill"></i>
       <span>Tambah Proyek Baru</span>

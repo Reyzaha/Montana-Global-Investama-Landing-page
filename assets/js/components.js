@@ -283,13 +283,30 @@ const MGIComponents = {
     const info = project.info || {};
     const remainingDays = info.remaining_days || '18 Hari Tersisa';
     const assetTag = info.asset_backed || 'Underlying Komatsu CBU';
-    const city = project.city || (info.lokasi ? info.lokasi.split(',')[0] : 'Jawa Tengah');
+    const city = project.city || (info.lokasi ? info.lokasi.split(',')[0] : 'Regional');
+
+    // Resolving City Icon Image (Pojok Kanan Atas)
+    let cityIconImg = project.city_icon_img || '';
+    if (!cityIconImg) {
+      const cStr = ((project.city || '') + ' ' + (project.title || '') + ' ' + (info.lokasi || '')).toLowerCase();
+      if (cStr.includes('jkt') || cStr.includes('jakarta') || cStr.includes('jabar') || cStr.includes('jabodetabek')) {
+        cityIconImg = 'assets/img/city-jkt-jabar.png';
+      } else if (cStr.includes('makassar') || cStr.includes('sulawesi')) {
+        cityIconImg = 'assets/img/city-makassar.png';
+      } else if (cStr.includes('surabaya') || cStr.includes('jatim')) {
+        cityIconImg = 'assets/img/city-surabaya.png';
+      } else if (cStr.includes('denpasar') || cStr.includes('bali')) {
+        cityIconImg = 'assets/img/city-denpasar.png';
+      }
+    }
 
     return `
       <div class="card mgi-card h-100 shadow-sm border-0 d-flex flex-column">
         <div class="project-card-cover position-relative">
-          <img src="${project.image || 'assets/img/project-excavator.svg'}" alt="${project.title}">
-          <div class="position-absolute top-0 start-0 m-3 d-flex flex-column gap-1">
+          <img src="${project.image || 'assets/img/komatsu.jpg'}" alt="${project.title}">
+          
+          <!-- Pojok Kiri Atas: Lokasi & Komatsu Only -->
+          <div class="position-absolute top-0 start-0 m-3 d-flex flex-column gap-1" style="z-index: 3;">
             <span class="badge bg-gold text-white px-2.5 py-1 rounded-1 small fw-bold shadow-sm">
               <i class="bi bi-geo-alt-fill me-1"></i>${city}
             </span>
@@ -297,10 +314,19 @@ const MGIComponents = {
               KOMATSU ONLY
             </span>
           </div>
-          <div class="position-absolute top-0 end-0 m-3">
+
+          <!-- Pojok Kanan Atas: Ikon Wilayah/Kota & Status Badge -->
+          <div class="position-absolute top-0 end-0 m-3 d-flex flex-column align-items-end gap-2" style="z-index: 3;">
+            ${cityIconImg ? `
+              <div class="project-city-icon-badge shadow" title="${city}">
+                <img src="${cityIconImg}" alt="${city}">
+              </div>
+            ` : ''}
             ${MGIComponents.renderStatusBadge(project.status)}
           </div>
-          <div class="position-absolute bottom-0 start-0 m-3">
+
+          <!-- Pojok Kiri Bawah: Jaminan Underlying Aset -->
+          <div class="position-absolute bottom-0 start-0 m-3" style="z-index: 3;">
             <span class="badge bg-royal text-white px-2 py-1 rounded small fw-semibold shadow-sm" style="font-size: 0.72rem;">
               <i class="bi bi-shield-lock-fill text-gold me-1"></i>${assetTag}
             </span>

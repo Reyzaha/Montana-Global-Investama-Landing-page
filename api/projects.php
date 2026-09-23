@@ -172,12 +172,27 @@ try {
             ];
         }
 
+        $cIconImg = $p['city_icon_img'] ?? '';
+        if (empty($cIconImg)) {
+            $cSearch = strtolower(($p['city'] ?? '') . ' ' . ($p['title'] ?? '') . ' ' . ($p['lokasi'] ?? ''));
+            if (strpos($cSearch, 'jkt') !== false || strpos($cSearch, 'jabar') !== false || strpos($cSearch, 'jakarta') !== false || strpos($cSearch, 'jabodetabek') !== false) {
+                $cIconImg = 'assets/img/city-jkt-jabar.png';
+            } elseif (strpos($cSearch, 'makassar') !== false || strpos($cSearch, 'sulawesi') !== false) {
+                $cIconImg = 'assets/img/city-makassar.png';
+            } elseif (strpos($cSearch, 'surabaya') !== false || strpos($cSearch, 'jatim') !== false) {
+                $cIconImg = 'assets/img/city-surabaya.png';
+            } elseif (strpos($cSearch, 'denpasar') !== false || strpos($cSearch, 'bali') !== false) {
+                $cIconImg = 'assets/img/city-denpasar.png';
+            }
+        }
+
         $projects[] = [
             'id' => $p['id'],
             'city_id' => !empty($p['city_id']) ? (int)$p['city_id'] : null,
             'city' => !empty($p['city']) ? $p['city'] : ($p['city_name'] ?? ''),
             'city_slug' => $p['city_slug'] ?? '',
             'city_icon' => $p['city_icon'] ?? 'bi-geo-alt-fill',
+            'city_icon_img' => $cIconImg,
             'title' => $p['title'],
             'category' => $p['category'],
             'image' => $p['image'],

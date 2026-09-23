@@ -486,15 +486,48 @@ h6,
   position: relative;
 }
 
-.project-card-cover img {
+.project-card-cover > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.4s ease;
 }
 
-.mgi-card:hover .project-card-cover img {
+.mgi-card:hover .project-card-cover > img {
   transform: scale(1.03);
+}
+
+/* Project City Icon Badge Overlay (Pojok Kanan Atas Cover Proyek) */
+.project-city-icon-badge {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  min-height: 52px;
+  background-color: #FFFFFF;
+  border: 2px solid var(--mgi-gold);
+  border-radius: 50%;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.22);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  z-index: 5;
+}
+
+.project-city-icon-badge img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  border-radius: 50%;
+  transition: none !important;
+}
+
+.mgi-card:hover .project-city-icon-badge {
+  transform: scale(1.08);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.3);
 }
 
 /* Fast-Scan Key Metrics Box (Solid Theme) */
