@@ -162,7 +162,7 @@ require_once __DIR__ . '/includes/header.php';
       document.getElementById('settingSiteTitle').value = s.site_title ? s.site_title.value : 'PT Montana Global Investama';
       document.getElementById('settingEmail').value = s.official_email ? s.official_email.value : 'kontak@montanaglobalinvestama.com';
       document.getElementById('settingGscToken').value = s.gsc_verification_token ? s.gsc_verification_token.value : '';
-      document.getElementById('settingKeywords').value = s.meta_keywords ? s.meta_keywords.value : 'investasi per project, website investment per project, project based investment, investasi sektor riil, investasi alat berat, komatsu grade a, montana global investama, sindikasi proyek riil, manajer investasi proyek';
+      document.getElementById('settingKeywords').value = s.meta_keywords ? s.meta_keywords.value : 'investasi per project, website investment per project, project based investment, investasi sektor riil, investasi alat berat, komatsu grade a, montana global investama, manajer investasi proyek';
     } catch (e) {
       console.error(e);
       AdminApp.showToast('Gagal memuat pengaturan sistem.', 'danger');

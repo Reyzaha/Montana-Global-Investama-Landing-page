@@ -11,16 +11,16 @@ let MGIGrowthData = {
   mgi: {
     title: 'Konsolidasi Grup PT Montana Global Investama',
     subtitle: 'Pertumbuhan Nilai Aset Terkelola (AUM) & Skala Portofolio Project Investasi Sektor Riil',
-    badge: 'Holding & Project Investment Manager',
+    badge: 'Holding & Manajer Proyek Investasi',
     badgeClass: 'bg-dark',
     chartLabel: 'Nilai Aset Terkelola / AUM (Rp Miliar)',
     data: [24, 42, 80, 136, 214, 317, 435],
     unit: 'Miliar IDR',
     kpis: [
       { label: 'Total Aset Terkelola (2025)', value: 'Rp 100 M', note: 'Target 2026: Rp 150 M', icon: 'bi-bank2', color: 'text-royal' },
-      { label: 'Tingkat Ketepatan Bagi Hasil', value: '100%', note: 'On-Time Payout Rekam Jejak', icon: 'bi-check-circle-fill', color: 'text-success' },
-      { label: 'Rasio Default (NPA)', value: '0.0%', note: 'Underlying Asset Terproteksi', icon: 'bi-shield-fill-check', color: 'text-gold' },
-      { label: 'Batch Sindikasi Teralokasi', value: '18 Batch', note: 'Jabodetabek, Surabaya, Denpasar, Makassar', icon: 'bi-layers-fill', color: 'text-primary' }
+      { label: 'Tingkat Ketepatan Bagi Hasil', value: '100%', note: 'Penyaluran Tepat Waktu', icon: 'bi-check-circle-fill', color: 'text-success' },
+      { label: 'Rasio Default (NPA)', value: '0.0%', note: 'Aset Fisik Terproteksi', icon: 'bi-shield-fill-check', color: 'text-gold' },
+      { label: 'Batch Proyek Teralokasi', value: '18 Batch', note: 'Jabodetabek, Surabaya, Denpasar, Makassar', icon: 'bi-layers-fill', color: 'text-primary' }
     ]
   },
 
@@ -47,7 +47,7 @@ let MGIGrowthData = {
   msi: {
     title: 'Montana Sentra Industri (MSI)',
     subtitle: 'Supply Import Langsung dari Jepang atau Cina ke Indonesia Sampai ke Alamat Customer',
-    badge: 'Supply Import Direct to Customer',
+    badge: 'Suplai Impor Langsung ke Pelanggan',
     badgeClass: 'bg-gold text-white',
     chartLabel: 'Kapasitas Output & Supply Unit (Ton/Thn)',
     secondaryChartLabel: 'Nilai Logistik Impor (Rp Miliar)',
@@ -56,7 +56,7 @@ let MGIGrowthData = {
     unit: 'Ton/Tahun',
     kpis: [
       { label: 'Volume Supply Import (2025)', value: '2.800 Ton', note: 'Target 2026: 4.200 Ton/Thn', icon: 'bi-ship', color: 'text-gold' },
-      { label: 'Pengiriman Door-to-Door', value: '100%', note: 'Sampai Alamat Customer', icon: 'bi-box-seam-fill', color: 'text-success' },
+      { label: 'Pengiriman Door-to-Door', value: '100%', note: 'Sampai Alamat Pelanggan', icon: 'bi-box-seam-fill', color: 'text-success' },
       { label: 'Efisiensi Rantai Pasok', value: '31.2%', note: 'Pangkas Biaya Perantara', icon: 'bi-graph-down-arrow', color: 'text-royal' },
       { label: 'Asal Pengadaan Import', value: 'Jepang & Cina', note: 'Mitra Manufaktur Resmi', icon: 'bi-globe-americas', color: 'text-primary' }
     ]
@@ -128,8 +128,8 @@ async function initGrowthChart(activeSegment = 'mgi') {
     renderGrowthKpis([
       { label: 'Armada Aktif MIU (2025)', value: '124 Unit', note: '+34.7% YoY Growth', icon: 'bi-truck-flatbed', color: 'text-royal' },
       { label: 'Output Fabrikasi MSI (2025)', value: '2.800 Ton', note: '+69.6% YoY Growth', icon: 'bi-gear-wide-connected', color: 'text-gold' },
-      { label: 'Utilisasi Armada MIU', value: '94.8%', note: 'Offtake Agreement Aktif', icon: 'bi-speedometer2', color: 'text-success' },
-      { label: 'Kemandirian Pasokan MSI', value: '72%', note: 'Suku Cadang & Attachment', icon: 'bi-shield-check', color: 'text-primary' }
+      { label: 'Utilisasi Armada MIU', value: '94.8%', note: 'Kontrak Penyerapan Aktif', icon: 'bi-speedometer2', color: 'text-success' },
+      { label: 'Kemandirian Pasokan MSI', value: '72%', note: 'Suku Cadang & Komponen', icon: 'bi-shield-check', color: 'text-primary' }
     ]);
 
     mgiChartInstance = new Chart(ctx, {

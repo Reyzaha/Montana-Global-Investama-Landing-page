@@ -7,15 +7,15 @@
       "city": "Jabodetabek & Jawa Barat",
       "city_icon": "bi-geo-alt-fill",
       "city_icon_img": "assets/img/city-jkt-jabar.png",
-      "title": "Expands Pool and Heavy Duty Regional Jabodetabek dan Jawa Barat",
-      "category": "Project Ekspansi Pool & Heavy Duty Komatsu",
+      "title": "Ekspansi Pool & Alat Berat Regional Jabodetabek dan Jawa Barat",
+      "category": "Proyek Ekspansi Pool & Alat Berat Komatsu",
       "image": "assets/img/project-jabodetabek.jpg",
       "funding": {
         "collected": 7500000000,
         "target": 10000000000,
         "currency": "IDR"
       },
-      "status": "Open",
+      "status": "Dibuka",
       "featured": true,
       "info": {
         "lokasi": "DKI Jakarta & Jawa Barat",
@@ -25,8 +25,8 @@
         "min_investment": "Rp 500.000.000",
         "payout": "Bagi Hasil Kuartalan",
         "remaining_days": "18 Hari Tersisa",
-        "asset_backed": "Underlying Aset Komatsu CBU Grade A",
-        "brand": "Komatsu (Eksklusif)",
+        "asset_backed": "Aset Fisik Komatsu CBU Grade A",
+        "brand": "Komatsu CBU Grade A",
         "stock_available": "8 Unit Komatsu Siap Operasi",
         "capitalization_value": "Rp 13,5 Miliar"
       },
@@ -34,7 +34,7 @@
         "tagline": "Sentral Pool & Workshop Terpadu Distribusi Unit Komatsu Regional Jabodetabek dan Jawa Barat",
         "what_will_provide": {
           "type": "text",
-          "title": "Alokasi Penggunaan Modal Project",
+          "title": "Alokasi Penggunaan Modal Proyek",
           "content": "Permodalan dialokasikan untuk pengadaan unit alat berat Komatsu CBU Jepang Grade A (Excavator Komatsu PC200-8 & PC138US-8) serta fasilitas workshop terpadu regional Jabodetabek & Jawa Barat. Penempatan strategis untuk mendukung proyek infrastruktur jalan, kawasan industri, dan logistik nasional."
         },
         "funding_target": {
@@ -81,13 +81,13 @@
         },
         "about_sinergi_foundation": {
           "type": "text",
-          "title": "Kerangka Kontrak Penyerapan Pasar (Offtake Framework)",
+          "title": "Kerangka Kontrak Penyerapan Pasar",
           "content": "Unit Komatsu langsung diutilisasi untuk proyek galian kuari, normalisasi infrastruktur sipil, dan pembangunan kawasan industri berjangka panjang di wilayah Jabodetabek serta Jawa Barat dengan kepastian cashflow pembayaran kontrak."
         },
         "summary": {
           "type": "text",
-          "title": "Ringkasan Kelayakan Project Investasi",
-          "content": "Didukung underlying asset Komatsu berlikuiditas pasar sekunder tertinggi di Indonesia, proyeksi imbal hasil terukur ≥32% (p.a.) dengan jadwal bagi hasil setiap kuartal."
+          "title": "Ringkasan Kelayakan Proyek Investasi",
+          "content": "Didukung aset fisik nyata Komatsu berlikuiditas pasar sekunder tertinggi di Indonesia, proyeksi imbal hasil terukur ≥32% (p.a.) dengan jadwal bagi hasil setiap kuartal."
         },
         "simulation": {
           "tenor_bulan": 36,

@@ -285,7 +285,7 @@
           <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 border-bottom pb-3 mb-3">
             <div>
               <h5 class="fw-bold text-dark mb-1">Rincian Penempatan Portofolio Proyek</h5>
-              <p class="text-muted small mb-0">Daftar instrumen sindikasi riil dan aset fisik berwujud yang mendukung alokasi modal Anda.</p>
+              <p class="text-muted small mb-0">Daftar instrumen proyek riil dan aset fisik berwujud yang mendukung alokasi modal Anda.</p>
             </div>
             <div class="d-flex align-items-center gap-2">
               <button type="button" onclick="printPortfolioStatement()" class="btn btn-sm btn-outline-primary rounded-pill px-3 shadow-sm d-inline-flex align-items-center gap-1">
@@ -419,7 +419,7 @@
             <div class="col-12 col-md-4 text-center">
               <span class="text-muted small text-uppercase fw-bold" style="font-size: 0.72rem;">Persentase Kinerja ROI Riil:</span>
               <div class="fs-4 fw-bold text-royal mt-1" id="billingRoiPct">≥30% - 35%</div>
-              <small class="text-secondary">Sesuai Kontrak Sindikasi Komatsu</small>
+              <small class="text-secondary">Sesuai Kontrak Proyek Komatsu</small>
             </div>
           </div>
         </div>
@@ -932,7 +932,7 @@
             <div class="card h-100 border rounded-4 overflow-hidden shadow-sm bg-white">
               <img src="${port.project_image || 'assets/img/komatsu.jpg'}" class="card-img-top" style="height: 180px; object-fit: cover;" alt="">
               <div class="card-body p-4">
-                <span class="badge bg-royal text-white px-3 py-1 rounded-pill small mb-2" style="background: #142563;">Penempatan Sindikasi</span>
+                <span class="badge bg-royal text-white px-3 py-1 rounded-pill small mb-2" style="background: #142563;">Penempatan Proyek</span>
                 <h5 class="fw-bold text-dark mb-2">${port.project_title}</h5>
                 <p class="text-muted small mb-3">Unit: <strong>${port.allocated_units || 'Alat Berat CBU'}</strong></p>
                 <div class="p-3 bg-light rounded-3 mb-3 border">

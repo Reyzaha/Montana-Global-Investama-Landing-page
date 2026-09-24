@@ -10,11 +10,11 @@ const MGIComponents = {
     if (!navContainer) return;
 
     const navItems = [
-      { id: 'home', label: 'Home', href: 'index.html' },
-      { id: 'about', label: 'About Us', href: 'about.html' },
-      { id: 'invest', label: 'Project Investasi', href: 'invest.html' },
+      { id: 'home', label: 'Beranda', href: 'index.html' },
+      { id: 'about', label: 'Tentang Kami', href: 'about.html' },
+      { id: 'invest', label: 'Proyek Investasi', href: 'invest.html' },
       { id: 'transformasi', label: 'Transformasi', href: 'transformasi.html' },
-      { id: 'preparation', label: 'Preparation', href: 'preparation.html' },
+      { id: 'preparation', label: 'Persiapan Entitas', href: 'preparation.html' },
       { id: 'ekosistem', label: 'Ekosistem', href: 'ekosistem.html' },
       { id: 'contact', label: 'Kontak Kami', href: 'contact.html' }
     ];
@@ -137,9 +137,9 @@ const MGIComponents = {
             <div class="col-lg-2 col-md-6">
               <h6 class="fw-bold text-white text-uppercase mb-3 small tracking-wide pb-1 d-inline-block" style="border-bottom: 2px solid var(--mgi-gold);">Navigasi Utama</h6>
               <ul class="list-unstyled mb-0">
-                <li><a href="index.html" class="footer-link">Halaman Utama</a></li>
-                <li><a href="about.html" class="footer-link">Company Profile</a></li>
-                <li><a href="invest.html" class="footer-link">Portofolio Project Investasi</a></li>
+                <li><a href="index.html" class="footer-link">Beranda</a></li>
+                <li><a href="about.html" class="footer-link">Profil Perusahaan</a></li>
+                <li><a href="invest.html" class="footer-link">Portofolio Proyek Investasi</a></li>
                 <li><a href="transformasi.html" class="footer-link">Transformasi Perusahaan</a></li>
                 <li><a href="contact.html" class="footer-link">Kontak Kami</a></li>
               </ul>
@@ -150,7 +150,7 @@ const MGIComponents = {
               <ul class="list-unstyled mb-0">
                 <li><a href="preparation.html" class="footer-link">Struktur Alur Kerja Entitas</a></li>
                 <li><a href="ekosistem.html" class="footer-link">Bagan Ekosistem Terpadu</a></li>
-                <li><a href="javascript:void(0)" onclick="MGIAuth.handleProtectedDetail('proj-jkt-jabar')" class="footer-link">Simulasi BEP &amp; ROI</a></li>
+                <li><a href="javascript:void(0)" onclick="MGIAuth.handleProtectedDetail('proj-jkt-jabar')" class="footer-link">Simulasi Titik Impas &amp; Bagi Hasil</a></li>
                 <li><a href="about.html#tata-kelola" class="footer-link">Tata Kelola Perusahaan (TARIF)</a></li>
               </ul>
             </div>
@@ -174,7 +174,7 @@ const MGIComponents = {
               &copy; ${new Date().getFullYear()} PT Montana Global Investama. Seluruh Hak Cipta Dilindungi Undang-Undang.
             </div>
             <div class="d-flex align-items-center gap-3">
-              <span>Private &amp; Confidential</span>
+              <span>Rahasia &amp; Terbatas</span>
               <span>•</span>
               <a href="mailto:kontak@montanaglobalinvestama.com" class="text-gold text-decoration-none fw-semibold">kontak@montanaglobalinvestama.com</a>
             </div>
@@ -189,19 +189,23 @@ const MGIComponents = {
     const s = (status || 'Open').toLowerCase();
     let badgeClass = 'badge-solid-open';
     let icon = 'bi-record-circle-fill';
+    let label = 'Dibuka';
 
-    if (s.includes('fully') || s.includes('funded')) {
+    if (s.includes('fully') || s.includes('funded') || s.includes('didanai')) {
       badgeClass = 'badge-solid-funded';
       icon = 'bi-check-circle-fill';
-    } else if (s.includes('close')) {
+      label = 'Didanai Penuh';
+    } else if (s.includes('close') || s.includes('tutup')) {
       badgeClass = 'badge-solid-closed';
       icon = 'bi-dash-circle-fill';
-    } else if (s.includes('soon')) {
+      label = 'Ditutup';
+    } else if (s.includes('soon') || s.includes('segera')) {
       badgeClass = 'badge-solid-coming';
       icon = 'bi-clock-fill';
+      label = 'Segera Hadir';
     }
 
-    return `<span class="badge ${badgeClass} px-2.5 py-1 rounded-1 d-inline-flex align-items-center gap-1" style="font-size: 0.75rem; font-weight: 600;"><i class="bi ${icon} small"></i> ${status}</span>`;
+    return `<span class="badge ${badgeClass} px-2.5 py-1 rounded-1 d-inline-flex align-items-center gap-1" style="font-size: 0.75rem; font-weight: 600;"><i class="bi ${icon} small"></i> ${label}</span>`;
   },
 
   // 4. Render Funding Progress Bar (Solid Colors)
@@ -236,15 +240,15 @@ const MGIComponents = {
         <div class="row g-2 text-center align-items-center">
           <div class="col-4 border-end border-subtle">
             <div class="text-success fw-bold fs-5 lh-1 mb-1">${ret}</div>
-            <div class="text-muted small text-uppercase fw-semibold" style="font-size: 0.68rem; letter-spacing: 0.5px;">Proyeksi ROI</div>
+            <div class="text-muted small text-uppercase fw-semibold" style="font-size: 0.68rem; letter-spacing: 0.5px;">Indikasi Imbal Hasil</div>
           </div>
           <div class="col-4 border-end border-subtle">
             <div class="text-dark fw-bold fs-6 lh-1 mb-1">${tenor}</div>
-            <div class="text-muted small text-uppercase fw-semibold" style="font-size: 0.68rem; letter-spacing: 0.5px;">Tenor</div>
+            <div class="text-muted small text-uppercase fw-semibold" style="font-size: 0.68rem; letter-spacing: 0.5px;">Jangka Waktu</div>
           </div>
           <div class="col-4">
             <div class="text-royal fw-bold fs-6 lh-1 mb-1">${minTicket}</div>
-            <div class="text-muted small text-uppercase fw-semibold" style="font-size: 0.68rem; letter-spacing: 0.5px;">Min. Tiket</div>
+            <div class="text-muted small text-uppercase fw-semibold" style="font-size: 0.68rem; letter-spacing: 0.5px;">Min. Investasi</div>
           </div>
         </div>
       </div>
@@ -282,7 +286,6 @@ const MGIComponents = {
     if (!project) return '';
     const info = project.info || {};
     const remainingDays = info.remaining_days || '18 Hari Tersisa';
-    const assetTag = info.asset_backed || 'Underlying Komatsu CBU';
     const city = project.city || (info.lokasi ? info.lokasi.split(',')[0] : 'Regional');
 
     // Resolving City Icon Image (Pojok Kanan Atas)
@@ -305,7 +308,7 @@ const MGIComponents = {
         <div class="project-card-cover position-relative">
           <img src="${project.image || 'assets/img/komatsu.jpg'}" alt="${project.title}">
           
-          <!-- Pojok Kiri Atas: Lokasi & Komatsu Only -->
+          <!-- Pojok Kiri Atas: Lokasi -->
           <div class="position-absolute top-0 start-0 m-3 d-flex flex-column gap-1" style="z-index: 3;">
             <span class="badge bg-gold text-white px-2.5 py-1 rounded-1 small fw-bold shadow-sm">
               <i class="bi bi-geo-alt-fill me-1"></i>${city}
@@ -316,8 +319,6 @@ const MGIComponents = {
           <div class="position-absolute top-0 end-0 m-3 d-flex flex-column align-items-end gap-2" style="z-index: 3;">
             ${MGIComponents.renderStatusBadge(project.status)}
           </div>
-
-
         </div>
 
         <div class="card-body p-4 d-flex flex-column">
@@ -338,7 +339,7 @@ const MGIComponents = {
 
           <div class="mt-auto pt-1">
             <button type="button" onclick="MGIAuth.handleProtectedDetail('${project.id}')" class="btn btn-outline-mgi w-100 py-2 fw-semibold d-flex align-items-center justify-content-center gap-2">
-              <span>Lihat Detail Project &amp; Simulasi</span>
+              <span>Lihat Lebih Lanjut</span>
               <i class="bi bi-arrow-right"></i>
             </button>
           </div>

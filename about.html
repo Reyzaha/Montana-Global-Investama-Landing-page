@@ -78,7 +78,7 @@
         <span class="text-royal">Montana Group</span> &amp; <span class="text-gold">PT Montana Global Investama</span>
       </h1>
       <p id="companyTagline" class="text-gold fw-semibold fs-5 max-w-700 mx-auto mb-0">
-        "Growing Together Through Trusted Investments" — Tumbuh Bersama Melalui Investasi Terpercaya
+        Tumbuh Bersama Melalui Investasi Terpercaya
       </p>
     </div>
   </header>
@@ -191,7 +191,7 @@
         <div>
           <div class="d-flex align-items-center gap-2 mb-1">
             <span id="growthSegmentBadge" class="badge bg-dark px-3 py-2 rounded-pill small fw-bold">Holding &amp;
-              Project Investment Manager</span>
+              Manajer Proyek Investasi</span>
             <h4 id="growthSegmentTitle" class="fw-bold text-dark mb-0">Konsolidasi Grup PT Montana Global Investama</h4>
           </div>
           <p id="growthSegmentSubtitle" class="text-muted small mb-0">
@@ -530,7 +530,7 @@
       if (!data) return;
 
       if (data.tagline_id) {
-        document.getElementById('companyTagline').textContent = `"${data.tagline_en || ''}" — ${data.tagline_id}`;
+        document.getElementById('companyTagline').textContent = data.tagline_id;
       }
 
       // Render Entities Cards with Rich Corporate Colors

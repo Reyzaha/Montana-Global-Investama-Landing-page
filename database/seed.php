@@ -474,7 +474,7 @@ try {
             'Distribusi Imbal Hasil Kuartal II Berjalan Lancar ke Rekening Investor',
             'Laporan Keuangan & Dividen',
             '2024-07-15',
-            'Manajemen PT Montana Global Investama telah menuntaskan penyaluran bagi hasil kuartalan periode Q2 kepada seluruh investor sindikasi perorangan dan korporasi terdaftar secara tepat waktu. Laporan keuangan proyek telah diverifikasi oleh tim kepatuhan internal.',
+            'Manajemen PT Montana Global Investama telah menuntaskan penyaluran bagi hasil kuartalan periode Q2 kepada seluruh investor mitra perorangan dan korporasi terdaftar secara tepat waktu. Laporan keuangan proyek telah diverifikasi oleh tim kepatuhan internal.',
             'assets/img/project-jabodetabek.jpg',
             3
         ]
