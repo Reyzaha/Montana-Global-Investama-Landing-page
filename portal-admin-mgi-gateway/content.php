@@ -82,13 +82,13 @@ require_once __DIR__ . '/includes/header.php';
         </div>
         <div class="btn-group" role="group">
           <button type="button" class="btn btn-sm btn-outline-primary active" id="segBtn-mgi" onclick="switchGrowthSegment('mgi')">
-            Konsolidasi MGI
+            Ekosistem MGI
           </button>
           <button type="button" class="btn btn-sm btn-outline-primary" id="segBtn-miu" onclick="switchGrowthSegment('miu')">
             PT MIU (Alat Berat)
           </button>
           <button type="button" class="btn btn-sm btn-outline-primary" id="segBtn-msi" onclick="switchGrowthSegment('msi')">
-            MSI (Manufaktur)
+            MSI (Import)
           </button>
         </div>
       </div>
@@ -97,8 +97,8 @@ require_once __DIR__ . '/includes/header.php';
         <!-- Info Segmen Terpilih -->
         <div class="d-flex align-items-center justify-content-between p-3 bg-light rounded-3 border border-subtle mb-4">
           <div>
-            <div class="small text-muted text-uppercase fw-bold" id="adminSegBadge">Holding &amp; Investment Manager</div>
-            <h5 class="fw-bold text-dark mb-0" id="adminSegTitle">Konsolidasi Grup PT Montana Global Investama</h5>
+            <div class="small text-muted text-uppercase fw-bold" id="adminSegBadge">Grup &amp; Investment Manager</div>
+            <h5 class="fw-bold text-dark mb-0" id="adminSegTitle">Ekosistem Grup PT Montana Global Investama</h5>
           </div>
           <div class="badge bg-primary px-3 py-2" id="adminSegUnit">Satuan: Miliar IDR</div>
         </div>
@@ -192,7 +192,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
       <div>
         <h6 class="fw-bold text-dark mb-0">Daftar Node Bagan Hierarki Ekosistem</h6>
-        <small class="text-muted">Kelola struktur holding, anak usaha operasional, fasilitas teknis, dan mitra strategis.</small>
+        <small class="text-muted">Kelola struktur grup, anak usaha operasional, fasilitas teknis, dan mitra strategis.</small>
       </div>
       <button type="button" class="btn btn-mgi-gold d-flex align-items-center gap-2 shadow-sm" onclick="openEkosistemModal()">
         <i class="bi bi-plus-circle-fill"></i>
@@ -506,7 +506,7 @@ require_once __DIR__ . '/includes/header.php';
               <div class="col-md-6">
                 <label class="form-label fw-bold small">Tipe Entitas</label>
                 <select id="ekoType" class="form-select">
-                  <option value="holding">Holding (Induk Usaha)</option>
+                  <option value="holding">Grup (Induk Usaha)</option>
                   <option value="subsidiary" selected>Subsidiary (Anak Usaha Operasional)</option>
                   <option value="facility">Facility (Fasilitas Workshop / Pool)</option>
                   <option value="partner">Partner (Mitra Strategis / Offtake)</option>
@@ -525,14 +525,14 @@ require_once __DIR__ . '/includes/header.php';
               <div class="col-md-6">
                 <label class="form-label fw-bold small">Node Induk (Parent)</label>
                 <select id="ekoParentId" class="form-select">
-                  <option value="">— Tidak Ada (Root / Holding Utama) —</option>
+                  <option value="">— Tidak Ada (Root / Grup Utama) —</option>
                   <!-- Populated dynamically -->
                 </select>
               </div>
               <div class="col-md-3">
                 <label class="form-label fw-bold small">Level Hierarki</label>
                 <select id="ekoLevel" class="form-select">
-                  <option value="0">0 (Holding Utama)</option>
+                  <option value="0">0 (Grup Utama)</option>
                   <option value="1" selected>1 (Unit Usaha / Mitra)</option>
                   <option value="2">2 (Fasilitas / Sub-Unit)</option>
                 </select>
@@ -1123,7 +1123,7 @@ require_once __DIR__ . '/includes/header.php';
 
     tb.innerHTML = ekosistemNodes.map(n => {
       const typeBadge = n.type === 'holding' 
-        ? '<span class="badge bg-warning text-dark">Holding</span>'
+        ? '<span class="badge bg-warning text-dark">Grup</span>'
         : (n.type === 'facility' 
             ? '<span class="badge bg-secondary text-white">Facility</span>' 
             : (n.type === 'partner' ? '<span class="badge bg-info text-dark">Partner</span>' : '<span class="badge bg-primary text-white">Subsidiary</span>'));
@@ -1171,7 +1171,7 @@ require_once __DIR__ . '/includes/header.php';
 
     // Populate Parent Select Options dynamically
     const parentSelect = document.getElementById('ekoParentId');
-    parentSelect.innerHTML = `<option value="">— Tidak Ada (Root / Holding Utama) —</option>` + 
+    parentSelect.innerHTML = `<option value="">— Tidak Ada (Root / Grup Utama) —</option>` + 
       ekosistemNodes.filter(n => n.id !== id).map(n => `
         <option value="${n.id}">${n.label} (${n.id})</option>
       `).join('');

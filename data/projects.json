@@ -23,7 +23,7 @@
         "tenor": "36 Bulan",
         "return": "≥32% (p.a.)",
         "min_investment": "Rp 500.000.000",
-        "payout": "Bagi Hasil Kuartalan",
+        "payout": "Bagi Hasil Kompetitif",
         "remaining_days": "18 Hari Tersisa",
         "asset_backed": "Aset Fisik Komatsu CBU Grade A",
         "brand": "Komatsu CBU Grade A",
@@ -39,7 +39,7 @@
         },
         "funding_target": {
           "type": "table",
-          "title": "Target Pendanaan & Nilai Kapitalisasi Unit",
+          "title": "Target Pendanaan & Nilai Pendanaan Unit",
           "columns": [
             "No",
             "Item Pengadaan / Spesifikasi",

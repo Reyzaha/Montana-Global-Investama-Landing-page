@@ -185,7 +185,7 @@ try {
                 $p['info']['return'] ?? '',
                 $p['info']['risk'] ?? '',
                 $p['info']['min_investment'] ?? 'Rp 500.000.000',
-                $p['info']['payout'] ?? 'Bagi Hasil Kuartalan',
+                $p['info']['payout'] ?? 'Bagi Hasil Kompetitif',
                 $p['info']['remaining_days'] ?? '18 Hari Tersisa',
                 $p['info']['asset_backed'] ?? 'Unit CBU Grade A & BPKB',
                 $idx + 1
@@ -474,7 +474,7 @@ try {
             'Distribusi Imbal Hasil Kuartal II Berjalan Lancar ke Rekening Investor',
             'Laporan Keuangan & Dividen',
             '2024-07-15',
-            'Manajemen PT Montana Global Investama telah menuntaskan penyaluran bagi hasil kuartalan periode Q2 kepada seluruh investor mitra perorangan dan korporasi terdaftar secara tepat waktu. Laporan keuangan proyek telah diverifikasi oleh tim kepatuhan internal.',
+            'Manajemen PT Montana Global Investama telah menuntaskan distribusi bagi hasil kompetitif periode Q2 kepada seluruh investor mitra perorangan dan korporasi terdaftar secara tepat waktu. Laporan keuangan proyek telah diverifikasi oleh tim kepatuhan internal.',
             'assets/img/project-jabodetabek.jpg',
             3
         ]

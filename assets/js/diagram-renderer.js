@@ -317,11 +317,11 @@ const MGIDiagrams = {
           </div>
           <div>
             <span class="badge bg-gold text-white px-3 py-1 rounded-pill small fw-bold text-uppercase mb-2">
-              ${root.badge || 'Induk Holding'}
+              ${root.badge || 'Induk Grup'}
             </span>
           </div>
           <h2 class="fw-bold text-dark mb-2">${root.label}</h2>
-          <div class="small fw-bold text-royal text-uppercase tracking-wide mb-3">${root.category || 'Holding & Project Investment Manager'}</div>
+          <div class="small fw-bold text-royal text-uppercase tracking-wide mb-3">${root.category || 'Grup & Project Investment Manager'}</div>
           <p class="text-secondary small mb-0 lh-lg" style="max-width: 620px;">
             ${root.description || ''}
           </p>

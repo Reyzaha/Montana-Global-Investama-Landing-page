@@ -229,7 +229,7 @@ require_once __DIR__ . '/includes/header.php';
 
                   <div class="col-md-4">
                     <label class="form-label">Jadwal Bagi Hasil</label>
-                    <input type="text" id="pPayout" class="form-control" value="Bagi Hasil Kuartalan">
+                    <input type="text" id="pPayout" class="form-control" value="Bagi Hasil Kompetitif">
                   </div>
                   <div class="col-md-4">
                     <label class="form-label">Sisa Waktu Penawaran</label>
@@ -595,7 +595,7 @@ require_once __DIR__ . '/includes/header.php';
     document.getElementById('pReturnRate').value = '≥30% (p.a.)';
     document.getElementById('pRiskLevel').value = 'Menengah - Terukur';
     document.getElementById('pMinInvest').value = 'Rp 500.000.000';
-    document.getElementById('pPayout').value = 'Bagi Hasil Kuartalan';
+    document.getElementById('pPayout').value = 'Bagi Hasil Kompetitif';
     document.getElementById('pRemainingDays').value = '30 Hari Tersisa';
     document.getElementById('pAssetBacked').value = 'Unit CBU Grade A & BPKB';
 

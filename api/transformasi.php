@@ -39,7 +39,7 @@ try {
     $response = [
         'title' => 'Perjalanan Transformasi Montana Group',
         'subtitle' => 'Dari Kebumen Menuju Ekosistem Investasi Nasional',
-        'intro' => 'Bermula dari satu unit alat berat di Kebumen (2022), Montana Group tumbuh menjadi holding investasi multi-sektor yang modern.',
+        'intro' => 'Bermula dari satu unit alat berat di Kebumen (2022), Montana Group tumbuh menjadi grup investasi multi-sektor yang modern.',
         'quote' => 'Kami mengintegrasikan keandalan operasional dan transformasi digital untuk membangun ekosistem sektor riil yang berkelanjutan, efisien, dan transparan.',
         'journey' => $journey
     ];

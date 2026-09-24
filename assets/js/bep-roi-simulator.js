@@ -108,7 +108,7 @@ const MGISimulator = {
               </div>
               <div class="d-flex justify-content-between">
                 <span class="text-mgi-muted">Siklus Pembagian Hasil:</span>
-                <strong class="text-mgi-gold">Kuartalan / Bulanan</strong>
+                <strong class="text-mgi-gold">Kompetitif / Bulanan</strong>
               </div>
             </div>
           </div>

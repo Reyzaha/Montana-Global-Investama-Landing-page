@@ -8,7 +8,7 @@
   "headquarters": "Roseville Soho & Suite, Sunburst CBD Lot I.8, Jl. Kapten Soebijanto Djojohadikusumo, Lengkong Gudang, Serpong, Tangerang Selatan",
   "stats": [
     {
-      "label": "Kapitalisasi Armada",
+      "label": "Pendanaan Armada",
       "value": "Rp 100M+",
       "desc": "Aset Fisik Produktif"
     },
@@ -31,31 +31,31 @@
   "about_group": {
     "title": "Tentang Montana Group",
     "subtitle": "Kelompok Usaha Sektor Riil Berdaya Saing Tinggi & Berkelanjutan",
-    "description": "Montana Group adalah kelompok usaha yang dipimpin oleh PT Montana Global Investama (MGI) selaku holding dan manajer investasi project, yang menaungi tiga pilar usaha operasional teruji di lapangan. Model ini memungkinkan MGI berfokus pada tata kelola, alokasi modal per project, dan manajemen risiko tingkat grup, sementara setiap unit usaha menjalankan eksekusi operasional sesuai bidang keahliannya masing-masing.",
-    "positioning": "Dengan struktur holding ini, PT Montana Global Investama memposisikan diri sebagai wadah project investasi per project terpercaya bagi pemodal yang ingin berpartisipasi pada pertumbuhan sektor riil (khususnya alat berat, industri logistik, dan rantai pasok pengadaan) melalui satu pintu masuk project investasi yang dikelola secara profesional, transparan, dan berlandaskan kerangka tata kelola TARIF."
+    "description": "Montana Group adalah kelompok usaha yang dipimpin oleh PT Montana Global Investama (MGI) selaku grup dan manajer investasi project, yang menaungi tiga pilar usaha operasional teruji di lapangan. Model ini memungkinkan MGI berfokus pada tata kelola, alokasi modal per project, dan manajemen risiko tingkat grup, sementara setiap unit usaha menjalankan eksekusi operasional sesuai bidang keahliannya masing-masing.",
+    "positioning": "Dengan struktur grup ini, PT Montana Global Investama memposisikan diri sebagai wadah investasi per project terpercaya bagi pemodal yang ingin berpartisipasi pada pertumbuhan sektor riil (khususnya alat berat, industri logistik, dan rantai ketersediaan pengadaan) melalui satu pintu masuk project investasi yang dikelola secara profesional, transparan, dan berlandaskan kerangka tata kelola TARIF."
   },
   "entities": [
     {
       "code": "MGI",
       "name": "PT Montana Global Investama",
       "slogan": "Tumbuh Bersama Melalui Investasi Terpercaya",
-      "role": "Manajer Project Investasi & Holding (Tata Kelola, Alokasi Modal Per Project, Manajemen Risiko)",
-      "level": "Level 0 (Holding)",
-      "badge": "Holding & Manajer Proyek Investasi",
+      "role": "Manajer Project Investasi & Grup (Tata Kelola, Alokasi Modal Per Project, Manajemen Risiko)",
+      "level": "Level 0 (Grup)",
+      "badge": "Grup & Manajer Proyek Investasi",
       "color": "gold",
-      "description": "PT Montana Global Investama berperan sebagai holding dan manajer project investasi (tata kelola, alokasi modal per project, manajemen risiko), menghadirkan instrumen project investasi per project sektor riil berbasis aset fisik bernilai tinggi dengan proyeksi pengembalian modal 2-3 tahun.",
-      "focus": "Pengelolaan portofolio project investasi per project, tata kelola TARIF, mitigasi risiko, hubungan investor",
+      "description": "PT Montana Global Investama berperan sebagai grup dan manajer project investasi (tata kelola, alokasi modal per project, manajemen risiko), menghadirkan instrumen investasi per project sektor riil berbasis aset fisik bernilai tinggi dengan proyeksi pengembalian modal 2-3 tahun.",
+      "focus": "Pengelolaan portofolio investasi per project, tata kelola TARIF, mitigasi risiko, hubungan investor",
       "output": "Alokasi modal per project terukur, kepatuhan laporan berkala, monitoring kinerja proyek"
     },
     {
       "code": "MIU",
       "name": "PT Montana Indo Utama (MIU)",
       "slogan": "Solusi Alat Berat Terintegrasi",
-      "role": "Solusi Alat Berat Terintegrasi — Penjualan, Pasokan Armada, Penempatan & Dukungan Operasional",
+      "role": "Solusi Alat Berat Terintegrasi — Penjualan, Ketersediaan Armada, Penempatan & Dukungan Operasional",
       "level": "Level 1 (Unit Usaha)",
       "badge": "Alat Berat & Dukungan Operasional",
       "color": "blue",
-      "description": "Solusi Alat Berat Terintegrasi. Mendukung kebutuhan armada alat berat melalui pasokan, penempatan, dan dukungan teknis operasional untuk proyek sektor riil.",
+      "description": "Solusi Alat Berat Terintegrasi. Mendukung kebutuhan armada alat berat melalui ketersediaan, penempatan, dan dukungan teknis operasional untuk proyek sektor riil.",
       "focus": "Penjualan & suplai unit alat berat, penempatan ke lokasi proyek, perawatan berkala, workshop sentral Kebumen, dan dukungan operasional sektor riil",
       "output": "Ketersediaan armada unit alat berat siap kerja, keandalan operasional lapangan, servis darurat siaga, dan kepastian produktivitas proyek",
       "location": "Jl. Nasional III No.88, Pejuritan, Kec. Karanganyar, Kab. Kebumen, Jawa Tengah"
@@ -70,19 +70,19 @@
       "color": "navy",
       "description": "Mitra Impor & Logistik. Menyediakan solusi impor alat berat, pengurusan kepabeanan, dan distribusi langsung ke lokasi proyek untuk kebutuhan industri.",
       "focus": "Solusi pengadaan impor alat berat, pengurusan kepabeanan pelabuhan terpadu, dan manajemen pengiriman logistik langsung ke lokasi proyek dan industri",
-      "output": "Kelancaran izin impor kepabeanan, kepastian pasokan armada internasional, efisiensi rantai distribusi, dan pengiriman aman tepat waktu",
+      "output": "Kelancaran izin impor kepabeanan, kepastian ketersediaan armada internasional, efisiensi rantai distribusi, dan pengiriman aman tepat waktu",
       "location": "Jl. Nasional III No.88, Pejuritan, Kec. Karanganyar, Kab. Kebumen, Jawa Tengah"
     },
     {
       "code": "Mypurcase",
       "name": "Mypurcase (Segera Diluncurkan 2027)",
       "slogan": "Platform Pengadaan Digital B2B",
-      "role": "Platform Pengadaan Digital — Penghubung Pembelian, Pemasok, Pengadaan & Rantai Pasok",
+      "role": "Platform Pengadaan Digital — Penghubung Pembelian, Pemasok, Pengadaan & Rantai Ketersediaan",
       "level": "Level 1 (Platform Pengadaan)",
       "badge": "Platform Pengadaan B2B",
       "color": "gold",
-      "description": "Platform Pengadaan B2B yang menghubungkan kebutuhan pembelian dengan pemasok terverifikasi, proses pengadaan, dan rantai pasok secara digital, efisien, dan transparan.",
-      "focus": "Digitalisasi pengadaan B2B, integrasi kebutuhan pembelian dengan pemasok terverifikasi, otomatisasi alur pembelian, dan transparansi rantai pasok",
+      "description": "Platform Pengadaan B2B yang menghubungkan kebutuhan pembelian dengan pemasok terverifikasi, proses pengadaan, dan rantai ketersediaan secara digital, efisien, dan transparan.",
+      "focus": "Digitalisasi pengadaan B2B, integrasi kebutuhan pembelian dengan pemasok terverifikasi, otomatisasi alur pembelian, dan transparansi rantai ketersediaan",
       "output": "Proses pengadaan digital cepat dan transparan, efisiensi belanja modal, pelacakan transaksi langsung, dan tata kelola akuntabel"
     }
   ],
@@ -92,7 +92,7 @@
       "id": "tentang-kami",
       "title": "Tentang Kami",
       "subtitle": "Membangun Masa Depan Melalui Sinergi Investasi Produktif",
-      "content": "PT Montana Global Investama (MGI) berperan sebagai holding & manajer investasi (tata kelola, alokasi modal, manajemen risiko), sementara eksekusi operasional dijalankan oleh tiga unit usaha teruji di lapangan: PT Montana Indo Utama, PT Montana Sentra Industri, dan Mypurcase.",
+      "content": "PT Montana Global Investama (MGI) berperan sebagai grup & manajer investasi (tata kelola, alokasi modal, manajemen risiko), sementara eksekusi operasional dijalankan oleh tiga unit usaha teruji di lapangan: PT Montana Indo Utama, PT Montana Sentra Industri, dan Mypurcase.",
       "quote": "Di Montana Global Investama, setiap keputusan investasi berlandaskan pada tiga prinsip utama: aset yang nyata dan terukur, tata kelola yang transparan dan akuntabel, serta kemitraan strategis yang menciptakan nilai berkelanjutan."
     },
     {

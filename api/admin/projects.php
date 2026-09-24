@@ -147,7 +147,7 @@ try {
             $input['return_rate'] ?? '≥30% (p.a.)',
             $input['risk_level'] ?? 'Menengah - Terukur',
             $input['min_investment'] ?? 'Rp 500.000.000',
-            $input['payout'] ?? 'Bagi Hasil Kuartalan',
+            $input['payout'] ?? 'Bagi Hasil Kompetitif',
             $input['remaining_days'] ?? '30 Hari Tersisa',
             $input['asset_backed'] ?? 'Unit CBU Grade A & BPKB'
         ]);
@@ -263,7 +263,7 @@ try {
             $input['return_rate'] ?? '≥30% (p.a.)',
             $input['risk_level'] ?? 'Menengah - Terukur',
             $input['min_investment'] ?? 'Rp 500.000.000',
-            $input['payout'] ?? 'Bagi Hasil Kuartalan',
+            $input['payout'] ?? 'Bagi Hasil Kompetitif',
             $input['remaining_days'] ?? '18 Hari Tersisa',
             $input['asset_backed'] ?? 'Unit CBU Grade A & BPKB',
             $id
@@ -413,7 +413,7 @@ function ensureProjectsSchema(PDO $db): void {
               `return_rate` VARCHAR(50) NOT NULL DEFAULT '≥30% (p.a.)',
               `risk_level` VARCHAR(100) NOT NULL,
               `min_investment` VARCHAR(100) NOT NULL DEFAULT 'Rp 500.000.000',
-              `payout` VARCHAR(100) NOT NULL DEFAULT 'Bagi Hasil Kuartalan',
+              `payout` VARCHAR(100) NOT NULL DEFAULT 'Bagi Hasil Kompetitif',
               `remaining_days` VARCHAR(100) NOT NULL DEFAULT '18 Hari Tersisa',
               `asset_backed` VARCHAR(255) NOT NULL DEFAULT 'Unit CBU Grade A & BPKB',
               `sort_order` INT NOT NULL DEFAULT 0,
@@ -521,7 +521,7 @@ function ensureProjectsSchema(PDO $db): void {
                         $info['return'] ?? '≥30% (p.a.)',
                         'Menengah - Terukur',
                         $info['min_investment'] ?? 'Rp 500.000.000',
-                        $info['payout'] ?? 'Bagi Hasil Kuartalan',
+                        $info['payout'] ?? 'Bagi Hasil Kompetitif',
                         $info['remaining_days'] ?? '30 Hari Tersisa',
                         $info['asset_backed'] ?? 'Unit CBU Grade A & BPKB',
                         $idx + 1

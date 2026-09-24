@@ -77,7 +77,7 @@ try {
             $info['return'] ?? '≥30% (p.a.)',
             'Menengah - Terukur',
             $info['min_investment'] ?? 'Rp 500.000.000',
-            $info['payout'] ?? 'Bagi Hasil Kuartalan',
+            $info['payout'] ?? 'Bagi Hasil Kompetitif',
             $info['remaining_days'] ?? '18 Hari Tersisa',
             $info['asset_backed'] ?? 'Unit CBU Grade A & BPKB',
             $idx + 1

@@ -57,7 +57,7 @@ try {
 
     $response = [
         'title' => 'Struktur Kerja & Sinergi Operasional Antar Entitas',
-        'subtitle' => 'Alur Koordinasi Terpadu: Pengelolaan Modal, Pengadaan Rantai Pasok, dan Eksekusi Lapangan',
+        'subtitle' => 'Alur Koordinasi Terpadu: Pengelolaan Modal, Pengadaan Rantai Ketersediaan, dan Eksekusi Lapangan',
         'intro' => 'Menjelaskan bagaimana dana investor mengalir dan bagaimana entitas-entitas dalam Montana Group saling berkoordinasi dalam satu alur kerja operasional yang transparan, akuntabel, dan terproteksi aset riil.',
         'entities_summary' => $entitiesSummary,
         'workflow' => $workflow

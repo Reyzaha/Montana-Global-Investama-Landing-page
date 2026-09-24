@@ -1,7 +1,7 @@
 {
   "title": "Perjalanan Transformasi Montana Group",
   "subtitle": "Dari Kebumen Menuju Ekosistem Investasi Nasional",
-  "intro": "Bermula dari satu unit alat berat di Kebumen (2022), Montana Group tumbuh menjadi holding investasi multi-sektor yang modern.",
+  "intro": "Bermula dari satu unit alat berat di Kebumen (2022), Montana Group tumbuh menjadi grup investasi multi-sektor yang modern.",
   "quote": "Kami mengintegrasikan keandalan operasional dan transformasi digital untuk membangun ekosistem sektor riil yang berkelanjutan, efisien, dan transparan.",
   "journey": [
     {
@@ -37,7 +37,7 @@
     {
       "step": 3,
       "year_or_phase": "Impor & Logistik",
-      "badge": "Rantai Pasok",
+      "badge": "Rantai Ketersediaan",
       "icon": "box-seam-fill",
       "img": "assets/img/icon-msi-ship.png",
       "title": "PT Montana Sentra Industri (MSI)",
@@ -52,14 +52,14 @@
     {
       "step": 4,
       "year_or_phase": "Struktural",
-      "badge": "Holding Terbentuk",
+      "badge": "Grup Terbentuk",
       "icon": "buildings",
       "img": "assets/img/transformasi4.png",
-      "title": "PT Montana Global Investama Holding",
-      "tagline": "Holding & Manajer Investasi Sektor Riil",
+      "title": "PT Montana Global Investama Grup",
+      "tagline": "Grup & Manajer Investasi Sektor Riil",
       "description": "Mengembangkan kapabilitas dari distribusi lokal menuju pengelolaan portofolio proyek dan investasi lintas sektor secara terstruktur dengan tata kelola TARIF.",
       "achievements": [
-        "MGI memegang peran holding pengelola modal, tata kelola, dan mitigasi risiko",
+        "MGI memegang peran grup pengelola modal, tata kelola, dan mitigasi risiko",
         "Penerapan kerangka tata kelola TARIF secara konsisten",
         "Membuka pintu kemitraan investasi proyek berbasis aset fisik riil bagi pemodal"
       ]
@@ -72,7 +72,7 @@
       "img": "assets/img/transformasi5.png",
       "title": "Mypurcase Diluncurkan 2027",
       "tagline": "B2B Procurement & Purchasing Platform",
-      "description": "Mendigitalisasi proses pengadaan dan rantai pasok B2B untuk meningkatkan efisiensi, transparansi, dan keterlacakan transaksi antar entitas dan supplier.",
+      "description": "Mendigitalisasi proses pengadaan dan rantai ketersediaan B2B untuk meningkatkan efisiensi, transparansi, dan keterlacakan transaksi antar entitas dan supplier.",
       "achievements": [
         "Digitalisasi transaksi pengadaan suku cadang, mesin, dan unit",
         "Efisiensi serapan belanja modal dan transparansi harga supplier",

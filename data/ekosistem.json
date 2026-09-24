@@ -1,12 +1,12 @@
 {
   "title": "Bagan Ekosistem Korporat Montana Group",
-  "subtitle": "Holding Project Investasi & Peta Ekosistem Unit Usaha Terpadu",
-  "intro": "Struktur holding PT Montana Global Investama menaungi entitas operasional terpadu: MIU (Kantor & Workshop Kebumen, Armada Towing), MSI (Supply Import Jepang/Cina ke Customer), dan Mypurcase (System & Pengadaan Terpadu).",
+  "subtitle": "Grup Project Investasi & Peta Ekosistem Unit Usaha Terpadu",
+  "intro": "Struktur grup PT Montana Global Investama menaungi entitas operasional terpadu: MIU (Kantor & Workshop Kebumen, Armada Towing), MSI (Supply Import Jepang/Cina ke Customer), dan Mypurcase (System & Pengadaan Terpadu).",
   "root_entity": "mgi-holding",
   "table_summary": [
     {
       "entitas": "PT Montana Global Investama",
-      "level": "0 (Holding)",
+      "level": "0 (Grup)",
       "induk_langsung": "—",
       "fungsi_utama": "Manajer investasi project & pengelola modal project grup, strategi agresif terukur, tata kelola perusahaan (TARIF)"
     },
@@ -33,14 +33,14 @@
     {
       "id": "mgi-holding",
       "label": "PT Montana Global Investama",
-      "short_label": "MGI Holding",
+      "short_label": "MGI Grup",
       "type": "holding",
-      "category": "Holding & Project Investment Manager",
+      "category": "Grup & Project Investment Manager",
       "parent": null,
       "level": 0,
       "icon": "building",
-      "badge": "Holding & Pengelola Modal Project",
-      "description": "Induk usaha (holding), manajer investasi, dan pengelola modal project grup. Menghadirkan instrumen project investasi riil dengan prinsip agresif dan menguntungkan berimbal hasil menarik serta tata kelola perusahaan yang baik (TARIF)."
+      "badge": "Grup & Pengelola Modal Project",
+      "description": "Induk usaha (grup), manajer investasi, dan pengelola modal project grup. Menghadirkan instrumen project investasi riil dengan prinsip agresif dan menguntungkan berimbal hasil menarik serta tata kelola perusahaan yang baik (TARIF)."
     },
     {
       "id": "miu",
@@ -97,7 +97,7 @@
       "Pengelola Project & Permodalan: MGI mengelola portofolio project investasi dengan prinsip agresif dan menguntungkan berimbal hasil menarik.",
       "Supply Import Langsung (MSI): Impor langsung unit alat berat dan mesin dari Jepang atau Cina ke Indonesia sampai pada alamat customer.",
       "System dan Pengadaan Terpadu (Mypurcase): Purchasing unit dan mesin secara efisien, memangkas biaya perantara tanpa beban administrasi berlebih.",
-      "Proteksi Aset Fisik Nyata: Armada 125 unit khusus Komatsu Grade A, stok tersedia di pool, dan nilai kapitalisasi terukur di setiap kota operasional."
+      "Proteksi Aset Fisik Nyata: Armada 125 unit khusus Komatsu Grade A, stok tersedia di pool, dan nilai pendanaan terukur di setiap kota operasional."
     ]
   }
 }

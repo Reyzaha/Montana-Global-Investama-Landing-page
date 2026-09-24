@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Portofolio Investor — PT Montana Global Investama</title>
-  <meta name="description" content="Dashboard portofolio investasi riil, pantau alokasi unit alat berat, imbal hasil kuartalan, rekening pencairan dividen, dan update kampanye operasional PT Montana Global Investama.">
+  <meta name="description" content="Dashboard portofolio investasi riil, pantau alokasi unit alat berat, imbal hasil kompetitif, rekening pencairan dividen, dan update kampanye operasional PT Montana Global Investama.">
 
   <!-- Favicon Icons -->
   <link rel="icon" type="image/png" href="assets/img/mgi-official-logo.png">
@@ -265,7 +265,7 @@
 
           <div class="col-12 col-sm-6 col-xl-6">
             <div class="dash-metric-card">
-              <span class="text-uppercase text-muted fw-bold small" style="font-size: 0.75rem;">Total Penyaluran Dividen Diterima</span>
+              <span class="text-uppercase text-muted fw-bold small" style="font-size: 0.75rem;">Total Dividen Diterima</span>
               <div class="dash-metric-value text-primary" id="metricTotalPayout">Rp 0</div>
               <small class="text-secondary">Akumulasi Transfer Bagi Hasil ke Rekening</small>
             </div>
@@ -273,9 +273,9 @@
 
           <div class="col-12 col-sm-6 col-xl-6">
             <div class="dash-metric-card">
-              <span class="text-uppercase text-muted fw-bold small" style="font-size: 0.75rem;">Jadwal Penyaluran Berikutnya</span>
+              <span class="text-uppercase text-muted fw-bold small" style="font-size: 0.75rem;">Jadwal Dividen Berikutnya</span>
               <div class="dash-metric-value text-warning fs-4" id="metricNextPayout" style="color: #C5A059 !important;">-</div>
-              <small class="text-secondary">Distribusi Otomatis Kuartal Berjalan</small>
+              <small class="text-secondary">Distribusi Otomatis Periode Berjalan</small>
             </div>
           </div>
         </div>
@@ -346,7 +346,7 @@
               <div>
                 <h6 class="fw-bold text-dark mb-1">Executive Relationship Manager (Investor Relations)</h6>
                 <p class="small text-muted mb-0">
-                  Konsultasikan jadwal pembagian dividen kuartalan, penambahan kuota unit alat berat, atau pembaruan data korporasi bersama Relationship Manager resmi MGI.
+                  Konsultasikan jadwal pembagian dividen kompetitif, penambahan kuota unit alat berat, atau pembaruan data korporasi bersama Relationship Manager resmi MGI.
                 </p>
               </div>
             </div>
@@ -396,7 +396,7 @@
         <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
           <div>
             <h5 class="fw-bold text-dark mb-1">Billing &amp; Riwayat Bagi Hasil (Invoices &amp; P&amp;L)</h5>
-            <p class="text-muted small mb-0">Rincian faktur penyaluran dividen kuartalan, histori pembayaran, dan kalkulasi laba bersih project.</p>
+            <p class="text-muted small mb-0">Rincian faktur dividen kompetitif, histori pembayaran, dan kalkulasi laba bersih project.</p>
           </div>
           <button type="button" onclick="window.print()" class="btn btn-outline-primary btn-sm rounded-pill px-3 shadow-sm">
             <i class="bi bi-printer me-1"></i> Cetak Rekap Billing
@@ -414,7 +414,7 @@
             <div class="col-12 col-md-4 text-center border-end">
               <span class="text-muted small text-uppercase fw-bold" style="font-size: 0.72rem;">Akumulasi Laba Bersih Diterima:</span>
               <div class="fs-4 fw-bold text-dark mt-1" id="billingTotalProfit">Rp 0</div>
-              <small class="text-success fw-semibold">Net Payout Kuartal 1 - Kuartal 4</small>
+              <small class="text-success fw-semibold">Net Payout Periode 1 - Periode 4</small>
             </div>
             <div class="col-12 col-md-4 text-center">
               <span class="text-muted small text-uppercase fw-bold" style="font-size: 0.72rem;">Persentase Kinerja ROI Riil:</span>
@@ -426,7 +426,7 @@
 
         <!-- Billing Table -->
         <div class="card bg-white border rounded-4 p-4 shadow-sm">
-          <h6 class="fw-bold text-dark mb-3">Daftar Billing &amp; Bukti Penyaluran Dividen</h6>
+          <h6 class="fw-bold text-dark mb-3">Daftar Billing &amp; Bukti Dividen</h6>
           <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
               <thead class="table-light">
@@ -435,7 +435,7 @@
                   <th>Project Investasi</th>
                   <th>Periode Bagi Hasil</th>
                   <th>Nominal Dividen (Laba)</th>
-                  <th>Rekening Penyaluran</th>
+                  <th>Rekening Tujuan Dividen</th>
                   <th>Status Pembayaran</th>
                   <th class="text-end">Aksi</th>
                 </tr>
@@ -494,14 +494,14 @@
 
             <div class="p-3 bg-white rounded-3 border small text-muted">
               <i class="bi bi-info-circle-fill text-primary me-1" style="color: #142563 !important;"></i>
-              <strong>Catatan Kepatuhan Perbankan:</strong> Nama pemilik rekening harus sesuai dengan identitas resmi investor yang terdaftar guna kelancaran rekonsiliasi transfer dividen kuartalan.
+              <strong>Catatan Kepatuhan Perbankan:</strong> Nama pemilik rekening harus sesuai dengan identitas resmi investor yang terdaftar guna kelancaran rekonsiliasi transfer dividen kompetitif.
             </div>
           </div>
 
           <!-- Form Edit Rekening -->
           <div class="col-12 col-lg-7">
             <div class="card bg-white border rounded-4 p-4 shadow-sm">
-              <h5 class="fw-bold text-dark border-bottom pb-3 mb-3">Pembaruan Rekening Bank Penyaluran</h5>
+              <h5 class="fw-bold text-dark border-bottom pb-3 mb-3">Pembaruan Rekening Bank Dividen</h5>
               
               <div id="bankAlert" class="alert alert-success d-none py-2 small" role="alert"></div>
 
@@ -838,7 +838,7 @@
       const btb = document.getElementById('billingTableBody');
       if (btb) {
         if (ports.length === 0) {
-          btb.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted">Belum ada billing atau riwayat penyaluran dividen.</td></tr>`;
+          btb.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted">Belum ada billing atau riwayat dividen.</td></tr>`;
         } else {
           // Generate realistic quarterly billing line items based on active portfolios
           let billingRows = [];

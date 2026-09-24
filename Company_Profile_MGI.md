@@ -5,9 +5,9 @@
 **Grup:** Montana Group
 
 ## Tentang Montana Group & MGI
-Montana Group adalah kelompok usaha yang dipimpin oleh **PT Montana Global Investama (MGI)** selaku holding dan manajer investasi project, yang menaungi tiga pilar usaha operasional teruji di lapangan. Model ini memungkinkan MGI berfokus pada tata kelola, alokasi modal per project, dan manajemen risiko tingkat grup, sementara setiap unit usaha menjalankan eksekusi operasional sesuai bidang keahliannya masing-masing.
+Montana Group adalah kelompok usaha yang dipimpin oleh **PT Montana Global Investama (MGI)** selaku grup dan manajer investasi project, yang menaungi tiga pilar usaha operasional teruji di lapangan. Model ini memungkinkan MGI berfokus pada tata kelola, alokasi modal per project, dan manajemen risiko tingkat grup, sementara setiap unit usaha menjalankan eksekusi operasional sesuai bidang keahliannya masing-masing.
 
-Dengan struktur holding ini, PT Montana Global Investama memposisikan diri sebagai wadah investasi per project terpercaya bagi pemodal yang ingin berpartisipasi pada pertumbuhan sektor riil (khususnya alat berat, industri logistik, dan rantai pasok pengadaan) melalui satu pintu masuk investasi yang dikelola secara profesional, transparan, dan berlandaskan kerangka tata kelola TARIF.
+Dengan struktur grup ini, PT Montana Global Investama memposisikan diri sebagai wadah investasi per project terpercaya bagi pemodal yang ingin berpartisipasi pada pertumbuhan sektor riil (khususnya alat berat, industri logistik, dan rantai ketersediaan pengadaan) melalui satu pintu masuk investasi yang dikelola secara profesional, transparan, dan berlandaskan kerangka tata kelola TARIF.
 
 Di Montana Global Investama, setiap keputusan investasi berlandaskan pada tiga prinsip utama: aset yang nyata dan terukur, tata kelola yang transparan dan akuntabel, serta kemitraan strategis yang menciptakan nilai berkelanjutan.
 
@@ -37,12 +37,12 @@ MGI didukung oleh ekosistem operasional yang kuat melalui entitas/cabang usahany
 *   **Peran:** Mitra Impor & Logistik — Solusi Impor Alat Berat, Customs Clearance & Distribusi Door-to-Door
 *   **Slogan:** Import & Logistics Partner
 *   **Fokus:** Solusi pengadaan impor alat berat, pengurusan customs clearance pelabuhan terpadu, dan manajemen pengiriman logistik door-to-door ke lokasi proyek dan industri.
-*   **Output:** Kelancaran izin impor kepabeanan, kepastian pasokan armada internasional, efisiensi rantai distribusi, dan pengiriman aman tepat waktu.
+*   **Output:** Kelancaran izin impor kepabeanan, kepastian ketersediaan armada internasional, efisiensi rantai distribusi, dan pengiriman aman tepat waktu.
 
 ### 3. Mypurcase
-*   **Peran:** Platform Pengadaan Digital — Penghubung Pembelian, Supplier, Pengadaan & Rantai Pasok
+*   **Peran:** Platform Pengadaan Digital — Penghubung Pembelian, Supplier, Pengadaan & Rantai Ketersediaan
 *   **Slogan:** Platform B2B Procurement Digital
-*   **Fokus:** Digitalisasi pengadaan B2B, integrasi kebutuhan pembelian dengan supplier terverifikasi, otomatisasi alur purchasing, dan transparansi rantai pasok.
+*   **Fokus:** Digitalisasi pengadaan B2B, integrasi kebutuhan pembelian dengan supplier terverifikasi, otomatisasi alur purchasing, dan transparansi rantai ketersediaan.
 *   **Output:** Proses pengadaan digital cepat dan transparan, efisiensi belanja modal, pelacakan transaksi real-time, dan tata kelola akuntabel.
 
 ## Tata Kelola (GCG) - Kerangka TARIF

@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `projects` (
   `return_rate` VARCHAR(100) NOT NULL,
   `risk_level` VARCHAR(100) NOT NULL,
   `min_investment` VARCHAR(100) NOT NULL DEFAULT 'Rp 500.000.000',
-  `payout` VARCHAR(100) NOT NULL DEFAULT 'Bagi Hasil Kuartalan',
+  `payout` VARCHAR(100) NOT NULL DEFAULT 'Bagi Hasil Kompetitif',
   `remaining_days` VARCHAR(100) NOT NULL DEFAULT '18 Hari Tersisa',
   `asset_backed` VARCHAR(255) NOT NULL DEFAULT 'Unit CBU Grade A & BPKB',
   `sort_order` INT NOT NULL DEFAULT 0,

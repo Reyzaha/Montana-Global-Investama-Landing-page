@@ -127,7 +127,7 @@ const MGIComponents = {
                 </div>
               </a>
               <p class="text-footer-muted small mb-3 lh-base">
-                <strong>PT Montana Global Investama</strong> adalah entitas manajer investasi project dan pemegang kendali strategis (holding) sektor riil berbasis aset fisik produktif, menghadirkan pertumbuhan nilai per project terukur melalui kepatuhan tata kelola terpercaya dan integrasi ekosistem terpadu.
+                <strong>PT Montana Global Investama</strong> adalah entitas manajer investasi project dan pemegang kendali strategis (grup) sektor riil berbasis aset fisik produktif, menghadirkan pertumbuhan nilai per project terukur melalui kepatuhan tata kelola terpercaya dan integrasi ekosistem terpadu.
               </p>
               <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-1 bg-footer-card border border-secondary small fw-bold text-gold">
                 <i class="bi bi-shield-check text-white"></i> Standar Tata Kelola Perusahaan &amp; Kepatuhan Regulasi
@@ -240,7 +240,7 @@ const MGIComponents = {
         <div class="row g-2 text-center align-items-center">
           <div class="col-4 border-end border-subtle">
             <div class="text-success fw-bold fs-5 lh-1 mb-1">${ret}</div>
-            <div class="text-muted small text-uppercase fw-semibold" style="font-size: 0.68rem; letter-spacing: 0.5px;">Indikasi Imbal Hasil</div>
+            <div class="text-muted small text-uppercase fw-semibold" style="font-size: 0.68rem; letter-spacing: 0.5px;">Estimasi ROI</div>
           </div>
           <div class="col-4 border-end border-subtle">
             <div class="text-dark fw-bold fs-6 lh-1 mb-1">${tenor}</div>
@@ -259,7 +259,7 @@ const MGIComponents = {
   renderMetaRow: function (info) {
     if (!info) return '';
     const lokasi = info.lokasi ? info.lokasi.split(',')[0] : 'Jawa Tengah';
-    const payout = info.payout || 'Bagi Hasil Kuartalan';
+    const payout = info.payout || 'Bagi Hasil Kompetitif';
     const stock = info.stock_available || 'Unit Komatsu Siaga';
     const cap = info.capitalization_value || 'Aset Produktif';
 
@@ -274,7 +274,7 @@ const MGIComponents = {
           <span class="fw-bold text-success" style="font-size: 0.78rem;"><i class="bi bi-check2-circle me-1"></i>${stock}</span>
         </div>
         <div class="d-flex justify-content-between align-items-center">
-          <span class="text-muted" style="font-size: 0.75rem;">Nilai Kapitalisasi:</span>
+          <span class="text-muted" style="font-size: 0.75rem;">Nilai Pendanaan:</span>
           <span class="fw-bold text-dark" style="font-size: 0.78rem;">${cap}</span>
         </div>
       </div>
