@@ -75,7 +75,7 @@
     },
     {
       "code": "Mypurcase",
-      "name": "Mypurcase",
+      "name": "Mypurcase (Coming soon 2027)",
       "slogan": "Platform B2B Procurement Digital",
       "role": "Platform Pengadaan Digital — Penghubung Pembelian, Supplier, Pengadaan & Rantai Pasok",
       "level": "Level 1 (Platform Pengadaan)",
@@ -100,7 +100,7 @@
       "id": "visi-misi",
       "title": "Visi & Misi Perusahaan",
       "subtitle": "Arah Strategis Menuju Keunggulan Pengelolaan Modal Terpercaya",
-      "vision": "Menjadi perusahaan pengelolaan investasi terdepan dan paling terpercaya di Indonesia yang menghubungkan modal strategis dengan potensi sektor riil bernilai tinggi secara berkesinambungan.",
+      "vision": "Menjadi perusahaan pengelolaan dana investasi terpercaya di Indonesia yang menghubungkan modal strategis dengan potensi sektor riil bernilai tinggi secara berkesinambungan.",
       "missions": [
         "Mengalokasikan permodalan secara tepat guna pada aset fisik produktif bernilai tinggi dengan perlindungan legal dan asuransi.",
         "Membangun kemitraan strategis offtake jangka menengah hingga panjang untuk menjamin kepastian penyerapan unit proyek.",
@@ -117,26 +117,31 @@
       "items": [
         {
           "icon": "shield-check",
+          "img": "assets/img/icon-tata-kelola.png",
           "name": "Integritas",
           "desc": "Menjunjung tinggi kejujuran, etika bisnis luhur, dan keterbukaan dalam setiap transaksi dan kemitraan."
         },
         {
           "icon": "award",
+          "img": "assets/img/icon-imbal-hasil.png",
           "name": "Profesionalisme",
           "desc": "Didukung tim ahli berpengalaman dengan dedikasi tinggi terhadap standar eksekusi terbaik di industri."
         },
         {
           "icon": "eye",
+          "img": "assets/img/icon-transparansi.png",
           "name": "Transparansi",
           "desc": "Penyajian laporan kinerja berkala, audit independen, dan visibilitas alokasi modal secara menyeluruh kepada investor."
         },
         {
           "icon": "gear-wide-connected",
+          "img": "assets/img/icon-kemitraan.png",
           "name": "Kemitraan Strategis",
           "desc": "Membangun ekosistem terintegrasi melalui kepastian kerja sama dan kontrak jangka menengah hingga panjang."
         },
         {
           "icon": "people",
+          "img": "assets/img/icon-alokasi-modal.png",
           "name": "Sinergi Ekosistem",
           "desc": "Menciptakan sinergi erat lintas entitas (MIU, MSI, Mypurcase, MGI) guna memaksimalkan penciptaan nilai kolektif."
         }
@@ -152,31 +157,36 @@
           "code": "T",
           "name": "Transparency",
           "desc": "Keterbukaan informasi material dan relevan kepada seluruh pemangku kepentingan.",
-          "icon": "eye"
+          "icon": "eye",
+          "img": "assets/img/icon-transparansi.png"
         },
         {
           "code": "A",
           "name": "Accountability",
           "desc": "Kejelasan fungsi, struktur, sistem, dan pertanggungjawaban pengelolaan investasi.",
-          "icon": "clipboard-check"
+          "icon": "clipboard-check",
+          "img": "assets/img/icon-tata-kelola.png"
         },
         {
           "code": "R",
           "name": "Responsibility",
           "desc": "Kepatuhan penuh terhadap hukum, regulasi, dan tanggung jawab sosial-lingkungan.",
-          "icon": "people"
+          "icon": "people",
+          "img": "assets/img/icon-kemitraan.png"
         },
         {
           "code": "I",
           "name": "Independency",
           "desc": "Pengambilan keputusan profesional objektif bebas dari benturan kepentingan.",
-          "icon": "balance"
+          "icon": "balance",
+          "img": "assets/img/icon-alokasi-modal.png"
         },
         {
           "code": "F",
           "name": "Fairness",
           "desc": "Perlakuan adil dan setara bagi seluruh investor dalam pemenuhan hak-hak pemodal.",
-          "icon": "equal"
+          "icon": "equal",
+          "img": "assets/img/icon-imbal-hasil.png"
         }
       ]
     }

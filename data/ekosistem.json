@@ -23,7 +23,7 @@
       "fungsi_utama": "Supply import langsung mesin dan alat berat dari Jepang atau Cina ke Indonesia sampai pada alamat customer"
     },
     {
-      "entitas": "Mypurcase",
+      "entitas": "Mypurcase (Coming soon 2027)",
       "level": "1",
       "induk_langsung": "PT Montana Global Investama",
       "fungsi_utama": "System dan pengadaan terpadu, purchasing unit dan mesin secara efisien lintas entitas grup"
@@ -68,14 +68,14 @@
     },
     {
       "id": "mypurcase",
-      "label": "Mypurcase",
+      "label": "Mypurcase (Coming Soon 2027)",
       "short_label": "Mypurcase",
       "type": "subsidiary",
       "category": "System & Pengadaan Terpadu Digital",
       "parent": "mgi-holding",
       "level": 1,
       "icon": "cart-check",
-      "badge": "Aplikasi Pengadaan Digital",
+      "badge": "Coming Soon 2027",
       "description": "System dan platform pengadaan terpadu untuk purchasing unit dan mesin secara efisien, transparan, dan terukur lintas entitas dalam ekosistem Montana Group."
     },
     {

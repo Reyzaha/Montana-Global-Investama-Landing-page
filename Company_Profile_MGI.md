@@ -14,7 +14,7 @@ Di Montana Global Investama, setiap keputusan investasi berlandaskan pada tiga p
 ## Visi & Misi
 
 ### Visi
-Menjadi perusahaan pengelolaan investasi terdepan dan paling terpercaya di Indonesia yang menghubungkan modal strategis dengan potensi sektor riil bernilai tinggi secara berkesinambungan.
+Menjadi perusahaan pengelolaan dana investasi terpercaya di Indonesia yang menghubungkan modal strategis dengan potensi sektor riil bernilai tinggi secara berkesinambungan.
 
 ### Misi
 1. Mengalokasikan permodalan secara tepat guna pada aset fisik produktif bernilai tinggi dengan perlindungan legal dan asuransi.

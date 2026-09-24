@@ -310,27 +310,14 @@ const MGIComponents = {
             <span class="badge bg-gold text-white px-2.5 py-1 rounded-1 small fw-bold shadow-sm">
               <i class="bi bi-geo-alt-fill me-1"></i>${city}
             </span>
-            <span class="badge bg-dark text-white px-2 py-0.5 rounded-1 small fw-semibold shadow-sm" style="font-size: 0.68rem; letter-spacing: 0.5px;">
-              KOMATSU ONLY
-            </span>
           </div>
 
-          <!-- Pojok Kanan Atas: Ikon Wilayah/Kota & Status Badge -->
+          <!-- Pojok Kanan Atas: Status Badge -->
           <div class="position-absolute top-0 end-0 m-3 d-flex flex-column align-items-end gap-2" style="z-index: 3;">
-            ${cityIconImg ? `
-              <div class="project-city-icon-badge shadow" title="${city}">
-                <img src="${cityIconImg}" alt="${city}">
-              </div>
-            ` : ''}
             ${MGIComponents.renderStatusBadge(project.status)}
           </div>
 
-          <!-- Pojok Kiri Bawah: Jaminan Underlying Aset -->
-          <div class="position-absolute bottom-0 start-0 m-3" style="z-index: 3;">
-            <span class="badge bg-royal text-white px-2 py-1 rounded small fw-semibold shadow-sm" style="font-size: 0.72rem;">
-              <i class="bi bi-shield-lock-fill text-gold me-1"></i>${assetTag}
-            </span>
-          </div>
+
         </div>
 
         <div class="card-body p-4 d-flex flex-column">

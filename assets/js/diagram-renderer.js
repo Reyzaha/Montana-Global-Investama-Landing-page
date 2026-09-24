@@ -39,8 +39,8 @@ const MGIDiagrams = {
             </div>
 
             <!-- Central Badge Circle (on the axis line) -->
-            <div class="pdf-node-badge my-1">
-              <i class="bi ${iconName}"></i>
+            <div class="pdf-node-badge my-1" style="${item.img ? 'background: transparent;' : ''}">
+              ${item.img ? `<img src="${item.img}" style="width: 58px; height: 58px; object-fit: contain;">` : `<i class="bi ${iconName}"></i>`}
             </div>
 
             <!-- Bottom Empty Space to Balance Height -->
@@ -54,8 +54,8 @@ const MGIDiagrams = {
             <div class="pdf-node-empty"></div>
 
             <!-- Central Badge Circle (on the axis line) -->
-            <div class="pdf-node-badge my-1">
-              <i class="bi ${iconName}"></i>
+            <div class="pdf-node-badge my-1" style="${item.img ? 'background: transparent;' : ''}">
+              ${item.img ? `<img src="${item.img}" style="width: 58px; height: 58px; object-fit: contain;">` : `<i class="bi ${iconName}"></i>`}
             </div>
 
             <!-- Bottom Content Block -->
@@ -76,8 +76,8 @@ const MGIDiagrams = {
       const iconName = stepIcons[stepNum] || 'bi-circle-fill';
       return `
         <div class="pdf-mobile-entry">
-          <div class="pdf-mobile-badge">
-            <i class="bi ${iconName}"></i>
+          <div class="pdf-mobile-badge" style="${item.img ? 'background: transparent;' : ''}">
+            ${item.img ? `<img src="${item.img}" style="width: 48px; height: 48px; object-fit: contain;">` : `<i class="bi ${iconName}"></i>`}
           </div>
           <div class="pdf-mobile-card">
             <span class="pdf-phase-label">${item.year_or_phase}</span>
@@ -222,21 +222,20 @@ const MGIDiagrams = {
       let iconColorClass = 'text-royal';
       let iconName = 'bi-building';
 
+      let iconHtml = `<i class="bi ${iconName} ${iconColorClass} fs-4"></i>`;
+
       if (node.id === 'miu') {
         borderTopColor = '#1D3589';
         badgeClass = 'bg-royal';
-        iconColorClass = 'text-royal';
-        iconName = 'bi-truck';
+        iconHtml = `<img src="assets/img/icon-miu-truck.png" style="width: 28px; height: 28px; object-fit: contain;" alt="MIU">`;
       } else if (node.id === 'montana-sentra-industri') {
         borderTopColor = '#059669';
         badgeClass = 'bg-success';
-        iconColorClass = 'text-success';
-        iconName = 'bi-tools';
+        iconHtml = `<img src="assets/img/icon-msi-ship.png" style="width: 28px; height: 28px; object-fit: contain;" alt="MSI">`;
       } else if (node.id === 'mypurcase') {
         borderTopColor = '#C5A059';
         badgeClass = 'bg-gold';
-        iconColorClass = 'text-gold';
-        iconName = 'bi-cart-check-fill';
+        iconHtml = `<img src="assets/img/icon-mypurcase-analytics.png" style="width: 28px; height: 28px; object-fit: contain;" alt="Mypurcase">`;
       }
 
       return `
@@ -246,7 +245,7 @@ const MGIDiagrams = {
               <span class="badge ${badgeClass} text-white px-3 py-1 rounded-pill small fw-bold">
                 ${node.badge || 'Unit Usaha'}
               </span>
-              <i class="bi ${iconName} ${iconColorClass} fs-4"></i>
+              ${iconHtml}
             </div>
             <h5 class="fw-bold text-dark mb-1">${node.label}</h5>
             <div class="small text-gold fw-bold mb-3">${node.category || ''}</div>
@@ -313,8 +312,8 @@ const MGIDiagrams = {
       <div class="text-center mb-4">
         <!-- Root Holding Node (Bold Luxury Styling) -->
         <div class="card mgi-card bg-white p-4 p-md-5 rounded-3 shadow-sm d-inline-block text-center mx-auto" style="max-width: 760px; border: 1.5px solid #CBD5E1; border-top: 7px solid #1D3589 !important;">
-          <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-royal text-white mb-3 mx-auto shadow-sm" style="width: 58px; height: 58px; font-size: 1.6rem; border: 2.5px solid #C5A059;">
-            <i class="bi bi-shield-lock-fill"></i>
+          <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-royal text-white mb-3 mx-auto shadow-sm" style="width: 58px; height: 58px; border: 2.5px solid #C5A059;">
+            <img src="assets/img/icon-tata-kelola.png" style="width: 36px; height: 36px; object-fit: contain;">
           </div>
           <div>
             <span class="badge bg-gold text-white px-3 py-1 rounded-pill small fw-bold text-uppercase mb-2">

@@ -9,6 +9,7 @@
       "year_or_phase": "2022",
       "badge": "Fondasi Awal",
       "icon": "truck",
+      "img": "assets/img/transformasi1.png",
       "title": "CV Montana Machine",
       "tagline": "Distribusi Alat Berat CBU Jepang Berkualitas Tinggi di Kebumen",
       "description": "Bermula dari satu unit alat berat di Kebumen, meletakkan fondasi teknis, kualitas, dan distribusi alat berat CBU Jepang berkualitas tinggi.",
@@ -23,6 +24,7 @@
       "year_or_phase": "Ekspansi",
       "badge": "Solusi Alat Berat",
       "icon": "gear-fill",
+      "img": "assets/img/transformasi2.png",
       "title": "PT Montana Indo Utama (MIU)",
       "tagline": "Integrated Heavy Equipment Solutions",
       "description": "Menyediakan solusi terintegrasi mulai dari pengadaan, deployment, hingga dukungan operasional alat berat untuk memenuhi kebutuhan proyek sektor riil.",
@@ -37,6 +39,7 @@
       "year_or_phase": "Impor & Logistik",
       "badge": "Rantai Pasok",
       "icon": "box-seam-fill",
+      "img": "assets/img/icon-msi-ship.png",
       "title": "PT Montana Sentra Industri (MSI)",
       "tagline": "Import & Logistics Partner",
       "description": "Mendukung proses impor, customs clearance, manajemen logistik, dan distribusi door-to-door melalui jaringan mitra yang terintegrasi.",
@@ -51,6 +54,7 @@
       "year_or_phase": "Struktural",
       "badge": "Holding Terbentuk",
       "icon": "buildings",
+      "img": "assets/img/transformasi4.png",
       "title": "PT Montana Global Investama Holding",
       "tagline": "Holding & Manajer Investasi Sektor Riil",
       "description": "Mengembangkan kapabilitas dari distribusi lokal menuju pengelolaan portofolio proyek dan investasi lintas sektor secara terstruktur dengan tata kelola TARIF.",
@@ -63,8 +67,9 @@
     {
       "step": 5,
       "year_or_phase": "Digitalisasi",
-      "badge": "Platform Digital",
+      "badge": "Coming Soon 2027",
       "icon": "laptop",
+      "img": "assets/img/transformasi5.png",
       "title": "Mypurcase Diluncurkan",
       "tagline": "B2B Procurement & Purchasing Platform",
       "description": "Mendigitalisasi proses pengadaan dan rantai pasok B2B untuk meningkatkan efisiensi, transparansi, dan keterlacakan transaksi antar entitas dan supplier.",
@@ -72,20 +77,6 @@
         "Digitalisasi transaksi pengadaan suku cadang, mesin, dan unit",
         "Efisiensi serapan belanja modal dan transparansi harga supplier",
         "Sistem pelacakan pengadaan secara digital dan real-time"
-      ]
-    },
-    {
-      "step": 6,
-      "year_or_phase": "2026+",
-      "badge": "Masa Depan",
-      "icon": "graph-up-arrow",
-      "title": "Ekosistem Investasi Digital",
-      "tagline": "Simulasi Proyeksi Interaktif & Akses Konsultasi Transparan",
-      "description": "Menghadirkan simulasi proyeksi investasi secara interaktif serta akses konsultasi yang lebih mudah untuk mendukung transparansi dan pemahaman investor.",
-      "achievements": [
-        "Simulasi interaktif perhitungan estimasi BEP dan target ROI 2-3 tahun",
-        "Layanan konsultasi eksklusif terverifikasi dilindungi skema NDA",
-        "Ekspansi operasional ke simpul strategis nasional: Jabodetabek, Surabaya, Denpasar, dan Makassar"
       ]
     }
   ]
