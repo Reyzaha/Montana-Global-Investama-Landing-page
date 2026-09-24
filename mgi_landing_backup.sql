@@ -79,7 +79,7 @@ CREATE TABLE `admin_users` (
 
 LOCK TABLES `admin_users` WRITE;
 /*!40000 ALTER TABLE `admin_users` DISABLE KEYS */;
-INSERT INTO `admin_users` VALUES (2,'admin','admin@montanaglobalinvestama.com','$2y$10$sX60UvhRR7Q2BYm.2eLCue5/yUllkaXKRM/OvwJj5Q3zxfUXAnNDq','Super Administrator MGI','superadmin',1,'E6U4LK6ZO7IRWSD3',1,'2026-09-15 15:25:25','2026-09-15 08:20:36','2026-09-23 07:44:34');
+INSERT INTO `admin_users` VALUES (1,'superadmin','superadmin@montanaglobalinvestama.com','$2y$10$3IlH14aDQZr7wXmEAjcpSuDLGHliz7OFqoOnbPlqhkeBpb1RoBaBO','Super Administrator MGI','superadmin',1,NULL,0,NULL,'2026-09-24 07:58:19','2026-09-24 07:58:19'),(2,'admin','admin@montanaglobalinvestama.com','$2y$10$235JM.pMxXxTEPsdJ2hOHe4Nm1/I7U2kOMCmI52toYlkHTBDsCjxa','Administrator Operasional MGI','admin',1,NULL,0,NULL,'2026-09-24 07:58:19','2026-09-24 07:58:19');
 /*!40000 ALTER TABLE `admin_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,7 +112,7 @@ CREATE TABLE `campaign_updates` (
 
 LOCK TABLES `campaign_updates` WRITE;
 /*!40000 ALTER TABLE `campaign_updates` DISABLE KEYS */;
-INSERT INTO `campaign_updates` VALUES (1,'proj-jkt-jabar','Kedatangan Unit Excavator Komatsu CBU Jepang di Pool Jabodetabek & Jawa Barat','Logistik & Impor CBU','2024-08-20','Alhamdulillah, unit Excavator Hydraulic Komatsu PC138US-8 Grade A asal Jepang telah tiba dengan selamat di Pusat Workshop & Pool Jabodetabek & Jawa Barat. Tim mekanik telah menyelesaikan tahap PDI (Pre-Delivery Inspection), pengujian hidrolik, pemasangan sistem GPS tracking terpadu, dan penerbitan sertifikat kelaikan fungsi operasional.','assets/img/project-jabodetabek.jpg',1,'2026-09-24 07:22:16'),(2,'proj-jkt-jabar','Mobilisasi Unit ke Proyek Strategis Daerah & Kesiapan Montana Towing','Operasional Lapangan','2024-09-02','Unit telah diberangkatkan menuju lokasi proyek kawasan industri dengan pengawalan armada Montana Towing. Seluruh unit mencatatkan utilitas kerja rata-rata 8,5 jam per hari tanpa kendala mekanis.','assets/img/project-jabodetabek.jpg',2,'2026-09-24 07:22:16'),(3,'proj-jkt-jabar','Distribusi Imbal Hasil Kuartal II Berjalan Lancar ke Rekening Investor','Laporan Keuangan & Dividen','2024-07-15','Manajemen PT Montana Global Investama telah menuntaskan penyaluran bagi hasil kuartalan periode Q2 kepada seluruh investor sindikasi perorangan dan korporasi terdaftar secara tepat waktu. Laporan keuangan proyek telah diverifikasi oleh tim kepatuhan internal.','assets/img/project-jabodetabek.jpg',3,'2026-09-24 07:22:16');
+INSERT INTO `campaign_updates` VALUES (1,'proj-jkt-jabar','Kedatangan Unit Excavator Komatsu CBU Jepang di Pool Jabodetabek & Jawa Barat','Logistik & Impor CBU','2024-08-20','Alhamdulillah, unit Excavator Hydraulic Komatsu PC138US-8 Grade A asal Jepang telah tiba dengan selamat di Pusat Workshop & Pool Jabodetabek & Jawa Barat. Tim mekanik telah menyelesaikan tahap PDI (Pre-Delivery Inspection), pengujian hidrolik, pemasangan sistem GPS tracking terpadu, dan penerbitan sertifikat kelaikan fungsi operasional.','assets/img/project-jabodetabek.jpg',1,'2026-09-24 07:58:19'),(2,'proj-jkt-jabar','Mobilisasi Unit ke Proyek Strategis Daerah & Kesiapan Montana Towing','Operasional Lapangan','2024-09-02','Unit telah diberangkatkan menuju lokasi proyek kawasan industri dengan pengawalan armada Montana Towing. Seluruh unit mencatatkan utilitas kerja rata-rata 8,5 jam per hari tanpa kendala mekanis.','assets/img/project-jabodetabek.jpg',2,'2026-09-24 07:58:19'),(3,'proj-jkt-jabar','Distribusi Imbal Hasil Kuartal II Berjalan Lancar ke Rekening Investor','Laporan Keuangan & Dividen','2024-07-15','Manajemen PT Montana Global Investama telah menuntaskan penyaluran bagi hasil kuartalan periode Q2 kepada seluruh investor sindikasi perorangan dan korporasi terdaftar secara tepat waktu. Laporan keuangan proyek telah diverifikasi oleh tim kepatuhan internal.','assets/img/project-jabodetabek.jpg',3,'2026-09-24 07:58:19');
 /*!40000 ALTER TABLE `campaign_updates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -162,7 +162,7 @@ CREATE TABLE `company_profile` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `setting_key` (`setting_key`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -208,7 +208,7 @@ CREATE TABLE `ekosistem_nodes` (
 
 LOCK TABLES `ekosistem_nodes` WRITE;
 /*!40000 ALTER TABLE `ekosistem_nodes` DISABLE KEYS */;
-INSERT INTO `ekosistem_nodes` VALUES ('mgi-holding','PT Montana Global Investama',NULL,NULL,NULL,0,'Holding & Pengelola Modal Project',NULL,NULL,NULL,'Induk usaha (holding), manajer investasi, dan pengelola modal project grup. Menghadirkan instrumen project investasi riil dengan prinsip agresif dan menguntungkan berimbal hasil menarik serta tata kelola perusahaan yang baik (TARIF).',1,'2026-09-24 07:22:16'),('miu','PT Montana Indo Utama (MIU)',NULL,NULL,'mgi-holding',1,'Kantor & Workshop Sentral',NULL,NULL,NULL,'Entitas operasional terpadu yang berevolusi dari CV Montana Machine. Fokus pada armada alat berat khusus merek Komatsu CBU Jepang Grade A, fasilitas kantor & workshop sentral pool 4.500 m² di Kebumen, armada Montana Towing siaga 24 jam, serta utilisasi operasional di Jawa Tengah, Bali, dan NTB.',2,'2026-09-24 07:22:16'),('montana-sentra-industri','Montana Sentra Industri (MSI)',NULL,NULL,'mgi-holding',1,'Supply Import Laut & Ekspedisi',NULL,NULL,NULL,'Fokus pada supply import unit mesin dan alat berat langsung dari Jepang atau Cina ke Indonesia melalui jalur laut hingga sampai ke alamat customer secara efisien dan aman.',3,'2026-09-24 07:22:16'),('mypurcase','Mypurcase (Coming Soon 2027)',NULL,NULL,'mgi-holding',1,'Coming Soon 2027',NULL,NULL,NULL,'System dan platform pengadaan terpadu untuk purchasing unit dan mesin secara efisien, transparan, dan terukur lintas entitas dalam ekosistem Montana Group.',4,'2026-09-24 07:22:16'),('workshop-kebumen','Kantor, Workshop & Pool Sentral Kebumen',NULL,NULL,'miu',2,'Fasilitas Kantor & Workshop',NULL,NULL,NULL,'Pangkalan workshop seluas 4.500 m² di Kebumen dengan teknisi berpengalaman, stok unit Komatsu tersedia, dan armada Montana Towing.',5,'2026-09-24 07:22:16');
+INSERT INTO `ekosistem_nodes` VALUES ('mgi-holding','PT Montana Global Investama',NULL,NULL,NULL,0,'Holding & Pengelola Modal Project',NULL,NULL,NULL,'Induk usaha (holding), manajer investasi, dan pengelola modal project grup. Menghadirkan instrumen project investasi riil dengan prinsip agresif dan menguntungkan berimbal hasil menarik serta tata kelola perusahaan yang baik (TARIF).',1,'2026-09-24 07:58:19'),('miu','PT Montana Indo Utama (MIU)',NULL,NULL,'mgi-holding',1,'Kantor & Workshop Sentral',NULL,NULL,NULL,'Entitas operasional terpadu yang berevolusi dari CV Montana Machine. Fokus pada armada alat berat khusus merek Komatsu CBU Jepang Grade A, fasilitas kantor & workshop sentral pool 4.500 m² di Kebumen, armada Montana Towing siaga 24 jam, serta utilisasi operasional di Jawa Tengah, Bali, dan NTB.',2,'2026-09-24 07:58:19'),('montana-sentra-industri','Montana Sentra Industri (MSI)',NULL,NULL,'mgi-holding',1,'Supply Import Laut & Ekspedisi',NULL,NULL,NULL,'Fokus pada supply import unit mesin dan alat berat langsung dari Jepang atau Cina ke Indonesia melalui jalur laut hingga sampai ke alamat customer secara efisien dan aman.',3,'2026-09-24 07:58:19'),('mypurcase','Mypurcase (Coming Soon 2027)',NULL,NULL,'mgi-holding',1,'Coming Soon 2027',NULL,NULL,NULL,'System dan platform pengadaan terpadu untuk purchasing unit dan mesin secara efisien, transparan, dan terukur lintas entitas dalam ekosistem Montana Group.',4,'2026-09-24 07:58:19'),('workshop-kebumen','Kantor, Workshop & Pool Sentral Kebumen',NULL,NULL,'miu',2,'Fasilitas Kantor & Workshop',NULL,NULL,NULL,'Pangkalan workshop seluas 4.500 m² di Kebumen dengan teknisi berpengalaman, stok unit Komatsu tersedia, dan armada Montana Towing.',5,'2026-09-24 07:58:19');
 /*!40000 ALTER TABLE `ekosistem_nodes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -231,7 +231,7 @@ CREATE TABLE `funding_items` (
   PRIMARY KEY (`id`),
   KEY `fk_funding_item_project` (`project_id`),
   CONSTRAINT `fk_funding_item_project` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -240,7 +240,7 @@ CREATE TABLE `funding_items` (
 
 LOCK TABLES `funding_items` WRITE;
 /*!40000 ALTER TABLE `funding_items` DISABLE KEYS */;
-INSERT INTO `funding_items` VALUES (18,'proj-jkt-jabar',1,'Excavator Komatsu PC200-8 CBU Jepang Grade A',3,1650000000,4950000000,'2026-09-24 07:22:16'),(19,'proj-jkt-jabar',2,'Excavator Komatsu PC138US-8 Compact Tail',3,950000000,2850000000,'2026-09-24 07:22:16'),(20,'proj-jkt-jabar',3,'Dukungan Armada Montana Towing & Workshop Overhaul',1,1200000000,1200000000,'2026-09-24 07:22:16'),(21,'proj-jkt-jabar',4,'Logistik Impor CBU & Cadangan Operasional Kas Project',1,1000000000,1000000000,'2026-09-24 07:22:16');
+INSERT INTO `funding_items` VALUES (22,'proj-jkt-jabar',1,'Excavator Komatsu PC200-8 CBU Jepang Grade A',3,1650000000,4950000000,'2026-09-24 07:58:19'),(23,'proj-jkt-jabar',2,'Excavator Komatsu PC138US-8 Compact Tail',3,950000000,2850000000,'2026-09-24 07:58:19'),(24,'proj-jkt-jabar',3,'Dukungan Armada Montana Towing & Workshop Overhaul',1,1200000000,1200000000,'2026-09-24 07:58:19'),(25,'proj-jkt-jabar',4,'Logistik Impor CBU & Cadangan Operasional Kas Project',1,1000000000,1000000000,'2026-09-24 07:58:19');
 /*!40000 ALTER TABLE `funding_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,7 +273,7 @@ CREATE TABLE `investor_bank_accounts` (
 
 LOCK TABLES `investor_bank_accounts` WRITE;
 /*!40000 ALTER TABLE `investor_bank_accounts` DISABLE KEYS */;
-INSERT INTO `investor_bank_accounts` VALUES (1,1,'Bank Central Asia (BCA)','8820394821','Budi Pratama','KCP Sudirman Jakarta',1,'2026-09-24 07:22:16','2026-09-24 07:22:16'),(2,2,'Bank Mandiri','1270009847281','PT Nusantara Capital Group','KC SCBD Equity Tower',1,'2026-09-24 07:22:16','2026-09-24 07:22:16');
+INSERT INTO `investor_bank_accounts` VALUES (1,1,'Bank Central Asia (BCA)','8820394821','Budi Pratama','KCP Sudirman Jakarta',1,'2026-09-24 07:58:19','2026-09-24 07:58:19'),(2,2,'Bank Mandiri','1270009847281','PT Nusantara Capital Group','KC SCBD Equity Tower',1,'2026-09-24 07:58:19','2026-09-24 07:58:19');
 /*!40000 ALTER TABLE `investor_bank_accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -293,7 +293,7 @@ CREATE TABLE `investor_companies` (
   `pic_name` varchar(255) NOT NULL,
   `pic_position` varchar(150) NOT NULL,
   `company_phone` varchar(50) NOT NULL,
-  `annual_turnover` enum('Di bawah Rp500 Juta','Rp500 Juta – Rp2,5 Miliar','Rp2,5 Miliar – Rp10 Miliar','Rp10 Miliar – Rp50 Miliar','Rp50 Miliar – Rp250 Miliar','Di atas Rp250 Miliar') NOT NULL,
+  `annual_turnover` varchar(100) NOT NULL DEFAULT 'Rp10 Miliar – Rp50 Miliar',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
@@ -350,7 +350,7 @@ CREATE TABLE `investor_portfolios` (
 
 LOCK TABLES `investor_portfolios` WRITE;
 /*!40000 ALTER TABLE `investor_portfolios` DISABLE KEYS */;
-INSERT INTO `investor_portfolios` VALUES (1,1,'proj-jkt-jabar','MGI/INV/2024/001-BP',500000000,'≥32% (p.a.)','36 Bulan','2024-01-15','2027-01-15','2024-10-15',37500000,'1x Komatsu PC138US (Grade A)','active','2026-09-24 07:22:16','2026-09-24 07:22:16'),(2,2,'proj-jkt-jabar','MGI/CORP/2024/008-NCG',2500000000,'≥32% (p.a.)','36 Bulan','2024-02-01','2027-02-01','2024-11-01',187500000,'2x Komatsu PC200-8 & 1x D6R Caterpillar','active','2026-09-24 07:22:16','2026-09-24 07:22:16');
+INSERT INTO `investor_portfolios` VALUES (1,1,'proj-jkt-jabar','MGI/INV/2024/001-BP',500000000,'≥32% (p.a.)','36 Bulan','2024-01-15','2027-01-15','2024-10-15',37500000,'1x Komatsu PC138US (Grade A)','active','2026-09-24 07:58:19','2026-09-24 07:58:19'),(2,2,'proj-jkt-jabar','MGI/CORP/2024/008-NCG',2500000000,'≥32% (p.a.)','36 Bulan','2024-02-01','2027-02-01','2024-11-01',187500000,'2x Komatsu PC200-8 & 1x D6R Caterpillar','active','2026-09-24 07:58:19','2026-09-24 07:58:19');
 /*!40000 ALTER TABLE `investor_portfolios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -419,7 +419,7 @@ CREATE TABLE `preparation_entities` (
 
 LOCK TABLES `preparation_entities` WRITE;
 /*!40000 ALTER TABLE `preparation_entities` DISABLE KEYS */;
-INSERT INTO `preparation_entities` VALUES ('MGI','PT Montana Global Investama','','Pengelola Project & Permodalan Grup','Level 1','Pengelola Project & Permodalan Grup','gold','Pengelola Project & Permodalan Grup','Pengelolaan project investasi, kepatuhan, relasi investor','Alokasi permodalan project, transparansi imbal hasil terukur',NULL,1,'2026-09-24 07:22:16'),('MIU','PT Montana Indo Utama (MIU)','','Kantor, Workshop Sentral & Armada Montana Towing','Level 1','Kantor, Workshop Sentral & Armada Montana Towing','blue','Kantor, Workshop Sentral & Armada Montana Towing','Workshop Kebumen, armada khusus Komatsu CBU Jepang, armada Montana Towing, operasional Jawa Tengah, Bali, dan NTB','125 unit Komatsu Grade A siap pakai, kantor & pool Kebumen, armada towing siaga',NULL,2,'2026-09-24 07:22:16'),('MSI','Montana Sentra Industri (MSI)','','Supply Import dari Jepang atau Cina ke Indonesia','Level 1','Supply Import dari Jepang atau Cina ke Indonesia','navy','Supply Import dari Jepang atau Cina ke Indonesia','Fokus kepada import dari Jepang atau Cina ke Indonesia sampai pada alamat customer','Pengiriman door-to-door unit mesin dan alat berat impor langsung sampai lokasi',NULL,3,'2026-09-24 07:22:16'),('Mypurcase','Mypurcase (Coming soon 2027)','','System dan Pengadaan Terpadu Ekosistem','Level 1','System dan Pengadaan Terpadu Ekosistem','gold','System dan Pengadaan Terpadu Ekosistem','System dan pengadaan terpadu dan purchasing unit dan mesin secara efisien','Purchasing terpadu hemat biaya, transparansi alokasi belanja modal',NULL,4,'2026-09-24 07:22:16');
+INSERT INTO `preparation_entities` VALUES ('MGI','PT Montana Global Investama','','Pengelola Project & Permodalan Grup','Level 1','Pengelola Project & Permodalan Grup','gold','Pengelola Project & Permodalan Grup','Pengelolaan project investasi, kepatuhan, relasi investor','Alokasi permodalan project, transparansi imbal hasil terukur',NULL,1,'2026-09-24 07:58:19'),('MIU','PT Montana Indo Utama (MIU)','','Kantor, Workshop Sentral & Armada Montana Towing','Level 1','Kantor, Workshop Sentral & Armada Montana Towing','blue','Kantor, Workshop Sentral & Armada Montana Towing','Workshop Kebumen, armada khusus Komatsu CBU Jepang, armada Montana Towing, operasional Jawa Tengah, Bali, dan NTB','125 unit Komatsu Grade A siap pakai, kantor & pool Kebumen, armada towing siaga',NULL,2,'2026-09-24 07:58:19'),('MSI','Montana Sentra Industri (MSI)','','Supply Import dari Jepang atau Cina ke Indonesia','Level 1','Supply Import dari Jepang atau Cina ke Indonesia','navy','Supply Import dari Jepang atau Cina ke Indonesia','Fokus kepada import dari Jepang atau Cina ke Indonesia sampai pada alamat customer','Pengiriman door-to-door unit mesin dan alat berat impor langsung sampai lokasi',NULL,3,'2026-09-24 07:58:19'),('Mypurcase','Mypurcase (Coming soon 2027)','','System dan Pengadaan Terpadu Ekosistem','Level 1','System dan Pengadaan Terpadu Ekosistem','gold','System dan Pengadaan Terpadu Ekosistem','System dan pengadaan terpadu dan purchasing unit dan mesin secara efisien','Purchasing terpadu hemat biaya, transparansi alokasi belanja modal',NULL,4,'2026-09-24 07:58:19');
 /*!40000 ALTER TABLE `preparation_entities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -448,7 +448,7 @@ CREATE TABLE `preparation_workflow` (
 
 LOCK TABLES `preparation_workflow` WRITE;
 /*!40000 ALTER TABLE `preparation_workflow` DISABLE KEYS */;
-INSERT INTO `preparation_workflow` VALUES (1,1,'1. Penempatan Modal Project Investasi','Investor → PT Montana Global Investama (MGI)','Investor melakukan penempatan dana pada project investasi riil pilihan dengan proyeksi imbal hasil agresif dan menguntungkan.','','2026-09-24 07:22:16'),(2,2,'2. Alokasi Modal & Pemilihan Unit','MGI → Unit Usaha (MIU & MSI)','MGI mengalokasikan permodalan project untuk akuisisi unit alat berat Komatsu CBU Jepang dan supply import material industri.','','2026-09-24 07:22:16'),(3,3,'3. System dan Pengadaan Terpadu','Unit Usaha → Mypurcase','Purchasing unit dan mesin dikoordinasikan melalui sistem terpadu Mypurcase secara efisien dan transparan.','','2026-09-24 07:22:16'),(4,4,'4. Supply Import Door-to-Door','MSI → Alamat Customer / Pool','MSI mengawal import langsung dari Jepang atau Cina hingga unit tiba sempurna di alamat customer atau pool workshop.','','2026-09-24 07:22:16'),(5,5,'5. Utilisasi Project & Distribusi Hasil','MIU → MGI & Investor','Unit Komatsu dioperasikan pada kontrak kerja riil di kota-kota strategis, menghasilkan dividen kuartalan yang ditransfer ke rekening investor.','','2026-09-24 07:22:16');
+INSERT INTO `preparation_workflow` VALUES (1,1,'1. Penempatan Modal Project Investasi','Investor → PT Montana Global Investama (MGI)','Investor melakukan penempatan dana pada project investasi riil pilihan dengan proyeksi imbal hasil agresif dan menguntungkan.','','2026-09-24 07:58:19'),(2,2,'2. Alokasi Modal & Pemilihan Unit','MGI → Unit Usaha (MIU & MSI)','MGI mengalokasikan permodalan project untuk akuisisi unit alat berat Komatsu CBU Jepang dan supply import material industri.','','2026-09-24 07:58:19'),(3,3,'3. System dan Pengadaan Terpadu','Unit Usaha → Mypurcase','Purchasing unit dan mesin dikoordinasikan melalui sistem terpadu Mypurcase secara efisien dan transparan.','','2026-09-24 07:58:19'),(4,4,'4. Supply Import Door-to-Door','MSI → Alamat Customer / Pool','MSI mengawal import langsung dari Jepang atau Cina hingga unit tiba sempurna di alamat customer atau pool workshop.','','2026-09-24 07:58:19'),(5,5,'5. Utilisasi Project & Distribusi Hasil','MIU → MGI & Investor','Unit Komatsu dioperasikan pada kontrak kerja riil di kota-kota strategis, menghasilkan dividen kuartalan yang ditransfer ke rekening investor.','','2026-09-24 07:58:19');
 /*!40000 ALTER TABLE `preparation_workflow` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -474,7 +474,7 @@ CREATE TABLE `project_details` (
   PRIMARY KEY (`id`),
   KEY `fk_project_detail` (`project_id`),
   CONSTRAINT `fk_project_detail` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -483,7 +483,7 @@ CREATE TABLE `project_details` (
 
 LOCK TABLES `project_details` WRITE;
 /*!40000 ALTER TABLE `project_details` DISABLE KEYS */;
-INSERT INTO `project_details` VALUES (6,'proj-jkt-jabar','Sentral Pool & Workshop Terpadu Distribusi Unit Komatsu Regional Jabodetabek dan Jawa Barat','Alokasi Penggunaan Modal Project','Permodalan dialokasikan untuk pengadaan unit alat berat Komatsu CBU Jepang Grade A (Excavator Komatsu PC200-8 & PC138US-8) serta fasilitas workshop terpadu regional Jabodetabek & Jawa Barat. Penempatan strategis untuk mendukung proyek infrastruktur jalan, kawasan industri, dan logistik nasional.','Kerangka Kontrak Penyerapan Pasar (Offtake Framework)','Unit Komatsu langsung diutilisasi untuk proyek galian kuari, normalisasi infrastruktur sipil, dan pembangunan kawasan industri berjangka panjang di wilayah Jabodetabek serta Jawa Barat dengan kepastian cashflow pembayaran kontrak.','Ringkasan Kelayakan Project Investasi','Didukung underlying asset Komatsu berlikuiditas pasar sekunder tertinggi di Indonesia, proyeksi imbal hasil terukur ≥32% (p.a.) dengan jadwal bagi hasil setiap kuartal.','2026-09-24 07:22:16','2026-09-24 07:22:16');
+INSERT INTO `project_details` VALUES (7,'proj-jkt-jabar','Sentral Pool & Workshop Terpadu Distribusi Unit Komatsu Regional Jabodetabek dan Jawa Barat','Alokasi Penggunaan Modal Project','Permodalan dialokasikan untuk pengadaan unit alat berat Komatsu CBU Jepang Grade A (Excavator Komatsu PC200-8 & PC138US-8) serta fasilitas workshop terpadu regional Jabodetabek & Jawa Barat. Penempatan strategis untuk mendukung proyek infrastruktur jalan, kawasan industri, dan logistik nasional.','Kerangka Kontrak Penyerapan Pasar (Offtake Framework)','Unit Komatsu langsung diutilisasi untuk proyek galian kuari, normalisasi infrastruktur sipil, dan pembangunan kawasan industri berjangka panjang di wilayah Jabodetabek serta Jawa Barat dengan kepastian cashflow pembayaran kontrak.','Ringkasan Kelayakan Project Investasi','Didukung underlying asset Komatsu berlikuiditas pasar sekunder tertinggi di Indonesia, proyeksi imbal hasil terukur ≥32% (p.a.) dengan jadwal bagi hasil setiap kuartal.','2026-09-24 07:58:19','2026-09-24 07:58:19');
 /*!40000 ALTER TABLE `project_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -515,7 +515,7 @@ CREATE TABLE `project_simulation` (
 
 LOCK TABLES `project_simulation` WRITE;
 /*!40000 ALTER TABLE `project_simulation` DISABLE KEYS */;
-INSERT INTO `project_simulation` VALUES ('proj-jkt-jabar',36,32.00,2.40,500000000,500000000000,500000000,'','2026-09-24 07:22:16');
+INSERT INTO `project_simulation` VALUES ('proj-jkt-jabar',36,32.00,2.40,500000000,500000000000,500000000,'','2026-09-24 07:58:19');
 /*!40000 ALTER TABLE `project_simulation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -618,7 +618,7 @@ CREATE TABLE `transformasi_steps` (
 
 LOCK TABLES `transformasi_steps` WRITE;
 /*!40000 ALTER TABLE `transformasi_steps` DISABLE KEYS */;
-INSERT INTO `transformasi_steps` VALUES (1,1,'2022','CV Montana Machine','Distribusi Alat Berat CBU Jepang Berkualitas Tinggi di Kebumen','Bermula dari satu unit alat berat di Kebumen, meletakkan fondasi teknis, kualitas, dan distribusi alat berat CBU Jepang berkualitas tinggi.','[\"Memulai distribusi alat berat CBU Jepang berkualitas tinggi pertama di Kebumen\",\"Menjalin jaringan kerja sama penyediaan unit dan rekondisi mesin\",\"Membangun standar kualitas dan inspeksi mekanikal ketat\"]','completed','2026-09-24 07:22:16','2026-09-24 07:22:16'),(2,2,'Ekspansi','PT Montana Indo Utama (MIU)','Integrated Heavy Equipment Solutions','Menyediakan solusi terintegrasi mulai dari pengadaan, deployment, hingga dukungan operasional alat berat untuk memenuhi kebutuhan proyek sektor riil.','[\"Pengembangan workshop sentral & pool seluas 4.500 m² di Kebumen\",\"Peluncuran armada Montana Towing untuk penanganan operasional darurat dan mobilisasi cepat\",\"Penyediaan solusi deployment dan kontrak kerja alat berat berkesinambungan\"]','completed','2026-09-24 07:22:16','2026-09-24 07:22:16'),(3,3,'Impor & Logistik','PT Montana Sentra Industri (MSI)','Import & Logistics Partner','Mendukung proses impor, customs clearance, manajemen logistik, dan distribusi door-to-door melalui jaringan mitra yang terintegrasi.','[\"Solusi impor langsung mesin dan alat berat dari Jepang dan Cina\",\"Pengurusan customs clearance terpadu di pelabuhan utama\",\"Pengiriman logistik aman door-to-door langsung ke lokasi proyek\"]','completed','2026-09-24 07:22:16','2026-09-24 07:22:16'),(4,4,'Struktural','PT Montana Global Investama Holding','Holding & Manajer Investasi Sektor Riil','Mengembangkan kapabilitas dari distribusi lokal menuju pengelolaan portofolio proyek dan investasi lintas sektor secara terstruktur dengan tata kelola TARIF.','[\"MGI memegang peran holding pengelola modal, tata kelola, dan mitigasi risiko\",\"Penerapan kerangka tata kelola TARIF secara konsisten\",\"Membuka pintu kemitraan investasi proyek berbasis aset fisik riil bagi pemodal\"]','completed','2026-09-24 07:22:16','2026-09-24 07:22:16'),(5,5,'Digitalisasi','Mypurcase Diluncurkan 2027','B2B Procurement & Purchasing Platform','Mendigitalisasi proses pengadaan dan rantai pasok B2B untuk meningkatkan efisiensi, transparansi, dan keterlacakan transaksi antar entitas dan supplier.','[\"Digitalisasi transaksi pengadaan suku cadang, mesin, dan unit\",\"Efisiensi serapan belanja modal dan transparansi harga supplier\",\"Sistem pelacakan pengadaan secara digital dan real-time\"]','completed','2026-09-24 07:22:16','2026-09-24 07:22:16');
+INSERT INTO `transformasi_steps` VALUES (1,1,'2022','CV Montana Machine','Distribusi Alat Berat CBU Jepang Berkualitas Tinggi di Kebumen','Bermula dari satu unit alat berat di Kebumen, meletakkan fondasi teknis, kualitas, dan distribusi alat berat CBU Jepang berkualitas tinggi.','[\"Memulai distribusi alat berat CBU Jepang berkualitas tinggi pertama di Kebumen\",\"Menjalin jaringan kerja sama penyediaan unit dan rekondisi mesin\",\"Membangun standar kualitas dan inspeksi mekanikal ketat\"]','completed','2026-09-24 07:58:19','2026-09-24 07:58:19'),(2,2,'Ekspansi','PT Montana Indo Utama (MIU)','Integrated Heavy Equipment Solutions','Menyediakan solusi terintegrasi mulai dari pengadaan, deployment, hingga dukungan operasional alat berat untuk memenuhi kebutuhan proyek sektor riil.','[\"Pengembangan workshop sentral & pool seluas 4.500 m² di Kebumen\",\"Peluncuran armada Montana Towing untuk penanganan operasional darurat dan mobilisasi cepat\",\"Penyediaan solusi deployment dan kontrak kerja alat berat berkesinambungan\"]','completed','2026-09-24 07:58:19','2026-09-24 07:58:19'),(3,3,'Impor & Logistik','PT Montana Sentra Industri (MSI)','Import & Logistics Partner','Mendukung proses impor, customs clearance, manajemen logistik, dan distribusi door-to-door melalui jaringan mitra yang terintegrasi.','[\"Solusi impor langsung mesin dan alat berat dari Jepang dan Cina\",\"Pengurusan customs clearance terpadu di pelabuhan utama\",\"Pengiriman logistik aman door-to-door langsung ke lokasi proyek\"]','completed','2026-09-24 07:58:19','2026-09-24 07:58:19'),(4,4,'Struktural','PT Montana Global Investama Holding','Holding & Manajer Investasi Sektor Riil','Mengembangkan kapabilitas dari distribusi lokal menuju pengelolaan portofolio proyek dan investasi lintas sektor secara terstruktur dengan tata kelola TARIF.','[\"MGI memegang peran holding pengelola modal, tata kelola, dan mitigasi risiko\",\"Penerapan kerangka tata kelola TARIF secara konsisten\",\"Membuka pintu kemitraan investasi proyek berbasis aset fisik riil bagi pemodal\"]','completed','2026-09-24 07:58:19','2026-09-24 07:58:19'),(5,5,'Digitalisasi','Mypurcase Diluncurkan 2027','B2B Procurement & Purchasing Platform','Mendigitalisasi proses pengadaan dan rantai pasok B2B untuk meningkatkan efisiensi, transparansi, dan keterlacakan transaksi antar entitas dan supplier.','[\"Digitalisasi transaksi pengadaan suku cadang, mesin, dan unit\",\"Efisiensi serapan belanja modal dan transparansi harga supplier\",\"Sistem pelacakan pengadaan secara digital dan real-time\"]','completed','2026-09-24 07:58:19','2026-09-24 07:58:19');
 /*!40000 ALTER TABLE `transformasi_steps` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -631,4 +631,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-09-24 14:22:27
+-- Dump completed on 2026-09-24 14:59:05

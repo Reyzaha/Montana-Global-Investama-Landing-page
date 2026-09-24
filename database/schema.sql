@@ -58,14 +58,7 @@ CREATE TABLE IF NOT EXISTS `investor_companies` (
   `pic_name` VARCHAR(255) NOT NULL,
   `pic_position` VARCHAR(150) NOT NULL,
   `company_phone` VARCHAR(50) NOT NULL,
-  `annual_turnover` ENUM(
-    'Di bawah Rp500 Juta',
-    'Rp500 Juta – Rp2,5 Miliar',
-    'Rp2,5 Miliar – Rp10 Miliar',
-    'Rp10 Miliar – Rp50 Miliar',
-    'Rp50 Miliar – Rp250 Miliar',
-    'Di atas Rp250 Miliar'
-  ) NOT NULL,
+  `annual_turnover` VARCHAR(100) NOT NULL DEFAULT 'Rp10 Miliar – Rp50 Miliar',
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT `fk_investor_company` FOREIGN KEY (`investor_id`) 

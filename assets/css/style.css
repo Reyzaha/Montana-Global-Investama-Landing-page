@@ -1520,3 +1520,82 @@ h6,
     padding: 0.35rem 0.75rem !important;
   }
 }
+
+/* ==========================================================================
+   Luxury Growth Segmented Navigation Tabs
+   ========================================================================== */
+.growth-tab-wrapper {
+  background: #F8FAFC;
+  padding: 6px;
+  border-radius: 50rem;
+  border: 1.5px solid #E2E8F0;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.04);
+}
+
+.growth-tab-btn {
+  background: #FFFFFF;
+  color: #334155;
+  border: 1px solid #E2E8F0;
+  border-radius: 50rem;
+  padding: 9px 20px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+  user-select: none;
+  line-height: 1.2;
+  text-decoration: none;
+  outline: none;
+}
+
+.growth-tab-btn i {
+  font-size: 1rem;
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.growth-tab-btn:hover {
+  background: #FFFFFF;
+  color: #0E1B48;
+  border-color: #94A3B8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.1);
+}
+
+.growth-tab-btn:hover i {
+  transform: scale(1.2);
+}
+
+.growth-tab-btn.active {
+  background: #0E1B48 !important;
+  color: #FFFFFF !important;
+  border-color: #0E1B48 !important;
+  box-shadow: 0 4px 16px rgba(14, 27, 72, 0.32) !important;
+  transform: translateY(0);
+}
+
+.growth-tab-btn.active i {
+  color: #F59E0B !important;
+}
+
+/* Distinctive icon accent colors when inactive */
+.growth-tab-btn[data-segment="mgi"]:not(.active) i {
+  color: #1D3589;
+}
+.growth-tab-btn[data-segment="miu"]:not(.active) i {
+  color: #0284C7;
+}
+.growth-tab-btn[data-segment="msi"]:not(.active) i {
+  color: #D97706;
+}
+.growth-tab-btn[data-segment="compare"]:not(.active) i {
+  color: #059669;
+}

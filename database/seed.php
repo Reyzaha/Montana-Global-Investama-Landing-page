@@ -25,23 +25,40 @@ try {
     $db->exec($sql);
     echo "[✓] Skema database berhasil dieksekusi (14 tabel siap).\n";
 
-    // 2. Seed Super Administrator
-    $adminUser = 'admin';
-    $adminEmail = 'admin@montanaglobalinvestama.com';
-    $adminPass = 'admin123';
-    $adminHash = hashPassword($adminPass);
+    // 2. Reset & Seed Administrator Accounts (Superadmin & Admin)
+    $db->exec("SET FOREIGN_KEY_CHECKS = 0; TRUNCATE TABLE admin_users; SET FOREIGN_KEY_CHECKS = 1;");
 
-    $stmt = $db->prepare("SELECT id FROM admin_users WHERE username = ?");
-    $stmt->execute([$adminUser]);
-    if (!$stmt->fetch()) {
-        $stmtInsert = $db->prepare("
-            INSERT INTO admin_users (username, email, password_hash, full_name, role, is_active)
-            VALUES (?, ?, ?, 'Super Administrator MGI', 'superadmin', 1)
-        ");
-        $stmtInsert->execute([$adminUser, $adminEmail, $adminHash]);
-        echo "[✓] User superadmin default dibuat: username '{$adminUser}', password '{$adminPass}'\n";
-    } else {
-        echo "[i] User superadmin '{$adminUser}' sudah ada.\n";
+    $adminAccounts = [
+        [
+            'username' => 'superadmin',
+            'email' => 'superadmin@montanaglobalinvestama.com',
+            'password' => 'SuperAdminMGI2026!',
+            'full_name' => 'Super Administrator MGI',
+            'role' => 'superadmin'
+        ],
+        [
+            'username' => 'admin',
+            'email' => 'admin@montanaglobalinvestama.com',
+            'password' => 'AdminMGI2026!',
+            'full_name' => 'Administrator Operasional MGI',
+            'role' => 'admin'
+        ]
+    ];
+
+    $stmtInsertAdmin = $db->prepare("
+        INSERT INTO admin_users (username, email, password_hash, full_name, role, is_active, mfa_secret, mfa_enabled)
+        VALUES (?, ?, ?, ?, ?, 1, NULL, 0)
+    ");
+
+    foreach ($adminAccounts as $acc) {
+        $stmtInsertAdmin->execute([
+            $acc['username'],
+            $acc['email'],
+            hashPassword($acc['password']),
+            $acc['full_name'],
+            $acc['role']
+        ]);
+        echo "[✓] Akun {$acc['role']} dibuat: username '{$acc['username']}', password '{$acc['password']}' (MFA di-reset, siap scan baru)\n";
     }
 
     // 3. Seed Demo Investor Accounts
