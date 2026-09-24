@@ -412,22 +412,18 @@ try {
 
     if ($inv1Id) {
         $stmtPort->execute([
-            $inv1Id, 'proj-001', 'MGI/INV/2024/001-BP', 500000000, '≥30% (p.a.)', '36 Bulan',
+            $inv1Id, 'proj-jkt-jabar', 'MGI/INV/2024/001-BP', 500000000, '≥32% (p.a.)', '36 Bulan',
             '2024-01-15', '2027-01-15', '2024-10-15', 37500000, '1x Komatsu PC138US (Grade A)'
         ]);
-        echo "[✓] Portofolio demo investor perorangan ditambahkan (Rp 500 Juta di proj-001).\n";
+        echo "[✓] Portofolio demo investor perorangan ditambahkan (Rp 500 Juta di proj-jkt-jabar).\n";
     }
 
     if ($inv2Id) {
         $stmtPort->execute([
-            $inv2Id, 'proj-001', 'MGI/CORP/2024/008-NCG', 2500000000, '≥30% (p.a.)', '36 Bulan',
+            $inv2Id, 'proj-jkt-jabar', 'MGI/CORP/2024/008-NCG', 2500000000, '≥32% (p.a.)', '36 Bulan',
             '2024-02-01', '2027-02-01', '2024-11-01', 187500000, '2x Komatsu PC200-8 & 1x D6R Caterpillar'
         ]);
-        $stmtPort->execute([
-            $inv2Id, 'proj-002', 'MGI/CORP/2024/014-NCG', 1000000000, '≥28% (p.a.)', '24 Bulan',
-            '2024-05-10', '2026-05-10', '2024-11-10', 70000000, '4x Hino 500 Dump Truck Sindikasi'
-        ]);
-        echo "[✓] Portofolio demo investor korporasi ditambahkan (Total Rp 3,5 Miliar di 2 proyek).\n";
+        echo "[✓] Portofolio demo investor korporasi ditambahkan (Total Rp 2,5 Miliar di proj-jkt-jabar).\n";
     }
 
     // 12. Seed Campaign Updates
@@ -439,30 +435,30 @@ try {
 
     $updates = [
         [
-            'proj-001',
-            'Kedatangan 6 Unit Excavator Komatsu PC138US-8 CBU Jepang di Pool Kebumen',
+            'proj-jkt-jabar',
+            'Kedatangan Unit Excavator Komatsu CBU Jepang di Pool Jabodetabek & Jawa Barat',
             'Logistik & Impor CBU',
             '2024-08-20',
-            'Alhamdulillah, seluruh 6 unit Excavator Hydraulic Komatsu PC138US-8 Grade A asal Jepang telah tiba dengan selamat di Pusat Workshop & Pool Kebumen seluas 4.500 m². Tim mekanik telah menyelesaikan tahap PDI (Pre-Delivery Inspection), pengujian hidrolik, pemasangan sistem GPS tracking terpadu, dan penerbitan sertifikat kelaikan fungsi operasional.',
-            'assets/img/komatsu.jpg',
+            'Alhamdulillah, unit Excavator Hydraulic Komatsu PC138US-8 Grade A asal Jepang telah tiba dengan selamat di Pusat Workshop & Pool Jabodetabek & Jawa Barat. Tim mekanik telah menyelesaikan tahap PDI (Pre-Delivery Inspection), pengujian hidrolik, pemasangan sistem GPS tracking terpadu, dan penerbitan sertifikat kelaikan fungsi operasional.',
+            'assets/img/project-jabodetabek.jpg',
             1
         ],
         [
-            'proj-001',
-            'Mobilisasi Unit ke Proyek Strategis Daerah Jawa Tengah & Kesiapan Montana Towing',
+            'proj-jkt-jabar',
+            'Mobilisasi Unit ke Proyek Strategis Daerah & Kesiapan Montana Towing',
             'Operasional Lapangan',
             '2024-09-02',
-            'Sebanyak 4 unit telah diberangkatkan menuju lokasi proyek sipil normalisasi sungai dan pematangan lahan tol Solo-Yogyakarta dengan pengawalan armada Montana Towing. Seluruh unit mencatatkan utilitas kerja rata-rata 8,5 jam per hari tanpa kendala mekanis.',
-            'assets/img/komatsu.jpg',
+            'Unit telah diberangkatkan menuju lokasi proyek kawasan industri dengan pengawalan armada Montana Towing. Seluruh unit mencatatkan utilitas kerja rata-rata 8,5 jam per hari tanpa kendala mekanis.',
+            'assets/img/project-jabodetabek.jpg',
             2
         ],
         [
-            'proj-001',
+            'proj-jkt-jabar',
             'Distribusi Imbal Hasil Kuartal II Berjalan Lancar ke Rekening Investor',
             'Laporan Keuangan & Dividen',
             '2024-07-15',
             'Manajemen PT Montana Global Investama telah menuntaskan penyaluran bagi hasil kuartalan periode Q2 kepada seluruh investor sindikasi perorangan dan korporasi terdaftar secara tepat waktu. Laporan keuangan proyek telah diverifikasi oleh tim kepatuhan internal.',
-            'assets/img/komatsu.jpg',
+            'assets/img/project-jabodetabek.jpg',
             3
         ]
     ];

@@ -150,7 +150,7 @@ const MGIComponents = {
               <ul class="list-unstyled mb-0">
                 <li><a href="preparation.html" class="footer-link">Struktur Alur Kerja Entitas</a></li>
                 <li><a href="ekosistem.html" class="footer-link">Bagan Ekosistem Terpadu</a></li>
-                <li><a href="javascript:void(0)" onclick="MGIAuth.handleProtectedDetail('proj-kebumen')" class="footer-link">Simulasi BEP &amp; ROI</a></li>
+                <li><a href="javascript:void(0)" onclick="MGIAuth.handleProtectedDetail('proj-jkt-jabar')" class="footer-link">Simulasi BEP &amp; ROI</a></li>
                 <li><a href="about.html#tata-kelola" class="footer-link">Tata Kelola Perusahaan (TARIF)</a></li>
               </ul>
             </div>

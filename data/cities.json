@@ -2,12 +2,12 @@
   "cities": [
     {
       "id": 1,
-      "name": "Kebumen",
-      "slug": "kebumen",
-      "icon": "bi-building-gear",
+      "name": "Jabodetabek & Jawa Barat",
+      "slug": "jabodetabek-jawa-barat",
+      "icon": "bi-geo-alt-fill",
       "is_active_segment": 1,
       "sort_order": 1,
-      "description": "Sentral Pool & Workshop Alat Berat 4.500 m² Jawa Tengah"
+      "description": "Project Ekspansi Sentral Pool & Heavy Duty Komatsu Regional Jabodetabek dan Jawa Barat"
     },
     {
       "id": 2,

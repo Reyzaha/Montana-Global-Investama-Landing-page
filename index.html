@@ -339,28 +339,26 @@
       </div>
     </section>
 
-    <!-- SECTION SHOWCASE: PROJECT INVESTASI PER KOTA (Ikonik & Simbolis) -->
-    <section class="py-5 bg-white" id="homeProjectsSection">
-      <div class="container py-lg-4">
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
-          <div>
-            <div class="corporate-kicker mb-1">
-              <span>Portofolio Proyek &amp; Wilayah Ekspansi</span>
+    <!-- SECTION CALL TO ACTION: KATALOG PROYEK INVESTASI (Menggantikan duplikasi portofolio di home) -->
+    <section class="py-5 bg-white border-bottom" id="homeInvestCtaSection">
+      <div class="container py-lg-3">
+        <div class="p-4 p-md-5 rounded-2 text-white position-relative overflow-hidden shadow-sm" style="background-color: #0E1B48;">
+          <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+              <span class="badge bg-gold text-dark px-3 py-1.5 fw-bold text-uppercase rounded-1 mb-3" style="font-size: 0.72rem; letter-spacing: 0.5px;">
+                Peluang Investasi Sektor Riil
+              </span>
+              <h2 class="fw-bold text-white mb-2">Eksplorasi Katalog &amp; Portofolio Proyek Investasi</h2>
+              <p class="text-light opacity-75 mb-0" style="max-width: 680px; line-height: 1.6;">
+                Pelajari rincian alokasi permodalan, underlying aset alat berat Komatsu CBU Grade A, struktur kontrak offtake, serta simulasi imbal hasil kuartalan yang terverifikasi di halaman Project Investasi.
+              </p>
             </div>
-            <h2 class="fw-bold text-mgi-dark mb-1">Proyek Investasi Sektor Riil Per Wilayah</h2>
-            <p class="text-mgi-muted small mb-0">Portofolio proyek sindikasi berbasis aset alat berat Komatsu siap operasi dengan nilai kapitalisasi terverifikasi di Jawa Tengah, Bali, dan NTB.</p>
-          </div>
-          <div class="mt-3 mt-md-0">
-            <a href="invest.html" class="btn btn-corporate-outline d-inline-flex align-items-center gap-2 px-4 py-2">
-              <span>Lihat Semua Proyek</span>
-              <i class="bi bi-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="homeProjectsGrid">
-          <div class="col-12 text-center py-5 text-mgi-muted">
-            Memuat daftar project per kota...
+            <div class="col-lg-4 text-lg-end">
+              <a href="invest.html" class="btn btn-corporate-gold btn-lg px-4 py-3 fw-bold d-inline-flex align-items-center gap-2 shadow">
+                <span>Katalog Project Investasi</span>
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -485,7 +483,6 @@
         const heroFeaturedCol = document.getElementById('heroFeaturedProjectCol');
         const heroTextCol = document.getElementById('heroTextCol');
         const heroCtaBtns = document.getElementById('heroCtaBtns');
-        const homeProjectsSection = document.getElementById('homeProjectsSection');
 
         if (hasActiveProjects) {
           // Jika ada proyek riil yang aktif, tampilkan spotlight card di hero
@@ -568,21 +565,8 @@
               heroCtaBtns.className = 'd-flex flex-wrap gap-3 mb-4';
             }
           }
-
-          // Tampilkan section katalog proyek di home
-          if (homeProjectsSection) {
-            homeProjectsSection.classList.remove('d-none');
-            const grid = document.getElementById('homeProjectsGrid');
-            if (grid) {
-              grid.innerHTML = projectsList.slice(0, 6).map(p => `
-                <div class="col">
-                  ${MGIComponents.renderProjectCard(p)}
-                </div>
-              `).join('');
-            }
-          }
         } else {
-          // Tidak ada project yang sedang berjalan: sembunyikan spotlight card dan section project di home
+          // Tidak ada project yang sedang berjalan: sembunyikan spotlight card
           if (heroFeaturedCol) {
             heroFeaturedCol.classList.add('d-none');
             heroFeaturedCol.innerHTML = '';
@@ -593,16 +577,11 @@
           if (heroCtaBtns) {
             heroCtaBtns.className = 'd-flex flex-wrap justify-content-center gap-3 mb-4';
           }
-          if (homeProjectsSection) {
-            homeProjectsSection.classList.add('d-none');
-          }
         }
       } catch (projErr) {
-        // Fallback aman jika error: sembunyikan section proyek di home
+        // Fallback aman jika error
         const heroFeaturedCol = document.getElementById('heroFeaturedProjectCol');
-        const homeProjectsSection = document.getElementById('homeProjectsSection');
         if (heroFeaturedCol) heroFeaturedCol.classList.add('d-none');
-        if (homeProjectsSection) homeProjectsSection.classList.add('d-none');
       }
 
       // Load Stats dynamically from company-profile.json
