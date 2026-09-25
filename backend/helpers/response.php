@@ -41,6 +41,11 @@ function sendJsonResponse(mixed $data = null, int $statusCode = 200, string $mes
         'data' => $data
     ];
 
+    // Clean any prior output buffer (such as PHP notices/warnings) to ensure clean JSON output
+    while (ob_get_level() > 0) {
+        ob_end_clean();
+    }
+
     echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     exit;
 }

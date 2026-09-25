@@ -142,7 +142,7 @@ try {
             $input['status'] ?? 'Open',
             !empty($input['featured']) ? 1 : 0,
             $input['lokasi'] ?? '',
-            $input['target_display'] ?? '',
+            !empty($input['target_display']) ? trim($input['target_display']) : ('Rp ' . number_format((float)$fundingTarget, 0, ',', '.')),
             $input['tenor'] ?? '36 Bulan',
             $input['return_rate'] ?? '≥30% (p.a.)',
             $input['risk_level'] ?? 'Menengah - Terukur',
@@ -220,12 +220,15 @@ try {
             sendJsonError('ID Proyek wajib disertakan untuk update.');
         }
 
-        $stmtCheck = $db->prepare("SELECT id, title FROM projects WHERE id = ?");
+        $stmtCheck = $db->prepare("SELECT * FROM projects WHERE id = ?");
         $stmtCheck->execute([$id]);
         $existing = $stmtCheck->fetch();
         if (!$existing) {
             sendJsonError("Proyek '{$id}' tidak ditemukan.", 404);
         }
+
+        $fundingTarget = cleanMoney($input['funding_target'] ?? ($existing['funding_target'] ?? '0'));
+        $fundingCollected = cleanMoney($input['funding_collected'] ?? ($existing['funding_collected'] ?? '0'));
 
         $cityId = isset($input['city_id']) ? (!empty($input['city_id']) ? (int)$input['city_id'] : null) : ($existing['city_id'] ?? null);
         $cityName = trim($input['city'] ?? ($existing['city'] ?? ''));
@@ -236,6 +239,12 @@ try {
         } elseif (!$cityId) {
             $cityName = null;
         }
+
+        $targetDisplay = !empty($input['target_display']) 
+            ? trim($input['target_display']) 
+            : (!empty($existing['target_display']) ? $existing['target_display'] : ('Rp ' . number_format((float)$fundingTarget, 0, ',', '.')));
+
+        $featured = isset($input['featured']) ? (!empty($input['featured']) ? 1 : 0) : (int)($existing['featured'] ?? 0);
 
         $db->beginTransaction();
 
@@ -251,28 +260,29 @@ try {
             $cityId,
             $cityName,
             $input['title'] ?? $existing['title'],
-            $input['category'] ?? 'Alat Berat & Infrastruktur',
-            $input['image'] ?? 'assets/img/komatsu.jpg',
+            $input['category'] ?? ($existing['category'] ?? 'Alat Berat & Infrastruktur'),
+            $input['image'] ?? ($existing['image'] ?? 'assets/img/komatsu.jpg'),
             $fundingCollected,
             $fundingTarget,
-            $input['status'] ?? 'Open',
-            !empty($input['featured']) ? 1 : 0,
-            $input['lokasi'] ?? '',
-            $input['target_display'] ?? '',
-            $input['tenor'] ?? '36 Bulan',
-            $input['return_rate'] ?? '≥30% (p.a.)',
-            $input['risk_level'] ?? 'Menengah - Terukur',
-            $input['min_investment'] ?? 'Rp 500.000.000',
-            $input['payout'] ?? 'Bagi Hasil Kompetitif',
-            $input['remaining_days'] ?? '18 Hari Tersisa',
-            $input['asset_backed'] ?? 'Unit CBU Grade A & BPKB',
+            $input['status'] ?? ($existing['status'] ?? 'Open'),
+            $featured,
+            $input['lokasi'] ?? ($existing['lokasi'] ?? ''),
+            $targetDisplay,
+            $input['tenor'] ?? ($existing['tenor'] ?? '36 Bulan'),
+            $input['return_rate'] ?? ($existing['return_rate'] ?? '≥30% (p.a.)'),
+            $input['risk_level'] ?? ($existing['risk_level'] ?? 'Menengah - Terukur'),
+            $input['min_investment'] ?? ($existing['min_investment'] ?? 'Rp 500.000.000'),
+            $input['payout'] ?? ($existing['payout'] ?? 'Bagi Hasil Kompetitif'),
+            $input['remaining_days'] ?? ($existing['remaining_days'] ?? '18 Hari Tersisa'),
+            $input['asset_backed'] ?? ($existing['asset_backed'] ?? 'Unit CBU Grade A & BPKB'),
             $id
         ]);
 
         // Update Detail
-        $stmtDetCheck = $db->prepare("SELECT id FROM project_details WHERE project_id = ?");
+        $stmtDetCheck = $db->prepare("SELECT * FROM project_details WHERE project_id = ?");
         $stmtDetCheck->execute([$id]);
-        if ($stmtDetCheck->fetch()) {
+        $existingDet = $stmtDetCheck->fetch();
+        if ($existingDet) {
             $stmtDetUp = $db->prepare("
                 UPDATE project_details SET
                     tagline = ?, what_will_provide_title = ?, what_will_provide_content = ?,
@@ -280,13 +290,13 @@ try {
                 WHERE project_id = ?
             ");
             $stmtDetUp->execute([
-                $input['tagline'] ?? '',
-                $input['what_will_provide_title'] ?? 'Alokasi Penggunaan Modal',
-                $input['what_will_provide_content'] ?? '',
-                $input['sinergi_title'] ?? 'Struktur Kemitraan Strategis',
-                $input['sinergi_content'] ?? '',
-                $input['summary_title'] ?? 'Ringkasan Kelayakan Investasi',
-                $input['summary_content'] ?? '',
+                $input['tagline'] ?? ($existingDet['tagline'] ?? ''),
+                $input['what_will_provide_title'] ?? ($existingDet['what_will_provide_title'] ?? 'Alokasi Penggunaan Modal (Use of Funds & Asset Acquisition)'),
+                $input['what_will_provide_content'] ?? ($existingDet['what_will_provide_content'] ?? ''),
+                $input['sinergi_title'] ?? ($existingDet['sinergi_title'] ?? 'Struktur Kemitraan Strategis & Jaminan Penyerapan Pasar (Offtake Framework)'),
+                $input['sinergi_content'] ?? ($existingDet['sinergi_content'] ?? ''),
+                $input['summary_title'] ?? ($existingDet['summary_title'] ?? 'Ringkasan Kelayakan Investasi & Profil Risiko (Feasibility Summary)'),
+                $input['summary_content'] ?? ($existingDet['summary_content'] ?? ''),
                 $id
             ]);
         } else {
@@ -299,11 +309,11 @@ try {
             $stmtDetIns->execute([
                 $id,
                 $input['tagline'] ?? '',
-                $input['what_will_provide_title'] ?? 'Alokasi Penggunaan Modal',
+                $input['what_will_provide_title'] ?? 'Alokasi Penggunaan Modal (Use of Funds & Asset Acquisition)',
                 $input['what_will_provide_content'] ?? '',
-                $input['sinergi_title'] ?? 'Struktur Kemitraan Strategis',
+                $input['sinergi_title'] ?? 'Struktur Kemitraan Strategis & Jaminan Penyerapan Pasar (Offtake Framework)',
                 $input['sinergi_content'] ?? '',
-                $input['summary_title'] ?? 'Ringkasan Kelayakan Investasi',
+                $input['summary_title'] ?? 'Ringkasan Kelayakan Investasi & Profil Risiko (Feasibility Summary)',
                 $input['summary_content'] ?? ''
             ]);
         }
