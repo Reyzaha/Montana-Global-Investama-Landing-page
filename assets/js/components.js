@@ -53,7 +53,8 @@ const MGIComponents = {
                   <div class="text-muted small text-truncate" style="font-size: 0.75rem;">${user.email}</div>
                   <div class="badge bg-mgi-gold-subtle text-gold small mt-1 rounded-1">Investor ${typeLabel}</div>
                 </li>
-                <li><a class="dropdown-item py-2 fw-bold text-dark" href="investor-dashboard.html"><i class="bi bi-briefcase-fill me-2 text-gold"></i>Portofolio Project Investasi</a></li>
+                <li><a class="dropdown-item py-2 fw-bold text-dark" href="investor-dashboard.html"><i class="bi bi-speedometer2 me-2 text-gold"></i>Dashboard Investor</a></li>
+                <li><a class="dropdown-item py-2" href="investor-dashboard.html"><i class="bi bi-pie-chart-fill me-2 text-gold"></i>My Portofolio &amp; Dividen</a></li>
                 <li><a class="dropdown-item py-2" href="invest.html"><i class="bi bi-grid me-2 text-gold"></i>Katalog Project Terbuka</a></li>
                 <li><a class="dropdown-item py-2" href="contact.html"><i class="bi bi-geo-alt me-2 text-gold"></i>Lokasi & Layanan</a></li>
                 <li><hr class="dropdown-divider"></li>
@@ -193,7 +194,7 @@ const MGIComponents = {
     let icon = 'bi-record-circle-fill';
     let label = 'Dibuka';
 
-    if (s.includes('fully') || s.includes('funded') || s.includes('didanai')) {
+    if (s.includes('fully') || s.includes('funded') || s.includes('fund') || s.includes('didanai')) {
       badgeClass = 'badge-solid-funded';
       icon = 'bi-check-circle-fill';
       label = 'Didanai Penuh';

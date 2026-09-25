@@ -9,9 +9,11 @@ require_once __DIR__ . '/../backend/config/db.php';
 require_once __DIR__ . '/../backend/helpers/response.php';
 require_once __DIR__ . '/../backend/helpers/auth_helper.php';
 
+$projectId = $_GET['id'] ?? null;
+$cityFilter = trim($_GET['city'] ?? '');
+
 try {
     $db = getDB();
-    $projectId = $_GET['id'] ?? null;
     $investorSession = getInvestorSession();
     $isAuthenticated = ($investorSession !== null);
 
@@ -35,7 +37,6 @@ try {
     $isGated = $requireAuth && !$isAuthenticated;
 
     // Filter kota jika ada parameter ?city=
-    $cityFilter = trim($_GET['city'] ?? '');
     $whereSql = "";
     $queryParams = [];
     if (!empty($cityFilter) && $cityFilter !== 'all') {
@@ -274,6 +275,17 @@ try {
                 }
             }
             unset($sp);
+        }
+
+        if ($projectId && isset($staticData['projects'])) {
+            $single = null;
+            foreach ($staticData['projects'] as $p) {
+                if ($p['id'] === $projectId) {
+                    $single = $p;
+                    break;
+                }
+            }
+            $staticData['project'] = $single;
         }
 
         sendJsonResponse($staticData, 200);

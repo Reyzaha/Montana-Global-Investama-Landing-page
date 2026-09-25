@@ -38,17 +38,25 @@ const MGI = {
   fetchData: async function (endpoint) {
     const apiTarget = this.apiMap[endpoint] || endpoint;
     
-    // 1. Try fetching from dynamic Backend API first
+    // 1. Try fetching from dynamic Backend API first (with 1.5s timeout protection)
     if (apiTarget !== endpoint) {
       try {
-        const apiResponse = await fetch(apiTarget, { cache: 'no-store' });
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 1500);
+
+        const apiResponse = await fetch(apiTarget, { 
+          cache: 'no-store',
+          signal: controller.signal 
+        });
+        clearTimeout(timeoutId);
+
         if (apiResponse.ok) {
           const apiData = await apiResponse.json();
           // Check if response is standardized wrapper or raw object
           return (apiData && apiData.data && apiData.success !== undefined) ? apiData.data : apiData;
         }
       } catch (apiErr) {
-        console.warn(`[MGI Renderer] Dynamic API (${apiTarget}) unavailable, falling back to static JSON (${endpoint})...`);
+        console.warn(`[MGI Renderer] Dynamic API (${apiTarget}) unavailable or timed out, falling back to static JSON (${endpoint})...`);
       }
     }
 

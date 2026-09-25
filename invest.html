@@ -93,6 +93,8 @@
           (Fully Funded)</button>
         <button class="btn btn-sm btn-outline-gold rounded-pill px-3 filter-btn" data-filter="coming">Segera Hadir
           (Coming Soon)</button>
+        <button class="btn btn-sm btn-outline-gold rounded-pill px-3 filter-btn" data-filter="closed">Ditutup
+          (Closed)</button>
       </div>
     </div>
   </header>
@@ -129,7 +131,20 @@
 
       // Fetch projects data
       const data = await MGI.fetchData('data/projects.json');
-      if (!data || !data.projects) return;
+      if (!data || !data.projects) {
+        const grid = document.getElementById('investProjectsGrid');
+        if (grid) {
+          grid.innerHTML = `
+            <div class="col-12 text-center py-5 bg-white rounded-3 border border-subtle shadow-sm my-3">
+              <i class="bi bi-exclamation-triangle text-gold fs-1 d-block mb-3"></i>
+              <h5 class="text-dark fw-bold mb-2">Gagal Memuat Katalog Proyek</h5>
+              <p class="text-muted small mb-3">Terjadi kendala saat memuat data proyek. Silakan coba muat ulang halaman.</p>
+              <button class="btn btn-gold btn-sm rounded-pill px-4 text-white fw-bold" onclick="window.location.reload()">Muat Ulang</button>
+            </div>
+          `;
+        }
+        return;
+      }
 
       // Render top compliance banner
       const topDisclaimer = document.getElementById('topDisclaimerContainer');
@@ -198,11 +213,13 @@
           if (filterVal === 'all') {
             renderProjects(allProjects);
           } else if (filterVal === 'open') {
-            renderProjects(allProjects.filter(p => p.status.toLowerCase().includes('open')));
+            renderProjects(allProjects.filter(p => p.status.toLowerCase().includes('open') || p.status.toLowerCase().includes('buka')));
           } else if (filterVal === 'funded') {
-            renderProjects(allProjects.filter(p => p.status.toLowerCase().includes('funded')));
+            renderProjects(allProjects.filter(p => p.status.toLowerCase().includes('funded') || p.status.toLowerCase().includes('fund') || p.status.toLowerCase().includes('didanai')));
           } else if (filterVal === 'coming') {
-            renderProjects(allProjects.filter(p => p.status.toLowerCase().includes('soon') || p.status.toLowerCase().includes('coming')));
+            renderProjects(allProjects.filter(p => p.status.toLowerCase().includes('soon') || p.status.toLowerCase().includes('coming') || p.status.toLowerCase().includes('segera')));
+          } else if (filterVal === 'closed') {
+            renderProjects(allProjects.filter(p => p.status.toLowerCase().includes('close') || p.status.toLowerCase().includes('tutup')));
           }
         });
       });

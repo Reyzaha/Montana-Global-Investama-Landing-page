@@ -477,6 +477,42 @@ try {
             'Manajemen PT Montana Global Investama telah menuntaskan distribusi bagi hasil kompetitif periode Q2 kepada seluruh investor mitra perorangan dan korporasi terdaftar secara tepat waktu. Laporan keuangan proyek telah diverifikasi oleh tim kepatuhan internal.',
             'assets/img/project-jabodetabek.jpg',
             3
+        ],
+        [
+            'proj-makassar',
+            'Persiapan Mobilisasi Unit Komatsu PC200-8 ke Pelabuhan Makassar',
+            'Logistik & Mobilisasi',
+            '2024-09-10',
+            'Armada Excavator Komatsu PC200-8 telah selesai melalui tahap inspeksi fungsi dan siap diberangkatkan melalui armada kapal kargo Montana Sentra Industri (MSI) menuju Pelabuhan New Port Makassar.',
+            'assets/img/project-makasar.jpg',
+            1
+        ],
+        [
+            'proj-kebumen',
+            'Kesiapan Armada & Sentral Workshop Montana Pool Kebumen 4.500 m²',
+            'Workshop & Operasional',
+            '2024-09-05',
+            'Pendanaan penuh 100% telah dialokasikan pada pengadaan 5 unit Komatsu. Seluruh unit kini siaga di sentral pool Kebumen untuk mendukung proyek JJLS dan jaringan irigasi Jawa Tengah.',
+            'assets/img/project-kebumen.jpg',
+            1
+        ],
+        [
+            'proj-denpasar',
+            'Pengerjaan Penataan Lansekap Resor Mewah di Bali Selatan Berjalan Efektif',
+            'Operasional Proyek',
+            '2024-08-28',
+            'Armada mini excavator Komatsu PC78US-8 mencatatkan performa optimal dan minim kebisingan di proyek resor pariwisata premium Bali Selatan.',
+            'assets/img/project-denpasar.jpg',
+            1
+        ],
+        [
+            'proj-surabaya',
+            'Survei Kebutuhan Alat Berat & Pra-Registrasi Minat Pemodal Kawasan Industri Surabaya',
+            'Persiapan Proyek',
+            '2024-09-18',
+            'Tim riset investasi MGI menyelesaikan survei kelayakan pasar koridor logistik dan industri manufaktur Jawa Timur sebagai persiapan pembukaan penawaran proyek.',
+            'assets/img/project-surabaya.jpg',
+            1
         ]
     ];
 

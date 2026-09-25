@@ -24,6 +24,20 @@ class Database {
             $lastException = null;
 
             foreach ($portsToTry as $port) {
+                // Quick socket handshake check (max 250ms) to detect dead/hung daemons on Windows
+                $fp = @fsockopen($host, $port, $errno, $errstr, 0.2);
+                if (!$fp) {
+                    continue;
+                }
+                stream_set_timeout($fp, 0, 200000); // 200ms
+                $char = fgetc($fp);
+                $meta = stream_get_meta_data($fp);
+                fclose($fp);
+                if ($meta['timed_out'] || $char === false) {
+                    // Daemon is dead/hung, skip immediately to avoid 60s freeze!
+                    continue;
+                }
+
                 try {
                     $dsn = "mysql:host={$host};port={$port};dbname={$dbname};charset=utf8mb4";
                     $options = [

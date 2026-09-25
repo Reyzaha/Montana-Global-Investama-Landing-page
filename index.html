@@ -537,8 +537,8 @@
         const heroCtaBtns = document.getElementById('heroCtaBtns');
 
         if (hasActiveProjects) {
-          // Jika ada proyek riil yang aktif, tampilkan spotlight card di hero
-          const featured = projectsList.find(p => p.featured) || projectsList[0];
+          // Proyek unggulan yang ditampilkan di spotlight hero beranda (Prioritas Sentral Pool Kebumen)
+          const featured = projectsList.find(p => p.id === 'proj-kebumen') || projectsList.find(p => p.featured) || projectsList[0];
           if (featured && heroFeaturedCol) {
             const collectedAmount = featured.funding ? (featured.funding.collected || 0) : 0;
             const targetAmount = featured.funding ? (featured.funding.target || 1) : 1;
@@ -555,7 +555,7 @@
                     </span>
                   </div>
                   <div class="position-absolute top-0 end-0 m-3 d-flex flex-column align-items-end gap-1">
-                    <span class="badge bg-royal text-white px-2.5 py-1 rounded-1 fw-bold small">● ${(featured.status === 'Open' || featured.status === 'open' || !featured.status) ? 'Dibuka' : (featured.status === 'Closed' ? 'Ditutup' : featured.status)}</span>
+                    ${MGIComponents.renderStatusBadge(featured.status)}
                   </div>
                 </div>
 

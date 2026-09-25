@@ -2,48 +2,48 @@
   "cities": [
     {
       "id": 1,
+      "name": "Surabaya",
+      "slug": "surabaya",
+      "icon": "bi-building-fill",
+      "is_active_segment": 1,
+      "sort_order": 1,
+      "description": "Sentra Industri, Koridor Logistik Pelabuhan Tanjung Perak & Infrastruktur Jawa Timur"
+    },
+    {
+      "id": 2,
+      "name": "Denpasar",
+      "slug": "denpasar",
+      "icon": "bi-sun-fill",
+      "is_active_segment": 1,
+      "sort_order": 2,
+      "description": "Ekspansi Unit Resor Mewah, Pariwisata, Perhotelan & Infrastruktur Bali"
+    },
+    {
+      "id": 3,
+      "name": "Makassar",
+      "slug": "makassar",
+      "icon": "bi-geo-alt-fill",
+      "is_active_segment": 1,
+      "sort_order": 3,
+      "description": "Gerbang Indonesia Timur, Logistik Pelabuhan New Port & Penunjang Sektor Sumber Daya"
+    },
+    {
+      "id": 4,
+      "name": "Kebumen",
+      "slug": "kebumen",
+      "icon": "bi-gear-wide-connected",
+      "is_active_segment": 1,
+      "sort_order": 4,
+      "description": "Sentral Pool & Workshop Montana 4.500 m², Jalur JJLS & Agribisnis Jawa Tengah"
+    },
+    {
+      "id": 5,
       "name": "Jabodetabek & Jawa Barat",
       "slug": "jabodetabek-jawa-barat",
       "icon": "bi-geo-alt-fill",
       "is_active_segment": 1,
-      "sort_order": 1,
-      "description": "Project Ekspansi Sentral Pool & Heavy Duty Komatsu Regional Jabodetabek dan Jawa Barat"
-    },
-    {
-      "id": 2,
-      "name": "Cilacap",
-      "slug": "cilacap",
-      "icon": "bi-water",
-      "is_active_segment": 1,
-      "sort_order": 2,
-      "description": "Kawasan Industri Semen & Logistik Pelabuhan Tanjung Intan"
-    },
-    {
-      "id": 3,
-      "name": "Semarang",
-      "slug": "semarang",
-      "icon": "bi-pin-map-fill",
-      "is_active_segment": 1,
-      "sort_order": 3,
-      "description": "Koridor Logistik, Kuari Agregat & Infrastruktur Tol Trans Jawa"
-    },
-    {
-      "id": 4,
-      "name": "Bali",
-      "slug": "bali",
-      "icon": "bi-sun-fill",
-      "is_active_segment": 1,
-      "sort_order": 4,
-      "description": "Ekspansi Unit Compact Resor, Hotel Premium & Pariwisata"
-    },
-    {
-      "id": 5,
-      "name": "NTB",
-      "slug": "ntb",
-      "icon": "bi-geo-alt-fill",
-      "is_active_segment": 1,
       "sort_order": 5,
-      "description": "Proyek Pertambangan Mineral & Infrastruktur Jalan Lingkar Lombok-Sumbawa"
+      "description": "Project Ekspansi Sentral Pool & Heavy Duty Komatsu Regional Jabodetabek dan Jawa Barat"
     }
   ]
 }

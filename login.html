@@ -280,9 +280,9 @@
         MGIAuth.setRedirectUrl(redirectParam);
       }
 
-      // If user is already logged in, redirect away
+      // If user is already logged in, redirect directly to investor dashboard
       if (MGIAuth.isLoggedIn()) {
-        const targetUrl = MGIAuth.getRedirectUrl() || 'index.html';
+        const targetUrl = MGIAuth.getRedirectUrl() || 'investor-dashboard.html';
         window.location.href = targetUrl;
         return;
       }
@@ -322,14 +322,14 @@
                 <div>
                   <h5 class="alert-heading fw-bold mb-1">Login Berhasil!</h5>
                   <p class="small mb-0 lh-base">
-                    ${result.message} Mengalihkan ke beranda dalam 1 detik...
+                    ${result.message} Mengalihkan ke Dashboard Investor dalam 1 detik...
                   </p>
                 </div>
               </div>
             `;
             alertContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
-            const targetUrl = MGIAuth.getRedirectUrl() || 'index.html';
+            const targetUrl = MGIAuth.getRedirectUrl() || 'investor-dashboard.html';
             setTimeout(() => {
               window.location.href = targetUrl;
             }, 1000);

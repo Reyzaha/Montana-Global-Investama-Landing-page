@@ -15,8 +15,8 @@
         "target": 10000000000,
         "currency": "IDR"
       },
-      "status": "Dibuka",
-      "featured": true,
+      "status": "Open",
+      "featured": false,
       "info": {
         "lokasi": "DKI Jakarta & Jawa Barat",
         "target": "Rp 10.000.000.000",
@@ -93,6 +93,387 @@
           "tenor_bulan": 36,
           "estimasi_return_persen": 32,
           "modal_kerja_bulanan_persen": 2.4,
+          "minimum_investasi": 500000000,
+          "maximum_investasi": 500000000000,
+          "default_investasi": 500000000
+        }
+      }
+    },
+    {
+      "id": "proj-surabaya",
+      "city": "Surabaya",
+      "city_icon": "bi-building-fill",
+      "city_icon_img": "assets/img/city-surabaya.png",
+      "title": "01 — Surabaya Industrial Growth",
+      "category": "Investasi Alat Berat untuk Mendukung Ekspansi Industri, Infrastruktur & Logistik",
+      "image": "assets/img/project-surabaya.jpg",
+      "funding": {
+        "collected": 0,
+        "target": 5000000000,
+        "currency": "IDR"
+      },
+      "status": "Coming Soon",
+      "featured": false,
+      "info": {
+        "lokasi": "Surabaya & Jawa Timur",
+        "target": "Rp 5.000.000.000",
+        "tenor": "36 Bulan",
+        "return": "≥30% (p.a.)",
+        "min_investment": "Rp 500.000.000",
+        "payout": "Bagi Hasil Kuartalan",
+        "remaining_days": "Segera Hadir",
+        "asset_backed": "Aset Fisik Komatsu CBU Grade A",
+        "brand": "Komatsu CBU Grade A",
+        "stock_available": "Alokasi Unit Sesuai Tahapan",
+        "capitalization_value": "Rp 6,5 Miliar"
+      },
+      "detail": {
+        "tagline": "Investasi Alat Berat untuk Mendukung Ekspansi Industri, Infrastruktur & Logistik Regional Surabaya & Jawa Timur",
+        "what_will_provide": {
+          "type": "text",
+          "title": "Alokasi Penggunaan Modal Proyek Surabaya",
+          "content": "Permodalan dialokasikan untuk penambahan unit alat berat Komatsu CBU Jepang Grade A guna memperkuat penetrasi operasional pada sentra industri manufaktur, koridor logistik pelabuhan Tanjung Perak, dan ekspansi infrastruktur regional Jawa Timur."
+        },
+        "funding_target": {
+          "type": "table",
+          "title": "Target Pendanaan & Nilai Alokasi Unit",
+          "columns": [
+            "No",
+            "Item Pengadaan / Spesifikasi",
+            "Qty",
+            "Harga Satuan (IDR)",
+            "Total Alokasi (IDR)"
+          ],
+          "rows": [
+            {
+              "no": 1,
+              "item": "Excavator Komatsu PC200-8 CBU Jepang Grade A",
+              "quantity": 2,
+              "unit_price": 1650000000,
+              "total": 3300000000
+            },
+            {
+              "no": 2,
+              "item": "Excavator Komatsu PC138US-8 Compact Tail",
+              "quantity": 1,
+              "unit_price": 950000000,
+              "total": 950000000
+            },
+            {
+              "no": 3,
+              "item": "Logistik, Sertifikasi & Cadangan Operasional Kas Project",
+              "quantity": 1,
+              "unit_price": 750000000,
+              "total": 750000000
+            }
+          ],
+          "grand_total": 5000000000
+        },
+        "about_sinergi_foundation": {
+          "type": "text",
+          "title": "Kerangka Kontrak Penyerapan Pasar Surabaya",
+          "content": "Kebutuhan alat berat di koridor industri Surabaya, Gresik, hingga Sidoarjo memiliki tingkat utilisasi tinggi dengan kontrak penyewaan jangka menengah dan panjang dari mitra kontraktor terverifikasi."
+        },
+        "summary": {
+          "type": "text",
+          "title": "Ringkasan Kelayakan Proyek Investasi",
+          "content": "Investasi berbasis unit fisik riil dengan likuiditas tinggi, proyeksi imbal hasil terukur ≥30% per tahun, didukung proteksi asuransi alat berat komprehensif dan monitoring sistem terpadu."
+        },
+        "simulation": {
+          "tenor_bulan": 36,
+          "estimasi_return_persen": 30,
+          "modal_kerja_bulanan_persen": 2.2,
+          "minimum_investasi": 500000000,
+          "maximum_investasi": 500000000000,
+          "default_investasi": 500000000
+        }
+      }
+    },
+    {
+      "id": "proj-denpasar",
+      "city": "Denpasar",
+      "city_icon": "bi-sun-fill",
+      "city_icon_img": "assets/img/city-denpasar.png",
+      "title": "02 — Bali Tourism & Infrastructure Growth",
+      "category": "Investasi Alat Berat untuk Mendukung Pertumbuhan Pariwisata, Properti & Infrastruktur Bali",
+      "image": "assets/img/project-denpasar.jpg",
+      "funding": {
+        "collected": 7000000000,
+        "target": 7000000000,
+        "currency": "IDR"
+      },
+      "status": "Closed",
+      "featured": false,
+      "info": {
+        "lokasi": "Denpasar & Bali",
+        "target": "Rp 7.000.000.000",
+        "tenor": "36 Bulan",
+        "return": "≥32% (p.a.)",
+        "min_investment": "Rp 500.000.000",
+        "payout": "Bagi Hasil Kuartalan Berjalan",
+        "remaining_days": "Pendanaan Selesai",
+        "asset_backed": "Aset Fisik Komatsu CBU Grade A",
+        "brand": "Komatsu CBU Grade A",
+        "stock_available": "6 Unit Aktif Operasional Lapangan",
+        "capitalization_value": "Rp 9,2 Miliar"
+      },
+      "detail": {
+        "tagline": "Investasi Alat Berat untuk Mendukung Pertumbuhan Pariwisata, Properti & Infrastruktur Bali",
+        "what_will_provide": {
+          "type": "text",
+          "title": "Alokasi Penggunaan Modal Proyek Bali",
+          "content": "Dana dialokasikan untuk penempatan armada alat berat kompak dan heavy-duty (Komatsu PC78US-8 dan PC200-8) dalam rangka konstruksi resor mewah pariwisata, penataan lansekap perhotelan, dan infrastruktur strategis di wilayah Bali."
+        },
+        "funding_target": {
+          "type": "table",
+          "title": "Target Pendanaan & Nilai Alokasi Unit",
+          "columns": [
+            "No",
+            "Item Pengadaan / Spesifikasi",
+            "Qty",
+            "Harga Satuan (IDR)",
+            "Total Alokasi (IDR)"
+          ],
+          "rows": [
+            {
+              "no": 1,
+              "item": "Excavator Komatsu PC200-8 CBU Jepang Grade A",
+              "quantity": 2,
+              "unit_price": 1650000000,
+              "total": 3300000000
+            },
+            {
+              "no": 2,
+              "item": "Mini Excavator Komatsu PC78US-8 (Kompak Resor)",
+              "quantity": 3,
+              "unit_price": 800000000,
+              "total": 2400000000
+            },
+            {
+              "no": 3,
+              "item": "Mobilisasi Lintas Pulau & Asuransi All Risk",
+              "quantity": 1,
+              "unit_price": 650000000,
+              "total": 650000000
+            },
+            {
+              "no": 4,
+              "item": "Cadangan Pemeliharaan & Workshop Support Regional Bali",
+              "quantity": 1,
+              "unit_price": 650000000,
+              "total": 650000000
+            }
+          ],
+          "grand_total": 7000000000
+        },
+        "about_sinergi_foundation": {
+          "type": "text",
+          "title": "Kerangka Kontrak Penyerapan Pasar Bali",
+          "content": "Sektor hospitality dan real estate premium di Bali memerlukan armada alat berat dengan standar emisi dan kebisingan rendah untuk proyek pembangunan resor dan perataan lahan bertaraf internasional."
+        },
+        "summary": {
+          "type": "text",
+          "title": "Ringkasan Kelayakan Proyek Investasi",
+          "content": "Pendanaan proyek telah ditutup penuh (Closed) dan seluruh unit telah beroperasi aktif dengan jadwal distribusi dividen berjalan tepat waktu kepada para mitra investor."
+        },
+        "simulation": {
+          "tenor_bulan": 36,
+          "estimasi_return_persen": 32,
+          "modal_kerja_bulanan_persen": 2.4,
+          "minimum_investasi": 500000000,
+          "maximum_investasi": 500000000000,
+          "default_investasi": 500000000
+        }
+      }
+    },
+    {
+      "id": "proj-makassar",
+      "city": "Makassar",
+      "city_icon": "bi-geo-alt-fill",
+      "city_icon_img": "assets/img/city-makassar.png",
+      "title": "03 — Makassar Infrastructure & Resource Growth",
+      "category": "Investasi Alat Berat untuk Mendukung Infrastruktur, Logistik & Aktivitas Sektor Sumber Daya",
+      "image": "assets/img/project-makasar.jpg",
+      "funding": {
+        "collected": 3200000000,
+        "target": 5000000000,
+        "currency": "IDR"
+      },
+      "status": "Open",
+      "featured": false,
+      "info": {
+        "lokasi": "Makassar & Sulawesi Selatan",
+        "target": "Rp 5.000.000.000",
+        "tenor": "36 Bulan",
+        "return": "≥32% (p.a.)",
+        "min_investment": "Rp 500.000.000",
+        "payout": "Bagi Hasil Kuartalan",
+        "remaining_days": "24 Hari Tersisa",
+        "asset_backed": "Aset Fisik Komatsu CBU Grade A",
+        "brand": "Komatsu CBU Grade A",
+        "stock_available": "4 Unit Komatsu Siap Operasi",
+        "capitalization_value": "Rp 6,8 Miliar"
+      },
+      "detail": {
+        "tagline": "Investasi Alat Berat untuk Mendukung Infrastruktur, Logistik & Aktivitas Sektor Sumber Daya Regional Sulawesi",
+        "what_will_provide": {
+          "type": "text",
+          "title": "Alokasi Penggunaan Modal Proyek Makassar",
+          "content": "Pendanaan dialokasikan untuk pengadaan armada Excavator Komatsu PC200-8 dan penunjang operasional guna memenuhi tingginya permintaan galian material, infrastruktur pelabuhan New Port Makassar, serta koridor logistik industri nikel & mineral di Sulawesi."
+        },
+        "funding_target": {
+          "type": "table",
+          "title": "Target Pendanaan & Nilai Alokasi Unit",
+          "columns": [
+            "No",
+            "Item Pengadaan / Spesifikasi",
+            "Qty",
+            "Harga Satuan (IDR)",
+            "Total Alokasi (IDR)"
+          ],
+          "rows": [
+            {
+              "no": 1,
+              "item": "Excavator Komatsu PC200-8 CBU Jepang Grade A",
+              "quantity": 2,
+              "unit_price": 1650000000,
+              "total": 3300000000
+            },
+            {
+              "no": 2,
+              "item": "Excavator Komatsu PC138US-8 Compact Tail",
+              "quantity": 1,
+              "unit_price": 950000000,
+              "total": 950000000
+            },
+            {
+              "no": 3,
+              "item": "Dukungan Armada Towing, Mobilisasi & Casis Khusus",
+              "quantity": 1,
+              "unit_price": 450000000,
+              "total": 450000000
+            },
+            {
+              "no": 4,
+              "item": "Biaya Asuransi Alat Berat & Cadangan Operasional Kas",
+              "quantity": 1,
+              "unit_price": 300000000,
+              "total": 300000000
+            }
+          ],
+          "grand_total": 5000000000
+        },
+        "about_sinergi_foundation": {
+          "type": "text",
+          "title": "Kerangka Kontrak Penyerapan Pasar Sulawesi",
+          "content": "Sebagai gerbang Indonesia Timur, ekspansi infrastruktur dan hilirisasi tambang di Sulawesi memacu kenaikan permintaan rental unit alat berat dengan kepastian pembayaran kontrak kerja berdurasi multi-tahun."
+        },
+        "summary": {
+          "type": "text",
+          "title": "Ringkasan Kelayakan Proyek Investasi",
+          "content": "Unit riil Grade A dengan jaminan fisik BPKB/faktur kepemilikan sah, imbal hasil terukur ≥32% (p.a.) dengan pelaporan performa berkala dan transparansi pembagian dividen kuartalan."
+        },
+        "simulation": {
+          "tenor_bulan": 36,
+          "estimasi_return_persen": 32,
+          "modal_kerja_bulanan_persen": 2.4,
+          "minimum_investasi": 500000000,
+          "maximum_investasi": 500000000000,
+          "default_investasi": 500000000
+        }
+      }
+    },
+    {
+      "id": "proj-kebumen",
+      "city": "Kebumen",
+      "city_icon": "bi-gear-wide-connected",
+      "city_icon_img": "assets/img/city-jkt-jabar.png",
+      "title": "Sentral Pool & Workshop Alat Berat Kebumen",
+      "category": "Sentral Pool & Workshop Alat Berat Komatsu",
+      "image": "assets/img/project-kebumen.jpg",
+      "funding": {
+        "collected": 4800000000,
+        "target": 6000000000,
+        "currency": "IDR"
+      },
+      "status": "Open",
+      "featured": true,
+      "info": {
+        "lokasi": "Kebumen & Jawa Tengah",
+        "target": "Rp 6.000.000.000",
+        "tenor": "36 Bulan",
+        "return": "≥31% (p.a.)",
+        "min_investment": "Rp 500.000.000",
+        "payout": "Bagi Hasil Kuartalan",
+        "remaining_days": "14 Hari Tersisa",
+        "asset_backed": "Aset Fisik Komatsu CBU Grade A",
+        "brand": "Komatsu CBU Grade A",
+        "stock_available": "5 Unit Siap Operasi di Workshop Kebumen",
+        "capitalization_value": "Rp 7,8 Miliar"
+      },
+      "detail": {
+        "tagline": "Investasi Alat Berat untuk Mendukung Konstruksi, Infrastruktur & Pengembangan Agribisnis Jawa Tengah Bagian Selatan",
+        "what_will_provide": {
+          "type": "text",
+          "title": "Alokasi Penggunaan Modal Proyek Kebumen",
+          "content": "Permodalan dialokasikan untuk pengadaan armada alat berat Excavator Komatsu PC200-8 dan PC138US-8 serta optimalisasi Sentral Pool & Workshop Montana seluas 4.500 m² di Kebumen guna melayani proyek irigasi modern, bendungan, infrastruktur jalan, dan agribisnis koridor selatan Jawa Tengah."
+        },
+        "funding_target": {
+          "type": "table",
+          "title": "Target Pendanaan & Nilai Alokasi Unit",
+          "columns": [
+            "No",
+            "Item Pengadaan / Spesifikasi",
+            "Qty",
+            "Harga Satuan (IDR)",
+            "Total Alokasi (IDR)"
+          ],
+          "rows": [
+            {
+              "no": 1,
+              "item": "Excavator Komatsu PC200-8 CBU Jepang Grade A",
+              "quantity": 2,
+              "unit_price": 1650000000,
+              "total": 3300000000
+            },
+            {
+              "no": 2,
+              "item": "Excavator Komatsu PC138US-8 Compact Tail",
+              "quantity": 2,
+              "unit_price": 950000000,
+              "total": 1900000000
+            },
+            {
+              "no": 3,
+              "item": "Upgrade Fasilitas Pool & Workshop Maintenance 4.500 m²",
+              "quantity": 1,
+              "unit_price": 500000000,
+              "total": 500000000
+            },
+            {
+              "no": 4,
+              "item": "Asuransi Alat Berat & Cadangan Kas Operasional",
+              "quantity": 1,
+              "unit_price": 300000000,
+              "total": 300000000
+            }
+          ],
+          "grand_total": 6000000000
+        },
+        "about_sinergi_foundation": {
+          "type": "text",
+          "title": "Kerangka Kontrak Penyerapan Pasar Kebumen",
+          "content": "Didukung langsung oleh keberadaan sentral workshop pool Montana di Kebumen, unit beroperasi melayani proyek konstruksi jalur lintas selatan (JJLS), perbaikan irigasi pertanian agribisnis, serta pekerjaan sipil regional."
+        },
+        "summary": {
+          "type": "text",
+          "title": "Ringkasan Kelayakan Proyek Investasi",
+          "content": "Pendanaan telah tercapai 100% (Didanai Penuh) berkat partisipasi aktif para mitra pemodal. Aset fisik telah terdistribusi pada kontrak riil dengan tingkat bagi hasil kuartalan yang terjamin."
+        },
+        "simulation": {
+          "tenor_bulan": 36,
+          "estimasi_return_persen": 31,
+          "modal_kerja_bulanan_persen": 2.3,
           "minimum_investasi": 500000000,
           "maximum_investasi": 500000000000,
           "default_investasi": 500000000
