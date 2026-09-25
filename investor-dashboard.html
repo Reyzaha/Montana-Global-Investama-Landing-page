@@ -31,23 +31,29 @@
     :root {
       --apple-bg: #F5F5F7;
       --apple-surface: #FFFFFF;
-      --apple-border: rgba(0, 0, 0, 0.08);
+      --apple-surface-secondary: #FBFBFD;
+      --apple-border: rgba(0, 0, 0, 0.07);
       --apple-border-subtle: rgba(0, 0, 0, 0.04);
       --apple-text-primary: #1D1D1F;
       --apple-text-secondary: #86868B;
+      --apple-text-tertiary: #A1A1A6;
       --apple-blue: #0071E3;
+      --apple-blue-hover: #0077ED;
       --apple-green: #34C759;
       --apple-amber: #FF9500;
       --apple-purple: #AF52DE;
       --apple-indigo: #5856D6;
       --apple-gold: #C5A059;
-      --apple-navy: #0E1838;
+      --apple-navy: #0B1224;
       --apple-radius-sm: 10px;
       --apple-radius-md: 16px;
       --apple-radius-lg: 22px;
+      --apple-radius-xl: 28px;
       --apple-radius-pill: 9999px;
-      --apple-shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 1px 3px 0 rgba(0, 0, 0, 0.02);
-      --apple-shadow-hover: 0 12px 32px -4px rgba(0, 0, 0, 0.09), 0 2px 8px 0 rgba(0, 0, 0, 0.03);
+      --apple-shadow-subtle: 0 2px 10px rgba(0, 0, 0, 0.03);
+      --apple-shadow-card: 0 4px 24px -2px rgba(0, 0, 0, 0.04), 0 1px 3px 0 rgba(0, 0, 0, 0.02);
+      --apple-shadow-hover: 0 16px 36px -4px rgba(0, 0, 0, 0.08), 0 2px 8px 0 rgba(0, 0, 0, 0.03);
+      --apple-shadow-hero: 0 24px 50px -12px rgba(11, 18, 36, 0.35);
     }
 
     body {
@@ -60,18 +66,18 @@
 
     /* Apple Frosted Glass Topbar */
     .investor-portal-topbar {
-      background: rgba(255, 255, 255, 0.86) !important;
+      background: rgba(255, 255, 255, 0.82) !important;
       backdrop-filter: saturate(180%) blur(20px) !important;
       -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
       border-bottom: 1px solid var(--apple-border) !important;
-      box-shadow: 0 2px 14px rgba(0, 0, 0, 0.03);
+      box-shadow: 0 1px 12px rgba(0, 0, 0, 0.03);
       z-index: 1030;
     }
 
     .investor-subbar {
-      background: rgba(255, 255, 255, 0.72) !important;
-      backdrop-filter: blur(12px) !important;
-      -webkit-backdrop-filter: blur(12px) !important;
+      background: rgba(255, 255, 255, 0.75) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
       border-bottom: 1px solid var(--apple-border);
     }
 
@@ -81,7 +87,7 @@
       border-radius: var(--apple-radius-md) !important;
       padding: 5px !important;
       box-shadow: none !important;
-      border: 1px solid rgba(0, 0, 0, 0.05) !important;
+      border: 1px solid rgba(0, 0, 0, 0.04) !important;
     }
 
     .nav-dashboard-tabs .nav-link {
@@ -100,64 +106,267 @@
 
     .nav-dashboard-tabs .nav-link:hover {
       color: var(--apple-text-primary) !important;
-      background: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.55);
     }
 
     .nav-dashboard-tabs .nav-link.active {
       color: var(--apple-text-primary) !important;
       background: #FFFFFF !important;
       font-weight: 600;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 1px rgba(0, 0, 0, 0.1) !important;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04) !important;
     }
 
     .nav-dashboard-tabs .nav-link.active i {
       color: var(--apple-gold) !important;
     }
 
-    /* Apple Metric Cards */
-    .dash-metric-card {
-      background: #FFFFFF;
-      border: 1px solid var(--apple-border);
-      border-radius: var(--apple-radius-md);
-      padding: 22px 24px;
+    /* ===================================================
+       APPLE EXECUTIVE TITANIUM PORTFOLIO HERO MASTER CARD
+       =================================================== */
+    .apple-executive-hero {
+      background: radial-gradient(circle at 90% 10%, rgba(197, 160, 89, 0.18) 0%, transparent 45%),
+                  radial-gradient(circle at 10% 90%, rgba(0, 113, 227, 0.12) 0%, transparent 40%),
+                  linear-gradient(135deg, #0B1224 0%, #101B3B 50%, #16244C 100%);
+      border-radius: var(--apple-radius-xl);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: var(--apple-shadow-hero);
+      padding: 34px 38px;
       position: relative;
       overflow: hidden;
-      box-shadow: var(--apple-shadow-card);
-      height: 100%;
-      border-left: 4px solid var(--apple-gold);
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      color: #FFFFFF;
+      margin-bottom: 28px;
     }
 
-    .dash-metric-card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--apple-shadow-hover);
+    .apple-executive-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
     }
 
-    .dash-metric-card.metric-profit {
-      border-left: 4px solid var(--apple-green) !important;
-    }
-
-    .dash-metric-label {
+    .apple-hero-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: #E6C87C;
+    }
+
+    .apple-hero-balance-label {
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 8px;
+    }
+
+    .apple-hero-balance-val {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: #FFFFFF;
+      margin-bottom: 12px;
+    }
+
+    .apple-hero-profit-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(52, 199, 89, 0.14);
+      border: 1px solid rgba(52, 199, 89, 0.28);
+      border-radius: var(--apple-radius-pill);
+      padding: 6px 16px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #34C759;
+      backdrop-filter: blur(10px);
+    }
+
+    .apple-hero-glass-btn {
+      background: rgba(255, 255, 255, 0.12);
+      color: #FFFFFF !important;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--apple-radius-pill);
+      padding: 9px 18px;
+      font-weight: 600;
+      font-size: 0.84rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .apple-hero-glass-btn:hover {
+      background: rgba(255, 255, 255, 0.22);
+      color: #FFFFFF !important;
+      transform: translateY(-1px);
+    }
+
+    .apple-hero-solid-btn {
+      background: #FFFFFF;
+      color: var(--apple-navy) !important;
+      border: none;
+      border-radius: var(--apple-radius-pill);
+      padding: 9px 20px;
+      font-weight: 600;
+      font-size: 0.84rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .apple-hero-solid-btn:hover {
+      background: #F5F5F7;
+      color: #000000 !important;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+    }
+
+    /* Glass Metric Capsules inside Hero */
+    .apple-hero-capsules {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .apple-capsule-item {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 16px 18px;
+      backdrop-filter: blur(12px);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .apple-capsule-item:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(255, 255, 255, 0.16);
+      transform: translateY(-2px);
+    }
+
+    .apple-capsule-label {
+      font-size: 0.68rem;
       font-weight: 600;
       letter-spacing: 0.6px;
-      color: var(--apple-text-secondary);
       text-transform: uppercase;
-      margin-bottom: 6px;
+      color: rgba(255, 255, 255, 0.55);
+      margin-bottom: 4px;
+      display: block;
     }
 
-    .dash-metric-value {
-      font-size: 1.85rem;
+    .apple-capsule-val {
+      font-size: 1.35rem;
       font-weight: 700;
       letter-spacing: -0.02em;
-      color: var(--apple-text-primary);
+      color: #FFFFFF;
       line-height: 1.2;
-      margin: 4px 0 6px;
+      margin-bottom: 4px;
     }
 
-    .dash-metric-subtext {
-      font-size: 0.8rem;
-      color: var(--apple-text-secondary);
+    .apple-capsule-sub {
+      font-size: 0.74rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    @media (max-width: 991px) {
+      .apple-hero-capsules {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .apple-hero-balance-val {
+        font-size: 2.25rem;
+      }
+      .apple-executive-hero {
+        padding: 26px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .apple-executive-hero {
+        padding: 22px 18px;
+      }
+      .apple-hero-capsules {
+        grid-template-columns: 1fr;
+      }
+      .apple-hero-balance-val {
+        font-size: 1.85rem;
+      }
+    }
+
+    /* ===================================================
+       APPLE PASS CARD (PROYEK INVESTASI YANG SEDANG DIIKUTI)
+       =================================================== */
+    .apple-followed-pass {
+      background: #FFFFFF;
+      border-radius: var(--apple-radius-lg);
+      border: 1px solid var(--apple-border);
+      box-shadow: var(--apple-shadow-card);
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .apple-followed-pass:hover {
+      box-shadow: var(--apple-shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .apple-pass-media {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 270px;
+      overflow: hidden;
+      background: #0E1838;
+    }
+
+    .apple-pass-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .apple-followed-pass:hover .apple-pass-media img {
+      transform: scale(1.03);
+    }
+
+    .apple-pass-gradient-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, transparent 40%, rgba(0, 0, 0, 0.6) 100%);
+      pointer-events: none;
+    }
+
+    .apple-pass-asset-badge {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      padding: 6px 14px;
+      border-radius: var(--apple-radius-pill);
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: #FFFFFF;
+      background: rgba(14, 24, 56, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      z-index: 2;
     }
 
     /* Apple Badges & Dividers */
@@ -505,7 +714,7 @@
         background: #FFFFFF !important;
         color: #000000 !important;
       }
-      .dash-metric-card, .card {
+      .dash-metric-card, .apple-executive-hero, .card {
         box-shadow: none !important;
         border: 1px solid #CBD5E1 !important;
         page-break-inside: avoid;
@@ -517,14 +726,14 @@
 
 <body style="background-color: #F5F5F7 !important;">
 
-  <!-- Dedicated Topbar: Portal Investor Shell (Separated from Public Landing Page) -->
+  <!-- Dedicated Topbar: Portal Investor Shell (Apple Frosted Glass) -->
   <header class="investor-portal-topbar sticky-top">
     <div class="container-fluid px-3 px-lg-5">
       <div class="d-flex align-items-center justify-content-between py-2.5">
         <!-- Brand Identity -->
         <div class="d-flex align-items-center gap-3">
           <a href="investor-dashboard.html" class="d-flex align-items-center gap-2.5 text-decoration-none">
-            <img src="assets/img/mgi-official-logo.png" alt="PT Montana Global Investama" height="40" class="d-inline-block">
+            <img src="assets/img/mgi-official-logo.png" alt="PT Montana Global Investama" height="38" class="d-inline-block">
             <div class="border-start ps-3 border-secondary border-opacity-25 d-none d-sm-block">
               <div class="fw-bold fs-6 lh-1" style="color: #0E1838; letter-spacing: 0.5px;">PORTAL INVESTOR</div>
               <small class="text-uppercase fw-bold" style="font-size: 0.68rem; color: #C5A059; letter-spacing: 0.8px;">PT Montana Global Investama</small>
@@ -538,7 +747,7 @@
 
         <!-- Right Controls: Public Site Link, Profile Chip, Logout -->
         <div class="d-flex align-items-center gap-2 gap-md-3">
-          <a href="index.html" target="_blank" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1.5 d-inline-flex align-items-center gap-1.5 fw-semibold" style="font-size: 0.82rem;">
+          <a href="index.html" target="_blank" class="apple-btn-secondary py-1.5 px-3 d-inline-flex align-items-center gap-1.5 fw-semibold" style="font-size: 0.82rem;">
             <i class="bi bi-box-arrow-up-right"></i>
             <span class="d-none d-sm-inline">Website Publik</span>
           </a>
@@ -554,7 +763,7 @@
               <span class="fw-bold text-dark text-truncate d-none d-md-inline" id="topbarUserName" style="max-width: 150px;">Investor</span>
               <span class="badge text-white small rounded-pill d-none d-lg-inline px-2 py-0.5" id="topbarTypeBadge" style="background: #142563; font-size: 0.72rem;">Perorangan</span>
             </button>
-            <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 p-2" style="min-width: 240px; border-radius: 12px;">
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 p-2" style="min-width: 240px; border-radius: 16px;">
               <li class="px-3 py-2 border-bottom mb-1">
                 <div class="small fw-bold text-dark text-truncate" id="menuUserFullName">Investor</div>
                 <div class="text-muted small text-truncate" id="menuUserEmail" style="font-size: 0.75rem;">investor@email.com</div>
@@ -575,19 +784,24 @@
   </header>
 
   <!-- Subbar Greeting & Quick Actions -->
-  <div class="investor-subbar py-3 bg-white border-bottom mb-4">
+  <div class="investor-subbar py-3 mb-4">
     <div class="container-fluid px-3 px-lg-5">
       <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
         <div>
-          <h4 class="fw-bold text-dark mb-1">Selamat Datang, <span id="dashInvestorName" style="color: #C5A059 !important;">Investor</span>! 👋</h4>
-          <p class="text-muted small mb-0" id="dashInvestorSubtitle">Akses pemantauan modal terintegrasi, laporan hasil usaha berkala, unit alat berat produktif, dan kepatuhan transparansi Tata Kelola Perusahaan yang Baik (TARIF).</p>
+          <div class="d-flex align-items-center gap-2 mb-1">
+            <span class="apple-badge-pill bg-success-subtle text-success">
+              <span class="pulse-dot"></span> Portofolio Sehat &amp; Berjalan
+            </span>
+          </div>
+          <h3 class="fw-bold text-dark mb-1" style="letter-spacing: -0.025em;">Selamat Datang, <span id="dashInvestorName" style="color: #C5A059 !important;">Investor</span>! 👋</h3>
+          <p class="text-secondary small mb-0" id="dashInvestorSubtitle">Akses pemantauan modal terintegrasi, laporan hasil usaha berkala, unit alat berat produktif, dan kepatuhan transparansi Tata Kelola Perusahaan yang Baik (TARIF).</p>
         </div>
         <div class="d-flex align-items-center gap-2">
-          <button type="button" onclick="printPortfolioStatement()" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-2 shadow-sm d-inline-flex align-items-center gap-1.5 fw-semibold" style="font-size: 0.85rem;">
-            <i class="bi bi-printer-fill"></i>
+          <button type="button" onclick="printPortfolioStatement()" class="apple-btn-secondary">
+            <i class="bi bi-printer"></i>
             <span>Cetak Ringkasan</span>
           </button>
-          <button type="button" onclick="switchToTab('tab-projects-btn')" class="btn btn-sm rounded-pill px-4 py-2 fw-bold text-white shadow-sm d-inline-flex align-items-center gap-1.5" style="background: #C5A059; border: none; font-size: 0.85rem;">
+          <button type="button" onclick="switchToTab('tab-projects-btn')" class="apple-btn-primary">
             <i class="bi bi-plus-circle-fill"></i>
             <span>Tambah Penempatan</span>
           </button>
@@ -599,41 +813,41 @@
   <!-- Main Dashboard Content Area -->
   <main class="container-fluid px-3 px-lg-5 py-2">
 
-    <!-- 6 Module Tabs Navigation (Identical to Screenshot) -->
+    <!-- 6 Module Tabs Navigation (Apple Segmented Control) -->
     <ul class="nav nav-dashboard-tabs nav-pills mb-4 d-flex flex-wrap gap-1" id="investorDashboardTabs" role="tablist">
       <li class="nav-item flex-fill">
         <button class="nav-link active w-100 justify-content-center" id="tab-portfolio-btn" data-bs-toggle="pill" data-bs-target="#tab-portfolio" type="button">
-          <i class="bi bi-pie-chart-fill" style="color: #C5A059 !important;"></i>
+          <i class="bi bi-pie-chart-fill"></i>
           <span>My Portofolio</span>
         </button>
       </li>
       <li class="nav-item flex-fill">
         <button class="nav-link w-100 justify-content-center" id="tab-projects-btn" data-bs-toggle="pill" data-bs-target="#tab-projects" type="button">
-          <i class="bi bi-briefcase-fill" style="color: #b45309 !important;"></i>
+          <i class="bi bi-briefcase-fill"></i>
           <span>Project Investor</span>
         </button>
       </li>
       <li class="nav-item flex-fill">
         <button class="nav-link w-100 justify-content-center" id="tab-billing-btn" data-bs-toggle="pill" data-bs-target="#tab-billing" type="button">
-          <i class="bi bi-receipt-cutoff" style="color: #b45309 !important;"></i>
+          <i class="bi bi-receipt-cutoff"></i>
           <span>Billing &amp; Bagi Hasil</span>
         </button>
       </li>
       <li class="nav-item flex-fill">
         <button class="nav-link w-100 justify-content-center" id="tab-updates-btn" data-bs-toggle="pill" data-bs-target="#tab-updates" type="button">
-          <i class="bi bi-broadcast" style="color: #b45309 !important;"></i>
+          <i class="bi bi-broadcast"></i>
           <span>Campaign Update</span>
         </button>
       </li>
       <li class="nav-item flex-fill">
         <button class="nav-link w-100 justify-content-center" id="tab-bank-btn" data-bs-toggle="pill" data-bs-target="#tab-bank" type="button">
-          <i class="bi bi-credit-card-2-front-fill" style="color: #b45309 !important;"></i>
+          <i class="bi bi-credit-card-2-front-fill"></i>
           <span>Bank Account</span>
         </button>
       </li>
       <li class="nav-item flex-fill">
         <button class="nav-link w-100 justify-content-center" id="tab-profile-btn" data-bs-toggle="pill" data-bs-target="#tab-profile" type="button">
-          <i class="bi bi-person-badge-fill" style="color: #b45309 !important;"></i>
+          <i class="bi bi-person-badge-fill"></i>
           <span>Profile Investor</span>
         </button>
       </li>
@@ -646,62 +860,86 @@
       <!-- 1. TAB: MY PORTOFOLIO -->
       <!-- ======================================================== -->
       <div class="tab-pane fade show active" id="tab-portfolio" role="tabpanel">
-        <!-- 5 KPI Metrics (Exact Layout and Accents from Screenshot) -->
-        <div class="row g-3 mb-4">
-          <div class="col-12 col-md-4">
-            <div class="dash-metric-card">
-              <div class="dash-metric-label">TOTAL MODAL DITEMPATKAN</div>
-              <div class="dash-metric-value" id="metricTotalInvested">Rp 500 Juta</div>
-              <div class="dash-metric-subtext">Akumulasi Pokok Project Investasi Riil</div>
+
+        <!-- Apple Executive Titanium Portfolio Hero Master Card -->
+        <div class="apple-executive-hero">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+            <div class="apple-hero-chip">
+              <i class="bi bi-shield-shaded text-warning fs-5"></i>
+              <span>PORTAL EKSEKUTIF INVESTOR &bull; ASET FISIK CBU JEPANG</span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <span class="apple-status-pill status-open position-relative top-0 left-0">
+                <span class="pulse-dot"></span> Status Portofolio: Profit
+              </span>
             </div>
           </div>
 
-          <div class="col-12 col-md-4">
-            <div class="dash-metric-card metric-profit">
-              <div class="dash-metric-label">REALISASI LABA BERSIH (NET PROFIT)</div>
-              <div class="dash-metric-value text-success" id="metricNetProfit" style="color: #10B981 !important;">+Rp 37.5 Juta</div>
-              <div class="dash-metric-subtext">Laba Riil Diterima (Status: <strong style="color: #10B981;">PROFIT / UNTUNG</strong>)</div>
+          <div class="row align-items-end g-4 mb-2">
+            <div class="col-12 col-lg-8">
+              <div class="apple-hero-balance-label">TOTAL MODAL DITEMPATKAN</div>
+              <div class="apple-hero-balance-val" id="metricTotalInvested">Rp 500 Juta</div>
+              <div class="apple-hero-profit-chip">
+                <i class="bi bi-arrow-up-right-circle-fill fs-5"></i>
+                <span>Realisasi Laba Bersih: <strong id="metricNetProfit" class="text-success">+Rp 37.5 Juta</strong></span>
+                <span class="badge bg-success bg-opacity-25 text-success rounded-pill px-2.5 py-0.5 ms-1.5 small fw-bold">PROFIT / UNTUNG</span>
+              </div>
+            </div>
+            <div class="col-12 col-lg-4 text-lg-end">
+              <div class="d-inline-flex flex-wrap gap-2">
+                <button type="button" onclick="printPortfolioStatement()" class="apple-hero-glass-btn">
+                  <i class="bi bi-printer"></i>
+                  <span>Cetak Ringkasan</span>
+                </button>
+                <button type="button" onclick="switchToTab('tab-projects-btn')" class="apple-hero-solid-btn">
+                  <i class="bi bi-plus-circle-fill"></i>
+                  <span>Tambah Penempatan</span>
+                </button>
+              </div>
             </div>
           </div>
 
-          <div class="col-12 col-md-4">
-            <div class="dash-metric-card">
-              <div class="dash-metric-label">RATA-RATA IMBAL HASIL</div>
-              <div class="dash-metric-value" id="metricEstRoi">≥30% (p.a.)</div>
-              <div class="dash-metric-subtext">Kinerja Operasional Agresif &amp; Terukur</div>
+          <!-- 4 Integrated Glass Stat Capsules -->
+          <div class="apple-hero-capsules">
+            <div class="apple-capsule-item">
+              <span class="apple-capsule-label">Rata-Rata Imbal Hasil</span>
+              <div class="apple-capsule-val" id="metricEstRoi">≥30% (p.a.)</div>
+              <div class="apple-capsule-sub">Kinerja Operasional Agresif</div>
             </div>
-          </div>
 
-          <div class="col-12 col-md-6">
-            <div class="dash-metric-card">
-              <div class="dash-metric-label">TOTAL DIVIDEN DITERIMA</div>
-              <div class="dash-metric-value" id="metricTotalPayout" style="color: #2563EB !important;">Rp 37.5 Juta</div>
-              <div class="dash-metric-subtext">Akumulasi Transfer Bagi Hasil ke Rekening</div>
+            <div class="apple-capsule-item">
+              <span class="apple-capsule-label">Total Dividen Diterima</span>
+              <div class="apple-capsule-val" id="metricTotalPayout" style="color: #60A5FA !important;">Rp 37.5 Juta</div>
+              <div class="apple-capsule-sub">Transfer Berkala Masuk Rekening</div>
             </div>
-          </div>
 
-          <div class="col-12 col-md-6">
-            <div class="dash-metric-card">
-              <div class="dash-metric-label">JADWAL DIVIDEN BERIKUTNYA</div>
-              <div class="dash-metric-value" id="metricNextPayout" style="color: #B45309 !important;">15 Okt 2024</div>
-              <div class="dash-metric-subtext">Distribusi Otomatis Periode Berjalan</div>
+            <div class="apple-capsule-item">
+              <span class="apple-capsule-label">Jadwal Dividen Berikutnya</span>
+              <div class="apple-capsule-val" id="metricNextPayout" style="color: #FBBF24 !important;">15 Okt 2024</div>
+              <div class="apple-capsule-sub">Distribusi Otomatis Berjalan</div>
+            </div>
+
+            <div class="apple-capsule-item">
+              <span class="apple-capsule-label">Alokasi Unit Fisik</span>
+              <div class="apple-capsule-val">1x Komatsu PC138US</div>
+              <div class="apple-capsule-sub">Unit Impor CBU Jepang Grade A</div>
             </div>
           </div>
         </div>
 
-        <!-- Tabel Rincian Portofolio Aktif (Exact Match to Screenshot) -->
-        <div class="card bg-white border rounded-4 p-4 shadow-sm mb-4">
+        <!-- Tabel Rincian Portofolio Aktif (Apple Card Style) -->
+        <div class="card bg-white border-0 rounded-4 p-4 shadow-sm mb-4" style="border: 1px solid var(--apple-border) !important; box-shadow: var(--apple-shadow-card) !important;">
           <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 border-bottom pb-3 mb-3">
             <div>
-              <h5 class="fw-bold text-dark mb-1">Rincian Penempatan Portofolio Proyek</h5>
-              <p class="text-muted small mb-0">Daftar instrumen proyek riil dan aset fisik berwujud yang mendukung alokasi modal Anda.</p>
+              <h5 class="fw-bold text-dark mb-1" style="letter-spacing: -0.01em;">Rincian Penempatan Portofolio Proyek</h5>
+              <p class="text-secondary small mb-0">Daftar instrumen proyek riil dan aset fisik berwujud yang mendukung alokasi modal Anda.</p>
             </div>
             <div class="d-flex align-items-center gap-2">
-              <button type="button" onclick="printPortfolioStatement()" class="btn btn-sm btn-outline-primary rounded-pill px-3.5 py-1.5 shadow-sm d-inline-flex align-items-center gap-1.5" style="border: 1.5px solid #3B82F6; color: #2563EB; font-weight: 600;">
-                <i class="bi bi-printer-fill"></i>
-                <span>Cetak Ringkasan Portofolio</span>
+              <button type="button" onclick="printPortfolioStatement()" class="apple-btn-secondary py-1.5 px-3">
+                <i class="bi bi-printer"></i>
+                <span>Cetak Portofolio</span>
               </button>
-              <button type="button" onclick="switchToTab('tab-projects-btn')" class="btn btn-sm btn-outline-dark rounded-pill px-3.5 py-1.5 d-inline-flex align-items-center gap-1.5" style="border: 1.5px solid #475569; color: #334155; font-weight: 600;">
+              <button type="button" onclick="switchToTab('tab-projects-btn')" class="apple-btn-primary py-1.5 px-3">
                 <i class="bi bi-plus-circle"></i>
                 <span>Tambah Penempatan</span>
               </button>
@@ -711,7 +949,7 @@
           <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
               <thead class="table-light">
-                <tr class="small text-uppercase text-secondary" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                <tr class="small text-uppercase text-secondary" style="font-size: 0.74rem; letter-spacing: 0.6px;">
                   <th>PROYEK &amp; NOMOR SERTIFIKAT</th>
                   <th>UNIT FISIK TERALOKASI</th>
                   <th>MODAL TERPASANG</th>
@@ -732,14 +970,17 @@
           </div>
         </div>
 
-        <!-- Info Card: Jaminan Perlindungan Aset Riil -->
-        <div class="card bg-light border-0 rounded-4 p-4 shadow-sm mb-4" style="border-left: 5px solid #C5A059 !important;">
-          <div class="d-flex align-items-start gap-3">
-            <div class="bg-mgi-gold-subtle text-gold p-3 rounded-circle fs-4 d-flex align-items-center justify-content-center" style="color: #C5A059; background: rgba(197, 160, 89, 0.15); width: 60px; height: 60px;">
+        <!-- Info Card: Jaminan Perlindungan Aset Riil (Apple Card Clean Style) -->
+        <div class="card bg-white border-0 rounded-4 p-4 shadow-sm mb-4" style="border: 1px solid var(--apple-border) !important; box-shadow: var(--apple-shadow-card) !important;">
+          <div class="d-flex align-items-start gap-3.5">
+            <div class="rounded-4 p-3 fs-3 d-flex align-items-center justify-content-center flex-shrink-0" style="background: rgba(197, 160, 89, 0.12); color: #C5A059; width: 56px; height: 56px;">
               <img src="assets/img/icon-tata-kelola.png" style="width: 32px; height: 32px; object-fit: contain;">
             </div>
             <div>
-              <h6 class="fw-bold text-dark mb-1">Jaminan Perlindungan Aset Riil Per Project (Asset-Backed Assurance)</h6>
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <h6 class="fw-bold text-dark mb-0">Jaminan Perlindungan Aset Riil Per Project (Asset-Backed Assurance)</h6>
+                <span class="badge rounded-pill bg-success-subtle text-success small fw-semibold">100% Asset-Backed</span>
+              </div>
               <p class="small text-secondary mb-0 lh-base">
                 Seluruh modal penempatan project investasi pemodal dialokasikan secara transparan per project untuk pengadaan unit alat berat impor CBU Jepang Grade A di bawah operasional PT Montana Indo Utama (MIU). Setiap unit mesin dilindungi polis asuransi komprehensif, dilengkapi GPS tracking 24 jam, serta memiliki kontrak kerja penyerapan pasar (*offtake agreement*) berkelanjutan.
               </p>
@@ -748,21 +989,21 @@
         </div>
 
         <!-- Dedicated Relationship Manager (RM) Support Card -->
-        <div class="card bg-white border rounded-4 p-4 shadow-sm" id="rmSupportCard">
+        <div class="card bg-white border-0 rounded-4 p-4 shadow-sm" id="rmSupportCard" style="border: 1px solid var(--apple-border) !important; box-shadow: var(--apple-shadow-card) !important;">
           <div class="row align-items-center g-3">
-            <div class="col-12 col-md-8 d-flex align-items-center gap-3">
-              <div class="p-3 rounded-circle fs-3 text-white d-flex align-items-center justify-content-center" style="width: 56px; height: 56px; background: #142563;">
+            <div class="col-12 col-md-8 d-flex align-items-center gap-3.5">
+              <div class="rounded-circle fs-3 text-white d-flex align-items-center justify-content-center flex-shrink-0" style="width: 54px; height: 54px; background: #0E1838;">
                 <i class="bi bi-headset"></i>
               </div>
               <div>
-                <h6 class="fw-bold text-dark mb-1">Executive Relationship Manager (Investor Relations)</h6>
-                <p class="small text-muted mb-0">
+                <h6 class="fw-bold text-dark mb-1">Executive Relationship Manager (Investor Relations Concierge)</h6>
+                <p class="small text-secondary mb-0">
                   Konsultasikan jadwal pembagian dividen kompetitif, penambahan kuota unit alat berat, atau pembaruan data korporasi bersama Relationship Manager resmi MGI.
                 </p>
               </div>
             </div>
             <div class="col-12 col-md-4 text-md-end">
-              <a id="rmWhatsappLink" href="https://wa.me/6282211118208?text=Halo%20Tim%20Hubungan%20Investor%20MGI%2C%20saya%20ingin%20berkonsultasi%20mengenai%20alokasi%20portofolio%20investasi%20saya." target="_blank" rel="noopener noreferrer" class="btn btn-success rounded-pill px-4 py-2 fw-bold text-white shadow-sm d-inline-flex align-items-center gap-2">
+              <a id="rmWhatsappLink" href="https://wa.me/6282211118208?text=Halo%20Tim%20Hubungan%20Investor%20MGI%2C%20saya%20ingin%20berkonsultasi%20mengenai%20alokasi%20portofolio%20investasi%20saya." target="_blank" rel="noopener noreferrer" class="btn btn-success rounded-pill px-4 py-2.5 fw-bold text-white shadow-sm d-inline-flex align-items-center gap-2">
                 <i class="bi bi-whatsapp"></i>
                 <span>Hubungi Tim RM</span>
               </a>
@@ -902,42 +1143,43 @@
       <div class="tab-pane fade" id="tab-billing" role="tabpanel">
         <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
           <div>
-            <h5 class="fw-bold text-dark mb-1">Billing &amp; Riwayat Bagi Hasil (Invoices &amp; P&amp;L)</h5>
-            <p class="text-muted small mb-0">Rincian faktur dividen kompetitif, histori pembayaran, dan kalkulasi laba bersih project.</p>
+            <h4 class="fw-bold text-dark mb-1" style="letter-spacing: -0.02em;">Billing &amp; Riwayat Bagi Hasil</h4>
+            <p class="text-secondary small mb-0">Rincian faktur dividen kompetitif, histori pembayaran, dan kalkulasi laba bersih project.</p>
           </div>
-          <button type="button" onclick="window.print()" class="btn btn-outline-primary btn-sm rounded-pill px-3 shadow-sm">
-            <i class="bi bi-printer me-1"></i> Cetak Rekap Billing
+          <button type="button" onclick="window.print()" class="apple-btn-secondary py-1.5 px-3">
+            <i class="bi bi-printer"></i>
+            <span>Cetak Rekap Billing</span>
           </button>
         </div>
 
-        <!-- Profit and Loss Summary Card -->
-        <div class="card bg-white border rounded-4 p-4 shadow-sm mb-4" style="border-top: 5px solid #059669 !important;">
+        <!-- Profit and Loss Summary Card (Apple Clean Style) -->
+        <div class="card bg-white border-0 rounded-4 p-4 shadow-sm mb-4" style="border: 1px solid var(--apple-border) !important; box-shadow: var(--apple-shadow-card) !important;">
           <div class="row g-3 align-items-center">
             <div class="col-12 col-md-4 text-center border-end">
-              <span class="text-muted small text-uppercase fw-bold" style="font-size: 0.72rem;">Status Portofolio:</span>
+              <span class="text-secondary small text-uppercase fw-bold" style="font-size: 0.7rem; letter-spacing: 0.6px;">Status Portofolio:</span>
               <div class="fs-4 fw-bold text-success mt-1"><i class="bi bi-graph-up-arrow me-1"></i>PROFIT (LABA)</div>
               <small class="text-secondary">Tidak ada catatan kerugian operasional</small>
             </div>
             <div class="col-12 col-md-4 text-center border-end">
-              <span class="text-muted small text-uppercase fw-bold" style="font-size: 0.72rem;">Akumulasi Laba Bersih Diterima:</span>
+              <span class="text-secondary small text-uppercase fw-bold" style="font-size: 0.7rem; letter-spacing: 0.6px;">Akumulasi Laba Bersih Diterima:</span>
               <div class="fs-4 fw-bold text-dark mt-1" id="billingTotalProfit">Rp 0</div>
               <small class="text-success fw-semibold">Net Payout Periode 1 - Periode 4</small>
             </div>
             <div class="col-12 col-md-4 text-center">
-              <span class="text-muted small text-uppercase fw-bold" style="font-size: 0.72rem;">Persentase Kinerja ROI Riil:</span>
-              <div class="fs-4 fw-bold text-royal mt-1" id="billingRoiPct">≥30% - 35%</div>
+              <span class="text-secondary small text-uppercase fw-bold" style="font-size: 0.7rem; letter-spacing: 0.6px;">Persentase Kinerja ROI Riil:</span>
+              <div class="fs-4 fw-bold text-primary mt-1" id="billingRoiPct" style="color: #0071E3 !important;">≥30% - 35%</div>
               <small class="text-secondary">Sesuai Kontrak Proyek Komatsu</small>
             </div>
           </div>
         </div>
 
-        <!-- Billing Table -->
-        <div class="card bg-white border rounded-4 p-4 shadow-sm">
+        <!-- Billing Table (Apple Clean Style) -->
+        <div class="card bg-white border-0 rounded-4 p-4 shadow-sm" style="border: 1px solid var(--apple-border) !important; box-shadow: var(--apple-shadow-card) !important;">
           <h6 class="fw-bold text-dark mb-3">Daftar Billing &amp; Bukti Dividen</h6>
           <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
               <thead class="table-light">
-                <tr class="small text-uppercase">
+                <tr class="small text-uppercase text-secondary" style="font-size: 0.74rem; letter-spacing: 0.6px;">
                   <th>No. Invoice / Billing</th>
                   <th>Project Investasi</th>
                   <th>Periode Bagi Hasil</th>
@@ -964,8 +1206,8 @@
       <!-- ======================================================== -->
       <div class="tab-pane fade" id="tab-updates" role="tabpanel">
         <div class="mb-4">
-          <h5 class="fw-bold text-dark mb-1">Laporan Perkembangan Proyek Riil (Campaign &amp; Field Updates)</h5>
-          <p class="text-muted small mb-0">Transparansi operasional langsung dari pool &amp; workshop alat berat Kebumen serta penugasan armada di lapangan.</p>
+          <h4 class="fw-bold text-dark mb-1" style="letter-spacing: -0.02em;">Laporan Perkembangan Proyek Riil</h4>
+          <p class="text-secondary small mb-0">Transparansi operasional langsung dari pool &amp; workshop alat berat Kebumen serta penugasan armada di lapangan.</p>
         </div>
 
         <div id="campaignUpdatesContainer">
@@ -978,7 +1220,7 @@
       <!-- ======================================================== -->
       <div class="tab-pane fade" id="tab-bank" role="tabpanel">
         <div class="row g-4">
-          <!-- Kartu Rekening Visual -->
+          <!-- Kartu Rekening Visual Apple Wallet Style -->
           <div class="col-12 col-lg-5">
             <div class="bank-card-visual mb-4">
               <div class="d-flex justify-content-between align-items-center mb-4">
@@ -999,15 +1241,15 @@
               </div>
             </div>
 
-            <div class="p-3 bg-white rounded-3 border small text-muted">
-              <i class="bi bi-info-circle-fill text-primary me-1" style="color: #142563 !important;"></i>
+            <div class="p-3 bg-white rounded-3 border small text-secondary" style="border: 1px solid var(--apple-border) !important; box-shadow: var(--apple-shadow-subtle);">
+              <i class="bi bi-info-circle-fill text-primary me-1" style="color: #0071E3 !important;"></i>
               <strong>Catatan Kepatuhan Perbankan:</strong> Nama pemilik rekening harus sesuai dengan identitas resmi investor yang terdaftar guna kelancaran rekonsiliasi transfer dividen kompetitif.
             </div>
           </div>
 
           <!-- Form Edit Rekening -->
           <div class="col-12 col-lg-7">
-            <div class="card bg-white border rounded-4 p-4 shadow-sm">
+            <div class="card bg-white border-0 rounded-4 p-4 shadow-sm" style="border: 1px solid var(--apple-border) !important; box-shadow: var(--apple-shadow-card) !important;">
               <h5 class="fw-bold text-dark border-bottom pb-3 mb-3">Pembaruan Rekening Bank Dividen</h5>
               
               <div id="bankAlert" class="alert alert-success d-none py-2 small" role="alert"></div>
@@ -1015,7 +1257,7 @@
               <form id="bankForm" onsubmit="saveBankAccount(event)">
                 <div class="mb-3">
                   <label class="form-label fw-bold text-dark small">Pilih Nama Bank <span class="text-danger">*</span></label>
-                  <select id="inputBankName" class="form-select" required>
+                  <select id="inputBankName" class="form-select" style="border-radius: 12px; padding: 10px 14px;" required>
                     <option value="">-- Pilih Bank --</option>
                     <option value="Bank Central Asia (BCA)">Bank Central Asia (BCA)</option>
                     <option value="Bank Mandiri">Bank Mandiri</option>
@@ -1031,20 +1273,20 @@
 
                 <div class="mb-3">
                   <label class="form-label fw-bold text-dark small">Nomor Rekening <span class="text-danger">*</span></label>
-                  <input type="text" id="inputAccNumber" class="form-control" placeholder="Contoh: 8820394821" required>
+                  <input type="text" id="inputAccNumber" class="form-control" style="border-radius: 12px; padding: 10px 14px;" placeholder="Contoh: 8820394821" required>
                 </div>
 
                 <div class="mb-3">
                   <label class="form-label fw-bold text-dark small">Nama Pemilik Rekening (Sesuai Buku Tabungan) <span class="text-danger">*</span></label>
-                  <input type="text" id="inputAccHolder" class="form-control" placeholder="Nama Lengkap Investor / Nama Perusahaan" required>
+                  <input type="text" id="inputAccHolder" class="form-control" style="border-radius: 12px; padding: 10px 14px;" placeholder="Nama Lengkap Investor / Nama Perusahaan" required>
                 </div>
 
                 <div class="mb-4">
                   <label class="form-label fw-bold text-dark small">Kantor Cabang Bank</label>
-                  <input type="text" id="inputBranch" class="form-control" placeholder="Contoh: KCP Sudirman Jakarta">
+                  <input type="text" id="inputBranch" class="form-control" style="border-radius: 12px; padding: 10px 14px;" placeholder="Contoh: KCP Sudirman Jakarta">
                 </div>
 
-                <button type="submit" id="btnSaveBank" class="btn btn-mgi-primary px-4 py-2 rounded-pill fw-bold text-white shadow-sm d-inline-flex align-items-center gap-2" style="background: #142563;">
+                <button type="submit" id="btnSaveBank" class="apple-btn-primary px-4 py-2.5">
                   <i class="bi bi-check2-circle"></i>
                   <span>Simpan Data Rekening</span>
                 </button>
@@ -1061,7 +1303,7 @@
         <div class="row g-4">
           <!-- Profil Data Diri -->
           <div class="col-12 col-lg-7">
-            <div class="card bg-white border rounded-4 p-4 shadow-sm mb-4">
+            <div class="card bg-white border-0 rounded-4 p-4 shadow-sm mb-4" style="border: 1px solid var(--apple-border) !important; box-shadow: var(--apple-shadow-card) !important;">
               <h5 class="fw-bold text-dark border-bottom pb-3 mb-3">Informasi Akun Investor</h5>
               
               <div id="profileAlert" class="alert alert-success d-none py-2 small" role="alert"></div>
@@ -1070,26 +1312,26 @@
                 <div class="row g-3 mb-3">
                   <div class="col-md-6">
                     <label class="form-label fw-bold text-dark small">Tipe Akun</label>
-                    <input type="text" id="profAccountType" class="form-control bg-light" readonly>
+                    <input type="text" id="profAccountType" class="form-control bg-light" style="border-radius: 12px; padding: 10px 14px;" readonly>
                   </div>
                   <div class="col-md-6">
                     <label class="form-label fw-bold text-dark small">Alamat Email Terdaftar</label>
-                    <input type="text" id="profEmail" class="form-control bg-light" readonly>
+                    <input type="text" id="profEmail" class="form-control bg-light" style="border-radius: 12px; padding: 10px 14px;" readonly>
                   </div>
 
                   <div class="col-md-6">
                     <label id="lblProfFullName" class="form-label fw-bold text-dark small">Nama Lengkap <span class="text-danger">*</span></label>
-                    <input type="text" id="profFullName" class="form-control" required>
+                    <input type="text" id="profFullName" class="form-control" style="border-radius: 12px; padding: 10px 14px;" required>
                   </div>
                   <div class="col-md-6">
                     <label id="lblProfPhone" class="form-label fw-bold text-dark small">Nomor Telepon / WhatsApp <span class="text-danger">*</span></label>
-                    <input type="text" id="profPhone" class="form-control" required>
+                    <input type="text" id="profPhone" class="form-control" style="border-radius: 12px; padding: 10px 14px;" required>
                   </div>
 
                   <!-- Khusus Perorangan: Jenis Kegiatan Usaha -->
                   <div id="individualFieldsSection" class="col-12">
                     <label class="form-label fw-bold text-dark small">Jenis Kegiatan Usaha</label>
-                    <input type="text" id="profBusinessActivity" class="form-control" placeholder="Contoh: Perdagangan, Konstruksi, Jasa Profesional, Pertanian, Wiraswasta, dll.">
+                    <input type="text" id="profBusinessActivity" class="form-control" style="border-radius: 12px; padding: 10px 14px;" placeholder="Contoh: Perdagangan, Konstruksi, Jasa Profesional, Pertanian, Wiraswasta, dll.">
                     <div class="form-text small text-muted">Sektor industri, profesi, atau kegiatan ekonomi utama Anda sebagai investor perorangan.</div>
                   </div>
 
@@ -1124,7 +1366,7 @@
                   </div>
                 </div>
 
-                <button type="submit" id="btnUpdateProf" class="btn btn-mgi-primary px-4 py-2 rounded-pill fw-bold text-white shadow-sm" style="background: #142563;">
+                <button type="submit" id="btnUpdateProf" class="apple-btn-primary px-4 py-2.5">
                   <i class="bi bi-save me-1"></i> Perbarui Profil Kontak
                 </button>
               </form>
@@ -1133,7 +1375,7 @@
 
           <!-- Ganti Kata Sandi & Status Keamanan -->
           <div class="col-12 col-lg-5">
-            <div class="card bg-white border rounded-4 p-4 shadow-sm mb-4">
+            <div class="card bg-white border-0 rounded-4 p-4 shadow-sm mb-4" style="border: 1px solid var(--apple-border) !important; box-shadow: var(--apple-shadow-card) !important;">
               <h5 class="fw-bold text-dark border-bottom pb-3 mb-3">Ubah Kata Sandi</h5>
               
               <div id="passwordAlert" class="alert d-none py-2 small" role="alert"></div>
@@ -1141,47 +1383,47 @@
               <form id="passwordForm" onsubmit="changePassword(event)">
                 <div class="mb-3">
                   <label class="form-label fw-bold text-dark small">Kata Sandi Lama <span class="text-danger">*</span></label>
-                  <input type="password" id="oldPassword" class="form-control" placeholder="••••••••" required>
+                  <input type="password" id="oldPassword" class="form-control" style="border-radius: 12px; padding: 10px 14px;" placeholder="••••••••" required>
                 </div>
 
                 <div class="mb-3">
                   <label class="form-label fw-bold text-dark small">Kata Sandi Baru <span class="text-danger">*</span></label>
-                  <input type="password" id="newPassword" class="form-control" placeholder="Minimal 8 karakter alfanumerik" required minlength="8">
+                  <input type="password" id="newPassword" class="form-control" style="border-radius: 12px; padding: 10px 14px;" placeholder="Minimal 8 karakter alfanumerik" required minlength="8">
                 </div>
 
                 <div class="mb-4">
                   <label class="form-label fw-bold text-dark small">Konfirmasi Kata Sandi Baru <span class="text-danger">*</span></label>
-                  <input type="password" id="confirmPassword" class="form-control" placeholder="Ulangi kata sandi baru" required minlength="8">
+                  <input type="password" id="confirmPassword" class="form-control" style="border-radius: 12px; padding: 10px 14px;" placeholder="Ulangi kata sandi baru" required minlength="8">
                 </div>
 
-                <button type="submit" id="btnChangePass" class="btn btn-outline-dark px-4 py-2 rounded-pill fw-bold shadow-sm">
+                <button type="submit" id="btnChangePass" class="apple-btn-secondary px-4 py-2.5">
                   <i class="bi bi-key-fill me-1"></i> Update Sandi Akun
                 </button>
               </form>
             </div>
 
             <!-- Sesi Aktif & Kepatuhan Keamanan Card -->
-            <div class="card bg-white border rounded-4 p-4 shadow-sm mb-4">
+            <div class="card bg-white border-0 rounded-4 p-4 shadow-sm mb-4" style="border: 1px solid var(--apple-border) !important; box-shadow: var(--apple-shadow-card) !important;">
               <h6 class="fw-bold text-dark border-bottom pb-2 mb-3">
-                <i class="bi bi-shield-lock-fill text-primary me-2" style="color: #142563 !important;"></i> Sesi Aktif &amp; Keamanan Akun
+                <i class="bi bi-shield-lock-fill text-primary me-2" style="color: #0071E3 !important;"></i> Sesi Aktif &amp; Keamanan Akun
               </h6>
               <ul class="list-unstyled small mb-0">
                 <li class="d-flex justify-content-between py-2 border-bottom">
-                  <span class="text-muted">Alamat IP Terkoneksi:</span>
+                  <span class="text-secondary">Alamat IP Terkoneksi:</span>
                   <strong class="text-dark font-monospace" id="secClientIp">-</strong>
                 </li>
                 <li class="d-flex justify-content-between py-2 border-bottom">
-                  <span class="text-muted">Waktu Mulai Sesi:</span>
+                  <span class="text-secondary">Waktu Mulai Sesi:</span>
                   <strong class="text-dark" id="secLoginTime">-</strong>
                 </li>
                 <li class="d-flex justify-content-between py-2 border-bottom">
-                  <span class="text-muted">Enkripsi Jaringan:</span>
+                  <span class="text-secondary">Enkripsi Jaringan:</span>
                   <span class="badge bg-success-subtle text-success border border-success-subtle">
                     <i class="bi bi-lock-fill me-1"></i> TLS 1.3 / AES-256
                   </span>
                 </li>
                 <li class="d-flex justify-content-between py-2">
-                  <span class="text-muted">Kepatuhan Regulasi:</span>
+                  <span class="text-secondary">Kepatuhan Regulasi:</span>
                   <span class="badge bg-primary-subtle text-primary border border-primary-subtle">
                     <i class="bi bi-patch-check-fill me-1"></i> UU PDP &amp; APU-PPT
                   </span>
@@ -1190,9 +1432,9 @@
             </div>
 
             <!-- Logout Shortcut Card -->
-            <div class="card bg-white border rounded-4 p-4 shadow-sm text-center">
-              <p class="text-muted small mb-3">Selesai mengelola portofolio investasi Anda?</p>
-              <button type="button" onclick="MGIAuth.logout('index.html')" class="btn btn-outline-danger rounded-pill px-4 py-2 fw-bold d-inline-flex align-items-center justify-content-center gap-2 mx-auto">
+            <div class="card bg-white border-0 rounded-4 p-4 shadow-sm text-center" style="border: 1px solid var(--apple-border) !important; box-shadow: var(--apple-shadow-card) !important;">
+              <p class="text-secondary small mb-3">Selesai mengelola portofolio investasi Anda?</p>
+              <button type="button" onclick="MGIAuth.logout('index.html')" class="apple-btn-secondary text-danger rounded-pill px-4 py-2 fw-bold d-inline-flex align-items-center justify-content-center gap-2 mx-auto">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Keluar dari Sesi Investor</span>
               </button>
@@ -1747,56 +1989,73 @@
           `;
         } else {
           ipc.innerHTML = ports.map(port => `
-            <div class="col-12 col-lg-6">
-              <div class="apple-project-card">
-                <div class="apple-card-media">
-                  <img src="${port.project_image || 'assets/img/komatsu.jpg'}" alt="${port.project_title}" onerror="this.src='assets/img/project-excavator.svg'">
-                  <span class="apple-status-pill status-followed">
-                    <span class="pulse-dot"></span> Portofolio Aktif Anda
-                  </span>
-                </div>
-                <div class="p-4 d-flex flex-column flex-grow-1">
-                  <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="badge bg-light text-dark border px-2.5 py-1 rounded-pill small fw-normal">
-                      <i class="bi bi-gear-fill me-1" style="color: #C5A059;"></i> ${port.allocated_units || '1x Komatsu PC138US (Grade A)'}
-                    </span>
-                    <small class="text-muted" style="font-size: 0.76rem;">Kontrak: <span style="color: #EC4899; font-weight: 600;">${port.contract_number}</span></small>
-                  </div>
-
-                  <h5 class="fw-bold text-dark mb-3 lh-sm" style="font-size: 1.15rem;">${port.project_title}</h5>
-
-                  <div class="row g-2 mb-3">
-                    <div class="col-6">
-                      <div class="apple-spec-box">
-                        <span class="small text-secondary d-block" style="font-size: 0.72rem;">Modal Terpasang:</span>
-                        <strong class="text-dark" style="font-size: 0.95rem;">${MGI.formatRupiah(port.amount)}</strong>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="apple-spec-box">
-                        <span class="small text-secondary d-block" style="font-size: 0.72rem;">Estimasi ROI:</span>
-                        <strong class="text-success" style="font-size: 0.95rem;">${port.return_rate}</strong>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="apple-spec-box">
-                        <span class="small text-secondary d-block" style="font-size: 0.72rem;">Tenor Kontrak:</span>
-                        <strong class="text-dark" style="font-size: 0.95rem;">${port.tenor}</strong>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="apple-spec-box">
-                        <span class="small text-secondary d-block" style="font-size: 0.72rem;">Dividen Diterima:</span>
-                        <strong class="text-primary" style="font-size: 0.95rem; color: #2563EB !important;">${MGI.formatRupiah(port.payout_received)}</strong>
+            <div class="col-12">
+              <div class="apple-followed-pass">
+                <div class="row g-0 align-items-stretch">
+                  <div class="col-12 col-lg-5 position-relative">
+                    <div class="apple-pass-media">
+                      <img src="${port.project_image || 'assets/img/project-jabodetabek.jpg'}" alt="${port.project_title}" onerror="this.src='assets/img/komatsu.jpg'">
+                      <div class="apple-pass-gradient-overlay"></div>
+                      <span class="apple-status-pill status-followed">
+                        <span class="pulse-dot"></span> Portofolio Aktif Anda
+                      </span>
+                      <div class="apple-pass-asset-badge">
+                        <i class="bi bi-shield-fill-check text-warning me-1"></i> Unit CBU Jepang Grade A
                       </div>
                     </div>
                   </div>
+                  <div class="col-12 col-lg-7 p-4 p-md-5 d-flex flex-column justify-content-between">
+                    <div>
+                      <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                        <span class="apple-badge-pill" style="background: rgba(197, 160, 89, 0.12); color: #8F6B27; border: 1px solid rgba(197, 160, 89, 0.25);">
+                          <i class="bi bi-gear-fill me-1" style="color: #C5A059;"></i> ${port.allocated_units || '1x Komatsu PC138US (Grade A)'}
+                        </span>
+                        <span class="small font-monospace" style="background: #F5F5F7; padding: 4px 10px; border-radius: 8px; color: #48484A; font-weight: 600;">
+                          No. Kontrak: <span style="color: #EC4899;">${port.contract_number}</span>
+                        </span>
+                      </div>
+                      
+                      <h4 class="fw-bold text-dark mb-2 lh-sm" style="font-size: 1.35rem; letter-spacing: -0.02em;">${port.project_title}</h4>
+                      <p class="text-secondary small mb-4">Pengadaan dan operasional unit alat berat eksklusif bersertifikat CBU Jepang dengan proteksi asuransi komprehensif, jam operasional tinggi, dan sistem GPS tracking 24 jam.</p>
 
-                  <div class="mt-auto pt-2">
-                    <a href="invest-detail.html?id=${encodeURIComponent(port.project_id)}" class="apple-btn-primary w-100 py-2.5">
-                      <span>Buka Prospektus &amp; Dokumen RAB</span>
-                      <i class="bi bi-arrow-right"></i>
-                    </a>
+                      <div class="row g-2 g-md-3 mb-4">
+                        <div class="col-6 col-sm-3">
+                          <div class="apple-spec-box">
+                            <span class="small text-secondary d-block" style="font-size: 0.72rem;">Modal Terpasang:</span>
+                            <strong class="text-dark" style="font-size: 0.98rem;">${MGI.formatRupiah(port.amount)}</strong>
+                          </div>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                          <div class="apple-spec-box">
+                            <span class="small text-secondary d-block" style="font-size: 0.72rem;">Estimasi ROI:</span>
+                            <strong class="text-success" style="font-size: 0.98rem;">${port.return_rate}</strong>
+                          </div>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                          <div class="apple-spec-box">
+                            <span class="small text-secondary d-block" style="font-size: 0.72rem;">Tenor Kontrak:</span>
+                            <strong class="text-dark" style="font-size: 0.98rem;">${port.tenor}</strong>
+                          </div>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                          <div class="apple-spec-box">
+                            <span class="small text-secondary d-block" style="font-size: 0.72rem;">Dividen Diterima:</span>
+                            <strong class="text-primary" style="font-size: 0.98rem; color: #0071E3 !important;">${MGI.formatRupiah(port.payout_received)}</strong>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="d-flex flex-wrap align-items-center gap-2 pt-3 border-top border-light-subtle">
+                      <a href="invest-detail.html?id=${encodeURIComponent(port.project_id)}" class="apple-btn-primary px-4 py-2.5">
+                        <span>Buka Prospektus &amp; Dokumen RAB</span>
+                        <i class="bi bi-arrow-right"></i>
+                      </a>
+                      <button type="button" onclick="printPortfolioStatement()" class="apple-btn-secondary px-3 py-2.5">
+                        <i class="bi bi-printer"></i>
+                        <span>Cetak Bukti Kepemilikan</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
