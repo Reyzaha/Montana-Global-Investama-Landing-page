@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,10 +53,13 @@
   <!-- Google Fonts: Inter & Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
   <!-- Custom Core Stylesheet (Solid Theme, No Gradients) -->
   <link rel="stylesheet" href="assets/css/style.css?v=3">
 </head>
+
 <body class="bg-light">
 
   <!-- Global Header Navigation -->
@@ -64,14 +68,12 @@
   <!-- Page Header -->
   <header class="page-header text-center">
     <div class="container">
-      <span class="badge-tag mb-3 d-inline-block">Struktur Korporasi</span>
+      <span class="badge-tag mb-3 d-inline-block">Struktur Montana Grup</span>
       <h1 id="ekoTitle" class="fw-bold mb-3">
-        Bagan Ekosistem Terpadu <br>
+        Ekosistem Terpadu <br>
         <span class="text-gold">Montana Global Investama</span>
       </h1>
-      <p id="ekoSubtitle" class="text-muted lead mx-auto mb-0" style="max-width: 760px;">
-        Peta struktural terintegrasi yang menghubungkan grup permodalan project investasi per project, entitas operasional riil, dan infrastruktur penunjang.
-      </p>
+
     </div>
   </header>
 
@@ -87,13 +89,14 @@
     </div>
 
     <!-- Integration Principles & Governance Highlights -->
-    <section class="card mgi-card shadow-sm border-0 bg-white p-4 p-md-5" style="border-top: 6px solid #C5A059 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
+    <section class="card mgi-card shadow-sm border-0 bg-white p-4 p-md-5"
+      style="border-top: 6px solid #C5A059 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
       <div class="text-center mb-4">
         <span class="badge-tag mb-2 d-inline-block">Ketahanan Ekosistem</span>
         <h3 class="fw-bold text-dark mb-2" id="govTitle">
           Prinsip Integrasi Ekosistem Terpadu
         </h3>
-        <p class="text-muted">Landasan tata kelola korporat yang kokoh menjamin sinergi antar unit usaha.</p>
+        <p class="text-muted">Landasan tata Montana Grup yang kokoh menjamin sinergi antar unit usaha.</p>
       </div>
 
       <div id="govPointsContainer" class="row g-3">
@@ -121,7 +124,7 @@
       try {
         // Fetch ekosistem data (API-First with static fallback)
         const data = await MGI.fetchData('data/ekosistem.json');
-        
+
         if (!data || !data.nodes || data.nodes.length === 0) {
           const mount = document.getElementById('ekosistemTreeMount');
           if (mount) {
@@ -140,7 +143,7 @@
         }
 
         if (data.title) {
-          document.getElementById('ekoTitle').innerHTML = `Bagan Ekosistem Terpadu <br><span class="text-gold">Montana Group</span>`;
+          document.getElementById('ekoTitle').innerHTML = `Ekosistem Terpadu <br><span class="text-gold">Montana Group</span>`;
         }
         if (data.subtitle) document.getElementById('ekoSubtitle').textContent = data.subtitle;
 
@@ -192,4 +195,5 @@
     });
   </script>
 </body>
+
 </html>

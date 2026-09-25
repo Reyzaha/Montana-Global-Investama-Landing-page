@@ -167,9 +167,9 @@ const MGIDiagrams = {
       wfContainer.innerHTML = `
         <div class="d-flex flex-column gap-3 mx-auto" style="max-width: 900px;">
           ${prepData.workflow.map((wf, idx) => {
-            const isGold = idx % 2 === 1;
-            const borderTopColor = isGold ? '#C5A059' : '#1D3589';
-            return `
+        const isGold = idx % 2 === 1;
+        const borderTopColor = isGold ? '#C5A059' : '#1D3589';
+        return `
               <div class="card mgi-card bg-white p-3 p-md-4 rounded-3 shadow-sm" style="border: 1.5px solid #CBD5E1; border-top: 5px solid ${borderTopColor} !important;">
                 <div class="d-flex align-items-center gap-3 gap-md-4">
                   <div class="bg-royal text-white rounded-3 fs-4 fw-bold d-flex align-items-center justify-content-center flex-shrink-0 shadow-sm" style="width: 52px; height: 52px; border: 2.5px solid #C5A059;">
@@ -187,7 +187,7 @@ const MGIDiagrams = {
                 </div>
               </div>
             `;
-          }).join('')}
+      }).join('')}
         </div>
       `;
     }
@@ -235,7 +235,7 @@ const MGIDiagrams = {
       } else if (node.id === 'mypurcase') {
         borderTopColor = '#C5A059';
         badgeClass = 'bg-gold';
-        iconHtml = `<img src="assets/img/icon-mypurcase-analytics.png" style="width: 28px; height: 28px; object-fit: contain;" alt="Mypurcase">`;
+        iconHtml = `<img src="assets/img/mypurcase-app.png" style="width: 28px; height: 28px; object-fit: contain;" alt="Mypurcase">`;
       }
 
       return `
@@ -289,8 +289,8 @@ const MGIDiagrams = {
               <tr>
                 <th scope="col" class="fw-bold text-dark">Entitas</th>
                 <th scope="col" class="fw-bold text-dark">Level</th>
-                <th scope="col" class="fw-bold text-dark">Induk Langsung</th>
-                <th scope="col" class="fw-bold text-dark">Fungsi Utama (Ringkas)</th>
+                <th scope="col" class="fw-bold text-dark">Induk</th>
+                <th scope="col" class="fw-bold text-dark">Fungsi Utama</th>
               </tr>
             </thead>
             <tbody>

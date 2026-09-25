@@ -38,15 +38,15 @@ let MGIGrowthData = {
     kpis: [
       { label: 'Populasi Komatsu Aktif', value: '125 Unit', note: 'Eksklusif Merek Komatsu', icon: 'bi-truck-flatbed', color: 'text-royal' },
       { label: 'Nilai Pendanaan Unit', value: 'Rp 208 M+', note: 'Aset Fisik Kualifikasi Grade A', icon: 'bi-cash-coin', color: 'text-gold' },
-      { label: 'Stok Unit Tersedia di Workshop', value: '24 Unit Ready', note: 'Workshop Sentral & Siap Mobilisasi', icon: 'bi-check2-square', color: 'text-success' },
-      { label: 'Wilayah Operasional Aktif', value: 'Sumatera, Bali, Jabodetabek, Jateng', note: 'Rencana Ekspansi Berkelanjutan', icon: 'bi-geo-alt-fill', color: 'text-primary' }
+      { label: 'Stok Unit Tersedia di Workshop', value: '24 Unit Siap Operasi', note: 'Workshop Sentral & Siap Mobilisasi', icon: 'bi-check2-square', color: 'text-success' },
+      { label: 'Wilayah Operasional Aktif', value: 'Sumatra, Jabodetabek, Bali', note: 'Rencana Ekspansi Berkelanjutan', icon: 'bi-geo-alt-fill', color: 'text-primary' }
     ]
   },
 
   // Data Montana Sentra Industri (MSI) - Supply Import Jepang & Cina
   msi: {
     title: 'Montana Sentra Industri (MSI)',
-    subtitle: 'Supply Import Langsung dari Jepang atau Cina ke Indonesia Sampai ke Alamat Customer',
+    subtitle: 'Suplai Impor Langsung dari Jepang atau Cina ke Indonesia Sampai ke Alamat Pelanggan',
     badge: 'Suplai Impor Langsung ke Pelanggan',
     badgeClass: 'bg-gold text-white',
     chartLabel: 'Kapasitas Output & Supply Unit (Ton/Thn)',
@@ -55,10 +55,10 @@ let MGIGrowthData = {
     assetValue: [0, 0, 8, 21, 46, 82, 125],
     unit: 'Ton/Tahun',
     kpis: [
-      { label: 'Volume Supply Import (2025)', value: '2.800 Ton', note: 'Target 2026: 4.200 Ton/Thn', icon: 'bi-ship', color: 'text-gold' },
+      { label: 'Volume Suplai Impor (2025)', value: '2.800 Ton', note: 'Target 2026: 4.200 Ton/Thn', icon: 'bi-ship', color: 'text-gold' },
       { label: 'Pengiriman Door-to-Door', value: '100%', note: 'Sampai Alamat Pelanggan', icon: 'bi-box-seam-fill', color: 'text-success' },
       { label: 'Efisiensi Rantai Ketersediaan', value: '31.2%', note: 'Pangkas Biaya Perantara', icon: 'bi-graph-down-arrow', color: 'text-royal' },
-      { label: 'Asal Pengadaan Import', value: 'Jepang & Cina', note: 'Mitra Manufaktur Resmi', icon: 'bi-globe-americas', color: 'text-primary' }
+      { label: 'Asal Pengadaan Impor', value: 'Jepang & Cina', note: 'Mitra Manufaktur Resmi', icon: 'bi-globe-americas', color: 'text-primary' }
     ]
   }
 };

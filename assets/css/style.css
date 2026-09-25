@@ -1505,6 +1505,106 @@ h6,
   border-bottom: none;
 }
 
+/* ==========================================================================
+   Luxury Corporate Header (Warna Menarik: Deep Corporate Royal Navy & Solid Gold)
+   ========================================================================== */
+.site-navbar {
+  background-color: #0E1B48 !important;
+  border-top: 3.5px solid #C5A059;
+  border-bottom: 2px solid #C5A059;
+  box-shadow: 0 4px 20px rgba(14, 27, 72, 0.28);
+  padding-top: 0.65rem;
+  padding-bottom: 0.65rem;
+  transition: all 0.3s ease;
+  z-index: 1030;
+}
+
+.site-navbar.scrolled {
+  background-color: #091233 !important;
+  box-shadow: 0 6px 24px rgba(14, 27, 72, 0.42);
+}
+
+.navbar-logo-badge {
+  background: #FFFFFF;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(197, 160, 89, 0.45);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.navbar-logo-badge:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(197, 160, 89, 0.35);
+}
+
+.site-navbar .navbar-nav .nav-link {
+  color: #E2E8F0 !important;
+  font-weight: 500;
+  font-size: 0.92rem;
+  padding: 0.5rem 0.85rem !important;
+  border-radius: 6px;
+  transition: all 0.22s ease;
+  position: relative;
+  letter-spacing: 0.2px;
+}
+
+.site-navbar .navbar-nav .nav-link:hover {
+  color: #FBBF24 !important;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.site-navbar .navbar-nav .nav-link.active {
+  color: #FFFFFF !important;
+  font-weight: 700;
+  background-color: rgba(197, 160, 89, 0.25);
+  border-bottom: 2.5px solid #C5A059;
+}
+
+.btn-navbar-login {
+  color: #FFFFFF !important;
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+  transition: all 0.22s ease;
+}
+
+.btn-navbar-login:hover {
+  color: #C5A059 !important;
+  border-color: #C5A059;
+  background: rgba(197, 160, 89, 0.12);
+}
+
+.btn-navbar-cta {
+  background-color: #C5A059 !important;
+  border: 1.5px solid #C5A059 !important;
+  color: #0E1B48 !important;
+  font-weight: 700;
+  box-shadow: 0 3px 12px rgba(197, 160, 89, 0.4);
+  transition: all 0.22s ease;
+}
+
+.btn-navbar-cta:hover {
+  background-color: #D4AF37 !important;
+  border-color: #D4AF37 !important;
+  color: #0E1B48 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 16px rgba(197, 160, 89, 0.5);
+}
+
+@media (max-width: 1199.98px) {
+  .site-navbar .navbar-collapse {
+    background-color: #091233;
+    padding: 1.25rem;
+    border-radius: 8px;
+    margin-top: 0.75rem;
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+}
+
 /* Tablet Navbar Optimization */
 @media (min-width: 992px) and (max-width: 1200px) {
   .site-navbar .nav-link {

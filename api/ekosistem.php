@@ -9,55 +9,84 @@ require_once __DIR__ . '/../backend/helpers/response.php';
 
 try {
     $staticFile = __DIR__ . '/../data/ekosistem.json';
-    $baseData = file_exists($staticFile) ? json_decode(file_get_contents($staticFile), true) : [];
-
-    // Attempt DB fetch to dynamically merge nodes if available
+    $db = null;
     try {
         $db = getDB();
+    } catch (Exception $dbEx) {}
+
+    // Priority to latest static file data if exists
+    if (file_exists($staticFile)) {
+        $jsonContent = file_get_contents($staticFile);
+        $baseData = json_decode($jsonContent, true);
+
+        // Sync nodes to DB if connected
+        if ($db && !empty($baseData['nodes'])) {
+            try {
+                $db->exec("SET FOREIGN_KEY_CHECKS = 0; TRUNCATE TABLE ekosistem_nodes; SET FOREIGN_KEY_CHECKS = 1;");
+                $stmtNode = $db->prepare("
+                    INSERT INTO ekosistem_nodes (id, label, short_label, subtitle, parent_id, level, badge, type, category, icon, role_desc, sort_order)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ");
+                foreach ($baseData['nodes'] as $idx => $n) {
+                    $stmtNode->execute([
+                        $n['id'],
+                        $n['label'],
+                        $n['short_label'] ?? $n['label'],
+                        $n['subtitle'] ?? null,
+                        $n['parent'] ?? null,
+                        $n['level'] ?? 0,
+                        $n['badge'] ?? null,
+                        $n['type'] ?? 'subsidiary',
+                        $n['category'] ?? '',
+                        $n['icon'] ?? 'building',
+                        $n['description'] ?? null,
+                        $idx + 1
+                    ]);
+                }
+            } catch (Exception $syncErr) {}
+        }
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo $jsonContent;
+        exit;
+    }
+
+    // Fallback to DB fetch if static file is absent
+    if ($db) {
         $stmt = $db->query("SELECT * FROM ekosistem_nodes ORDER BY level ASC, sort_order ASC");
         $rawNodes = $stmt->fetchAll();
 
         if (!empty($rawNodes)) {
-            // Build map of static nodes by id for fallback properties
-            $staticMap = [];
-            if (!empty($baseData['nodes'])) {
-                foreach ($baseData['nodes'] as $sn) {
-                    $staticMap[$sn['id']] = $sn;
-                }
-            }
-
             $nodes = [];
             foreach ($rawNodes as $n) {
-                $id = $n['id'];
-                $fallback = $staticMap[$id] ?? [];
-                
                 $nodes[] = [
-                    'id' => $id,
-                    'label' => $n['label'] ?: ($fallback['label'] ?? ''),
-                    'short_label' => $n['short_label'] ?? ($fallback['short_label'] ?? $n['label']),
-                    'subtitle' => $n['subtitle'] ?? ($fallback['subtitle'] ?? ''),
-                    'parent' => $n['parent_id'] ?? ($fallback['parent'] ?? null),
-                    'level' => isset($n['level']) ? (int)$n['level'] : ($fallback['level'] ?? 0),
-                    'badge' => $n['badge'] ?: ($fallback['badge'] ?? ''),
-                    'type' => $n['type'] ?? ($fallback['type'] ?? (($n['badge'] === 'Mitra Strategis') ? 'partner' : ($n['level'] == 0 ? 'holding' : ($n['level'] == 2 ? 'facility' : 'subsidiary')))),
-                    'category' => $n['category'] ?? ($fallback['category'] ?? ''),
-                    'icon' => $n['icon'] ?? ($fallback['icon'] ?? 'building'),
-                    'description' => $n['role_desc'] ?: ($fallback['description'] ?? '')
+                    'id' => $n['id'],
+                    'label' => $n['label'] ?? '',
+                    'short_label' => $n['short_label'] ?? $n['label'],
+                    'subtitle' => $n['subtitle'] ?? '',
+                    'parent' => $n['parent_id'] ?? null,
+                    'level' => isset($n['level']) ? (int)$n['level'] : 0,
+                    'badge' => $n['badge'] ?? '',
+                    'type' => $n['type'] ?? (($n['badge'] === 'Mitra Strategis') ? 'partner' : ($n['level'] == 0 ? 'holding' : ($n['level'] == 2 ? 'facility' : 'subsidiary'))),
+                    'category' => $n['category'] ?? '',
+                    'icon' => $n['icon'] ?? 'building',
+                    'description' => $n['role_desc'] ?? ''
                 ];
             }
-            $baseData['nodes'] = $nodes;
+            $baseData = [
+                'title' => 'Bagan Ekosistem Korporat Montana Group',
+                'subtitle' => 'Ekosistem Investasi Proyek',
+                'intro' => 'Struktur grup PT Montana Global Investama menaungi entitas operasional terpadu: MIU, MSI, dan Mypurcase.',
+                'nodes' => $nodes
+            ];
+
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode($baseData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            exit;
         }
-    } catch (Exception $dbErr) {
-        // Fallback silently to baseline static JSON data if DB is temporarily unreachable
     }
 
-    if (empty($baseData)) {
-        throw new Exception('Data ekosistem tidak tersedia.');
-    }
-
-    header('Content-Type: application/json; charset=utf-8');
-    echo json_encode($baseData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-    exit;
+    sendJsonError('Data ekosistem tidak tersedia.', 404);
 
 } catch (Exception $e) {
     $staticFile = __DIR__ . '/../data/ekosistem.json';
@@ -68,3 +97,4 @@ try {
     }
     sendJsonError('Gagal memuat struktur ekosistem: ' . $e->getMessage(), 500);
 }
+

@@ -1,7 +1,7 @@
 {
   "title": "Perjalanan Transformasi Montana Group",
   "subtitle": "Dari Kebumen Menuju Ekosistem Investasi Nasional",
-  "intro": "Bermula dari satu unit alat berat di Kebumen (2022), Montana Group tumbuh menjadi grup investasi multi-sektor yang modern.",
+  "intro": "Bermula dari satu unit alat berat di Kebumen, Montana Group tumbuh menjadi grup investasi multi-sektor yang modern.",
   "quote": "Kami mengintegrasikan keandalan operasional dan transformasi digital untuk membangun ekosistem sektor riil yang berkelanjutan, efisien, dan transparan.",
   "journey": [
     {
@@ -41,12 +41,12 @@
       "icon": "box-seam-fill",
       "img": "assets/img/icon-msi-ship.png",
       "title": "PT Montana Sentra Industri (MSI)",
-      "tagline": "Import & Logistics Partner",
-      "description": "Mendukung proses impor, customs clearance, manajemen logistik, dan distribusi door-to-door melalui jaringan mitra yang terintegrasi.",
+      "tagline": "Mitra Impor & Logistik Terpadu",
+      "description": "Mendukung proses impor, kepabeanan terpadu, manajemen logistik, dan distribusi langsung melalui jaringan mitra yang terintegrasi.",
       "achievements": [
         "Solusi impor langsung mesin dan alat berat dari Jepang dan Cina",
-        "Pengurusan customs clearance terpadu di pelabuhan utama",
-        "Pengiriman logistik aman door-to-door langsung ke lokasi proyek"
+        "Pengurusan kepabeanan pelabuhan terpadu di pelabuhan utama",
+        "Pengiriman logistik aman dan terpercaya langsung ke lokasi proyek"
       ]
     },
     {
@@ -67,16 +67,16 @@
     {
       "step": 5,
       "year_or_phase": "Digitalisasi",
-      "badge": "Coming Soon 2027",
+      "badge": "Segera Diluncurkan 2027",
       "icon": "laptop",
       "img": "assets/img/transformasi5.png",
       "title": "Mypurcase Diluncurkan 2027",
-      "tagline": "B2B Procurement & Purchasing Platform",
-      "description": "Mendigitalisasi proses pengadaan dan rantai ketersediaan B2B untuk meningkatkan efisiensi, transparansi, dan keterlacakan transaksi antar entitas dan supplier.",
+      "tagline": "Platform Pengadaan & Pembelian B2B",
+      "description": "Mendigitalisasi proses pengadaan dan rantai ketersediaan B2B untuk meningkatkan efisiensi, transparansi, dan keterlacakan transaksi antar entitas dan pemasok.",
       "achievements": [
         "Digitalisasi transaksi pengadaan suku cadang, mesin, dan unit",
-        "Efisiensi serapan belanja modal dan transparansi harga supplier",
-        "Sistem pelacakan pengadaan secara digital dan real-time"
+        "Efisiensi serapan belanja modal dan transparansi harga pemasok",
+        "Sistem pelacakan pengadaan secara digital dan langsung"
       ]
     }
   ]

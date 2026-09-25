@@ -30,12 +30,14 @@ MGI didukung oleh ekosistem operasional yang kuat melalui entitas/cabang usahany
 ### 1. PT Montana Indo Utama (MIU)
 *   **Peran:** Solusi Alat Berat Terintegrasi — Penjualan, Supply, Deployment & Operational Support
 *   **Slogan:** Integrated Heavy Equipment Solutions
+*   **Alamat:** Jl. Nasional III No.88, Pejuritan, Kec. Karanganyar, Kab. Kebumen, Jawa Tengah
 *   **Fokus:** Penjualan & supply unit alat berat, deployment ke lokasi proyek, perawatan berkala, workshop sentral Kebumen, dan operational support sektor riil.
 *   **Output:** Ketersediaan armada unit alat berat siap kerja, keandalan operasional lapangan, servis darurat siaga, dan kepastian produktivitas proyek.
 
 ### 2. PT Montana Sentra Industri (MSI)
 *   **Peran:** Mitra Impor & Logistik — Solusi Impor Alat Berat, Customs Clearance & Distribusi Door-to-Door
 *   **Slogan:** Import & Logistics Partner
+*   **Alamat:** Jl. Revolusi No. 89, Desa/Kelurahan Karanganyar, Kec. Karanganyar, Kab. Kebumen, Provinsi Jawa Tengah
 *   **Fokus:** Solusi pengadaan impor alat berat, pengurusan customs clearance pelabuhan terpadu, dan manajemen pengiriman logistik door-to-door ke lokasi proyek dan industri.
 *   **Output:** Kelancaran izin impor kepabeanan, kepastian ketersediaan armada internasional, efisiensi rantai distribusi, dan pengiriman aman tepat waktu.
 

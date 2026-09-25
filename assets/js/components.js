@@ -65,10 +65,10 @@ const MGIComponents = {
       } else {
         authCtaHtml = `
           <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
-            <a href="login.html" class="btn btn-corporate-outline btn-sm px-3 py-2 rounded-1">
+            <a href="login.html" class="btn btn-navbar-login btn-sm px-3 py-2 rounded-1">
               <i class="bi bi-box-arrow-in-right me-1"></i> Masuk
             </a>
-            <a href="register.html" class="btn btn-corporate-gold btn-sm px-3 py-2 rounded-1 shadow-sm">
+            <a href="register.html" class="btn btn-navbar-cta btn-sm px-3 py-2 rounded-1 shadow-sm">
               <i class="bi bi-shield-lock me-1"></i> Portal Investor
             </a>
           </div>
@@ -77,16 +77,18 @@ const MGIComponents = {
     }
 
     navContainer.innerHTML = `
-      <nav class="navbar navbar-expand-xl navbar-light bg-white sticky-top border-bottom shadow-sm">
+      <nav class="navbar navbar-expand-xl site-navbar sticky-top">
         <div class="container">
           <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-            <img src="assets/img/mgi-official-logo.png" alt="PT Montana Global Investama Logo" height="42" class="d-inline-block align-text-top">
+            <div class="navbar-logo-badge">
+              <img src="assets/img/mgi-official-logo.png" alt="PT Montana Global Investama Logo" height="38" class="d-inline-block">
+            </div>
           </a>
-          <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+          <button class="navbar-toggler border-0 text-white shadow-none px-2 py-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-list fs-2 text-white"></i>
           </button>
           <div class="collapse navbar-collapse" id="navbarContent">
-            <ul class="navbar-nav mx-auto mb-2 mb-xl-0">
+            <ul class="navbar-nav mx-auto mb-2 mb-xl-0 gap-xl-1">
               ${linksHtml}
             </ul>
             ${authCtaHtml}
@@ -101,7 +103,7 @@ const MGIComponents = {
     }
 
     // Scroll styling enhancement
-    const header = document.getElementById('mainHeader');
+    const header = document.querySelector('.site-navbar');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 30) {
         if (header) header.classList.add('scrolled');
@@ -149,7 +151,7 @@ const MGIComponents = {
               <h6 class="fw-bold text-white text-uppercase mb-3 small tracking-wide pb-1 d-inline-block" style="border-bottom: 2px solid var(--mgi-gold);">Struktur &amp; Sinergi</h6>
               <ul class="list-unstyled mb-0">
                 <li><a href="preparation.html" class="footer-link">Struktur Alur Kerja Entitas</a></li>
-                <li><a href="ekosistem.html" class="footer-link">Bagan Ekosistem Terpadu</a></li>
+                <li><a href="ekosistem.html" class="footer-link">Ekosistem Terpadu</a></li>
                 <li><a href="javascript:void(0)" onclick="MGIAuth.handleProtectedDetail('proj-jkt-jabar')" class="footer-link">Simulasi Titik Impas &amp; Bagi Hasil</a></li>
                 <li><a href="about.html#tata-kelola" class="footer-link">Tata Kelola Perusahaan (TARIF)</a></li>
               </ul>

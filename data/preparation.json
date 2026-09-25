@@ -1,21 +1,21 @@
 {
   "title": "Struktur Kerja & Sinergi Operasional Antar Entitas",
-  "subtitle": "Pengelola Project, Supply Import Langsung, dan System Pengadaan Terpadu",
-  "intro": "Menjelaskan bagaimana dana project investasi mengalir secara aman dan bagaimana entitas Montana Group (MIU, MSI, Mypurcase, MGI) berkoordinasi dalam supply import dari Jepang/Cina sampai ke customer dan eksekusi project di lapangan.",
+  "subtitle": "Pengelola Proyek, Suplai Impor Langsung, dan Sistem Pengadaan Terpadu",
+  "intro": "Proses alur dana  investasi per project dialokasikan secara aman dan dikelola Montana Group (MGI, MIU, MSI, Mypurcase) berkoordinasi dalam proyek lapangan, suplai impor dari Jepang/Cina sampai ke pelanggan dan sistem pengadaan terpadu.",
   "entities_summary": [
     {
       "code": "MGI",
       "name": "PT Montana Global Investama",
-      "role": "Pengelola Project & Permodalan Grup",
-      "fokus_kerja": "Pengelolaan project investasi, kepatuhan, relasi investor",
-      "output_utama": "Alokasi permodalan project, transparansi imbal hasil terukur",
+      "role": "Pengelola Proyek & Permodalan Grup",
+      "fokus_kerja": "Pengelolaan proyek investasi, kepatuhan, relasi investor",
+      "output_utama": "Alokasi permodalan proyek, transparansi imbal hasil terukur",
       "color": "gold",
       "icon": "building"
     },
     {
       "code": "MIU",
       "name": "PT Montana Indo Utama (MIU)",
-      "role": "Kantor, Workshop Sentral & Armada Montana Towing",
+      "role": "Kantor, Workshop & Dukungan Armada",
       "fokus_kerja": "Workshop Kebumen, armada khusus Komatsu CBU Jepang, armada Montana Towing, operasional Jawa Tengah, Bali, dan NTB",
       "output_utama": "125 unit Komatsu Grade A siap pakai, kantor & pool Kebumen, armada towing siaga",
       "color": "blue",
@@ -23,19 +23,19 @@
     },
     {
       "code": "MSI",
-      "name": "Montana Sentra Industri (MSI)",
-      "role": "Supply Import dari Jepang atau Cina ke Indonesia",
-      "fokus_kerja": "Fokus kepada import dari Jepang atau Cina ke Indonesia sampai pada alamat customer",
+      "name": "PT Montana Sentra Industri (MSI)",
+      "role": "Suplai Impor dari Jepang atau Cina ke Indonesia",
+      "fokus_kerja": "Fokus pada impor dari Jepang atau Cina ke Indonesia sampai ke alamat pelanggan",
       "output_utama": "Pengiriman door-to-door unit mesin dan alat berat impor langsung sampai lokasi",
       "color": "navy",
       "icon": "ship"
     },
     {
       "code": "Mypurcase",
-      "name": "Mypurcase (Coming soon 2027)",
-      "role": "System dan Pengadaan Terpadu Ekosistem",
-      "fokus_kerja": "System dan pengadaan terpadu dan purchasing unit dan mesin secara efisien",
-      "output_utama": "Purchasing terpadu hemat biaya, transparansi alokasi belanja modal",
+      "name": "Mypurcase (Segera Diluncurkan 2027)",
+      "role": "Sistem dan Pengadaan Terpadu Ekosistem",
+      "fokus_kerja": "Sistem dan pengadaan terpadu serta pembelian unit dan mesin secara efisien",
+      "output_utama": "Pengadaan terpadu hemat biaya, transparansi alokasi belanja modal",
       "color": "gold",
       "icon": "cart-check"
     }
@@ -43,32 +43,38 @@
   "workflow": [
     {
       "step": 1,
-      "title": "1. Penempatan Modal Project Investasi",
+      "title": "1. Penempatan Modal Investasi Proyek",
       "actor": "Investor → PT Montana Global Investama (MGI)",
-      "desc": "Investor melakukan penempatan dana pada project investasi riil pilihan dengan proyeksi imbal hasil agresif dan menguntungkan."
+      "desc": "Investor menempatkan dana pada investasi proyek riil pilihan dengan proyeksi imbal hasil menarik dan terukur."
     },
     {
       "step": 2,
       "title": "2. Alokasi Modal & Pemilihan Unit",
       "actor": "MGI → Unit Usaha (MIU & MSI)",
-      "desc": "MGI mengalokasikan permodalan project untuk akuisisi unit alat berat Komatsu CBU Jepang dan supply import material industri."
+      "desc": "MGI mengalokasikan permodalan proyek untuk akuisisi unit alat berat Komatsu CBU Jepang dan suplai impor."
     },
     {
       "step": 3,
-      "title": "3. System dan Pengadaan Terpadu",
-      "actor": "Unit Usaha → Mypurcase",
-      "desc": "Purchasing unit dan mesin dikoordinasikan melalui sistem terpadu Mypurcase secara efisien dan transparan."
+      "title": "3. Akuisisi Unit Alat Berat",
+      "actor": "MIU → Unit Alat Berat",
+      "desc": "MIU akuisisi unit alat berat Komatsu CBU Jepang."
     },
     {
       "step": 4,
-      "title": "4. Supply Import Door-to-Door",
-      "actor": "MSI → Alamat Customer / Pool",
-      "desc": "MSI mengawal import langsung dari Jepang atau Cina hingga unit tiba sempurna di alamat customer atau pool workshop."
+      "title": "4. Suplai Impor Door-to-Door",
+      "actor": "MSI → Alamat Pelanggan / Pool",
+      "desc": "MSI mengawal impor langsung dari Jepang atau Cina hingga unit tiba sempurna di alamat pelanggan atau pool workshop."
     },
     {
       "step": 5,
-      "title": "5. Utilisasi Project & Distribusi Hasil",
-      "actor": "MIU → MGI & Investor",
+      "title": "5. Sistem dan Pengadaan Terpadu",
+      "actor": "Mypurcase",
+      "desc": "Pembelian unit dan mesin dikoordinasikan melalui sistem terpadu Mypurcase secara efisien dan transparan."
+    },
+    {
+      "step": 6,
+      "title": "6. Utilisasi Proyek & Distribusi Hasil",
+      "actor": "MIU → MSI → Mypurcase → MGI & Investor",
       "desc": "Unit Komatsu dioperasikan pada kontrak kerja riil di kota-kota strategis, menghasilkan dividen kompetitif yang ditransfer ke rekening investor."
     }
   ]

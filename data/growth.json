@@ -98,14 +98,14 @@
       },
       {
         "label": "Stok Unit Tersedia di Pool",
-        "value": "24 Unit Ready",
+        "value": "24 Unit Siap Operasi",
         "note": "Pool Kebumen & Siap Mobilisasi",
         "icon": "bi-check2-square",
         "color": "text-success"
       },
       {
         "label": "Wilayah Operasional Aktif",
-        "value": "Jateng, Bali, NTB",
+        "value": "Sumatra, Jabodetabek, Bali",
         "note": "Rencana Ekspansi Berkelanjutan",
         "icon": "bi-geo-alt-fill",
         "color": "text-primary"
@@ -114,7 +114,7 @@
   },
   "msi": {
     "title": "Montana Sentra Industri (MSI)",
-    "subtitle": "Supply Import Langsung dari Jepang atau Cina ke Indonesia Sampai ke Alamat Customer",
+    "subtitle": "Suplai Impor Langsung dari Jepang atau Cina ke Indonesia Sampai ke Alamat Pelanggan",
     "badge": "Suplai Impor Langsung ke Pelanggan",
     "badgeClass": "bg-gold text-white",
     "chartLabel": "Kapasitas Output & Supply Unit (Ton/Thn)",
@@ -140,7 +140,7 @@
     "unit": "Ton/Tahun",
     "kpis": [
       {
-        "label": "Volume Supply Import (2025)",
+        "label": "Volume Suplai Impor (2025)",
         "value": "2.800 Ton",
         "note": "Target 2026: 4.200 Ton/Thn",
         "icon": "bi-ship",
@@ -161,7 +161,7 @@
         "color": "text-royal"
       },
       {
-        "label": "Asal Pengadaan Import",
+        "label": "Asal Pengadaan Impor",
         "value": "Jepang & Cina",
         "note": "Mitra Manufaktur Resmi",
         "icon": "bi-globe-americas",

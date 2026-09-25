@@ -1,32 +1,32 @@
 {
   "title": "Bagan Ekosistem Korporat Montana Group",
-  "subtitle": "Grup Project Investasi & Peta Ekosistem Unit Usaha Terpadu",
-  "intro": "Struktur grup PT Montana Global Investama menaungi entitas operasional terpadu: MIU (Kantor & Workshop Kebumen, Armada Towing), MSI (Supply Import Jepang/Cina ke Customer), dan Mypurcase (System & Pengadaan Terpadu).",
+  "subtitle": "",
+  "intro": "Struktur grup PT Montana Global Investama menaungi entitas operasional terpadu: MIU (Kantor & Workshop Kebumen, Armada Towing), MSI (Suplai Impor Jepang/Cina ke Pelanggan), dan Mypurcase (Sistem & Pengadaan Terpadu).",
   "root_entity": "mgi-holding",
   "table_summary": [
     {
       "entitas": "PT Montana Global Investama",
       "level": "0 (Grup)",
       "induk_langsung": "—",
-      "fungsi_utama": "Manajer investasi project & pengelola modal project grup, strategi agresif terukur, tata kelola perusahaan (TARIF)"
+      "fungsi_utama": "Manajer investasi proyek & pengelola modal proyek grup, strategi terukur, tata kelola perusahaan (TARIF)"
     },
     {
       "entitas": "PT Montana Indo Utama (MIU)",
       "level": "1",
       "induk_langsung": "PT Montana Global Investama",
-      "fungsi_utama": "Kantor & workshop sentral Kebumen, armada Montana Towing, distribusi & utilisasi alat berat Komatsu CBU Jepang Grade A (ekspansi Jawa Tengah, Bali, NTB)"
+      "fungsi_utama": "Kantor & workshop, Dukungan armada, distribusi & utilisasi alat berat Komatsu CBU Jepang Grade A (ekspansi Sumatera,Jabodetabek,Bali)"
     },
     {
-      "entitas": "Montana Sentra Industri (MSI)",
+      "entitas": "PT Montana Sentra Industri (MSI)",
       "level": "1",
       "induk_langsung": "PT Montana Global Investama",
-      "fungsi_utama": "Supply import langsung mesin dan alat berat dari Jepang atau Cina ke Indonesia sampai pada alamat customer"
+      "fungsi_utama": "Suplai impor langsung mesin dan alat berat dari Jepang atau Cina ke Indonesia sampai ke alamat pelanggan"
     },
     {
-      "entitas": "Mypurcase (Coming soon 2027)",
+      "entitas": "Mypurcase (Segera Diluncurkan 2027)",
       "level": "1",
       "induk_langsung": "PT Montana Global Investama",
-      "fungsi_utama": "System dan pengadaan terpadu, purchasing unit dan mesin secara efisien lintas entitas grup"
+      "fungsi_utama": "Sistem dan pengadaan terpadu, pembelian unit dan mesin secara efisien lintas entitas grup"
     }
   ],
   "nodes": [
@@ -35,19 +35,19 @@
       "label": "PT Montana Global Investama",
       "short_label": "MGI Grup",
       "type": "holding",
-      "category": "Grup & Project Investment Manager",
+      "category": "Grup & Pengelola Investasi Proyek",
       "parent": null,
       "level": 0,
       "icon": "building",
-      "badge": "Grup & Pengelola Modal Project",
-      "description": "Induk usaha (grup), manajer investasi, dan pengelola modal project grup. Menghadirkan instrumen project investasi riil dengan prinsip agresif dan menguntungkan berimbal hasil menarik serta tata kelola perusahaan yang baik (TARIF)."
+      "badge": "Grup & Pengelola Modal Proyek",
+      "description": "Montana Grup, manajer investasi, dan pengelola modal proyek. Menghadirkan instrumen proyek investasi riil bagi hasil menarik serta tata kelola perusahaan yang baik (TARIF)."
     },
     {
       "id": "miu",
       "label": "PT Montana Indo Utama (MIU)",
       "short_label": "Montana Indo Utama",
       "type": "subsidiary",
-      "category": "Kantor, Workshop Sentral & Armada Towing",
+      "category": "Kantor, Workshop & Dukungan Armada",
       "parent": "mgi-holding",
       "level": 1,
       "icon": "truck",
@@ -56,27 +56,27 @@
     },
     {
       "id": "montana-sentra-industri",
-      "label": "Montana Sentra Industri (MSI)",
+      "label": "PT Montana Sentra Industri (MSI)",
       "short_label": "Montana Sentra Industri",
       "type": "subsidiary",
-      "category": "Supply Import Jepang & Cina",
+      "category": "Suplai Impor Jepang & Cina",
       "parent": "mgi-holding",
       "level": 1,
       "icon": "ship",
-      "badge": "Supply Import Laut & Ekspedisi",
-      "description": "Fokus pada supply import unit mesin dan alat berat langsung dari Jepang atau Cina ke Indonesia melalui jalur laut hingga sampai ke alamat customer secara efisien dan aman."
+      "badge": "Suplai Impor Laut & Ekspedisi",
+      "description": "Fokus pada suplai impor unit mesin dan alat berat langsung dari Jepang atau Cina ke Indonesia melalui jalur laut hingga sampai ke alamat pelanggan secara efisien dan aman."
     },
     {
       "id": "mypurcase",
-      "label": "Mypurcase (Coming Soon 2027)",
+      "label": "Mypurcase (Segera Diluncurkan 2027)",
       "short_label": "Mypurcase",
       "type": "subsidiary",
-      "category": "System & Pengadaan Terpadu Digital",
+      "category": "Sistem & Pengadaan Terpadu Digital",
       "parent": "mgi-holding",
       "level": 1,
       "icon": "cart-check",
-      "badge": "Coming Soon 2027",
-      "description": "System dan platform pengadaan terpadu untuk purchasing unit dan mesin secara efisien, transparan, dan terukur lintas entitas dalam ekosistem Montana Group."
+      "badge": "Segera Diluncurkan 2027",
+      "description": "Sistem dan platform pengadaan terpadu untuk pembelian unit dan mesin secara efisien, transparan, dan terukur lintas entitas dalam ekosistem Montana Group."
     },
     {
       "id": "workshop-kebumen",
@@ -94,9 +94,9 @@
   "governance_summary": {
     "title": "Prinsip Integrasi Ekosistem Terpadu",
     "points": [
-      "Pengelola Project & Permodalan: MGI mengelola portofolio project investasi dengan prinsip agresif dan menguntungkan berimbal hasil menarik.",
-      "Supply Import Langsung (MSI): Impor langsung unit alat berat dan mesin dari Jepang atau Cina ke Indonesia sampai pada alamat customer.",
-      "System dan Pengadaan Terpadu (Mypurcase): Purchasing unit dan mesin secara efisien, memangkas biaya perantara tanpa beban administrasi berlebih.",
+      "Pengelola Proyek & Permodalan: MGI mengelola portofolio proyek investasi dengan imbal hasil menarik dan terukur.",
+      "Suplai Impor Langsung (MSI): Impor langsung unit alat berat dan mesin dari Jepang atau Cina ke Indonesia sampai ke alamat pelanggan.",
+      "Sistem dan Pengadaan Terpadu (Mypurcase): Pembelian unit dan mesin secara efisien, memangkas biaya perantara tanpa beban administrasi berlebih.",
       "Proteksi Aset Fisik Nyata: Armada 125 unit khusus Komatsu Grade A, stok tersedia di pool, dan nilai pendanaan terukur di setiap kota operasional."
     ]
   }
