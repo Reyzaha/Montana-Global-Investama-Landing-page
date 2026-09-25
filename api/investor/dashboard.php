@@ -28,7 +28,7 @@ try {
     if ($action === 'get') {
         // A. Profile
         $stmtP = $db->prepare("
-            SELECT i.id, i.account_type, i.email, i.full_name, i.citizenship, i.phone, i.status, i.created_at,
+            SELECT i.id, i.account_type, i.email, i.full_name, i.citizenship, i.phone, i.business_activity, i.status, i.created_at,
                    c.business_name, c.legal_entity, c.company_address, c.pic_name, c.pic_position, c.company_phone, c.annual_turnover
             FROM investors i
             LEFT JOIN investor_companies c ON i.id = c.investor_id
@@ -130,6 +130,7 @@ try {
                 'fullName' => $profile['account_type'] === 'perusahaan' ? $profile['business_name'] : ($profile['full_name'] ?: explode('@', $profile['email'])[0]),
                 'citizenship' => $profile['citizenship'] ?? 'Indonesia (WNI)',
                 'phone' => $profile['phone'] ?? '',
+                'business_activity' => $profile['business_activity'] ?? '',
                 'status' => $profile['status'],
                 'registered_at' => $profile['created_at'],
                 // Corporate fields
@@ -209,13 +210,14 @@ try {
 
         $fullName = trim($input['full_name'] ?? '');
         $phone = trim($input['phone'] ?? '');
+        $businessActivity = trim($input['business_activity'] ?? '');
 
         if (empty($fullName)) {
             sendJsonError('Nama lengkap wajib diisi.');
         }
 
-        $stmtUp = $db->prepare("UPDATE investors SET full_name = ?, phone = ? WHERE id = ?");
-        $stmtUp->execute([$fullName, $phone, $investorId]);
+        $stmtUp = $db->prepare("UPDATE investors SET full_name = ?, phone = ?, business_activity = ? WHERE id = ?");
+        $stmtUp->execute([$fullName, $phone, $businessActivity, $investorId]);
 
         // If corporate
         if (!empty($input['business_name'])) {

@@ -579,6 +579,13 @@
                     <input type="text" id="profPhone" class="form-control" required>
                   </div>
 
+                  <!-- Khusus Perorangan: Jenis Kegiatan Usaha -->
+                  <div id="individualFieldsSection" class="col-12">
+                    <label class="form-label fw-bold text-dark small">Jenis Kegiatan Usaha</label>
+                    <input type="text" id="profBusinessActivity" class="form-control" placeholder="Contoh: Perdagangan, Konstruksi, Jasa Profesional, Pertanian, Wiraswasta, dll.">
+                    <div class="form-text small text-muted">Sektor industri, profesi, atau kegiatan ekonomi utama Anda sebagai investor perorangan.</div>
+                  </div>
+
                   <!-- Khusus Korporasi -->
                   <div id="corporateFieldsSection" class="col-12 d-none">
                     <div class="p-3 bg-light rounded-3 border mb-2">
@@ -1037,11 +1044,16 @@
 
       if (isCorp) {
         document.getElementById('corporateFieldsSection').classList.remove('d-none');
+        document.getElementById('individualFieldsSection').classList.add('d-none');
         document.getElementById('profBusinessName').value = p.business_name || '';
         document.getElementById('profLegalEntity').value = p.legal_entity || 'Perseroan Terbatas (PT)';
         document.getElementById('profPicName').value = p.pic_name || '';
         document.getElementById('profPicPosition').value = p.pic_position || '';
         document.getElementById('profCompanyAddress').value = p.company_address || '';
+      } else {
+        document.getElementById('corporateFieldsSection').classList.add('d-none');
+        document.getElementById('individualFieldsSection').classList.remove('d-none');
+        document.getElementById('profBusinessActivity').value = p.business_activity || '';
       }
     }
 
@@ -1100,6 +1112,7 @@
       const payload = {
         full_name: document.getElementById('profFullName').value.trim(),
         phone: document.getElementById('profPhone').value.trim(),
+        business_activity: document.getElementById('profBusinessActivity')?.value.trim() || '',
         business_name: document.getElementById('profBusinessName')?.value.trim(),
         pic_name: document.getElementById('profPicName')?.value.trim(),
         pic_position: document.getElementById('profPicPosition')?.value.trim(),

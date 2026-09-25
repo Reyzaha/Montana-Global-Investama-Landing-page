@@ -61,9 +61,22 @@ class Database {
             if (!$connected) {
                 throw new Exception("Koneksi database gagal: " . ($lastException ? $lastException->getMessage() : 'Port tidak merespons'));
             }
+
+            self::ensureSchemaUpdates(self::$instance);
         }
 
         return self::$instance;
+    }
+
+    private static function ensureSchemaUpdates(PDO $db): void {
+        try {
+            $cols = $db->query("SHOW COLUMNS FROM `investors` LIKE 'business_activity'")->fetchAll();
+            if (empty($cols)) {
+                $db->exec("ALTER TABLE `investors` ADD COLUMN `business_activity` VARCHAR(255) NULL AFTER `phone`");
+            }
+        } catch (Throwable $e) {
+            // Silently ignore if investors table does not exist yet during initial installation
+        }
     }
 
     public static function getConnectedPort(): ?int {

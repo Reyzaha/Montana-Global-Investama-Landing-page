@@ -21,7 +21,7 @@ try {
         $search = trim($_GET['search'] ?? '');
 
         $sql = "
-            SELECT i.id, i.account_type, i.email, i.full_name, i.citizenship, i.phone,
+            SELECT i.id, i.account_type, i.email, i.full_name, i.citizenship, i.phone, i.business_activity,
                    i.status, i.notes, i.created_at, i.updated_at,
                    c.business_name, c.legal_entity, c.company_address, c.pic_name,
                    c.pic_position, c.company_phone, c.annual_turnover

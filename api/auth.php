@@ -31,7 +31,7 @@ try {
         }
         $db = getDB();
         $stmt = $db->prepare("
-            SELECT i.id, i.account_type, i.email, i.full_name, i.citizenship, i.phone, i.status,
+            SELECT i.id, i.account_type, i.email, i.full_name, i.citizenship, i.phone, i.business_activity, i.status,
                    c.business_name, c.legal_entity, c.company_address, c.pic_name, c.pic_position, c.annual_turnover
             FROM investors i
             LEFT JOIN investor_companies c ON i.id = c.investor_id
@@ -51,6 +51,7 @@ try {
                     'fullName' => $user['account_type'] === 'perusahaan' ? $user['business_name'] : ($user['full_name'] ?: explode('@', $user['email'])[0]),
                     'picName' => $user['pic_name'] ?? '',
                     'phone' => $user['phone'] ?? '',
+                    'businessActivity' => $user['business_activity'] ?? '',
                     'legalEntity' => $user['legal_entity'] ?? '',
                     'status' => $user['status']
                 ]
@@ -142,6 +143,7 @@ try {
             'fullName' => $user['account_type'] === 'perusahaan' ? $user['business_name'] : ($user['full_name'] ?: explode('@', $user['email'])[0]),
             'picName' => $user['pic_name'] ?? '',
             'phone' => $user['phone'] ?? '',
+            'businessActivity' => $user['business_activity'] ?? '',
             'legalEntity' => $user['legal_entity'] ?? '',
             'status' => $user['status']
         ];
@@ -225,16 +227,17 @@ try {
             $fullName = trim($input['full_name'] ?? ($input['fullName'] ?? ''));
             $citizenship = $input['citizenship'] ?? 'Indonesia (WNI)';
             $phone = trim($input['phone'] ?? '');
+            $businessActivity = trim($input['business_activity'] ?? ($input['businessActivity'] ?? ''));
 
             if (empty($fullName)) {
                 sendJsonError('Nama lengkap sesuai identitas wajib diisi.');
             }
 
             $stmtIns = $db->prepare("
-                INSERT INTO investors (account_type, email, password_hash, full_name, citizenship, phone, status)
-                VALUES ('perorangan', ?, ?, ?, ?, ?, 'active')
+                INSERT INTO investors (account_type, email, password_hash, full_name, citizenship, phone, business_activity, status)
+                VALUES ('perorangan', ?, ?, ?, ?, ?, ?, 'active')
             ");
-            $stmtIns->execute([$email, $hash, $fullName, $citizenship, $phone]);
+            $stmtIns->execute([$email, $hash, $fullName, $citizenship, $phone, $businessActivity]);
             $investorId = (int)$db->lastInsertId();
         }
 
@@ -257,6 +260,7 @@ try {
                 'email' => $email,
                 'fullName' => $fullName,
                 'phone' => $input['phone'] ?? '',
+                'businessActivity' => $businessActivity ?? '',
                 'status' => 'active'
             ],
             'csrf_token' => getCsrfToken(),

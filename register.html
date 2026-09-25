@@ -194,7 +194,7 @@
               </div>
 
               <!-- Nomor Telepon -->
-              <div class="col-12">
+              <div class="col-12 col-md-6">
                 <label for="phonePerorangan" class="form-label fw-bold text-dark small">
                   Nomor Telepon (WhatsApp) <span class="text-danger">*</span>
                 </label>
@@ -206,6 +206,16 @@
                 <div class="form-text small text-muted">Digunakan untuk konfirmasi resmi oleh Relationship Manager.
                 </div>
                 <div class="invalid-feedback">Masukkan nomor telepon yang valid (hanya angka, 8-15 digit).</div>
+              </div>
+
+              <!-- Jenis Kegiatan Usaha -->
+              <div class="col-12 col-md-6">
+                <label for="businessActivityPerorangan" class="form-label fw-bold text-dark small">
+                  Jenis Kegiatan Usaha
+                </label>
+                <input type="text" class="form-control form-control-lg fs-6 py-2 px-3 border-subtle"
+                  id="businessActivityPerorangan" placeholder="Contoh: Perdagangan, Konstruksi, Jasa, Wiraswasta, dll.">
+                <div class="form-text small text-muted">Sektor industri, bidang usaha, atau profesi utama Anda.</div>
               </div>
             </div>
           </div>
@@ -669,6 +679,7 @@
           userData.email = document.getElementById('emailPerorangan').value.trim();
           userData.citizenship = document.getElementById('citizenshipPerorangan').value;
           userData.phone = document.getElementById('phonePerorangan').value.trim();
+          userData.businessActivity = document.getElementById('businessActivityPerorangan').value.trim();
         } else {
           userData.businessName = document.getElementById('businessName').value.trim();
           userData.legalEntity = document.getElementById('legalEntity').value;

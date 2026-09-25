@@ -146,6 +146,7 @@ const MGIAuth = {
       fullName: user.type === 'perusahaan' ? (user.businessName || user.fullName) : (user.fullName || user.email.split('@')[0]),
       picName: user.picName || '',
       phone: user.phone || '',
+      businessActivity: user.businessActivity || user.business_activity || '',
       legalEntity: user.legalEntity || '',
       loginAt: new Date().toISOString()
     };

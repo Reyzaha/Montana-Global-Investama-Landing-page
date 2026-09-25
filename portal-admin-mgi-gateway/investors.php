@@ -190,7 +190,7 @@ require_once __DIR__ . '/includes/header.php';
             </td>
             <td>
               <div class="small fw-semibold">${isCorp ? (inv.legal_entity || 'Badan Usaha') : (inv.citizenship || 'WNI')}</div>
-              ${isCorp && inv.annual_turnover ? `<small class="text-muted">Omzet: ${inv.annual_turnover}</small>` : ''}
+              ${isCorp && inv.annual_turnover ? `<small class="text-muted">Omzet: ${inv.annual_turnover}</small>` : (inv.business_activity ? `<small class="text-primary">${inv.business_activity}</small>` : '')}
             </td>
             <td>${statusBadge}</td>
             <td class="small text-muted">${dateStr}</td>
@@ -267,6 +267,10 @@ require_once __DIR__ . '/includes/header.php';
         <div class="col-md-6">
           <small class="text-muted d-block">Nomor Telepon / WhatsApp</small>
           <strong>${inv.phone || '-'}</strong>
+        </div>
+        <div class="col-md-6">
+          <small class="text-muted d-block">Jenis Kegiatan Usaha</small>
+          <strong class="text-primary">${inv.business_activity || '-'}</strong>
         </div>
         <div class="col-md-6">
           <small class="text-muted d-block">Tanggal Registrasi</small>

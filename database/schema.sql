@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS `investors` (
   `full_name` VARCHAR(255) NULL,
   `citizenship` ENUM('Indonesia (WNI)', 'Warga Negara Asing (WNA)') DEFAULT 'Indonesia (WNI)',
   `phone` VARCHAR(50) NULL,
+  `business_activity` VARCHAR(255) NULL,
   `status` ENUM('active', 'pending_verification', 'suspended') NOT NULL DEFAULT 'active',
   `notes` TEXT NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
