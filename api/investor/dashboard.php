@@ -111,16 +111,17 @@ try {
         ");
         $campaignUpdates = $stmtCamp->fetchAll();
 
-        // E. Available Open Projects
-        $stmtOpen = $db->query("
+        // E. Catalog Projects (All projects for exploration, search & filter: Open, Coming Soon, Closed, Full)
+        $stmtCatalog = $db->query("
             SELECT id, title, category, image, status, funding_collected, funding_target,
                    lokasi, tenor, return_rate, min_investment, remaining_days, asset_backed
             FROM projects
-            WHERE status = 'Open'
             ORDER BY sort_order ASC
-            LIMIT 4
         ");
-        $openProjects = $stmtOpen->fetchAll();
+        $catalogProjects = $stmtCatalog ? $stmtCatalog->fetchAll() : [];
+        $openProjects = array_values(array_filter($catalogProjects, function ($p) {
+            return ($p['status'] ?? '') === 'Open';
+        }));
 
         sendJsonResponse([
             'profile' => [
@@ -159,6 +160,7 @@ try {
             ] : null,
             'campaign_updates' => $campaignUpdates,
             'open_projects' => $openProjects,
+            'catalog_projects' => $catalogProjects,
             'csrf_token' => getCsrfToken(),
             'session_security' => [
                 'ip' => $session['ip'] ?? getClientIp(),

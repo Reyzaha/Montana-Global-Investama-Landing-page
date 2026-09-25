@@ -25,118 +25,475 @@
   <link rel="stylesheet" href="assets/css/style.css">
 
   <style>
-    /* Investor Portal Shell Styling */
+    /* ===================================================
+       APPLE DESIGN SYSTEM AESTHETICS (Human Interface Guidelines)
+       =================================================== */
+    :root {
+      --apple-bg: #F5F5F7;
+      --apple-surface: #FFFFFF;
+      --apple-border: rgba(0, 0, 0, 0.08);
+      --apple-border-subtle: rgba(0, 0, 0, 0.04);
+      --apple-text-primary: #1D1D1F;
+      --apple-text-secondary: #86868B;
+      --apple-blue: #0071E3;
+      --apple-green: #34C759;
+      --apple-amber: #FF9500;
+      --apple-purple: #AF52DE;
+      --apple-indigo: #5856D6;
+      --apple-gold: #C5A059;
+      --apple-navy: #0E1838;
+      --apple-radius-sm: 10px;
+      --apple-radius-md: 16px;
+      --apple-radius-lg: 22px;
+      --apple-radius-pill: 9999px;
+      --apple-shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 1px 3px 0 rgba(0, 0, 0, 0.02);
+      --apple-shadow-hover: 0 12px 32px -4px rgba(0, 0, 0, 0.09), 0 2px 8px 0 rgba(0, 0, 0, 0.03);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Outfit", "Segoe UI", Roboto, sans-serif !important;
+      background-color: var(--apple-bg) !important;
+      color: var(--apple-text-primary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Apple Frosted Glass Topbar */
     .investor-portal-topbar {
-      background: #FFFFFF;
-      border-bottom: 1px solid #E2E8F0;
-      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+      background: rgba(255, 255, 255, 0.86) !important;
+      backdrop-filter: saturate(180%) blur(20px) !important;
+      -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+      border-bottom: 1px solid var(--apple-border) !important;
+      box-shadow: 0 2px 14px rgba(0, 0, 0, 0.03);
       z-index: 1030;
     }
 
     .investor-subbar {
-      background: #F8FAFC;
-      border-bottom: 1px solid #E2E8F0;
+      background: rgba(255, 255, 255, 0.72) !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      border-bottom: 1px solid var(--apple-border);
     }
 
+    /* Apple Segmented Control - Dashboard Tabs */
     .nav-dashboard-tabs {
-      background: #FFFFFF;
-      border-radius: 12px;
-      padding: 6px;
-      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
-      border: 1px solid #E2E8F0;
+      background: rgba(118, 118, 128, 0.08) !important;
+      border-radius: var(--apple-radius-md) !important;
+      padding: 5px !important;
+      box-shadow: none !important;
+      border: 1px solid rgba(0, 0, 0, 0.05) !important;
     }
 
     .nav-dashboard-tabs .nav-link {
-      color: #475569;
-      font-weight: 600;
-      font-size: 0.92rem;
-      border-radius: 8px;
-      padding: 10px 18px;
+      color: #636366 !important;
+      font-weight: 500;
+      font-size: 0.88rem;
+      border-radius: 12px !important;
+      padding: 9px 16px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      transition: all 0.2s ease;
+      gap: 7px;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
       background: transparent;
       border: none;
     }
 
     .nav-dashboard-tabs .nav-link:hover {
-      color: #0E1838;
-      background: #F1F5F9;
+      color: var(--apple-text-primary) !important;
+      background: rgba(255, 255, 255, 0.6);
     }
 
     .nav-dashboard-tabs .nav-link.active {
-      color: #FFFFFF !important;
-      background: #0E1838 !important;
-      font-weight: 700;
-      box-shadow: 0 2px 6px rgba(14, 24, 56, 0.2);
+      color: var(--apple-text-primary) !important;
+      background: #FFFFFF !important;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 1px rgba(0, 0, 0, 0.1) !important;
     }
 
     .nav-dashboard-tabs .nav-link.active i {
-      color: #C5A059 !important;
+      color: var(--apple-gold) !important;
     }
 
+    /* Apple Metric Cards */
     .dash-metric-card {
       background: #FFFFFF;
-      border: 1px solid #E2E8F0;
-      border-radius: 14px;
+      border: 1px solid var(--apple-border);
+      border-radius: var(--apple-radius-md);
       padding: 22px 24px;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+      box-shadow: var(--apple-shadow-card);
       height: 100%;
-      border-left: 4px solid #C5A059;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border-left: 4px solid var(--apple-gold);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .dash-metric-card:hover {
-      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.07);
+      transform: translateY(-2px);
+      box-shadow: var(--apple-shadow-hover);
     }
 
     .dash-metric-card.metric-profit {
-      border-left: 4px solid #10B981 !important;
+      border-left: 4px solid var(--apple-green) !important;
     }
 
     .dash-metric-label {
       font-size: 0.72rem;
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: 0.6px;
-      color: #64748B;
+      color: var(--apple-text-secondary);
       text-transform: uppercase;
       margin-bottom: 6px;
     }
 
     .dash-metric-value {
-      font-size: 1.75rem;
-      font-weight: 800;
-      color: #0E1838;
+      font-size: 1.85rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--apple-text-primary);
       line-height: 1.2;
       margin: 4px 0 6px;
     }
 
     .dash-metric-subtext {
       font-size: 0.8rem;
-      color: #64748B;
+      color: var(--apple-text-secondary);
+    }
+
+    /* Apple Badges & Dividers */
+    .apple-badge-pill {
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: var(--apple-radius-pill);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.2px;
+    }
+
+    .apple-section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.08), transparent);
+    }
+
+    /* Apple Spotlight Search & Filter Toolbar */
+    .apple-filter-card {
+      background: #FFFFFF;
+      border-radius: var(--apple-radius-lg);
+      padding: 20px 24px;
+      border: 1px solid var(--apple-border);
+      box-shadow: var(--apple-shadow-card);
+    }
+
+    .apple-search-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .apple-search-icon {
+      position: absolute;
+      left: 16px;
+      color: var(--apple-text-secondary);
+      font-size: 0.95rem;
+      pointer-events: none;
+    }
+
+    .apple-search-input {
+      width: 100%;
+      height: 44px;
+      border-radius: var(--apple-radius-pill);
+      border: 1px solid rgba(0, 0, 0, 0.09);
+      background: #F5F5F7;
+      padding: 8px 40px 8px 44px;
+      font-size: 0.88rem;
+      color: var(--apple-text-primary);
+      outline: none;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .apple-search-input:focus {
+      background: #FFFFFF;
+      border-color: var(--apple-blue);
+      box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.14);
+    }
+
+    .apple-search-clear {
+      position: absolute;
+      right: 14px;
+      background: none;
+      border: none;
+      color: var(--apple-text-secondary);
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.15s ease;
+    }
+
+    .apple-search-clear:hover {
+      color: var(--apple-text-primary);
+    }
+
+    /* Apple Segmented Status Filter Buttons */
+    .apple-segmented-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      background: #F5F5F7;
+      padding: 4px;
+      border-radius: var(--apple-radius-pill);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .apple-filter-btn {
+      background: transparent;
+      border: none;
+      border-radius: var(--apple-radius-pill);
+      padding: 7px 14px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #636366;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      white-space: nowrap;
+    }
+
+    .apple-filter-btn:hover {
+      color: var(--apple-text-primary);
+    }
+
+    .apple-filter-btn.active {
+      background: #FFFFFF;
+      color: var(--apple-text-primary);
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .apple-filter-btn .count-pill {
+      font-size: 0.72rem;
+      padding: 2px 7px;
+      border-radius: var(--apple-radius-pill);
+      background: rgba(0, 0, 0, 0.06);
+      color: #636366;
+      font-weight: 600;
+    }
+
+    .apple-filter-btn.active .count-pill {
+      background: var(--apple-text-primary);
+      color: #FFFFFF;
+    }
+
+    .status-indicator {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .status-indicator.open { background: var(--apple-green); }
+    .status-indicator.comingsoon { background: var(--apple-amber); }
+    .status-indicator.full { background: var(--apple-indigo); }
+    .status-indicator.closed { background: #8E8E93; }
+
+    /* Apple Project Cards (Apple Design System) */
+    .apple-project-card {
+      background: #FFFFFF;
+      border-radius: var(--apple-radius-lg);
+      border: 1px solid var(--apple-border);
+      box-shadow: var(--apple-shadow-card);
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .apple-project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--apple-shadow-hover);
+    }
+
+    .apple-card-media {
+      position: relative;
+      height: 195px;
+      overflow: hidden;
+      background: #E5E5EA;
+    }
+
+    .apple-card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .apple-project-card:hover .apple-card-media img {
+      transform: scale(1.04);
+    }
+
+    .apple-status-pill {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      padding: 6px 12px;
+      border-radius: var(--apple-radius-pill);
+      font-size: 0.74rem;
+      font-weight: 600;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      letter-spacing: 0.2px;
+      z-index: 2;
+    }
+
+    .apple-status-pill.status-open {
+      background: rgba(52, 199, 89, 0.94);
+      color: #FFFFFF;
+    }
+
+    .apple-status-pill.status-comingsoon {
+      background: rgba(255, 149, 0, 0.94);
+      color: #FFFFFF;
+    }
+
+    .apple-status-pill.status-full {
+      background: rgba(88, 86, 214, 0.94);
+      color: #FFFFFF;
+    }
+
+    .apple-status-pill.status-closed {
+      background: rgba(118, 118, 128, 0.94);
+      color: #FFFFFF;
+    }
+
+    .apple-status-pill.status-followed {
+      background: rgba(14, 24, 56, 0.92);
+      color: #FFFFFF;
+      border: 1px solid rgba(197, 160, 89, 0.6);
+    }
+
+    /* Apple Progress Bar */
+    .apple-progress-track {
+      width: 100%;
+      height: 7px;
+      background: #E5E5EA;
+      border-radius: var(--apple-radius-pill);
+      overflow: hidden;
+      margin: 8px 0;
+    }
+
+    .apple-progress-fill {
+      height: 100%;
+      border-radius: var(--apple-radius-pill);
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .apple-spec-box {
+      background: #F5F5F7;
+      border-radius: 12px;
+      padding: 10px 12px;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .apple-btn-primary {
+      background: var(--apple-text-primary);
+      color: #FFFFFF !important;
+      border: none;
+      border-radius: var(--apple-radius-pill);
+      padding: 10px 20px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+    }
+
+    .apple-btn-primary:hover {
+      background: #000000;
+      color: var(--apple-gold) !important;
+      transform: translateY(-1px);
+    }
+
+    .apple-btn-secondary {
+      background: #F5F5F7;
+      color: var(--apple-text-primary) !important;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: var(--apple-radius-pill);
+      padding: 10px 20px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+    }
+
+    .apple-btn-secondary:hover {
+      background: #E5E5EA;
+      color: #000000 !important;
+    }
+
+    .apple-ghost-btn {
+      color: var(--apple-blue);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .apple-ghost-btn:hover {
+      color: #0051A2;
+      text-decoration: underline;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      background-color: #34C759;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 0 0 rgba(52, 199, 89, 0.7);
+      animation: applePulse 2s infinite;
+    }
+
+    @keyframes applePulse {
+      0% { box-shadow: 0 0 0 0 rgba(52, 199, 89, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(52, 199, 89, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(52, 199, 89, 0); }
     }
 
     .campaign-feed-card {
       background: #FFFFFF;
-      border: 1px solid #E2E8F0;
-      border-radius: 14px;
+      border: 1px solid var(--apple-border);
+      border-radius: var(--apple-radius-md);
       overflow: hidden;
       margin-bottom: 24px;
-      box-shadow: 0 3px 10px rgba(15, 23, 42, 0.03);
+      box-shadow: var(--apple-shadow-card);
     }
 
     .bank-card-visual {
       background: linear-gradient(135deg, #0E1838 0%, #142563 100%);
       color: #FFFFFF;
-      border-radius: 16px;
+      border-radius: 20px;
       padding: 26px;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 10px 24px rgba(20, 37, 99, 0.25);
-      border: 1px solid #C5A059;
+      box-shadow: 0 12px 28px rgba(20, 37, 99, 0.25);
+      border: 1px solid var(--apple-gold);
     }
 
     /* Print View Styling for Official Portfolio Statement */
@@ -158,7 +515,7 @@
   </style>
 </head>
 
-<body class="bg-light" style="background-color: #F8FAFC !important;">
+<body style="background-color: #F5F5F7 !important;">
 
   <!-- Dedicated Topbar: Portal Investor Shell (Separated from Public Landing Page) -->
   <header class="investor-portal-topbar sticky-top">
@@ -418,27 +775,123 @@
       <!-- 2. TAB: PROJECT INVESTOR -->
       <!-- ======================================================== -->
       <div class="tab-pane fade" id="tab-projects" role="tabpanel">
-        <div class="mb-4">
-          <h5 class="fw-bold text-dark mb-1">Proyek Investasi yang Diikuti</h5>
-          <p class="text-muted small mb-0">Pantau perkembangan operasional proyek yang sedang Anda danai atau ajukan peminatan pada proyek terbuka lainnya.</p>
-        </div>
 
-        <div id="investorProjectsContainer" class="row g-4 mb-5">
-          <!-- Dynamic cards for investor's active projects -->
-        </div>
-
-        <!-- Peluang Proyek Baru (Status Open) -->
-        <div class="border-top pt-4 mt-2">
-          <div class="d-flex align-items-center justify-content-between mb-3">
+        <!-- ======================================================== -->
+        <!-- BAGIAN 1: PROYEK INVESTASI YANG SEDANG DIIKUTI           -->
+        <!-- ======================================================== -->
+        <div class="mb-5">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
             <div>
-              <h5 class="fw-bold text-dark mb-1">Peluang Investasi Proyek Terbuka (Open Opportunities)</h5>
-              <p class="text-muted small mb-0">Diversifikasikan penempatan modal Anda pada proyek alat berat dan industri riil lainnya.</p>
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="apple-badge-pill bg-success-subtle text-success">
+                  <span class="pulse-dot"></span> Portofolio Aktif Anda
+                </span>
+                <span class="text-secondary small fw-medium" id="followedProjectsCountBadge">1 Proyek Sedang Berjalan</span>
+              </div>
+              <h4 class="fw-bold text-dark mb-1" style="letter-spacing: -0.02em;">Proyek Investasi yang Diikuti</h4>
+              <p class="text-secondary small mb-0">Daftar instrumen proyek riil yang saat ini telah Anda danai dengan jaminan kepemilikan unit fisik alat berat Komatsu CBU Grade A.</p>
             </div>
-            <a href="invest.html" class="btn btn-sm btn-link text-decoration-none fw-bold">Lihat Semua Proyek &rarr;</a>
+            <div>
+              <button type="button" onclick="printPortfolioStatement()" class="btn btn-sm btn-outline-dark rounded-pill px-3 py-1.5 shadow-sm d-inline-flex align-items-center gap-1.5 fw-semibold" style="font-size: 0.82rem;">
+                <i class="bi bi-printer"></i>
+                <span>Cetak Rekap Portofolio</span>
+              </button>
+            </div>
           </div>
 
-          <div id="availableProjectsContainer" class="row g-4">
-            <!-- Dynamic open projects cards -->
+          <!-- Container Proyek yang Diikuti -->
+          <div id="investorProjectsContainer" class="row g-4">
+            <!-- Dynamic cards for investor's active projects -->
+          </div>
+        </div>
+
+        <!-- Divider Apple Style -->
+        <div class="apple-section-divider my-5"></div>
+
+        <!-- ======================================================== -->
+        <!-- BAGIAN 2: EKSPLORASI PROYEK LAINNYA (BELUM DIIKUTI)      -->
+        <!-- ======================================================== -->
+        <div class="mb-4">
+          <div class="d-flex flex-wrap align-items-end justify-content-between gap-3 mb-4">
+            <div>
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="apple-badge-pill bg-primary-subtle text-primary">
+                  <i class="bi bi-compass"></i> Peluang Proyek Baru
+                </span>
+                <span class="text-secondary small fw-medium" id="unfollowedProjectsCountBadge">Peluang Tersedia</span>
+              </div>
+              <h4 class="fw-bold text-dark mb-1" style="letter-spacing: -0.02em;">Katalog Proyek Investasi (Belum Diikuti)</h4>
+              <p class="text-secondary small mb-0">Temukan dan ikuti alokasi penempatan modal pada proyek riil sektor alat berat dan infrastruktur lainnya.</p>
+            </div>
+            <a href="invest.html" target="_blank" class="apple-ghost-btn small d-inline-flex align-items-center gap-1.5">
+              <span>Buka Katalog Lengkap</span>
+              <i class="bi bi-arrow-up-right small"></i>
+            </a>
+          </div>
+
+          <!-- Apple Spotlight Search & Filter Toolbar -->
+          <div class="apple-filter-card mb-4">
+            <div class="row g-3 align-items-center">
+              <!-- Search Input Apple Spotlight Style -->
+              <div class="col-12 col-lg-5">
+                <div class="apple-search-wrapper">
+                  <i class="bi bi-search apple-search-icon"></i>
+                  <input type="text" id="projectSearchInput" class="apple-search-input"
+                    placeholder="Cari nama proyek, kota (Kebumen, Surabaya...), unit..."
+                    oninput="filterExploreProjects()" autocomplete="off">
+                  <button type="button" id="projectSearchClearBtn" class="apple-search-clear d-none" onclick="clearProjectSearch()">
+                    <i class="bi bi-x-circle-fill"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Status Filter Segmented Controls Apple Style -->
+              <div class="col-12 col-lg-7">
+                <div class="apple-segmented-filter" id="statusFilterPills">
+                  <button type="button" class="apple-filter-btn active" data-status="all" onclick="setStatusFilter('all', this)">
+                    <span>Semua Status</span>
+                    <span class="count-pill" id="countAll">5</span>
+                  </button>
+                  <button type="button" class="apple-filter-btn" data-status="open" onclick="setStatusFilter('open', this)">
+                    <span class="status-indicator open"></span>
+                    <span>Open</span>
+                    <span class="count-pill" id="countOpen">3</span>
+                  </button>
+                  <button type="button" class="apple-filter-btn" data-status="comingsoon" onclick="setStatusFilter('comingsoon', this)">
+                    <span class="status-indicator comingsoon"></span>
+                    <span>Coming Soon</span>
+                    <span class="count-pill" id="countComingSoon">1</span>
+                  </button>
+                  <button type="button" class="apple-filter-btn" data-status="full" onclick="setStatusFilter('full', this)">
+                    <span class="status-indicator full"></span>
+                    <span>Full (Penuh)</span>
+                    <span class="count-pill" id="countFull">1</span>
+                  </button>
+                  <button type="button" class="apple-filter-btn" data-status="closed" onclick="setStatusFilter('closed', this)">
+                    <span class="status-indicator closed"></span>
+                    <span>Closed</span>
+                    <span class="count-pill" id="countClosed">1</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Active Filter Info Bar -->
+            <div class="d-flex flex-wrap align-items-center justify-content-between pt-3 mt-3 border-top border-light-subtle small text-secondary">
+              <div id="filterResultSummary">
+                Memuat katalog peluang proyek...
+              </div>
+              <div id="filterResetContainer" class="d-none">
+                <button type="button" class="btn btn-sm btn-link text-decoration-none text-primary p-0 fw-semibold" onclick="resetAllFilters()">
+                  <i class="bi bi-arrow-counterclockwise me-1"></i> Reset Pencarian &amp; Filter
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Container Grid Proyek Belum Diikuti -->
+          <div id="exploreProjectsContainer" class="row g-4">
+            <!-- Dynamic explore projects cards -->
           </div>
         </div>
       </div>
@@ -839,13 +1292,46 @@
     async function loadDashboardData() {
       let loadedFromApi = false;
       try {
-        const res = await fetch('api/investor/dashboard.php');
-        if (res.ok) {
-          const json = await res.json();
+        const [dashRes, prRes] = await Promise.all([
+          fetch('api/investor/dashboard.php').catch(() => null),
+          fetch('data/projects.json').catch(() => null)
+        ]);
+
+        let catalogFromPr = [];
+        if (prRes && prRes.ok) {
+          const prJson = await prRes.json();
+          if (prJson && prJson.projects) {
+            catalogFromPr = prJson.projects.map(p => ({
+              id: p.id,
+              title: p.title,
+              category: p.category,
+              lokasi: p.info ? p.info.lokasi : (p.city || 'Nasional'),
+              city: p.city || 'Indonesia',
+              status: p.status || 'Open',
+              image: p.image || 'assets/img/komatsu.jpg',
+              return_rate: p.info ? p.info.return : '≥30% (p.a.)',
+              tenor: p.info ? p.info.tenor : '36 Bulan',
+              min_investment: p.info && p.info.min_investment ? MGI.parseRupiah(p.info.min_investment) : 500000000,
+              payout: p.info ? p.info.payout : 'Bagi Hasil Kuartalan',
+              funding_target: p.funding ? p.funding.target : 5000000000,
+              funding_collected: p.funding ? p.funding.collected : 0,
+              remaining_days: p.info ? p.info.remaining_days : '14 Hari Tersisa',
+              stock_available: p.info ? p.info.stock_available : 'Komatsu CBU Grade A',
+              brand: p.info ? p.info.brand : 'Komatsu CBU Grade A',
+              is_full: p.status === 'Full' || (p.funding && p.funding.collected >= p.funding.target)
+            }));
+          }
+        }
+
+        if (dashRes && dashRes.ok) {
+          const json = await dashRes.json();
           if (json && json.success && json.data) {
             dashboardData = json.data;
             if (json.data.csrf_token) {
               currentCsrfToken = json.data.csrf_token;
+            }
+            if (catalogFromPr.length > 0) {
+              dashboardData.catalog_projects = catalogFromPr;
             }
             renderDashboardView();
             loadedFromApi = true;
@@ -932,24 +1418,104 @@
             image_url: 'assets/img/project-jabodetabek.jpg'
           }
         ],
-        open_projects: [
+        catalog_projects: [
           {
             id: 'proj-kebumen',
             title: 'Sentral Pool & Workshop Alat Berat Kebumen',
+            category: 'Sentral Pool & Workshop Alat Berat Komatsu',
             lokasi: 'Kebumen & Jawa Tengah',
+            city: 'Kebumen',
+            status: 'Open',
+            image: 'assets/img/project-kebumen.jpg',
             return_rate: '≥31% (p.a.)',
             tenor: '36 Bulan',
-            image: 'assets/img/project-kebumen.jpg'
+            min_investment: 500000000,
+            payout: 'Bagi Hasil Kuartalan',
+            funding_target: 6000000000,
+            funding_collected: 4800000000,
+            remaining_days: '14 Hari Tersisa',
+            stock_available: '5 Unit Siap Operasi di Workshop Kebumen',
+            brand: 'Komatsu CBU Grade A',
+            is_full: false
           },
           {
             id: 'proj-makassar',
-            title: 'Pengadaan Alat Berat Pelabuhan & Industri Makassar',
+            title: '03 — Makassar Infrastructure & Resource Growth',
+            category: 'Investasi Alat Berat untuk Mendukung Infrastruktur & Logistik',
             lokasi: 'Makassar & Sulawesi Selatan',
+            city: 'Makassar',
+            status: 'Open',
+            image: 'assets/img/project-makassar.jpg',
             return_rate: '≥32% (p.a.)',
             tenor: '36 Bulan',
-            image: 'assets/img/project-makassar.jpg'
+            min_investment: 500000000,
+            payout: 'Bagi Hasil Kuartalan',
+            funding_target: 5000000000,
+            funding_collected: 3200000000,
+            remaining_days: '24 Hari Tersisa',
+            stock_available: '4 Unit Komatsu Siap Operasi',
+            brand: 'Komatsu CBU Grade A',
+            is_full: false
+          },
+          {
+            id: 'proj-surabaya',
+            title: '01 — Surabaya Industrial Growth',
+            category: 'Investasi Alat Berat untuk Ekspansi Industri & Infrastruktur',
+            lokasi: 'Surabaya & Jawa Timur',
+            city: 'Surabaya',
+            status: 'Coming Soon',
+            image: 'assets/img/project-surabaya.jpg',
+            return_rate: '≥30% (p.a.)',
+            tenor: '36 Bulan',
+            min_investment: 500000000,
+            payout: 'Bagi Hasil Kuartalan',
+            funding_target: 5000000000,
+            funding_collected: 0,
+            remaining_days: 'Segera Hadir',
+            stock_available: 'Alokasi Unit Sesuai Tahapan',
+            brand: 'Komatsu CBU Grade A',
+            is_full: false
+          },
+          {
+            id: 'proj-denpasar',
+            title: '02 — Bali Tourism & Infrastructure Growth',
+            category: 'Investasi Alat Berat untuk Pertumbuhan Pariwisata & Properti',
+            lokasi: 'Denpasar & Bali',
+            city: 'Denpasar',
+            status: 'Closed',
+            image: 'assets/img/project-denpasar.jpg',
+            return_rate: '≥32% (p.a.)',
+            tenor: '36 Bulan',
+            min_investment: 500000000,
+            payout: 'Bagi Hasil Kuartalan',
+            funding_target: 7000000000,
+            funding_collected: 7000000000,
+            remaining_days: 'Pendanaan Selesai (100% Penuh)',
+            stock_available: '6 Unit Aktif Operasional Lapangan',
+            brand: 'Komatsu CBU Grade A',
+            is_full: true
+          },
+          {
+            id: 'proj-jkt-jabar',
+            title: 'Ekspansi Pool & Alat Berat Regional Jabodetabek dan Jawa Barat',
+            category: 'Proyek Ekspansi Pool & Alat Berat Komatsu',
+            lokasi: 'DKI Jakarta & Jawa Barat',
+            city: 'Jabodetabek & Jawa Barat',
+            status: 'Open',
+            image: 'assets/img/project-jabodetabek.jpg',
+            return_rate: '≥32% (p.a.)',
+            tenor: '36 Bulan',
+            min_investment: 500000000,
+            payout: 'Bagi Hasil Kuartalan',
+            funding_target: 10000000000,
+            funding_collected: 7500000000,
+            remaining_days: '18 Hari Tersisa',
+            stock_available: '8 Unit Komatsu Siap Operasi',
+            brand: 'Komatsu CBU Grade A',
+            is_full: false
           }
         ],
+        open_projects: [],
         session_security: {
           client_ip: '127.0.0.1',
           login_time: new Date().toLocaleString('id-ID')
@@ -1155,53 +1721,101 @@
         }
       }
 
-      // C. Tab 2: Project Investor
+      // C. Tab 2: Project Investor — Proyek yang Diikuti (Portofolio Aktif)
+      const followedBadge = document.getElementById('followedProjectsCountBadge');
+      if (followedBadge) {
+        followedBadge.textContent = `${ports.length} Proyek Sedang Berjalan`;
+      }
+
       const ipc = document.getElementById('investorProjectsContainer');
-      if (ports.length === 0) {
-        ipc.innerHTML = `<div class="col-12"><div class="p-4 bg-white rounded-3 border text-center text-muted">Anda belum memiliki proyek aktif.</div></div>`;
-      } else {
-        ipc.innerHTML = ports.map(port => `
-          <div class="col-12 col-md-6 col-lg-4">
-            <div class="card h-100 border rounded-4 overflow-hidden shadow-sm bg-white">
-              <img src="${port.project_image || 'assets/img/komatsu.jpg'}" class="card-img-top" style="height: 180px; object-fit: cover;" alt="">
-              <div class="card-body p-4">
-                <span class="badge bg-royal text-white px-3 py-1 rounded-pill small mb-2" style="background: #142563;">Penempatan Proyek</span>
-                <h5 class="fw-bold text-dark mb-2">${port.project_title}</h5>
-                <p class="text-muted small mb-3">Unit: <strong>${port.allocated_units || 'Alat Berat CBU'}</strong></p>
-                <div class="p-3 bg-light rounded-3 mb-3 border">
-                  <div class="d-flex justify-content-between small mb-1">
-                    <span class="text-muted">Modal Terpasang:</span>
-                    <strong class="text-dark">${MGI.formatRupiah(port.amount)}</strong>
-                  </div>
-                  <div class="d-flex justify-content-between small">
-                    <span class="text-muted">Proyeksi Return:</span>
-                    <strong class="text-success">${port.return_rate}</strong>
-                  </div>
+      if (ipc) {
+        if (ports.length === 0) {
+          ipc.innerHTML = `
+            <div class="col-12">
+              <div class="p-5 bg-white rounded-4 border text-center" style="box-shadow: var(--apple-shadow-card);">
+                <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-3 text-secondary" style="width: 56px; height: 56px; background: #F5F5F7;">
+                  <i class="bi bi-briefcase fs-4"></i>
                 </div>
-                <a href="invest-detail.html?id=${encodeURIComponent(port.project_id)}" class="btn btn-outline-dark w-100 rounded-pill py-2 small fw-bold">
-                  Buka Prospektus &amp; RAB &rarr;
+                <h5 class="fw-bold text-dark mb-1">Belum Ada Proyek yang Diikuti</h5>
+                <p class="text-secondary small mb-3">Anda belum memiliki alokasi modal aktif pada instrumen proyek riil. Silakan eksplorasi katalog proyek terbuka di bawah ini.</p>
+                <a href="#statusFilterPills" class="apple-btn-primary">
+                  <i class="bi bi-compass"></i>
+                  <span>Jelajahi Peluang Proyek</span>
                 </a>
               </div>
             </div>
-          </div>
-        `).join('');
+          `;
+        } else {
+          ipc.innerHTML = ports.map(port => `
+            <div class="col-12 col-lg-6">
+              <div class="apple-project-card">
+                <div class="apple-card-media">
+                  <img src="${port.project_image || 'assets/img/komatsu.jpg'}" alt="${port.project_title}" onerror="this.src='assets/img/project-excavator.svg'">
+                  <span class="apple-status-pill status-followed">
+                    <span class="pulse-dot"></span> Portofolio Aktif Anda
+                  </span>
+                </div>
+                <div class="p-4 d-flex flex-column flex-grow-1">
+                  <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="badge bg-light text-dark border px-2.5 py-1 rounded-pill small fw-normal">
+                      <i class="bi bi-gear-fill me-1" style="color: #C5A059;"></i> ${port.allocated_units || '1x Komatsu PC138US (Grade A)'}
+                    </span>
+                    <small class="text-muted" style="font-size: 0.76rem;">Kontrak: <span style="color: #EC4899; font-weight: 600;">${port.contract_number}</span></small>
+                  </div>
+
+                  <h5 class="fw-bold text-dark mb-3 lh-sm" style="font-size: 1.15rem;">${port.project_title}</h5>
+
+                  <div class="row g-2 mb-3">
+                    <div class="col-6">
+                      <div class="apple-spec-box">
+                        <span class="small text-secondary d-block" style="font-size: 0.72rem;">Modal Terpasang:</span>
+                        <strong class="text-dark" style="font-size: 0.95rem;">${MGI.formatRupiah(port.amount)}</strong>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="apple-spec-box">
+                        <span class="small text-secondary d-block" style="font-size: 0.72rem;">Estimasi ROI:</span>
+                        <strong class="text-success" style="font-size: 0.95rem;">${port.return_rate}</strong>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="apple-spec-box">
+                        <span class="small text-secondary d-block" style="font-size: 0.72rem;">Tenor Kontrak:</span>
+                        <strong class="text-dark" style="font-size: 0.95rem;">${port.tenor}</strong>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="apple-spec-box">
+                        <span class="small text-secondary d-block" style="font-size: 0.72rem;">Dividen Diterima:</span>
+                        <strong class="text-primary" style="font-size: 0.95rem; color: #2563EB !important;">${MGI.formatRupiah(port.payout_received)}</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mt-auto pt-2">
+                    <a href="invest-detail.html?id=${encodeURIComponent(port.project_id)}" class="apple-btn-primary w-100 py-2.5">
+                      <span>Buka Prospektus &amp; Dokumen RAB</span>
+                      <i class="bi bi-arrow-right"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `).join('');
+        }
       }
 
-      // Open Opportunities
-      const apc = document.getElementById('availableProjectsContainer');
-      apc.innerHTML = openProjs.map(op => `
-        <div class="col-12 col-md-6 col-lg-3">
-          <div class="card h-100 border rounded-3 p-3 bg-white shadow-sm">
-            <img src="${op.image || 'assets/img/komatsu.jpg'}" class="rounded-3 mb-3" style="height: 120px; object-fit: cover;" alt="">
-            <h6 class="fw-bold text-dark mb-1 text-truncate">${op.title}</h6>
-            <div class="small text-muted mb-2">${op.lokasi || 'Jawa Tengah'}</div>
-            <div class="small fw-bold text-success mb-3">${op.return_rate} &bull; ${op.tenor}</div>
-            <a href="invest-detail.html?id=${encodeURIComponent(op.id)}" class="btn btn-sm btn-mgi-blue w-100 rounded-pill text-white" style="background: #142563;">
-              Pelajari &amp; Ikuti
-            </a>
-          </div>
-        </div>
-      `).join('');
+      // Proyek Belum Diikuti (Katalog Eksplorasi)
+      const followedProjectIds = ports.map(p => p.project_id);
+      const catalogAll = dashboardData.catalog_projects || [];
+      const unfollowedList = catalogAll.filter(p => !followedProjectIds.includes(p.id));
+      window.allUnfollowedProjects = unfollowedList.length > 0 ? unfollowedList : catalogAll;
+
+      // Update Filter Counters
+      updateFilterCounters();
+
+      // Render explore projects with current search and status filters
+      filterExploreProjects();
 
       // D. Tab 3: Campaign Updates Feed
       const cuc = document.getElementById('campaignUpdatesContainer');
@@ -1468,6 +2082,272 @@
       } finally {
         btn.disabled = false;
       }
+    }
+
+    // ========================================================
+    // APPLE DESIGN FILTER & SEARCH ENGINE UNTUK PROYEK BELUM DIIKUTI
+    // ========================================================
+    let currentStatusFilter = 'all';
+
+    function setStatusFilter(status, btn) {
+      currentStatusFilter = status;
+      document.querySelectorAll('.apple-filter-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      filterExploreProjects();
+    }
+
+    function clearProjectSearch() {
+      const input = document.getElementById('projectSearchInput');
+      if (input) input.value = '';
+      const clearBtn = document.getElementById('projectSearchClearBtn');
+      if (clearBtn) clearBtn.classList.add('d-none');
+      filterExploreProjects();
+    }
+
+    function resetAllFilters() {
+      currentStatusFilter = 'all';
+      const allBtn = document.querySelector('.apple-filter-btn[data-status="all"]');
+      document.querySelectorAll('.apple-filter-btn').forEach(b => b.classList.remove('active'));
+      if (allBtn) allBtn.classList.add('active');
+      const input = document.getElementById('projectSearchInput');
+      if (input) input.value = '';
+      const clearBtn = document.getElementById('projectSearchClearBtn');
+      if (clearBtn) clearBtn.classList.add('d-none');
+      filterExploreProjects();
+    }
+
+    function updateFilterCounters() {
+      if (!window.allUnfollowedProjects) return;
+      const list = window.allUnfollowedProjects;
+
+      const badgeUnfollowed = document.getElementById('unfollowedProjectsCountBadge');
+      if (badgeUnfollowed) badgeUnfollowed.textContent = `${list.length} Peluang Tersedia`;
+
+      const cAll = document.getElementById('countAll');
+      const cOpen = document.getElementById('countOpen');
+      const cComing = document.getElementById('countComingSoon');
+      const cFull = document.getElementById('countFull');
+      const cClosed = document.getElementById('countClosed');
+
+      let nOpen = 0, nComing = 0, nFull = 0, nClosed = 0;
+
+      list.forEach(p => {
+        const st = (p.status || '').toLowerCase().replace(/\s+/g, '');
+        const isFull = p.is_full || st === 'full' || (p.funding_target && p.funding_collected && p.funding_collected >= p.funding_target);
+        const isClosed = st === 'closed' || st === 'close';
+        const isOpen = st === 'open';
+        const isComing = st === 'comingsoon' || st === 'segerahadir';
+
+        if (isFull) nFull++;
+        if (isClosed) nClosed++;
+        if (isOpen && !isFull) nOpen++;
+        if (isComing) nComing++;
+      });
+
+      if (cAll) cAll.textContent = list.length;
+      if (cOpen) cOpen.textContent = nOpen;
+      if (cComing) cComing.textContent = nComing;
+      if (cFull) cFull.textContent = nFull;
+      if (cClosed) cClosed.textContent = nClosed;
+    }
+
+    function filterExploreProjects() {
+      const container = document.getElementById('exploreProjectsContainer');
+      if (!container) return;
+
+      const input = document.getElementById('projectSearchInput');
+      const query = (input ? input.value : '').trim().toLowerCase();
+      const clearBtn = document.getElementById('projectSearchClearBtn');
+      if (clearBtn) {
+        if (query.length > 0) clearBtn.classList.remove('d-none');
+        else clearBtn.classList.add('d-none');
+      }
+
+      const list = window.allUnfollowedProjects || [];
+      const summaryEl = document.getElementById('filterResultSummary');
+      const resetContainer = document.getElementById('filterResetContainer');
+
+      const isFilterActive = currentStatusFilter !== 'all' || query.length > 0;
+      if (resetContainer) {
+        if (isFilterActive) resetContainer.classList.remove('d-none');
+        else resetContainer.classList.add('d-none');
+      }
+
+      const filtered = list.filter(p => {
+        // Status matching
+        const st = (p.status || '').toLowerCase().replace(/\s+/g, '');
+        const isFull = p.is_full || st === 'full' || (p.funding_target && p.funding_collected && p.funding_collected >= p.funding_target);
+        const isClosed = st === 'closed' || st === 'close';
+        const isOpen = st === 'open';
+        const isComing = st === 'comingsoon' || st === 'segerahadir';
+
+        let matchStatus = true;
+        if (currentStatusFilter === 'open') matchStatus = isOpen && !isFull;
+        else if (currentStatusFilter === 'comingsoon') matchStatus = isComing;
+        else if (currentStatusFilter === 'full') matchStatus = isFull;
+        else if (currentStatusFilter === 'closed') matchStatus = isClosed || (isFull && !isOpen);
+
+        if (!matchStatus) return false;
+
+        // Query text matching
+        if (query.length > 0) {
+          const hay = [
+            p.title,
+            p.category,
+            p.lokasi,
+            p.city,
+            p.brand,
+            p.units,
+            p.stock_available,
+            p.status
+          ].filter(Boolean).join(' ').toLowerCase();
+
+          if (!hay.includes(query)) return false;
+        }
+
+        return true;
+      });
+
+      if (summaryEl) {
+        if (isFilterActive) {
+          summaryEl.innerHTML = `Menemukan <strong>${filtered.length}</strong> proyek untuk filter aktif (${currentStatusFilter === 'all' ? 'Semua Status' : currentStatusFilter}${query ? ', kata kunci: "' + query + '"' : ''}).`;
+        } else {
+          summaryEl.textContent = `Menampilkan seluruh ${filtered.length} peluang proyek yang belum Anda ikuti.`;
+        }
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="col-12 py-4">
+            <div class="p-5 bg-white rounded-4 border text-center mx-auto" style="max-width: 520px; box-shadow: var(--apple-shadow-card);">
+              <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-3 text-secondary" style="width: 60px; height: 60px; background: #F5F5F7; font-size: 1.6rem;">
+                <i class="bi bi-search"></i>
+              </div>
+              <h5 class="fw-bold text-dark mb-1">Proyek Tidak Ditemukan</h5>
+              <p class="text-secondary small mb-3">Tidak ada proyek yang sesuai dengan kriteria pencarian "${query || currentStatusFilter}". Silakan periksa ejaan atau ubah filter status.</p>
+              <button type="button" class="apple-btn-primary" onclick="resetAllFilters()">
+                <i class="bi bi-arrow-counterclockwise"></i>
+                <span>Reset Pencarian &amp; Filter</span>
+              </button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(p => {
+        const st = (p.status || '').toLowerCase().replace(/\s+/g, '');
+        const isFull = p.is_full || st === 'full' || (p.funding_target && p.funding_collected && p.funding_collected >= p.funding_target);
+        const isClosed = st === 'closed' || st === 'close';
+        const isComing = st === 'comingsoon' || st === 'segerahadir';
+        const isOpen = st === 'open' && !isFull;
+
+        let statusPillHtml = '';
+        let ctaButtonHtml = '';
+
+        if (isOpen) {
+          statusPillHtml = `<span class="apple-status-pill status-open"><span class="pulse-dot"></span> Terbuka (Open)</span>`;
+          ctaButtonHtml = `
+            <a href="invest-detail.html?id=${encodeURIComponent(p.id)}" class="apple-btn-primary w-100 py-2.5">
+              <span>Ikuti Penempatan Modal</span>
+              <i class="bi bi-arrow-right"></i>
+            </a>
+          `;
+        } else if (isComing) {
+          statusPillHtml = `<span class="apple-status-pill status-comingsoon"><i class="bi bi-clock-history"></i> Segera Hadir</span>`;
+          ctaButtonHtml = `
+            <a href="invest-detail.html?id=${encodeURIComponent(p.id)}" class="apple-btn-secondary w-100 py-2.5">
+              <span>Lihat Pra-Prospektus</span>
+              <i class="bi bi-arrow-right"></i>
+            </a>
+          `;
+        } else if (isFull) {
+          statusPillHtml = `<span class="apple-status-pill status-full"><i class="bi bi-star-fill"></i> Penuh (100% Terkumpul)</span>`;
+          ctaButtonHtml = `
+            <a href="invest-detail.html?id=${encodeURIComponent(p.id)}" class="apple-btn-secondary w-100 py-2.5">
+              <span>Lihat Arsip Prospektus</span>
+              <i class="bi bi-file-earmark-text"></i>
+            </a>
+          `;
+        } else {
+          statusPillHtml = `<span class="apple-status-pill status-closed"><i class="bi bi-lock-fill"></i> Ditutup (Closed)</span>`;
+          ctaButtonHtml = `
+            <a href="invest-detail.html?id=${encodeURIComponent(p.id)}" class="apple-btn-secondary w-100 py-2.5">
+              <span>Lihat Detail Prospektus</span>
+              <i class="bi bi-file-earmark-text"></i>
+            </a>
+          `;
+        }
+
+        const col = p.funding_collected || 0;
+        const tar = p.funding_target || 5000000000;
+        const pct = Math.min(100, Math.round((col / tar) * 100));
+
+        return `
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="apple-project-card">
+              <div class="apple-card-media">
+                <img src="${p.image || 'assets/img/komatsu.jpg'}" alt="${p.title}" onerror="this.src='assets/img/project-excavator.svg'">
+                ${statusPillHtml}
+              </div>
+              <div class="p-4 d-flex flex-column flex-grow-1">
+                <div class="d-flex align-items-center gap-1.5 text-secondary small mb-2">
+                  <i class="bi bi-geo-alt-fill text-danger"></i>
+                  <span>${p.lokasi || p.city || 'Indonesia'}</span>
+                </div>
+
+                <h5 class="fw-bold text-dark mb-1 lh-sm" style="font-size: 1.1rem;">${p.title}</h5>
+                <p class="text-secondary small mb-3 text-truncate-2" style="font-size: 0.8rem; line-height: 1.4;">
+                  ${p.category || 'Investasi Aset Riil Alat Berat Komatsu'}
+                </p>
+
+                <!-- Apple Progress Bar -->
+                <div class="mb-3">
+                  <div class="apple-progress-track">
+                    <div class="apple-progress-fill" style="width: ${pct}%; background: ${isFull ? '#5856D6' : (pct > 0 ? '#34C759' : '#FF9500')};"></div>
+                  </div>
+                  <div class="d-flex justify-content-between small text-secondary">
+                    <span class="fw-semibold text-dark">${pct > 0 ? pct + '% Terkumpul' : 'Pra-Peluncuran'}</span>
+                    <span>${p.remaining_days || (isFull ? 'Didanai Penuh' : 'Target: ' + MGI.formatRupiahCompact(tar))}</span>
+                  </div>
+                </div>
+
+                <!-- 2x2 Apple Spec Boxes -->
+                <div class="row g-2 mb-3">
+                  <div class="col-6">
+                    <div class="apple-spec-box">
+                      <span class="small text-secondary d-block" style="font-size: 0.7rem;">Estimasi ROI:</span>
+                      <strong class="text-success" style="font-size: 0.9rem;">${p.return_rate}</strong>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="apple-spec-box">
+                      <span class="small text-secondary d-block" style="font-size: 0.7rem;">Tenor:</span>
+                      <strong class="text-dark" style="font-size: 0.9rem;">${p.tenor}</strong>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="apple-spec-box">
+                      <span class="small text-secondary d-block" style="font-size: 0.7rem;">Min. Alokasi:</span>
+                      <strong class="text-dark" style="font-size: 0.85rem;">${MGI.formatRupiahCompact(p.min_investment || 500000000)}</strong>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="apple-spec-box">
+                      <span class="small text-secondary d-block" style="font-size: 0.7rem;">Bagi Hasil:</span>
+                      <strong class="text-primary" style="font-size: 0.85rem; color: #0071E3 !important;">${p.payout || 'Kuartalan'}</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-auto pt-2">
+                  ${ctaButtonHtml}
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
     }
   </script>
 </body>
