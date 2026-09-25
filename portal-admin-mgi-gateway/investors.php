@@ -40,7 +40,7 @@ require_once __DIR__ . '/includes/header.php';
     <table class="admin-table">
       <thead>
         <tr>
-          <th>Nama / Entitas Bisnis</th>
+          <th>Nama Lengkap / Perusahaan</th>
           <th>Tipe Akun</th>
           <th>Kontak (Email / Telepon)</th>
           <th>Identitas / Legalitas</th>
@@ -225,6 +225,10 @@ require_once __DIR__ . '/includes/header.php';
     const grid = document.getElementById('modalInvDetailsGrid');
     if (isCorp) {
       grid.innerHTML = `
+        <div class="col-md-6">
+          <small class="text-muted d-block">Nama Perusahaan</small>
+          <strong class="text-primary">${inv.business_name || inv.full_name || '-'}</strong>
+        </div>
         <div class="col-md-6">
           <small class="text-muted d-block">Badan Hukum Usaha</small>
           <strong>${inv.legal_entity || '-'}</strong>

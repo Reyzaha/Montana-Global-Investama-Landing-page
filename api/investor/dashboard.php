@@ -211,23 +211,26 @@ try {
         $fullName = trim($input['full_name'] ?? '');
         $phone = trim($input['phone'] ?? '');
         $businessActivity = trim($input['business_activity'] ?? '');
+        $businessName = trim($input['business_name'] ?? '') ?: $fullName;
 
         if (empty($fullName)) {
-            sendJsonError('Nama lengkap wajib diisi.');
+            sendJsonError('Nama lengkap atau nama perusahaan wajib diisi.');
         }
 
         $stmtUp = $db->prepare("UPDATE investors SET full_name = ?, phone = ?, business_activity = ? WHERE id = ?");
         $stmtUp->execute([$fullName, $phone, $businessActivity, $investorId]);
 
-        // If corporate
-        if (!empty($input['business_name'])) {
+        // If corporate, sync company profile details
+        $stmtCompCheck = $db->prepare("SELECT id FROM investor_companies WHERE investor_id = ?");
+        $stmtCompCheck->execute([$investorId]);
+        if ($stmtCompCheck->fetch()) {
             $stmtComp = $db->prepare("
                 UPDATE investor_companies SET
                     business_name = ?, company_address = ?, pic_name = ?, pic_position = ?, company_phone = ?
                 WHERE investor_id = ?
             ");
             $stmtComp->execute([
-                trim($input['business_name']),
+                $businessName,
                 trim($input['company_address'] ?? ''),
                 trim($input['pic_name'] ?? ''),
                 trim($input['pic_position'] ?? ''),

@@ -571,11 +571,11 @@
                   </div>
 
                   <div class="col-md-6">
-                    <label class="form-label fw-bold text-dark small">Nama Lengkap / Entitas <span class="text-danger">*</span></label>
+                    <label id="lblProfFullName" class="form-label fw-bold text-dark small">Nama Lengkap <span class="text-danger">*</span></label>
                     <input type="text" id="profFullName" class="form-control" required>
                   </div>
                   <div class="col-md-6">
-                    <label class="form-label fw-bold text-dark small">Nomor Telepon / WhatsApp <span class="text-danger">*</span></label>
+                    <label id="lblProfPhone" class="form-label fw-bold text-dark small">Nomor Telepon / WhatsApp <span class="text-danger">*</span></label>
                     <input type="text" id="profPhone" class="form-control" required>
                   </div>
 
@@ -588,16 +588,17 @@
 
                   <!-- Khusus Korporasi -->
                   <div id="corporateFieldsSection" class="col-12 d-none">
+                    <input type="hidden" id="profBusinessName">
                     <div class="p-3 bg-light rounded-3 border mb-2">
                       <h6 class="fw-bold text-dark small mb-3">Rincian Dokumen &amp; Legalitas Perusahaan</h6>
                       <div class="row g-3">
                         <div class="col-md-6">
-                          <label class="form-label fw-bold text-dark small">Nama Badan Usaha</label>
-                          <input type="text" id="profBusinessName" class="form-control">
-                        </div>
-                        <div class="col-md-6">
                           <label class="form-label fw-bold text-dark small">Bentuk Badan Hukum</label>
                           <input type="text" id="profLegalEntity" class="form-control bg-white" readonly>
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label fw-bold text-dark small">Omzet Tahunan Usaha</label>
+                          <input type="text" id="profAnnualTurnover" class="form-control bg-white" readonly>
                         </div>
                         <div class="col-md-6">
                           <label class="form-label fw-bold text-dark small">Nama PIC Resmi</label>
@@ -1032,7 +1033,6 @@
       // F. Tab 5: Profile View & Active Session Security
       document.getElementById('profAccountType').value = isCorp ? 'Perusahaan (Korporasi)' : 'Perorangan (Individu)';
       document.getElementById('profEmail').value = p.email;
-      document.getElementById('profFullName').value = p.fullName;
       document.getElementById('profPhone').value = p.phone || '';
 
       if (sec) {
@@ -1042,18 +1042,46 @@
         if (loginEl) loginEl.textContent = sec.login_time || new Date().toLocaleString('id-ID');
       }
 
+      const lblFullName = document.getElementById('lblProfFullName');
+      const inputFullName = document.getElementById('profFullName');
+      const lblPhone = document.getElementById('lblProfPhone');
+
       if (isCorp) {
+        if (lblFullName) lblFullName.innerHTML = 'Nama Perusahaan <span class="text-danger">*</span>';
+        if (inputFullName) {
+          inputFullName.placeholder = 'Contoh: PT Montana Global Investama';
+          inputFullName.value = p.business_name || p.fullName || '';
+        }
+        if (lblPhone) lblPhone.innerHTML = 'Telepon Perusahaan / WhatsApp PIC <span class="text-danger">*</span>';
+
         document.getElementById('corporateFieldsSection').classList.remove('d-none');
         document.getElementById('individualFieldsSection').classList.add('d-none');
-        document.getElementById('profBusinessName').value = p.business_name || '';
-        document.getElementById('profLegalEntity').value = p.legal_entity || 'Perseroan Terbatas (PT)';
-        document.getElementById('profPicName').value = p.pic_name || '';
-        document.getElementById('profPicPosition').value = p.pic_position || '';
-        document.getElementById('profCompanyAddress').value = p.company_address || '';
+
+        const elBus = document.getElementById('profBusinessName');
+        if (elBus) elBus.value = p.business_name || p.fullName || '';
+        const elLegal = document.getElementById('profLegalEntity');
+        if (elLegal) elLegal.value = p.legal_entity || 'Perseroan Terbatas (PT)';
+        const elTurnover = document.getElementById('profAnnualTurnover');
+        if (elTurnover) elTurnover.value = p.annual_turnover || '-';
+        const elPic = document.getElementById('profPicName');
+        if (elPic) elPic.value = p.pic_name || '';
+        const elPos = document.getElementById('profPicPosition');
+        if (elPos) elPos.value = p.pic_position || '';
+        const elAddr = document.getElementById('profCompanyAddress');
+        if (elAddr) elAddr.value = p.company_address || '';
       } else {
+        if (lblFullName) lblFullName.innerHTML = 'Nama Lengkap <span class="text-danger">*</span>';
+        if (inputFullName) {
+          inputFullName.placeholder = 'Nama lengkap sesuai KTP/Paspor';
+          inputFullName.value = p.fullName || '';
+        }
+        if (lblPhone) lblPhone.innerHTML = 'Nomor Telepon / WhatsApp <span class="text-danger">*</span>';
+
         document.getElementById('corporateFieldsSection').classList.add('d-none');
         document.getElementById('individualFieldsSection').classList.remove('d-none');
-        document.getElementById('profBusinessActivity').value = p.business_activity || '';
+
+        const elActivity = document.getElementById('profBusinessActivity');
+        if (elActivity) elActivity.value = p.business_activity || '';
       }
     }
 
@@ -1109,14 +1137,15 @@
       const btn = document.getElementById('btnUpdateProf');
       const alertBox = document.getElementById('profileAlert');
 
+      const fullNameVal = document.getElementById('profFullName').value.trim();
       const payload = {
-        full_name: document.getElementById('profFullName').value.trim(),
+        full_name: fullNameVal,
         phone: document.getElementById('profPhone').value.trim(),
         business_activity: document.getElementById('profBusinessActivity')?.value.trim() || '',
-        business_name: document.getElementById('profBusinessName')?.value.trim(),
-        pic_name: document.getElementById('profPicName')?.value.trim(),
-        pic_position: document.getElementById('profPicPosition')?.value.trim(),
-        company_address: document.getElementById('profCompanyAddress')?.value.trim(),
+        business_name: fullNameVal,
+        pic_name: document.getElementById('profPicName')?.value.trim() || '',
+        pic_position: document.getElementById('profPicPosition')?.value.trim() || '',
+        company_address: document.getElementById('profCompanyAddress')?.value.trim() || '',
         csrf_token: currentCsrfToken
       };
 
