@@ -37,7 +37,7 @@ services:
       - MYSQL_ROOT_PASSWORD=Root_Secret_Pass_2026!
     volumes:
       - mgi_db_data:/var/lib/mysql
-      - ./database/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+      - ./database/mgi_landing_production_complete.sql:/docker-entrypoint-initdb.d/01_schema.sql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pRoot_Secret_Pass_2026!"]
       timeout: 10s

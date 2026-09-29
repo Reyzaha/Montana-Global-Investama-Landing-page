@@ -17,3 +17,4 @@ Desktop.ini
 # Temporary and log files
 *.log
 scratch/
+backend/cache/

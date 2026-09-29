@@ -7,13 +7,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap');
 
 :root {
-  /* Solid Color System - No Gradients */
+  /* Official Brand Colors */
   --mgi-white: #FFFFFF;
   --mgi-bg-light: #F8F9FA;
   --mgi-bg-subtle: #F1F5F9;
   --mgi-bg-warm: #FAF8F5;
 
-  /* Official Brand Colors (Solid) */
   --mgi-blue: #1D3589;
   --mgi-blue-dark: #142563;
   --mgi-blue-light: #2563EB;
@@ -25,31 +24,62 @@
   --mgi-gold-subtle: #FCF8EE;
   --mgi-gold-border: #E8D7B0;
 
-  /* Solid Typography & Neutrals */
   --mgi-text-dark: #0F172A;
   --mgi-text-body: #334155;
   --mgi-text-muted: #64748B;
   --mgi-text-light: #94A3B8;
   --mgi-border: #E2E8F0;
 
-  /* Functional Solid Accents */
   --mgi-success: #059669;
   --mgi-success-bg: #ECFDF5;
   --mgi-warning: #D97706;
   --mgi-warning-bg: #FFFBEB;
   --mgi-info: #0284C7;
   --mgi-info-bg: #F0F9FF;
+
+  /* ===================================================
+     APPLE DESIGN SYSTEM TOKENS (Human Interface Guidelines)
+     =================================================== */
+  --apple-bg: #F5F5F7;
+  --apple-surface: #FFFFFF;
+  --apple-surface-secondary: #FBFBFD;
+  --apple-border: rgba(0, 0, 0, 0.08);
+  --apple-border-subtle: rgba(0, 0, 0, 0.04);
+  --apple-text-primary: #1D1D1F;
+  --apple-text-secondary: #6E6E73;
+  --apple-text-tertiary: #86868B;
+  --apple-blue: #0071E3;
+  --apple-blue-hover: #0077ED;
+  --apple-green: #34C759;
+  --apple-amber: #FF9500;
+  --apple-purple: #AF52DE;
+  --apple-indigo: #5856D6;
+  --apple-gold: #C5A059;
+  --apple-gold-light: #DFBE6F;
+  --apple-navy: #0B1224;
+  --apple-navy-glass: rgba(11, 18, 36, 0.88);
+  --apple-radius-xs: 6px;
+  --apple-radius-sm: 10px;
+  --apple-radius-md: 16px;
+  --apple-radius-lg: 22px;
+  --apple-radius-xl: 28px;
+  --apple-radius-pill: 9999px;
+  --apple-shadow-subtle: 0 2px 10px rgba(0, 0, 0, 0.03);
+  --apple-shadow-card: 0 4px 24px -2px rgba(0, 0, 0, 0.04), 0 1px 3px 0 rgba(0, 0, 0, 0.02);
+  --apple-shadow-hover: 0 16px 36px -4px rgba(0, 0, 0, 0.08), 0 2px 8px 0 rgba(0, 0, 0, 0.03);
+  --apple-shadow-hero: 0 24px 50px -12px rgba(11, 18, 36, 0.35);
 }
 
 /* ==========================================================================
-   Base Typography & Layout Overrides
+   Base Typography & Layout Overrides (Apple Design Enhanced)
    ========================================================================== */
 body {
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background-color: var(--mgi-white);
-  color: var(--mgi-text-body);
-  line-height: 1.68;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Outfit", "Plus Jakarta Sans", "Inter", "Segoe UI", Roboto, sans-serif;
+  background-color: var(--apple-bg);
+  color: var(--apple-text-primary);
+  line-height: 1.64;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1,
@@ -310,121 +340,224 @@ h6,
   color: var(--mgi-gold-light) !important;
 }
 
+/* ==========================================================================
+   APPLE DESIGN SYSTEM — LUXURY FROSTED GLASS NAVBAR & INTERACTIVE CONTROLS
+   ========================================================================== */
 .site-navbar {
-  background-color: #142563;
-  border-bottom: 3.5px solid var(--mgi-gold);
-  transition: all 0.25s ease-in-out;
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.15);
+  background-color: var(--apple-navy-glass) !important;
+  backdrop-filter: saturate(180%) blur(20px) !important;
+  -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18) !important;
+  padding: 0.65rem 0 !important;
 }
 
 .site-navbar.scrolled {
-  background-color: #0E1B48;
-  border-bottom-color: var(--mgi-gold-light);
-  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.25);
+  background-color: rgba(9, 14, 30, 0.95) !important;
+  border-bottom-color: rgba(197, 160, 89, 0.25) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35) !important;
 }
 
 .navbar-logo-badge {
-  background-color: #FFFFFF;
-  padding: 6px 14px;
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.96);
+  padding: 5px 12px;
+  border-radius: var(--apple-radius-pill);
   border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
   display: inline-flex;
   align-items: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
 }
 
 .navbar-logo-badge:hover {
   transform: scale(1.02);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
+/* Apple Nav Links (Floating Glass Pill on Active/Hover) */
 .site-navbar .nav-link {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #FFFFFF !important;
-  padding: 0.55rem 0.95rem !important;
-  border-radius: 6px;
-  transition: all 0.2s ease-in-out;
-  letter-spacing: 0.2px;
+  font-size: 0.88rem !important;
+  font-weight: 500 !important;
+  color: rgba(255, 255, 255, 0.82) !important;
+  padding: 0.42rem 0.95rem !important;
+  border-radius: var(--apple-radius-pill) !important;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  letter-spacing: -0.01em !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
 }
 
 .site-navbar .nav-link:hover {
-  color: #FFD700 !important;
-  background-color: rgba(255, 255, 255, 0.08);
-  transform: translateY(-1px);
+  color: #FFFFFF !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  transform: none !important;
 }
 
 .site-navbar .nav-link.active {
-  color: #FFD700 !important;
-  font-weight: 700;
-  background-color: rgba(197, 160, 89, 0.18);
-  position: relative;
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+  background: rgba(255, 255, 255, 0.14) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
 }
 
-.site-navbar .nav-link.active::after {
-  content: '';
-  position: absolute;
-  bottom: 2px;
-  left: 0.95rem;
-  right: 0.95rem;
-  height: 2.5px;
-  background-color: #FFD700;
-  border-radius: 2px;
+.site-navbar .nav-link.active::after,
+.site-navbar .navbar-nav .nav-link.active::after {
+  display: none !important; /* Hapus underline kuning tebal yang kaku */
 }
 
-.btn-navbar-login {
-  background-color: #FFFFFF;
-  border: 1.5px solid #FFFFFF;
-  color: #142563 !important;
-  font-weight: 700;
-  font-size: 0.92rem;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
+/* Apple Dropdown Menu for Navbar */
+.site-navbar .dropdown-menu {
+  background: rgba(14, 21, 40, 0.95) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: var(--apple-radius-md) !important;
+  padding: 0.5rem !important;
+  box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.45) !important;
+  min-width: 250px !important;
+  margin-top: 0.5rem !important;
 }
 
-.btn-navbar-login i {
-  color: #142563 !important;
-  font-size: 0.95rem;
+.site-navbar .dropdown-item {
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-size: 0.86rem !important;
+  font-weight: 500 !important;
+  padding: 0.55rem 0.85rem !important;
+  border-radius: var(--apple-radius-sm) !important;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+.site-navbar .dropdown-item:hover,
+.site-navbar .dropdown-item:focus {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #FFFFFF !important;
+  transform: translateX(2px) !important;
+}
+
+.site-navbar .dropdown-item.active {
+  background: rgba(197, 160, 89, 0.25) !important;
+  color: var(--apple-gold-light) !important;
+  font-weight: 600 !important;
+}
+
+/* ==========================================================================
+   APPLE DESIGN SYSTEM — PREMIUM BUTTONS
+   ========================================================================== */
+
+/* 1. Apple Frosted Glass Button: Masuk */
+.btn-navbar-login,
+.btn-apple-login,
+.btn-apple-glass {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #FFFFFF !important;
+  font-weight: 500 !important;
+  font-size: 0.86rem !important;
+  border-radius: var(--apple-radius-pill) !important;
+  padding: 0.42rem 1.15rem !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.45rem !important;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+.btn-navbar-login i,
+.btn-apple-login i,
+.btn-apple-glass i {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 0.92rem !important;
+  transition: transform 0.2s ease;
 }
 
 .btn-navbar-login:hover,
-.btn-navbar-login:focus {
-  background-color: #F8FAFC;
-  border-color: #F1F5F9;
-  color: #0A1333 !important;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+.btn-navbar-login:focus,
+.btn-apple-login:hover,
+.btn-apple-login:focus,
+.btn-apple-glass:hover {
+  background: rgba(255, 255, 255, 0.16) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  color: #FFFFFF !important;
+  transform: translateY(-1.5px) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2) !important;
 }
 
 .btn-navbar-login:hover i,
-.btn-navbar-login:focus i {
-  color: #0A1333 !important;
+.btn-apple-login:hover i {
+  transform: translateX(1px);
 }
 
-.btn-navbar-cta {
-  background-color: var(--mgi-gold);
-  border: 2px solid var(--mgi-gold-light);
-  color: #142563 !important;
-  font-weight: 700;
-  font-size: 0.92rem;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 4px 14px rgba(197, 160, 89, 0.35);
+/* 2. Apple Titanium Gold Executive CTA: Portal Investor */
+.btn-navbar-cta,
+.btn-apple-cta,
+.btn-apple-gold {
+  background: linear-gradient(135deg, #DFBE6F 0%, #C5A059 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  color: #0B1224 !important;
+  font-weight: 600 !important;
+  font-size: 0.86rem !important;
+  border-radius: var(--apple-radius-pill) !important;
+  padding: 0.42rem 1.25rem !important;
+  box-shadow: 0 4px 16px rgba(197, 160, 89, 0.35) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.45rem !important;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+.btn-navbar-cta i,
+.btn-apple-cta i,
+.btn-apple-gold i {
+  color: #0B1224 !important;
+  font-size: 0.94rem !important;
 }
 
 .btn-navbar-cta:hover,
-.btn-navbar-cta:focus {
-  background-color: var(--mgi-gold-light);
-  border-color: #FCEBA4;
-  color: #0A1333 !important;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(197, 160, 89, 0.5);
+.btn-navbar-cta:focus,
+.btn-apple-cta:hover,
+.btn-apple-cta:focus,
+.btn-apple-gold:hover {
+  background: linear-gradient(135deg, #ECCB7B 0%, #D4AF37 100%) !important;
+  border-color: rgba(255, 255, 255, 0.65) !important;
+  color: #0B1224 !important;
+  transform: translateY(-1.5px) !important;
+  box-shadow: 0 8px 24px rgba(197, 160, 89, 0.5) !important;
+}
+
+/* 3. Apple Primary Blue Button */
+.btn-apple-blue {
+  background: var(--apple-blue) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+  font-size: 0.88rem !important;
+  border-radius: var(--apple-radius-pill) !important;
+  padding: 0.45rem 1.25rem !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: 0 4px 14px rgba(0, 113, 227, 0.32) !important;
+}
+
+.btn-apple-blue:hover {
+  background: var(--apple-blue-hover) !important;
+  transform: translateY(-1.5px) !important;
+  box-shadow: 0 6px 20px rgba(0, 113, 227, 0.45) !important;
+  color: #FFFFFF !important;
 }
 
 .border-gold {
-  border: 1.5px solid var(--mgi-gold) !important;
+  border: 1px solid var(--apple-gold) !important;
 }
 
 /* ==========================================================================
@@ -466,35 +599,71 @@ h6,
    Project Cards & Catalog
    ========================================================================== */
 .mgi-card {
-  background-color: #FFFFFF;
-  border: 1.5px solid var(--mgi-border);
-  border-radius: 14px;
-  transition: all 0.25s ease-in-out;
+  background-color: var(--apple-surface);
+  border: 1px solid var(--apple-border) !important;
+  border-radius: var(--apple-radius-lg) !important;
+  box-shadow: var(--apple-shadow-card);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
 }
 
 .mgi-card:hover {
-  border-color: var(--mgi-gold);
+  border-color: rgba(197, 160, 89, 0.3) !important;
   transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+  box-shadow: var(--apple-shadow-hover);
 }
 
 .project-card-cover {
   height: 220px;
-  background-color: var(--mgi-bg-subtle);
+  background-color: var(--apple-bg);
   overflow: hidden;
   position: relative;
+  border-top-left-radius: var(--apple-radius-lg);
+  border-top-right-radius: var(--apple-radius-lg);
 }
 
 .project-card-cover > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .mgi-card:hover .project-card-cover > img {
-  transform: scale(1.03);
+  transform: scale(1.04);
+}
+
+.project-metrics-box {
+  background: var(--apple-surface-secondary) !important;
+  border: 1px solid var(--apple-border-subtle) !important;
+  border-radius: var(--apple-radius-md) !important;
+}
+
+.btn-outline-mgi {
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: var(--apple-navy) !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  font-weight: 600;
+  border-radius: var(--apple-radius-pill) !important;
+  padding: 0.5rem 1.25rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.btn-outline-mgi:hover {
+  background: var(--apple-navy) !important;
+  color: #FFFFFF !important;
+  border-color: var(--apple-navy) !important;
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 18px rgba(11, 18, 36, 0.25);
+}
+
+.btn-outline-mgi i {
+  transition: transform 0.2s ease;
+}
+
+.btn-outline-mgi:hover i {
+  transform: translateX(3px);
 }
 
 /* Project City Icon Badge Overlay (Pojok Kanan Atas Cover Proyek) */
@@ -1300,52 +1469,63 @@ h6,
 .btn-corporate,
 .btn-corporate-gold,
 .btn-corporate-primary,
-.btn-corporate-outline {
-  border-radius: 4px !important;
-  letter-spacing: 0.3px;
+.btn-corporate-outline,
+.btn-gold {
+  border-radius: var(--apple-radius-pill) !important;
+  letter-spacing: -0.01em;
   font-weight: 600;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--apple-shadow-subtle);
 }
 
-.btn-corporate-gold {
-  background-color: var(--mgi-gold);
-  color: #142563 !important;
-  font-weight: 700;
-  border: 1.5px solid var(--mgi-gold);
+.btn-corporate-gold,
+.btn-gold {
+  background: linear-gradient(135deg, #DFBE6F 0%, #C5A059 100%) !important;
+  color: #0B1224 !important;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 4px 14px rgba(197, 160, 89, 0.32) !important;
 }
 
-.btn-corporate-gold:hover {
-  background-color: var(--mgi-gold-dark);
-  border-color: var(--mgi-gold-dark);
-  color: #FFFFFF !important;
-  box-shadow: 0 4px 14px rgba(197, 160, 89, 0.28);
+.btn-corporate-gold:hover,
+.btn-gold:hover {
+  background: linear-gradient(135deg, #ECCB7B 0%, #D4AF37 100%) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  color: #0B1224 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(197, 160, 89, 0.45) !important;
 }
 
 .btn-corporate-primary {
-  background-color: var(--mgi-blue);
+  background: var(--apple-blue) !important;
   color: #FFFFFF !important;
-  font-weight: 700;
-  border: 1.5px solid var(--mgi-blue);
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 4px 14px rgba(0, 113, 227, 0.3) !important;
 }
 
 .btn-corporate-primary:hover {
-  background-color: var(--mgi-blue-dark);
-  border-color: var(--mgi-blue-dark);
+  background: var(--apple-blue-hover) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
   color: #FFFFFF !important;
-  box-shadow: 0 4px 14px rgba(20, 37, 99, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 113, 227, 0.42) !important;
 }
 
 .btn-corporate-outline {
-  background-color: #FFFFFF;
-  color: var(--mgi-blue);
-  border: 1.5px solid #CBD5E1;
-  font-weight: 600;
+  background: rgba(255, 255, 255, 0.8) !important;
+  color: var(--apple-navy) !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
 }
 
 .btn-corporate-outline:hover {
-  background-color: #F8FAFC;
-  border-color: var(--mgi-blue);
-  color: var(--mgi-blue-dark);
+  background: #FFFFFF !important;
+  border-color: var(--apple-navy) !important;
+  color: var(--apple-navy) !important;
+  transform: translateY(-2px);
+  box-shadow: var(--apple-shadow-card) !important;
 }
 
 /* Executive Editorial Overline / Kicker */
@@ -1505,120 +1685,148 @@ h6,
   border-bottom: none;
 }
 
-/* ==========================================================================
-   Luxury Corporate Header (Warna Menarik: Deep Corporate Royal Navy & Solid Gold)
-   ========================================================================== */
-.site-navbar {
-  background-color: #0E1B48 !important;
-  border-top: 3.5px solid #C5A059;
-  border-bottom: 2px solid #C5A059;
-  box-shadow: 0 4px 20px rgba(14, 27, 72, 0.28);
-  padding-top: 0.65rem;
-  padding-bottom: 0.65rem;
-  transition: all 0.3s ease;
-  z-index: 1030;
-}
 
-.site-navbar.scrolled {
-  background-color: #091233 !important;
-  box-shadow: 0 6px 24px rgba(14, 27, 72, 0.42);
-}
 
-.navbar-logo-badge {
-  background: #FFFFFF;
-  padding: 4px 10px;
-  border-radius: 6px;
-  border: 1px solid rgba(197, 160, 89, 0.45);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  display: inline-flex;
-  align-items: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.navbar-logo-badge:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(197, 160, 89, 0.35);
-}
-
-.site-navbar .navbar-nav .nav-link {
-  color: #E2E8F0 !important;
-  font-weight: 500;
-  font-size: 0.92rem;
-  padding: 0.5rem 0.85rem !important;
-  border-radius: 6px;
-  transition: all 0.22s ease;
-  position: relative;
-  letter-spacing: 0.2px;
-}
-
-.site-navbar .navbar-nav .nav-link:hover {
-  color: #FBBF24 !important;
-  background-color: rgba(255, 255, 255, 0.08);
-}
-
-.site-navbar .navbar-nav .nav-link.active {
-  color: #FFFFFF !important;
-  font-weight: 700;
-  background-color: rgba(197, 160, 89, 0.25);
-  border-bottom: 2.5px solid #C5A059;
-}
-
-.btn-navbar-login {
-  color: #FFFFFF !important;
-  background: transparent;
-  border: 1.5px solid rgba(255, 255, 255, 0.4);
-  font-weight: 600;
-  transition: all 0.22s ease;
-}
-
-.btn-navbar-login:hover {
-  color: #C5A059 !important;
-  border-color: #C5A059;
-  background: rgba(197, 160, 89, 0.12);
-}
-
-.btn-navbar-cta {
-  background-color: #C5A059 !important;
-  border: 1.5px solid #C5A059 !important;
-  color: #0E1B48 !important;
-  font-weight: 700;
-  box-shadow: 0 3px 12px rgba(197, 160, 89, 0.4);
-  transition: all 0.22s ease;
-}
-
-.btn-navbar-cta:hover {
-  background-color: #D4AF37 !important;
-  border-color: #D4AF37 !important;
-  color: #0E1B48 !important;
-  transform: translateY(-1px);
-  box-shadow: 0 5px 16px rgba(197, 160, 89, 0.5);
-}
-
+/* Responsive Apple Navbar */
 @media (max-width: 1199.98px) {
   .site-navbar .navbar-collapse {
-    background-color: #091233;
-    padding: 1.25rem;
-    border-radius: 8px;
-    margin-top: 0.75rem;
-    border: 1px solid rgba(197, 160, 89, 0.3);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    background: rgba(11, 18, 36, 0.96) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    padding: 1.25rem !important;
+    border-radius: var(--apple-radius-lg) !important;
+    margin-top: 0.75rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4) !important;
+  }
+  .site-navbar .nav-link {
+    padding: 0.65rem 1rem !important;
+    width: 100%;
+    margin-bottom: 0.25rem;
   }
 }
 
 /* Tablet Navbar Optimization */
 @media (min-width: 992px) and (max-width: 1200px) {
   .site-navbar .nav-link {
-    font-size: 0.85rem !important;
-    padding: 0.45rem 0.55rem !important;
+    font-size: 0.84rem !important;
+    padding: 0.38rem 0.65rem !important;
   }
   .site-navbar .navbar-brand img {
-    height: 34px !important;
+    height: 32px !important;
   }
   .btn-navbar-login,
   .btn-navbar-cta {
     font-size: 0.82rem !important;
-    padding: 0.35rem 0.75rem !important;
+    padding: 0.38rem 0.85rem !important;
   }
+}
+
+/* Apple Segmented Subnav (Used in About Us and Category Filter) */
+.apple-subnav-sticky {
+  position: sticky;
+  top: 70px;
+  z-index: 1020;
+  padding: 0.75rem 0;
+  background: rgba(245, 245, 247, 0.88);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border-bottom: 1px solid var(--apple-border);
+  margin-bottom: 2rem;
+  transition: all 0.25s ease;
+}
+
+.apple-segmented-control {
+  background: rgba(118, 118, 128, 0.08);
+  border-radius: var(--apple-radius-pill);
+  padding: 5px;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.apple-segment-item {
+  color: var(--apple-text-secondary) !important;
+  font-weight: 500;
+  font-size: 0.86rem;
+  border-radius: var(--apple-radius-pill);
+  padding: 8px 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  text-decoration: none !important;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.apple-segment-item:hover {
+  color: var(--apple-text-primary) !important;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.apple-segment-item.active {
+  color: var(--apple-text-primary) !important;
+  background: #FFFFFF !important;
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+}
+
+.apple-segment-item.active i {
+  color: var(--apple-gold) !important;
+}
+
+/* Apple Squircle Cards Across Main Pages */
+.card.mgi-card,
+.mgi-card {
+  border-radius: var(--apple-radius-lg) !important;
+  border: 1px solid var(--apple-border) !important;
+  background-color: var(--apple-surface) !important;
+  box-shadow: var(--apple-shadow-card) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.card.mgi-card:hover,
+.mgi-card:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: var(--apple-shadow-hover) !important;
+  border-color: rgba(197, 160, 89, 0.28) !important;
+}
+
+/* Apple Refined Badges */
+.badge-tag,
+.section-tag {
+  background: rgba(197, 160, 89, 0.12) !important;
+  color: var(--apple-gold) !important;
+  border: 1px solid rgba(197, 160, 89, 0.25) !important;
+  border-radius: var(--apple-radius-pill) !important;
+  padding: 0.35rem 0.95rem !important;
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.03em !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+}
+
+/* Apple Page Header */
+.page-header {
+  background: radial-gradient(circle at 50% 0%, rgba(197, 160, 89, 0.12) 0%, transparent 60%),
+              radial-gradient(circle at 10% 80%, rgba(29, 53, 137, 0.08) 0%, transparent 50%),
+              #FFFFFF !important;
+  border-bottom: 1px solid var(--apple-border) !important;
+  padding: 3.5rem 0 3rem 0 !important;
+}
+
+.page-header h1 {
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+  color: var(--apple-navy) !important;
 }
 
 /* ==========================================================================

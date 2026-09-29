@@ -123,6 +123,28 @@ try {
             return ($p['status'] ?? '') === 'Open';
         }));
 
+        // F. Financial Records & Billings for Odoo/Kledo style reporting
+        $stmtFin = $db->prepare("
+            SELECT f.*, pr.title as project_title, pr.category as project_category
+            FROM financial_records f
+            JOIN projects pr ON f.project_id = pr.id
+            WHERE f.investor_id = ?
+            ORDER BY f.transaction_date DESC, f.id DESC
+        ");
+        $stmtFin->execute([$investorId]);
+        $allFinRecords = $stmtFin->fetchAll();
+
+        $billingsList = [];
+        $totalPurchasesMIU = 0.0;
+        foreach ($allFinRecords as $fr) {
+            if ($fr['is_billing']) {
+                $billingsList[] = $fr;
+            }
+            if ($fr['module'] === 'pembelian' && (strpos(strtolower($fr['vendor_client'] ?? ''), 'miu') !== false || strpos(strtolower($fr['category'] ?? ''), 'miu') !== false)) {
+                $totalPurchasesMIU += (float)$fr['amount'];
+            }
+        }
+
         sendJsonResponse([
             'profile' => [
                 'id' => (int)$profile['id'],
@@ -146,11 +168,14 @@ try {
             'metrics' => [
                 'total_invested' => $totalInvested,
                 'total_payout_received' => $totalPayoutReceived,
+                'total_purchases_miu' => $totalPurchasesMIU,
                 'active_projects_count' => count($portfolios),
                 'next_payout_date' => $earliestNextPayout,
-                'est_roi_rate' => count($portfolios) > 0 ? '≥30% (p.a.)' : '0%'
+                'est_roi_rate' => count($portfolios) > 0 ? '≥32% (p.a.)' : '0%'
             ],
             'portfolios' => $portfolios,
+            'billings' => $billingsList,
+            'financial_records' => $allFinRecords,
             'bank_account' => $bankAccount ? [
                 'id' => (int)$bankAccount['id'],
                 'bank_name' => $bankAccount['bank_name'],

@@ -104,7 +104,10 @@ require_once __DIR__ . '/includes/header.php';
                 <label class="form-label">Catatan Admin / Due Diligence</label>
                 <input type="text" id="modalInvNotes" class="form-control" placeholder="Contoh: Dokumen NIB telah diverifikasi">
               </div>
-              <div class="col-12 text-end">
+              <div class="col-12 d-flex justify-content-between align-items-center">
+                <a href="#" id="modalBtnGoFinancial" class="btn btn-outline-warning text-dark border-warning" style="background: #FFFBF0;">
+                  <i class="bi bi-wallet2 text-warning me-1"></i> Buka Modul Keuangan &amp; Kirim Billing
+                </a>
                 <button type="submit" id="btnUpdateInvStatus" class="btn btn-mgi-primary px-4">
                   <i class="bi bi-check2-circle me-1"></i> Simpan Status
                 </button>
@@ -195,6 +198,10 @@ require_once __DIR__ . '/includes/header.php';
             <td>${statusBadge}</td>
             <td class="small text-muted">${dateStr}</td>
             <td class="text-end">
+              <a href="financial.php?investor_id=${inv.id}" class="btn btn-sm btn-outline-warning py-1 px-2.5 d-inline-flex align-items-center gap-1 me-1 text-dark" style="border-color: #C5A059;" title="Kelola Keuangan & Kirim Billing">
+                <i class="bi bi-receipt-cutoff" style="color: #C5A059;"></i>
+                <span class="small fw-semibold">Billing</span>
+              </a>
               <button type="button" class="btn btn-sm btn-outline-primary py-1 px-3 d-inline-flex align-items-center gap-1" onclick="viewInvestorDetail(${inv.id})">
                 <i class="bi bi-eye-fill"></i>
                 <span>Tinjau</span>
@@ -221,6 +228,7 @@ require_once __DIR__ . '/includes/header.php';
     document.getElementById('modalInvTypeBadge').textContent = isCorp ? 'Investor Korporasi / Perusahaan' : 'Investor Perorangan (Individu)';
     document.getElementById('modalInvStatusSelect').value = inv.status;
     document.getElementById('modalInvNotes').value = inv.notes || '';
+    document.getElementById('modalBtnGoFinancial').href = `financial.php?investor_id=${inv.id}`;
 
     const grid = document.getElementById('modalInvDetailsGrid');
     if (isCorp) {

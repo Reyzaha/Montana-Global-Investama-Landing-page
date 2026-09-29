@@ -9,23 +9,58 @@ const MGIComponents = {
     const navContainer = document.getElementById('global-navbar');
     if (!navContainer) return;
 
-    const navItems = [
-      { id: 'home', label: 'Beranda', href: 'index.html' },
-      { id: 'about', label: 'Tentang Kami', href: 'about.html' },
-      { id: 'invest', label: 'Proyek Investasi', href: 'invest.html' },
-      { id: 'transformasi', label: 'Transformasi', href: 'transformasi.html' },
-      { id: 'preparation', label: 'Persiapan Entitas', href: 'preparation.html' },
-      { id: 'ekosistem', label: 'Ekosistem', href: 'ekosistem.html' },
-      { id: 'contact', label: 'Kontak Kami', href: 'contact.html' }
-    ];
+    const isAboutActive = ['about', 'transformasi', 'preparation'].includes(activePage);
 
-    const linksHtml = navItems.map(item => `
+    const linksHtml = `
       <li class="nav-item">
-        <a class="nav-link ${activePage === item.id ? 'active' : ''}" href="${item.href}">
-          ${item.label}
+        <a class="nav-link ${activePage === 'home' ? 'active' : ''}" href="index.html">
+          Beranda
         </a>
       </li>
-    `).join('');
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle ${isAboutActive ? 'active' : ''}" href="about.html" id="navbarDropdownAbout" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Tentang Kami
+        </a>
+        <ul class="dropdown-menu shadow-lg border-0" aria-labelledby="navbarDropdownAbout">
+          <li>
+            <a class="dropdown-item py-2 fw-semibold" href="about.html">
+              <i class="bi bi-building text-gold me-2"></i> Profil Montana Group
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item py-2" href="about.html#transformasi">
+              <i class="bi bi-clock-history text-gold me-2"></i> Perjalanan Transformasi
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item py-2" href="about.html#persiapan-entitas">
+              <i class="bi bi-diagram-3 text-gold me-2"></i> Sinergi &amp; Persiapan Entitas
+            </a>
+          </li>
+          <li><hr class="dropdown-divider border-secondary opacity-25 my-1"></li>
+          <li>
+            <a class="dropdown-item py-2" href="about.html#tata-kelola">
+              <i class="bi bi-shield-check text-gold me-2"></i> Tata Kelola TARIF
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link ${activePage === 'invest' ? 'active' : ''}" href="invest.html">
+          Proyek Investasi
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link ${activePage === 'ekosistem' ? 'active' : ''}" href="ekosistem.html">
+          Ekosistem
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link ${activePage === 'contact' ? 'active' : ''}" href="contact.html">
+          Kontak Kami
+        </a>
+      </li>
+    `;
 
     // Check Authentication Status
     // Aktifkan tombol Masuk & Daftar (serta info investor jika login) di header navbar
@@ -42,22 +77,22 @@ const MGIComponents = {
         authCtaHtml = `
           <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
             <div class="dropdown">
-              <button class="btn btn-corporate-gold btn-sm px-3 py-2 rounded-1 dropdown-toggle d-flex align-items-center gap-2 shadow-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="btn btn-navbar-cta btn-apple-cta dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-person-circle fs-6"></i>
                 <span class="text-truncate fw-bold" style="max-width: 140px;">${displayName}</span>
-                <span class="badge bg-royal text-white small ms-1 rounded-1">${typeLabel}</span>
+                <span class="badge bg-dark text-gold small ms-1" style="border-radius: var(--apple-radius-pill); font-size: 0.72rem;">${typeLabel}</span>
               </button>
-              <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2">
-                <li class="px-3 py-2 border-bottom">
-                  <div class="small fw-bold text-dark text-truncate">${displayName}</div>
-                  <div class="text-muted small text-truncate" style="font-size: 0.75rem;">${user.email}</div>
-                  <div class="badge bg-mgi-gold-subtle text-gold small mt-1 rounded-1">Investor ${typeLabel}</div>
+              <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 mt-2">
+                <li class="px-3 py-2 border-bottom border-secondary opacity-75">
+                  <div class="small fw-bold text-white text-truncate">${displayName}</div>
+                  <div class="text-white-50 small text-truncate" style="font-size: 0.75rem;">${user.email}</div>
+                  <div class="badge bg-gold text-dark small mt-1" style="border-radius: var(--apple-radius-pill);">Investor ${typeLabel}</div>
                 </li>
-                <li><a class="dropdown-item py-2 fw-bold text-dark" href="investor-dashboard.html"><i class="bi bi-speedometer2 me-2 text-gold"></i>Dashboard Investor</a></li>
-                <li><a class="dropdown-item py-2" href="investor-dashboard.html"><i class="bi bi-pie-chart-fill me-2 text-gold"></i>My Portofolio &amp; Dividen</a></li>
-                <li><a class="dropdown-item py-2" href="invest.html"><i class="bi bi-grid me-2 text-gold"></i>Katalog Project Terbuka</a></li>
-                <li><a class="dropdown-item py-2" href="contact.html"><i class="bi bi-geo-alt me-2 text-gold"></i>Lokasi & Layanan</a></li>
-                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item py-2 fw-semibold text-white" href="investor-dashboard.html"><i class="bi bi-speedometer2 me-2 text-gold"></i>Dashboard Investor</a></li>
+                <li><a class="dropdown-item py-2 text-white" href="investor-dashboard.html"><i class="bi bi-pie-chart-fill me-2 text-gold"></i>My Portofolio &amp; Dividen</a></li>
+                <li><a class="dropdown-item py-2 text-white" href="invest.html"><i class="bi bi-grid me-2 text-gold"></i>Katalog Project Terbuka</a></li>
+                <li><a class="dropdown-item py-2 text-white" href="contact.html"><i class="bi bi-geo-alt me-2 text-gold"></i>Lokasi & Layanan</a></li>
+                <li><hr class="dropdown-divider border-secondary opacity-25"></li>
                 <li><a class="dropdown-item py-2 text-danger fw-semibold" href="javascript:void(0)" onclick="MGIAuth.logout('index.html')"><i class="bi bi-box-arrow-right me-2"></i>Keluar (Logout)</a></li>
               </ul>
             </div>
@@ -66,11 +101,11 @@ const MGIComponents = {
       } else {
         authCtaHtml = `
           <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
-            <a href="login.html" class="btn btn-navbar-login btn-sm px-3 py-2 rounded-1">
-              <i class="bi bi-box-arrow-in-right me-1"></i> Masuk
+            <a href="login.html" class="btn btn-navbar-login btn-apple-login">
+              <i class="bi bi-box-arrow-in-right"></i> Masuk
             </a>
-            <a href="register.html" class="btn btn-navbar-cta btn-sm px-3 py-2 rounded-1 shadow-sm">
-              <i class="bi bi-shield-lock me-1"></i> Portal Investor
+            <a href="register.html" class="btn btn-navbar-cta btn-apple-cta">
+              <i class="bi bi-shield-lock-fill"></i> Portal Investor
             </a>
           </div>
         `;
@@ -82,7 +117,7 @@ const MGIComponents = {
         <div class="container">
           <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
             <div class="navbar-logo-badge">
-              <img src="assets/img/mgi-official-logo.png" alt="PT Montana Global Investama Logo" height="38" class="d-inline-block">
+              <img src="assets/img/mgi-official-logo.png" alt="PT Montana Global Investama Logo" height="34" class="d-inline-block">
             </div>
           </a>
           <button class="navbar-toggler border-0 text-white shadow-none px-2 py-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">

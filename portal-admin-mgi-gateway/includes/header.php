@@ -56,6 +56,11 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         <span>Manajemen Investor</span>
       </a>
 
+      <a href="financial.php" class="nav-link <?= $currentPage === 'financial.php' ? 'active' : '' ?>">
+        <i class="bi bi-wallet2"></i>
+        <span>Keuangan &amp; Billing (Odoo)</span>
+      </a>
+
       <a href="content.php" class="nav-link <?= $currentPage === 'content.php' ? 'active' : '' ?>">
         <i class="bi bi-file-earmark-text-fill"></i>
         <span>CMS Konten Grup</span>
