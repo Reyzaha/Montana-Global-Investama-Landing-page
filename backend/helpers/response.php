@@ -80,3 +80,18 @@ function getJsonInput(): array {
     return is_array($decoded) ? array_merge($_POST, $decoded) : $_POST;
 }
 
+// ==========================================================
+// ERP / HRIS Backward Compatibility Aliases
+// ==========================================================
+if (!function_exists('sendSuccess')) {
+    function sendSuccess($data = null, string $message = 'Success', int $statusCode = 200): void {
+        sendJsonResponse($data, $statusCode, $message, true);
+    }
+}
+
+if (!function_exists('sendResponse')) {
+    function sendResponse(bool $success, string $message, $data = null, int $statusCode = 200): void {
+        sendJsonResponse($data, $statusCode, $message, $success);
+    }
+}
+
