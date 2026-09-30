@@ -108,11 +108,11 @@
       "category": "Investasi Alat Berat untuk Mendukung Ekspansi Industri, Infrastruktur & Logistik",
       "image": "assets/img/project-surabaya.jpg",
       "funding": {
-        "collected": 0,
+        "collected": 2000000000,
         "target": 5000000000,
         "currency": "IDR"
       },
-      "status": "Coming Soon",
+      "status": "Open",
       "featured": false,
       "info": {
         "lokasi": "Surabaya & Jawa Timur",
@@ -121,7 +121,7 @@
         "return": "≥30% (p.a.)",
         "min_investment": "Rp 500.000.000",
         "payout": "Bagi Hasil Kuartalan",
-        "remaining_days": "Segera Hadir",
+        "remaining_days": "35 Hari Tersisa",
         "asset_backed": "Aset Fisik Komatsu CBU Grade A",
         "brand": "Komatsu CBU Grade A",
         "stock_available": "Alokasi Unit Sesuai Tahapan",
@@ -198,11 +198,11 @@
       "category": "Investasi Alat Berat untuk Mendukung Pertumbuhan Pariwisata, Properti & Infrastruktur Bali",
       "image": "assets/img/project-denpasar.jpg",
       "funding": {
-        "collected": 7000000000,
+        "collected": 2000000000,
         "target": 7000000000,
         "currency": "IDR"
       },
-      "status": "Closed",
+      "status": "Open",
       "featured": false,
       "info": {
         "lokasi": "Denpasar & Bali",
@@ -210,8 +210,8 @@
         "tenor": "36 Bulan",
         "return": "≥32% (p.a.)",
         "min_investment": "Rp 500.000.000",
-        "payout": "Bagi Hasil Kuartalan Berjalan",
-        "remaining_days": "Pendanaan Selesai",
+        "payout": "Bagi Hasil Kuartalan",
+        "remaining_days": "30 Hari Tersisa",
         "asset_backed": "Aset Fisik Komatsu CBU Grade A",
         "brand": "Komatsu CBU Grade A",
         "stock_available": "6 Unit Aktif Operasional Lapangan",
@@ -274,7 +274,7 @@
         "summary": {
           "type": "text",
           "title": "Ringkasan Kelayakan Proyek Investasi",
-          "content": "Pendanaan proyek telah ditutup penuh (Closed) dan seluruh unit telah beroperasi aktif dengan jadwal distribusi dividen berjalan tepat waktu kepada para mitra investor."
+          "content": "Investasi berbasis unit fisik riil dengan likuiditas tinggi, proyeksi imbal hasil terukur ≥32% per tahun, didukung proteksi asuransi alat berat komprehensif dan monitoring sistem terpadu regional Bali."
         },
         "simulation": {
           "tenor_bulan": 36,
