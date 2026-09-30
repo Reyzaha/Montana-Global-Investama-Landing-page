@@ -70,7 +70,7 @@ require_once __DIR__ . '/includes/header.php';
           <div class="mb-3">
             <label class="form-label fw-semibold small">URL Peta Situs (Sitemap XML)</label>
             <div class="input-group">
-              <input type="text" class="form-control bg-light" value="https://montanaglobalinvestama.com/sitemap.xml" readonly>
+              <input type="text" class="form-control bg-light" value="https://montanainvestama.com/sitemap.xml" readonly>
               <a href="../sitemap.xml" target="_blank" class="btn btn-outline-secondary">
                 <i class="bi bi-box-arrow-up-right me-1"></i> Buka XML
               </a>
@@ -106,7 +106,7 @@ require_once __DIR__ . '/includes/header.php';
       <div class="admin-card-body p-3 small text-secondary">
         <ol class="ps-3 mb-0 lh-base">
           <li class="mb-2">Buka <a href="https://search.google.com/search-console" target="_blank" class="fw-bold text-royal text-decoration-none">Google Search Console <i class="bi bi-box-arrow-up-right"></i></a> dan masuk dengan akun Google Anda.</li>
-          <li class="mb-2">Klik <strong>Tambahkan Properti</strong>, pilih tipe <strong>Awalan URL</strong>, lalu masukkan <code>https://montanaglobalinvestama.com</code>.</li>
+          <li class="mb-2">Klik <strong>Tambahkan Properti</strong>, pilih tipe <strong>Awalan URL</strong>, lalu masukkan <code>https://montanainvestama.com</code>.</li>
           <li class="mb-2">Pilih metode verifikasi <strong>Tag HTML</strong>. Salin string kode pada bagian <code>content="..."</code>, lalu tempelkan ke kolom form di samping dan klik <strong>Simpan Pengaturan</strong>.</li>
           <li class="mb-2">Kembali ke tab Google Search Console lalu klik tombol <strong>Verifikasi</strong>.</li>
           <li>Masuk ke menu <strong>Peta Situs (Sitemaps)</strong> di panel kiri GSC, ketik <code>sitemap.xml</code> lalu klik <strong>Kirim</strong>.</li>

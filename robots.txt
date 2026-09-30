@@ -5,4 +5,4 @@ Disallow: /backend/
 Disallow: /portal-admin-mgi-gateway/
 Disallow: /database/
 
-Sitemap: https://montanaglobalinvestama.com/sitemap.xml
+Sitemap: https://montanainvestama.com/sitemap.xml

@@ -50,17 +50,17 @@ docker compose ps
 
 ---
 
-## 3b. Konfigurasi Nginx Reverse Proxy & SSL (Domain montanaglobalinvestama.com)
+## 3b. Konfigurasi Nginx Reverse Proxy & SSL (Domain montanainvestama.com)
 
 Sesuai arsitektur resmi Team IT Montana:
 
 1. **Salin file konfigurasi Nginx** dari project ke `sites-available`:
    ```bash
-   sudo cp /var/www/mgi/nginx/montanaglobalinvestama.conf /etc/nginx/sites-available/montanaglobalinvestama.com
+   sudo cp /var/www/mgi/nginx/montanainvestama.conf /etc/nginx/sites-available/montanainvestama.com
    ```
 2. **Aktifkan konfigurasi dengan membuat symlink** ke `sites-enabled`:
    ```bash
-   sudo ln -s /etc/nginx/sites-available/montanaglobalinvestama.com /etc/nginx/sites-enabled/
+   sudo ln -s /etc/nginx/sites-available/montanainvestama.com /etc/nginx/sites-enabled/
    ```
 3. **Uji sintaks dan reload Nginx**:
    ```bash
@@ -69,7 +69,11 @@ Sesuai arsitektur resmi Team IT Montana:
    ```
 4. **Pasang SSL Let's Encrypt Gratis (Certbot)**:
    ```bash
-   sudo certbot --nginx -d montanaglobalinvestama.com -d www.montanaglobalinvestama.com
+   sudo certbot --nginx -d montanainvestama.com -d www.montanainvestama.com
+   ```
+   *(Opsional jika domain montanaglobalinvestama.com juga diarahkan ke server ini:)*
+   ```bash
+   sudo certbot --nginx -d montanainvestama.com -d www.montanainvestama.com -d montanaglobalinvestama.com -d www.montanaglobalinvestama.com
    ```
    *Certbot otomatis membuat sertifikat SSL dan menambahkan konfigurasi port 443 HTTPS & auto-redirect.*
 
