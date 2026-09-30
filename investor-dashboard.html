@@ -2323,9 +2323,9 @@
           {
             id: 1,
             project_id: 'proj-jkt-jabar',
-            nama_project: 'Ekspansi Pool & Alat Berat Regional Jabodetabek dan Jawa Barat',
+            nama_project: 'Ekspansi Pool & Alat Berat Regional Jabodetabek',
             kategori: 'Proyek Ekspansi Pool & Alat Berat Komatsu',
-            lokasi: 'DKI Jakarta & Jawa Barat',
+            lokasi: 'DKI Jakarta & Sekitarnya',
             image: 'assets/img/project-jabodetabek.jpg',
             contract_number: 'MGI/INV/2026/001-BP',
             status: 'active',
@@ -3255,7 +3255,7 @@
 
     // Standalone HTML Builder for Official MGI Document PDF Export (Free from Modal Bugs & Blank Pages)
     function buildOfficialDocumentHtml(doc) {
-      const p = (activeProjectData && activeProjectData.project) ? activeProjectData.project : { id: 'proj-jkt-jabar', title: 'Ekspansi Pool & Alat Berat Regional Jabodetabek dan Jawa Barat', lokasi: 'DKI Jakarta & Jawa Barat' };
+      const p = (activeProjectData && activeProjectData.project) ? activeProjectData.project : { id: 'proj-jkt-jabar', title: 'Ekspansi Pool & Alat Berat Regional Jabodetabek', lokasi: 'DKI Jakarta & Sekitarnya' };
       const f = (activeProjectData && activeProjectData.financial_summary) ? activeProjectData.financial_summary : {
         total_dana_investor: 5000000000,
         total_terpakai: 3235000000,
@@ -3608,7 +3608,7 @@
     }
 
     function downloadAllProjectReport() {
-      const p = (activeProjectData && activeProjectData.project) ? activeProjectData.project : { id: 'proj-jkt-jabar', title: 'Ekspansi Pool & Alat Berat Regional Jabodetabek dan Jawa Barat' };
+      const p = (activeProjectData && activeProjectData.project) ? activeProjectData.project : { id: 'proj-jkt-jabar', title: 'Ekspansi Pool & Alat Berat Regional Jabodetabek' };
       const reportDoc = {
         doc_title: `Buku Laporan Operasional Kuartalan - ${p.title}`,
         doc_number: `DOC-REP-${(p.id || 'MGI').toUpperCase()}-2026-Q2`,
