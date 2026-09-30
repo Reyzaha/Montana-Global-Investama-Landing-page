@@ -140,14 +140,22 @@ const MGIAuth = {
 
   // Save current active user session
   setCurrentUserSession: function (user) {
+    const isCorp = (user.type === 'perusahaan' || user.account_type === 'perusahaan' || user.accountType === 'corporate' || user.type === 'corporate');
+    const name = isCorp ? (user.businessName || user.business_name || user.fullName || user.full_name) : (user.fullName || user.full_name || (user.email ? user.email.split('@')[0] : ''));
     const sessionData = {
-      type: user.type,
+      id: user.id || null,
+      type: isCorp ? 'perusahaan' : 'perorangan',
+      accountType: isCorp ? 'corporate' : 'individual',
+      account_type: isCorp ? 'corporate' : 'individual',
       email: user.email,
-      fullName: user.type === 'perusahaan' ? (user.businessName || user.fullName) : (user.fullName || user.email.split('@')[0]),
-      picName: user.picName || '',
-      phone: user.phone || '',
+      fullName: name,
+      full_name: name,
+      businessName: user.businessName || user.business_name || '',
+      picName: user.picName || user.pic_name || '',
+      phone: user.phone || user.companyPhone || '',
       businessActivity: user.businessActivity || user.business_activity || '',
-      legalEntity: user.legalEntity || '',
+      business_activity: user.businessActivity || user.business_activity || '',
+      legalEntity: user.legalEntity || user.legal_entity || '',
       loginAt: new Date().toISOString()
     };
     localStorage.setItem(this.STORAGE_KEYS.CURRENT_USER, JSON.stringify(sessionData));

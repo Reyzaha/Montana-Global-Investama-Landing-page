@@ -208,14 +208,15 @@
                 <div class="invalid-feedback">Masukkan nomor telepon yang valid (hanya angka, 8-15 digit).</div>
               </div>
 
-              <!-- Jenis Kegiatan Usaha -->
+              <!-- Jenis Kegiatan / Usaha (Perorangan) -->
               <div class="col-12 col-md-6">
                 <label for="businessActivityPerorangan" class="form-label fw-bold text-dark small">
-                  Jenis Kegiatan Usaha
+                  Jenis Kegiatan / Usaha <span class="text-danger">*</span>
                 </label>
                 <input type="text" class="form-control form-control-lg fs-6 py-2 px-3 border-subtle"
-                  id="businessActivityPerorangan" placeholder="Contoh: Perdagangan, Konstruksi, Jasa, Wiraswasta, dll.">
-                <div class="form-text small text-muted">Sektor industri, bidang usaha, atau profesi utama Anda.</div>
+                  id="businessActivityPerorangan" placeholder="Contoh: Perdagangan Komoditas, Konstruksi, Jasa Profesional, Wiraswasta, dll." required>
+                <div class="form-text small text-muted">Sektor industri, jenis kegiatan usaha, atau profesi utama pemodal.</div>
+                <div class="invalid-feedback">Silakan masukkan jenis kegiatan atau usaha Anda.</div>
               </div>
             </div>
           </div>
@@ -225,14 +226,26 @@
           <!-- ============================================================= -->
           <div id="sectionPerusahaan" style="display: none;">
             <div class="row g-3">
-              <!-- Nama Perusahaan -->
+              <!-- Nama Badan Usaha / PT -->
               <div class="col-12 col-md-6">
                 <label for="businessName" class="form-label fw-bold text-dark small">
-                  Nama Perusahaan <span class="text-danger">*</span>
+                  Nama Badan Usaha / PT <span class="text-danger">*</span>
                 </label>
                 <input type="text" class="form-control form-control-lg fs-6 py-2 px-3 border-subtle" id="businessName"
                   placeholder="Contoh: PT Montana Global Investama">
-                <div class="invalid-feedback">Masukkan nama perusahaan Anda.</div>
+                <div class="form-text small text-muted">Nama resmi badan usaha atau perseroan terdaftar.</div>
+                <div class="invalid-feedback">Masukkan nama badan usaha atau PT Anda.</div>
+              </div>
+
+              <!-- Bidang Usaha / Sektor Industri Perusahaan -->
+              <div class="col-12 col-md-6">
+                <label for="businessActivityPerusahaan" class="form-label fw-bold text-dark small">
+                  Bidang Usaha / Sektor Industri Perusahaan <span class="text-danger">*</span>
+                </label>
+                <input type="text" class="form-control form-control-lg fs-6 py-2 px-3 border-subtle" id="businessActivityPerusahaan"
+                  placeholder="Contoh: Kontraktor Alat Berat, Logistik Pertambangan, Konstruksi, dsb.">
+                <div class="form-text small text-muted">Fokus kegiatan komersial dan operasional utama badan usaha.</div>
+                <div class="invalid-feedback">Masukkan bidang usaha atau sektor industri perusahaan.</div>
               </div>
 
               <!-- Badan Hukum Usaha (Selection List) -->
@@ -462,8 +475,10 @@
         document.getElementById('emailPerorangan').required = true;
         document.getElementById('citizenshipPerorangan').required = true;
         document.getElementById('phonePerorangan').required = true;
+        document.getElementById('businessActivityPerorangan').required = true;
 
         document.getElementById('businessName').required = false;
+        if (document.getElementById('businessActivityPerusahaan')) document.getElementById('businessActivityPerusahaan').required = false;
         document.getElementById('legalEntity').required = false;
         document.getElementById('companyAddress').required = false;
         document.getElementById('picName').required = false;
@@ -482,8 +497,10 @@
         document.getElementById('emailPerorangan').required = false;
         document.getElementById('citizenshipPerorangan').required = false;
         document.getElementById('phonePerorangan').required = false;
+        document.getElementById('businessActivityPerorangan').required = false;
 
         document.getElementById('businessName').required = true;
+        if (document.getElementById('businessActivityPerusahaan')) document.getElementById('businessActivityPerusahaan').required = true;
         document.getElementById('legalEntity').required = true;
         document.getElementById('companyAddress').required = true;
         document.getElementById('picName').required = true;
@@ -689,6 +706,7 @@
           userData.businessActivity = document.getElementById('businessActivityPerorangan').value.trim();
         } else {
           userData.businessName = document.getElementById('businessName').value.trim();
+          userData.businessActivity = document.getElementById('businessActivityPerusahaan') ? document.getElementById('businessActivityPerusahaan').value.trim() : '';
           userData.legalEntity = document.getElementById('legalEntity').value;
           userData.companyAddress = document.getElementById('companyAddress').value.trim();
           userData.picName = document.getElementById('picName').value.trim();

@@ -89,6 +89,11 @@ class Database {
                 $db->exec("ALTER TABLE `investors` ADD COLUMN `business_activity` VARCHAR(255) NULL AFTER `phone`");
             }
 
+            $colsComp = $db->query("SHOW COLUMNS FROM `investor_companies` LIKE 'business_activity'")->fetchAll();
+            if (empty($colsComp)) {
+                $db->exec("ALTER TABLE `investor_companies` ADD COLUMN `business_activity` VARCHAR(255) NULL AFTER `business_name`");
+            }
+
             // Ensure financial_records table exists for Odoo/Kledo style financial modules & billing
             $db->exec("
                 CREATE TABLE IF NOT EXISTS `financial_records` (

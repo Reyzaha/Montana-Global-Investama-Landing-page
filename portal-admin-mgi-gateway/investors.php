@@ -242,6 +242,10 @@ require_once __DIR__ . '/includes/header.php';
           <strong>${inv.legal_entity || '-'}</strong>
         </div>
         <div class="col-md-6">
+          <small class="text-muted d-block">Bidang Usaha / Sektor Industri</small>
+          <strong class="text-primary">${inv.business_activity || '-'}</strong>
+        </div>
+        <div class="col-md-6">
           <small class="text-muted d-block">Rentang Omzet Tahunan</small>
           <strong>${inv.annual_turnover || '-'}</strong>
         </div>
@@ -281,7 +285,7 @@ require_once __DIR__ . '/includes/header.php';
           <strong>${inv.phone || '-'}</strong>
         </div>
         <div class="col-md-6">
-          <small class="text-muted d-block">Jenis Kegiatan Usaha</small>
+          <small class="text-muted d-block">Jenis Kegiatan / Bidang Usaha</small>
           <strong class="text-primary">${inv.business_activity || '-'}</strong>
         </div>
         <div class="col-md-6">

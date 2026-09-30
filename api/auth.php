@@ -23,8 +23,8 @@ try {
         sendJsonResponse(['logged_out' => true, 'csrf_token' => getCsrfToken()], 200, 'Berhasil keluar dari sesi.');
     }
 
-    // 3. GET CURRENT INVESTOR (ME) - unauthenticated check doesn't need DB
-    if ($action === 'me') {
+    // 3. GET CURRENT INVESTOR (ME / SESSION / CHECK) - unauthenticated check doesn't need DB
+    if ($action === 'me' || $action === 'session' || $action === 'check') {
         $session = getInvestorSession();
         if (!$session) {
             sendJsonResponse(['logged_in' => false, 'user' => null, 'csrf_token' => getCsrfToken()]);
@@ -139,11 +139,15 @@ try {
         $userData = [
             'id' => (int)$user['id'],
             'type' => $user['account_type'],
+            'accountType' => $user['account_type'],
             'email' => $user['email'],
             'fullName' => $user['account_type'] === 'perusahaan' ? $user['business_name'] : ($user['full_name'] ?: explode('@', $user['email'])[0]),
+            'full_name' => $user['account_type'] === 'perusahaan' ? $user['business_name'] : ($user['full_name'] ?: explode('@', $user['email'])[0]),
+            'businessName' => $user['business_name'] ?? '',
             'picName' => $user['pic_name'] ?? '',
             'phone' => $user['phone'] ?? '',
             'businessActivity' => $user['business_activity'] ?? '',
+            'business_activity' => $user['business_activity'] ?? '',
             'legalEntity' => $user['legal_entity'] ?? '',
             'status' => $user['status']
         ];
@@ -191,6 +195,7 @@ try {
 
         if ($accountType === 'perusahaan') {
             $businessName = trim($input['business_name'] ?? ($input['businessName'] ?? ''));
+            $businessActivity = trim($input['business_activity'] ?? ($input['businessActivity'] ?? ($input['businessSector'] ?? '')));
             $legalEntity = $input['legal_entity'] ?? ($input['legalEntity'] ?? 'Perseroan Terbatas (PT)');
             $companyAddress = trim($input['company_address'] ?? ($input['companyAddress'] ?? ''));
             $picName = trim($input['pic_name'] ?? ($input['picName'] ?? ''));
@@ -199,24 +204,24 @@ try {
             $annualTurnover = $input['annual_turnover'] ?? ($input['annualTurnover'] ?? 'Rp10 Miliar – Rp50 Miliar');
 
             if (empty($businessName) || empty($picName)) {
-                sendJsonError('Nama perusahaan dan nama PIC wajib diisi.');
+                sendJsonError('Nama badan usaha / PT dan nama PIC wajib diisi.');
             }
 
             $stmtIns = $db->prepare("
-                INSERT INTO investors (account_type, email, password_hash, full_name, phone, status)
-                VALUES ('perusahaan', ?, ?, ?, ?, 'active')
+                INSERT INTO investors (account_type, email, password_hash, full_name, phone, business_activity, status)
+                VALUES ('perusahaan', ?, ?, ?, ?, ?, 'active')
             ");
-            $stmtIns->execute([$email, $hash, $businessName, $companyPhone]);
+            $stmtIns->execute([$email, $hash, $businessName, $companyPhone, $businessActivity]);
             $investorId = (int)$db->lastInsertId();
 
             $stmtComp = $db->prepare("
                 INSERT INTO investor_companies (
-                    investor_id, business_name, legal_entity, company_address,
+                    investor_id, business_name, business_activity, legal_entity, company_address,
                     pic_name, pic_position, company_phone, annual_turnover
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             ");
             $stmtComp->execute([
-                $investorId, $businessName, $legalEntity, $companyAddress,
+                $investorId, $businessName, $businessActivity, $legalEntity, $companyAddress,
                 $picName, $picPosition, $companyPhone, $annualTurnover
             ]);
 
@@ -257,10 +262,14 @@ try {
             'user' => [
                 'id' => $investorId,
                 'type' => $accountType,
+                'accountType' => $accountType,
                 'email' => $email,
                 'fullName' => $fullName,
-                'phone' => $input['phone'] ?? '',
+                'full_name' => $fullName,
+                'businessName' => $businessName ?? '',
+                'phone' => $phone ?? ($companyPhone ?? ''),
                 'businessActivity' => $businessActivity ?? '',
+                'business_activity' => $businessActivity ?? '',
                 'status' => 'active'
             ],
             'csrf_token' => getCsrfToken(),

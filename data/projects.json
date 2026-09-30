@@ -392,11 +392,11 @@
       "category": "Sentral Pool & Workshop Alat Berat Komatsu",
       "image": "assets/img/project-kebumen.jpg",
       "funding": {
-        "collected": 4800000000,
+        "collected": 6000000000,
         "target": 6000000000,
         "currency": "IDR"
       },
-      "status": "Open",
+      "status": "Fully Funded",
       "featured": true,
       "info": {
         "lokasi": "Kebumen & Jawa Tengah",
@@ -405,10 +405,10 @@
         "return": "≥31% (p.a.)",
         "min_investment": "Rp 500.000.000",
         "payout": "Bagi Hasil Kuartalan",
-        "remaining_days": "14 Hari Tersisa",
+        "remaining_days": "Pendanaan Terpenuhi",
         "asset_backed": "Aset Fisik Komatsu CBU Grade A",
         "brand": "Komatsu CBU Grade A",
-        "stock_available": "5 Unit Siap Operasi di Workshop Kebumen",
+        "stock_available": "5 Unit Beroperasi Penuh di Workshop Kebumen",
         "capitalization_value": "Rp 7,8 Miliar"
       },
       "detail": {

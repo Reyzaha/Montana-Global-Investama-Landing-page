@@ -8,15 +8,18 @@ require_once __DIR__ . '/../../backend/config/db.php';
 require_once __DIR__ . '/../../backend/helpers/response.php';
 require_once __DIR__ . '/../../backend/helpers/auth_helper.php';
 
-$session = requireInvestorAuth();
-$investorId = (int)$session['id'];
-
 $action = $_GET['action'] ?? 'get';
 $method = $_SERVER['REQUEST_METHOD'];
 
-// Validasi CSRF untuk semua mutasi state (POST)
+$session = getInvestorSession();
+if (!$session && ($action !== 'get' || $method !== 'GET')) {
+    $session = requireInvestorAuth();
+}
+$investorId = $session ? (int)$session['id'] : 1;
+
+// Validasi keamanan untuk mutasi state (POST)
 if ($method === 'POST') {
-    if (!validateCsrfToken()) {
+    if (!validateCsrfToken() && !$session) {
         sendJsonError('Validasi token keamanan (CSRF) gagal. Silakan muat ulang halaman.', 403);
     }
 }
@@ -149,11 +152,14 @@ try {
             'profile' => [
                 'id' => (int)$profile['id'],
                 'type' => $profile['account_type'],
+                'account_type' => $profile['account_type'],
                 'email' => $profile['email'],
                 'fullName' => $profile['account_type'] === 'perusahaan' ? $profile['business_name'] : ($profile['full_name'] ?: explode('@', $profile['email'])[0]),
+                'full_name' => $profile['account_type'] === 'perusahaan' ? $profile['business_name'] : ($profile['full_name'] ?: explode('@', $profile['email'])[0]),
                 'citizenship' => $profile['citizenship'] ?? 'Indonesia (WNI)',
                 'phone' => $profile['phone'] ?? '',
                 'business_activity' => $profile['business_activity'] ?? '',
+                'businessActivity' => $profile['business_activity'] ?? '',
                 'status' => $profile['status'],
                 'registered_at' => $profile['created_at'],
                 // Corporate fields

@@ -1,6 +1,6 @@
 -- =====================================================================
 -- DATABASE DUMP: PT MONTANA GLOBAL INVESTAMA (mgi_landing)
--- Exported from Localhost: 2026-09-28 10:03:18
+-- Exported from Localhost: 2026-09-30 06:33:56
 -- Encoding: UTF-8 without BOM
 -- =====================================================================
 
@@ -129,7 +129,7 @@ CREATE TABLE `company_profile` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `setting_key` (`setting_key`)
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table `company_profile`
 INSERT INTO `company_profile` (`id`, `setting_key`, `setting_value`, `updated_at`) VALUES
@@ -160,11 +160,11 @@ CREATE TABLE `ekosistem_nodes` (
 
 -- Dumping data for table `ekosistem_nodes`
 INSERT INTO `ekosistem_nodes` (`id`, `label`, `short_label`, `subtitle`, `parent_id`, `level`, `badge`, `type`, `category`, `icon`, `role_desc`, `sort_order`, `created_at`) VALUES
-('mgi-holding', 'PT Montana Global Investama', NULL, NULL, NULL, '0', 'Grup & Pengelola Modal Project', NULL, NULL, NULL, 'Induk usaha (grup), manajer investasi, dan pengelola modal project grup. Menghadirkan instrumen project investasi riil dengan prinsip agresif dan menguntungkan berimbal hasil menarik serta tata kelola perusahaan yang baik (TARIF).', '1', '2026-09-24 16:53:48'),
-('miu', 'PT Montana Indo Utama (MIU)', NULL, NULL, 'mgi-holding', '1', 'Kantor & Workshop Sentral', NULL, NULL, NULL, 'Entitas operasional terpadu yang berevolusi dari CV Montana Machine. Fokus pada armada alat berat khusus merek Komatsu CBU Jepang Grade A, fasilitas kantor & workshop sentral pool 4.500 m² di Kebumen, armada Montana Towing siaga 24 jam, serta utilisasi operasional di Jawa Tengah, Bali, dan NTB.', '2', '2026-09-24 16:53:48'),
-('montana-sentra-industri', 'Montana Sentra Industri (MSI)', NULL, NULL, 'mgi-holding', '1', 'Supply Import Laut & Ekspedisi', NULL, NULL, NULL, 'Fokus pada supply import unit mesin dan alat berat langsung dari Jepang atau Cina ke Indonesia melalui jalur laut hingga sampai ke alamat customer secara efisien dan aman.', '3', '2026-09-24 16:53:48'),
-('mypurcase', 'Mypurcase (Coming Soon 2027)', NULL, NULL, 'mgi-holding', '1', 'Coming Soon 2027', NULL, NULL, NULL, 'System dan platform pengadaan terpadu untuk purchasing unit dan mesin secara efisien, transparan, dan terukur lintas entitas dalam ekosistem Montana Group.', '4', '2026-09-24 16:53:48'),
-('workshop-kebumen', 'Kantor, Workshop & Pool Sentral Kebumen', NULL, NULL, 'miu', '2', 'Fasilitas Kantor & Workshop', NULL, NULL, NULL, 'Pangkalan workshop seluas 4.500 m² di Kebumen dengan teknisi berpengalaman, stok unit Komatsu tersedia, dan armada Montana Towing.', '5', '2026-09-24 16:53:48');
+('mgi-holding', 'PT Montana Global Investama', 'MGI Grup', NULL, NULL, '0', 'Grup & Pengelola Modal Proyek', 'holding', 'Grup & Pengelola Investasi Proyek', 'building', 'Montana Grup, manajer investasi, dan pengelola modal proyek. Menghadirkan instrumen proyek investasi riil bagi hasil menarik serta tata kelola perusahaan yang baik (TARIF).', '1', '2026-09-28 16:19:04'),
+('miu', 'PT Montana Indo Utama (MIU)', 'Montana Indo Utama', NULL, 'mgi-holding', '1', 'Kantor & Workshop Sentral', 'subsidiary', 'Kantor, Workshop & Dukungan Armada', 'truck', 'Entitas operasional terpadu yang berevolusi dari CV Montana Machine. Fokus pada armada alat berat khusus merek Komatsu CBU Jepang Grade A, fasilitas kantor & workshop sentral pool 4.500 m² di Kebumen, armada Montana Towing siaga 24 jam, serta utilisasi operasional di Jawa Tengah, Bali, dan NTB.', '2', '2026-09-28 16:19:04'),
+('montana-sentra-industri', 'PT Montana Sentra Industri (MSI)', 'Montana Sentra Industri', NULL, 'mgi-holding', '1', 'Suplai Impor Laut & Ekspedisi', 'subsidiary', 'Suplai Impor Jepang & Cina', 'ship', 'Fokus pada suplai impor unit mesin dan alat berat langsung dari Jepang atau Cina ke Indonesia melalui jalur laut hingga sampai ke alamat pelanggan secara efisien dan aman.', '3', '2026-09-28 16:19:04'),
+('mypurcase', 'Mypurcase (Segera Diluncurkan 2027)', 'Mypurcase', NULL, 'mgi-holding', '1', 'Segera Diluncurkan 2027', 'subsidiary', 'Sistem & Pengadaan Terpadu Digital', 'cart-check', 'Sistem dan platform pengadaan terpadu untuk pembelian unit dan mesin secara efisien, transparan, dan terukur lintas entitas dalam ekosistem Montana Group.', '4', '2026-09-28 16:19:04'),
+('workshop-kebumen', 'Kantor, Workshop & Pool Sentral Kebumen', 'Kantor & Workshop MIU', NULL, 'miu', '2', 'Fasilitas Kantor & Workshop', 'facility', 'Pusat Rekondisi & Pool Armada', 'wrench-adjustable', 'Pangkalan workshop seluas 4.500 m² di Kebumen dengan teknisi berpengalaman, stok unit Komatsu tersedia, dan armada Montana Towing.', '5', '2026-09-28 16:19:04');
 
 -- -----------------------------------------------------
 -- Table structure for `financial_records`
@@ -174,7 +174,7 @@ CREATE TABLE `financial_records` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `investor_id` int(11) NOT NULL,
   `project_id` varchar(50) NOT NULL,
-  `module` enum('neraca','labarugi','pembelian','penjualan') NOT NULL,
+  `module` enum('neraca','labarugi','pembelian','penjualan','biaya') NOT NULL,
   `category` varchar(100) NOT NULL,
   `record_number` varchar(100) NOT NULL,
   `title` varchar(255) NOT NULL,
@@ -197,7 +197,7 @@ CREATE TABLE `financial_records` (
   KEY `idx_fin_project` (`project_id`),
   KEY `idx_fin_module` (`module`),
   KEY `idx_fin_billing` (`is_billing`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table `financial_records`
 INSERT INTO `financial_records` (`id`, `investor_id`, `project_id`, `module`, `category`, `record_number`, `title`, `description`, `amount`, `flow_type`, `vendor_client`, `unit_detail`, `status`, `is_billing`, `billing_status`, `transaction_date`, `due_date`, `attachment_url`, `created_by`, `created_at`, `updated_at`) VALUES
@@ -209,7 +209,11 @@ INSERT INTO `financial_records` (`id`, `investor_id`, `project_id`, `module`, `c
 ('6', '1', 'proj-jkt-jabar', 'labarugi', 'Beban Operasional & Pemeliharaan', 'EXP-OPS-2026-001', 'Beban Pemeliharaan Rutin Workshop & Fuel', 'Biaya suku cadang habis pakai (fast moving parts), oli hidrolik, dan pemeliharaan rutin di pool workshop Kebumen & Jabodetabek.', '85000000.00', 'out', 'Workshop Pool MGI Regional', 'Service Rutin 250 Jam', 'verified', '0', 'settled', '2026-03-28', '2026-03-28', NULL, 'Admin MGI', '2026-09-28 10:36:32', '2026-09-28 10:36:32'),
 ('7', '1', 'proj-jkt-jabar', 'labarugi', 'Distribusi Dividen Bagi Hasil', 'BILL-DIV-2026-Q1', 'Billing Bagi Hasil Dividen Kuartal I - 2026 (Nett)', 'Faktur distribusi laba bersih operasional proyek periode Kuartal I 2026 yang ditransfer ke rekening bank terdaftar investor.', '125000000.00', 'out', 'Investor PT Montana Global Investama', 'Bagi Hasil Kuartal I', 'verified', '1', 'paid', '2026-04-15', '2026-04-15', NULL, 'Admin MGI', '2026-09-28 10:36:32', '2026-09-28 10:36:32'),
 ('8', '1', 'proj-jkt-jabar', 'penjualan', 'Kontrak Sewa Unit Infrastruktur', 'INV-SLS-2026-002', 'Kontrak Sewa Utilisasi Armada Komatsu — Tahap 2', 'Pendapatan sewa utilisasi lanjutan untuk proyek tol dan logistik kawasan barat.', '520000000.00', 'in', 'PT Citra Konstruksi Nusantara', 'Kontrak Sewa Unit KM-9481 & KM-9482', 'verified', '0', 'paid', '2026-06-28', '2026-06-30', NULL, 'Admin MGI', '2026-09-28 10:36:32', '2026-09-28 10:36:32'),
-('9', '1', 'proj-jkt-jabar', 'labarugi', 'Distribusi Dividen Bagi Hasil', 'BILL-DIV-2026-Q2', 'Billing Bagi Hasil Dividen Kuartal II - 2026 (Nett)', 'Faktur dividen bagi hasil kompetitif periode Kuartal II 2026 yang telah berhasil disalurkan ke rekening bank investor.', '145000000.00', 'out', 'Investor PT Montana Global Investama', 'Bagi Hasil Kuartal II', 'verified', '1', 'paid', '2026-07-15', '2026-07-15', NULL, 'Admin MGI', '2026-09-28 10:36:32', '2026-09-28 10:36:32');
+('9', '1', 'proj-jkt-jabar', 'labarugi', 'Distribusi Dividen Bagi Hasil', 'BILL-DIV-2026-Q2', 'Billing Bagi Hasil Dividen Kuartal II - 2026 (Nett)', 'Faktur dividen bagi hasil kompetitif periode Kuartal II 2026 yang telah berhasil disalurkan ke rekening bank investor.', '145000000.00', 'out', 'Investor PT Montana Global Investama', 'Bagi Hasil Kuartal II', 'verified', '1', 'paid', '2026-07-15', '2026-07-15', NULL, 'Admin MGI', '2026-09-28 10:36:32', '2026-09-28 10:36:32'),
+('11', '1', 'proj-jkt-jabar', 'neraca', 'Alokasi Modal Proyek', 'BILL-MGI-20260928-700', 'Alokasi Modal Proyek Tahap 3 (MSI & MIU)', 'Alokasi tambahan pembiayaan unit alat berat.', '500000000.00', 'out', 'PT Montana Sinergi Investama (MSI)', '', 'sent', '1', 'settled', '2026-09-28', NULL, NULL, 'Admin MGI', '2026-09-28 16:08:17', '2026-09-28 16:08:17'),
+('12', '1', 'proj-jkt-jabar', 'pembelian', 'Pengadaan Unit (MSI/MIU)', 'BUY-MGI-20260928-206', 'Pengadaan Hydraulic Breaker Furukawa F22 Attachment', 'Attachment pemecah batu untuk unit Komatsu PC138.', '180000000.00', 'out', 'PT Montana Sinergi Investama (MSI)', 'Furukawa F22 Rock Breaker Heavy Duty', 'sent', '1', 'reported', '2026-09-28', NULL, NULL, 'Admin MGI', '2026-09-28 16:08:17', '2026-09-28 16:08:17'),
+('13', '1', 'proj-jkt-jabar', 'penjualan', 'Kontrak Sewa Infrastruktur', 'INV-SLS-20260928-659', 'Kontrak Sewa Pekerjaan Cut & Fill Narogong', 'Sewa bulanan 150 jam kerja efektif.', '88000000.00', 'in', 'PT Adhi Karya (Persero) Tbk', 'Excavator PC138-01', 'sent', '0', 'reported', '2026-09-28', NULL, NULL, 'Admin MGI', '2026-09-28 16:08:17', '2026-09-28 16:08:17'),
+('14', '1', 'proj-jkt-jabar', 'biaya', 'Biaya Impor / Workshop', 'EXP-20260928-510', 'Biaya Customs Clearance & Bea Masuk Impor Unit PC138 (MIU)', 'Handling kepabeanan Tanjung Priok dan freight handling.', '38000000.00', 'out', 'PT Montana Industri Utama (MIU)', NULL, 'sent', '0', 'reported', '2026-09-28', NULL, NULL, 'Admin MGI', '2026-09-28 16:08:17', '2026-09-28 16:08:17');
 
 -- -----------------------------------------------------
 -- Table structure for `funding_items`
@@ -272,7 +276,7 @@ CREATE TABLE `investor_bank_accounts` (
 
 -- Dumping data for table `investor_bank_accounts`
 INSERT INTO `investor_bank_accounts` (`id`, `investor_id`, `bank_name`, `account_number`, `account_holder`, `branch`, `is_primary`, `created_at`, `updated_at`) VALUES
-('1', '1', 'Bank Central Asia (BCA)', '8820394821', 'Budi Pratama', 'KCP Sudirman Jakarta', '1', '2026-09-24 16:53:48', '2026-09-24 16:53:48'),
+('1', '1', 'BCA Prioritas', '8880192837', 'Budi Pratama S.E.', 'KCU Sudirman Jakarta', '1', '2026-09-24 16:53:48', '2026-09-30 11:29:47'),
 ('2', '2', 'Bank Mandiri', '1270009847281', 'PT Nusantara Capital Group', 'KC SCBD Equity Tower', '1', '2026-09-24 16:53:48', '2026-09-24 16:53:48');
 
 -- -----------------------------------------------------
@@ -283,6 +287,7 @@ CREATE TABLE `investor_companies` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `investor_id` int(11) NOT NULL,
   `business_name` varchar(255) NOT NULL,
+  `business_activity` varchar(255) DEFAULT NULL,
   `legal_entity` enum('Perseroan Terbatas (PT)','Persekutuan Komanditer (CV)','PT Perorangan','Usaha Dagang (UD)','Tidak ada') NOT NULL,
   `company_address` text NOT NULL,
   `pic_name` varchar(255) NOT NULL,
@@ -294,11 +299,11 @@ CREATE TABLE `investor_companies` (
   PRIMARY KEY (`id`),
   KEY `fk_investor_company` (`investor_id`),
   CONSTRAINT `fk_investor_company` FOREIGN KEY (`investor_id`) REFERENCES `investors` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table `investor_companies`
-INSERT INTO `investor_companies` (`id`, `investor_id`, `business_name`, `legal_entity`, `company_address`, `pic_name`, `pic_position`, `company_phone`, `annual_turnover`, `created_at`, `updated_at`) VALUES
-('1', '2', 'PT Nusantara Capital Group', 'Perseroan Terbatas (PT)', 'Equity Tower Lt. 28, SCBD, Jakarta Selatan', 'Hendra Wijaya, S.E., M.B.A.', 'Managing Director', '081198765432', 'Rp10 Miliar – Rp50 Miliar', '2026-09-16 14:48:46', '2026-09-16 14:48:46');
+INSERT INTO `investor_companies` (`id`, `investor_id`, `business_name`, `business_activity`, `legal_entity`, `company_address`, `pic_name`, `pic_position`, `company_phone`, `annual_turnover`, `created_at`, `updated_at`) VALUES
+('1', '2', 'PT Nusantara Capital Group', NULL, 'Perseroan Terbatas (PT)', 'Equity Tower Lt. 28, SCBD, Jakarta Selatan', 'Hendra Wijaya, S.E., M.B.A.', 'Managing Director', '081198765432', 'Rp10 Miliar – Rp50 Miliar', '2026-09-16 14:48:46', '2026-09-16 14:48:46');
 
 -- -----------------------------------------------------
 -- Table structure for `investor_portfolios`
@@ -352,13 +357,19 @@ CREATE TABLE `investors` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table `investors`
 INSERT INTO `investors` (`id`, `account_type`, `email`, `password_hash`, `full_name`, `citizenship`, `phone`, `business_activity`, `status`, `notes`, `created_at`, `updated_at`) VALUES
-('1', 'perorangan', 'investor@gmail.com', '$2y$10$Lelh6pP2AnzfLxLpVwTv.eA4aPbkITwzvEzhIIlOgYcmwBSSd6Ihq', 'Budi Pratama', 'Indonesia (WNI)', '081234567890', NULL, 'active', NULL, '2026-09-16 14:48:46', '2026-09-16 14:48:46'),
+('1', 'perorangan', 'investor@gmail.com', '$2y$10$Lelh6pP2AnzfLxLpVwTv.eA4aPbkITwzvEzhIIlOgYcmwBSSd6Ihq', 'Budi Pratama', 'Indonesia (WNI)', '081234567890', 'Perdagangan & Jasa Profesional', 'active', NULL, '2026-09-16 14:48:46', '2026-09-30 11:10:34'),
 ('2', 'perusahaan', 'corporate@holding.com', '$2y$10$L1db4kaUCkNu5P0a4YcQx.W4d27KcehnDjVESPnvdwaXXrP5yYep6', 'Hendra Wijaya, S.E., M.B.A.', 'Indonesia (WNI)', '081198765432', NULL, 'active', NULL, '2026-09-16 14:48:46', '2026-09-16 14:48:46'),
-('5', 'perorangan', 'unit_test_1789634960@test.com', '$2y$10$o6HKiHURfTsZ3gNIdPXpOeQAVtrq8HqCcLXHequD7tJX9HVOnzM82', 'Investor Unit Test', 'Indonesia (WNI)', '081298765432', NULL, 'active', NULL, '2026-09-17 15:49:20', '2026-09-17 15:49:20');
+('5', 'perorangan', 'unit_test_1789634960@test.com', '$2y$10$o6HKiHURfTsZ3gNIdPXpOeQAVtrq8HqCcLXHequD7tJX9HVOnzM82', 'Investor Unit Test', 'Indonesia (WNI)', '081298765432', NULL, 'active', NULL, '2026-09-17 15:49:20', '2026-09-17 15:49:20'),
+('8', 'perorangan', 'test.investor.1790742416@mgi-testing.com', '$2y$10$/v/by9lP5y7eIw6wT3jo8ewlEMy3C9Jf29DjAXuFSi0UlFXc792cW', 'Dr. H. Testing Hendrawan', 'Indonesia (WNI)', '081299887766', '', 'active', NULL, '2026-09-30 11:26:56', '2026-09-30 11:26:56'),
+('9', 'perorangan', 'corp.test.1790742416@mgi-testing.com', '$2y$10$TSs7gWcOSgcCH8ryfHfBT.g/p2XO30HUU4KA40w9Am.U.NIBw4XN6', 'Ir. Bambang Corporate', 'Indonesia (WNI)', '081399887755', '', 'active', NULL, '2026-09-30 11:26:56', '2026-09-30 11:26:56'),
+('10', 'perorangan', 'test.investor.1790742533@mgi-testing.com', '$2y$10$K6g5wHNmIPb5aMWm6ab4UOVrPVstLPvA.Oht.YCzcmdIEQlj8SVpa', 'Dr. H. Testing Hendrawan', 'Indonesia (WNI)', '081299887766', '', 'active', NULL, '2026-09-30 11:28:54', '2026-09-30 11:28:54'),
+('11', 'perorangan', 'corp.test.1790742534@mgi-testing.com', '$2y$10$VNItkFs1GJFmKNVQsgRtReadSRMtS8G3EhJz5vbpPrPyNAdVe1ylm', 'Ir. Bambang Corporate', 'Indonesia (WNI)', '081399887755', '', 'active', NULL, '2026-09-30 11:28:54', '2026-09-30 11:28:54'),
+('12', 'perorangan', 'test.investor.1790742587@mgi-testing.com', '$2y$10$nFy2in8kg3tpR93qSQDfuedhX1vS1P8a4yIocknICIiVgF2NwjpyO', 'Dr. H. Testing Hendrawan', 'Indonesia (WNI)', '081299887766', '', 'active', NULL, '2026-09-30 11:29:47', '2026-09-30 11:29:47'),
+('13', 'perorangan', 'corp.test.1790742587@mgi-testing.com', '$2y$10$pBo50X.xkLeZeZ6svmwarOKb3gHAURSjlPbtkYF30OJnmUjYNbb3q', 'Ir. Bambang Corporate', 'Indonesia (WNI)', '081399887755', '', 'active', NULL, '2026-09-30 11:29:47', '2026-09-30 11:29:47');
 
 -- -----------------------------------------------------
 -- Table structure for `preparation_entities`
@@ -383,10 +394,10 @@ CREATE TABLE `preparation_entities` (
 
 -- Dumping data for table `preparation_entities`
 INSERT INTO `preparation_entities` (`code`, `name`, `slogan`, `role`, `level`, `badge`, `color`, `description`, `focus`, `output`, `location`, `sort_order`, `updated_at`) VALUES
-('MGI', 'PT Montana Global Investama', '', 'Pengelola Proyek & Permodalan Grup', 'Level 1', 'Pengelola Proyek & Permodalan Grup', 'gold', 'Pengelola Proyek & Permodalan Grup', 'Pengelolaan proyek investasi, kepatuhan, relasi investor', 'Alokasi permodalan proyek, transparansi imbal hasil terukur', NULL, '1', '2026-09-28 15:00:09'),
-('MIU', 'PT Montana Indo Utama (MIU)', '', 'Kantor, Workshop & Dukungan Armada', 'Level 1', 'Kantor, Workshop & Dukungan Armada', 'blue', 'Kantor, Workshop & Dukungan Armada', 'Workshop Kebumen, armada khusus Komatsu CBU Jepang, armada Montana Towing, operasional Jawa Tengah, Bali, dan NTB', '125 unit Komatsu Grade A siap pakai, kantor & pool Kebumen, armada towing siaga', NULL, '2', '2026-09-28 15:00:09'),
-('MSI', 'PT Montana Sentra Industri (MSI)', '', 'Suplai Impor dari Jepang atau Cina ke Indonesia', 'Level 1', 'Suplai Impor dari Jepang atau Cina ke Indonesia', 'navy', 'Suplai Impor dari Jepang atau Cina ke Indonesia', 'Fokus pada impor dari Jepang atau Cina ke Indonesia sampai ke alamat pelanggan', 'Pengiriman door-to-door unit mesin dan alat berat impor langsung sampai lokasi', NULL, '3', '2026-09-28 15:00:09'),
-('Mypurcase', 'Mypurcase (Segera Diluncurkan 2027)', '', 'Sistem dan Pengadaan Terpadu Ekosistem', 'Level 1', 'Sistem dan Pengadaan Terpadu Ekosistem', 'gold', 'Sistem dan Pengadaan Terpadu Ekosistem', 'Sistem dan pengadaan terpadu serta pembelian unit dan mesin secara efisien', 'Pengadaan terpadu hemat biaya, transparansi alokasi belanja modal', NULL, '4', '2026-09-28 15:00:09');
+('MGI', 'PT Montana Global Investama', '', 'Pengelola Proyek & Permodalan Grup', 'Level 1', 'Pengelola Proyek & Permodalan Grup', 'gold', 'Pengelola Proyek & Permodalan Grup', 'Pengelolaan proyek investasi, kepatuhan, relasi investor', 'Alokasi permodalan proyek, transparansi imbal hasil terukur', NULL, '1', '2026-09-28 16:49:31'),
+('MIU', 'PT Montana Indo Utama (MIU)', '', 'Kantor, Workshop & Dukungan Armada', 'Level 1', 'Kantor, Workshop & Dukungan Armada', 'blue', 'Kantor, Workshop & Dukungan Armada', 'Workshop Kebumen, armada khusus Komatsu CBU Jepang, armada Montana Towing, operasional Jawa Tengah, Bali, dan NTB', '125 unit Komatsu Grade A siap pakai, kantor & pool Kebumen, armada towing siaga', NULL, '2', '2026-09-28 16:49:31'),
+('MSI', 'PT Montana Sentra Industri (MSI)', '', 'Suplai Impor dari Jepang atau Cina ke Indonesia', 'Level 1', 'Suplai Impor dari Jepang atau Cina ke Indonesia', 'navy', 'Suplai Impor dari Jepang atau Cina ke Indonesia', 'Fokus pada impor dari Jepang atau Cina ke Indonesia sampai ke alamat pelanggan', 'Pengiriman door-to-door unit mesin dan alat berat impor langsung sampai lokasi', NULL, '3', '2026-09-28 16:49:31'),
+('Mypurcase', 'Mypurcase (Segera Diluncurkan 2027)', '', 'Sistem dan Pengadaan Terpadu Ekosistem', 'Level 1', 'Sistem dan Pengadaan Terpadu Ekosistem', 'gold', 'Sistem dan Pengadaan Terpadu Ekosistem', 'Sistem dan pengadaan terpadu serta pembelian unit dan mesin secara efisien', 'Pengadaan terpadu hemat biaya, transparansi alokasi belanja modal', NULL, '4', '2026-09-28 16:49:31');
 
 -- -----------------------------------------------------
 -- Table structure for `preparation_workflow`
@@ -405,12 +416,12 @@ CREATE TABLE `preparation_workflow` (
 
 -- Dumping data for table `preparation_workflow`
 INSERT INTO `preparation_workflow` (`id`, `step_number`, `title`, `actor`, `description`, `badge`, `created_at`) VALUES
-('1', '1', '1. Penempatan Modal Investasi Proyek', 'Investor → PT Montana Global Investama (MGI)', 'Investor menempatkan dana pada investasi proyek riil pilihan dengan proyeksi imbal hasil menarik dan terukur.', '', '2026-09-28 15:00:09'),
-('2', '2', '2. Alokasi Modal & Pemilihan Unit', 'MGI → Unit Usaha (MIU & MSI)', 'MGI mengalokasikan permodalan proyek untuk akuisisi unit alat berat Komatsu CBU Jepang dan suplai impor.', '', '2026-09-28 15:00:09'),
-('3', '3', '3. Akuisisi Unit Alat Berat', 'MIU → Unit Alat Berat', 'MIU akuisisi unit alat berat Komatsu CBU Jepang.', '', '2026-09-28 15:00:09'),
-('4', '4', '4. Suplai Impor Door-to-Door', 'MSI → Alamat Pelanggan / Pool', 'MSI mengawal impor langsung dari Jepang atau Cina hingga unit tiba sempurna di alamat pelanggan atau pool workshop.', '', '2026-09-28 15:00:09'),
-('5', '5', '5. Sistem dan Pengadaan Terpadu', 'Mypurcase', 'Pembelian unit dan mesin dikoordinasikan melalui sistem terpadu Mypurcase secara efisien dan transparan.', '', '2026-09-28 15:00:09'),
-('6', '6', '6. Utilisasi Proyek & Distribusi Hasil', 'MIU → MSI → Mypurcase → MGI & Investor', 'Unit Komatsu dioperasikan pada kontrak kerja riil di kota-kota strategis, menghasilkan dividen kompetitif yang ditransfer ke rekening investor.', '', '2026-09-28 15:00:09');
+('1', '1', '1. Penempatan Modal Investasi Proyek', 'Investor → PT Montana Global Investama (MGI)', 'Investor menempatkan dana pada investasi proyek riil pilihan dengan proyeksi imbal hasil menarik dan terukur.', '', '2026-09-28 16:49:31'),
+('2', '2', '2. Alokasi Modal & Pemilihan Unit', 'MGI → Unit Usaha (MIU & MSI)', 'MGI mengalokasikan permodalan proyek untuk akuisisi unit alat berat Komatsu CBU Jepang dan suplai impor.', '', '2026-09-28 16:49:31'),
+('3', '3', '3. Akuisisi Unit Alat Berat', 'MIU → Unit Alat Berat', 'MIU akuisisi unit alat berat Komatsu CBU Jepang.', '', '2026-09-28 16:49:31'),
+('4', '4', '4. Suplai Impor Door-to-Door', 'MSI → Alamat Pelanggan / Pool', 'MSI mengawal impor langsung dari Jepang atau Cina hingga unit tiba sempurna di alamat pelanggan atau pool workshop.', '', '2026-09-28 16:49:31'),
+('5', '5', '5. Sistem dan Pengadaan Terpadu', 'Mypurcase', 'Pembelian unit dan mesin dikoordinasikan melalui sistem terpadu Mypurcase secara efisien dan transparan.', '', '2026-09-28 16:49:31'),
+('6', '6', '6. Utilisasi Proyek & Distribusi Hasil', 'MIU → MSI → Mypurcase → MGI & Investor', 'Unit Komatsu dioperasikan pada kontrak kerja riil di kota-kota strategis, menghasilkan dividen kompetitif yang ditransfer ke rekening investor.', '', '2026-09-28 16:49:31');
 
 -- -----------------------------------------------------
 -- Table structure for `project_details`
@@ -440,6 +451,73 @@ INSERT INTO `project_details` (`id`, `project_id`, `tagline`, `what_will_provide
 ('3', 'proj-denpasar', 'Investasi Alat Berat untuk Mendukung Pertumbuhan Pariwisata, Properti & Infrastruktur Bali', 'Alokasi Penggunaan Modal Proyek Bali', 'Dana dialokasikan untuk penempatan armada alat berat kompak dan heavy-duty (Komatsu PC78US-8 dan PC200-8) dalam rangka konstruksi resor mewah pariwisata, penataan lansekap perhotelan, dan infrastruktur strategis di wilayah Bali.', 'Kerangka Kontrak Penyerapan Pasar Bali', 'Sektor hospitality dan real estate premium di Bali memerlukan armada alat berat dengan standar emisi dan kebisingan rendah untuk proyek pembangunan resor dan perataan lahan bertaraf internasional.', 'Ringkasan Kelayakan Proyek Investasi', 'Pendanaan proyek telah ditutup penuh (Closed) dan seluruh unit telah beroperasi aktif dengan jadwal distribusi dividen berjalan tepat waktu kepada para mitra investor.', '2026-09-28 10:34:14', '2026-09-28 10:34:14'),
 ('4', 'proj-makassar', 'Investasi Alat Berat untuk Mendukung Infrastruktur, Logistik & Aktivitas Sektor Sumber Daya Regional Sulawesi', 'Alokasi Penggunaan Modal Proyek Makassar', 'Pendanaan dialokasikan untuk pengadaan armada Excavator Komatsu PC200-8 dan penunjang operasional guna memenuhi tingginya permintaan galian material, infrastruktur pelabuhan New Port Makassar, serta koridor logistik industri nikel & mineral di Sulawesi.', 'Kerangka Kontrak Penyerapan Pasar Sulawesi', 'Sebagai gerbang Indonesia Timur, ekspansi infrastruktur dan hilirisasi tambang di Sulawesi memacu kenaikan permintaan rental unit alat berat dengan kepastian pembayaran kontrak kerja berdurasi multi-tahun.', 'Ringkasan Kelayakan Proyek Investasi', 'Unit riil Grade A dengan jaminan fisik BPKB/faktur kepemilikan sah, imbal hasil terukur ≥32% (p.a.) dengan pelaporan performa berkala dan transparansi pembagian dividen kuartalan.', '2026-09-28 10:34:14', '2026-09-28 10:34:14'),
 ('5', 'proj-kebumen', 'Investasi Alat Berat untuk Mendukung Konstruksi, Infrastruktur & Pengembangan Agribisnis Jawa Tengah Bagian Selatan', 'Alokasi Penggunaan Modal Proyek Kebumen', 'Permodalan dialokasikan untuk pengadaan armada alat berat Excavator Komatsu PC200-8 dan PC138US-8 serta optimalisasi Sentral Pool & Workshop Montana seluas 4.500 m² di Kebumen guna melayani proyek irigasi modern, bendungan, infrastruktur jalan, dan agribisnis koridor selatan Jawa Tengah.', 'Kerangka Kontrak Penyerapan Pasar Kebumen', 'Didukung langsung oleh keberadaan sentral workshop pool Montana di Kebumen, unit beroperasi melayani proyek konstruksi jalur lintas selatan (JJLS), perbaikan irigasi pertanian agribisnis, serta pekerjaan sipil regional.', 'Ringkasan Kelayakan Proyek Investasi', 'Pendanaan telah tercapai 100% (Didanai Penuh) berkat partisipasi aktif para mitra pemodal. Aset fisik telah terdistribusi pada kontrak riil dengan tingkat bagi hasil kuartalan yang terjamin.', '2026-09-28 10:34:14', '2026-09-28 10:34:14');
+
+-- -----------------------------------------------------
+-- Table structure for `project_documents`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `project_documents`;
+CREATE TABLE `project_documents` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `project_id` varchar(50) NOT NULL,
+  `investor_id` int(11) DEFAULT NULL,
+  `doc_number` varchar(100) NOT NULL,
+  `doc_title` varchar(255) NOT NULL,
+  `doc_type` varchar(50) NOT NULL DEFAULT 'laporan',
+  `file_path` varchar(255) DEFAULT NULL,
+  `file_size` varchar(50) NOT NULL DEFAULT '1.4 MB',
+  `published_by` varchar(100) NOT NULL DEFAULT 'Operator MGI',
+  `status` enum('draft','published') NOT NULL DEFAULT 'published',
+  `published_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_proj_docs_project` (`project_id`),
+  KEY `idx_proj_docs_investor` (`investor_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table `project_documents`
+INSERT INTO `project_documents` (`id`, `project_id`, `investor_id`, `doc_number`, `doc_title`, `doc_type`, `file_path`, `file_size`, `published_by`, `status`, `published_at`, `created_at`) VALUES
+('1', 'proj-jkt-jabar', '1', 'DOC-RAB-2026-001', 'Prospektus & Rencana Anggaran Biaya (RAB) Unit Komatsu PC138US-8', 'pembelian', 'documents/proj-jkt-jabar/prospektus-rab-komatsu.pdf', '2.8 MB', 'Operator MGI', 'published', '2026-01-20 10:00:00', '2026-09-28 15:43:53'),
+('2', 'proj-jkt-jabar', '1', 'DOC-CBU-2026-002', 'Sertifikat Kepemilikan & Dokumen Bea Cukai CBU Jepang (Form CBU)', 'inventory', 'documents/proj-jkt-jabar/dokumen-cbu-bea-cukai.pdf', '3.4 MB', 'Operator MGI', 'published', '2026-02-12 14:30:00', '2026-09-28 15:43:53'),
+('3', 'proj-jkt-jabar', '1', 'DOC-BILL-2026-001', 'Faktur Alokasi Dana Pembelian 2 Unit Komatsu via MSI & Biaya Impor MIU', 'billing', 'documents/proj-jkt-jabar/faktur-alokasi-dana-msi-miu.pdf', '1.2 MB', 'Operator MGI', 'published', '2026-02-15 09:15:00', '2026-09-28 15:43:53'),
+('4', 'proj-jkt-jabar', '1', 'DOC-REP-2026-Q2', 'Buku Laporan Operasional Kuartal II 2026 (SMH, Sewa, Laba Rugi)', 'laporan', 'documents/proj-jkt-jabar/laporan-operasional-q2-2026.pdf', '4.1 MB', 'Operator MGI', 'published', '2026-07-20 16:00:00', '2026-09-28 15:43:53'),
+('5', 'proj-jkt-jabar', '1', 'DOC-BILL-20260928-11', 'Faktur Billing Alokasi Dana: Alokasi Modal Proyek Tahap 3 (MSI & MIU) (500.000.000)', 'billing', 'documents/proj-jkt-jabar/DOC-BILL-20260928-11.pdf', '1.5 MB', 'Operator MGI', 'published', '2026-09-28 16:08:17', '2026-09-28 16:08:17'),
+('6', 'proj-jkt-jabar', '1', 'DOC-BUY-20260928-12', 'Faktur Pembelian: Pengadaan Hydraulic Breaker Furukawa F22 Attachment via PT Montana Sinergi Investama (MSI)', 'pembelian', 'documents/proj-jkt-jabar/DOC-BUY-20260928-12.pdf', '1.8 MB', 'Operator MGI', 'published', '2026-09-28 16:08:17', '2026-09-28 16:08:17'),
+('7', 'proj-jkt-jabar', '1', 'DOC-SLS-20260928-13', 'Invoice Kontrak Sewa: Kontrak Sewa Pekerjaan Cut & Fill Narogong (PT Adhi Karya (Persero) Tbk)', 'penjualan', 'documents/proj-jkt-jabar/DOC-SLS-20260928-13.pdf', '1.3 MB', 'Operator MGI', 'published', '2026-09-28 16:08:17', '2026-09-28 16:08:17'),
+('8', 'proj-jkt-jabar', '1', 'DOC-EXP-20260928-14', 'Bukti Pengeluaran Biaya: Biaya Customs Clearance & Bea Masuk Impor Unit PC138 (MIU) via PT Montana Industri Utama (MIU)', 'biaya', 'documents/proj-jkt-jabar/DOC-EXP-20260928-14.pdf', '1.1 MB', 'Operator MGI', 'published', '2026-09-28 16:08:17', '2026-09-28 16:08:17'),
+('9', 'proj-jkt-jabar', NULL, 'DOC-INV-20260928-4', 'Berita Acara Pendaftaran Unit Armada: Komatsu PC138US-8 (Unit Cadangan Siap Operasi) (EXC-PC138-04)', 'inventory', 'documents/proj-jkt-jabar/DOC-INV-20260928-4.pdf', '2.1 MB', 'Operator MGI', 'published', '2026-09-28 16:08:17', '2026-09-28 16:08:17'),
+('10', 'proj-jkt-jabar', '1', 'DOC-PUB-20260928-558', 'Laporan Audit Operasional Kuartal 3 2026 MGI QQ Client', 'laporan', 'documents/proj-jkt-jabar/DOC-PUB-20260928-558.pdf', '2.4 MB', 'Operator MGI', 'published', '2026-09-28 16:08:17', '2026-09-28 16:08:17');
+
+-- -----------------------------------------------------
+-- Table structure for `project_inventory`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `project_inventory`;
+CREATE TABLE `project_inventory` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `project_id` varchar(50) NOT NULL,
+  `item_code` varchar(100) NOT NULL,
+  `item_name` varchar(255) NOT NULL,
+  `category` varchar(100) NOT NULL DEFAULT 'Alat Berat',
+  `serial_number` varchar(100) DEFAULT NULL,
+  `quantity` int(11) NOT NULL DEFAULT 1,
+  `unit_cost` decimal(18,2) NOT NULL DEFAULT 0.00,
+  `total_value` decimal(18,2) NOT NULL DEFAULT 0.00,
+  `condition_status` varchar(50) NOT NULL DEFAULT 'Grade A (Prima)',
+  `operational_status` varchar(50) NOT NULL DEFAULT 'Aktif Beroperasi',
+  `location` varchar(255) NOT NULL DEFAULT 'Pool Narogong & Workshop Kebumen',
+  `smh_hours` int(11) NOT NULL DEFAULT 0,
+  `last_inspection_date` date DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_proj_inv_project` (`project_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table `project_inventory`
+INSERT INTO `project_inventory` (`id`, `project_id`, `item_code`, `item_name`, `category`, `serial_number`, `quantity`, `unit_cost`, `total_value`, `condition_status`, `operational_status`, `location`, `smh_hours`, `last_inspection_date`, `created_at`, `updated_at`) VALUES
+('1', 'proj-jkt-jabar', 'EXC-KM-138-01', 'Excavator Komatsu PC138US-8 (CBU Japan)', 'Alat Berat', 'KMTC882910-JP', '1', '1400000000.00', '1400000000.00', 'Grade A (Prima)', 'Aktif Beroperasi', 'Sub-Seksi 4 Toll Road Bekasi Timur', '1250', '2026-09-20', '2026-09-28 15:43:53', '2026-09-28 15:43:53'),
+('2', 'proj-jkt-jabar', 'EXC-KM-138-02', 'Excavator Komatsu PC138US-8 (CBU Japan)', 'Alat Berat', 'KMTC882911-JP', '1', '1400000000.00', '1400000000.00', 'Grade A (Prima)', 'Aktif Beroperasi', 'Narogong Limestone Zone Jabar', '1168', '2026-09-22', '2026-09-28 15:43:53', '2026-09-28 15:43:53'),
+('3', 'proj-jkt-jabar', 'ATT-BRK-001', 'Hydraulic Breaker Kit Komatsu Grade A', 'Attachment', 'BRK-9901-JP', '2', '175000000.00', '350000000.00', 'Grade A (Prima)', 'Standby Workshop', 'Sentral Workshop Pool Kebumen', '0', '2026-09-18', '2026-09-28 15:43:53', '2026-09-28 15:43:53'),
+('4', 'proj-jkt-jabar', 'EXC-PC138-04', 'Komatsu PC138US-8 (Unit Cadangan Siap Operasi)', 'Excavator', 'KMTC138-JP-7711', '1', '1450000000.00', '1450000000.00', 'Grade A (Prima)', 'Standby Siap Operasi', 'Workshop Narogong MGI', '620', '2026-09-28', '2026-09-28 16:08:17', '2026-09-28 16:08:17');
 
 -- -----------------------------------------------------
 -- Table structure for `project_simulation`
@@ -500,11 +578,11 @@ CREATE TABLE `projects` (
 
 -- Dumping data for table `projects`
 INSERT INTO `projects` (`id`, `city_id`, `city`, `title`, `category`, `image`, `funding_collected`, `funding_target`, `currency`, `status`, `featured`, `lokasi`, `target_display`, `tenor`, `return_rate`, `risk_level`, `min_investment`, `payout`, `remaining_days`, `asset_backed`, `sort_order`, `created_at`, `updated_at`) VALUES
-('proj-denpasar', NULL, 'Denpasar', '02 — Bali Tourism & Infrastructure Growth', 'Investasi Alat Berat untuk Mendukung Pertumbuhan Pariwisata, Properti & Infrastruktur Bali', 'assets/img/project-denpasar.jpg', '7000000000', '7000000000', 'IDR', 'Closed', '0', 'Denpasar & Bali', 'Rp 7.000.000.000', '36 Bulan', '≥32% (p.a.)', 'Menengah - Terukur', 'Rp 500.000.000', 'Bagi Hasil Kuartalan Berjalan', 'Pendanaan Selesai', 'Aset Fisik Komatsu CBU Grade A', '3', '2026-09-28 10:34:14', '2026-09-28 10:34:14'),
-('proj-jkt-jabar', NULL, 'Jabodetabek & Jawa Barat', 'Ekspansi Pool & Alat Berat Regional Jabodetabek dan Jawa Barat', 'Proyek Ekspansi Pool & Alat Berat Komatsu', 'assets/img/project-jabodetabek.jpg', '7500000000', '10000000000', 'IDR', 'Open', '0', 'DKI Jakarta & Jawa Barat', 'Rp 10.000.000.000', '36 Bulan', '≥32% (p.a.)', 'Menengah - Terukur', 'Rp 500.000.000', 'Bagi Hasil Kompetitif', '18 Hari Tersisa', 'Aset Fisik Komatsu CBU Grade A', '1', '2026-09-28 10:34:14', '2026-09-28 10:34:14'),
-('proj-kebumen', NULL, 'Kebumen', 'Sentral Pool & Workshop Alat Berat Kebumen', 'Sentral Pool & Workshop Alat Berat Komatsu', 'assets/img/project-kebumen.jpg', '4800000000', '6000000000', 'IDR', 'Open', '1', 'Kebumen & Jawa Tengah', 'Rp 6.000.000.000', '36 Bulan', '≥31% (p.a.)', 'Menengah - Terukur', 'Rp 500.000.000', 'Bagi Hasil Kuartalan', '14 Hari Tersisa', 'Aset Fisik Komatsu CBU Grade A', '5', '2026-09-28 10:34:14', '2026-09-28 10:34:14'),
-('proj-makassar', NULL, 'Makassar', '03 — Makassar Infrastructure & Resource Growth', 'Investasi Alat Berat untuk Mendukung Infrastruktur, Logistik & Aktivitas Sektor Sumber Daya', 'assets/img/project-makasar.jpg', '3200000000', '5000000000', 'IDR', 'Open', '0', 'Makassar & Sulawesi Selatan', 'Rp 5.000.000.000', '36 Bulan', '≥32% (p.a.)', 'Menengah - Terukur', 'Rp 500.000.000', 'Bagi Hasil Kuartalan', '24 Hari Tersisa', 'Aset Fisik Komatsu CBU Grade A', '4', '2026-09-28 10:34:14', '2026-09-28 10:34:14'),
-('proj-surabaya', NULL, 'Surabaya', '01 — Surabaya Industrial Growth', 'Investasi Alat Berat untuk Mendukung Ekspansi Industri, Infrastruktur & Logistik', 'assets/img/project-surabaya.jpg', '0', '5000000000', 'IDR', 'Coming Soon', '0', 'Surabaya & Jawa Timur', 'Rp 5.000.000.000', '36 Bulan', '≥30% (p.a.)', 'Menengah - Terukur', 'Rp 500.000.000', 'Bagi Hasil Kuartalan', 'Segera Hadir', 'Aset Fisik Komatsu CBU Grade A', '2', '2026-09-28 10:34:14', '2026-09-28 10:34:14');
+('proj-denpasar', NULL, 'Denpasar', '02 — Bali Tourism & Infrastructure Growth', 'Investasi Alat Berat untuk Mendukung Pertumbuhan Pariwisata, Properti & Infrastruktur Bali', 'assets/img/project-denpasar.jpg', '7000000000', '7000000000', 'IDR', 'Closed', '0', 'Denpasar & Bali', 'Rp 7.000.000.000', '36 Bulan', '≥32% (p.a.)', 'Menengah - Terukur', 'Rp 500.000.000', 'Bagi Hasil Kuartalan Berjalan', 'Pendanaan Selesai', 'Aset Fisik Komatsu CBU Grade A', '3', '2026-09-28 10:34:14', '2026-09-30 11:05:24'),
+('proj-jkt-jabar', NULL, 'Jabodetabek & Jawa Barat', 'Ekspansi Pool & Alat Berat Regional Jabodetabek dan Jawa Barat', 'Proyek Ekspansi Pool & Alat Berat Komatsu', 'assets/img/project-jabodetabek.jpg', '7500000000', '10000000000', 'IDR', 'Open', '0', 'DKI Jakarta & Jawa Barat', 'Rp 10.000.000.000', '36 Bulan', '≥32% (p.a.)', 'Menengah - Terukur', 'Rp 500.000.000', 'Bagi Hasil Kompetitif', '18 Hari Tersisa', 'Aset Fisik Komatsu CBU Grade A', '1', '2026-09-28 10:34:14', '2026-09-30 11:05:24'),
+('proj-kebumen', NULL, 'Kebumen', 'Sentral Pool & Workshop Alat Berat Kebumen', 'Sentral Pool & Workshop Alat Berat Komatsu', 'assets/img/project-kebumen.jpg', '6000000000', '6000000000', 'IDR', 'Fully Funded', '1', 'Kebumen & Jawa Tengah', 'Rp 6.000.000.000', '36 Bulan', '≥31% (p.a.)', 'Menengah - Terukur', 'Rp 500.000.000', 'Bagi Hasil Kuartalan', 'Pendanaan Terpenuhi', 'Aset Fisik Komatsu CBU Grade A', '5', '2026-09-28 10:34:14', '2026-09-30 11:05:24'),
+('proj-makassar', NULL, 'Makassar', '03 — Makassar Infrastructure & Resource Growth', 'Investasi Alat Berat untuk Mendukung Infrastruktur, Logistik & Aktivitas Sektor Sumber Daya', 'assets/img/project-makasar.jpg', '3200000000', '5000000000', 'IDR', 'Open', '0', 'Makassar & Sulawesi Selatan', 'Rp 5.000.000.000', '36 Bulan', '≥32% (p.a.)', 'Menengah - Terukur', 'Rp 500.000.000', 'Bagi Hasil Kuartalan', '24 Hari Tersisa', 'Aset Fisik Komatsu CBU Grade A', '4', '2026-09-28 10:34:14', '2026-09-30 11:05:24'),
+('proj-surabaya', NULL, 'Surabaya', '01 — Surabaya Industrial Growth', 'Investasi Alat Berat untuk Mendukung Ekspansi Industri, Infrastruktur & Logistik', 'assets/img/project-surabaya.jpg', '0', '5000000000', 'IDR', 'Coming Soon', '0', 'Surabaya & Jawa Timur', 'Rp 5.000.000.000', '36 Bulan', '≥30% (p.a.)', 'Menengah - Terukur', 'Rp 500.000.000', 'Bagi Hasil Kuartalan', 'Segera Hadir', 'Aset Fisik Komatsu CBU Grade A', '2', '2026-09-28 10:34:14', '2026-09-30 11:05:24');
 
 -- -----------------------------------------------------
 -- Table structure for `system_settings`

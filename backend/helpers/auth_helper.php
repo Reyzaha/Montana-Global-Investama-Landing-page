@@ -203,6 +203,10 @@ function clearInvestorSession(): void {
     unset($_SESSION['mgi_investor_ip']);
 }
 
+function logoutInvestor(): void {
+    clearInvestorSession();
+}
+
 // AUDIT LOG HELPER
 function logAdminActivity(string $action, string $targetType, ?string $targetId = null, ?string $details = null): void {
     try {
