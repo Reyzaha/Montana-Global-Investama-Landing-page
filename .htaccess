@@ -16,7 +16,22 @@ RewriteRule (^\.|/\.) - [F]
     Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
 
-# 4. API Endpoints Routing
+# 4. Anti-Stale Cache Control (Bebas Hard Refresh / Ctrl+Shift+R)
+<IfModule mod_headers.c>
+    # File dinamis (HTML, PHP, JSON) tidak pernah disimpan di disk cache browser
+    <FilesMatch "\.(html|htm|php|json)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate, max-age=0"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+
+    # Script & Stylesheet (JS, CSS) harus selalu divalidasi ke server saat ada pembaruan
+    <FilesMatch "\.(css|js)$">
+        Header set Cache-Control "no-cache, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
+# 5. API Endpoints Routing
 RewriteRule ^api/investor/projects/?$ api/investor/projects.php [QSA,L]
 RewriteRule ^api/projects/([^/]+)/dashboard/?$ api/projects/router.php?project_id=$1&action=dashboard [QSA,L]
 RewriteRule ^api/projects/([^/]+)/billing/?$ api/projects/router.php?project_id=$1&action=billing [QSA,L]
@@ -26,4 +41,3 @@ RewriteRule ^api/projects/([^/]+)/costs/?$ api/projects/router.php?project_id=$1
 RewriteRule ^api/projects/([^/]+)/inventory/?$ api/projects/router.php?project_id=$1&action=inventory [QSA,L]
 RewriteRule ^api/projects/([^/]+)/documents/?$ api/projects/router.php?project_id=$1&action=documents [QSA,L]
 RewriteRule ^api/projects/([^/]+)/stream/?$ api/projects/router.php?project_id=$1&action=stream [QSA,L]
-

@@ -6,6 +6,11 @@
   <title>Portal Investor - PT Montana Global Investama</title>
   <meta name="description" content="Portal Investor resmi PT Montana Global Investama. Pemantauan modal terintegrasi, laporan operasional MGI QQ Client, unit alat berat CBU Jepang, dan dividen bagi hasil transparan.">
 
+  <!-- Anti-Stale Cache Control: Bebas Hard Refresh / Ctrl+Shift+R -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
   <!-- Favicon Icons -->
   <link rel="icon" type="image/png" href="assets/img/mgi-official-logo.png">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -2114,9 +2119,9 @@
 
       // 1. Fetch Investor's Projects list (GET /api/investor/projects.php with fallback to /api/investor/projects)
       try {
-        let projRes = await fetch('api/investor/projects.php');
+        let projRes = await fetch(`api/investor/projects.php?_t=${Date.now()}`, { cache: 'no-store' });
         if (!projRes.ok) {
-          projRes = await fetch('api/investor/projects');
+          projRes = await fetch(`api/investor/projects?_t=${Date.now()}`, { cache: 'no-store' });
         }
         if (projRes.ok) {
           const projJson = await projRes.json();
@@ -2132,7 +2137,7 @@
 
       // 2. Fetch User Profile and Bank Details
       try {
-        const res = await fetch('api/investor/dashboard.php?action=get');
+        const res = await fetch(`api/investor/dashboard.php?action=get&_t=${Date.now()}`, { cache: 'no-store' });
         if (res.ok) {
           const json = await res.json();
           if (json && json.success && json.data) {
@@ -2453,7 +2458,7 @@
       }
 
       try {
-        const res = await fetch(`api/projects/${projectId}/dashboard`);
+        const res = await fetch(`api/projects/${projectId}/dashboard?_t=${Date.now()}`, { cache: 'no-store' });
         if (res.ok) {
           const json = await res.json();
           if (json && json.success && json.data) {

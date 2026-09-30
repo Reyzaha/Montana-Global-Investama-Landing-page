@@ -14,6 +14,11 @@ function sendJsonResponse(mixed $data = null, int $statusCode = 200, string $mes
         header('X-Content-Type-Options: nosniff');
         header('Referrer-Policy: strict-origin-when-cross-origin');
 
+        // Anti-Stale Caching: Guarantee Fresh Data for Every Visitor
+        header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+
         // Controlled CORS Policy (Restrictive, with credentials support)
         $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
         $host = $_SERVER['HTTP_HOST'] ?? '';
