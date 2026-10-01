@@ -56,6 +56,26 @@ try {
     $stmt->execute($queryParams);
     $rawProjects = $stmt->fetchAll();
 
+    // Ambil metadata pelengkap seperti rab_executive & tiers dari projects.json jika ada
+    $extraProjectData = [];
+    $extraFundingTargets = [];
+    $staticFile = __DIR__ . '/../data/projects.json';
+    if (file_exists($staticFile)) {
+        $rawStatic = json_decode(file_get_contents($staticFile), true);
+        if (!empty($rawStatic['projects'])) {
+            foreach ($rawStatic['projects'] as $sp) {
+                if (!empty($sp['id'])) {
+                    if (!empty($sp['detail']['rab_executive'])) {
+                        $extraProjectData[$sp['id']] = $sp['detail']['rab_executive'];
+                    }
+                    if (!empty($sp['detail']['funding_target']['rows'])) {
+                        $extraFundingTargets[$sp['id']] = $sp['detail']['funding_target'];
+                    }
+                }
+            }
+        }
+    }
+
     $projects = [];
 
     foreach ($rawProjects as $p) {
@@ -85,19 +105,24 @@ try {
             ];
         }
 
+        if (empty($fundingRows) && !empty($extraFundingTargets[$pId]['rows'])) {
+            $fundingRows = $extraFundingTargets[$pId]['rows'];
+            $grandTotal = (float)($extraFundingTargets[$pId]['grand_total'] ?? $p['funding_target']);
+        }
+
         // Simulation
         $stmtSim = $db->prepare("SELECT * FROM project_simulation WHERE project_id = ? LIMIT 1");
         $stmtSim->execute([$pId]);
         $simRow = $stmtSim->fetch();
 
         $simulation = [
-            'tenor_bulan' => $simRow ? (int)$simRow['tenor_bulan'] : 36,
-            'estimasi_return_persen' => $simRow ? (float)$simRow['estimasi_return_persen'] : 30.0,
-            'modal_kerja_bulanan_persen' => $simRow ? (float)$simRow['modal_kerja_bulanan_persen'] : 2.2,
+            'tenor_bulan' => $simRow ? (int)$simRow['tenor_bulan'] : 12,
+            'estimasi_return_persen' => $simRow ? (float)$simRow['estimasi_return_persen'] : 28.62,
+            'modal_kerja_bulanan_persen' => $simRow ? (float)$simRow['modal_kerja_bulanan_persen'] : 2.38,
             'minimum_investasi' => $simRow ? (float)$simRow['minimum_investasi'] : 500000000,
-            'maximum_investasi' => $simRow ? (float)$simRow['maximum_investasi'] : 500000000000,
-            'default_investasi' => $simRow ? (float)$simRow['default_investasi'] : 500000000,
-            'notes' => $simRow['notes'] ?? 'Simulasi bersifat ilustratif, bukan jaminan — mengacu pada Risk Disclosure Statement.'
+            'maximum_investasi' => $simRow ? (float)$simRow['maximum_investasi'] : 10000000000,
+            'default_investasi' => $simRow ? (float)$simRow['default_investasi'] : 1000000000,
+            'notes' => $simRow['notes'] ?? 'Target perputaran 2–3 kali per tahun merupakan proyeksi berbasis kinerja riil penjualan unit.'
         ];
 
         // Persiapkan watermarking & server-side gating data
@@ -106,72 +131,37 @@ try {
             $viewerWatermark = 'DOKUMEN RAHASIA PT MONTANA GLOBAL INVESTAMA — DIAKSES OLEH: ' . strtoupper($investorSession['name']) . ' (' . $investorSession['email'] . ') — ' . date('d/m/Y H:i');
         }
 
-        if ($isGated) {
-            // Sembunyikan data sensitif di level server
-            $detail = [
-                'tagline' => $detailRow['tagline'] ?? '',
-                'is_gated' => true,
-                'gated_notice' => 'Sesuai prinsip keterbukaan informasi terbatas dan kepatuhan tata kelola perusahaan (TARIF), rincian belanja modal (CAPEX Breakdown) serta simulator BEP/ROI hanya dapat diakses oleh investor terdaftar.',
-                'what_will_provide' => [
-                    'type' => 'text',
-                    'title' => $detailRow['what_will_provide_title'] ?? 'Alokasi Penggunaan Modal',
-                    'content' => $detailRow['what_will_provide_content'] ?? ''
-                ],
-                'funding_target' => [
-                    'type' => 'table',
-                    'title' => 'Target Pendanaan & Rencana Anggaran Biaya (CAPEX Breakdown)',
-                    'columns' => ['No', 'Item Pengadaan / Spesifikasi', 'Qty', 'Harga Satuan (IDR)', 'Total Alokasi (IDR)'],
-                    'rows' => [], // DIKOSONGKAN SISI SERVER UNTUK PENGUNJUNG BELUM LOGIN
-                    'grand_total' => (float)$p['funding_target'],
-                    'is_gated' => true
-                ],
-                'about_sinergi_foundation' => [
-                    'type' => 'text',
-                    'title' => $detailRow['sinergi_title'] ?? 'Struktur Kemitraan Strategis',
-                    'content' => $detailRow['sinergi_content'] ?? ''
-                ],
-                'summary' => [
-                    'type' => 'text',
-                    'title' => $detailRow['summary_title'] ?? 'Ringkasan Kelayakan Investasi',
-                    'content' => $detailRow['summary_content'] ?? ''
-                ],
-                'simulation' => [
-                    'is_gated' => true,
-                    'notes' => 'Kalkulator BEP dan proyeksi ROI terkunci. Silakan masuk sebagai investor terdaftar untuk mengaktifkan simulasi interaktif.'
-                ]
-            ];
-        } else {
-            // Data lengkap untuk investor yang telah terautentikasi
-            $detail = [
-                'tagline' => $detailRow['tagline'] ?? '',
-                'is_gated' => false,
-                'viewer_watermark' => $viewerWatermark,
-                'what_will_provide' => [
-                    'type' => 'text',
-                    'title' => $detailRow['what_will_provide_title'] ?? 'Alokasi Penggunaan Modal',
-                    'content' => $detailRow['what_will_provide_content'] ?? ''
-                ],
-                'funding_target' => [
-                    'type' => 'table',
-                    'title' => 'Target Pendanaan & Rencana Anggaran Biaya (CAPEX Breakdown)',
-                    'columns' => ['No', 'Item Pengadaan / Spesifikasi', 'Qty', 'Harga Satuan (IDR)', 'Total Alokasi (IDR)'],
-                    'rows' => $fundingRows,
-                    'grand_total' => $grandTotal > 0 ? $grandTotal : (float)$p['funding_target'],
-                    'is_gated' => false
-                ],
-                'about_sinergi_foundation' => [
-                    'type' => 'text',
-                    'title' => $detailRow['sinergi_title'] ?? 'Struktur Kemitraan Strategis',
-                    'content' => $detailRow['sinergi_content'] ?? ''
-                ],
-                'summary' => [
-                    'type' => 'text',
-                    'title' => $detailRow['summary_title'] ?? 'Ringkasan Kelayakan Investasi',
-                    'content' => $detailRow['summary_content'] ?? ''
-                ],
-                'simulation' => $simulation
-            ];
-        }
+        // Data lengkap untuk prospektus proyek
+        $detail = [
+            'tagline' => $detailRow['tagline'] ?? '',
+            'is_gated' => false,
+            'viewer_watermark' => $viewerWatermark,
+            'what_will_provide' => [
+                'type' => 'text',
+                'title' => $detailRow['what_will_provide_title'] ?? 'Alokasi Penggunaan Modal',
+                'content' => $detailRow['what_will_provide_content'] ?? ''
+            ],
+            'funding_target' => [
+                'type' => 'table',
+                'title' => 'Target Pendanaan & Rencana Anggaran Biaya (CAPEX Breakdown)',
+                'columns' => ['No', 'Item Pengadaan / Spesifikasi', 'Qty', 'Harga Satuan (IDR)', 'Total Alokasi (IDR)'],
+                'rows' => $fundingRows,
+                'grand_total' => $grandTotal > 0 ? $grandTotal : (float)$p['funding_target'],
+                'is_gated' => false
+            ],
+            'about_sinergi_foundation' => [
+                'type' => 'text',
+                'title' => $detailRow['sinergi_title'] ?? 'Struktur Kemitraan Strategis',
+                'content' => $detailRow['sinergi_content'] ?? ''
+            ],
+            'summary' => [
+                'type' => 'text',
+                'title' => $detailRow['summary_title'] ?? 'Ringkasan Kelayakan Investasi',
+                'content' => $detailRow['summary_content'] ?? ''
+            ],
+            'simulation' => $simulation,
+            'rab_executive' => (!empty($detailRow['rab_executive_json']) ? json_decode($detailRow['rab_executive_json'], true) : ($extraProjectData[$pId] ?? null))
+        ];
 
         $cIconImg = $p['city_icon_img'] ?? '';
         if (empty($cIconImg)) {

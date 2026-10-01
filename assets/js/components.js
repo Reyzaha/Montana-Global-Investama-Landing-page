@@ -269,51 +269,105 @@ const MGIComponents = {
   // 5. Render Key Metrics Box (Investor Fast-Scan: Return, Tenor, Min Ticket)
   renderKeyMetrics: function (info) {
     if (!info) return '';
-    const ret = info.return || '≥30% (p.a.)';
-    const tenor = info.tenor || '36 Bulan';
-    const minTicket = info.min_investment || 'Rp 500 Juta';
+
+    // 1. Clean ROI Return (Never wrap awkwardly)
+    let rawRet = (info.return || '≥30% (p.a.)').replace(/\s*\(p\.a\.\)/i, '').trim();
+
+    // 2. Clean Tenor & Cycle Target
+    let rawTenor = info.tenor || '12 Bulan';
+    let cleanTenor = rawTenor.split('(')[0].trim();
+    let tenorSub = 'TENOR PROYEK';
+    if (rawTenor.toLowerCase().includes('2–3x') || rawTenor.toLowerCase().includes('2-3x')) {
+      tenorSub = '2–3X SIKLUS / THN';
+    } else if (rawTenor.toLowerCase().includes('putaran')) {
+      tenorSub = 'PERPUTARAN UNIT';
+    }
+
+    // 3. Clean Minimum Ticket (Compact, sharp)
+    let cleanMin = info.min_investment || 'Rp 500 Juta';
+    if (cleanMin.includes('500.000.000')) {
+      cleanMin = 'Rp 500 Juta';
+    } else if (cleanMin.includes('1.000.000.000')) {
+      cleanMin = 'Rp 1 Miliar';
+    } else if (cleanMin.includes('2.000.000.000')) {
+      cleanMin = 'Rp 2 Miliar';
+    } else {
+      const num = Number(cleanMin.replace(/[^0-9]/g, ''));
+      if (num >= 1000000000) {
+        cleanMin = 'Rp ' + (num / 1000000000) + ' Miliar';
+      } else if (num >= 1000000) {
+        cleanMin = 'Rp ' + (num / 1000000) + ' Juta';
+      }
+    }
 
     return `
-      <div class="project-metrics-box p-3 rounded-3 mb-3 bg-light border border-subtle">
-        <div class="row g-2 text-center align-items-center">
-          <div class="col-4 border-end border-subtle">
-            <div class="text-success fw-bold fs-5 lh-1 mb-1">${ret}</div>
-            <div class="text-muted small text-uppercase fw-semibold" style="font-size: 0.68rem; letter-spacing: 0.5px;">Estimasi ROI</div>
+      <div class="project-metrics-box p-2.5 px-1 rounded-3 mb-3 bg-light border border-subtle">
+        <div class="row g-0 text-center align-items-stretch">
+          <div class="col-4 border-end border-subtle px-1 d-flex flex-column justify-content-center">
+            <div class="text-success fw-bold text-nowrap" style="font-size: 0.92rem; line-height: 1.2;">${rawRet}</div>
+            <div class="text-muted fw-semibold mt-1 text-truncate text-uppercase" style="font-size: 0.64rem; letter-spacing: 0.3px;">ROI (p.a.)</div>
           </div>
-          <div class="col-4 border-end border-subtle">
-            <div class="text-dark fw-bold fs-6 lh-1 mb-1">${tenor}</div>
-            <div class="text-muted small text-uppercase fw-semibold" style="font-size: 0.68rem; letter-spacing: 0.5px;">Jangka Waktu</div>
+          <div class="col-4 border-end border-subtle px-1 d-flex flex-column justify-content-center">
+            <div class="text-dark fw-bold text-nowrap" style="font-size: 0.94rem; line-height: 1.2;">${cleanTenor}</div>
+            <div class="text-muted fw-semibold mt-1 text-truncate text-uppercase" style="font-size: 0.64rem; letter-spacing: 0.3px;">${tenorSub}</div>
           </div>
-          <div class="col-4">
-            <div class="text-royal fw-bold fs-6 lh-1 mb-1">${minTicket}</div>
-            <div class="text-muted small text-uppercase fw-semibold" style="font-size: 0.68rem; letter-spacing: 0.5px;">Min. Investasi</div>
+          <div class="col-4 px-1 d-flex flex-column justify-content-center">
+            <div class="text-royal fw-bold text-nowrap" style="font-size: 0.92rem; line-height: 1.2;">${cleanMin}</div>
+            <div class="text-muted fw-semibold mt-1 text-truncate text-uppercase" style="font-size: 0.64rem; letter-spacing: 0.3px;">Min. Investasi</div>
           </div>
         </div>
       </div>
     `;
   },
 
-  // 6. Render Secondary Meta Row (Location, Stock & Capitalization)
+  // 6. Render Secondary Meta Row (Location, Distribution, Asset Protection)
   renderMetaRow: function (info) {
     if (!info) return '';
-    const lokasi = info.lokasi ? info.lokasi.split(',')[0] : 'Jawa Tengah';
-    const payout = info.payout || 'Bagi Hasil Kompetitif';
-    const stock = info.stock_available || 'Unit Komatsu Siaga';
-    const cap = info.capitalization_value || 'Aset Produktif';
+    let lokasi = info.lokasi ? info.lokasi.split(',')[0].trim() : 'Regional';
+    if (lokasi.length > 26) {
+      lokasi = lokasi.substring(0, 24) + '...';
+    }
+
+    let payoutText = 'Tiap Siklus Penjualan';
+    const rawPayout = (info.payout || '').toLowerCase();
+    if (rawPayout.includes('siklus') || rawPayout.includes('putaran')) {
+      payoutText = 'Bagi Hasil Tiap Siklus';
+    } else if (rawPayout.includes('kuartal')) {
+      payoutText = 'Bagi Hasil Kuartalan';
+    } else if (rawPayout.includes('bulan')) {
+      payoutText = 'Bagi Hasil Bulanan';
+    }
+
+    let assetBadge = 'Komatsu PC57-7 CBU';
+    if (info.asset_backed) {
+      if (info.asset_backed.toLowerCase().includes('komatsu')) {
+        assetBadge = 'Komatsu CBU Grade A';
+      } else {
+        assetBadge = 'Unit CBU & BPKB';
+      }
+    }
 
     return `
-      <div class="small text-secondary mb-3 pt-2 border-top border-subtle">
-        <div class="d-flex justify-content-between align-items-center mb-1">
-          <span><i class="bi bi-geo-alt-fill text-gold me-1"></i>${lokasi}</span>
-          <span class="text-royal fw-semibold"><i class="bi bi-calendar2-check text-royal me-1"></i>${payout}</span>
+      <div class="project-meta-details mb-3 pt-2.5 border-top border-subtle" style="font-size: 0.8rem;">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="text-muted" style="font-size: 0.76rem;">Wilayah Operasi</span>
+          <span class="fw-semibold text-dark text-end text-truncate ms-2" style="max-width: 175px;" title="${info.lokasi || ''}">
+            ${lokasi}
+          </span>
         </div>
-        <div class="d-flex justify-content-between align-items-center mb-1">
-          <span class="text-muted" style="font-size: 0.75rem;">Stok Tersedia:</span>
-          <span class="fw-bold text-success" style="font-size: 0.78rem;"><i class="bi bi-check2-circle me-1"></i>${stock}</span>
+
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="text-muted" style="font-size: 0.76rem;">Distribusi Laba</span>
+          <span class="fw-semibold text-primary text-end">
+            ${payoutText}
+          </span>
         </div>
+
         <div class="d-flex justify-content-between align-items-center">
-          <span class="text-muted" style="font-size: 0.75rem;">Nilai Pendanaan:</span>
-          <span class="fw-bold text-dark" style="font-size: 0.78rem;">${cap}</span>
+          <span class="text-muted" style="font-size: 0.76rem;">Jaminan Aset</span>
+          <span class="badge bg-success-subtle text-success border border-success-subtle fw-semibold px-2 py-1" style="font-size: 0.72rem;">
+            ${assetBadge}
+          </span>
         </div>
       </div>
     `;
@@ -361,13 +415,11 @@ const MGIComponents = {
 
         <div class="card-body p-4 d-flex flex-column">
           <div class="d-flex justify-content-between align-items-center mb-2 small">
-            <span class="text-muted fw-semibold" style="font-size: 0.78rem;">
-              <i class="bi bi-clock-history text-gold me-1"></i>${remainingDays}
-            </span>
-            <span class="text-muted" style="font-size: 0.75rem;">Kode: <strong class="text-dark">${project.id.toUpperCase()}</strong></span>
+            <span class="badge bg-light text-secondary border fw-semibold" style="font-size: 0.72rem; letter-spacing: 0.5px;">KODE: ${project.id.toUpperCase()}</span>
+            <span class="text-muted fw-semibold" style="font-size: 0.75rem;"><i class="bi bi-shield-check text-success me-1"></i>Aset Terverifikasi</span>
           </div>
 
-          <h5 class="card-title fw-bold text-mgi-dark mb-3 lh-base" style="min-height: 52px;">${project.title}</h5>
+          <h5 class="card-title fw-bold text-dark mb-3" style="font-size: 1.05rem; line-height: 1.4; min-height: 48px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;" title="${project.title}">${project.title}</h5>
 
           ${MGIComponents.renderKeyMetrics(info)}
 
@@ -377,7 +429,7 @@ const MGIComponents = {
 
           <div class="mt-auto pt-1">
             <button type="button" onclick="MGIAuth.handleProtectedDetail('${project.id}')" class="btn btn-outline-mgi w-100 py-2 fw-semibold d-flex align-items-center justify-content-center gap-2">
-              <span>Lihat Lebih Lanjut</span>
+              <span>Lihat Detail Proyek</span>
               <i class="bi bi-arrow-right"></i>
             </button>
           </div>
@@ -493,6 +545,330 @@ const MGIComponents = {
       </div>
     `;
     document.body.appendChild(modalWrap.firstElementChild);
+  },
+
+  // 10. Render Executive RAB 3-Card Layout (Matching Official Proposal PDF)
+  renderRabExecutive: function (rab) {
+    if (!rab) return '';
+    const sp = rab.spesifikasi || {};
+    const al = rab.alokasi_dana || {};
+    const sb = rab.struktur_biaya_unit || {};
+
+    return `
+      <div class="row g-4 mb-4" id="rabExecutiveCards">
+        <!-- Card 1: Spesifikasi Investasi -->
+        <div class="col-12 col-lg-4">
+          <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden" style="border: 1px solid #CBD5E1 !important;">
+            <div class="py-3 px-3 text-center text-white fw-bold" style="background-color: #0F224A; letter-spacing: 0.5px; font-size: 0.95rem;">
+              <i class="bi bi-card-checklist me-1 text-gold"></i> SPESIFIKASI INVESTASI
+            </div>
+            <div class="card-body p-0 d-flex flex-column">
+              <div class="table-responsive flex-grow-1">
+                <table class="table table-sm table-striped align-middle mb-0" style="font-size: 0.85rem;">
+                  <tbody>
+                    <tr>
+                      <td class="ps-3 py-2 text-muted" style="width: 45%;"><i class="bi bi-box-seam me-2 text-primary"></i>Barang</td>
+                      <td class="pe-3 py-2 fw-bold text-dark text-end">${sp.barang || 'Excavator PC57-7 (Komatsu)'}</td>
+                    </tr>
+                    <tr>
+                      <td class="ps-3 py-2 text-muted"><i class="bi bi-cash-stack me-2 text-primary"></i>Min. Target Proyek</td>
+                      <td class="pe-3 py-2 fw-bold text-dark text-end">${MGI.formatRupiah(sp.minimum_investasi || 10000000000)}</td>
+                    </tr>
+                    <tr>
+                      <td class="ps-3 py-2 text-muted"><i class="bi bi-ticket-perforated me-2 text-primary"></i>Min. Tiket Pemodal</td>
+                      <td class="pe-3 py-2 fw-bold text-primary text-end">${MGI.formatRupiah(sp.minimum_tiket || 500000000)}</td>
+                    </tr>
+                    <tr>
+                      <td class="ps-3 py-2 text-muted"><i class="bi bi-clock-history me-2 text-primary"></i>Periode Investasi</td>
+                      <td class="pe-3 py-2 fw-bold text-dark text-end">${sp.periode_investasi || '12 Bulan'}</td>
+                    </tr>
+                    <tr>
+                      <td class="ps-3 py-2 text-muted"><i class="bi bi-arrow-repeat me-2 text-primary"></i>Target Perputaran</td>
+                      <td class="pe-3 py-2 fw-bold text-success text-end">${sp.target_perputaran || '2 – 3 Kali per Tahun'}</td>
+                    </tr>
+                    <tr>
+                      <td class="ps-3 py-2 text-muted"><i class="bi bi-geo-alt me-2 text-primary"></i>Sistem Penjualan</td>
+                      <td class="pe-3 py-2 text-dark text-end small fw-semibold">${sp.sistem_penjualan || 'Door to Door via PT MIU'}</td>
+                    </tr>
+                    <tr>
+                      <td class="ps-3 py-2 text-muted"><i class="bi bi-truck me-2 text-primary"></i>Estimasi Armada</td>
+                      <td class="pe-3 py-2 fw-bold text-dark text-end">${sp.estimasi_unit || '40 Unit (10 Kontainer)'}</td>
+                    </tr>
+                    <tr>
+                      <td class="ps-3 py-2 text-muted"><i class="bi bi-box me-2 text-primary"></i>Container Digunakan</td>
+                      <td class="pe-3 py-2 text-dark text-end small">${sp.container_used || '40FT HC Door-to-Door (MSI)'}</td>
+                    </tr>
+                    <tr>
+                      <td class="ps-3 py-2 text-muted"><i class="bi bi-grid-3x2 me-2 text-primary"></i>Kapasitas Container</td>
+                      <td class="pe-3 py-2 fw-bold text-dark text-end">${sp.kapasitas_container || '4 Unit / Container'}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="p-3 bg-light border-top small text-muted lh-sm" style="font-size: 0.76rem;">
+                <i class="bi bi-info-circle me-1 text-primary"></i>${sp.catatan || 'Alokasi pengadaan armada dari total dana investasi.'}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Alokasi Penggunaan Dana Investasi -->
+        <div class="col-12 col-lg-4">
+          <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden" style="border: 1px solid #CBD5E1 !important;">
+            <div class="py-3 px-3 text-center text-white fw-bold" style="background-color: #0F224A; letter-spacing: 0.5px; font-size: 0.95rem;">
+              <i class="bi bi-pie-chart-fill me-1 text-gold"></i> ALOKASI PENGGUNAAN DANA
+            </div>
+            <div class="card-body p-0 d-flex flex-column">
+              <div class="table-responsive flex-grow-1">
+                <table class="table table-sm align-middle mb-0" style="font-size: 0.88rem;">
+                  <tbody>
+                    <tr class="border-bottom">
+                      <td class="ps-3 py-3 text-dark fw-semibold" style="width: 55%;">
+                        ${al.modal_operasional_label || 'Modal Operasional Awal (Pengadaan Unit)'}
+                        <div class="small text-muted" style="font-size: 0.75rem;">(Beli + Kontainer + Rekondisi)</div>
+                      </td>
+                      <td class="pe-3 py-3 fw-bold text-dark text-end fs-6">${MGI.formatRupiah(al.modal_operasional_awal || 9100000000)}</td>
+                    </tr>
+                    <tr class="border-bottom">
+                      <td class="ps-3 py-3 text-dark fw-semibold">
+                        ${al.dana_pencadangan_label || 'Dana Pencadangan / Likuiditas (9%)'}
+                        <div class="small text-muted" style="font-size: 0.75rem;">Cadangan kas operasional tahap awal</div>
+                      </td>
+                      <td class="pe-3 py-3 fw-bold text-dark text-end fs-6">${MGI.formatRupiah(al.dana_pencadangan || 900000000)}</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="py-3 px-3 d-flex justify-content-between align-items-center rounded-bottom" style="background-color: #0F224A; color: #FFFFFF; border-top: 2px solid #C5A059;">
+                  <span class="fw-bold text-uppercase" style="font-size: 0.85rem; letter-spacing: 0.5px; color: #C5A059;">TOTAL ALOKASI MODAL</span>
+                  <span class="fw-bold fs-5 text-white">${MGI.formatRupiah(al.total_investasi || 10000000000)}</span>
+                </div>
+              </div>
+
+              <div class="p-3 bg-light border-top small text-muted lh-sm" style="font-size: 0.76rem;">
+                <i class="bi bi-info-circle me-1 text-primary"></i>${al.catatan || 'Komponen PPN, budget garansi, budget insentif, dan fee sukses MIU baru timbul saat unit terjual sehingga tidak dibebankan pada dana awal.'}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Ringkasan Struktur Biaya per Unit -->
+        <div class="col-12 col-lg-4">
+          <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden" style="border: 1px solid #CBD5E1 !important;">
+            <div class="py-3 px-3 text-center text-white fw-bold" style="background-color: #0F224A; letter-spacing: 0.5px; font-size: 0.95rem;">
+              <i class="bi bi-receipt me-1 text-gold"></i> STRUKTUR BIAYA PER UNIT
+            </div>
+            <div class="card-body p-0 d-flex flex-column">
+              <div class="table-responsive flex-grow-1">
+                <table class="table table-sm table-striped align-middle mb-0" style="font-size: 0.83rem;">
+                  <tbody>
+                    <tr>
+                      <td class="ps-3 py-1">Harga Pokok Pembelian</td>
+                      <td class="pe-3 py-1 text-end fw-semibold text-dark">${MGI.formatRupiah(sb.harga_pokok_beli || 150000000)}</td>
+                    </tr>
+                    <tr>
+                      <td class="ps-3 py-1">PPN 11% (Dalam Harga Jual)</td>
+                      <td class="pe-3 py-1 text-end text-muted">${MGI.formatRupiah(sb.ppn_11 || 34288288)}</td>
+                    </tr>
+                    <tr>
+                      <td class="ps-3 py-1">Ongkos Rekondisi (MIU)</td>
+                      <td class="pe-3 py-1 text-end text-muted">${MGI.formatRupiah(sb.ongkos_rekondisi || 25000000)}</td>
+                    </tr>
+                    <tr>
+                      <td class="ps-3 py-1">Container 40FT HC (Alokasi/Unit)</td>
+                      <td class="pe-3 py-1 text-end text-muted">${MGI.formatRupiah(sb.container_alokasi || 52500000)}</td>
+                    </tr>
+                    <tr>
+                      <td class="ps-3 py-1">Budget Garansi (1% Harga Jual)</td>
+                      <td class="pe-3 py-1 text-end text-muted">${MGI.formatRupiah(sb.budget_garansi || 3460000)}</td>
+                    </tr>
+                    <tr>
+                      <td class="ps-3 py-1">Budget Insentif (1% Harga Jual)</td>
+                      <td class="pe-3 py-1 text-end text-muted">${MGI.formatRupiah(sb.budget_insentif || 3460000)}</td>
+                    </tr>
+                    <tr>
+                      <td class="ps-3 py-1">Fee Successful Sale MIU (12%)</td>
+                      <td class="pe-3 py-1 text-end text-muted">${MGI.formatRupiah(sb.fee_miu || 41520000)}</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="py-2 px-3 d-flex justify-content-between align-items-center" style="background-color: #0F224A; color: #FFFFFF; border-top: 2px solid #C5A059;">
+                  <span class="fw-bold text-uppercase" style="font-size: 0.82rem; color: #C5A059;">TOTAL BIAYA OPERASIONAL/UNIT</span>
+                  <span class="fw-bold text-white">${MGI.formatRupiah(sb.total_biaya_unit || 310228288)}</span>
+                </div>
+
+                <div class="p-3 bg-white border-top">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="text-muted small">Harga Jual Unit (Inc. PPN):</span>
+                    <strong class="text-dark">${MGI.formatRupiah(sb.harga_jual_unit || 346000000)}</strong>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-success small fw-bold">PROFIT BERSIH / UNIT:</span>
+                    <strong class="text-success fs-6">${MGI.formatRupiah(sb.profit_bersih_unit || 35771712)}</strong>
+                  </div>
+                  <div class="text-muted small text-end" style="font-size: 0.75rem;">Estimasi Return per Siklus: <strong>${sb.return_per_siklus || 14.31}%</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  },
+
+  // 11. Render Multi-Tier Investment Participation ("Modal Anda Mendapatkan Apa Saja?")
+  renderInvestmentTiers: function (tiers) {
+    if (!tiers || !tiers.length) return '';
+
+    const cardsHtml = tiers.map(t => {
+      const isFeatured = t.nominal === 1000000000 || t.nominal === 2000000000;
+      const borderStyle = isFeatured ? 'border: 2px solid #C5A059 !important; box-shadow: 0 10px 25px rgba(197, 160, 89, 0.15);' : 'border: 1px solid #CBD5E1 !important;';
+      const badgeHtml = t.badge ? `<span class="badge ${isFeatured ? 'bg-gold text-white' : 'bg-light text-dark border'} rounded-pill px-3 py-1 small fw-semibold">${t.badge}</span>` : '';
+
+      return `
+        <div class="col-12 col-md-6 col-xl-4">
+          <div class="card h-100 bg-white rounded-4 overflow-hidden d-flex flex-column" style="${borderStyle}">
+            <div class="p-4 border-bottom bg-light d-flex justify-content-between align-items-start">
+              <div>
+                ${badgeHtml}
+                <h4 class="fw-bold text-dark mt-2 mb-0">${MGI.formatRupiah(t.nominal)}</h4>
+                <div class="text-muted small mt-1 fw-semibold">${t.label}</div>
+              </div>
+              <div class="rounded-circle p-2 bg-white border shadow-sm">
+                <i class="bi bi-shield-check text-gold fs-4"></i>
+              </div>
+            </div>
+
+            <div class="p-4 flex-grow-1 d-flex flex-column">
+              <p class="text-secondary small mb-3">${t.deskripsi || ''}</p>
+
+              <div class="bg-light p-3 rounded-3 mb-3 small">
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-muted"><i class="bi bi-truck me-1 text-primary"></i>Alokasi Fisik:</span>
+                  <strong class="text-dark">${t.unit_qty} Unit PC57-7</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-muted"><i class="bi bi-box me-1 text-primary"></i>Kapasitas Logistik:</span>
+                  <strong class="text-dark">${t.container_qty}</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-muted"><i class="bi bi-pie-chart me-1 text-primary"></i>Porsi Proyek:</span>
+                  <strong class="text-primary">${t.porsi_proyek}</strong>
+                </div>
+                <div class="border-top pt-2 mt-2">
+                  <div class="text-muted small" style="font-size: 0.75rem;">Jaminan Aset (*Underlying*):</div>
+                  <strong class="text-dark small d-block">${t.jaminan_aset}</strong>
+                </div>
+              </div>
+
+              <!-- Imbal Hasil Box -->
+              <div class="p-3 rounded-3 mb-4" style="background-color: #F0FDF4; border: 1px solid #BBF7D0;">
+                <div class="small text-muted mb-1 text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.5px;">Proyeksi Bagi Hasil Tahunan:</div>
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span class="small text-dark">Skenario 2x Putaran (28,6%):</span>
+                  <strong class="text-success">${MGI.formatRupiah(t.profit_2x_tahunan)}/thn</strong>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="small text-dark">Skenario 3x Putaran (42,9%):</span>
+                  <strong class="text-success fs-6">${MGI.formatRupiah(t.profit_3x_tahunan)}/thn</strong>
+                </div>
+              </div>
+
+              <div class="mt-auto pt-2">
+                <button type="button" onclick="MGIComponents.selectTier(${t.nominal})" class="btn ${isFeatured ? 'btn-gold text-white' : 'btn-outline-primary'} w-100 rounded-pill fw-bold py-2 shadow-sm d-flex align-items-center justify-content-center gap-2 mb-2">
+                  <i class="bi bi-calculator-fill"></i>
+                  <span>Simulasikan Tiket Ini</span>
+                </button>
+                <a href="contact.html?subject=Konsultasi+Investasi+${encodeURIComponent(t.label)}+${encodeURIComponent(MGI.formatRupiah(t.nominal))}" class="btn btn-sm btn-link text-muted w-100 text-decoration-none text-center">
+                  <i class="bi bi-chat-dots me-1"></i> Konsultasi Private via WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    return `
+      <div class="row g-4 mb-4" id="investmentTiersContainer">
+        ${cardsHtml}
+      </div>
+    `;
+  },
+
+  // Helper: Pilih Tier dan Otomatis Scroll & Sinkronkan ke Simulator BEP
+  selectTier: function (nominal) {
+    if (typeof MGISimulator !== 'undefined' && MGISimulator.setInvestment) {
+      MGISimulator.setInvestment(nominal);
+    }
+    const simSec = document.getElementById('sectionSimulation');
+    if (simSec) {
+      simSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  },
+
+  // 12. Render Project Workflow (5 Tahap Ekosistem Montana)
+  renderProjectWorkflow: function (steps) {
+    if (!steps || !steps.length) return '';
+    return `
+      <div class="row g-3">
+        ${steps.map(s => `
+          <div class="col-12 col-md">
+            <div class="p-3 bg-light rounded-3 border h-100 position-relative">
+              <span class="badge bg-royal text-white rounded-pill px-2 py-1 mb-2 fw-bold" style="font-size: 0.75rem;">Tahap ${s.step}</span>
+              <h6 class="fw-bold text-dark mb-1" style="font-size: 0.9rem;">${s.title}</h6>
+              <p class="text-muted mb-0 small" style="font-size: 0.78rem; line-height: 1.4;">${s.desc}</p>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  },
+
+  // 13. Render Payment Breakdown (Halaman 6 PDF)
+  renderPaymentBreakdown: function (breakdown, totalMiu, totalMsi, totalBiaya) {
+    if (!breakdown || !breakdown.length) return '';
+    const rows = breakdown.map(b => `
+      <tr>
+        <td class="text-center" style="width: 50px;">${b.no || ''}</td>
+        <td><strong class="text-dark">${b.komponen}</strong></td>
+        <td><span class="badge ${b.penerima === 'PT MIU' ? 'bg-primary' : 'bg-success'} text-white rounded-pill px-2 py-1">${b.penerima}</span></td>
+        <td class="text-end fw-semibold">${MGI.formatRupiah(b.nilai)}</td>
+      </tr>
+    `).join('');
+
+    return `
+      <div class="table-responsive shadow-sm rounded-3 overflow-hidden border">
+        <table class="table table-hover align-middle mb-0" style="font-size: 0.85rem;">
+          <thead class="table-light">
+            <tr>
+              <th class="text-center">No</th>
+              <th>Komponen Biaya</th>
+              <th>Pihak Penerima</th>
+              <th class="text-end">Nilai per Unit (Rp)</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows}
+          </tbody>
+          <tfoot class="table-light fw-bold">
+            <tr class="border-top">
+              <td colspan="3" class="text-end text-uppercase">Total Biaya per Unit:</td>
+              <td class="text-end text-dark fs-6">${MGI.formatRupiah(totalBiaya || 310228288)}</td>
+            </tr>
+            <tr style="background-color: #EEF2FF;">
+              <td colspan="2" class="ps-3"><i class="bi bi-building me-1 text-primary"></i>Total Pembayaran ke PT MIU (Per Unit):</td>
+              <td colspan="2" class="text-end text-primary fs-6">${MGI.formatRupiah(totalMiu || 257728288)}</td>
+            </tr>
+            <tr style="background-color: #ECFDF5;">
+              <td colspan="2" class="ps-3"><i class="bi bi-ship me-1 text-success"></i>Total Pembayaran ke PT MSI (Per Unit):</td>
+              <td colspan="2" class="text-end text-success fs-6">${MGI.formatRupiah(totalMsi || 52500000)}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    `;
   }
 };
 

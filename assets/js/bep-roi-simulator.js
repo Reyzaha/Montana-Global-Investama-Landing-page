@@ -75,6 +75,9 @@ const MGISimulator = {
                   <span class="badge bg-mgi-gold-subtle text-gold small fw-bold" id="simValCompact" style="font-size: 0.75rem;">(500 Juta)</span>
                 </div>
               </div>
+              <div class="small text-mgi-blue fw-semibold mb-2" id="simUnitEquivWrap" style="font-size: 0.8rem;">
+                <i class="bi bi-truck me-1"></i><span id="simUnitEquiv">Setara 2 Unit Komatsu PC57-7 (~0.5 Kontainer)</span>
+              </div>
               <input type="range" 
                      id="simSlider" 
                      class="sim-slider mb-1" 
@@ -90,10 +93,10 @@ const MGISimulator = {
               <div class="d-flex flex-wrap gap-2">
                 <button type="button" class="chip-btn active" data-val="500000000">500 Juta</button>
                 <button type="button" class="chip-btn" data-val="1000000000">1 Miliar</button>
+                <button type="button" class="chip-btn" data-val="2000000000">2 Miliar</button>
                 <button type="button" class="chip-btn" data-val="5000000000">5 Miliar</button>
+                <button type="button" class="chip-btn" data-val="10000000000">10 Miliar</button>
                 <button type="button" class="chip-btn" data-val="25000000000">25 Miliar</button>
-                <button type="button" class="chip-btn" data-val="100000000000">100 Miliar</button>
-                <button type="button" class="chip-btn" data-val="500000000000">500 Miliar</button>
               </div>
             </div>
 
@@ -188,6 +191,14 @@ const MGISimulator = {
         compactBadge.textContent = `(${compactText.replace('Rp ', '')})`;
       }
 
+      // Update unit physical & container equivalent
+      const unitEquiv = (inv / 250000000).toFixed(1).replace('.0', '');
+      const containerEquiv = (inv / 1000000000).toFixed(1).replace('.0', '');
+      const unitEquivEl = document.getElementById('simUnitEquiv');
+      if (unitEquivEl) {
+        unitEquivEl.textContent = `Setara ${unitEquiv} Unit Komatsu PC57-7 (~${containerEquiv} Kontainer 40FT HC)`;
+      }
+
       document.getElementById('simTotalReturn').textContent = MGI.formatRupiah(grandTotalReturn);
       document.getElementById('simTotalProfitSub').textContent = `Estimasi Profit Bersih: ${MGI.formatRupiah(totalProfit)} (${MGI.formatRupiahCompact(totalProfit).replace('Rp ', '')})`;
       document.getElementById('simMonthlyReturn').textContent = MGI.formatRupiah(monthlyReturn);
@@ -219,8 +230,26 @@ const MGISimulator = {
       });
     });
 
+    // Expose update handler
+    MGISimulator._updateValue = function(val) {
+      const num = Number(val);
+      if (isNaN(num)) return;
+      currentInvestment = Math.max(minVal, Math.min(maxVal, num));
+      slider.value = nominalToPos(currentInvestment);
+      recalculate(currentInvestment);
+      document.querySelectorAll('.chip-btn').forEach(btn => {
+        btn.classList.toggle('active', Number(btn.getAttribute('data-val')) === currentInvestment);
+      });
+    };
+
     // Initial calculation
     recalculate(currentInvestment);
+  },
+
+  setInvestment: function (nominal) {
+    if (typeof this._updateValue === 'function') {
+      this._updateValue(nominal);
+    }
   }
 };
 

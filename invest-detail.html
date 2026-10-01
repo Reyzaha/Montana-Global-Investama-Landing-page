@@ -81,7 +81,66 @@
     <div class="row g-4 justify-content-center">
       <div class="col-12 col-lg-10">
 
-        <!-- 1. Alokasi Penggunaan Modal & Pengadaan Aset Fisik -->
+        <!-- 0. EXECUTIVE RAB 3-CARD HIGHLIGHT (Matching Proposal Document) -->
+        <div id="sectionRabExecutiveMount"></div>
+
+        <!-- 0.1 TIER PARTISIPASI PEMODAL: MODAL ANDA DAPAT APA SAJA? -->
+        <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionTiers" style="display: none; border-top: 5px solid #C5A059 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
+          <div class="card-header bg-white border-bottom border-subtle py-3 px-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div>
+              <h2 class="h5 mb-1 fw-bold text-dark d-flex align-items-center gap-2">
+                <i class="bi bi-layers-fill text-gold fs-5"></i>
+                Pilihan Partisipasi Pemodal (Modal Anda Mendapatkan Apa Saja?)
+              </h2>
+              <div class="text-muted small">
+                Transparansi alokasi fisik riil unit Komatsu PC57-7, kapasitas kontainer logistik, porsi kepemilikan, dan estimasi bagi hasil per siklus.
+              </div>
+            </div>
+            <span class="badge bg-royal text-white rounded-pill px-3 py-2 small fw-semibold">
+              <i class="bi bi-shield-check me-1"></i> Asset-Backed Protection
+            </span>
+          </div>
+          <div class="card-body p-4">
+            <p class="text-muted small mb-4">
+              Setiap penempatan modal langsung terhubung dengan unit fisik riil yang diadakan, direkondisi, dan dipasarkan. Pilih nominal untuk melihat kepemilikan aset dan proyeksi imbal hasil:
+            </p>
+            <div id="tiersMount"></div>
+          </div>
+        </section>
+
+        <!-- 1. ALUR EKSEKUSI PROJECT: 5 TAHAP DARI PENGADAAN HINGGA BAGI HASIL -->
+        <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionWorkflow" style="display: none; border-top: 5px solid #1D3589 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
+          <div class="card-header bg-white border-bottom border-subtle py-3 px-4">
+            <h2 class="h5 mb-0 fw-bold text-dark d-flex align-items-center gap-2">
+              <i class="bi bi-diagram-3-fill text-royal fs-5"></i>
+              Alur Eksekusi Project (Dari Pengadaan Unit hingga Bagi Hasil)
+            </h2>
+          </div>
+          <div class="card-body p-4">
+            <p class="text-muted small mb-3">
+              Siklus perputaran modal terintegrasi dalam ekosistem Montana Group dari pengadaan unit internasional hingga distribusi keuntungan:
+            </p>
+            <div id="workflowMount"></div>
+          </div>
+        </section>
+
+        <!-- 2. BREAKDOWN PEMBAYARAN REKANAN EKOSISTEM (MIU vs MSI) -->
+        <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionPaymentBreakdown" style="display: none; border-top: 5px solid #C5A059 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
+          <div class="card-header bg-white border-bottom border-subtle py-3 px-4">
+            <h2 class="h5 mb-0 fw-bold text-dark d-flex align-items-center gap-2">
+              <i class="bi bi-cash-stack text-gold fs-5"></i>
+              Rincian Arus Pembayaran Biaya per Unit ke Rekanan Ekosistem (MIU vs MSI)
+            </h2>
+          </div>
+          <div class="card-body p-4">
+            <p class="text-muted small mb-3">
+              Keterbukaan alur pembayaran operasional pengadaan unit per satu unit excavator Komatsu PC57-7 ke masing-masing pihak pelaksana operasional:
+            </p>
+            <div id="paymentBreakdownMount"></div>
+          </div>
+        </section>
+
+        <!-- 3. Alokasi Penggunaan Modal & Pengadaan Aset Fisik -->
         <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionWhatProvide" style="border-top: 5px solid #1D3589 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
           <div class="card-header bg-white border-bottom border-subtle py-3 px-4">
             <h2 class="h5 mb-0 fw-bold text-dark d-flex align-items-center gap-2">
@@ -91,24 +150,6 @@
           </div>
           <div class="card-body p-4" id="whatProvideContent">
             <p class="text-muted mb-0">Memuat deskripsi alokasi...</p>
-          </div>
-        </section>
-
-        <!-- 2. Target Pendanaan & Struktur Rencana Anggaran Biaya (RAB) -->
-        <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionFundingTarget" style="border-top: 5px solid #C5A059 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
-          <div class="card-header bg-white border-bottom border-subtle py-3 px-4">
-            <h2 class="h5 mb-0 fw-bold text-dark d-flex align-items-center gap-2">
-              <i class="bi bi-table text-gold fs-5"></i>
-              Target Pendanaan &amp; Rencana Anggaran Biaya (RAB Belanja Modal)
-            </h2>
-          </div>
-          <div class="card-body p-4">
-            <p class="text-muted small mb-3">
-              Rincian alokasi belanja modal (*CAPEX*) pengadaan aset produktif secara transparan beserta kuantitas unit dan harga perolehan.
-            </p>
-            <div id="fundingTableContainer" class="table-responsive">
-              <!-- Rendered via MGIComponents.renderFundingTable -->
-            </div>
           </div>
         </section>
 
@@ -212,10 +253,9 @@
         return;
       }
 
-      // Access Guard: Cek apakah data di-gated dari server atau client belum login
-      const isServerGated = project.detail && project.detail.is_gated;
-      const isClientUnauthenticated = !MGIAuth.isLoggedIn() && (data.require_auth_for_details ?? MGIAuth.REQUIRE_AUTH_FOR_DETAILS);
-      const isGated = isServerGated || isClientUnauthenticated;
+      // Access Guard: Membuka akses prospektus publik & rincian RAB agar dapat ditinjau investor
+      const isServerGated = false;
+      const isGated = false;
 
       // Populate Header Basic Public Info
       document.title = `${project.title} — PT Montana Global Investama`;
@@ -318,7 +358,7 @@
         <div class="d-flex justify-content-between align-items-center mb-2">
           <span class="text-uppercase fw-semibold small text-muted">Progres Pendanaan</span>
           <span class="badge bg-light text-dark border border-subtle small fw-semibold">
-            <i class="bi bi-clock-history text-gold me-1"></i>${project.info.remaining_days || '18 Hari Tersisa'}
+            <i class="bi bi-shield-check text-success me-1"></i>Underlying Aset Riil
           </span>
         </div>
         ${MGIComponents.renderProgressBar(project.funding.collected, project.funding.target)}
@@ -343,9 +383,10 @@
         document.getElementById('whatProvideContent').innerHTML = `<p class="lh-lg mb-0 text-secondary">${project.detail.what_will_provide.content}</p>`;
       }
 
-      // Populate Section 2: Funding Target Table
-      if (project.detail && project.detail.funding_target) {
-        document.getElementById('fundingTableContainer').innerHTML = MGIComponents.renderFundingTable(project.detail.funding_target);
+      // Populate Legacy Funding Target Table (if container exists)
+      const fundingContainer = document.getElementById('fundingTableContainer');
+      if (fundingContainer && project.detail && project.detail.funding_target) {
+        fundingContainer.innerHTML = MGIComponents.renderFundingTable(project.detail.funding_target);
       }
 
       // Populate Section 3: About Sinergi Foundation
@@ -361,6 +402,51 @@
       // Populate Section 5: BEP & ROI Interactive Simulator
       if (project.detail && project.detail.simulation) {
         MGISimulator.init('bepSimulatorMount', project.detail.simulation);
+      }
+
+      // Populate Executive RAB 3-Cards, Multi-Tiers, Workflow & Payment Breakdown
+      const rab = (project.detail && project.detail.rab_executive) ? project.detail.rab_executive : null;
+      if (rab) {
+        // 1. 3 Executive Cards
+        const rabMount = document.getElementById('sectionRabExecutiveMount');
+        if (rabMount) {
+          rabMount.innerHTML = MGIComponents.renderRabExecutive(rab);
+        }
+
+        // 2. Multi-Tier Investment Packages ("Modal Anda Mendapatkan Apa Saja?")
+        if (rab.tiers && rab.tiers.length) {
+          const tiersSec = document.getElementById('sectionTiers');
+          const tiersMount = document.getElementById('tiersMount');
+          if (tiersSec && tiersMount) {
+            tiersMount.innerHTML = MGIComponents.renderInvestmentTiers(rab.tiers);
+            tiersSec.style.display = 'block';
+          }
+        }
+
+        // 3. Workflow (5 Tahap Ekosistem)
+        if (rab.alur_project && rab.alur_project.length) {
+          const wfSec = document.getElementById('sectionWorkflow');
+          const wfMount = document.getElementById('workflowMount');
+          if (wfSec && wfMount) {
+            wfMount.innerHTML = MGIComponents.renderProjectWorkflow(rab.alur_project);
+            wfSec.style.display = 'block';
+          }
+        }
+
+        // 4. Breakdown Pembayaran Mitra Ekosistem (MIU vs MSI)
+        if (rab.breakdown_pembayaran_unit && rab.breakdown_pembayaran_unit.length) {
+          const pbSec = document.getElementById('sectionPaymentBreakdown');
+          const pbMount = document.getElementById('paymentBreakdownMount');
+          if (pbSec && pbMount) {
+            pbMount.innerHTML = MGIComponents.renderPaymentBreakdown(
+              rab.breakdown_pembayaran_unit,
+              rab.total_miu_per_unit,
+              rab.total_msi_per_unit,
+              rab.total_biaya_per_unit
+            );
+            pbSec.style.display = 'block';
+          }
+        }
       }
     });
   </script>

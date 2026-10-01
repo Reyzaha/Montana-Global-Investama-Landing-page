@@ -50,6 +50,26 @@ try {
             $stmtD->execute([$id]);
             $detail = $stmtD->fetch();
 
+            if ($detail) {
+                $rabExec = null;
+                if (!empty($detail['rab_executive_json'])) {
+                    $rabExec = json_decode($detail['rab_executive_json'], true);
+                }
+                if (!$rabExec) {
+                    $staticFile = __DIR__ . '/../../data/projects.json';
+                    if (file_exists($staticFile)) {
+                        $rawStatic = json_decode(file_get_contents($staticFile), true);
+                        foreach ($rawStatic['projects'] ?? [] as $sp) {
+                            if ($sp['id'] === $id && !empty($sp['detail']['rab_executive'])) {
+                                $rabExec = $sp['detail']['rab_executive'];
+                                break;
+                            }
+                        }
+                    }
+                }
+                $detail['rab_executive'] = $rabExec;
+            }
+
             // Items (RAB)
             $stmtI = $db->prepare("SELECT * FROM funding_items WHERE project_id = ? ORDER BY no_urut ASC");
             $stmtI->execute([$id]);
@@ -152,12 +172,18 @@ try {
             $input['asset_backed'] ?? 'Unit CBU Grade A & BPKB'
         ]);
 
+        $rabExecutive = $input['rab_executive'] ?? null;
+        $rabJson = null;
+        if (!empty($rabExecutive)) {
+            $rabJson = is_string($rabExecutive) ? $rabExecutive : json_encode($rabExecutive, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        }
+
         // Insert Detail
         $stmtDet = $db->prepare("
             INSERT INTO project_details (
                 project_id, tagline, what_will_provide_title, what_will_provide_content,
-                sinergi_title, sinergi_content, summary_title, summary_content
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                sinergi_title, sinergi_content, summary_title, summary_content, rab_executive_json
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
         $stmtDet->execute([
             $id,
@@ -167,7 +193,8 @@ try {
             $input['sinergi_title'] ?? 'Struktur Kemitraan Strategis',
             $input['sinergi_content'] ?? '',
             $input['summary_title'] ?? 'Ringkasan Kelayakan Investasi',
-            $input['summary_content'] ?? ''
+            $input['summary_content'] ?? '',
+            $rabJson
         ]);
 
         // Insert RAB (funding items)
@@ -205,6 +232,12 @@ try {
         ]);
 
         $db->commit();
+
+        try {
+            syncProjectToJson($id, $input);
+        } catch (Exception $ex) {
+            error_log("[Sync Project JSON Error in POST] " . $ex->getMessage());
+        }
 
         logAdminActivity('create', 'projects', $id, "Admin created project '{$title}'");
 
@@ -282,11 +315,20 @@ try {
         $stmtDetCheck = $db->prepare("SELECT * FROM project_details WHERE project_id = ?");
         $stmtDetCheck->execute([$id]);
         $existingDet = $stmtDetCheck->fetch();
+        $rabExecutive = $input['rab_executive'] ?? null;
+        $rabJson = null;
+        if (!empty($rabExecutive)) {
+            $rabJson = is_string($rabExecutive) ? $rabExecutive : json_encode($rabExecutive, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        } elseif (isset($existingDet['rab_executive_json'])) {
+            $rabJson = $existingDet['rab_executive_json'];
+        }
+
         if ($existingDet) {
             $stmtDetUp = $db->prepare("
                 UPDATE project_details SET
                     tagline = ?, what_will_provide_title = ?, what_will_provide_content = ?,
-                    sinergi_title = ?, sinergi_content = ?, summary_title = ?, summary_content = ?
+                    sinergi_title = ?, sinergi_content = ?, summary_title = ?, summary_content = ?,
+                    rab_executive_json = ?
                 WHERE project_id = ?
             ");
             $stmtDetUp->execute([
@@ -297,14 +339,15 @@ try {
                 $input['sinergi_content'] ?? ($existingDet['sinergi_content'] ?? ''),
                 $input['summary_title'] ?? ($existingDet['summary_title'] ?? 'Ringkasan Kelayakan Investasi & Profil Risiko (Feasibility Summary)'),
                 $input['summary_content'] ?? ($existingDet['summary_content'] ?? ''),
+                $rabJson,
                 $id
             ]);
         } else {
             $stmtDetIns = $db->prepare("
                 INSERT INTO project_details (
                     project_id, tagline, what_will_provide_title, what_will_provide_content,
-                    sinergi_title, sinergi_content, summary_title, summary_content
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                    sinergi_title, sinergi_content, summary_title, summary_content, rab_executive_json
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             ");
             $stmtDetIns->execute([
                 $id,
@@ -314,7 +357,8 @@ try {
                 $input['sinergi_title'] ?? 'Struktur Kemitraan Strategis & Jaminan Penyerapan Pasar (Offtake Framework)',
                 $input['sinergi_content'] ?? '',
                 $input['summary_title'] ?? 'Ringkasan Kelayakan Investasi & Profil Risiko (Feasibility Summary)',
-                $input['summary_content'] ?? ''
+                $input['summary_content'] ?? '',
+                $rabJson
             ]);
         }
 
@@ -365,6 +409,12 @@ try {
 
         $db->commit();
 
+        try {
+            syncProjectToJson($id, $input);
+        } catch (Exception $ex) {
+            error_log("[Sync Project JSON Error in PUT] " . $ex->getMessage());
+        }
+
         logAdminActivity('update', 'projects', $id, "Admin updated project '{$id}'");
 
         sendJsonResponse(['id' => $id], 200, "Proyek '{$id}' berhasil diperbarui.");
@@ -386,6 +436,12 @@ try {
 
         $stmtDel = $db->prepare("DELETE FROM projects WHERE id = ?");
         $stmtDel->execute([$id]);
+
+        try {
+            deleteProjectFromJson($id);
+        } catch (Exception $ex) {
+            error_log("[Delete Project JSON Error] " . $ex->getMessage());
+        }
 
         logAdminActivity('delete', 'projects', $id, "Admin deleted project '{$proj['title']}' ({$id})");
 
@@ -443,12 +499,20 @@ function ensureProjectsSchema(PDO $db): void {
               `sinergi_content` TEXT NOT NULL,
               `summary_title` VARCHAR(255) NOT NULL DEFAULT 'Ringkasan Kelayakan Investasi & Profil Risiko (Feasibility Summary)',
               `summary_content` TEXT NOT NULL,
+              `rab_executive_json` LONGTEXT NULL,
               `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
               `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
               CONSTRAINT `fk_project_detail` FOREIGN KEY (`project_id`) 
                 REFERENCES `projects`(`id`) ON DELETE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ");
+
+        try {
+            $cols = $db->query("SHOW COLUMNS FROM project_details LIKE 'rab_executive_json'")->fetchAll();
+            if (empty($cols)) {
+                $db->exec("ALTER TABLE project_details ADD COLUMN rab_executive_json LONGTEXT NULL AFTER summary_content;");
+            }
+        } catch (Exception $colEx) {}
 
         $db->exec("
             CREATE TABLE IF NOT EXISTS `funding_items` (
@@ -581,4 +645,132 @@ function ensureProjectsSchema(PDO $db): void {
     } catch (Exception $e) {
         error_log("[CMS Ensure Projects Schema Error] " . $e->getMessage());
     }
+}
+
+/**
+ * Synchronize single project to data/projects.json
+ */
+function syncProjectToJson(string $id, array $payload): void {
+    $staticFile = __DIR__ . '/../../data/projects.json';
+    if (!file_exists($staticFile)) return;
+    $raw = json_decode(file_get_contents($staticFile), true);
+    if (!isset($raw['projects']) || !is_array($raw['projects'])) return;
+
+    $found = false;
+    foreach ($raw['projects'] as &$p) {
+        if ($p['id'] === $id) {
+            $found = true;
+            if (isset($payload['title'])) $p['title'] = $payload['title'];
+            if (isset($payload['category'])) $p['category'] = $payload['category'];
+            if (isset($payload['status'])) $p['status'] = $payload['status'];
+            if (isset($payload['image'])) $p['image'] = $payload['image'];
+            if (isset($payload['city'])) $p['city'] = $payload['city'];
+            if (isset($payload['funding_target'])) $p['funding']['target'] = (float)$payload['funding_target'];
+            if (isset($payload['funding_collected'])) $p['funding']['collected'] = (float)$payload['funding_collected'];
+            
+            if (!isset($p['info'])) $p['info'] = [];
+            if (isset($payload['funding_target'])) $p['info']['target'] = 'Rp ' . number_format((float)$payload['funding_target'], 0, ',', '.');
+            if (isset($payload['tenor'])) $p['info']['tenor'] = $payload['tenor'];
+            if (isset($payload['return_rate'])) $p['info']['return'] = $payload['return_rate'];
+            if (isset($payload['min_investment'])) $p['info']['min_investment'] = $payload['min_investment'];
+            if (isset($payload['payout'])) $p['info']['payout'] = $payload['payout'];
+            if (isset($payload['remaining_days'])) $p['info']['remaining_days'] = $payload['remaining_days'];
+            if (isset($payload['asset_backed'])) $p['info']['asset_backed'] = $payload['asset_backed'];
+            if (isset($payload['lokasi'])) $p['info']['lokasi'] = $payload['lokasi'];
+
+            if (!isset($p['detail'])) $p['detail'] = [];
+            if (isset($payload['tagline'])) $p['detail']['tagline'] = $payload['tagline'];
+            if (isset($payload['what_will_provide_content'])) {
+                if (!isset($p['detail']['what_will_provide'])) $p['detail']['what_will_provide'] = ['type' => 'text', 'title' => 'Alokasi Penggunaan Modal'];
+                $p['detail']['what_will_provide']['content'] = $payload['what_will_provide_content'];
+            }
+            if (isset($payload['sinergi_content'])) {
+                if (!isset($p['detail']['about_sinergi_foundation'])) $p['detail']['about_sinergi_foundation'] = ['type' => 'text', 'title' => 'Kerangka Kemitraan Strategis'];
+                $p['detail']['about_sinergi_foundation']['content'] = $payload['sinergi_content'];
+            }
+            if (isset($payload['summary_content'])) {
+                if (!isset($p['detail']['summary'])) $p['detail']['summary'] = ['type' => 'text', 'title' => 'Ringkasan Kelayakan'];
+                $p['detail']['summary']['content'] = $payload['summary_content'];
+            }
+            
+            if (!empty($payload['rab_executive'])) {
+                $p['detail']['rab_executive'] = is_string($payload['rab_executive']) 
+                    ? json_decode($payload['rab_executive'], true) 
+                    : $payload['rab_executive'];
+            }
+            break;
+        }
+    }
+    unset($p);
+
+    if (!$found) {
+        $raw['projects'][] = [
+            'id' => $id,
+            'city' => $payload['city'] ?? '',
+            'city_icon' => 'bi-geo-alt-fill',
+            'city_icon_img' => 'assets/img/city-jkt-jabar.png',
+            'title' => $payload['title'] ?? '',
+            'category' => $payload['category'] ?? 'Pengadaan & Perputaran Unit Alat Berat Komatsu CBU',
+            'image' => $payload['image'] ?? 'assets/img/komatsu.jpg',
+            'funding' => [
+                'collected' => (float)($payload['funding_collected'] ?? 0),
+                'target' => (float)($payload['funding_target'] ?? 0),
+                'currency' => 'IDR'
+            ],
+            'status' => $payload['status'] ?? 'Open',
+            'featured' => !empty($payload['featured']),
+            'info' => [
+                'lokasi' => $payload['lokasi'] ?? '',
+                'target' => 'Rp ' . number_format((float)($payload['funding_target'] ?? 0), 0, ',', '.'),
+                'tenor' => $payload['tenor'] ?? '12 Bulan',
+                'return' => $payload['return_rate'] ?? '28,6% – 42,9% (p.a.)',
+                'min_investment' => $payload['min_investment'] ?? 'Rp 500.000.000',
+                'payout' => $payload['payout'] ?? 'Bagi Hasil Kompetitif',
+                'remaining_days' => $payload['remaining_days'] ?? '18 Hari Tersisa',
+                'asset_backed' => $payload['asset_backed'] ?? 'Unit CBU Grade A & BPKB'
+            ],
+            'detail' => [
+                'tagline' => $payload['tagline'] ?? '',
+                'is_gated' => false,
+                'what_will_provide' => [
+                    'type' => 'text',
+                    'title' => 'Alokasi Penggunaan Modal Proyek',
+                    'content' => $payload['what_will_provide_content'] ?? ''
+                ],
+                'about_sinergi_foundation' => [
+                    'type' => 'text',
+                    'title' => 'Kerangka Kemitraan Strategis & Penyerapan Pasar (Offtake Framework)',
+                    'content' => $payload['sinergi_content'] ?? ''
+                ],
+                'summary' => [
+                    'type' => 'text',
+                    'title' => 'Ringkasan Kelayakan Investasi & Profil Risiko',
+                    'content' => $payload['summary_content'] ?? ''
+                ],
+                'simulation' => [
+                    'tenor_bulan' => (int)($payload['simulation']['tenor_bulan'] ?? 12),
+                    'estimasi_return_persen' => (float)($payload['simulation']['estimasi_return_persen'] ?? 28.62),
+                    'modal_kerja_bulanan_persen' => (float)($payload['simulation']['modal_kerja_bulanan_persen'] ?? 2.38),
+                    'minimum_investasi' => (float)($payload['simulation']['minimum_investasi'] ?? 500000000),
+                    'maximum_investasi' => (float)($payload['simulation']['maximum_investasi'] ?? 10000000000),
+                    'default_investasi' => (float)($payload['simulation']['default_investasi'] ?? 1000000000),
+                    'notes' => $payload['simulation']['notes'] ?? 'Simulasi ilustratif'
+                ],
+                'rab_executive' => !empty($payload['rab_executive']) ? (is_string($payload['rab_executive']) ? json_decode($payload['rab_executive'], true) : $payload['rab_executive']) : null
+            ]
+        ];
+    }
+
+    file_put_contents($staticFile, json_encode($raw, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+}
+
+function deleteProjectFromJson(string $id): void {
+    $staticFile = __DIR__ . '/../../data/projects.json';
+    if (!file_exists($staticFile)) return;
+    $raw = json_decode(file_get_contents($staticFile), true);
+    if (!isset($raw['projects']) || !is_array($raw['projects'])) return;
+    $raw['projects'] = array_values(array_filter($raw['projects'], function($p) use ($id) {
+        return $p['id'] !== $id;
+    }));
+    file_put_contents($staticFile, json_encode($raw, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 }

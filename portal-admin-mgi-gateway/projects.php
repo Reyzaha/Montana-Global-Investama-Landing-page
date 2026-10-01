@@ -97,6 +97,11 @@ require_once __DIR__ . '/includes/header.php';
               4. Parameter Simulasi BEP
             </button>
           </li>
+          <li class="nav-item">
+            <button class="nav-link fw-bold small" id="tab-rab-exec-btn" data-bs-toggle="pill" data-bs-target="#tab-rab-exec" type="button">
+              <i class="bi bi-layers-fill text-warning me-1"></i> 5. Unit RAB &amp; Tiers
+            </button>
+          </li>
         </ul>
 
         <form id="projectForm">
@@ -351,6 +356,93 @@ require_once __DIR__ . '/includes/header.php';
               </div>
             </div>
 
+            <!-- TAB 5: EXECUTIVE UNIT RAB & TIERS PEMODAL -->
+            <div class="tab-pane fade" id="tab-rab-exec">
+              <div class="card p-4 border-0 rounded-3 shadow-sm bg-white">
+                <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3">
+                  <div>
+                    <h6 class="fw-bold text-dark mb-1">
+                      <i class="bi bi-layers-fill text-gold me-2"></i>Struktur Pengadaan Unit Riil &amp; Paket Pemodal (Executive RAB)
+                    </h6>
+                    <small class="text-muted">Parameter unit alat berat Komatsu PC57-7 CBU, kapasitas kontainer 40FT HC, dan paket partisipasi pemodal.</small>
+                  </div>
+                  <button type="button" class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1 shadow-sm" onclick="calcExecutiveRabFromTarget()">
+                    <i class="bi bi-arrow-repeat"></i>
+                    <span>Hitung Unit &amp; Tiers Otomatis</span>
+                  </button>
+                </div>
+
+                <div class="row g-3 mb-4">
+                  <div class="col-md-3">
+                    <label class="form-label small text-muted">Model Alat Berat</label>
+                    <input type="text" id="execModel" class="form-control form-control-sm fw-bold" value="Excavator PC57-7 (Komatsu)">
+                  </div>
+                  <div class="col-md-3">
+                    <label class="form-label small text-muted">Estimasi Total Unit</label>
+                    <input type="number" id="execTotalUnits" class="form-control form-control-sm fw-bold text-primary" value="40" oninput="updateExecutiveRabSummary()">
+                  </div>
+                  <div class="col-md-3">
+                    <label class="form-label small text-muted">Estimasi Kontainer 40FT HC</label>
+                    <input type="number" id="execTotalContainers" class="form-control form-control-sm fw-bold text-primary" value="10" oninput="updateExecutiveRabSummary()">
+                  </div>
+                  <div class="col-md-3">
+                    <label class="form-label small text-muted">Target Perputaran</label>
+                    <input type="text" id="execTargetPerputaran" class="form-control form-control-sm fw-bold text-success" value="2 – 3 Kali per Tahun">
+                  </div>
+                </div>
+
+                <!-- Unit Cost Structure Breakdown -->
+                <div class="p-3 bg-light rounded-3 border mb-4">
+                  <div class="fw-bold text-dark small mb-2 d-flex align-items-center gap-1">
+                    <i class="bi bi-calculator text-primary"></i> Parameter Biaya Pokok Per Unit (Standar Proposal Resmi)
+                  </div>
+                  <div class="row g-2 small">
+                    <div class="col-md-3">
+                      <span class="text-muted">HPP Pembelian Unit:</span>
+                      <strong class="d-block text-dark">Rp 150.000.000 (60%)</strong>
+                    </div>
+                    <div class="col-md-3">
+                      <span class="text-muted">Rekondisi Workshop MIU:</span>
+                      <strong class="d-block text-dark">Rp 25.000.000 (10%)</strong>
+                    </div>
+                    <div class="col-md-3">
+                      <span class="text-muted">Kontainer 40FT HC MSI:</span>
+                      <strong class="d-block text-dark">Rp 52.500.000 (21%)</strong>
+                    </div>
+                    <div class="col-md-3">
+                      <span class="text-muted">Cadangan Kas Proyek (9%):</span>
+                      <strong class="d-block text-dark">Rp 22.500.000 (9%)</strong>
+                    </div>
+                    <div class="col-12 mt-2 pt-2 border-top d-flex justify-content-between align-items-center">
+                      <span class="fw-bold text-dark">TOTAL MODAL PER SATU UNIT:</span>
+                      <strong class="text-primary fs-6">Rp 250.000.000</strong>
+                    </div>
+                    <div class="col-12 d-flex justify-content-between align-items-center">
+                      <span class="fw-semibold text-dark">Harga Jual Unit (inc PPN 11%): <strong>Rp 346.000.000</strong></span>
+                      <span class="fw-bold text-success">Estimasi Net Profit Investor: Rp 35.771.712 / unit (14,31% / siklus)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Live Tiers Preview & Raw JSON -->
+                <div>
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <label class="form-label fw-bold text-dark mb-0 small">
+                      <i class="bi bi-box-seam text-warning me-1"></i> Paket Partisipasi Pemodal (Tiers)
+                    </label>
+                    <span class="badge bg-light text-dark border small" id="tierCountBadge">5 Paket Aktif</span>
+                  </div>
+                  <div id="execTiersPreview" class="table-responsive border rounded-3 mb-3 bg-white">
+                    <!-- Populated dynamically via JS -->
+                  </div>
+                  <details class="small">
+                    <summary class="text-muted cursor-pointer">Lihat / Edit Raw JSON Struktur Executive RAB</summary>
+                    <textarea id="execRabJsonRaw" class="form-control font-monospace mt-2 small" rows="8" style="font-size: 0.75rem;"></textarea>
+                  </details>
+                </div>
+              </div>
+            </div>
+
           </div><!-- /.tab-content -->
         </form>
       </div>
@@ -370,6 +462,7 @@ require_once __DIR__ . '/includes/header.php';
   let projectsData = [];
   let citiesData = [];
   let modalInstance = null;
+  let currentRabExecutive = null;
 
   document.addEventListener('DOMContentLoaded', () => {
     modalInstance = new bootstrap.Modal(document.getElementById('projectModal'));
@@ -574,6 +667,162 @@ require_once __DIR__ . '/includes/header.php';
     document.getElementById('rabGrandTotalDisplay').textContent = AdminApp.formatRupiah(grand);
   }
 
+  function calcExecutiveRabFromTarget() {
+    const target = Number(document.getElementById('pFundingTarget').value) || 10000000000;
+    const model = document.getElementById('execModel').value || 'Excavator PC57-7 (Komatsu)';
+    const units = Math.max(1, Math.round(target / 250000000));
+    const containers = Math.max(1, Math.round(units / 4));
+    const targetPerputaran = document.getElementById('execTargetPerputaran').value || '2 – 3 Kali per Tahun';
+
+    document.getElementById('execTotalUnits').value = units;
+    document.getElementById('execTotalContainers').value = containers;
+
+    const tierTemplates = [
+      { nominal: 500000000, name: "Paket Starter (2 Unit PC57-7)", units: 2, containers: "0.5 Kontainer 40FT HC", tag: "Alokasi Pemula" },
+      { nominal: 1000000000, name: "Paket 1 Kontainer Penuh (4 Unit PC57-7)", units: 4, containers: "1 Kontainer 40FT HC Penuh", tag: "Paling Populer" },
+      { nominal: 2000000000, name: "Paket 2 Kontainer (8 Unit PC57-7)", units: 8, containers: "2 Kontainer 40FT HC", tag: "Skala Komersial" },
+      { nominal: 5000000000, name: "Paket 5 Kontainer (20 Unit PC57-7)", units: 20, containers: "5 Kontainer 40FT HC", tag: "Prioritas Institusi" }
+    ];
+
+    let tiers = [];
+    tierTemplates.forEach(t => {
+      if (t.nominal <= target) {
+        const estProfitPerPutaran = t.units * 35771712;
+        tiers.push({
+          nominal: t.nominal,
+          nominal_display: AdminApp.formatRupiah(t.nominal),
+          name: t.name,
+          units: t.units,
+          unit_description: `${t.units} Unit Excavator Komatsu PC57-7 CBU Jepang (${t.containers})`,
+          alokasi_modal: {
+            hpp_unit: t.units * 150000000,
+            rekondisi_miu: t.units * 25000000,
+            kontainer_msi: t.units * 52500000,
+            cadangan_kas: t.units * 22500000
+          },
+          est_profit_per_putaran: estProfitPerPutaran,
+          est_roi_per_putaran_pct: "14.31%",
+          est_roi_pa_pct: "28.6% – 42.9%",
+          est_profit_pa_range: `${AdminApp.formatRupiah(estProfitPerPutaran * 2)} – ${AdminApp.formatRupiah(estProfitPerPutaran * 3)} / tahun`,
+          benefit_tag: t.tag
+        });
+      }
+    });
+
+    if (target > 5000000000) {
+      const totalProfitPerPutaran = units * 35771712;
+      tiers.push({
+        nominal: target,
+        nominal_display: AdminApp.formatRupiah(target),
+        name: `Paket Sindikasi Penuh (${units} Unit / ${containers} Kontainer)`,
+        units: units,
+        unit_description: `Full Syndicate Project (${units} Unit / ${containers} Kontainer 40FT HC)`,
+        alokasi_modal: {
+          hpp_unit: units * 150000000,
+          rekondisi_miu: units * 25000000,
+          kontainer_msi: units * 52500000,
+          cadangan_kas: units * 22500000
+        },
+        est_profit_per_putaran: totalProfitPerPutaran,
+        est_roi_per_putaran_pct: "14.31%",
+        est_roi_pa_pct: "28.6% – 42.9%",
+        est_profit_pa_range: `${AdminApp.formatRupiah(totalProfitPerPutaran * 2)} – ${AdminApp.formatRupiah(totalProfitPerPutaran * 3)} / tahun`,
+        benefit_tag: "Eksklusif Lead Investor"
+      });
+    }
+
+    currentRabExecutive = {
+      unit_model: model,
+      total_target: target,
+      total_target_display: AdminApp.formatRupiah(target),
+      total_units: units,
+      total_containers: containers,
+      cost_per_unit: 250000000,
+      cost_per_container: 1000000000,
+      target_perputaran: targetPerputaran,
+      unit_cost_breakdown: {
+        hpp_beli_unit: 150000000,
+        rekondisi_miu: 25000000,
+        kontainer_msi: 52500000,
+        cadangan_kas: 22500000
+      },
+      selling_price_per_unit: 346000000,
+      investor_net_profit_per_unit: 35771712,
+      investor_roi_per_cycle_pct: "14.31%",
+      tiers: tiers
+    };
+
+    renderAdminTiersPreview(currentRabExecutive.tiers);
+    const jsonEl = document.getElementById('execRabJsonRaw');
+    if (jsonEl) jsonEl.value = JSON.stringify(currentRabExecutive, null, 2);
+  }
+
+  function updateExecutiveRabSummary() {
+    if (!currentRabExecutive) {
+      calcExecutiveRabFromTarget();
+      return;
+    }
+    currentRabExecutive.unit_model = document.getElementById('execModel').value;
+    currentRabExecutive.total_units = Number(document.getElementById('execTotalUnits').value) || 1;
+    currentRabExecutive.total_containers = Number(document.getElementById('execTotalContainers').value) || 1;
+    currentRabExecutive.target_perputaran = document.getElementById('execTargetPerputaran').value;
+    const jsonEl = document.getElementById('execRabJsonRaw');
+    if (jsonEl) jsonEl.value = JSON.stringify(currentRabExecutive, null, 2);
+  }
+
+  function renderAdminTiersPreview(tiers) {
+    const previewEl = document.getElementById('execTiersPreview');
+    const badgeEl = document.getElementById('tierCountBadge');
+    if (!previewEl) return;
+    if (!tiers || tiers.length === 0) {
+      previewEl.innerHTML = '<div class="p-3 text-center text-muted small">Belum ada paket partisipasi pemodal yang dihitung. Klik tombol "Hitung Unit &amp; Tiers Otomatis".</div>';
+      if (badgeEl) badgeEl.textContent = '0 Paket';
+      return;
+    }
+    if (badgeEl) badgeEl.textContent = `${tiers.length} Paket Aktif`;
+
+    previewEl.innerHTML = `
+      <table class="table table-sm table-bordered align-middle mb-0" style="font-size: 0.8rem;">
+        <thead class="table-light">
+          <tr>
+            <th style="width: 140px;">Nominal</th>
+            <th>Nama Paket &amp; Alokasi Fisik</th>
+            <th style="width: 80px;" class="text-center">Unit</th>
+            <th style="width: 150px;">Est. Profit / Putaran</th>
+            <th style="width: 110px;">Est. ROI (p.a.)</th>
+            <th style="width: 120px;">Tag</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${tiers.map(t => {
+            const nom = t.nominal_display || AdminApp.formatRupiah(t.nominal);
+            const name = t.name || t.label || 'Paket Investasi';
+            const units = t.units ?? t.unit_qty ?? '-';
+            const desc = t.unit_description || t.jaminan_aset || `${units} Unit Komatsu PC57-7 CBU (${t.container_qty || 'Kontainer'})`;
+            const profit = t.est_profit_per_putaran_display || AdminApp.formatRupiah(t.est_profit_per_putaran || 0);
+            const roiPutaran = t.est_roi_per_putaran_pct || '14.31%';
+            const roiPa = t.est_roi_pa_pct || '28.6% – 42.9%';
+            const tag = t.benefit_tag || t.badge || '-';
+
+            return `
+              <tr>
+                <td class="fw-bold text-primary">${nom}</td>
+                <td>
+                  <div class="fw-semibold text-dark">${name}</div>
+                  <div class="text-muted" style="font-size: 0.75rem;">${desc}</div>
+                </td>
+                <td class="text-center fw-bold">${units} Unit</td>
+                <td class="text-success fw-bold">${profit} <span class="badge bg-success-subtle text-success">${roiPutaran}</span></td>
+                <td class="text-primary fw-bold">${roiPa}</td>
+                <td><span class="badge bg-secondary-subtle text-secondary">${tag}</span></td>
+              </tr>
+            `;
+          }).join('')}
+        </tbody>
+      </table>
+    `;
+  }
+
   function openCreateModal() {
     document.getElementById('formMode').value = 'create';
     document.getElementById('modalTitleText').textContent = 'Tambah Proyek Investasi Baru';
@@ -619,6 +868,9 @@ require_once __DIR__ . '/includes/header.php';
     updateMoneyPreview('simMin', 'previewSimMin');
     updateMoneyPreview('simMax', 'previewSimMax');
     updateMoneyPreview('simDefault', 'previewSimDefault');
+
+    // Auto-calculate Executive Unit & Tiers for standard Komatsu PC57-7
+    calcExecutiveRabFromTarget();
 
     // Reset to tab 1
     const tabEl = document.getElementById('tab-basic-btn');
@@ -707,6 +959,38 @@ require_once __DIR__ . '/includes/header.php';
       updateMoneyPreview('simMax', 'previewSimMax');
       updateMoneyPreview('simDefault', 'previewSimDefault');
 
+      // Populate Tab 5: Executive Unit RAB & Tiers
+      if (d && d.rab_executive && typeof d.rab_executive === 'object') {
+        currentRabExecutive = d.rab_executive;
+        const sp = currentRabExecutive.spesifikasi || {};
+        
+        let modelVal = currentRabExecutive.unit_model || sp.barang || 'Excavator PC57-7 (Komatsu)';
+        
+        let unitsVal = currentRabExecutive.total_units;
+        if (!unitsVal && sp.estimasi_unit) {
+          const m = sp.estimasi_unit.match(/(\d+)\s*Unit/i);
+          if (m) unitsVal = parseInt(m[1]);
+        }
+        if (!unitsVal) unitsVal = Math.max(1, Math.round(Number(p.funding_target) / 250000000));
+        
+        let contVal = currentRabExecutive.total_containers;
+        if (!contVal && sp.estimasi_unit) {
+          const m = sp.estimasi_unit.match(/(\d+)\s*Kontainer/i);
+          if (m) contVal = parseInt(m[1]);
+        }
+        if (!contVal) contVal = Math.max(1, Math.round(unitsVal / 4));
+
+        document.getElementById('execModel').value = modelVal;
+        document.getElementById('execTotalUnits').value = unitsVal;
+        document.getElementById('execTotalContainers').value = contVal;
+        document.getElementById('execTargetPerputaran').value = currentRabExecutive.target_perputaran || sp.target_perputaran || '2 – 3 Kali per Tahun';
+        renderAdminTiersPreview(currentRabExecutive.tiers || []);
+        const rawJsonEl = document.getElementById('execRabJsonRaw');
+        if (rawJsonEl) rawJsonEl.value = JSON.stringify(currentRabExecutive, null, 2);
+      } else {
+        calcExecutiveRabFromTarget();
+      }
+
       modalInstance.show();
 
     } catch (e) {
@@ -776,6 +1060,20 @@ require_once __DIR__ . '/includes/header.php';
         notes: document.getElementById('simNotes').value
       }
     };
+
+    // Attach Tab 5 Executive Unit RAB & Tiers
+    const rawRabJson = document.getElementById('execRabJsonRaw') ? document.getElementById('execRabJsonRaw').value.trim() : '';
+    if (rawRabJson) {
+      try {
+        currentRabExecutive = JSON.parse(rawRabJson);
+      } catch (err) {
+        console.warn('Gagal parse execRabJsonRaw JSON, menggunakan objek currentRabExecutive:', err);
+      }
+    }
+    if (!currentRabExecutive) {
+      calcExecutiveRabFromTarget();
+    }
+    payload.rab_executive = currentRabExecutive;
 
     const btn = document.getElementById('btnSaveProject');
     btn.disabled = true;

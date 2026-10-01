@@ -7,8 +7,8 @@
             "city": "Jabodetabek",
             "city_icon": "bi-geo-alt-fill",
             "city_icon_img": "assets/img/city-jkt-jabar.png",
-            "title": "Ekspansi Pool & Alat Berat Regional Jabodetabek",
-            "category": "Proyek Ekspansi Pool & Alat Berat Komatsu",
+            "title": "Dealer Jabodetabek",
+            "category": "Pengadaan & Perputaran Unit Alat Berat Komatsu CBU",
             "image": "assets/img/project-jabodetabek.jpg",
             "funding": {
                 "collected": 7500000000,
@@ -16,30 +16,31 @@
                 "currency": "IDR"
             },
             "status": "Open",
-            "featured": false,
+            "featured": true,
             "info": {
-                "lokasi": "DKI Jakarta & Sekitarnya",
+                "lokasi": "DKI Jakarta & Koridor Industri Jabodetabek",
                 "target": "Rp 10.000.000.000",
-                "tenor": "36 Bulan",
-                "return": "≥32% (p.a.)",
+                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "return": "28,6% – 42,9% (p.a.)",
                 "min_investment": "Rp 500.000.000",
-                "payout": "Bagi Hasil Kompetitif",
-                "remaining_days": "18 Hari Tersisa",
-                "asset_backed": "Aset Fisik Komatsu CBU Grade A",
-                "brand": "Komatsu CBU Grade A",
-                "stock_available": "8 Unit Komatsu Siap Operasi",
-                "capitalization_value": "Rp 13,5 Miliar"
+                "payout": "Bagi Hasil Per Siklus Penjualan / Kuartalan",
+                "remaining_days": "",
+                "asset_backed": "Aset Fisik Komatsu PC57-7 CBU Grade A",
+                "brand": "Komatsu PC57-7 CBU Grade A",
+                "stock_available": "Batch 40 Unit (10 Kontainer 40FT HC)",
+                "capitalization_value": "Rp 13.840.000.000"
             },
             "detail": {
-                "tagline": "Sentral Pool & Workshop Terpadu Distribusi Unit Komatsu Regional Jabodetabek",
+                "tagline": "Investasi Cerdas, Return Optimal dengan Target Perputaran Modal 2–3x per Tahun Berbasis Komatsu PC57-7",
+                "is_gated": false,
                 "what_will_provide": {
                     "type": "text",
-                    "title": "Alokasi Penggunaan Modal Proyek",
-                    "content": "Permodalan dialokasikan untuk pengadaan unit alat berat Komatsu CBU Jepang Grade A (Excavator Komatsu PC200-8 & PC138US-8) serta fasilitas workshop terpadu regional Jabodetabek & Jawa Barat. Penempatan strategis untuk mendukung proyek infrastruktur jalan, kawasan industri, dan logistik nasional."
+                    "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 40 Unit Komatsu PC57-7)",
+                    "content": "Permodalan dialokasikan untuk pengadaan armada alat berat Excavator Komatsu PC57-7 CBU Jepang Grade A sebanyak 40 unit (10 Kontainer 40FT HC), pengerjaan rekondisi komprehensif di Central Workshop PT Montana Indo Utama, serta penanganan logistik impor door-to-door oleh PT Montana Sentra Industri guna memenuhi tingginya permintaan sektor infrastruktur dan industri regional Jabodetabek."
                 },
                 "funding_target": {
                     "type": "table",
-                    "title": "Target Pendanaan & Nilai Pendanaan Unit",
+                    "title": "Target Pendanaan & Nilai Alokasi Belanja Modal",
                     "columns": [
                         "No",
                         "Item Pengadaan / Spesifikasi",
@@ -50,52 +51,210 @@
                     "rows": [
                         {
                             "no": 1,
-                            "item": "Excavator Komatsu PC200-8 CBU Jepang Grade A",
-                            "quantity": 3,
-                            "unit_price": 1650000000,
-                            "total": 4950000000
+                            "item": "Harga Pokok Pembelian Unit Excavator Komatsu PC57-7",
+                            "quantity": 40,
+                            "unit_price": 150000000,
+                            "total": 6000000000
                         },
                         {
                             "no": 2,
-                            "item": "Excavator Komatsu PC138US-8 Compact Tail",
-                            "quantity": 3,
-                            "unit_price": 950000000,
-                            "total": 2850000000
+                            "item": "Jasa Impor & Kontainer 40FT HC Door-to-Door (PT MSI)",
+                            "quantity": 10,
+                            "unit_price": 210000000,
+                            "total": 2100000000
                         },
                         {
                             "no": 3,
-                            "item": "Dukungan Armada Montana Towing & Workshop Overhaul",
-                            "quantity": 1,
-                            "unit_price": 1200000000,
-                            "total": 1200000000
+                            "item": "Ongkos Rekondisi & Workshop Overhaul (PT MIU)",
+                            "quantity": 40,
+                            "unit_price": 25000000,
+                            "total": 1000000000
                         },
                         {
                             "no": 4,
-                            "item": "Logistik Impor CBU & Cadangan Operasional Kas Project",
+                            "item": "Dana Pencadangan & Likuiditas Operasional (9%)",
                             "quantity": 1,
-                            "unit_price": 1000000000,
-                            "total": 1000000000
+                            "unit_price": 900000000,
+                            "total": 900000000
                         }
                     ],
-                    "grand_total": 10000000000
+                    "grand_total": 10000000000,
+                    "is_gated": false
                 },
                 "about_sinergi_foundation": {
                     "type": "text",
-                    "title": "Kerangka Kontrak Penyerapan Pasar",
-                    "content": "Unit Komatsu langsung diutilisasi untuk proyek galian kuari, normalisasi infrastruktur sipil, dan pembangunan kawasan industri berjangka panjang di wilayah Jabodetabek serta Jawa Barat dengan kepastian cashflow pembayaran kontrak."
+                    "title": "Kerangka Kemitraan Strategis & Penyerapan Pasar (Offtake Framework)",
+                    "content": "Pengadaan unit ini didukung oleh kemitraan ekosistem Montana Group: PT Montana Sentra Industri (PT MSI) memegang kendali logistik maritim internasional dan izin kepabeanan, sementara PT Montana Indo Utama (PT MIU) menangani workshop rekondisi teknis, offtake pemasaran langsung kepada kontraktor rekanan, serta penyediaan garansi 1%."
                 },
                 "summary": {
                     "type": "text",
-                    "title": "Ringkasan Kelayakan Proyek Investasi",
-                    "content": "Didukung aset fisik nyata Komatsu berlikuiditas pasar sekunder tertinggi di Indonesia, proyeksi imbal hasil terukur ≥32% (p.a.) dengan jadwal bagi hasil setiap kuartal."
+                    "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
+                    "content": "Proyek investasi armada alat berat Komatsu PC57-7 CBU Jepang di Jabodetabek menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 28,6% – 42,9% p.a."
                 },
                 "simulation": {
-                    "tenor_bulan": 36,
-                    "estimasi_return_persen": 32,
-                    "modal_kerja_bulanan_persen": 2.4,
+                    "tenor_bulan": 12,
+                    "estimasi_return_persen": 28.62,
+                    "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 500000000,
-                    "maximum_investasi": 500000000000,
-                    "default_investasi": 500000000
+                    "maximum_investasi": 100000000000,
+                    "default_investasi": 1000000000,
+                    "notes": "Target perputaran modal 2–3 kali per tahun merupakan proyeksi berbasis kinerja riil penjualan unit Excavator Komatsu PC57-7. Simulasi bersifat ilustratif mengacu pada Risk Disclosure Statement."
+                },
+                "rab_executive": {
+                    "spesifikasi": {
+                        "barang": "Excavator PC57-7 (Komatsu)",
+                        "minimum_investasi": 10000000000,
+                        "minimum_tiket": 500000000,
+                        "periode_investasi": "12 Bulan",
+                        "target_perputaran": "2 – 3 Kali per Tahun",
+                        "sistem_penjualan": "Door to Door via PT MIU",
+                        "estimasi_unit": "40 Unit (10 Kontainer)",
+                        "container_used": "40FT HC Door-to-Door (MSI)",
+                        "kapasitas_container": "4 Unit / Container",
+                        "catatan": "Alokasi pengadaan armada batch regional Jabodetabek dari total dana investasi."
+                    },
+                    "alokasi_dana": {
+                        "modal_operasional_label": "Modal Operasional Awal (Pengadaan 40 Unit)",
+                        "modal_operasional_awal": 9100000000,
+                        "dana_pencadangan_label": "Dana Pencadangan / Likuiditas (9%)",
+                        "dana_pencadangan": 900000000,
+                        "total_investasi": 10000000000,
+                        "catatan": "Komponen PPN, budget garansi, budget insentif, dan fee sukses MIU baru timbul saat unit terjual sehingga tidak dibebankan pada dana awal."
+                    },
+                    "struktur_biaya_unit": {
+                        "harga_pokok_beli": 150000000,
+                        "ppn_11": 34288288,
+                        "ongkos_rekondisi": 25000000,
+                        "container_alokasi": 52500000,
+                        "budget_garansi": 3460000,
+                        "budget_insentif": 3460000,
+                        "fee_miu": 41520000,
+                        "total_biaya_unit": 310228288,
+                        "harga_jual_unit": 346000000,
+                        "profit_bersih_unit": 35771712,
+                        "return_per_siklus": 14.31
+                    },
+                    "tiers": [
+                        {
+                            "nominal": 500000000,
+                            "label": "Paket Partisipasi 2 Unit",
+                            "badge": "Entry Ticket",
+                            "unit_qty": 2,
+                            "container_qty": "0,5 Kontainer (Partisipasi Bersama)",
+                            "porsi_proyek": "5% dari Kuota Proyek",
+                            "jaminan_aset": "2 Unit Excavator Komatsu PC57-7 CBU Grade A",
+                            "deskripsi": "Penempatan modal proporsional untuk 2 unit fisik excavator dengan hak bagi hasil penuh setiap unit terjual.",
+                            "profit_per_siklus": 71543424,
+                            "profit_2x_tahunan": 143086848,
+                            "profit_3x_tahunan": 214630272
+                        },
+                        {
+                            "nominal": 1000000000,
+                            "label": "Paket Kontainer Penuh (1 Kontainer 40FT)",
+                            "badge": "Paling Populer",
+                            "unit_qty": 4,
+                            "container_qty": "1 Kontainer Penuh 40FT HC (4 Unit)",
+                            "porsi_proyek": "10% dari Kuota Proyek",
+                            "jaminan_aset": "1 Kontainer Khusus Berisi 4 Unit Komatsu PC57-7",
+                            "deskripsi": "Satu kontainer logistik laut 40FT penuh didedikasikan atas nama portofolio pemodal dengan efisiensi biaya maksimal.",
+                            "profit_per_siklus": 143086848,
+                            "profit_2x_tahunan": 286173696,
+                            "profit_3x_tahunan": 429260544
+                        },
+                        {
+                            "nominal": 2000000000,
+                            "label": "Paket Armada Ganda (2 Kontainer 40FT)",
+                            "badge": "Rekomendasi Proposal",
+                            "unit_qty": 8,
+                            "container_qty": "2 Kontainer Penuh 40FT HC (8 Unit)",
+                            "porsi_proyek": "20% dari Kuota Proyek",
+                            "jaminan_aset": "8 Unit Fisik Komatsu PC57-7 Tersebar Siap Jual",
+                            "deskripsi": "Diversifikasi perputaran pada 8 unit fisik dengan arus kas bagi hasil yang lebih stabil dan berkelanjutan.",
+                            "profit_per_siklus": 286173696,
+                            "profit_2x_tahunan": 572347392,
+                            "profit_3x_tahunan": 858521088
+                        },
+                        {
+                            "nominal": 5000000000,
+                            "label": "Paket Sindikasi Armada (5 Miliar)",
+                            "badge": "Prioritas Institusi",
+                            "unit_qty": 20,
+                            "container_qty": "5 Kontainer Penuh 40FT HC (20 Unit)",
+                            "porsi_proyek": "50% dari Kuota Proyek",
+                            "jaminan_aset": "20 Unit Fisik Komatsu PC57-7 CBU Grade A",
+                            "deskripsi": "Penempatan modal institusi untuk 20 unit alat berat dengan monitoring shipment dan rekondisi privat.",
+                            "profit_per_siklus": 715434240,
+                            "profit_2x_tahunan": 1430868480,
+                            "profit_3x_tahunan": 2146302720
+                        },
+                        {
+                            "nominal": 10000000000,
+                            "label": "Paket Konsorsium Eksklusif (Seluruh Batch)",
+                            "badge": "Pemegang Kuota Eksklusif",
+                            "unit_qty": 40,
+                            "container_qty": "10 Kontainer Penuh 40FT HC",
+                            "porsi_proyek": "100.0% (Seluruh Kuota Batch Jabodetabek)",
+                            "jaminan_aset": "Seluruh 40 Unit Komatsu PC57-7 CBU Jepang",
+                            "deskripsi": "Eksklusivitas pembiayaan seluruh batch regional dengan hak audit fisik di workshop kapan saja.",
+                            "profit_per_siklus": 1430868480,
+                            "profit_2x_tahunan": 2861736960,
+                            "profit_3x_tahunan": 4292605440
+                        }
+                    ],
+                    "alur_project": [
+                        {
+                            "step": 1,
+                            "title": "Pengadaan CBU Jepang",
+                            "desc": "Pembelian unit Excavator Komatsu PC57-7 CBU langsung dari lelang & mitra terpercaya di Jepang dengan standar seleksi Grade A."
+                        },
+                        {
+                            "step": 2,
+                            "title": "Logistik Laut (PT MSI)",
+                            "desc": "Pengangkutan laut menggunakan kontainer 40FT HC (kapasitas 4 unit/kontainer) door-to-door hingga ke pelabuhan domestik dan izin impor lengkap."
+                        },
+                        {
+                            "step": 3,
+                            "title": "Rekondisi Workshop (PT MIU)",
+                            "desc": "Inspeksi 100 titik, peremajaan hidrolik, overhaul mesin, pengecatan ulang, dan uji beban kerja di Central Workshop PT Montana Indo Utama."
+                        },
+                        {
+                            "step": 4,
+                            "title": "Penjualan Pasar Nasional",
+                            "desc": "Pemasaran unit siap kerja langsung ke end-user (kontraktor tambang, infrastruktur, perkebunan) dengan offtake & garansi resmi 1%."
+                        },
+                        {
+                            "step": 5,
+                            "title": "Bagi Hasil Pemodal",
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                        }
+                    ],
+                    "breakdown_pembayaran_unit": [
+                        {
+                            "no": 1,
+                            "komponen": "Harga Beli Unit + Ongkos Rekondisi Workshop",
+                            "penerima": "PT MIU",
+                            "nominal": 175000000,
+                            "keterangan": "HPP Pembelian unit CBU Jepang (Rp 150 jt) + jasa rekondisi & overhaul standar operasional (Rp 25 jt)"
+                        },
+                        {
+                            "no": 2,
+                            "komponen": "Ongkos Kontainer 40FT HC Door-to-Door",
+                            "penerima": "PT MSI",
+                            "nominal": 52500000,
+                            "keterangan": "Alokasi per unit (Rp 210.000.000 per 1 kontainer 40FT HC yang memuat 4 unit excavator)"
+                        },
+                        {
+                            "no": 3,
+                            "komponen": "Dana Pencadangan / Likuiditas Kas Operasional (9%)",
+                            "penerima": "Kas Cadangan",
+                            "nominal": 22500000,
+                            "keterangan": "Buffer likuiditas proyek tahap awal untuk memastikan kelancaran operasional sebelum unit terjual"
+                        }
+                    ],
+                    "total_miu_per_unit": 175000000,
+                    "total_msi_per_unit": 52500000,
+                    "dana_cadangan_per_unit": 22500000,
+                    "total_biaya_per_unit": 250000000
                 }
             }
         },
@@ -104,8 +263,8 @@
             "city": "Surabaya",
             "city_icon": "bi-building-fill",
             "city_icon_img": "assets/img/city-surabaya.png",
-            "title": "01 — Surabaya Industrial Growth",
-            "category": "Investasi Alat Berat untuk Mendukung Ekspansi Industri, Infrastruktur & Logistik",
+            "title": "Dealer Surabaya",
+            "category": "Pengadaan & Perputaran Unit Alat Berat Komatsu CBU",
             "image": "assets/img/project-surabaya.jpg",
             "funding": {
                 "collected": 2000000000,
@@ -117,26 +276,27 @@
             "info": {
                 "lokasi": "Surabaya & Jawa Timur",
                 "target": "Rp 5.000.000.000",
-                "tenor": "36 Bulan",
-                "return": "≥30% (p.a.)",
+                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "return": "28,6% – 42,9% (p.a.)",
                 "min_investment": "Rp 500.000.000",
-                "payout": "Bagi Hasil Kuartalan",
-                "remaining_days": "35 Hari Tersisa",
-                "asset_backed": "Aset Fisik Komatsu CBU Grade A",
-                "brand": "Komatsu CBU Grade A",
-                "stock_available": "Alokasi Unit Sesuai Tahapan",
-                "capitalization_value": "Rp 6,5 Miliar"
+                "payout": "Bagi Hasil Per Siklus Penjualan / Kuartalan",
+                "remaining_days": "",
+                "asset_backed": "Aset Fisik Komatsu PC57-7 CBU Grade A",
+                "brand": "Komatsu PC57-7 CBU Grade A",
+                "stock_available": "Batch 20 Unit (5 Kontainer 40FT HC)",
+                "capitalization_value": "Rp 6.920.000.000"
             },
             "detail": {
-                "tagline": "Investasi Alat Berat untuk Mendukung Ekspansi Industri, Infrastruktur & Logistik Regional Surabaya & Jawa Timur",
+                "tagline": "Pengadaan & Perputaran Armada Komatsu PC57-7 CBU Jepang Mendukung Kawasan Industri & Logistik Jawa Timur",
+                "is_gated": false,
                 "what_will_provide": {
                     "type": "text",
-                    "title": "Alokasi Penggunaan Modal Proyek Surabaya",
-                    "content": "Permodalan dialokasikan untuk penambahan unit alat berat Komatsu CBU Jepang Grade A guna memperkuat penetrasi operasional pada sentra industri manufaktur, koridor logistik pelabuhan Tanjung Perak, dan ekspansi infrastruktur regional Jawa Timur."
+                    "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 20 Unit Komatsu PC57-7)",
+                    "content": "Alokasi modal difokuskan pada pengadaan 20 unit Excavator Komatsu PC57-7 CBU Jepang Grade A (5 Kontainer 40FT HC) untuk menyuplai tingginya permintaan kawasan industri Rungkut, SIER, pelabuhan Tanjung Perak, dan koridor manufaktur Gerbangkertosusila Jawa Timur."
                 },
                 "funding_target": {
                     "type": "table",
-                    "title": "Target Pendanaan & Nilai Alokasi Unit",
+                    "title": "Target Pendanaan & Nilai Alokasi Belanja Modal",
                     "columns": [
                         "No",
                         "Item Pengadaan / Spesifikasi",
@@ -147,45 +307,210 @@
                     "rows": [
                         {
                             "no": 1,
-                            "item": "Excavator Komatsu PC200-8 CBU Jepang Grade A",
-                            "quantity": 2,
-                            "unit_price": 1650000000,
-                            "total": 3300000000
+                            "item": "Harga Pokok Pembelian Unit Excavator Komatsu PC57-7",
+                            "quantity": 20,
+                            "unit_price": 150000000,
+                            "total": 3000000000
                         },
                         {
                             "no": 2,
-                            "item": "Excavator Komatsu PC138US-8 Compact Tail",
-                            "quantity": 1,
-                            "unit_price": 950000000,
-                            "total": 950000000
+                            "item": "Jasa Impor & Kontainer 40FT HC Door-to-Door (PT MSI)",
+                            "quantity": 5,
+                            "unit_price": 210000000,
+                            "total": 1050000000
                         },
                         {
                             "no": 3,
-                            "item": "Logistik, Sertifikasi & Cadangan Operasional Kas Project",
+                            "item": "Ongkos Rekondisi & Workshop Overhaul (PT MIU)",
+                            "quantity": 20,
+                            "unit_price": 25000000,
+                            "total": 500000000
+                        },
+                        {
+                            "no": 4,
+                            "item": "Dana Pencadangan & Likuiditas Operasional (9%)",
                             "quantity": 1,
-                            "unit_price": 750000000,
-                            "total": 750000000
+                            "unit_price": 450000000,
+                            "total": 450000000
                         }
                     ],
-                    "grand_total": 5000000000
+                    "grand_total": 5000000000,
+                    "is_gated": false
                 },
                 "about_sinergi_foundation": {
                     "type": "text",
-                    "title": "Kerangka Kontrak Penyerapan Pasar Surabaya",
-                    "content": "Kebutuhan alat berat di koridor industri Surabaya, Gresik, hingga Sidoarjo memiliki tingkat utilisasi tinggi dengan kontrak penyewaan jangka menengah dan panjang dari mitra kontraktor terverifikasi."
+                    "title": "Kerangka Kemitraan Strategis & Penyerapan Pasar (Offtake Framework)",
+                    "content": "Kolaborasi strategis dengan PT Montana Sentra Industri (PT MSI) untuk pengiriman logistik langsung ke Surabaya serta jaringan workshop PT Montana Indo Utama (PT MIU) yang telah terhubung dengan puluhan kontraktor sipil dan pabrikasi di Jawa Timur."
                 },
                 "summary": {
                     "type": "text",
-                    "title": "Ringkasan Kelayakan Proyek Investasi",
-                    "content": "Investasi berbasis unit fisik riil dengan likuiditas tinggi, proyeksi imbal hasil terukur ≥30% per tahun, didukung proteksi asuransi alat berat komprehensif dan monitoring sistem terpadu."
+                    "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
+                    "content": "Surabaya sebagai hub logistik terbesar Indonesia Timur memberikan likuiditas serapan unit yang sangat cepat. Proyeksi perputaran modal 2–3 kali per tahun menghasilkan return bersih investor 28,6% – 42,9% p.a. dengan jaminan aset riil unit alat berat."
                 },
                 "simulation": {
-                    "tenor_bulan": 36,
-                    "estimasi_return_persen": 30,
-                    "modal_kerja_bulanan_persen": 2.2,
+                    "tenor_bulan": 12,
+                    "estimasi_return_persen": 28.62,
+                    "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 500000000,
-                    "maximum_investasi": 500000000000,
-                    "default_investasi": 500000000
+                    "maximum_investasi": 50000000000,
+                    "default_investasi": 1000000000,
+                    "notes": "Target perputaran modal 2–3 kali per tahun merupakan proyeksi berbasis kinerja riil penjualan unit Excavator Komatsu PC57-7. Simulasi bersifat ilustratif mengacu pada Risk Disclosure Statement."
+                },
+                "rab_executive": {
+                    "spesifikasi": {
+                        "barang": "Excavator PC57-7 (Komatsu)",
+                        "minimum_investasi": 5000000000,
+                        "minimum_tiket": 500000000,
+                        "periode_investasi": "12 Bulan",
+                        "target_perputaran": "2 – 3 Kali per Tahun",
+                        "sistem_penjualan": "Door to Door via PT MIU",
+                        "estimasi_unit": "20 Unit (5 Kontainer)",
+                        "container_used": "40FT HC Door-to-Door (MSI)",
+                        "kapasitas_container": "4 Unit / Container",
+                        "catatan": "Alokasi pengadaan armada batch regional Surabaya dari total dana investasi."
+                    },
+                    "alokasi_dana": {
+                        "modal_operasional_label": "Modal Operasional Awal (Pengadaan 20 Unit)",
+                        "modal_operasional_awal": 4550000000,
+                        "dana_pencadangan_label": "Dana Pencadangan / Likuiditas (9%)",
+                        "dana_pencadangan": 450000000,
+                        "total_investasi": 5000000000,
+                        "catatan": "Komponen PPN, budget garansi, budget insentif, dan fee sukses MIU baru timbul saat unit terjual sehingga tidak dibebankan pada dana awal."
+                    },
+                    "struktur_biaya_unit": {
+                        "harga_pokok_beli": 150000000,
+                        "ppn_11": 34288288,
+                        "ongkos_rekondisi": 25000000,
+                        "container_alokasi": 52500000,
+                        "budget_garansi": 3460000,
+                        "budget_insentif": 3460000,
+                        "fee_miu": 41520000,
+                        "total_biaya_unit": 310228288,
+                        "harga_jual_unit": 346000000,
+                        "profit_bersih_unit": 35771712,
+                        "return_per_siklus": 14.31
+                    },
+                    "tiers": [
+                        {
+                            "nominal": 500000000,
+                            "label": "Paket Partisipasi 2 Unit",
+                            "badge": "Entry Ticket",
+                            "unit_qty": 2,
+                            "container_qty": "0,5 Kontainer (Partisipasi Bersama)",
+                            "porsi_proyek": "10% dari Kuota Proyek",
+                            "jaminan_aset": "2 Unit Excavator Komatsu PC57-7 CBU Grade A",
+                            "deskripsi": "Penempatan modal proporsional untuk 2 unit fisik excavator dengan hak bagi hasil penuh setiap unit terjual.",
+                            "profit_per_siklus": 71543424,
+                            "profit_2x_tahunan": 143086848,
+                            "profit_3x_tahunan": 214630272
+                        },
+                        {
+                            "nominal": 1000000000,
+                            "label": "Paket Kontainer Penuh (1 Kontainer 40FT)",
+                            "badge": "Paling Populer",
+                            "unit_qty": 4,
+                            "container_qty": "1 Kontainer Penuh 40FT HC (4 Unit)",
+                            "porsi_proyek": "20% dari Kuota Proyek",
+                            "jaminan_aset": "1 Kontainer Khusus Berisi 4 Unit Komatsu PC57-7",
+                            "deskripsi": "Satu kontainer logistik laut 40FT penuh didedikasikan atas nama portofolio pemodal dengan efisiensi biaya maksimal.",
+                            "profit_per_siklus": 143086848,
+                            "profit_2x_tahunan": 286173696,
+                            "profit_3x_tahunan": 429260544
+                        },
+                        {
+                            "nominal": 2000000000,
+                            "label": "Paket Armada Ganda (2 Kontainer 40FT)",
+                            "badge": "Rekomendasi Proposal",
+                            "unit_qty": 8,
+                            "container_qty": "2 Kontainer Penuh 40FT HC (8 Unit)",
+                            "porsi_proyek": "40% dari Kuota Proyek",
+                            "jaminan_aset": "8 Unit Fisik Komatsu PC57-7 Tersebar Siap Jual",
+                            "deskripsi": "Diversifikasi perputaran pada 8 unit fisik dengan arus kas bagi hasil yang lebih stabil dan berkelanjutan.",
+                            "profit_per_siklus": 286173696,
+                            "profit_2x_tahunan": 572347392,
+                            "profit_3x_tahunan": 858521088
+                        },
+                        {
+                            "nominal": 2500000000,
+                            "label": "Paket Sindikasi Strategis (2.5 Miliar)",
+                            "badge": "Prioritas Wilayah",
+                            "unit_qty": 10,
+                            "container_qty": "2.5 Kontainer 40FT HC",
+                            "porsi_proyek": "50.0% dari Kuota Proyek",
+                            "jaminan_aset": "10 Unit Komatsu PC57-7 CBU Grade A",
+                            "deskripsi": "Kepemilikan separuh batch pengadaan regional dengan hak laporan logistik langsung secara berkala.",
+                            "profit_per_siklus": 357717120,
+                            "profit_2x_tahunan": 715434240,
+                            "profit_3x_tahunan": 1073151360
+                        },
+                        {
+                            "nominal": 5000000000,
+                            "label": "Paket Konsorsium Utama (Seluruh Batch)",
+                            "badge": "Pemegang Kuota Tunggal",
+                            "unit_qty": 20,
+                            "container_qty": "5 Kontainer 40FT HC Penuh",
+                            "porsi_proyek": "100.0% (Seluruh Kuota Batch Surabaya)",
+                            "jaminan_aset": "Seluruh 20 Unit Komatsu PC57-7 Batch Regional",
+                            "deskripsi": "Eksklusivitas pendanaan seluruh armada batch regional dengan skema prioritas pencairan laba.",
+                            "profit_per_siklus": 715434240,
+                            "profit_2x_tahunan": 1430868480,
+                            "profit_3x_tahunan": 2146302720
+                        }
+                    ],
+                    "alur_project": [
+                        {
+                            "step": 1,
+                            "title": "Pengadaan CBU Jepang",
+                            "desc": "Pembelian unit Excavator Komatsu PC57-7 CBU langsung dari lelang & mitra terpercaya di Jepang dengan standar seleksi Grade A."
+                        },
+                        {
+                            "step": 2,
+                            "title": "Logistik Laut (PT MSI)",
+                            "desc": "Pengangkutan laut menggunakan kontainer 40FT HC (kapasitas 4 unit/kontainer) door-to-door hingga ke pelabuhan domestik dan izin impor lengkap."
+                        },
+                        {
+                            "step": 3,
+                            "title": "Rekondisi Workshop (PT MIU)",
+                            "desc": "Inspeksi 100 titik, peremajaan hidrolik, overhaul mesin, pengecatan ulang, dan uji beban kerja di Central Workshop PT Montana Indo Utama."
+                        },
+                        {
+                            "step": 4,
+                            "title": "Penjualan Pasar Nasional",
+                            "desc": "Pemasaran unit siap kerja langsung ke end-user (kontraktor tambang, infrastruktur, perkebunan) dengan offtake & garansi resmi 1%."
+                        },
+                        {
+                            "step": 5,
+                            "title": "Bagi Hasil Pemodal",
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                        }
+                    ],
+                    "breakdown_pembayaran_unit": [
+                        {
+                            "no": 1,
+                            "komponen": "Harga Beli Unit + Ongkos Rekondisi Workshop",
+                            "penerima": "PT MIU",
+                            "nominal": 175000000,
+                            "keterangan": "HPP Pembelian unit CBU Jepang (Rp 150 jt) + jasa rekondisi & overhaul standar operasional (Rp 25 jt)"
+                        },
+                        {
+                            "no": 2,
+                            "komponen": "Ongkos Kontainer 40FT HC Door-to-Door",
+                            "penerima": "PT MSI",
+                            "nominal": 52500000,
+                            "keterangan": "Alokasi per unit (Rp 210.000.000 per 1 kontainer 40FT HC yang memuat 4 unit excavator)"
+                        },
+                        {
+                            "no": 3,
+                            "komponen": "Dana Pencadangan / Likuiditas Kas Operasional (9%)",
+                            "penerima": "Kas Cadangan",
+                            "nominal": 22500000,
+                            "keterangan": "Buffer likuiditas proyek tahap awal untuk memastikan kelancaran operasional sebelum unit terjual"
+                        }
+                    ],
+                    "total_miu_per_unit": 175000000,
+                    "total_msi_per_unit": 52500000,
+                    "dana_cadangan_per_unit": 22500000,
+                    "total_biaya_per_unit": 250000000
                 }
             }
         },
@@ -194,8 +519,8 @@
             "city": "Denpasar",
             "city_icon": "bi-sun-fill",
             "city_icon_img": "assets/img/city-denpasar.png",
-            "title": "02 — Bali Tourism & Infrastructure Growth",
-            "category": "Investasi Alat Berat untuk Mendukung Pertumbuhan Pariwisata, Properti & Infrastruktur Bali",
+            "title": "Dealer Denpasar",
+            "category": "Pengadaan & Perputaran Unit Alat Berat Komatsu CBU",
             "image": "assets/img/project-denpasar.jpg",
             "funding": {
                 "collected": 2000000000,
@@ -207,26 +532,27 @@
             "info": {
                 "lokasi": "Denpasar & Bali",
                 "target": "Rp 7.000.000.000",
-                "tenor": "36 Bulan",
-                "return": "≥32% (p.a.)",
+                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "return": "28,6% – 42,9% (p.a.)",
                 "min_investment": "Rp 500.000.000",
-                "payout": "Bagi Hasil Kuartalan",
-                "remaining_days": "30 Hari Tersisa",
-                "asset_backed": "Aset Fisik Komatsu CBU Grade A",
-                "brand": "Komatsu CBU Grade A",
-                "stock_available": "6 Unit Aktif Operasional Lapangan",
-                "capitalization_value": "Rp 9,2 Miliar"
+                "payout": "Bagi Hasil Per Siklus Penjualan / Kuartalan",
+                "remaining_days": "",
+                "asset_backed": "Aset Fisik Komatsu PC57-7 CBU Grade A",
+                "brand": "Komatsu PC57-7 CBU Grade A",
+                "stock_available": "Batch 28 Unit (7 Kontainer 40FT HC)",
+                "capitalization_value": "Rp 9.688.000.000"
             },
             "detail": {
-                "tagline": "Investasi Alat Berat untuk Mendukung Pertumbuhan Pariwisata, Properti & Infrastruktur Bali",
+                "tagline": "Pengadaan Armada Komatsu PC57-7 CBU Jepang Mendukung Pertumbuhan Properti, Infrastruktur & Penataan Bali",
+                "is_gated": false,
                 "what_will_provide": {
                     "type": "text",
-                    "title": "Alokasi Penggunaan Modal Proyek Bali",
-                    "content": "Dana dialokasikan untuk penempatan armada alat berat kompak dan heavy-duty (Komatsu PC78US-8 dan PC200-8) dalam rangka konstruksi resor mewah pariwisata, penataan lansekap perhotelan, dan infrastruktur strategis di wilayah Bali."
+                    "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 28 Unit Komatsu PC57-7)",
+                    "content": "Penempatan permodalan sebesar Rp 7.000.000.000 untuk pengadaan 28 unit Excavator Komatsu PC57-7 CBU Jepang (7 Kontainer 40FT HC) guna menunjang proyek infrastruktur penataan pariwisata, normalisasi saluran air, dan pembangunan resort/villa di kawasan Badung, Denpasar, dan Gianyar."
                 },
                 "funding_target": {
                     "type": "table",
-                    "title": "Target Pendanaan & Nilai Alokasi Unit",
+                    "title": "Target Pendanaan & Nilai Alokasi Belanja Modal",
                     "columns": [
                         "No",
                         "Item Pengadaan / Spesifikasi",
@@ -237,52 +563,210 @@
                     "rows": [
                         {
                             "no": 1,
-                            "item": "Excavator Komatsu PC200-8 CBU Jepang Grade A",
-                            "quantity": 2,
-                            "unit_price": 1650000000,
-                            "total": 3300000000
+                            "item": "Harga Pokok Pembelian Unit Excavator Komatsu PC57-7",
+                            "quantity": 28,
+                            "unit_price": 150000000,
+                            "total": 4200000000
                         },
                         {
                             "no": 2,
-                            "item": "Mini Excavator Komatsu PC78US-8 (Kompak Resor)",
-                            "quantity": 3,
-                            "unit_price": 800000000,
-                            "total": 2400000000
+                            "item": "Jasa Impor & Kontainer 40FT HC Door-to-Door (PT MSI)",
+                            "quantity": 7,
+                            "unit_price": 210000000,
+                            "total": 1470000000
                         },
                         {
                             "no": 3,
-                            "item": "Mobilisasi Lintas Pulau & Asuransi All Risk",
-                            "quantity": 1,
-                            "unit_price": 650000000,
-                            "total": 650000000
+                            "item": "Ongkos Rekondisi & Workshop Overhaul (PT MIU)",
+                            "quantity": 28,
+                            "unit_price": 25000000,
+                            "total": 700000000
                         },
                         {
                             "no": 4,
-                            "item": "Cadangan Pemeliharaan & Workshop Support Regional Bali",
+                            "item": "Dana Pencadangan & Likuiditas Operasional (9%)",
                             "quantity": 1,
-                            "unit_price": 650000000,
-                            "total": 650000000
+                            "unit_price": 630000000,
+                            "total": 630000000
                         }
                     ],
-                    "grand_total": 7000000000
+                    "grand_total": 7000000000,
+                    "is_gated": false
                 },
                 "about_sinergi_foundation": {
                     "type": "text",
-                    "title": "Kerangka Kontrak Penyerapan Pasar Bali",
-                    "content": "Sektor hospitality dan real estate premium di Bali memerlukan armada alat berat dengan standar emisi dan kebisingan rendah untuk proyek pembangunan resor dan perataan lahan bertaraf internasional."
+                    "title": "Kerangka Kemitraan Strategis & Penyerapan Pasar (Offtake Framework)",
+                    "content": "Kemitraan logistik maritim PT MSI dan jaringan workshop rekondisi PT MIU memastikan unit mini excavator yang sangat lincah ini siap beroperasi di medan pariwisata yang membutuhkan manuver tinggi."
                 },
                 "summary": {
                     "type": "text",
-                    "title": "Ringkasan Kelayakan Proyek Investasi",
-                    "content": "Investasi berbasis unit fisik riil dengan likuiditas tinggi, proyeksi imbal hasil terukur ≥32% per tahun, didukung proteksi asuransi alat berat komprehensif dan monitoring sistem terpadu regional Bali."
+                    "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
+                    "content": "Permintaan unit mini excavator di Bali sangat tinggi karena jalan akses sempit yang tidak bisa dilalui alat berat besar. Komatsu PC57-7 adalah pilihan prima kontraktor lokal, memberikan kepastian perputaran modal yang sehat dan aman."
                 },
                 "simulation": {
-                    "tenor_bulan": 36,
-                    "estimasi_return_persen": 32,
-                    "modal_kerja_bulanan_persen": 2.4,
+                    "tenor_bulan": 12,
+                    "estimasi_return_persen": 28.62,
+                    "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 500000000,
-                    "maximum_investasi": 500000000000,
-                    "default_investasi": 500000000
+                    "maximum_investasi": 70000000000,
+                    "default_investasi": 1000000000,
+                    "notes": "Target perputaran modal 2–3 kali per tahun merupakan proyeksi berbasis kinerja riil penjualan unit Excavator Komatsu PC57-7. Simulasi bersifat ilustratif mengacu pada Risk Disclosure Statement."
+                },
+                "rab_executive": {
+                    "spesifikasi": {
+                        "barang": "Excavator PC57-7 (Komatsu)",
+                        "minimum_investasi": 7000000000,
+                        "minimum_tiket": 500000000,
+                        "periode_investasi": "12 Bulan",
+                        "target_perputaran": "2 – 3 Kali per Tahun",
+                        "sistem_penjualan": "Door to Door via PT MIU",
+                        "estimasi_unit": "28 Unit (7 Kontainer)",
+                        "container_used": "40FT HC Door-to-Door (MSI)",
+                        "kapasitas_container": "4 Unit / Container",
+                        "catatan": "Alokasi pengadaan armada batch regional Denpasar dari total dana investasi."
+                    },
+                    "alokasi_dana": {
+                        "modal_operasional_label": "Modal Operasional Awal (Pengadaan 28 Unit)",
+                        "modal_operasional_awal": 6370000000,
+                        "dana_pencadangan_label": "Dana Pencadangan / Likuiditas (9%)",
+                        "dana_pencadangan": 630000000,
+                        "total_investasi": 7000000000,
+                        "catatan": "Komponen PPN, budget garansi, budget insentif, dan fee sukses MIU baru timbul saat unit terjual sehingga tidak dibebankan pada dana awal."
+                    },
+                    "struktur_biaya_unit": {
+                        "harga_pokok_beli": 150000000,
+                        "ppn_11": 34288288,
+                        "ongkos_rekondisi": 25000000,
+                        "container_alokasi": 52500000,
+                        "budget_garansi": 3460000,
+                        "budget_insentif": 3460000,
+                        "fee_miu": 41520000,
+                        "total_biaya_unit": 310228288,
+                        "harga_jual_unit": 346000000,
+                        "profit_bersih_unit": 35771712,
+                        "return_per_siklus": 14.31
+                    },
+                    "tiers": [
+                        {
+                            "nominal": 500000000,
+                            "label": "Paket Partisipasi 2 Unit",
+                            "badge": "Entry Ticket",
+                            "unit_qty": 2,
+                            "container_qty": "0,5 Kontainer (Partisipasi Bersama)",
+                            "porsi_proyek": "7.1% dari Kuota Proyek",
+                            "jaminan_aset": "2 Unit Excavator Komatsu PC57-7 CBU Grade A",
+                            "deskripsi": "Penempatan modal proporsional untuk 2 unit fisik excavator dengan hak bagi hasil penuh setiap unit terjual.",
+                            "profit_per_siklus": 71543424,
+                            "profit_2x_tahunan": 143086848,
+                            "profit_3x_tahunan": 214630272
+                        },
+                        {
+                            "nominal": 1000000000,
+                            "label": "Paket Kontainer Penuh (1 Kontainer 40FT)",
+                            "badge": "Paling Populer",
+                            "unit_qty": 4,
+                            "container_qty": "1 Kontainer Penuh 40FT HC (4 Unit)",
+                            "porsi_proyek": "14.3% dari Kuota Proyek",
+                            "jaminan_aset": "1 Kontainer Khusus Berisi 4 Unit Komatsu PC57-7",
+                            "deskripsi": "Satu kontainer logistik laut 40FT penuh didedikasikan atas nama portofolio pemodal dengan efisiensi biaya maksimal.",
+                            "profit_per_siklus": 143086848,
+                            "profit_2x_tahunan": 286173696,
+                            "profit_3x_tahunan": 429260544
+                        },
+                        {
+                            "nominal": 2000000000,
+                            "label": "Paket Armada Ganda (2 Kontainer 40FT)",
+                            "badge": "Rekomendasi Proposal",
+                            "unit_qty": 8,
+                            "container_qty": "2 Kontainer Penuh 40FT HC (8 Unit)",
+                            "porsi_proyek": "28.6% dari Kuota Proyek",
+                            "jaminan_aset": "8 Unit Fisik Komatsu PC57-7 Tersebar Siap Jual",
+                            "deskripsi": "Diversifikasi perputaran pada 8 unit fisik dengan arus kas bagi hasil yang lebih stabil dan berkelanjutan.",
+                            "profit_per_siklus": 286173696,
+                            "profit_2x_tahunan": 572347392,
+                            "profit_3x_tahunan": 858521088
+                        },
+                        {
+                            "nominal": 5000000000,
+                            "label": "Paket Sindikasi Armada (5 Miliar)",
+                            "badge": "Prioritas Institusi",
+                            "unit_qty": 20,
+                            "container_qty": "5 Kontainer Penuh 40FT HC (20 Unit)",
+                            "porsi_proyek": "71.4% dari Kuota Proyek",
+                            "jaminan_aset": "20 Unit Fisik Komatsu PC57-7 CBU Grade A",
+                            "deskripsi": "Penempatan modal institusi untuk 20 unit alat berat dengan monitoring shipment dan rekondisi privat.",
+                            "profit_per_siklus": 715434240,
+                            "profit_2x_tahunan": 1430868480,
+                            "profit_3x_tahunan": 2146302720
+                        },
+                        {
+                            "nominal": 7000000000,
+                            "label": "Paket Konsorsium Eksklusif (Seluruh Batch)",
+                            "badge": "Pemegang Kuota Eksklusif",
+                            "unit_qty": 28,
+                            "container_qty": "7 Kontainer Penuh 40FT HC",
+                            "porsi_proyek": "100.0% (Seluruh Kuota Batch Denpasar)",
+                            "jaminan_aset": "Seluruh 28 Unit Komatsu PC57-7 CBU Jepang",
+                            "deskripsi": "Eksklusivitas pembiayaan seluruh batch regional dengan hak audit fisik di workshop kapan saja.",
+                            "profit_per_siklus": 1001607936,
+                            "profit_2x_tahunan": 2003215872,
+                            "profit_3x_tahunan": 3004823808
+                        }
+                    ],
+                    "alur_project": [
+                        {
+                            "step": 1,
+                            "title": "Pengadaan CBU Jepang",
+                            "desc": "Pembelian unit Excavator Komatsu PC57-7 CBU langsung dari lelang & mitra terpercaya di Jepang dengan standar seleksi Grade A."
+                        },
+                        {
+                            "step": 2,
+                            "title": "Logistik Laut (PT MSI)",
+                            "desc": "Pengangkutan laut menggunakan kontainer 40FT HC (kapasitas 4 unit/kontainer) door-to-door hingga ke pelabuhan domestik dan izin impor lengkap."
+                        },
+                        {
+                            "step": 3,
+                            "title": "Rekondisi Workshop (PT MIU)",
+                            "desc": "Inspeksi 100 titik, peremajaan hidrolik, overhaul mesin, pengecatan ulang, dan uji beban kerja di Central Workshop PT Montana Indo Utama."
+                        },
+                        {
+                            "step": 4,
+                            "title": "Penjualan Pasar Nasional",
+                            "desc": "Pemasaran unit siap kerja langsung ke end-user (kontraktor tambang, infrastruktur, perkebunan) dengan offtake & garansi resmi 1%."
+                        },
+                        {
+                            "step": 5,
+                            "title": "Bagi Hasil Pemodal",
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                        }
+                    ],
+                    "breakdown_pembayaran_unit": [
+                        {
+                            "no": 1,
+                            "komponen": "Harga Beli Unit + Ongkos Rekondisi Workshop",
+                            "penerima": "PT MIU",
+                            "nominal": 175000000,
+                            "keterangan": "HPP Pembelian unit CBU Jepang (Rp 150 jt) + jasa rekondisi & overhaul standar operasional (Rp 25 jt)"
+                        },
+                        {
+                            "no": 2,
+                            "komponen": "Ongkos Kontainer 40FT HC Door-to-Door",
+                            "penerima": "PT MSI",
+                            "nominal": 52500000,
+                            "keterangan": "Alokasi per unit (Rp 210.000.000 per 1 kontainer 40FT HC yang memuat 4 unit excavator)"
+                        },
+                        {
+                            "no": 3,
+                            "komponen": "Dana Pencadangan / Likuiditas Kas Operasional (9%)",
+                            "penerima": "Kas Cadangan",
+                            "nominal": 22500000,
+                            "keterangan": "Buffer likuiditas proyek tahap awal untuk memastikan kelancaran operasional sebelum unit terjual"
+                        }
+                    ],
+                    "total_miu_per_unit": 175000000,
+                    "total_msi_per_unit": 52500000,
+                    "dana_cadangan_per_unit": 22500000,
+                    "total_biaya_per_unit": 250000000
                 }
             }
         },
@@ -291,8 +775,8 @@
             "city": "Makassar",
             "city_icon": "bi-geo-alt-fill",
             "city_icon_img": "assets/img/city-makassar.png",
-            "title": "03 — Makassar Infrastructure & Resource Growth",
-            "category": "Investasi Alat Berat untuk Mendukung Infrastruktur, Logistik & Aktivitas Sektor Sumber Daya",
+            "title": "Dealer Makassar",
+            "category": "Pengadaan & Perputaran Unit Alat Berat Komatsu CBU",
             "image": "assets/img/project-makasar.jpg",
             "funding": {
                 "collected": 3200000000,
@@ -304,26 +788,27 @@
             "info": {
                 "lokasi": "Makassar & Sulawesi Selatan",
                 "target": "Rp 5.000.000.000",
-                "tenor": "36 Bulan",
-                "return": "≥32% (p.a.)",
+                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "return": "28,6% – 42,9% (p.a.)",
                 "min_investment": "Rp 500.000.000",
-                "payout": "Bagi Hasil Kuartalan",
-                "remaining_days": "24 Hari Tersisa",
-                "asset_backed": "Aset Fisik Komatsu CBU Grade A",
-                "brand": "Komatsu CBU Grade A",
-                "stock_available": "4 Unit Komatsu Siap Operasi",
-                "capitalization_value": "Rp 6,8 Miliar"
+                "payout": "Bagi Hasil Per Siklus Penjualan / Kuartalan",
+                "remaining_days": "",
+                "asset_backed": "Aset Fisik Komatsu PC57-7 CBU Grade A",
+                "brand": "Komatsu PC57-7 CBU Grade A",
+                "stock_available": "Batch 20 Unit (5 Kontainer 40FT HC)",
+                "capitalization_value": "Rp 6.920.000.000"
             },
             "detail": {
-                "tagline": "Investasi Alat Berat untuk Mendukung Infrastruktur, Logistik & Aktivitas Sektor Sumber Daya Regional Sulawesi",
+                "tagline": "Pengadaan Armada Komatsu PC57-7 CBU Jepang Penunjang Proyek Infrastruktur, Pelabuhan & Kawasan Hilirisasi Sulawesi",
+                "is_gated": false,
                 "what_will_provide": {
                     "type": "text",
-                    "title": "Alokasi Penggunaan Modal Proyek Makassar",
-                    "content": "Pendanaan dialokasikan untuk pengadaan armada Excavator Komatsu PC200-8 dan penunjang operasional guna memenuhi tingginya permintaan galian material, infrastruktur pelabuhan New Port Makassar, serta koridor logistik industri nikel & mineral di Sulawesi."
+                    "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 20 Unit Komatsu PC57-7)",
+                    "content": "Alokasi modal untuk pengadaan 20 unit Excavator Komatsu PC57-7 (5 Kontainer 40FT HC) yang difokuskan untuk menyuplai kebutuhan proyek pendukung smelter nikel, pembangunan pergudangan pelabuhan Makassar New Port, serta pekerjaan infrastruktur regional Sulawesi Selatan."
                 },
                 "funding_target": {
                     "type": "table",
-                    "title": "Target Pendanaan & Nilai Alokasi Unit",
+                    "title": "Target Pendanaan & Nilai Alokasi Belanja Modal",
                     "columns": [
                         "No",
                         "Item Pengadaan / Spesifikasi",
@@ -334,52 +819,210 @@
                     "rows": [
                         {
                             "no": 1,
-                            "item": "Excavator Komatsu PC200-8 CBU Jepang Grade A",
-                            "quantity": 2,
-                            "unit_price": 1650000000,
-                            "total": 3300000000
+                            "item": "Harga Pokok Pembelian Unit Excavator Komatsu PC57-7",
+                            "quantity": 20,
+                            "unit_price": 150000000,
+                            "total": 3000000000
                         },
                         {
                             "no": 2,
-                            "item": "Excavator Komatsu PC138US-8 Compact Tail",
-                            "quantity": 1,
-                            "unit_price": 950000000,
-                            "total": 950000000
+                            "item": "Jasa Impor & Kontainer 40FT HC Door-to-Door (PT MSI)",
+                            "quantity": 5,
+                            "unit_price": 210000000,
+                            "total": 1050000000
                         },
                         {
                             "no": 3,
-                            "item": "Dukungan Armada Towing, Mobilisasi & Casis Khusus",
-                            "quantity": 1,
-                            "unit_price": 450000000,
-                            "total": 450000000
+                            "item": "Ongkos Rekondisi & Workshop Overhaul (PT MIU)",
+                            "quantity": 20,
+                            "unit_price": 25000000,
+                            "total": 500000000
                         },
                         {
                             "no": 4,
-                            "item": "Biaya Asuransi Alat Berat & Cadangan Operasional Kas",
+                            "item": "Dana Pencadangan & Likuiditas Operasional (9%)",
                             "quantity": 1,
-                            "unit_price": 300000000,
-                            "total": 300000000
+                            "unit_price": 450000000,
+                            "total": 450000000
                         }
                     ],
-                    "grand_total": 5000000000
+                    "grand_total": 5000000000,
+                    "is_gated": false
                 },
                 "about_sinergi_foundation": {
                     "type": "text",
-                    "title": "Kerangka Kontrak Penyerapan Pasar Sulawesi",
-                    "content": "Sebagai gerbang Indonesia Timur, ekspansi infrastruktur dan hilirisasi tambang di Sulawesi memacu kenaikan permintaan rental unit alat berat dengan kepastian pembayaran kontrak kerja berdurasi multi-tahun."
+                    "title": "Kerangka Kemitraan Strategis & Penyerapan Pasar (Offtake Framework)",
+                    "content": "PT MSI memfasilitasi logistik laut langsung dari Jepang transit Jakarta hingga sandar Makassar, didukung kesiapan tim teknis PT MIU untuk layanan purna jual dan suku cadang."
                 },
                 "summary": {
                     "type": "text",
-                    "title": "Ringkasan Kelayakan Proyek Investasi",
-                    "content": "Unit riil Grade A dengan jaminan fisik BPKB/faktur kepemilikan sah, imbal hasil terukur ≥32% (p.a.) dengan pelaporan performa berkala dan transparansi pembagian dividen kuartalan."
+                    "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
+                    "content": "Sulawesi merupakan episentrum hilirisasi mineral nasional. Kehadiran armada Komatsu PC57-7 siap kerja memberikan solusi instan bagi kontraktor penunjang yang memerlukan unit tanpa inden lama."
                 },
                 "simulation": {
-                    "tenor_bulan": 36,
-                    "estimasi_return_persen": 32,
-                    "modal_kerja_bulanan_persen": 2.4,
+                    "tenor_bulan": 12,
+                    "estimasi_return_persen": 28.62,
+                    "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 500000000,
-                    "maximum_investasi": 500000000000,
-                    "default_investasi": 500000000
+                    "maximum_investasi": 50000000000,
+                    "default_investasi": 1000000000,
+                    "notes": "Target perputaran modal 2–3 kali per tahun merupakan proyeksi berbasis kinerja riil penjualan unit Excavator Komatsu PC57-7. Simulasi bersifat ilustratif mengacu pada Risk Disclosure Statement."
+                },
+                "rab_executive": {
+                    "spesifikasi": {
+                        "barang": "Excavator PC57-7 (Komatsu)",
+                        "minimum_investasi": 5000000000,
+                        "minimum_tiket": 500000000,
+                        "periode_investasi": "12 Bulan",
+                        "target_perputaran": "2 – 3 Kali per Tahun",
+                        "sistem_penjualan": "Door to Door via PT MIU",
+                        "estimasi_unit": "20 Unit (5 Kontainer)",
+                        "container_used": "40FT HC Door-to-Door (MSI)",
+                        "kapasitas_container": "4 Unit / Container",
+                        "catatan": "Alokasi pengadaan armada batch regional Makassar dari total dana investasi."
+                    },
+                    "alokasi_dana": {
+                        "modal_operasional_label": "Modal Operasional Awal (Pengadaan 20 Unit)",
+                        "modal_operasional_awal": 4550000000,
+                        "dana_pencadangan_label": "Dana Pencadangan / Likuiditas (9%)",
+                        "dana_pencadangan": 450000000,
+                        "total_investasi": 5000000000,
+                        "catatan": "Komponen PPN, budget garansi, budget insentif, dan fee sukses MIU baru timbul saat unit terjual sehingga tidak dibebankan pada dana awal."
+                    },
+                    "struktur_biaya_unit": {
+                        "harga_pokok_beli": 150000000,
+                        "ppn_11": 34288288,
+                        "ongkos_rekondisi": 25000000,
+                        "container_alokasi": 52500000,
+                        "budget_garansi": 3460000,
+                        "budget_insentif": 3460000,
+                        "fee_miu": 41520000,
+                        "total_biaya_unit": 310228288,
+                        "harga_jual_unit": 346000000,
+                        "profit_bersih_unit": 35771712,
+                        "return_per_siklus": 14.31
+                    },
+                    "tiers": [
+                        {
+                            "nominal": 500000000,
+                            "label": "Paket Partisipasi 2 Unit",
+                            "badge": "Entry Ticket",
+                            "unit_qty": 2,
+                            "container_qty": "0,5 Kontainer (Partisipasi Bersama)",
+                            "porsi_proyek": "10% dari Kuota Proyek",
+                            "jaminan_aset": "2 Unit Excavator Komatsu PC57-7 CBU Grade A",
+                            "deskripsi": "Penempatan modal proporsional untuk 2 unit fisik excavator dengan hak bagi hasil penuh setiap unit terjual.",
+                            "profit_per_siklus": 71543424,
+                            "profit_2x_tahunan": 143086848,
+                            "profit_3x_tahunan": 214630272
+                        },
+                        {
+                            "nominal": 1000000000,
+                            "label": "Paket Kontainer Penuh (1 Kontainer 40FT)",
+                            "badge": "Paling Populer",
+                            "unit_qty": 4,
+                            "container_qty": "1 Kontainer Penuh 40FT HC (4 Unit)",
+                            "porsi_proyek": "20% dari Kuota Proyek",
+                            "jaminan_aset": "1 Kontainer Khusus Berisi 4 Unit Komatsu PC57-7",
+                            "deskripsi": "Satu kontainer logistik laut 40FT penuh didedikasikan atas nama portofolio pemodal dengan efisiensi biaya maksimal.",
+                            "profit_per_siklus": 143086848,
+                            "profit_2x_tahunan": 286173696,
+                            "profit_3x_tahunan": 429260544
+                        },
+                        {
+                            "nominal": 2000000000,
+                            "label": "Paket Armada Ganda (2 Kontainer 40FT)",
+                            "badge": "Rekomendasi Proposal",
+                            "unit_qty": 8,
+                            "container_qty": "2 Kontainer Penuh 40FT HC (8 Unit)",
+                            "porsi_proyek": "40% dari Kuota Proyek",
+                            "jaminan_aset": "8 Unit Fisik Komatsu PC57-7 Tersebar Siap Jual",
+                            "deskripsi": "Diversifikasi perputaran pada 8 unit fisik dengan arus kas bagi hasil yang lebih stabil dan berkelanjutan.",
+                            "profit_per_siklus": 286173696,
+                            "profit_2x_tahunan": 572347392,
+                            "profit_3x_tahunan": 858521088
+                        },
+                        {
+                            "nominal": 2500000000,
+                            "label": "Paket Sindikasi Strategis (2.5 Miliar)",
+                            "badge": "Prioritas Wilayah",
+                            "unit_qty": 10,
+                            "container_qty": "2.5 Kontainer 40FT HC",
+                            "porsi_proyek": "50.0% dari Kuota Proyek",
+                            "jaminan_aset": "10 Unit Komatsu PC57-7 CBU Grade A",
+                            "deskripsi": "Kepemilikan separuh batch pengadaan regional dengan hak laporan logistik langsung secara berkala.",
+                            "profit_per_siklus": 357717120,
+                            "profit_2x_tahunan": 715434240,
+                            "profit_3x_tahunan": 1073151360
+                        },
+                        {
+                            "nominal": 5000000000,
+                            "label": "Paket Konsorsium Utama (Seluruh Batch)",
+                            "badge": "Pemegang Kuota Tunggal",
+                            "unit_qty": 20,
+                            "container_qty": "5 Kontainer 40FT HC Penuh",
+                            "porsi_proyek": "100.0% (Seluruh Kuota Batch Makassar)",
+                            "jaminan_aset": "Seluruh 20 Unit Komatsu PC57-7 Batch Regional",
+                            "deskripsi": "Eksklusivitas pendanaan seluruh armada batch regional dengan skema prioritas pencairan laba.",
+                            "profit_per_siklus": 715434240,
+                            "profit_2x_tahunan": 1430868480,
+                            "profit_3x_tahunan": 2146302720
+                        }
+                    ],
+                    "alur_project": [
+                        {
+                            "step": 1,
+                            "title": "Pengadaan CBU Jepang",
+                            "desc": "Pembelian unit Excavator Komatsu PC57-7 CBU langsung dari lelang & mitra terpercaya di Jepang dengan standar seleksi Grade A."
+                        },
+                        {
+                            "step": 2,
+                            "title": "Logistik Laut (PT MSI)",
+                            "desc": "Pengangkutan laut menggunakan kontainer 40FT HC (kapasitas 4 unit/kontainer) door-to-door hingga ke pelabuhan domestik dan izin impor lengkap."
+                        },
+                        {
+                            "step": 3,
+                            "title": "Rekondisi Workshop (PT MIU)",
+                            "desc": "Inspeksi 100 titik, peremajaan hidrolik, overhaul mesin, pengecatan ulang, dan uji beban kerja di Central Workshop PT Montana Indo Utama."
+                        },
+                        {
+                            "step": 4,
+                            "title": "Penjualan Pasar Nasional",
+                            "desc": "Pemasaran unit siap kerja langsung ke end-user (kontraktor tambang, infrastruktur, perkebunan) dengan offtake & garansi resmi 1%."
+                        },
+                        {
+                            "step": 5,
+                            "title": "Bagi Hasil Pemodal",
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                        }
+                    ],
+                    "breakdown_pembayaran_unit": [
+                        {
+                            "no": 1,
+                            "komponen": "Harga Beli Unit + Ongkos Rekondisi Workshop",
+                            "penerima": "PT MIU",
+                            "nominal": 175000000,
+                            "keterangan": "HPP Pembelian unit CBU Jepang (Rp 150 jt) + jasa rekondisi & overhaul standar operasional (Rp 25 jt)"
+                        },
+                        {
+                            "no": 2,
+                            "komponen": "Ongkos Kontainer 40FT HC Door-to-Door",
+                            "penerima": "PT MSI",
+                            "nominal": 52500000,
+                            "keterangan": "Alokasi per unit (Rp 210.000.000 per 1 kontainer 40FT HC yang memuat 4 unit excavator)"
+                        },
+                        {
+                            "no": 3,
+                            "komponen": "Dana Pencadangan / Likuiditas Kas Operasional (9%)",
+                            "penerima": "Kas Cadangan",
+                            "nominal": 22500000,
+                            "keterangan": "Buffer likuiditas proyek tahap awal untuk memastikan kelancaran operasional sebelum unit terjual"
+                        }
+                    ],
+                    "total_miu_per_unit": 175000000,
+                    "total_msi_per_unit": 52500000,
+                    "dana_cadangan_per_unit": 22500000,
+                    "total_biaya_per_unit": 250000000
                 }
             }
         },
@@ -388,8 +1031,8 @@
             "city": "Kebumen",
             "city_icon": "bi-gear-wide-connected",
             "city_icon_img": "assets/img/city-jkt-jabar.png",
-            "title": "Sentral Pool & Workshop Alat Berat Kebumen",
-            "category": "Sentral Pool & Workshop Alat Berat Komatsu",
+            "title": "Workshop Alat Berat Kebumen",
+            "category": "Pengadaan & Perputaran Unit Alat Berat Komatsu CBU",
             "image": "assets/img/project-kebumen.jpg",
             "funding": {
                 "collected": 6000000000,
@@ -401,26 +1044,27 @@
             "info": {
                 "lokasi": "Kebumen & Jawa Tengah",
                 "target": "Rp 6.000.000.000",
-                "tenor": "36 Bulan",
-                "return": "≥31% (p.a.)",
+                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "return": "28,6% – 42,9% (p.a.)",
                 "min_investment": "Rp 500.000.000",
-                "payout": "Bagi Hasil Kuartalan",
-                "remaining_days": "Pendanaan Terpenuhi",
-                "asset_backed": "Aset Fisik Komatsu CBU Grade A",
-                "brand": "Komatsu CBU Grade A",
-                "stock_available": "5 Unit Beroperasi Penuh di Workshop Kebumen",
-                "capitalization_value": "Rp 7,8 Miliar"
+                "payout": "Bagi Hasil Per Siklus Penjualan / Kuartalan",
+                "remaining_days": "",
+                "asset_backed": "Aset Fisik Komatsu PC57-7 CBU Grade A",
+                "brand": "Komatsu PC57-7 CBU Grade A",
+                "stock_available": "Batch 24 Unit (6 Kontainer 40FT HC)",
+                "capitalization_value": "Rp 8.304.000.000"
             },
             "detail": {
-                "tagline": "Investasi Alat Berat untuk Mendukung Konstruksi, Infrastruktur & Pengembangan Agribisnis Jawa Tengah Bagian Selatan",
+                "tagline": "Sentralisasi Pool, Workshop Rekondisi & Pengadaan Unit Komatsu PC57-7 Jawa Tengah Bagian Selatan",
+                "is_gated": false,
                 "what_will_provide": {
                     "type": "text",
-                    "title": "Alokasi Penggunaan Modal Proyek Kebumen",
-                    "content": "Permodalan dialokasikan untuk pengadaan armada alat berat Excavator Komatsu PC200-8 dan PC138US-8 serta optimalisasi Sentral Pool & Workshop Montana seluas 4.500 m² di Kebumen guna melayani proyek irigasi modern, bendungan, infrastruktur jalan, dan agribisnis koridor selatan Jawa Tengah."
+                    "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 24 Unit Komatsu PC57-7)",
+                    "content": "Permodalan sebesar Rp 6.000.000.000 dialokasikan untuk pengadaan 24 unit Excavator Komatsu PC57-7 (6 Kontainer 40FT HC) sekaligus operasional workshop rekondisi dan sentral pool di Kebumen untuk melayani koridor Jateng selatan."
                 },
                 "funding_target": {
                     "type": "table",
-                    "title": "Target Pendanaan & Nilai Alokasi Unit",
+                    "title": "Target Pendanaan & Nilai Alokasi Belanja Modal",
                     "columns": [
                         "No",
                         "Item Pengadaan / Spesifikasi",
@@ -431,52 +1075,210 @@
                     "rows": [
                         {
                             "no": 1,
-                            "item": "Excavator Komatsu PC200-8 CBU Jepang Grade A",
-                            "quantity": 2,
-                            "unit_price": 1650000000,
-                            "total": 3300000000
+                            "item": "Harga Pokok Pembelian Unit Excavator Komatsu PC57-7",
+                            "quantity": 24,
+                            "unit_price": 150000000,
+                            "total": 3600000000
                         },
                         {
                             "no": 2,
-                            "item": "Excavator Komatsu PC138US-8 Compact Tail",
-                            "quantity": 2,
-                            "unit_price": 950000000,
-                            "total": 1900000000
+                            "item": "Jasa Impor & Kontainer 40FT HC Door-to-Door (PT MSI)",
+                            "quantity": 6,
+                            "unit_price": 210000000,
+                            "total": 1260000000
                         },
                         {
                             "no": 3,
-                            "item": "Upgrade Fasilitas Pool & Workshop Maintenance 4.500 m²",
-                            "quantity": 1,
-                            "unit_price": 500000000,
-                            "total": 500000000
+                            "item": "Ongkos Rekondisi & Workshop Overhaul (PT MIU)",
+                            "quantity": 24,
+                            "unit_price": 25000000,
+                            "total": 600000000
                         },
                         {
                             "no": 4,
-                            "item": "Asuransi Alat Berat & Cadangan Kas Operasional",
+                            "item": "Dana Pencadangan & Likuiditas Operasional (9%)",
                             "quantity": 1,
-                            "unit_price": 300000000,
-                            "total": 300000000
+                            "unit_price": 540000000,
+                            "total": 540000000
                         }
                     ],
-                    "grand_total": 6000000000
+                    "grand_total": 6000000000,
+                    "is_gated": false
                 },
                 "about_sinergi_foundation": {
                     "type": "text",
-                    "title": "Kerangka Kontrak Penyerapan Pasar Kebumen",
-                    "content": "Didukung langsung oleh keberadaan sentral workshop pool Montana di Kebumen, unit beroperasi melayani proyek konstruksi jalur lintas selatan (JJLS), perbaikan irigasi pertanian agribisnis, serta pekerjaan sipil regional."
+                    "title": "Kerangka Kemitraan Strategis & Penyerapan Pasar (Offtake Framework)",
+                    "content": "Integrasi penuh fasilitas workshop mandiri PT MIU dengan fasilitas peremajaan alat berat standar pabrik dan dukungan towing armada Montana Trans."
                 },
                 "summary": {
                     "type": "text",
-                    "title": "Ringkasan Kelayakan Proyek Investasi",
-                    "content": "Pendanaan telah tercapai 100% (Didanai Penuh) berkat partisipasi aktif para mitra pemodal. Aset fisik telah terdistribusi pada kontrak riil dengan tingkat bagi hasil kuartalan yang terjamin."
+                    "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
+                    "content": "Batch permodalan ini telah mencapai status Fully Funded dengan kinerja perputaran unit yang stabil serta jaminan serapan pasar regional agribisnis dan infrastruktur jalan lintas selatan."
                 },
                 "simulation": {
-                    "tenor_bulan": 36,
-                    "estimasi_return_persen": 31,
-                    "modal_kerja_bulanan_persen": 2.3,
+                    "tenor_bulan": 12,
+                    "estimasi_return_persen": 28.62,
+                    "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 500000000,
-                    "maximum_investasi": 500000000000,
-                    "default_investasi": 500000000
+                    "maximum_investasi": 60000000000,
+                    "default_investasi": 1000000000,
+                    "notes": "Target perputaran modal 2–3 kali per tahun merupakan proyeksi berbasis kinerja riil penjualan unit Excavator Komatsu PC57-7. Simulasi bersifat ilustratif mengacu pada Risk Disclosure Statement."
+                },
+                "rab_executive": {
+                    "spesifikasi": {
+                        "barang": "Excavator PC57-7 (Komatsu)",
+                        "minimum_investasi": 6000000000,
+                        "minimum_tiket": 500000000,
+                        "periode_investasi": "12 Bulan",
+                        "target_perputaran": "2 – 3 Kali per Tahun",
+                        "sistem_penjualan": "Door to Door via PT MIU",
+                        "estimasi_unit": "24 Unit (6 Kontainer)",
+                        "container_used": "40FT HC Door-to-Door (MSI)",
+                        "kapasitas_container": "4 Unit / Container",
+                        "catatan": "Alokasi pengadaan armada batch regional Kebumen dari total dana investasi."
+                    },
+                    "alokasi_dana": {
+                        "modal_operasional_label": "Modal Operasional Awal (Pengadaan 24 Unit)",
+                        "modal_operasional_awal": 5460000000,
+                        "dana_pencadangan_label": "Dana Pencadangan / Likuiditas (9%)",
+                        "dana_pencadangan": 540000000,
+                        "total_investasi": 6000000000,
+                        "catatan": "Komponen PPN, budget garansi, budget insentif, dan fee sukses MIU baru timbul saat unit terjual sehingga tidak dibebankan pada dana awal."
+                    },
+                    "struktur_biaya_unit": {
+                        "harga_pokok_beli": 150000000,
+                        "ppn_11": 34288288,
+                        "ongkos_rekondisi": 25000000,
+                        "container_alokasi": 52500000,
+                        "budget_garansi": 3460000,
+                        "budget_insentif": 3460000,
+                        "fee_miu": 41520000,
+                        "total_biaya_unit": 310228288,
+                        "harga_jual_unit": 346000000,
+                        "profit_bersih_unit": 35771712,
+                        "return_per_siklus": 14.31
+                    },
+                    "tiers": [
+                        {
+                            "nominal": 500000000,
+                            "label": "Paket Partisipasi 2 Unit",
+                            "badge": "Entry Ticket",
+                            "unit_qty": 2,
+                            "container_qty": "0,5 Kontainer (Partisipasi Bersama)",
+                            "porsi_proyek": "8.3% dari Kuota Proyek",
+                            "jaminan_aset": "2 Unit Excavator Komatsu PC57-7 CBU Grade A",
+                            "deskripsi": "Penempatan modal proporsional untuk 2 unit fisik excavator dengan hak bagi hasil penuh setiap unit terjual.",
+                            "profit_per_siklus": 71543424,
+                            "profit_2x_tahunan": 143086848,
+                            "profit_3x_tahunan": 214630272
+                        },
+                        {
+                            "nominal": 1000000000,
+                            "label": "Paket Kontainer Penuh (1 Kontainer 40FT)",
+                            "badge": "Paling Populer",
+                            "unit_qty": 4,
+                            "container_qty": "1 Kontainer Penuh 40FT HC (4 Unit)",
+                            "porsi_proyek": "16.7% dari Kuota Proyek",
+                            "jaminan_aset": "1 Kontainer Khusus Berisi 4 Unit Komatsu PC57-7",
+                            "deskripsi": "Satu kontainer logistik laut 40FT penuh didedikasikan atas nama portofolio pemodal dengan efisiensi biaya maksimal.",
+                            "profit_per_siklus": 143086848,
+                            "profit_2x_tahunan": 286173696,
+                            "profit_3x_tahunan": 429260544
+                        },
+                        {
+                            "nominal": 2000000000,
+                            "label": "Paket Armada Ganda (2 Kontainer 40FT)",
+                            "badge": "Rekomendasi Proposal",
+                            "unit_qty": 8,
+                            "container_qty": "2 Kontainer Penuh 40FT HC (8 Unit)",
+                            "porsi_proyek": "33.3% dari Kuota Proyek",
+                            "jaminan_aset": "8 Unit Fisik Komatsu PC57-7 Tersebar Siap Jual",
+                            "deskripsi": "Diversifikasi perputaran pada 8 unit fisik dengan arus kas bagi hasil yang lebih stabil dan berkelanjutan.",
+                            "profit_per_siklus": 286173696,
+                            "profit_2x_tahunan": 572347392,
+                            "profit_3x_tahunan": 858521088
+                        },
+                        {
+                            "nominal": 3000000000,
+                            "label": "Paket Sindikasi Strategis (3 Miliar)",
+                            "badge": "Prioritas Wilayah",
+                            "unit_qty": 12,
+                            "container_qty": "3 Kontainer 40FT HC",
+                            "porsi_proyek": "50.0% dari Kuota Proyek",
+                            "jaminan_aset": "12 Unit Komatsu PC57-7 CBU Grade A",
+                            "deskripsi": "Kepemilikan separuh batch pengadaan regional dengan hak laporan logistik langsung secara berkala.",
+                            "profit_per_siklus": 429260544,
+                            "profit_2x_tahunan": 858521088,
+                            "profit_3x_tahunan": 1287781632
+                        },
+                        {
+                            "nominal": 6000000000,
+                            "label": "Paket Konsorsium Utama (Seluruh Batch)",
+                            "badge": "Pemegang Kuota Tunggal",
+                            "unit_qty": 24,
+                            "container_qty": "6 Kontainer 40FT HC Penuh",
+                            "porsi_proyek": "100.0% (Seluruh Kuota Batch Kebumen)",
+                            "jaminan_aset": "Seluruh 24 Unit Komatsu PC57-7 Batch Regional",
+                            "deskripsi": "Eksklusivitas pendanaan seluruh armada batch regional dengan skema prioritas pencairan laba.",
+                            "profit_per_siklus": 858521088,
+                            "profit_2x_tahunan": 1717042176,
+                            "profit_3x_tahunan": 2575563264
+                        }
+                    ],
+                    "alur_project": [
+                        {
+                            "step": 1,
+                            "title": "Pengadaan CBU Jepang",
+                            "desc": "Pembelian unit Excavator Komatsu PC57-7 CBU langsung dari lelang & mitra terpercaya di Jepang dengan standar seleksi Grade A."
+                        },
+                        {
+                            "step": 2,
+                            "title": "Logistik Laut (PT MSI)",
+                            "desc": "Pengangkutan laut menggunakan kontainer 40FT HC (kapasitas 4 unit/kontainer) door-to-door hingga ke pelabuhan domestik dan izin impor lengkap."
+                        },
+                        {
+                            "step": 3,
+                            "title": "Rekondisi Workshop (PT MIU)",
+                            "desc": "Inspeksi 100 titik, peremajaan hidrolik, overhaul mesin, pengecatan ulang, dan uji beban kerja di Central Workshop PT Montana Indo Utama."
+                        },
+                        {
+                            "step": 4,
+                            "title": "Penjualan Pasar Nasional",
+                            "desc": "Pemasaran unit siap kerja langsung ke end-user (kontraktor tambang, infrastruktur, perkebunan) dengan offtake & garansi resmi 1%."
+                        },
+                        {
+                            "step": 5,
+                            "title": "Bagi Hasil Pemodal",
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                        }
+                    ],
+                    "breakdown_pembayaran_unit": [
+                        {
+                            "no": 1,
+                            "komponen": "Harga Beli Unit + Ongkos Rekondisi Workshop",
+                            "penerima": "PT MIU",
+                            "nominal": 175000000,
+                            "keterangan": "HPP Pembelian unit CBU Jepang (Rp 150 jt) + jasa rekondisi & overhaul standar operasional (Rp 25 jt)"
+                        },
+                        {
+                            "no": 2,
+                            "komponen": "Ongkos Kontainer 40FT HC Door-to-Door",
+                            "penerima": "PT MSI",
+                            "nominal": 52500000,
+                            "keterangan": "Alokasi per unit (Rp 210.000.000 per 1 kontainer 40FT HC yang memuat 4 unit excavator)"
+                        },
+                        {
+                            "no": 3,
+                            "komponen": "Dana Pencadangan / Likuiditas Kas Operasional (9%)",
+                            "penerima": "Kas Cadangan",
+                            "nominal": 22500000,
+                            "keterangan": "Buffer likuiditas proyek tahap awal untuk memastikan kelancaran operasional sebelum unit terjual"
+                        }
+                    ],
+                    "total_miu_per_unit": 175000000,
+                    "total_msi_per_unit": 52500000,
+                    "dana_cadangan_per_unit": 22500000,
+                    "total_biaya_per_unit": 250000000
                 }
             }
         },
@@ -485,8 +1287,8 @@
             "city": "Jawa Barat",
             "city_icon": "bi-water",
             "city_icon_img": "assets/img/city-jkt-jabar.png",
-            "title": "Sentralisasi Efisiensi Proyek Normalisasi Sungai dan Penanganan Daerah Aliran Sungai Jawa Barat",
-            "category": "Proyek Normalisasi Sungai & Pengendalian Daerah Aliran Sungai (DAS)",
+            "title": "Dealer Jawa Barat",
+            "category": "Pengadaan & Perputaran Unit Alat Berat Komatsu CBU",
             "image": "assets/img/project-jawabarat.jpg",
             "funding": {
                 "collected": 1000000000,
@@ -498,26 +1300,27 @@
             "info": {
                 "lokasi": "Bandung & Koridor DAS Jawa Barat",
                 "target": "Rp 4.000.000.000",
-                "tenor": "36 Bulan",
-                "return": "≥31% (p.a.)",
+                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "return": "28,6% – 42,9% (p.a.)",
                 "min_investment": "Rp 500.000.000",
-                "payout": "Bagi Hasil Kuartalan",
-                "remaining_days": "45 Hari Tersisa",
-                "asset_backed": "Aset Fisik Komatsu CBU Grade A",
-                "brand": "Komatsu CBU Long-Arm Grade A",
-                "stock_available": "3 Unit Siap Operasi",
-                "capitalization_value": "Rp 5,4 Miliar"
+                "payout": "Bagi Hasil Per Siklus Penjualan / Kuartalan",
+                "remaining_days": "",
+                "asset_backed": "Aset Fisik Komatsu PC57-7 CBU Grade A",
+                "brand": "Komatsu PC57-7 CBU Grade A",
+                "stock_available": "Batch 16 Unit (4 Kontainer 40FT HC)",
+                "capitalization_value": "Rp 5.536.000.000"
             },
             "detail": {
-                "tagline": "Sentralisasi Efisiensi Armada Alat Berat Komatsu CBU untuk Penataan dan Normalisasi Daerah Aliran Sungai Jawa Barat",
+                "tagline": "Pengadaan Armada Komatsu PC57-7 CBU Jepang Siap Operasi Proyek Normalisasi Sungai dan Pengendalian Banjir Jawa Barat",
+                "is_gated": false,
                 "what_will_provide": {
                     "type": "text",
-                    "title": "Alokasi Penggunaan Modal Proyek Normalisasi Sungai",
-                    "content": "Permodalan dialokasikan untuk pengadaan 2 unit Excavator Komatsu PC200-8 Long Arm spesialis pengerukan sedimentasi sungai, 1 unit ponton kerja amfibi, serta cadangan pemeliharaan berkala guna menjamin kelancaran penanganan normalisasi sungai dan DAS di Jawa Barat."
+                    "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 16 Unit Komatsu PC57-7)",
+                    "content": "Pengadaan permodalan Rp 4.000.000.000 untuk 16 unit Excavator Komatsu PC57-7 (4 Kontainer 40FT HC) yang dipersiapkan khusus untuk proyek revitalisasi tanggul, pengerukan sedimen anak sungai, dan penataan saluran irigasi DAS Citarum serta infrastruktur Jawa Barat."
                 },
                 "funding_target": {
                     "type": "table",
-                    "title": "Target Pendanaan & Nilai Alokasi RAB",
+                    "title": "Target Pendanaan & Nilai Alokasi Belanja Modal",
                     "columns": [
                         "No",
                         "Item Pengadaan / Spesifikasi",
@@ -528,45 +1331,197 @@
                     "rows": [
                         {
                             "no": 1,
-                            "item": "Excavator Komatsu PC200-8 Long Arm Spesialis Pengerukan Sungai",
-                            "quantity": 2,
-                            "unit_price": 1450000000,
-                            "total": 2900000000
+                            "item": "Harga Pokok Pembelian Unit Excavator Komatsu PC57-7",
+                            "quantity": 16,
+                            "unit_price": 150000000,
+                            "total": 2400000000
                         },
                         {
                             "no": 2,
-                            "item": "Ponton Kerja Amfibi & Rig Pengerukan Aliran Sungai",
-                            "quantity": 1,
-                            "unit_price": 550000000,
-                            "total": 550000000
+                            "item": "Jasa Impor & Kontainer 40FT HC Door-to-Door (PT MSI)",
+                            "quantity": 4,
+                            "unit_price": 210000000,
+                            "total": 840000000
                         },
                         {
                             "no": 3,
-                            "item": "Cadangan Kas Operasional & Pemeliharaan Berkala",
+                            "item": "Ongkos Rekondisi & Workshop Overhaul (PT MIU)",
+                            "quantity": 16,
+                            "unit_price": 25000000,
+                            "total": 400000000
+                        },
+                        {
+                            "no": 4,
+                            "item": "Dana Pencadangan & Likuiditas Operasional (9%)",
                             "quantity": 1,
-                            "unit_price": 550000000,
-                            "total": 550000000
+                            "unit_price": 360000000,
+                            "total": 360000000
                         }
                     ],
-                    "grand_total": 4000000000
+                    "grand_total": 4000000000,
+                    "is_gated": false
                 },
                 "about_sinergi_foundation": {
                     "type": "text",
-                    "title": "Kerangka Kontrak Penyerapan & Konservasi DAS",
-                    "content": "Bekerja sama dengan konsorsium kontraktor penataan tata air dan normalisasi sungai Jawa Barat dengan kepastian SPMK multi-tahap, menjamin tingkat utilisasi armada dan stabilitas arus kas bagi hasil proyek."
+                    "title": "Kerangka Kemitraan Strategis & Penyerapan Pasar (Offtake Framework)",
+                    "content": "Didukung kontrak kemitraan operasional dan kepastian penyerapan unit oleh konsorsium kontraktor penanganan bencana air dan pekerjaan sipil daerah."
                 },
                 "summary": {
                     "type": "text",
-                    "title": "Ringkasan Kelayakan Proyek Investasi",
-                    "content": "Didukung unit fisik riil bersertifikasi dengan nilai likuiditas tinggi, proyeksi imbal hasil terukur ≥31% (p.a.) dengan pelaporan performa operasional berkala dan pembagian dividen kuartalan."
+                    "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
+                    "content": "Tingkat utilisasi unit PC57-7 pada proyek normalisasi sungai sangat tinggi karena bobotnya yang ideal di tanah lunak bibir sungai. Proyeksi return stabil 28,6% – 42,9% p.a."
                 },
                 "simulation": {
-                    "tenor_bulan": 36,
-                    "estimasi_return_persen": 31,
-                    "modal_kerja_bulanan_persen": 2.3,
+                    "tenor_bulan": 12,
+                    "estimasi_return_persen": 28.62,
+                    "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 500000000,
-                    "maximum_investasi": 500000000000,
-                    "default_investasi": 500000000
+                    "maximum_investasi": 40000000000,
+                    "default_investasi": 1000000000,
+                    "notes": "Target perputaran modal 2–3 kali per tahun merupakan proyeksi berbasis kinerja riil penjualan unit Excavator Komatsu PC57-7. Simulasi bersifat ilustratif mengacu pada Risk Disclosure Statement."
+                },
+                "rab_executive": {
+                    "spesifikasi": {
+                        "barang": "Excavator PC57-7 (Komatsu)",
+                        "minimum_investasi": 4000000000,
+                        "minimum_tiket": 500000000,
+                        "periode_investasi": "12 Bulan",
+                        "target_perputaran": "2 – 3 Kali per Tahun",
+                        "sistem_penjualan": "Door to Door via PT MIU",
+                        "estimasi_unit": "16 Unit (4 Kontainer)",
+                        "container_used": "40FT HC Door-to-Door (MSI)",
+                        "kapasitas_container": "4 Unit / Container",
+                        "catatan": "Alokasi pengadaan armada batch regional Jawa Barat dari total dana investasi."
+                    },
+                    "alokasi_dana": {
+                        "modal_operasional_label": "Modal Operasional Awal (Pengadaan 16 Unit)",
+                        "modal_operasional_awal": 3640000000,
+                        "dana_pencadangan_label": "Dana Pencadangan / Likuiditas (9%)",
+                        "dana_pencadangan": 360000000,
+                        "total_investasi": 4000000000,
+                        "catatan": "Komponen PPN, budget garansi, budget insentif, dan fee sukses MIU baru timbul saat unit terjual sehingga tidak dibebankan pada dana awal."
+                    },
+                    "struktur_biaya_unit": {
+                        "harga_pokok_beli": 150000000,
+                        "ppn_11": 34288288,
+                        "ongkos_rekondisi": 25000000,
+                        "container_alokasi": 52500000,
+                        "budget_garansi": 3460000,
+                        "budget_insentif": 3460000,
+                        "fee_miu": 41520000,
+                        "total_biaya_unit": 310228288,
+                        "harga_jual_unit": 346000000,
+                        "profit_bersih_unit": 35771712,
+                        "return_per_siklus": 14.31
+                    },
+                    "tiers": [
+                        {
+                            "nominal": 500000000,
+                            "label": "Paket Partisipasi 2 Unit",
+                            "badge": "Entry Ticket",
+                            "unit_qty": 2,
+                            "container_qty": "0,5 Kontainer (Partisipasi Bersama)",
+                            "porsi_proyek": "12.5% dari Kuota Proyek",
+                            "jaminan_aset": "2 Unit Excavator Komatsu PC57-7 CBU Grade A",
+                            "deskripsi": "Penempatan modal proporsional untuk 2 unit fisik excavator dengan hak bagi hasil penuh setiap unit terjual.",
+                            "profit_per_siklus": 71543424,
+                            "profit_2x_tahunan": 143086848,
+                            "profit_3x_tahunan": 214630272
+                        },
+                        {
+                            "nominal": 1000000000,
+                            "label": "Paket Kontainer Penuh (1 Kontainer 40FT)",
+                            "badge": "Paling Populer",
+                            "unit_qty": 4,
+                            "container_qty": "1 Kontainer Penuh 40FT HC (4 Unit)",
+                            "porsi_proyek": "25% dari Kuota Proyek",
+                            "jaminan_aset": "1 Kontainer Khusus Berisi 4 Unit Komatsu PC57-7",
+                            "deskripsi": "Satu kontainer logistik laut 40FT penuh didedikasikan atas nama portofolio pemodal dengan efisiensi biaya maksimal.",
+                            "profit_per_siklus": 143086848,
+                            "profit_2x_tahunan": 286173696,
+                            "profit_3x_tahunan": 429260544
+                        },
+                        {
+                            "nominal": 2000000000,
+                            "label": "Paket Armada Ganda (2 Kontainer 40FT)",
+                            "badge": "Rekomendasi Proposal",
+                            "unit_qty": 8,
+                            "container_qty": "2 Kontainer Penuh 40FT HC (8 Unit)",
+                            "porsi_proyek": "50% dari Kuota Proyek",
+                            "jaminan_aset": "8 Unit Fisik Komatsu PC57-7 Tersebar Siap Jual",
+                            "deskripsi": "Diversifikasi perputaran pada 8 unit fisik dengan arus kas bagi hasil yang lebih stabil dan berkelanjutan.",
+                            "profit_per_siklus": 286173696,
+                            "profit_2x_tahunan": 572347392,
+                            "profit_3x_tahunan": 858521088
+                        },
+                        {
+                            "nominal": 4000000000,
+                            "label": "Paket Konsorsium Utama (Seluruh Batch)",
+                            "badge": "Pemegang Kuota Tunggal",
+                            "unit_qty": 16,
+                            "container_qty": "4 Kontainer 40FT HC Penuh",
+                            "porsi_proyek": "100.0% (Seluruh Kuota Batch Jawa Barat)",
+                            "jaminan_aset": "Seluruh 16 Unit Komatsu PC57-7 Batch Regional",
+                            "deskripsi": "Eksklusivitas pendanaan seluruh armada batch regional dengan skema prioritas pencairan laba.",
+                            "profit_per_siklus": 572347392,
+                            "profit_2x_tahunan": 1144694784,
+                            "profit_3x_tahunan": 1717042176
+                        }
+                    ],
+                    "alur_project": [
+                        {
+                            "step": 1,
+                            "title": "Pengadaan CBU Jepang",
+                            "desc": "Pembelian unit Excavator Komatsu PC57-7 CBU langsung dari lelang & mitra terpercaya di Jepang dengan standar seleksi Grade A."
+                        },
+                        {
+                            "step": 2,
+                            "title": "Logistik Laut (PT MSI)",
+                            "desc": "Pengangkutan laut menggunakan kontainer 40FT HC (kapasitas 4 unit/kontainer) door-to-door hingga ke pelabuhan domestik dan izin impor lengkap."
+                        },
+                        {
+                            "step": 3,
+                            "title": "Rekondisi Workshop (PT MIU)",
+                            "desc": "Inspeksi 100 titik, peremajaan hidrolik, overhaul mesin, pengecatan ulang, dan uji beban kerja di Central Workshop PT Montana Indo Utama."
+                        },
+                        {
+                            "step": 4,
+                            "title": "Penjualan Pasar Nasional",
+                            "desc": "Pemasaran unit siap kerja langsung ke end-user (kontraktor tambang, infrastruktur, perkebunan) dengan offtake & garansi resmi 1%."
+                        },
+                        {
+                            "step": 5,
+                            "title": "Bagi Hasil Pemodal",
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                        }
+                    ],
+                    "breakdown_pembayaran_unit": [
+                        {
+                            "no": 1,
+                            "komponen": "Harga Beli Unit + Ongkos Rekondisi Workshop",
+                            "penerima": "PT MIU",
+                            "nominal": 175000000,
+                            "keterangan": "HPP Pembelian unit CBU Jepang (Rp 150 jt) + jasa rekondisi & overhaul standar operasional (Rp 25 jt)"
+                        },
+                        {
+                            "no": 2,
+                            "komponen": "Ongkos Kontainer 40FT HC Door-to-Door",
+                            "penerima": "PT MSI",
+                            "nominal": 52500000,
+                            "keterangan": "Alokasi per unit (Rp 210.000.000 per 1 kontainer 40FT HC yang memuat 4 unit excavator)"
+                        },
+                        {
+                            "no": 3,
+                            "komponen": "Dana Pencadangan / Likuiditas Kas Operasional (9%)",
+                            "penerima": "Kas Cadangan",
+                            "nominal": 22500000,
+                            "keterangan": "Buffer likuiditas proyek tahap awal untuk memastikan kelancaran operasional sebelum unit terjual"
+                        }
+                    ],
+                    "total_miu_per_unit": 175000000,
+                    "total_msi_per_unit": 52500000,
+                    "dana_cadangan_per_unit": 22500000,
+                    "total_biaya_per_unit": 250000000
                 }
             }
         }

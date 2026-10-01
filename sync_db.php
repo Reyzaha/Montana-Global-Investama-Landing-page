@@ -41,8 +41,8 @@ try {
     $insD = $db->prepare("
         INSERT INTO project_details (
             project_id, tagline, what_will_provide_title, what_will_provide_content,
-            sinergi_title, sinergi_content, summary_title, summary_content
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            sinergi_title, sinergi_content, summary_title, summary_content, rab_executive_json
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     ");
 
     $insF = $db->prepare("
@@ -96,7 +96,8 @@ try {
             $sf['title'] ?? 'Kerangka Kontrak Penyerapan Pasar (Offtake Framework)',
             $sf['content'] ?? '',
             $sm['title'] ?? 'Ringkasan Kelayakan Investasi & Profil Risiko',
-            $sm['content'] ?? ''
+            $sm['content'] ?? '',
+            !empty($det['rab_executive']) ? json_encode($det['rab_executive']) : null
         ]);
 
         $fTarget = $det['funding_target'] ?? [];
