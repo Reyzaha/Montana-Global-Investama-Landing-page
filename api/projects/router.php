@@ -241,6 +241,31 @@ try {
             ]
         ];
 
+        // Fetch RAB Executive & Funding Items
+        $stmtDet = $db->prepare("SELECT rab_executive_json FROM project_details WHERE project_id = ? LIMIT 1");
+        $stmtDet->execute([$projectId]);
+        $detRow = $stmtDet->fetch();
+        $rabExecutive = null;
+        if (!empty($detRow['rab_executive_json'])) {
+            $rabExecutive = json_decode($detRow['rab_executive_json'], true);
+        }
+        if (!$rabExecutive) {
+            $jsonFile = __DIR__ . '/../../data/projects.json';
+            if (file_exists($jsonFile)) {
+                $rawP = json_decode(file_get_contents($jsonFile), true);
+                foreach ($rawP['projects'] ?? [] as $pj) {
+                    if ($pj['id'] === $projectId && !empty($pj['detail']['rab_executive'])) {
+                        $rabExecutive = $pj['detail']['rab_executive'];
+                        break;
+                    }
+                }
+            }
+        }
+
+        $stmtItems = $db->prepare("SELECT no_urut, item_name, quantity, unit_price, total FROM funding_items WHERE project_id = ? ORDER BY no_urut ASC");
+        $stmtItems->execute([$projectId]);
+        $fundingItems = $stmtItems->fetchAll();
+
         // Return comprehensive dashboard package
         sendJsonResponse([
             'project' => [
@@ -252,8 +277,12 @@ try {
                 'status' => $project['status'],
                 'contract_number' => $contractNumber,
                 'tenor' => $project['tenor'] ?: '36 Bulan',
-                'return_rate' => $project['return_rate'] ?: '≥32% (p.a.)'
+                'return_rate' => $project['return_rate'] ?: '≥32% (p.a.)',
+                'funding_target' => (float)$project['funding_target'],
+                'funding_collected' => (float)$project['funding_collected']
             ],
+            'rab_executive' => $rabExecutive,
+            'funding_items' => $fundingItems,
             'financial_summary' => [
                 'total_dana_investor' => $totalCapital,
                 'total_pembelian' => $totalPembelian,

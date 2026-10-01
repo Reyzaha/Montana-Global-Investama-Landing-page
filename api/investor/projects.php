@@ -19,7 +19,19 @@ try {
 
     $db = getDB();
 
-    // 1. Fetch investor's portfolios joined with projects
+    // Fallback static rab data
+    $extraProjectData = [];
+    $staticFile = __DIR__ . '/../../data/projects.json';
+    if (file_exists($staticFile)) {
+        $rawStatic = json_decode(file_get_contents($staticFile), true);
+        foreach ($rawStatic['projects'] ?? [] as $sp) {
+            if (!empty($sp['id']) && !empty($sp['detail']['rab_executive'])) {
+                $extraProjectData[$sp['id']] = $sp['detail']['rab_executive'];
+            }
+        }
+    }
+
+    // 1. Fetch investor's portfolios joined with projects and project_details
     $stmt = $db->prepare("
         SELECT p.*, 
                pr.title as project_title, 
@@ -30,9 +42,11 @@ try {
                pr.funding_target,
                pr.funding_collected,
                pr.return_rate as project_return_rate,
-               pr.tenor as project_tenor
+               pr.tenor as project_tenor,
+               pd.rab_executive_json
         FROM investor_portfolios p
         JOIN projects pr ON p.project_id = pr.id
+        LEFT JOIN project_details pd ON pr.id = pd.project_id
         WHERE p.investor_id = ?
         ORDER BY p.start_date DESC, p.id DESC
     ");
@@ -135,6 +149,33 @@ try {
         $stmtInv->execute([$pId]);
         $invStats = $stmtInv->fetch() ?: ['total_units' => 2, 'active_units' => 2];
 
+        // Parse RAB Executive and match investor's tier
+        $rabData = null;
+        if (!empty($p['rab_executive_json'])) {
+            $rabData = json_decode($p['rab_executive_json'], true);
+        }
+        if (!$rabData && !empty($extraProjectData[$pId])) {
+            $rabData = $extraProjectData[$pId];
+        }
+
+        $matchedTier = null;
+        if (!empty($rabData['tiers']) && is_array($rabData['tiers'])) {
+            // Find tier with exact matching nominal or highest tier <= capital
+            foreach ($rabData['tiers'] as $tier) {
+                if ((float)($tier['nominal'] ?? 0) == $investorCapital) {
+                    $matchedTier = $tier;
+                    break;
+                }
+            }
+            if (!$matchedTier) {
+                foreach ($rabData['tiers'] as $tier) {
+                    if ((float)($tier['nominal'] ?? 0) <= $investorCapital) {
+                        $matchedTier = $tier;
+                    }
+                }
+            }
+        }
+
         $projectsList[] = [
             'id' => $p['id'],
             'project_id' => $pId,
@@ -145,6 +186,8 @@ try {
             'contract_number' => $p['contract_number'],
             'status' => $p['status'],
             'total_dana_investor' => $investorCapital,
+            'tier_info' => $matchedTier,
+            'rab_executive' => $rabData,
             'ringkasan' => [
                 'sisa_dana' => $sisaDana,
                 'total_pembelian' => $totalPembelian,
@@ -155,7 +198,9 @@ try {
                 'return_rate' => $p['return_rate'],
                 'tenor' => $p['tenor'],
                 'next_payout_date' => $p['next_payout_date'] ?: '2026-10-15',
-                'allocated_units' => $p['allocated_units'] ?: '2x Komatsu PC138US-8 CBU Jepang',
+                'allocated_units' => ($matchedTier && !empty($matchedTier['unit_qty'])) 
+                    ? ($matchedTier['unit_qty'] . ' Unit Komatsu PC57-7 CBU Jepang') 
+                    : ($p['allocated_units'] ?: 'Unit CBU Jepang Grade A'),
                 'total_units' => (int)$invStats['total_units'] ?: 2,
                 'active_units' => (int)$invStats['active_units'] ?: 2,
                 'utilization_rate' => '94.2%'

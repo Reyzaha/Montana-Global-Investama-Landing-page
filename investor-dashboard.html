@@ -406,36 +406,9 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2" id="catalogGridContainer">
-          <!-- Catalog Item 1 -->
-          <div class="catalog-card border border-slate-200 rounded-2xl p-4 hover:shadow-md transition-shadow bg-slate-50/50 flex flex-col justify-between" data-title="Armada Dump Truck Heavy Duty 10 Roda Morowali Nikel">
-            <div class="space-y-3">
-              <div class="flex items-start justify-between">
-                <span class="px-2.5 py-1 text-[10px] font-bold uppercase rounded-full bg-amber-100 text-amber-800">Tahap 2 Pembukaan</span>
-                <span class="text-xs font-bold text-emerald-600">ROI Est. 34% p.a.</span>
-              </div>
-              <h5 class="font-bold text-slate-900 text-sm">Armada Dump Truck Heavy Duty 10 Roda (Sektor Nikel Morowali)</h5>
-              <p class="text-xs text-slate-600 line-clamp-2">Pengadaan 5 unit dump truck kapasitas 30 ton dengan kontrak jangka panjang off-taker smelter terkemuka di Sulawesi Tengah.</p>
-            </div>
-            <div class="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-xs">
-              <span class="text-slate-500">Slot Terisi: <strong class="text-slate-800 font-bold">65%</strong></span>
-              <button onclick="openModal('investModal')" class="px-3 py-1.5 bg-slate-900 text-white rounded-full text-xs font-semibold hover:bg-slate-800 transition">Detail &amp; Simulasi</button>
-            </div>
-          </div>
-
-          <!-- Catalog Item 2 -->
-          <div class="catalog-card border border-slate-200 rounded-2xl p-4 hover:shadow-md transition-shadow bg-slate-50/50 flex flex-col justify-between" data-title="Bulldozer Shantui SD22 Wheel Loader Konstruksi Toll Road Jawa Timur">
-            <div class="space-y-3">
-              <div class="flex items-start justify-between">
-                <span class="px-2.5 py-1 text-[10px] font-bold uppercase rounded-full bg-blue-100 text-blue-800">Segera Dibuka</span>
-                <span class="text-xs font-bold text-emerald-600">ROI Est. 29% p.a.</span>
-              </div>
-              <h5 class="font-bold text-slate-900 text-sm">Bulldozer Shantui SD22 &amp; Wheel Loader Konstruksi Toll Road</h5>
-              <p class="text-xs text-slate-600 line-clamp-2">Penyediaan unit grading tanah untuk kelanjutan proyek jalan tol regional Jawa Timur. Kontrak sewa kering &amp; basah berkala.</p>
-            </div>
-            <div class="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-xs">
-              <span class="text-slate-500">Min. Penempatan: <strong class="text-slate-800 font-bold">Rp 1 Miliar</strong></span>
-              <button onclick="openModal('investModal')" class="px-3 py-1.5 bg-slate-900 text-white rounded-full text-xs font-semibold hover:bg-slate-800 transition">Daftar Antrean</button>
-            </div>
+          <div class="col-span-full py-12 text-center text-slate-400 text-xs">
+            <i data-lucide="loader-2" class="w-6 h-6 animate-spin mx-auto text-blue-600 mb-2"></i>
+            Memuat daftar katalog peluang proyek investasi terbuka...
           </div>
         </div>
       </div>
@@ -758,8 +731,8 @@
             <span class="text-xs text-slate-400">Pilih modul di bawah untuk rincian data transaksi, mutasi unit &amp; laporan</span>
           </div>
 
-          <!-- Buttons Row matching User Request: stock/inventory, pembelian, penjualan, biaya, labarugi, neraca, grafik -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5" id="opModuleNavButtons">
+          <!-- Buttons Row matching User Request: stock/inventory, pembelian, penjualan, biaya, labarugi, neraca, grafik, rab -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5" id="opModuleNavButtons">
             <!-- 1. Stock / Inventory -->
             <button onclick="switchOperationalModule('inventory')" id="opNavBtn-inventory" class="op-nav-btn py-3 px-3 rounded-2xl bg-blue-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-md active:scale-95 ring-2 ring-blue-400/60 cursor-pointer">
               <i data-lucide="boxes" class="w-4 h-4 text-white"></i>
@@ -793,7 +766,12 @@
             <!-- 7. Ikhtisar & 4 Grafik -->
             <button onclick="switchOperationalModule('overview')" id="opNavBtn-overview" class="op-nav-btn py-3 px-3 rounded-2xl bg-slate-800/90 hover:bg-slate-800 text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-95 border border-slate-700/60 cursor-pointer">
               <i data-lucide="line-chart" class="w-4 h-4 text-cyan-400"></i>
-              <span>Ikhtisar &amp; 4 Grafik</span>
+              <span>Ikhtisar</span>
+            </button>
+            <!-- 8. RAB & Alokasi Modal -->
+            <button onclick="switchOperationalModule('rab')" id="opNavBtn-rab" class="op-nav-btn py-3 px-3 rounded-2xl bg-slate-800/90 hover:bg-slate-800 text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-95 border border-slate-700/60 cursor-pointer">
+              <i data-lucide="calculator" class="w-4 h-4 text-amber-400"></i>
+              <span>RAB &amp; Alokasi</span>
             </button>
           </div>
         </div>
@@ -1567,6 +1545,110 @@
 
           </div>
         </div>
+
+        <!-- PANEL: RENCANA ANGGARAN BIAYA (RAB) & ALOKASI MODAL AWAL -->
+        <div id="opModulePanel-rab" class="op-module-panel hidden space-y-6">
+          <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-md space-y-6">
+            
+            <!-- Header RAB Panel -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+              <div>
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300 mb-2">
+                  <i data-lucide="calculator" class="w-4 h-4 text-amber-700"></i>
+                  RENCANA ANGGARAN BIAYA (RAB) &amp; ALOKASI MODAL AWAL
+                </div>
+                <h3 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight" id="opRabPanelTitle">
+                  Struktur Biaya Pengadaan &amp; Skema Alokasi Unit Proyek
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1 max-w-3xl leading-relaxed">
+                  Baseline penganggaran resmi proyek: mencakup HPP lelang unit CBU di Jepang, biaya kontainer laut via PT MSI, rekondisi &amp; uji kelayakan di workshop PT MIU, serta dana pencadangan likuiditas 9%.
+                </p>
+              </div>
+
+              <div class="shrink-0 bg-slate-900 text-white p-4 rounded-2xl border border-slate-800 text-right">
+                <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider block">Target Total Proyek</span>
+                <div class="text-lg sm:text-xl font-mono font-black text-amber-400 mt-0.5" id="opRabTargetTotal">Rp 10.000.000.000</div>
+                <span class="text-[11px] text-slate-300" id="opRabTargetSub">40 Unit (10 Kontainer)</span>
+              </div>
+            </div>
+
+            <!-- Unit Cost Breakdown Grid (HPP Unit -> Harga Jual) -->
+            <div class="space-y-3">
+              <h4 class="text-xs uppercase tracking-wider font-extrabold text-slate-700 flex items-center gap-1.5">
+                <i data-lucide="receipt" class="w-4 h-4 text-blue-600"></i>
+                Struktur Komponen Biaya per 1 Unit Excavator Komatsu PC57-7
+              </h4>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs" id="opRabUnitCostGrid">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+
+            <!-- Tiers Table: Porsi & Hak Unit Fisik Pemodal -->
+            <div class="space-y-3 pt-2">
+              <div class="flex items-center justify-between">
+                <h4 class="text-xs uppercase tracking-wider font-extrabold text-slate-700 flex items-center gap-1.5">
+                  <i data-lucide="layers" class="w-4 h-4 text-amber-600"></i>
+                  Pilihan Paket Partisipasi &amp; Alokasi Fisik Unit
+                </h4>
+                <span class="text-[11px] text-slate-500 font-medium">Highlight emas menandakan paket yang Anda miliki saat ini</span>
+              </div>
+              <div class="overflow-x-auto border border-slate-200 rounded-2xl">
+                <table class="w-full text-xs text-left">
+                  <thead class="bg-slate-900 text-slate-200 font-bold uppercase text-[10px] tracking-wider">
+                    <tr>
+                      <th class="py-3 px-4">Paket / Nominal</th>
+                      <th class="py-3 px-4 text-center">Unit Fisik</th>
+                      <th class="py-3 px-4">Alokasi Kontainer</th>
+                      <th class="py-3 px-4">Porsi Kuota</th>
+                      <th class="py-3 px-4 text-right">Est. Bagi Hasil / Siklus</th>
+                      <th class="py-3 px-4 text-right">Est. Tahunan (2x)</th>
+                      <th class="py-3 px-4 text-center">Status Anda</th>
+                    </tr>
+                  </thead>
+                  <tbody id="opRabTiersTableBody" class="divide-y divide-slate-100">
+                    <!-- Injected via JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- 5 Steps Flow -->
+            <div class="space-y-3 pt-2">
+              <h4 class="text-xs uppercase tracking-wider font-extrabold text-slate-700 flex items-center gap-1.5">
+                <i data-lucide="git-commit" class="w-4 h-4 text-emerald-600"></i>
+                Alur Siklus Operasional Proyek
+              </h4>
+              <div class="grid grid-cols-1 sm:grid-cols-5 gap-3 text-xs" id="opRabStepsGrid">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+
+            <!-- Total Anggaran Keseluruhan Proyek (Funding Items) -->
+            <div class="space-y-3 pt-2">
+              <h4 class="text-xs uppercase tracking-wider font-extrabold text-slate-700 flex items-center gap-1.5">
+                <i data-lucide="clipboard-list" class="w-4 h-4 text-indigo-600"></i>
+                Rincian Item Anggaran Proyek (RAB Keseluruhan)
+              </h4>
+              <div class="overflow-x-auto border border-slate-200 rounded-2xl">
+                <table class="w-full text-xs text-left">
+                  <thead class="bg-slate-100 text-slate-700 font-bold uppercase text-[10px]">
+                    <tr>
+                      <th class="py-2.5 px-4 w-12 text-center">No</th>
+                      <th class="py-2.5 px-4">Deskripsi Item / Komponen</th>
+                      <th class="py-2.5 px-4 w-20 text-center">Volume</th>
+                      <th class="py-2.5 px-4 text-right">Harga Satuan</th>
+                      <th class="py-2.5 px-4 text-right font-bold">Total Nilai</th>
+                    </tr>
+                  </thead>
+                  <tbody id="opRabFundingItemsBody" class="divide-y divide-slate-100 font-mono">
+                    <!-- Injected via JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
 </div>
 
       <!-- Modal Footer -->
@@ -1735,10 +1817,8 @@
       <div class="p-6 space-y-4">
         <div>
           <label class="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">Pilih Sektor Proyek</label>
-          <select id="investProjectSelect" class="w-full text-xs sm:text-sm bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 focus:ring-1 focus:ring-blue-500 focus:outline-none">
-            <option>Ekspansi Dump Truck 10 Roda Morowali (Sektor Nikel) - Est. 34% p.a.</option>
-            <option>Bulldozer &amp; Wheel Loader Tol Jawa Timur - Est. 29% p.a.</option>
-            <option>Penambahan Unit Komatsu PC138US-8 Batch #2 - Est. 32% p.a.</option>
+          <select id="investProjectSelect" onchange="calculateSimulatedYield()" class="w-full text-xs sm:text-sm bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 focus:ring-1 focus:ring-blue-500 focus:outline-none">
+            <option>Memuat daftar proyek terbuka...</option>
           </select>
         </div>
 
@@ -1836,6 +1916,9 @@
       // 2. Auth Verification & Data Fetching
       await initDashboardData();
 
+      // 3. Load & Render Open Projects Catalog (Area C)
+      await loadAndRenderCatalog();
+
       // 3. Setup outside click listeners for dropdowns/modals
       window.addEventListener('click', (event) => {
         const modals = ['dashboardModal', 'investModal', 'summaryModal'];
@@ -1910,6 +1993,46 @@
         const statusClass = p.status === 'active' ? 'bg-emerald-600' : 'bg-slate-600';
         const pId = p.project_id || p.id;
         const imgUrl = p.image || 'https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=1600&q=80';
+        const tier = p.tier_info || null;
+
+        let tierCardHtml = '';
+        if (tier) {
+          tierCardHtml = `
+            <!-- Hak Alokasi Unit Fisik & Paket Portofolio -->
+            <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-500/10 via-amber-50/60 to-slate-50 border border-amber-300/80 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xs">
+              <div class="flex items-start gap-3.5">
+                <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-600 text-slate-950 flex items-center justify-center shrink-0 shadow-md">
+                  <i data-lucide="package-check" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="text-[11px] uppercase tracking-wider font-extrabold text-amber-900">Hak Kepemilikan Fisik Unit</span>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-400 text-slate-950">${tier.badge || 'Portofolio Terdaftar'}</span>
+                    <span class="text-[11px] font-bold text-slate-600">${tier.porsi_proyek || ''}</span>
+                  </div>
+                  <h4 class="text-sm sm:text-base font-extrabold text-slate-900 mt-0.5">${tier.label || 'Paket Kepemilikan Armada'}</h4>
+                  <div class="text-xs text-slate-600 mt-1 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="inline-flex items-center gap-1 font-semibold text-slate-800">
+                      <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600"></i> ${tier.jaminan_aset || r.allocated_units}
+                    </span>
+                    <span class="inline-flex items-center gap-1 text-slate-600">
+                      <i data-lucide="box" class="w-3.5 h-3.5 text-blue-600"></i> ${tier.container_qty || '-'}
+                    </span>
+                    <span class="inline-flex items-center gap-1 font-bold text-amber-800">
+                      <i data-lucide="coins" class="w-3.5 h-3.5 text-amber-600"></i> Est. Profit: ${formatRupiahExact(tier.profit_per_siklus || 0)} / siklus
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="shrink-0 flex items-center gap-2">
+                <button onclick="openOperationalDashboard('${pId}', 'rab')" class="w-full md:w-auto px-4 py-2.5 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-600 text-slate-950 flex items-center justify-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer">
+                  <i data-lucide="calculator" class="w-3.5 h-3.5"></i>
+                  <span>Lihat Acuan RAB</span>
+                </button>
+              </div>
+            </div>
+          `;
+        }
 
         html += `
           <div class="bg-white rounded-3xl border border-slate-200/90 shadow-lg shadow-slate-200/50 overflow-hidden hover:border-slate-300 transition-all duration-300">
@@ -1931,7 +2054,7 @@
                 </span>
                 <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-slate-900/90 text-amber-300 border border-amber-400/30 backdrop-blur-md shadow-md">
                   <i data-lucide="shield" class="w-3.5 h-3.5"></i>
-                  ${r.allocated_units || 'Unit CBU Jepang Grade A'}
+                  ${(tier && tier.unit_qty) ? (tier.unit_qty + ' Unit Komatsu CBU Jepang') : (r.allocated_units || 'Unit CBU Jepang Grade A')}
                 </span>
               </div>
 
@@ -2008,6 +2131,8 @@
                 </div>
               </div>
 
+              ${tierCardHtml}
+
               <!-- Modular Quick Module Access Strip (Styled as User Screenshot) -->
               <div class="pt-2 pb-1">
                 <div class="flex items-center justify-between mb-2">
@@ -2015,9 +2140,9 @@
                     <i data-lucide="layers" class="w-3.5 h-3.5 text-blue-600"></i>
                     Buka Langsung Modul Rinci:
                   </span>
-                  <span class="text-[10px] text-slate-400">Klik modul untuk rincian data transaksi</span>
+                  <span class="text-[10px] text-slate-400">Klik modul untuk rincian data transaksi &amp; acuan RAB</span>
                 </div>
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
                   <button 
                     onclick="openOperationalDashboard('${pId}', 'inventory')"
                     class="py-2.5 px-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold text-center transition flex items-center justify-center gap-1.5 shadow-xs active:scale-95 cursor-pointer border border-slate-700/60"
@@ -2059,6 +2184,13 @@
                   >
                     <i data-lucide="scale" class="w-3.5 h-3.5 text-indigo-400"></i>
                     <span>Neraca</span>
+                  </button>
+                  <button 
+                    onclick="openOperationalDashboard('${pId}', 'rab')"
+                    class="py-2.5 px-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold text-center transition flex items-center justify-center gap-1.5 shadow-xs active:scale-95 cursor-pointer border border-slate-700/60"
+                  >
+                    <i data-lucide="calculator" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <span>RAB Acuan</span>
                   </button>
                 </div>
               </div>
@@ -2844,6 +2976,132 @@
       if (document.getElementById('opLrCostWorkshop')) document.getElementById('opLrCostWorkshop').innerText = formatRupiahExact(Math.round(totCost * 0.55));
       if (document.getElementById('opLrTableNetProfit')) document.getElementById('opLrTableNetProfit').innerText = formatRupiahExact(netProfit);
       if (document.getElementById('opLrTableDivPaid')) document.getElementById('opLrTableDivPaid').innerText = formatRupiahExact(divPaid);
+
+      // -------------------------------------------------------------
+      // MODUL 8: RENCANA ANGGARAN BIAYA (RAB) & ALOKASI MODAL AWAL
+      // -------------------------------------------------------------
+      renderRabModuleDetailed(data);
+    }
+
+    // Renderer for RAB & Initial Allocation Module in Modal
+    function renderRabModuleDetailed(data) {
+      if (!data) return;
+      const p = data.project || {};
+      const f = data.financial_summary || {};
+      const rab = data.rab_executive || null;
+      const fItems = data.funding_items || [];
+      const userCapital = f.total_dana_investor || 5000000000;
+
+      if (rab) {
+        const spec = rab.spesifikasi || {};
+        const alloc = rab.alokasi_dana || {};
+        const unitCost = rab.struktur_biaya_unit || {};
+        const tiers = rab.tiers || [];
+        const steps = rab.alur_project || [];
+
+        // Title and Target Total
+        if (document.getElementById('opRabPanelTitle')) {
+          document.getElementById('opRabPanelTitle').innerText = `Struktur Biaya Pengadaan & Alokasi Unit (${p.title || 'Proyek'})`;
+        }
+        if (document.getElementById('opRabTargetTotal')) {
+          document.getElementById('opRabTargetTotal').innerText = formatRupiahExact(alloc.total_investasi || p.funding_target || 10000000000);
+        }
+        if (document.getElementById('opRabTargetSub')) {
+          document.getElementById('opRabTargetSub').innerText = spec.estimasi_unit || `${p.title || 'Armada Proyek'}`;
+        }
+
+        // Unit Cost Grid
+        const costGrid = document.getElementById('opRabUnitCostGrid');
+        if (costGrid) {
+          costGrid.innerHTML = `
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <span class="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">1. HPP Beli Unit (Lelang CBU Jepang)</span>
+              <div class="text-slate-900 font-mono font-black text-sm mt-0.5">${formatRupiahExact(unitCost.harga_pokok_beli || 150000000)}</div>
+              <span class="text-[10px] text-slate-500">Standar seleksi ketat Grade A lelang</span>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <span class="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">2. Kontainer Laut 40FT (PT MSI)</span>
+              <div class="text-slate-900 font-mono font-black text-sm mt-0.5">${formatRupiahExact(unitCost.container_alokasi || 52500000)}</div>
+              <span class="text-[10px] text-slate-500">Porsi per unit (4 unit / kontainer 40FT)</span>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <span class="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">3. Rekondisi & Workshop (PT MIU)</span>
+              <div class="text-slate-900 font-mono font-black text-sm mt-0.5">${formatRupiahExact(unitCost.ongkos_rekondisi || 25000000)}</div>
+              <span class="text-[10px] text-slate-500">Overhaul mesin, uji 100 titik & repaint</span>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-300">
+              <span class="text-amber-900 block text-[10px] uppercase font-black tracking-wider">Total Modal -> Estimasi Jual</span>
+              <div class="text-amber-950 font-mono font-black text-sm mt-0.5">${formatRupiahExact(unitCost.total_biaya_unit || 310228288)} -> <span class="text-emerald-700">${formatRupiahExact(unitCost.harga_jual_unit || 346000000)}</span></div>
+              <span class="text-[10px] text-emerald-700 font-extrabold">Margin Bersih: ${unitCost.return_per_siklus || 14.31}% / siklus</span>
+            </div>
+          `;
+        }
+
+        // Tiers Table with Investor Highlight
+        const tiersTbody = document.getElementById('opRabTiersTableBody');
+        if (tiersTbody) {
+          tiersTbody.innerHTML = tiers.map((t, idx) => {
+            const isUserTier = (Number(t.nominal) === Number(userCapital)) || (userCapital >= Number(t.nominal) && (idx === tiers.length - 1 || userCapital < Number(tiers[idx + 1]?.nominal || Infinity)));
+            const rowClass = isUserTier ? 'bg-amber-500/15 font-bold border-l-4 border-l-amber-500' : 'hover:bg-slate-50';
+            const statusBadge = isUserTier 
+              ? '<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-500 text-slate-950 shadow-xs"><i data-lucide="check-circle" class="w-3 h-3"></i> Paket Anda</span>'
+              : '<span class="text-[11px] text-slate-400">Opsi Terbuka</span>';
+
+            return `
+              <tr class="${rowClass} transition">
+                <td class="py-3 px-4">
+                  <div class="font-extrabold text-slate-900">${formatRupiahExact(t.nominal)}</div>
+                  <span class="text-[10px] text-amber-800 font-semibold">${t.label}</span>
+                </td>
+                <td class="py-3 px-4 text-center font-bold text-slate-900">
+                  <span class="px-2 py-0.5 rounded-lg bg-slate-100 border border-slate-200">${t.unit_qty} Unit</span>
+                </td>
+                <td class="py-3 px-4 text-slate-700">${t.container_qty || '-'}</td>
+                <td class="py-3 px-4 font-semibold text-slate-700">${t.porsi_proyek || '-'}</td>
+                <td class="py-3 px-4 text-right font-mono font-bold text-emerald-700">${formatRupiahExact(t.profit_per_siklus || 0)}</td>
+                <td class="py-3 px-4 text-right font-mono font-bold text-blue-700">${formatRupiahExact(t.profit_2x_tahunan || 0)}</td>
+                <td class="py-3 px-4 text-center">${statusBadge}</td>
+              </tr>
+            `;
+          }).join('');
+        }
+
+        // 5 Steps Grid
+        const stepsGrid = document.getElementById('opRabStepsGrid');
+        if (stepsGrid) {
+          stepsGrid.innerHTML = steps.map(s => `
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between hover:border-slate-300 transition">
+              <div>
+                <span class="w-6 h-6 rounded-full bg-slate-900 text-amber-400 font-bold text-[11px] flex items-center justify-center mb-2">
+                  ${s.step}
+                </span>
+                <h5 class="font-bold text-slate-900 text-xs">${s.title}</h5>
+                <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">${s.desc}</p>
+              </div>
+            </div>
+          `).join('');
+        }
+      }
+
+      // Funding Items Table
+      const fBody = document.getElementById('opRabFundingItemsBody');
+      if (fBody) {
+        if (fItems.length === 0) {
+          fBody.innerHTML = `<tr><td colspan="5" class="py-4 text-center text-slate-400">Rincian item anggaran tersinkronisasi dengan kontrak proyek.</td></tr>`;
+        } else {
+          fBody.innerHTML = fItems.map((fi, idx) => `
+            <tr class="hover:bg-slate-50 transition text-xs">
+              <td class="py-2.5 px-4 text-center text-slate-400">${fi.no_urut || (idx + 1)}</td>
+              <td class="py-2.5 px-4 font-sans font-semibold text-slate-900">${fi.item_name}</td>
+              <td class="py-2.5 px-4 text-center text-slate-600 font-mono">${fi.quantity}</td>
+              <td class="py-2.5 px-4 text-right text-slate-600">${formatRupiahExact(fi.unit_price)}</td>
+              <td class="py-2.5 px-4 text-right font-bold text-slate-900">${formatRupiahExact(fi.total)}</td>
+            </tr>
+          `).join('');
+        }
+      }
+
+      if (window.lucide) lucide.createIcons();
     }
 
     // Filter helper for Inventory table
@@ -3626,18 +3884,273 @@
       generateAndDownloadPdf(reportDoc, filename);
     }
 
+    let catalogProjects = [];
+
+    // Load Open Projects Catalog (Area C)
+    async function loadAndRenderCatalog() {
+      const container = document.getElementById('catalogGridContainer');
+      if (!container) return;
+
+      try {
+        let res = await fetch(`api/projects.php?_t=${Date.now()}`, { cache: 'no-store' });
+        if (!res.ok) {
+          res = await fetch(`data/projects.json?_t=${Date.now()}`, { cache: 'no-store' });
+        }
+        if (res.ok) {
+          const json = await res.json();
+          const projects = json.projects || (json.data && json.data.projects) || [];
+          if (projects && projects.length > 0) {
+            catalogProjects = projects;
+            renderCatalogCards(projects);
+            populateInvestModalSelect(projects);
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn('Gagal memuat katalog proyek dari API:', err);
+      }
+
+      // Fallback to static JSON
+      try {
+        const res = await fetch('data/projects.json');
+        const json = await res.json();
+        catalogProjects = json.projects || [];
+        renderCatalogCards(catalogProjects);
+        populateInvestModalSelect(catalogProjects);
+      } catch (err) {
+        container.innerHTML = `
+          <div class="col-span-full py-12 text-center text-slate-400 text-xs">
+            <i data-lucide="alert-circle" class="w-8 h-8 mx-auto text-amber-500 mb-2"></i>
+            Gagal memuat katalog peluang proyek investasi. Silakan muat ulang halaman.
+          </div>
+        `;
+        if (window.lucide) lucide.createIcons();
+      }
+    }
+
+    // Render Dynamic Catalog Cards (Area C)
+    function renderCatalogCards(projects) {
+      const container = document.getElementById('catalogGridContainer');
+      if (!container) return;
+
+      if (!projects || projects.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full py-12 text-center text-slate-400 text-xs">
+            <i data-lucide="folder-x" class="w-8 h-8 mx-auto text-slate-300 mb-2"></i>
+            Belum ada katalog peluang proyek investasi yang tersedia saat ini.
+          </div>
+        `;
+        if (window.lucide) lucide.createIcons();
+        return;
+      }
+
+      let html = '';
+      projects.forEach((p) => {
+        const f = p.funding || {};
+        const targetVal = Number(f.target || 0);
+        const collectedVal = Number(f.collected || 0);
+        const pct = targetVal > 0 ? Math.min(100, Math.round((collectedVal / targetVal) * 100)) : 0;
+        const isFullyFunded = p.status === 'Fully Funded' || pct >= 100;
+        const imgUrl = p.image || 'assets/img/project-jabodetabek.jpg';
+        const info = p.info || {};
+        const rab = p.detail?.rab_executive || null;
+        const tierOne = rab?.tiers?.[0] || null;
+
+        const statusBadge = isFullyFunded
+          ? '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-black bg-emerald-600 text-white shadow-sm"><i data-lucide="check-check" class="w-3.5 h-3.5"></i> Terdanai Penuh</span>'
+          : `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-black bg-blue-600 text-white shadow-sm"><span class="w-2 h-2 rounded-full bg-white animate-ping"></span> Terbuka (${pct}%)</span>`;
+
+        const assetBadge = info.brand || info.asset_backed || 'Komatsu PC57-7 CBU Jepang';
+        const returnText = info.return || '28,6% – 42,9% (p.a.)';
+        const tenorText = info.tenor || '12 Bulan';
+        const minInvText = info.min_investment || 'Rp 500.000.000';
+        const unitAllocText = tierOne ? `${tierOne.unit_qty} Unit Fisik CBU` : (rab?.spesifikasi?.estimasi_unit ? rab.spesifikasi.estimasi_unit.split(' ')[0] + ' Unit' : 'Unit CBU Grade A');
+
+        html += `
+          <div class="catalog-card bg-white rounded-3xl border border-slate-200/90 shadow-md hover:shadow-xl hover:border-slate-300 transition-all duration-300 flex flex-col justify-between overflow-hidden" data-title="${(p.title || p.nama_project || '').toLowerCase()} ${(info.lokasi || p.city || '').toLowerCase()}">
+            <!-- Thumbnail Banner -->
+            <div class="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900 group">
+              <img 
+                src="${imgUrl}" 
+                alt="${p.title || p.nama_project}" 
+                class="w-full h-full object-cover object-center filter brightness-95 group-hover:scale-105 transition-transform duration-700"
+                onerror="this.src='https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=800&q=80'"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent"></div>
+
+              <!-- Top Floating Badges -->
+              <div class="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between gap-2">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-slate-950/80 text-amber-300 border border-amber-400/40 backdrop-blur-md">
+                  ${p.city || 'Regional'}
+                </span>
+                <div>${statusBadge}</div>
+              </div>
+
+              <!-- Bottom Overlay on Banner -->
+              <div class="absolute bottom-3 left-3.5 right-3.5 flex items-center justify-between text-white text-xs">
+                <div class="flex items-center gap-1 font-semibold text-slate-200 text-[11px] truncate max-w-[70%]">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-400 shrink-0"></i>
+                  <span class="truncate">${info.lokasi || p.city || 'Nasional'}</span>
+                </div>
+                <div class="px-2 py-0.5 rounded-md bg-white/10 backdrop-blur-xs text-[10px] font-medium text-slate-300 border border-white/10">
+                  ${assetBadge}
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Content Body -->
+            <div class="p-5 sm:p-6 space-y-4 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-1.5 text-[11px] font-bold text-amber-700 uppercase tracking-wider mb-1">
+                  <i data-lucide="truck" class="w-3.5 h-3.5 text-amber-600"></i>
+                  <span>${p.category || 'Ekspansi Unit Alat Berat Komatsu CBU'}</span>
+                </div>
+                <h4 class="text-base sm:text-lg font-black text-slate-900 tracking-tight leading-snug">
+                  ${p.title || p.nama_project}
+                </h4>
+
+                <!-- Target & Progress Funding Bar -->
+                <div class="mt-3.5 p-3 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1.5">
+                  <div class="flex items-center justify-between text-xs font-bold">
+                    <span class="text-slate-500">Target Pendanaan:</span>
+                    <span class="text-slate-900 font-mono">${formatRupiahExact(targetVal)}</span>
+                  </div>
+                  <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                    <div class="h-2 rounded-full ${isFullyFunded ? 'bg-emerald-500' : 'bg-gradient-to-r from-blue-600 to-indigo-600'}" style="width: ${pct}%"></div>
+                  </div>
+                  <div class="flex items-center justify-between text-[11px] text-slate-500">
+                    <span>Terkumpul: <strong class="text-slate-800 font-mono">${formatRupiahExact(collectedVal)}</strong></span>
+                    <span class="font-extrabold ${isFullyFunded ? 'text-emerald-700' : 'text-blue-700'}">${pct}%</span>
+                  </div>
+                </div>
+
+                <!-- 4 Metrics Grid -->
+                <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
+                  <div class="p-2.5 rounded-xl bg-emerald-50/60 border border-emerald-200/70">
+                    <span class="text-[10px] uppercase font-bold text-emerald-800 block">Target Imbal Hasil</span>
+                    <span class="text-xs font-black text-emerald-950 mt-0.5 block truncate">${returnText}</span>
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-blue-50/60 border border-blue-200/70">
+                    <span class="text-[10px] uppercase font-bold text-blue-800 block">Siklus / Tenor</span>
+                    <span class="text-xs font-black text-blue-950 mt-0.5 block truncate">${tenorText}</span>
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                    <span class="text-[10px] uppercase font-bold text-slate-500 block">Tiket Minimum</span>
+                    <span class="text-xs font-mono font-bold text-slate-900 mt-0.5 block truncate">${minInvText}</span>
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-amber-50/60 border border-amber-200/70">
+                    <span class="text-[10px] uppercase font-bold text-amber-800 block">Hak Alokasi Unit</span>
+                    <span class="text-xs font-bold text-amber-950 mt-0.5 block truncate">${unitAllocText}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action CTAs -->
+              <div class="pt-2 border-t border-slate-100 flex items-center gap-2">
+                <a 
+                  href="invest-detail.html?id=${p.id}" 
+                  class="flex-1 py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 transition text-center cursor-pointer"
+                >
+                  <i data-lucide="calculator" class="w-3.5 h-3.5 text-amber-600"></i>
+                  <span>RAB &amp; Prospektus</span>
+                </a>
+                ${
+                  isFullyFunded
+                    ? `
+                      <button disabled class="flex-1 py-2.5 px-3 rounded-xl bg-slate-100 text-slate-400 font-bold text-xs flex items-center justify-center gap-1.5 cursor-not-allowed">
+                        <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+                        <span>Terdanai Penuh</span>
+                      </button>
+                    `
+                    : `
+                      <button 
+                        onclick="openInvestModalForProject('${p.id}')" 
+                        class="flex-1 py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer"
+                      >
+                        <i data-lucide="plus-circle" class="w-3.5 h-3.5 text-amber-300"></i>
+                        <span>Simulasi &amp; Ikut</span>
+                      </button>
+                    `
+                }
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // Populate Select in Invest Modal
+    function populateInvestModalSelect(projects) {
+      const select = document.getElementById('investProjectSelect');
+      if (!select || !projects || projects.length === 0) return;
+
+      select.innerHTML = projects.map(p => {
+        const isFull = p.status === 'Fully Funded';
+        const returnText = p.info?.return || '28,6% – 42,9% p.a.';
+        const fullLabel = isFull ? ' [TERDANAI PENUH]' : '';
+        return `
+          <option value="${p.id}" ${isFull ? 'disabled' : ''}>
+            ${p.title || p.nama_project} (${p.city || p.info?.lokasi || 'Regional'})${fullLabel} - Est. ${returnText}
+          </option>
+        `;
+      }).join('');
+    }
+
+    // Open Modal for Specific Project from Catalog
+    function openInvestModalForProject(projectId) {
+      const select = document.getElementById('investProjectSelect');
+      if (select && projectId) {
+        select.value = projectId;
+        const p = catalogProjects.find(x => x.id === projectId);
+        if (p && p.info && p.info.min_investment) {
+          const rawMin = parseInt(p.info.min_investment.replace(/[^0-9]/g, ''), 10);
+          if (rawMin && !isNaN(rawMin)) {
+            const input = document.getElementById('investAmountInput');
+            if (input) {
+              input.min = rawMin;
+              if (Number(input.value) < rawMin) {
+                input.value = rawMin;
+              }
+            }
+          }
+        }
+      }
+      calculateSimulatedYield();
+      openModal('investModal');
+    }
+
     // Simulated Yield Calculator
     function calculateSimulatedYield() {
       const input = document.getElementById('investAmountInput');
       const output = document.getElementById('simulatedReturn');
+      const select = document.getElementById('investProjectSelect');
+      if (!input || !output) return;
+
       const val = parseFloat(input.value) || 0;
-      const annualEstimate = val * 0.32;
-      output.innerText = 'Rp ' + Number(annualEstimate).toLocaleString('id-ID') + ' / tahun';
+      let returnRate = 0.32; // Default 32%
+
+      if (select && select.value) {
+        const p = catalogProjects.find(x => x.id === select.value);
+        if (p && p.detail?.rab_executive?.struktur_biaya_unit?.return_per_siklus) {
+          const cycleRate = p.detail.rab_executive.struktur_biaya_unit.return_per_siklus / 100;
+          returnRate = cycleRate * 2.5; // average annual ~35.7%
+        }
+      }
+
+      const annualEstimate = Math.round(val * returnRate);
+      const cycleEstimate = Math.round(annualEstimate / 2.5);
+      output.innerHTML = `
+        <span>Rp ${annualEstimate.toLocaleString('id-ID')} / tahun</span>
+        <span class="block text-[10px] text-amber-700 font-normal mt-0.5">(Est. Rp ${cycleEstimate.toLocaleString('id-ID')} per siklus perputaran)</span>
+      `;
     }
 
     // Search Filter for Catalog Cards
     function filterCatalogCards() {
-      const q = document.getElementById('catalogSearchInput').value.toLowerCase();
+      const q = (document.getElementById('catalogSearchInput')?.value || '').toLowerCase().trim();
       const cards = document.querySelectorAll('.catalog-card');
       cards.forEach(c => {
         const title = (c.getAttribute('data-title') || '').toLowerCase();
