@@ -234,7 +234,7 @@ const MGISimulator = {
     MGISimulator._updateValue = function(val) {
       const num = Number(val);
       if (isNaN(num)) return;
-      currentInvestment = Math.max(minVal, Math.min(maxVal, num));
+      currentInvestment = Math.max(minInvestment, Math.min(maxInvestment, num));
       slider.value = nominalToPos(currentInvestment);
       recalculate(currentInvestment);
       document.querySelectorAll('.chip-btn').forEach(btn => {

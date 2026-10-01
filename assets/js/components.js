@@ -377,28 +377,12 @@ const MGIComponents = {
   renderProjectCard: function (project) {
     if (!project) return '';
     const info = project.info || {};
-    const remainingDays = info.remaining_days || '18 Hari Tersisa';
     const city = project.city || (info.lokasi ? info.lokasi.split(',')[0] : 'Regional');
-
-    // Resolving City Icon Image (Pojok Kanan Atas)
-    let cityIconImg = project.city_icon_img || '';
-    if (!cityIconImg) {
-      const cStr = ((project.city || '') + ' ' + (project.title || '') + ' ' + (info.lokasi || '')).toLowerCase();
-      if (cStr.includes('jkt') || cStr.includes('jakarta') || cStr.includes('jabar') || cStr.includes('jabodetabek')) {
-        cityIconImg = 'assets/img/city-jkt-jabar.png';
-      } else if (cStr.includes('makassar') || cStr.includes('sulawesi')) {
-        cityIconImg = 'assets/img/city-makassar.png';
-      } else if (cStr.includes('surabaya') || cStr.includes('jatim')) {
-        cityIconImg = 'assets/img/city-surabaya.png';
-      } else if (cStr.includes('denpasar') || cStr.includes('bali')) {
-        cityIconImg = 'assets/img/city-denpasar.png';
-      }
-    }
 
     return `
       <div class="card mgi-card h-100 shadow-sm border-0 d-flex flex-column">
         <div class="project-card-cover position-relative">
-          <img src="${project.image || 'assets/img/komatsu.jpg'}" alt="${project.title}">
+          <img src="${project.image || 'assets/img/project-jabodetabek.jpg'}" alt="${project.title}" onerror="this.src='assets/img/project-jabodetabek.jpg'">
           
           <!-- Pojok Kiri Atas: Lokasi -->
           <div class="position-absolute top-0 start-0 m-3 d-flex flex-column gap-1" style="z-index: 3;">
