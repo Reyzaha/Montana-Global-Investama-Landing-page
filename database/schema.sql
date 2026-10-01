@@ -119,6 +119,7 @@ CREATE TABLE IF NOT EXISTS `project_details` (
   `sinergi_content` TEXT NOT NULL,
   `summary_title` VARCHAR(255) NOT NULL DEFAULT 'Ringkasan Kelayakan Investasi & Profil Risiko (Feasibility Summary)',
   `summary_content` TEXT NOT NULL,
+  `rab_executive_json` LONGTEXT DEFAULT NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT `fk_project_detail` FOREIGN KEY (`project_id`) 

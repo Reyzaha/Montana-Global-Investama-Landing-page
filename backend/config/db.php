@@ -94,6 +94,12 @@ class Database {
                 $db->exec("ALTER TABLE `investor_companies` ADD COLUMN `business_activity` VARCHAR(255) NULL AFTER `business_name`");
             }
 
+            // Ensure rab_executive_json column exists in project_details
+            $colsRab = $db->query("SHOW COLUMNS FROM `project_details` LIKE 'rab_executive_json'")->fetchAll();
+            if (empty($colsRab)) {
+                $db->exec("ALTER TABLE `project_details` ADD COLUMN `rab_executive_json` LONGTEXT NULL AFTER `summary_content`");
+            }
+
             // Ensure financial_records table exists for Odoo/Kledo style financial modules & billing
             $db->exec("
                 CREATE TABLE IF NOT EXISTS `financial_records` (

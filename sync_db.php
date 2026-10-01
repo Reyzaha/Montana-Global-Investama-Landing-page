@@ -22,6 +22,14 @@ try {
 
     echo "Memuat " . count($projects) . " proyek dari data/projects.json...\n";
 
+    // Auto-migration: Pastikan kolom rab_executive_json tersedia di tabel project_details
+    $colRab = $db->query("SHOW COLUMNS FROM project_details LIKE 'rab_executive_json'")->fetch();
+    if (!$colRab) {
+        echo "Menambahkan kolom 'rab_executive_json' ke tabel project_details...\n";
+        $db->exec("ALTER TABLE project_details ADD COLUMN rab_executive_json LONGTEXT DEFAULT NULL AFTER summary_content;");
+        echo "[OK] Kolom 'rab_executive_json' berhasil ditambahkan.\n";
+    }
+
     // Disable foreign keys temporarily for clean reload
     $db->exec("SET FOREIGN_KEY_CHECKS = 0;");
     $db->exec("TRUNCATE TABLE funding_items;");
