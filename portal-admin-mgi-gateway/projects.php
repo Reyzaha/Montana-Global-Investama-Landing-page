@@ -874,7 +874,16 @@ require_once __DIR__ . '/includes/header.php';
         method: 'POST',
         body: formData
       });
-      const json = await res.json();
+      const text = await res.text();
+      let json;
+      try {
+        json = JSON.parse(text);
+      } catch (parseErr) {
+        console.error('Upload JSON Parse Error:', text);
+        statusEl.innerHTML = `<span class="text-danger fw-bold"><i class="bi bi-exclamation-triangle-fill me-1"></i> Respon server tidak valid</span>`;
+        AdminApp.showToast('Gagal memproses respon server upload: ' + (text.substring(0, 100) || ''), 'danger');
+        return;
+      }
 
       if (json.success && json.data && json.data.file_path) {
         hiddenInput.value = json.data.file_path;
@@ -887,10 +896,11 @@ require_once __DIR__ . '/includes/header.php';
         AdminApp.showToast(json.message || 'Gagal mengunggah gambar', 'danger');
       }
     } catch (err) {
-      statusEl.innerHTML = `<span class="text-danger fw-bold">Koneksi upload gagal</span>`;
-      AdminApp.showToast('Koneksi upload gagal', 'danger');
+      statusEl.innerHTML = `<span class="text-danger fw-bold"><i class="bi bi-x-circle me-1"></i> Koneksi upload gagal</span>`;
+      AdminApp.showToast('Koneksi upload gagal: ' + (err.message || ''), 'danger');
     } finally {
       btnTrigger.disabled = false;
+      input.value = ''; // Reset input agar bisa memilih file yang sama atau mengunggah ulang
     }
   }
 </script>

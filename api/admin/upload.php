@@ -5,6 +5,12 @@
  * Method: POST (multipart/form-data)
  */
 
+if (ob_get_level() === 0) {
+    ob_start();
+}
+ini_set('display_errors', '0');
+error_reporting(E_ALL);
+
 require_once __DIR__ . '/../../backend/config/db.php';
 require_once __DIR__ . '/../../backend/helpers/response.php';
 require_once __DIR__ . '/../../backend/helpers/auth_helper.php';
@@ -64,10 +70,27 @@ try {
     $cleanOrigName = preg_replace('/[^a-zA-Z0-9_\-]/', '_', substr($origName, 0, 30));
 
     // Direktori target di bawah assets/uploads/<folder>/
-    $targetDir = __DIR__ . '/../../assets/uploads/' . $folder;
+    $baseUploadDir = __DIR__ . '/../../assets/uploads';
+    if (!is_dir($baseUploadDir)) {
+        $oldUmask = umask(0);
+        @mkdir($baseUploadDir, 0777, true);
+        umask($oldUmask);
+    }
+
+    $targetDir = $baseUploadDir . '/' . $folder;
     if (!is_dir($targetDir)) {
-        if (!mkdir($targetDir, 0755, true)) {
-            sendJsonError('Gagal membuat direktori upload di server.', 500);
+        $oldUmask = umask(0);
+        if (!@mkdir($targetDir, 0777, true)) {
+            sendJsonError("Gagal membuat direktori upload '{$folder}' di server. Periksa hak akses (permission) folder assets/uploads/.", 500);
+        }
+        umask($oldUmask);
+    }
+
+    // Verifikasi hak akses tulis direktori
+    if (!is_writable($targetDir)) {
+        @chmod($targetDir, 0777);
+        if (!is_writable($targetDir)) {
+            sendJsonError("Direktori 'assets/uploads/{$folder}' tidak memiliki izin tulis (write permission) di server. Jalankan perintah 'chmod -R 775 assets/uploads' atau berikan izin ke user web server (www-data).", 500);
         }
     }
 
@@ -75,12 +98,22 @@ try {
     $uniqueName = $cleanOrigName . '_' . time() . '_' . bin2hex(random_bytes(4)) . '.' . $extension;
     $destination = $targetDir . '/' . $uniqueName;
 
-    $moved = is_uploaded_file($file['tmp_name']) 
-        ? move_uploaded_file($file['tmp_name'], $destination) 
-        : (copy($file['tmp_name'], $destination) && @unlink($file['tmp_name']));
+    $moved = false;
+    if (is_uploaded_file($file['tmp_name'])) {
+        $moved = @move_uploaded_file($file['tmp_name'], $destination);
+    }
 
     if (!$moved) {
-        sendJsonError('Gagal memindahkan file yang diunggah ke folder penyimpanan.', 500);
+        $moved = @copy($file['tmp_name'], $destination);
+        if ($moved) {
+            @unlink($file['tmp_name']);
+        }
+    }
+
+    if (!$moved) {
+        $lastError = error_get_last();
+        $detail = !empty($lastError['message']) ? ' (' . strip_tags($lastError['message']) . ')' : '';
+        sendJsonError("Gagal memindahkan file ke folder penyimpanan server{$detail}. Pastikan hak akses tulis direktori assets/uploads/ sudah diatur.", 500);
     }
 
     // Path relatif dari root aplikasi untuk disimpan di DB
@@ -99,3 +132,4 @@ try {
 } catch (Exception $e) {
     sendJsonException($e, 'Terjadi kesalahan sistem saat memproses upload file.');
 }
+

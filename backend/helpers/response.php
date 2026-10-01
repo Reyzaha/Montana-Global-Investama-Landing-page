@@ -4,6 +4,10 @@
  * Standardized JSON response formatting, HTTP security headers, and exception masking
  */
 
+if (ob_get_level() === 0) {
+    ob_start();
+}
+
 function sendJsonResponse(mixed $data = null, int $statusCode = 200, string $message = '', bool $success = true): void {
     if (!headers_sent()) {
         http_response_code($statusCode);

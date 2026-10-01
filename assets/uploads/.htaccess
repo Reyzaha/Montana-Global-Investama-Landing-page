@@ -1,0 +1,9 @@
+# PT MONTANA GLOBAL INVESTAMA — UPLOADS DIRECTORY SECURITY
+# Prevent execution of PHP scripts and other server executables inside uploads
+
+<FilesMatch "(?i)\.(php|phtml|php3|php4|php5|php7|phps|cgi|pl|exe|sh)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+Options -Indexes

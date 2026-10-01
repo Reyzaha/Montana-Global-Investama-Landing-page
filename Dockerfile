@@ -19,11 +19,14 @@ RUN a2enmod rewrite headers
 WORKDIR /var/www/html
 COPY . /var/www/html/
 
-# Set security file permissions
-RUN chown -R www-data:www-data /var/www/html \
+# Set security file permissions and entrypoint
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh \
+    && chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
 # Expose HTTP port
 EXPOSE 80
 
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]

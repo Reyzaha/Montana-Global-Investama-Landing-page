@@ -116,6 +116,12 @@ Catat output kredensial yang dihasilkan di layar terminal.
   ```bash
   docker compose logs -f mgi-db
   ```
+* **Memperbaiki Izin Folder Upload (Jika Terjadi Kendala Upload Foto)**:
+  ```bash
+  docker compose exec mgi-web chown -R www-data:www-data /var/www/html/assets/uploads
+  docker compose exec mgi-web chmod -R 775 /var/www/html/assets/uploads
+  ```
+  *(Atau langsung di host VPS: `sudo chmod -R 777 /var/www/mgi/assets/uploads`)*
 * **Menghentikan Container**:
   ```bash
   docker compose down
