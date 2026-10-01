@@ -169,7 +169,7 @@ require_once __DIR__ . '/includes/header.php';
                     <div class="d-flex align-items-center gap-3 p-2 bg-light rounded border">
                       <!-- Thumbnail Preview -->
                       <div class="position-relative border rounded p-1 bg-white flex-shrink-0" style="width: 72px; height: 52px; overflow: hidden;">
-                        <img id="projectImagePreview" src="../assets/img/komatsu.jpg" alt="Preview" class="w-100 h-100 rounded" style="object-fit: cover;" onerror="this.src='../assets/img/project-excavator.svg'">
+                        <img id="projectImagePreview" src="../assets/img/komatsu.jpg" alt="Preview" class="w-100 h-100 rounded" style="object-fit: cover;" onerror="this.onerror=null;this.src='../assets/img/project-jabodetabek.jpg'">
                       </div>
                       
                       <!-- Upload Controller -->
@@ -573,7 +573,7 @@ require_once __DIR__ . '/includes/header.php';
       return `
         <tr>
           <td>
-            <img src="../${p.image}" alt="" class="rounded" style="width: 44px; height: 44px; object-fit: cover;" onerror="this.src='../assets/img/project-excavator.svg'">
+            <img src="../${p.image}" alt="" class="rounded" style="width: 44px; height: 44px; object-fit: cover;" onerror="this.onerror=null;this.src='../assets/img/project-jabodetabek.jpg'">
           </td>
           <td>
             <div class="fw-bold text-dark">${p.title}</div>

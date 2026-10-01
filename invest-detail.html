@@ -69,7 +69,7 @@
         <!-- Visual Cover -->
         <div class="col-12 col-lg-5">
           <div class="card mgi-card border-0 overflow-hidden shadow-sm" style="border-top: 5px solid #1D3589 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
-            <img id="detailCoverImg" src="assets/img/project-excavator.svg" alt="Cover Proyek" class="w-100 object-fit-cover" style="height: 340px; background-color: #F8F9FA;" onerror="this.onerror=null;this.src='assets/img/project-jabodetabek.jpg';">
+            <img id="detailCoverImg" src="assets/img/project-jabodetabek.jpg" alt="Cover Proyek" class="w-100 object-fit-cover" style="height: 340px; background-color: #F8F9FA;" onerror="this.onerror=null;this.src='assets/img/project-jabodetabek.jpg';">
           </div>
         </div>
       </div>
@@ -264,7 +264,7 @@
       document.getElementById('detailBadgeContainer').innerHTML = MGIComponents.renderStatusBadge(project.status);
       document.getElementById('detailTitle').textContent = project.title;
       document.getElementById('detailTagline').textContent = (project.detail && project.detail.tagline) ? `"${project.detail.tagline}"` : '';
-      document.getElementById('detailCoverImg').src = project.image || 'assets/img/project-excavator.svg';
+      document.getElementById('detailCoverImg').src = project.image || 'assets/img/project-jabodetabek.jpg';
 
       // If project content is gated, lock the detail view
       if (isGated) {
