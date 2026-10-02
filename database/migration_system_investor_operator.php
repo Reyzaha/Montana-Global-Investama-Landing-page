@@ -49,13 +49,13 @@ try {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
         $stmtIns->execute([
-            'proj-jkt-jabar', 'EXC-KM-138-01', 'Excavator Komatsu PC138US-8 (CBU Japan)', 'Alat Berat', 'KMTC882910-JP', 1, 1400000000, 1400000000, 'Grade A (Prima)', 'Aktif Beroperasi', 'Sub-Seksi 4 Toll Road Bekasi Timur', 1250, '2026-09-20'
+            'proj-jkt-jabar', 'EXC-AB-138-01', 'Unit Alat Berat CBU Japan Grade A', 'Alat Berat', 'AB-882910-JP', 1, 1400000000, 1400000000, 'Grade A (Prima)', 'Aktif Beroperasi', 'Sub-Seksi 4 Toll Road Bekasi Timur', 1250, '2026-09-20'
         ]);
         $stmtIns->execute([
-            'proj-jkt-jabar', 'EXC-KM-138-02', 'Excavator Komatsu PC138US-8 (CBU Japan)', 'Alat Berat', 'KMTC882911-JP', 1, 1400000000, 1400000000, 'Grade A (Prima)', 'Aktif Beroperasi', 'Narogong Limestone Zone Jabar', 1168, '2026-09-22'
+            'proj-jkt-jabar', 'EXC-AB-138-02', 'Unit Alat Berat CBU Japan Grade A', 'Alat Berat', 'AB-882911-JP', 1, 1400000000, 1400000000, 'Grade A (Prima)', 'Aktif Beroperasi', 'Narogong Limestone Zone Jabar', 1168, '2026-09-22'
         ]);
         $stmtIns->execute([
-            'proj-jkt-jabar', 'ATT-BRK-001', 'Hydraulic Breaker Kit Komatsu Grade A', 'Attachment', 'BRK-9901-JP', 2, 175000000, 350000000, 'Grade A (Prima)', 'Standby Workshop', 'Sentral Workshop Pool Kebumen', 0, '2026-09-18'
+            'proj-jkt-jabar', 'ATT-BRK-001', 'Hydraulic Breaker Kit Alat Berat Grade A', 'Attachment', 'BRK-9901-JP', 2, 175000000, 350000000, 'Grade A (Prima)', 'Standby Workshop', 'Sentral Workshop Pool Kebumen', 0, '2026-09-18'
         ]);
         echo "   - Seeded initial inventory for proj-jkt-jabar.\n";
     }
@@ -90,13 +90,13 @@ try {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
         $stmtDoc->execute([
-            'proj-jkt-jabar', 1, 'DOC-RAB-2026-001', 'Prospektus & Rencana Anggaran Biaya (RAB) Unit Komatsu PC138US-8', 'pembelian', 'documents/proj-jkt-jabar/prospektus-rab-komatsu.pdf', '2.8 MB', 'Operator MGI', 'published', '2026-01-20 10:00:00'
+            'proj-jkt-jabar', 1, 'DOC-RAB-2026-001', 'Prospektus & Rencana Anggaran Biaya (RAB) Unit Alat Berat', 'pembelian', 'documents/proj-jkt-jabar/prospektus-rab-alat-berat.pdf', '2.8 MB', 'Operator MGI', 'published', '2026-01-20 10:00:00'
         ]);
         $stmtDoc->execute([
             'proj-jkt-jabar', 1, 'DOC-CBU-2026-002', 'Sertifikat Kepemilikan & Dokumen Bea Cukai CBU Jepang (Form CBU)', 'inventory', 'documents/proj-jkt-jabar/dokumen-cbu-bea-cukai.pdf', '3.4 MB', 'Operator MGI', 'published', '2026-02-12 14:30:00'
         ]);
         $stmtDoc->execute([
-            'proj-jkt-jabar', 1, 'DOC-BILL-2026-001', 'Faktur Alokasi Dana Pembelian 2 Unit Komatsu via MSI & Biaya Impor MIU', 'billing', 'documents/proj-jkt-jabar/faktur-alokasi-dana-msi-miu.pdf', '1.2 MB', 'Operator MGI', 'published', '2026-02-15 09:15:00'
+            'proj-jkt-jabar', 1, 'DOC-BILL-2026-001', 'Faktur Alokasi Dana Pembelian 2 Unit Alat Berat via MSI & Biaya Impor MIU', 'billing', 'documents/proj-jkt-jabar/faktur-alokasi-dana-msi-miu.pdf', '1.2 MB', 'Operator MGI', 'published', '2026-02-15 09:15:00'
         ]);
         $stmtDoc->execute([
             'proj-jkt-jabar', 1, 'DOC-REP-2026-Q2', 'Buku Laporan Operasional Kuartal II 2026 (SMH, Sewa, Laba Rugi)', 'laporan', 'documents/proj-jkt-jabar/laporan-operasional-q2-2026.pdf', '4.1 MB', 'Operator MGI', 'published', '2026-07-20 16:00:00'

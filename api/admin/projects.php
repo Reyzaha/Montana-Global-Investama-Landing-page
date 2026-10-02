@@ -156,7 +156,7 @@ try {
             $cityName,
             $title,
             $input['category'] ?? 'Alat Berat & Infrastruktur',
-            $input['image'] ?? 'assets/img/komatsu.jpg',
+            $input['image'] ?? 'assets/img/project-jabodetabek.jpg',
             $fundingCollected,
             $fundingTarget,
             $input['status'] ?? 'Open',
@@ -226,7 +226,7 @@ try {
             (float)($sim['estimasi_return_persen'] ?? 30.0),
             (float)($sim['modal_kerja_bulanan_persen'] ?? 2.2),
             cleanMoney($sim['minimum_investasi'] ?? 500000000),
-            cleanMoney($sim['maximum_investasi'] ?? 500000000000),
+            cleanMoney($sim['maximum_investasi'] ?? 10000000000),
             cleanMoney($sim['default_investasi'] ?? 500000000),
             $sim['notes'] ?? 'Simulasi bersifat ilustratif, bukan jaminan.'
         ]);
@@ -294,7 +294,7 @@ try {
             $cityName,
             $input['title'] ?? $existing['title'],
             $input['category'] ?? ($existing['category'] ?? 'Alat Berat & Infrastruktur'),
-            $input['image'] ?? ($existing['image'] ?? 'assets/img/komatsu.jpg'),
+            $input['image'] ?? ($existing['image'] ?? 'assets/img/project-jabodetabek.jpg'),
             $fundingCollected,
             $fundingTarget,
             $input['status'] ?? ($existing['status'] ?? 'Open'),
@@ -401,7 +401,7 @@ try {
                 (float)($sim['estimasi_return_persen'] ?? 30.0),
                 (float)($sim['modal_kerja_bulanan_persen'] ?? 2.2),
                 cleanMoney($sim['minimum_investasi'] ?? 500000000),
-                cleanMoney($sim['maximum_investasi'] ?? 500000000000),
+                cleanMoney($sim['maximum_investasi'] ?? 10000000000),
                 cleanMoney($sim['default_investasi'] ?? 500000000),
                 $sim['notes'] ?? ''
             ]);
@@ -467,7 +467,7 @@ function ensureProjectsSchema(PDO $db): void {
               `id` VARCHAR(50) PRIMARY KEY,
               `title` VARCHAR(255) NOT NULL,
               `category` VARCHAR(100) NOT NULL,
-              `image` VARCHAR(255) NOT NULL DEFAULT 'assets/img/komatsu.jpg',
+              `image` VARCHAR(255) NOT NULL DEFAULT 'assets/img/project-jabodetabek.jpg',
               `funding_collected` BIGINT NOT NULL DEFAULT 0,
               `funding_target` BIGINT NOT NULL DEFAULT 0,
               `currency` VARCHAR(10) NOT NULL DEFAULT 'IDR',
@@ -536,7 +536,7 @@ function ensureProjectsSchema(PDO $db): void {
               `estimasi_return_persen` DECIMAL(5,2) NOT NULL DEFAULT 30.00,
               `modal_kerja_bulanan_persen` DECIMAL(5,2) NOT NULL DEFAULT 2.20,
               `minimum_investasi` BIGINT NOT NULL DEFAULT 500000000,
-              `maximum_investasi` BIGINT NOT NULL DEFAULT 500000000000,
+              `maximum_investasi` BIGINT NOT NULL DEFAULT 10000000000,
               `default_investasi` BIGINT NOT NULL DEFAULT 500000000,
               `notes` TEXT NULL,
               `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -584,7 +584,7 @@ function ensureProjectsSchema(PDO $db): void {
                         $pid,
                         $p['title'],
                         $p['category'] ?? 'Alat Berat & Infrastruktur',
-                        $p['image'] ?? 'assets/img/komatsu.jpg',
+                        $p['image'] ?? 'assets/img/project-jabodetabek.jpg',
                         (int)($fnd['collected'] ?? 0),
                         (int)($fnd['target'] ?? 0),
                         $p['status'] ?? 'Open',
@@ -635,7 +635,7 @@ function ensureProjectsSchema(PDO $db): void {
                         (float)($sim['estimasi_return_persen'] ?? 30.00),
                         (float)($sim['modal_kerja_bulanan_persen'] ?? 2.20),
                         (int)($sim['minimum_investasi'] ?? 500000000),
-                        (int)($sim['maximum_investasi'] ?? 500000000000),
+                        (int)($sim['maximum_investasi'] ?? 10000000000),
                         (int)($sim['default_investasi'] ?? 500000000),
                         $sim['notes'] ?? 'Simulasi bersifat indikatif.'
                     ]);
@@ -710,8 +710,8 @@ function syncProjectToJson(string $id, array $payload): void {
             'city_icon' => 'bi-geo-alt-fill',
             'city_icon_img' => 'assets/img/city-jkt-jabar.png',
             'title' => $payload['title'] ?? '',
-            'category' => $payload['category'] ?? 'Pengadaan & Perputaran Unit Alat Berat Komatsu CBU',
-            'image' => $payload['image'] ?? 'assets/img/komatsu.jpg',
+            'category' => $payload['category'] ?? 'Pengadaan & Perputaran Unit Alat Berat',
+            'image' => $payload['image'] ?? 'assets/img/project-jabodetabek.jpg',
             'funding' => [
                 'collected' => (float)($payload['funding_collected'] ?? 0),
                 'target' => (float)($payload['funding_target'] ?? 0),

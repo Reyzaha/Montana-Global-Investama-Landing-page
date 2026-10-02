@@ -16,8 +16,8 @@
       "code": "MIU",
       "name": "PT Montana Indo Utama (MIU)",
       "role": "Kantor, Workshop & Dukungan Armada",
-      "fokus_kerja": "Workshop Kebumen, armada khusus Komatsu CBU Jepang, armada Montana Towing, operasional Jawa Tengah, Bali, dan NTB",
-      "output_utama": "125 unit Komatsu Grade A siap pakai, kantor & pool Kebumen, armada towing siaga",
+      "fokus_kerja": "Workshop Kebumen, armada alat berat produktif, armada Montana Towing, operasional Jawa Tengah, Bali, dan NTB",
+      "output_utama": "125 unit alat berat siap pakai, kantor & pool Kebumen, armada towing siaga",
       "color": "blue",
       "icon": "truck"
     },
@@ -51,13 +51,13 @@
       "step": 2,
       "title": "2. Alokasi Modal & Pemilihan Unit",
       "actor": "MGI → Unit Usaha (MIU & MSI)",
-      "desc": "MGI mengalokasikan permodalan proyek untuk akuisisi unit alat berat Komatsu CBU Jepang dan suplai impor."
+      "desc": "MGI mengalokasikan permodalan proyek untuk akuisisi unit alat berat dan suplai impor."
     },
     {
       "step": 3,
       "title": "3. Akuisisi Unit Alat Berat",
       "actor": "MIU → Unit Alat Berat",
-      "desc": "MIU akuisisi unit alat berat Komatsu CBU Jepang."
+      "desc": "MIU akuisisi unit alat berat siap operasi."
     },
     {
       "step": 4,
@@ -75,7 +75,7 @@
       "step": 6,
       "title": "6. Utilisasi Proyek & Distribusi Hasil",
       "actor": "MIU → MSI → Mypurcase → MGI & Investor",
-      "desc": "Unit Komatsu dioperasikan pada kontrak kerja riil di kota-kota strategis, menghasilkan dividen kompetitif yang ditransfer ke rekening investor."
+      "desc": "Unit alat berat dioperasikan pada kontrak kerja riil di kota-kota strategis, menghasilkan dividen kompetitif yang ditransfer ke rekening investor."
     }
   ]
 }

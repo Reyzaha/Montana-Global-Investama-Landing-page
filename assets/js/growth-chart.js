@@ -24,19 +24,19 @@ let MGIGrowthData = {
     ]
   },
 
-  // Data PT Montana Indo Utama (MIU) - Alat Berat Khusus Komatsu & Armada Towing
+  // Data PT Montana Indo Utama (MIU) - Alat Berat Produktif & Armada Towing
   miu: {
     title: 'PT Montana Indo Utama (MIU)',
-    subtitle: 'Populasi Armada Khusus Komatsu CBU Jepang, Nilai Pendanaan & Ekspansi Wilayah',
-    badge: 'Armada Komatsu & Workshop Sentral',
+    subtitle: 'Populasi Armada Alat Berat, Nilai Pendanaan & Ekspansi Wilayah',
+    badge: 'Armada Alat Berat & Workshop Sentral',
     badgeClass: 'bg-royal text-white',
-    chartLabel: 'Populasi Unit Komatsu Aktif (Unit)',
+    chartLabel: 'Populasi Unit Alat Berat Aktif (Unit)',
     secondaryChartLabel: 'Nilai Pendanaan Unit (Rp Miliar)',
     data: [16, 28, 45, 68, 92, 125, 165],
     assetValue: [24, 42, 68, 105, 148, 208, 280],
     unit: 'Unit',
     kpis: [
-      { label: 'Populasi Komatsu Aktif', value: '125 Unit', note: 'Eksklusif Merek Komatsu', icon: 'bi-truck-flatbed', color: 'text-royal' },
+      { label: 'Populasi Alat Berat Aktif', value: '125 Unit', note: 'Armada Siap Operasi', icon: 'bi-truck-flatbed', color: 'text-royal' },
       { label: 'Nilai Pendanaan Unit', value: 'Rp 208 M+', note: 'Aset Fisik Kualifikasi Grade A', icon: 'bi-cash-coin', color: 'text-gold' },
       { label: 'Stok Unit Tersedia di Workshop', value: '24 Unit Siap Operasi', note: 'Workshop Sentral & Siap Mobilisasi', icon: 'bi-check2-square', color: 'text-success' },
       { label: 'Wilayah Operasional Aktif', value: 'Sumatra, Jabodetabek, Bali', note: 'Rencana Ekspansi Berkelanjutan', icon: 'bi-geo-alt-fill', color: 'text-primary' }

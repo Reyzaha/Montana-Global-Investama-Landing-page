@@ -510,7 +510,7 @@ try {
         // 5. INVENTORY / STOK (POST /api/projects/:id/inventory)
         if ($action === 'inventory') {
             $itemCode = trim($input['item_code'] ?? ('EXC-' . rand(100, 999)));
-            $itemName = trim($input['item_name'] ?? 'Excavator Komatsu PC138US-8');
+            $itemName = trim($input['item_name'] ?? 'Unit Alat Berat Siap Operasi');
             $category = trim($input['category'] ?? 'Alat Berat');
             $sn = trim($input['serial_number'] ?? '');
             $qty = !empty($input['quantity']) ? (int)$input['quantity'] : 1;

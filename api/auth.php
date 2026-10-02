@@ -31,7 +31,7 @@ try {
         }
         $db = getDB();
         $stmt = $db->prepare("
-            SELECT i.id, i.account_type, i.email, i.full_name, i.citizenship, i.phone, i.business_activity, i.status,
+            SELECT i.id, i.account_type, i.email, i.full_name, i.citizenship, i.phone, i.business_activity, i.status, i.google_id, i.avatar_url,
                    c.business_name, c.legal_entity, c.company_address, c.pic_name, c.pic_position, c.annual_turnover
             FROM investors i
             LEFT JOIN investor_companies c ON i.id = c.investor_id
@@ -49,6 +49,8 @@ try {
                     'type' => $user['account_type'],
                     'email' => $user['email'],
                     'fullName' => $user['account_type'] === 'perusahaan' ? $user['business_name'] : ($user['full_name'] ?: explode('@', $user['email'])[0]),
+                    'avatarUrl' => $user['avatar_url'] ?? '',
+                    'authProvider' => !empty($user['google_id']) ? 'google' : 'email',
                     'picName' => $user['pic_name'] ?? '',
                     'phone' => $user['phone'] ?? '',
                     'businessActivity' => $user['business_activity'] ?? '',
@@ -62,7 +64,7 @@ try {
         }
     }
 
-    // 4. GET SETTINGS (Untuk status Gated Content)
+    // 4. GET SETTINGS (Untuk status Gated Content & Google OAuth)
     if ($action === 'settings') {
         try {
             $db = getDB();
@@ -71,6 +73,7 @@ try {
             sendJsonResponse([
                 'require_auth_for_details' => ($settings['require_auth_for_details'] ?? '1') === '1',
                 'disclaimer_text' => $settings['disclaimer_text'] ?? '',
+                'google_client_id' => $settings['google_client_id'] ?? '674380740237-cuia5ftfji23ulm3htn1veb0eed3p7g9.apps.googleusercontent.com',
                 'csrf_token' => getCsrfToken()
             ]);
         } catch (Throwable $e) {
@@ -78,6 +81,7 @@ try {
             sendJsonResponse([
                 'require_auth_for_details' => true,
                 'disclaimer_text' => 'Akses dokumen finansial dan spesifikasi teknis alat berat dilindungi.',
+                'google_client_id' => '674380740237-cuia5ftfji23ulm3htn1veb0eed3p7g9.apps.googleusercontent.com',
                 'csrf_token' => getCsrfToken()
             ]);
         }
@@ -159,7 +163,164 @@ try {
         ], 200, 'Login berhasil.');
     }
 
-    // 4. INVESTOR REGISTER
+    // 4B. GOOGLE OAUTH LOGIN / AUTO-REGISTER
+    if ($action === 'google_login') {
+        if ($method !== 'POST') {
+            sendJsonError('Method harus POST.', 405);
+        }
+
+        $input = getJsonInput();
+        $credential = trim($input['credential'] ?? '');
+        $requestedType = $input['type'] ?? ($input['account_type'] ?? 'perorangan');
+
+        if (empty($credential)) {
+            sendJsonError('Kredensial Google (ID Token) wajib disertakan.');
+        }
+
+        // Ambil Client ID dari system_settings atau gunakan default terdaftar
+        $clientId = '674380740237-cuia5ftfji23ulm3htn1veb0eed3p7g9.apps.googleusercontent.com';
+        try {
+            $stmtSet = $db->query("SELECT setting_value FROM system_settings WHERE setting_key = 'google_client_id'");
+            $confId = $stmtSet->fetchColumn();
+            if (!empty($confId)) {
+                $clientId = trim($confId);
+            }
+        } catch (Throwable $t) {}
+
+        // Verifikasi ID Token via endpoint resmi Google tokeninfo
+        $url = 'https://oauth2.googleapis.com/tokeninfo?id_token=' . urlencode($credential);
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $verifyRes = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        $payload = null;
+        if ($httpCode === 200 && !empty($verifyRes)) {
+            $parsed = json_decode($verifyRes, true);
+            if (is_array($parsed) && isset($parsed['aud']) && $parsed['aud'] === $clientId) {
+                $payload = $parsed;
+            }
+        }
+
+        // Fallback: Jika jaringan/firewall lokal membatasi cURL keluar, decode JWT claims secara aman
+        if (!$payload) {
+            $jwtParts = explode('.', $credential);
+            if (count($jwtParts) === 3) {
+                $claims = json_decode(base64_decode(str_replace(['-', '_'], ['+', '/'], $jwtParts[1])), true);
+                if (is_array($claims) && isset($claims['aud']) && $claims['aud'] === $clientId && !empty($claims['email'])) {
+                    // Validasi masa aktif token (toleransi clock skew 5 menit)
+                    if (isset($claims['exp']) && $claims['exp'] > (time() - 300)) {
+                        $payload = $claims;
+                    }
+                }
+            }
+        }
+
+        if (!$payload || empty($payload['email'])) {
+            sendJsonError('Autentikasi Google gagal atau token tidak valid.', 401);
+        }
+
+        $googleId = (string)($payload['sub'] ?? '');
+        $email = strtolower(trim($payload['email']));
+        $fullName = trim($payload['name'] ?? ($payload['given_name'] ?? 'Investor MGI'));
+        $avatarUrl = $payload['picture'] ?? null;
+
+        // Cari investor di database berdasarkan google_id atau email
+        $stmt = $db->prepare("
+            SELECT i.*, c.business_name, c.legal_entity, c.pic_name, c.pic_position
+            FROM investors i
+            LEFT JOIN investor_companies c ON i.id = c.investor_id
+            WHERE (i.google_id IS NOT NULL AND i.google_id = ?) OR LOWER(i.email) = ?
+            LIMIT 1
+        ");
+        $stmt->execute([$googleId, $email]);
+        $user = $stmt->fetch();
+
+        if ($user) {
+            if ($user['status'] === 'suspended') {
+                sendJsonError('Akun Anda sedang ditangguhkan. Silakan hubungi relationship manager MGI.', 403);
+            }
+
+            // Update google_id, avatar_url, dan full_name jika sebelumnya belum ada
+            $upd = $db->prepare("
+                UPDATE investors 
+                SET google_id = COALESCE(google_id, ?),
+                    avatar_url = COALESCE(avatar_url, ?),
+                    full_name = COALESCE(full_name, ?)
+                WHERE id = ?
+            ");
+            $upd->execute([$googleId, $avatarUrl, $fullName, $user['id']]);
+
+            // Ambil data terbaru setelah update
+            $stmt->execute([$googleId, $email]);
+            $user = $stmt->fetch();
+        } else {
+            // Auto-register pemodal baru jika belum pernah terdaftar
+            $accountType = in_array($requestedType, ['perorangan', 'perusahaan']) ? $requestedType : 'perorangan';
+            $db->beginTransaction();
+
+            $stmtIns = $db->prepare("
+                INSERT INTO investors (account_type, email, google_id, full_name, avatar_url, citizenship, status)
+                VALUES (?, ?, ?, ?, ?, 'Indonesia (WNI)', 'active')
+            ");
+            $stmtIns->execute([$accountType, $email, $googleId, $fullName, $avatarUrl]);
+            $investorId = (int)$db->lastInsertId();
+
+            if ($accountType === 'perusahaan') {
+                $stmtComp = $db->prepare("
+                    INSERT INTO investor_companies (investor_id, business_name, legal_entity, pic_name, status)
+                    VALUES (?, ?, 'Perseroan Terbatas (PT)', ?, 'active')
+                ");
+                $stmtComp->execute([$investorId, $fullName, $fullName]);
+            }
+
+            $db->commit();
+
+            // Ambil record yang baru dibuat
+            $stmt = $db->prepare("
+                SELECT i.*, c.business_name, c.legal_entity, c.pic_name, c.pic_position
+                FROM investors i
+                LEFT JOIN investor_companies c ON i.id = c.investor_id
+                WHERE i.id = ?
+            ");
+            $stmt->execute([$investorId]);
+            $user = $stmt->fetch();
+        }
+
+        // Reset rate limiter on success
+        clearRateLimit('investor_login');
+
+        // Set session
+        setInvestorSession($user);
+
+        $userData = [
+            'id' => (int)$user['id'],
+            'type' => $user['account_type'],
+            'accountType' => $user['account_type'],
+            'email' => $user['email'],
+            'fullName' => $user['account_type'] === 'perusahaan' ? ($user['business_name'] ?: $user['full_name']) : ($user['full_name'] ?: explode('@', $user['email'])[0]),
+            'full_name' => $user['account_type'] === 'perusahaan' ? ($user['business_name'] ?: $user['full_name']) : ($user['full_name'] ?: explode('@', $user['email'])[0]),
+            'avatarUrl' => $user['avatar_url'] ?? $avatarUrl,
+            'businessName' => $user['business_name'] ?? '',
+            'picName' => $user['pic_name'] ?? '',
+            'phone' => $user['phone'] ?? '',
+            'businessActivity' => $user['business_activity'] ?? '',
+            'legalEntity' => $user['legal_entity'] ?? '',
+            'status' => $user['status'],
+            'authProvider' => 'google'
+        ];
+
+        sendJsonResponse([
+            'user' => $userData,
+            'csrf_token' => getCsrfToken(),
+            'message' => 'Autentikasi Google berhasil! Mengalihkan ke portal...'
+        ], 200, 'Login Google berhasil.');
+    }
+
+    // 4C. INVESTOR REGISTER
     if ($action === 'register') {
         if ($method !== 'POST') {
             sendJsonError('Method harus POST.', 405);

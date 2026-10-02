@@ -42,7 +42,7 @@
       {
         "label": "Aset Fisik Produktif",
         "value": "100%",
-        "note": "Didukung Fisik Unit Komatsu",
+        "note": "Didukung Fisik Unit Alat Berat",
         "icon": "bi-shield-fill-check",
         "color": "text-gold"
       },
@@ -57,10 +57,10 @@
   },
   "miu": {
     "title": "PT Montana Indo Utama (MIU)",
-    "subtitle": "Populasi Armada Khusus Komatsu CBU Jepang, Nilai Pendanaan & Ekspansi Wilayah",
-    "badge": "Armada Komatsu & Workshop Sentral",
+    "subtitle": "Populasi Armada Alat Berat, Nilai Pendanaan & Ekspansi Wilayah",
+    "badge": "Armada Alat Berat & Workshop Sentral",
     "badgeClass": "bg-royal text-white",
-    "chartLabel": "Populasi Unit Komatsu Aktif (Unit)",
+    "chartLabel": "Populasi Unit Alat Berat Aktif (Unit)",
     "secondaryChartLabel": "Nilai Pendanaan Unit (Rp Miliar)",
     "data": [
       16,
@@ -83,9 +83,9 @@
     "unit": "Unit",
     "kpis": [
       {
-        "label": "Populasi Komatsu Aktif",
+        "label": "Populasi Alat Berat Aktif",
         "value": "125 Unit",
-        "note": "Eksklusif Merek Komatsu",
+        "note": "Armada Siap Operasi",
         "icon": "bi-truck-flatbed",
         "color": "text-royal"
       },

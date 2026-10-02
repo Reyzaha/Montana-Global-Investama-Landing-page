@@ -15,6 +15,7 @@ const MGIAuth = {
   },
 
   csrfToken: null,
+  googleClientId: '674380740237-cuia5ftfji23ulm3htn1veb0eed3p7g9.apps.googleusercontent.com',
 
   // Synchronous or asynchronous bridge to backend API with graceful fallback
   syncApiRequest: function (action, payload) {
@@ -59,6 +60,9 @@ const MGIAuth = {
             }
             if (json.data.csrf_token) {
               MGIAuth.csrfToken = json.data.csrf_token;
+            }
+            if (json.data.google_client_id) {
+              MGIAuth.googleClientId = json.data.google_client_id;
             }
           }
         })
@@ -138,6 +142,84 @@ const MGIAuth = {
     };
   },
 
+  // Login investor using Google ID Token Credential
+  loginWithGoogle: async function (credential, accountType = 'perorangan') {
+    try {
+      const response = await fetch('api/auth.php?action=google_login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': MGIAuth.csrfToken || ''
+        },
+        body: JSON.stringify({
+          credential: credential,
+          account_type: accountType
+        })
+      });
+
+      const res = await response.json();
+      if (res && res.success && res.data && res.data.user) {
+        this.setCurrentUserSession(res.data.user);
+        if (res.data.csrf_token) {
+          this.csrfToken = res.data.csrf_token;
+        }
+        return {
+          success: true,
+          user: res.data.user,
+          message: res.message || 'Login dengan akun Google berhasil!'
+        };
+      } else {
+        return {
+          success: false,
+          message: (res && res.message) ? res.message : 'Verifikasi login Google gagal.'
+        };
+      }
+    } catch (err) {
+      console.error('[MGIAuth] Google login error:', err);
+      return {
+        success: false,
+        message: 'Koneksi ke server terganggu saat memproses login Google.'
+      };
+    }
+  },
+
+  // Render official Google Sign-In button into container
+  renderGoogleSignInButton: function (containerId, onCredentialCallback, customOptions = {}) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const initButton = () => {
+      if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+        google.accounts.id.initialize({
+          client_id: MGIAuth.googleClientId,
+          callback: onCredentialCallback,
+          auto_select: false,
+          cancel_on_tap_outside: true
+        });
+
+        const defaultOptions = {
+          theme: 'outline',
+          size: 'large',
+          type: 'standard',
+          shape: 'rectangular',
+          text: 'signin_with',
+          logo_alignment: 'left',
+          width: container.offsetWidth > 320 ? Math.min(container.offsetWidth, 400) : 300
+        };
+
+        google.accounts.id.renderButton(
+          container,
+          Object.assign({}, defaultOptions, customOptions)
+        );
+      } else {
+        // Retry shortly if SDK is still downloading
+        setTimeout(initButton, 200);
+      }
+    };
+
+    initButton();
+  },
+
   // Save current active user session
   setCurrentUserSession: function (user) {
     const isCorp = (user.type === 'perusahaan' || user.account_type === 'perusahaan' || user.accountType === 'corporate' || user.type === 'corporate');
@@ -150,6 +232,8 @@ const MGIAuth = {
       email: user.email,
       fullName: name,
       full_name: name,
+      avatarUrl: user.avatarUrl || user.avatar_url || '',
+      authProvider: user.authProvider || (user.google_id ? 'google' : 'email'),
       businessName: user.businessName || user.business_name || '',
       picName: user.picName || user.pic_name || '',
       phone: user.phone || user.companyPhone || '',
@@ -164,10 +248,12 @@ const MGIAuth = {
   // Logout investor
   logout: function (redirectUrl = 'index.html') {
     try {
-      fetch('api/auth.php?action=logout', { method: 'POST' }).catch(() => {});
+      fetch('api/auth.php?action=logout', { method: 'POST', credentials: 'same-origin' }).catch(() => {});
     } catch (e) {}
     localStorage.removeItem(this.STORAGE_KEYS.CURRENT_USER);
-    window.location.href = redirectUrl;
+    sessionStorage.removeItem(this.STORAGE_KEYS.CURRENT_USER);
+    sessionStorage.removeItem(this.STORAGE_KEYS.REDIRECT_TARGET);
+    window.location.replace(redirectUrl);
   },
 
   // Manage redirect target after login/registration
@@ -183,13 +269,47 @@ const MGIAuth = {
     return url;
   },
 
-  // Handle Protected Project Detail Action
+  // Enforce Navigation Guard: Logged-in investors must stay inside investor dashboard
+  enforceInvestorLock: function () {
+    if (!this.isLoggedIn()) return false;
+
+    const path = window.location.pathname.toLowerCase();
+    const filename = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
+    
+    // List of public landing pages that logged-in investors must not access
+    const publicPages = [
+      'index.html', 
+      'invest.html', 
+      'invest-detail.html', 
+      'about.html', 
+      'ekosistem.html', 
+      'contact.html', 
+      'login.html', 
+      'register.html', 
+      ''
+    ];
+
+    if (publicPages.includes(filename) && !filename.includes('investor-dashboard')) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const projId = urlParams.get('id') || urlParams.get('project') || urlParams.get('open_project');
+      let target = 'investor-dashboard.html';
+      if (projId) {
+        target += `?tab=katalog&open_project=${encodeURIComponent(projId)}`;
+      }
+      window.location.replace(target);
+      return true;
+    }
+    return false;
+  },
+
+  // Handle Protected Project Detail Action: opens in-dashboard modal for logged-in users or prompts login
   handleProtectedDetail: function (projectId) {
-    const targetUrl = `invest-detail.html?id=${encodeURIComponent(projectId)}`;
-    if (this.REQUIRE_AUTH_FOR_DETAILS && !this.isLoggedIn()) {
-      this.promptAuthModal(targetUrl);
+    const dashboardTarget = `investor-dashboard.html?tab=katalog&open_project=${encodeURIComponent(projectId)}`;
+    if (this.isLoggedIn()) {
+      window.location.replace(dashboardTarget);
     } else {
-      window.location.href = targetUrl;
+      // Prompt modal with redirect leading straight into the in-dashboard project detail
+      this.promptAuthModal(dashboardTarget);
     }
   },
 
@@ -227,6 +347,8 @@ const MGIAuth = {
   }
 };
 
-// Initialize default storage immediately
+// Initialize default storage immediately and enforce navigation lock for investors
 MGIAuth.init();
+MGIAuth.enforceInvestorLock();
 window.MGIAuth = MGIAuth;
+

@@ -59,12 +59,14 @@ try {
     // Ambil metadata pelengkap seperti rab_executive & tiers dari projects.json jika ada
     $extraProjectData = [];
     $extraFundingTargets = [];
+    $extraProjectInfo = [];
     $staticFile = __DIR__ . '/../data/projects.json';
     if (file_exists($staticFile)) {
         $rawStatic = json_decode(file_get_contents($staticFile), true);
         if (!empty($rawStatic['projects'])) {
             foreach ($rawStatic['projects'] as $sp) {
                 if (!empty($sp['id'])) {
+                    $extraProjectInfo[$sp['id']] = $sp;
                     if (!empty($sp['detail']['rab_executive'])) {
                         $extraProjectData[$sp['id']] = $sp['detail']['rab_executive'];
                     }
@@ -177,6 +179,29 @@ try {
             }
         }
 
+        $extra = $extraProjectInfo[$pId] ?? [];
+        $fRange = $extra['funding_range'] ?? ($p['target_display'] ?: 'Rp ' . number_format((float)$p['funding_target'], 0, ',', '.'));
+        $opFacility = $extra['operator_facility'] ?? 'Bonus Operator Profesional Resmi: 1 Operator (Invest 5M) atau 2 Operator (Invest 10M)';
+        $model = $extra['model'] ?? 'Eksklusif';
+
+        $infoArray = [
+            'lokasi' => $p['lokasi'],
+            'target' => $fRange,
+            'target_range' => $fRange,
+            'investor_slot' => $extra['info']['investor_slot'] ?? ($p['status'] === 'Open' ? '1 Slot Kemitraan Terbuka' : 'Mitra Terkunci'),
+            'operator_perk' => $extra['info']['operator_perk'] ?? 'Termasuk 1–2 Operator Profesional',
+            'model' => $model,
+            'tenor' => $p['tenor'],
+            'return' => $p['return_rate'],
+            'risk' => $p['risk_level'],
+            'min_investment' => $extra['info']['min_investment'] ?? ($p['min_investment'] ?: 'Rp 5.000.000.000 (Paket 5M / 10M)'),
+            'payout' => $p['payout'],
+            'remaining_days' => $p['remaining_days'],
+            'asset_backed' => $p['asset_backed'],
+            'stock_available' => $extra['info']['stock_available'] ?? '',
+            'capitalization_value' => $extra['info']['capitalization_value'] ?? ''
+        ];
+
         $projects[] = [
             'id' => $p['id'],
             'city_id' => !empty($p['city_id']) ? (int)$p['city_id'] : null,
@@ -187,6 +212,11 @@ try {
             'title' => $p['title'],
             'category' => $p['category'],
             'image' => $p['image'],
+            'model' => $model,
+            'funding_range' => $fRange,
+            'funding_min' => $extra['funding_min'] ?? (float)$p['funding_collected'],
+            'funding_max' => $extra['funding_max'] ?? (float)$p['funding_target'],
+            'operator_facility' => $opFacility,
             'funding' => [
                 'collected' => (float)$p['funding_collected'],
                 'target' => (float)$p['funding_target'],
@@ -194,17 +224,7 @@ try {
             ],
             'status' => $p['status'],
             'featured' => (bool)$p['featured'],
-            'info' => [
-                'lokasi' => $p['lokasi'],
-                'target' => $p['target_display'] ?: ('Rp ' . number_format((float)$p['funding_target'], 0, ',', '.')),
-                'tenor' => $p['tenor'],
-                'return' => $p['return_rate'],
-                'risk' => $p['risk_level'],
-                'min_investment' => $p['min_investment'],
-                'payout' => $p['payout'],
-                'remaining_days' => $p['remaining_days'],
-                'asset_backed' => $p['asset_backed']
-            ],
+            'info' => $infoArray,
             'detail' => $detail
         ];
     }

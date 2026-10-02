@@ -12,10 +12,10 @@ $action = $_GET['action'] ?? 'get';
 $method = $_SERVER['REQUEST_METHOD'];
 
 $session = getInvestorSession();
-if (!$session && ($action !== 'get' || $method !== 'GET')) {
-    $session = requireInvestorAuth();
+if (!$session) {
+    sendJsonError('Sesi investor belum aktif atau telah kedaluwarsa. Silakan masuk terlebih dahulu.', 401);
 }
-$investorId = $session ? (int)$session['id'] : 1;
+$investorId = (int)$session['id'];
 
 // Validasi keamanan untuk mutasi state (POST)
 if ($method === 'POST') {
@@ -31,7 +31,7 @@ try {
     if ($action === 'get') {
         // A. Profile
         $stmtP = $db->prepare("
-            SELECT i.id, i.account_type, i.email, i.full_name, i.citizenship, i.phone, i.business_activity, i.status, i.created_at,
+            SELECT i.id, i.account_type, i.email, i.password_hash, i.google_id, i.avatar_url, i.full_name, i.citizenship, i.phone, i.business_activity, i.nik_paspor, i.npwp, i.status, i.created_at,
                    c.business_name, c.legal_entity, c.company_address, c.pic_name, c.pic_position, c.company_phone, c.annual_turnover
             FROM investors i
             LEFT JOIN investor_companies c ON i.id = c.investor_id
@@ -160,6 +160,11 @@ try {
                 'phone' => $profile['phone'] ?? '',
                 'business_activity' => $profile['business_activity'] ?? '',
                 'businessActivity' => $profile['business_activity'] ?? '',
+                'nik_paspor' => $profile['nik_paspor'] ?? '',
+                'npwp' => $profile['npwp'] ?? '',
+                'avatar_url' => $profile['avatar_url'] ?? '',
+                'auth_provider' => !empty($profile['google_id']) ? 'google' : 'email',
+                'has_password' => !empty($profile['password_hash']),
                 'status' => $profile['status'],
                 'registered_at' => $profile['created_at'],
                 // Corporate fields
@@ -178,6 +183,14 @@ try {
                 'active_projects_count' => count($portfolios),
                 'next_payout_date' => $earliestNextPayout,
                 'est_roi_rate' => count($portfolios) > 0 ? '≥32% (p.a.)' : '0%'
+            ],
+            'summary' => [
+                'totalInvested' => $totalInvested,
+                'totalPayoutReceived' => $totalPayoutReceived,
+                'totalPurchasesMiu' => $totalPurchasesMIU,
+                'activeProjectsCount' => count($portfolios),
+                'nextPayoutDate' => $earliestNextPayout,
+                'estRoiRate' => count($portfolios) > 0 ? '≥32% (p.a.)' : '0%'
             ],
             'portfolios' => $portfolios,
             'billings' => $billingsList,
@@ -244,14 +257,16 @@ try {
         $fullName = trim($input['full_name'] ?? '');
         $phone = trim($input['phone'] ?? '');
         $businessActivity = trim($input['business_activity'] ?? '');
+        $nikPaspor = trim($input['nik_paspor'] ?? ($input['nik'] ?? ''));
+        $npwp = trim($input['npwp'] ?? '');
         $businessName = trim($input['business_name'] ?? '') ?: $fullName;
 
         if (empty($fullName)) {
             sendJsonError('Nama lengkap atau nama perusahaan wajib diisi.');
         }
 
-        $stmtUp = $db->prepare("UPDATE investors SET full_name = ?, phone = ?, business_activity = ? WHERE id = ?");
-        $stmtUp->execute([$fullName, $phone, $businessActivity, $investorId]);
+        $stmtUp = $db->prepare("UPDATE investors SET full_name = ?, phone = ?, business_activity = ?, nik_paspor = ?, npwp = ? WHERE id = ?");
+        $stmtUp->execute([$fullName, $phone, $businessActivity, $nikPaspor, $npwp, $investorId]);
 
         // If corporate, sync company profile details
         $stmtCompCheck = $db->prepare("SELECT id FROM investor_companies WHERE investor_id = ?");
@@ -275,15 +290,15 @@ try {
         sendJsonResponse(null, 200, 'Profil investor berhasil diperbarui.');
     }
 
-    // 4. POST change_password: Ganti kata sandi
+    // 4. POST change_password: Ganti / buat kata sandi
     if ($action === 'change_password') {
         if ($method !== 'POST') sendJsonError('Method harus POST.', 405);
         $input = getJsonInput();
         $oldPass = (string)($input['old_password'] ?? '');
         $newPass = (string)($input['new_password'] ?? '');
 
-        if (empty($oldPass) || empty($newPass)) {
-            sendJsonError('Kata sandi lama dan baru wajib diisi.');
+        if (empty($newPass)) {
+            sendJsonError('Kata sandi baru wajib diisi.');
         }
 
         if (strlen($newPass) < 8) {
@@ -294,15 +309,21 @@ try {
         $stmt->execute([$investorId]);
         $currentHash = $stmt->fetchColumn();
 
-        if (!verifyPassword($oldPass, $currentHash)) {
-            sendJsonError('Kata sandi lama tidak sesuai.');
+        // Jika akun memiliki kata sandi lama (bukan pendaftaran murni Google), validasi sandi lama
+        if (!empty($currentHash)) {
+            if (empty($oldPass)) {
+                sendJsonError('Kata sandi lama wajib diisi.');
+            }
+            if (!verifyPassword($oldPass, $currentHash)) {
+                sendJsonError('Kata sandi lama tidak sesuai.');
+            }
         }
 
         $newHash = hashPassword($newPass);
         $stmtUp = $db->prepare("UPDATE investors SET password_hash = ? WHERE id = ?");
         $stmtUp->execute([$newHash, $investorId]);
 
-        sendJsonResponse(null, 200, 'Kata sandi berhasil diperbarui.');
+        sendJsonResponse(null, 200, !empty($currentHash) ? 'Kata sandi berhasil diperbarui.' : 'Kata sandi akun berhasil dibuat.');
     }
 
     sendJsonError('Aksi tidak dikenali.', 400);

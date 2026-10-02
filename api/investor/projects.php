@@ -12,9 +12,17 @@ try {
     $session = getInvestorSession();
     $investorId = $session ? (int)$session['id'] : null;
 
-    // Graceful fallback for preview / demo mode if not explicitly logged in via session
-    if (!$investorId) {
-        $investorId = 1; // Default to Budi Pratama
+    // Hanya aktifkan data demo jika parameter ?demo=1 disertakan secara eksplisit dan tidak ada sesi
+    $isDemoMode = (!$investorId && isset($_GET['demo']) && $_GET['demo'] == '1');
+    if (!$investorId && !$isDemoMode) {
+        sendJsonResponse([
+            'investor_id' => null,
+            'total_projects' => 0,
+            'projects' => []
+        ]);
+    }
+    if (!$investorId && $isDemoMode) {
+        $investorId = 1;
     }
 
     $db = getDB();
@@ -53,8 +61,8 @@ try {
     $stmt->execute([$investorId]);
     $rawProjects = $stmt->fetchAll();
 
-    // If investor has no portfolios in DB yet, return the default primary project for preview
-    if (empty($rawProjects)) {
+    // Hanya masukkan project preview jika secara eksplisit dalam mode demo tanpa sesi
+    if (empty($rawProjects) && $isDemoMode) {
         $stmtDefault = $db->prepare("
             SELECT pr.*, pr.title as project_title, pr.category as project_category,
                    pr.image as project_image, pr.status as project_status, pr.lokasi as project_lokasi
@@ -77,7 +85,7 @@ try {
                 'end_date' => '2029-01-15',
                 'next_payout_date' => '2026-10-15',
                 'payout_received' => 270000000,
-                'allocated_units' => '2x Komatsu PC138US-8 CBU Jepang',
+                'allocated_units' => '2x Unit Alat Berat Siap Operasi',
                 'status' => 'active',
                 'project_title' => $def['title'],
                 'project_category' => $def['category'],
@@ -127,7 +135,7 @@ try {
 
         // Default realistic figures if project has fresh setup
         if ($totalPembelian == 0 && $pId === 'proj-jkt-jabar') {
-            $totalPembelian = 3150000000; // 2 Komatsu + attachment
+            $totalPembelian = 3150000000; // 2 Unit Alat Berat + attachment
         }
         if ($totalPenjualan == 0 && $pId === 'proj-jkt-jabar') {
             $totalPenjualan = 970000000;
@@ -199,8 +207,8 @@ try {
                 'tenor' => $p['tenor'],
                 'next_payout_date' => $p['next_payout_date'] ?: '2026-10-15',
                 'allocated_units' => ($matchedTier && !empty($matchedTier['unit_qty'])) 
-                    ? ($matchedTier['unit_qty'] . ' Unit Komatsu PC57-7 CBU Jepang') 
-                    : ($p['allocated_units'] ?: 'Unit CBU Jepang Grade A'),
+                    ? ($matchedTier['unit_qty'] . ' Unit Alat Berat Siap Operasi') 
+                    : ($p['allocated_units'] ?: 'Unit Alat Berat Siap Operasi'),
                 'total_units' => (int)$invStats['total_units'] ?: 2,
                 'active_units' => (int)$invStats['active_units'] ?: 2,
                 'utilization_rate' => '94.2%'

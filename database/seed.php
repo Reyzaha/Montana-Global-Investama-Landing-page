@@ -173,7 +173,7 @@ try {
                 $pId,
                 $p['title'] ?? 'Proyek Investasi',
                 $p['category'] ?? 'Alat Berat & Infrastruktur',
-                $p['image'] ?? 'assets/img/komatsu.jpg',
+                $p['image'] ?? 'assets/img/project-jabodetabek.jpg',
                 $fundingCollected,
                 $fundingTarget,
                 $p['funding']['currency'] ?? 'IDR',
@@ -430,7 +430,7 @@ try {
     if ($inv1Id) {
         $stmtPort->execute([
             $inv1Id, 'proj-jkt-jabar', 'MGI/INV/2024/001-BP', 500000000, '≥32% (p.a.)', '36 Bulan',
-            '2024-01-15', '2027-01-15', '2024-10-15', 37500000, '1x Komatsu PC138US (Grade A)'
+            '2024-01-15', '2027-01-15', '2024-10-15', 37500000, '1x Unit Alat Berat CBU (Grade A)'
         ]);
         echo "[✓] Portofolio demo investor perorangan ditambahkan (Rp 500 Juta di proj-jkt-jabar).\n";
     }
@@ -438,7 +438,7 @@ try {
     if ($inv2Id) {
         $stmtPort->execute([
             $inv2Id, 'proj-jkt-jabar', 'MGI/CORP/2024/008-NCG', 2500000000, '≥32% (p.a.)', '36 Bulan',
-            '2024-02-01', '2027-02-01', '2024-11-01', 187500000, '2x Komatsu PC200-8 & 1x D6R Caterpillar'
+            '2024-02-01', '2027-02-01', '2024-11-01', 187500000, '2x Unit Alat Berat & 1x Dozer Heavy Duty'
         ]);
         echo "[✓] Portofolio demo investor korporasi ditambahkan (Total Rp 2,5 Miliar di proj-jkt-jabar).\n";
     }
@@ -453,10 +453,10 @@ try {
     $updates = [
         [
             'proj-jkt-jabar',
-            'Kedatangan Unit Excavator Komatsu CBU Jepang di Pool Jabodetabek & Jawa Barat',
+            'Kedatangan Unit Alat Berat CBU Jepang di Pool Jabodetabek & Jawa Barat',
             'Logistik & Impor CBU',
             '2024-08-20',
-            'Alhamdulillah, unit Excavator Hydraulic Komatsu PC138US-8 Grade A asal Jepang telah tiba dengan selamat di Pusat Workshop & Pool Jabodetabek & Jawa Barat. Tim mekanik telah menyelesaikan tahap PDI (Pre-Delivery Inspection), pengujian hidrolik, pemasangan sistem GPS tracking terpadu, dan penerbitan sertifikat kelaikan fungsi operasional.',
+            'Alhamdulillah, unit Alat Berat CBU Grade A asal Jepang telah tiba dengan selamat di Pusat Workshop & Pool Jabodetabek & Jawa Barat. Tim mekanik telah menyelesaikan tahap PDI (Pre-Delivery Inspection), pengujian hidrolik, pemasangan sistem GPS tracking terpadu, dan penerbitan sertifikat kelaikan fungsi operasional.',
             'assets/img/project-jabodetabek.jpg',
             1
         ],
@@ -480,10 +480,10 @@ try {
         ],
         [
             'proj-makassar',
-            'Persiapan Mobilisasi Unit Komatsu PC200-8 ke Pelabuhan Makassar',
+            'Persiapan Mobilisasi Unit Alat Berat ke Pelabuhan Makassar',
             'Logistik & Mobilisasi',
             '2024-09-10',
-            'Armada Excavator Komatsu PC200-8 telah selesai melalui tahap inspeksi fungsi dan siap diberangkatkan melalui armada kapal kargo Montana Sentra Industri (MSI) menuju Pelabuhan New Port Makassar.',
+            'Armada Alat Berat telah selesai melalui tahap inspeksi fungsi dan siap diberangkatkan melalui armada kapal kargo Montana Sentra Industri (MSI) menuju Pelabuhan New Port Makassar.',
             'assets/img/project-makasar.jpg',
             1
         ],
@@ -492,7 +492,7 @@ try {
             'Kesiapan Armada & Sentral Workshop Montana Pool Kebumen 4.500 m²',
             'Workshop & Operasional',
             '2024-09-05',
-            'Pendanaan penuh 100% telah dialokasikan pada pengadaan 5 unit Komatsu. Seluruh unit kini siaga di sentral pool Kebumen untuk mendukung proyek JJLS dan jaringan irigasi Jawa Tengah.',
+            'Pendanaan penuh 100% telah dialokasikan pada pengadaan 5 unit alat berat. Seluruh unit kini siaga di sentral pool Kebumen untuk mendukung proyek JJLS dan jaringan irigasi Jawa Tengah.',
             'assets/img/project-kebumen.jpg',
             1
         ],
@@ -501,7 +501,7 @@ try {
             'Pengerjaan Penataan Lansekap Resor Mewah di Bali Selatan Berjalan Efektif',
             'Operasional Proyek',
             '2024-08-28',
-            'Armada mini excavator Komatsu PC78US-8 mencatatkan performa optimal dan minim kebisingan di proyek resor pariwisata premium Bali Selatan.',
+            'Armada unit alat berat mencatatkan performa optimal dan minim kebisingan di proyek resor pariwisata premium Bali Selatan.',
             'assets/img/project-denpasar.jpg',
             1
         ],

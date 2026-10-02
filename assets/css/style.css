@@ -1907,3 +1907,276 @@ h6,
 .growth-tab-btn[data-segment="compare"]:not(.active) i {
   color: #059669;
 }
+
+/* ==========================================================================
+   EXCLUSIVE & OPERATOR PROFESIONAL PACKAGES
+   Corporate Luxury Solid Design System (No Gradients)
+   ========================================================================== */
+
+/* 1. Model Badge & Kicker */
+.badge-exclusive-model {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #0E1B48;
+  color: #F8FAFC;
+  border: 1px solid rgba(197, 160, 89, 0.4);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 4px 10px;
+  border-radius: var(--apple-radius-pill);
+}
+
+.badge-exclusive-model i {
+  color: var(--mgi-gold-light);
+}
+
+.badge-slot-open {
+  background-color: #ECFDF5;
+  color: #047857;
+  border: 1px solid #A7F3D0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border-radius: var(--apple-radius-pill);
+  padding: 4px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.badge-slot-secured {
+  background-color: #F1F5F9;
+  color: #475569;
+  border: 1px solid #CBD5E1;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border-radius: var(--apple-radius-pill);
+  padding: 4px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* 2. Funding Range Display Box */
+.project-funding-range-box {
+  background-color: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  transition: all 0.25s ease;
+}
+
+.mgi-card:hover .project-funding-range-box {
+  background-color: #FFFFFF;
+  border-color: var(--mgi-gold);
+}
+
+.funding-range-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.funding-range-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1D3589;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+/* 3. Operator Perk Callout Banner */
+.operator-facility-callout {
+  background-color: #FCF8EE;
+  border: 1px solid #E8D7B0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: #78350F;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.operator-facility-callout i {
+  color: #D97706;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+/* 4. Luxury Package Comparison Cards (For Beranda & Detail Page) */
+.package-feature-card {
+  background-color: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 28px 24px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  position: relative;
+}
+
+.package-feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.1);
+  border-color: #CBD5E1;
+}
+
+.package-feature-card.featured {
+  border: 2px solid #C5A059;
+  background-color: #FFFFFF;
+  box-shadow: 0 8px 28px rgba(197, 160, 89, 0.2);
+}
+
+.package-feature-card.featured:hover {
+  border-color: #A4803B;
+  box-shadow: 0 20px 42px rgba(197, 160, 89, 0.3);
+}
+
+.package-ribbon-featured {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #C5A059;
+  color: #0E1B48;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 5px 16px;
+  border-radius: 50rem;
+  box-shadow: 0 4px 10px rgba(197, 160, 89, 0.4);
+  white-space: nowrap;
+}
+
+.package-header {
+  border-bottom: 1px solid #E2E8F0;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.package-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 50rem;
+  margin-bottom: 12px;
+}
+
+.package-badge-pill.gold {
+  background-color: #FCF8EE;
+  color: #92400E;
+  border: 1px solid #E8D7B0;
+}
+
+.package-badge-pill.navy {
+  background-color: #0E1B48;
+  color: #FFD700;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.package-price {
+  font-size: 2.1rem;
+  font-weight: 800;
+  font-family: 'Outfit', sans-serif;
+  color: #0F172A;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.package-price-sub {
+  font-size: 0.82rem;
+  color: #64748B;
+}
+
+.package-operator-highlight {
+  background-color: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.package-feature-card.featured .package-operator-highlight {
+  background-color: #0E1B48;
+  border-color: #0E1B48;
+  color: #FFFFFF;
+}
+
+.operator-icon-circle {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  background-color: #C5A059;
+  color: #0E1B48;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: 0 3px 8px rgba(197, 160, 89, 0.3);
+}
+
+.package-checklist {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 24px;
+  font-size: 0.86rem;
+  color: #334155;
+}
+
+.package-checklist li {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.package-checklist li i {
+  position: absolute;
+  left: 0;
+  top: 2px;
+  color: #059669;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.package-feature-card.featured .package-checklist li i {
+  color: #C5A059;
+}
+
+.package-roi-banner {
+  background-color: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  font-size: 0.82rem;
+}
+
+.package-roi-banner strong {
+  color: #166534;
+  font-size: 1rem;
+  display: block;
+}

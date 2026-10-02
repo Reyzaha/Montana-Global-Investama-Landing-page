@@ -6,7 +6,7 @@
       "id": "proj-001",
       "title": "Pengadaan Unit Alat Berat CBU Jepang Batch IV",
       "category": "Alat Berat & Infrastruktur",
-      "image": "assets/img/komatsu.jpg",
+      "image": "assets/img/project-jabodetabek.jpg",
       "funding": {
         "collected": 15500000000,
         "target": 20000000000,
@@ -30,7 +30,7 @@
         "what_will_provide": {
           "type": "text",
           "title": "Alokasi Penggunaan Modal (Use of Funds & Asset Acquisition)",
-          "content": "Dana investasi yang terhimpun akan dialokasikan langsung untuk pengadaan unit alat berat impor Completly Built Up (CBU) langsung dari Jepang dengan kondisi grade A (reconditioned & operational certified). Pengadaan mencakup Excavator Hydraulic Komatsu PC138US, PC200-8, serta Bulldozer Caterpillar D6R yang memiliki tingkat utilisasi sangat tinggi untuk kontrak jangka panjang proyek infrastruktur jalan tol, normalisasi sungai, dan tambang kuari di Jawa Tengah dan DIY. Setiap unit dilengkapi sistem telematika GPS tracking dan asuransi all-risk komprehensif."
+          "content": "Dana investasi yang terhimpun akan dialokasikan langsung untuk pengadaan unit alat berat impor Completly Built Up (CBU) langsung dari Jepang dengan kondisi grade A (reconditioned & operational certified). Pengadaan mencakup unit-unit alat berat berkualitas tinggi CBU yang memiliki tingkat utilisasi sangat tinggi untuk kontrak jangka panjang proyek infrastruktur jalan tol, normalisasi sungai, dan tambang kuari di Jawa Tengah dan DIY. Setiap unit dilengkapi sistem telematika GPS tracking dan asuransi all-risk komprehensif."
         },
         "funding_target": {
           "type": "table",
@@ -45,21 +45,21 @@
           "rows": [
             {
               "no": 1,
-              "item": "Excavator Komatsu PC138US-8 (CBU Japan Grade A)",
+              "item": "Unit Alat Berat Tipe Menengah (CBU Japan Grade A)",
               "quantity": 6,
               "unit_price": 850000000,
               "total": 5100000000
             },
             {
               "no": 2,
-              "item": "Excavator Komatsu PC200-8 Hybrid Ready",
+              "item": "Unit Alat Berat Heavy Duty Hybrid Ready",
               "quantity": 5,
               "unit_price": 1450000000,
               "total": 7250000000
             },
             {
               "no": 3,
-              "item": "Bulldozer Caterpillar D6R Heavy Duty",
+              "item": "Unit Alat Berat Dozer Heavy Duty",
               "quantity": 3,
               "unit_price": 1650000000,
               "total": 4950000000

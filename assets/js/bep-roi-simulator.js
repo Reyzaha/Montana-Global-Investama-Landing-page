@@ -7,44 +7,36 @@ const MGISimulator = {
   // Initialize and mount simulator into a container
   init: function (containerId, simulationConfig) {
     const container = document.getElementById(containerId);
-    if (!container) return;
+    if (!container) return;    const minInvestment = 500000000; // Rp 500 Juta
+    const maxInvestment = 10000000000; // Rp 10 Miliar (10M)
 
-    const minInvestment = (simulationConfig && simulationConfig.minimum_investasi) || 500000000;
-    const maxInvestment = (simulationConfig && simulationConfig.maximum_investasi) || 500000000000;
+    const config = simulationConfig || {};
+    const tenorMonths = Number(config.tenor_bulan) || 12;
+    const totalReturnRate = (Number(config.estimasi_return_persen) || 28.62) / 100;
 
-    const config = simulationConfig || {
-      tenor_bulan: 36,
-      estimasi_return_persen: 30,
-      modal_kerja_bulanan_persen: 2.2,
-      minimum_investasi: minInvestment,
-      maximum_investasi: maxInvestment,
-      default_investasi: 500000000,
-      notes: "Simulasi bersifat ilustratif, bukan jaminan — mengacu pada Risk Disclosure Statement."
-    };
+    let currentInvestment = Number(config.default_investasi) || minInvestment;
+    if (currentInvestment < minInvestment || currentInvestment > maxInvestment) {
+      currentInvestment = minInvestment;
+    }
 
-    let currentInvestment = config.default_investasi || minInvestment;
-    const tenorMonths = config.tenor_bulan || 36;
-    const totalReturnRate = (config.estimasi_return_persen || 30) / 100;
-
-    // Helper: Map slider position (0-1000) to nominal (500 Juta to 500 Miliar) logarithmic scale
+    // Helper: Map slider position (0-1000) to nominal (500 Juta to 10 Miliar) logarithmic scale
     function posToNominal(t) {
       const raw = minInvestment * Math.pow(maxInvestment / minInvestment, t / 1000);
       let rounded;
       if (raw < 1000000000) {
         rounded = Math.round(raw / 50000000) * 50000000; // Step 50 Juta
-      } else if (raw < 10000000000) {
-        rounded = Math.round(raw / 250000000) * 250000000; // Step 250 Juta
-      } else if (raw < 100000000000) {
-        rounded = Math.round(raw / 1000000000) * 1000000000; // Step 1 Miliar
+      } else if (raw < 5000000000) {
+        rounded = Math.round(raw / 100000000) * 100000000; // Step 100 Juta
       } else {
-        rounded = Math.round(raw / 5000000000) * 5000000000; // Step 5 Miliar
+        rounded = Math.round(raw / 250000000) * 250000000; // Step 250 Juta
       }
       return Math.min(maxInvestment, Math.max(minInvestment, rounded));
     }
 
-    // Helper: Map nominal (500 Juta to 500 Miliar) to slider position (0-1000)
+    // Helper: Map nominal (500 Juta to 10 Miliar) to slider position (0-1000)
     function nominalToPos(nominal) {
       const n = Math.min(maxInvestment, Math.max(minInvestment, Number(nominal)));
+      if (maxInvestment <= minInvestment) return 0;
       return Math.round(1000 * Math.log(n / minInvestment) / Math.log(maxInvestment / minInvestment));
     }
 
@@ -60,7 +52,7 @@ const MGISimulator = {
             Simulasi BEP (Break Even Point) &amp; Proyeksi ROI
           </h3>
           <p class="text-mgi-muted mb-0 small">
-            Geser slider atau pilih nominal untuk menghitung estimasi arus kas bulanan, periode pengembalian modal pokok (BEP), dan total imbal hasil investasi (Rp 500 Juta – Rp 500 Miliar).
+            Geser slider atau pilih nominal untuk menghitung estimasi arus kas bulanan, periode pengembalian modal pokok (BEP), dan total imbal hasil investasi (Rp 500 Juta – Rp 10 Miliar).
           </p>
         </div>
 
@@ -72,11 +64,11 @@ const MGISimulator = {
                 <span class="fw-bold text-mgi-dark small">Nominal Investasi:</span>
                 <div class="d-flex align-items-center gap-1">
                   <span class="fs-5 fw-bold text-mgi-blue" id="simValDisplay">${MGI.formatRupiah(currentInvestment)}</span>
-                  <span class="badge bg-mgi-gold-subtle text-gold small fw-bold" id="simValCompact" style="font-size: 0.75rem;">(500 Juta)</span>
+                  <span class="badge bg-mgi-gold-subtle text-gold small fw-bold" id="simValCompact" style="font-size: 0.75rem;">(${MGI.formatRupiahCompact(currentInvestment).replace('Rp ', '')})</span>
                 </div>
               </div>
               <div class="small text-mgi-blue fw-semibold mb-2" id="simUnitEquivWrap" style="font-size: 0.8rem;">
-                <i class="bi bi-truck me-1"></i><span id="simUnitEquiv">Setara 2 Unit Komatsu PC57-7 (~0.5 Kontainer)</span>
+                <i class="bi bi-truck me-1"></i><span id="simUnitEquiv">Setara 2 Unit Alat Berat (~0.5 Kontainer 40FT HC)</span>
               </div>
               <input type="range" 
                      id="simSlider" 
@@ -87,16 +79,16 @@ const MGISimulator = {
                      value="${initialPos}">
               <div class="d-flex justify-content-between text-muted small mb-3" style="font-size: 0.72rem;">
                 <span>Min: <strong>Rp 500 Juta</strong></span>
-                <span>Maks: <strong>Rp 500 Miliar</strong></span>
+                <span>Maks: <strong>Rp 10 Miliar</strong></span>
               </div>
               
               <div class="d-flex flex-wrap gap-2">
-                <button type="button" class="chip-btn active" data-val="500000000">500 Juta</button>
-                <button type="button" class="chip-btn" data-val="1000000000">1 Miliar</button>
-                <button type="button" class="chip-btn" data-val="2000000000">2 Miliar</button>
-                <button type="button" class="chip-btn" data-val="5000000000">5 Miliar</button>
-                <button type="button" class="chip-btn" data-val="10000000000">10 Miliar</button>
-                <button type="button" class="chip-btn" data-val="25000000000">25 Miliar</button>
+                <button type="button" class="chip-btn ${currentInvestment === 500000000 ? 'active' : ''}" data-val="500000000">500 Juta</button>
+                <button type="button" class="chip-btn ${currentInvestment === 1000000000 ? 'active' : ''}" data-val="1000000000">1 Miliar</button>
+                <button type="button" class="chip-btn ${currentInvestment === 2000000000 ? 'active' : ''}" data-val="2000000000">2 Miliar</button>
+                <button type="button" class="chip-btn ${currentInvestment === 5000000000 ? 'active' : ''}" data-val="5000000000">5 Miliar</button>
+                <button type="button" class="chip-btn ${currentInvestment === 7500000000 ? 'active' : ''}" data-val="7500000000">7.5 Miliar</button>
+                <button type="button" class="chip-btn ${currentInvestment === 10000000000 ? 'active' : ''}" data-val="10000000000">10 Miliar</button>
               </div>
             </div>
 
@@ -196,7 +188,7 @@ const MGISimulator = {
       const containerEquiv = (inv / 1000000000).toFixed(1).replace('.0', '');
       const unitEquivEl = document.getElementById('simUnitEquiv');
       if (unitEquivEl) {
-        unitEquivEl.textContent = `Setara ${unitEquiv} Unit Komatsu PC57-7 (~${containerEquiv} Kontainer 40FT HC)`;
+        unitEquivEl.textContent = `Setara ${unitEquiv} Unit Alat Berat (~${containerEquiv} Kontainer 40FT HC)`;
       }
 
       document.getElementById('simTotalReturn').textContent = MGI.formatRupiah(grandTotalReturn);
@@ -204,6 +196,10 @@ const MGISimulator = {
       document.getElementById('simMonthlyReturn').textContent = MGI.formatRupiah(monthlyReturn);
       document.getElementById('simBepMonths').textContent = `~ ${bepMonthEstimate} Bulan`;
       document.getElementById('simAnnualRoi').textContent = `~ ${annualizedRoi.toFixed(1)}% / Thn`;
+
+      document.querySelectorAll('.chip-btn').forEach(btn => {
+        btn.classList.toggle('active', Number(btn.getAttribute('data-val')) === inv);
+      });
     }
 
     // Attach slider listener

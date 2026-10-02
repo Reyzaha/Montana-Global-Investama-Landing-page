@@ -222,98 +222,67 @@ const MGIComponents = {
     `;
   },
 
-  // 3. Render Status Badge (Solid Colors)
+  // 3. Render Status Badge (Eksklusif Model)
   renderStatusBadge: function (status) {
     const s = (status || 'Open').toLowerCase();
-    let badgeClass = 'badge-solid-open';
-    let icon = 'bi-record-circle-fill';
-    let label = 'Dibuka';
-
-    if (s.includes('fully') || s.includes('funded') || s.includes('fund') || s.includes('didanai')) {
-      badgeClass = 'badge-solid-funded';
-      icon = 'bi-check-circle-fill';
-      label = 'Didanai Penuh';
+    if (s.includes('fully') || s.includes('funded') || s.includes('fund') || s.includes('didanai') || s.includes('secured')) {
+      return `<span class="badge-slot-secured"><i class="bi bi-lock-fill"></i> Mitra Terkunci</span>`;
     } else if (s.includes('close') || s.includes('tutup')) {
-      badgeClass = 'badge-solid-closed';
-      icon = 'bi-dash-circle-fill';
-      label = 'Ditutup';
+      return `<span class="badge badge-solid-closed px-2.5 py-1 rounded-pill fw-bold" style="font-size: 0.72rem;"><i class="bi bi-dash-circle-fill"></i> Ditutup</span>`;
     } else if (s.includes('soon') || s.includes('segera')) {
-      badgeClass = 'badge-solid-coming';
-      icon = 'bi-clock-fill';
-      label = 'Segera Hadir';
+      return `<span class="badge badge-solid-coming px-2.5 py-1 rounded-pill fw-bold" style="font-size: 0.72rem;"><i class="bi bi-clock-fill"></i> Segera Dibuka</span>`;
     }
-
-    return `<span class="badge ${badgeClass} px-2.5 py-1 rounded-1 d-inline-flex align-items-center gap-1" style="font-size: 0.75rem; font-weight: 600;"><i class="bi ${icon} small"></i> ${label}</span>`;
+    // Default open
+    return `<span class="badge-slot-open"><i class="bi bi-person-check-fill"></i> 1 Slot Tersedia</span>`;
   },
 
-  // 4. Render Funding Progress Bar (Solid Colors)
-  renderProgressBar: function (collected, target) {
-    const col = Number(collected) || 0;
-    const tar = Number(target) || 1;
-    const pct = Math.min(100, Math.max(0, Math.round((col / tar) * 100)));
-    const isCompleted = pct >= 100;
+  // 4. Render Exclusive Partnership Header / Progress Bar
+  renderProgressBar: function (collected, target, customRange) {
+    const rangeText = customRange || (target ? MGI.formatRupiahCompact(target) : 'Rp 7 – 10 Miliar');
 
     return `
       <div class="mb-3">
-        <div class="d-flex justify-content-between align-items-center small mb-2">
-          <span class="fw-bold text-mgi-dark">${MGI.formatRupiah(col)}</span>
-          <span class="text-mgi-muted fw-semibold">${pct}% / Target ${MGI.formatRupiahCompact(tar)}</span>
+        <div class="d-flex justify-content-between align-items-center small mb-1">
+          <span class="fw-bold text-dark"><i class="bi bi-award-fill text-gold me-1"></i>Eksklusif</span>
+          <span class="badge bg-royal text-white px-2 py-0.5 rounded-pill" style="font-size: 0.7rem;">Kemitraan Tunggal</span>
         </div>
-        <div class="progress progress-solid">
-          <div class="progress-bar progress-bar-gold ${isCompleted ? 'completed' : ''}" role="progressbar" style="width: ${pct}%;" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="d-flex justify-content-between align-items-center p-2 rounded-2 bg-light border border-subtle small mt-1">
+          <span class="text-muted" style="font-size: 0.75rem;">Estimasi Kebutuhan Modal:</span>
+          <strong class="text-mgi-blue">${rangeText}</strong>
         </div>
       </div>
     `;
   },
 
-  // 5. Render Key Metrics Box (Investor Fast-Scan: Return, Tenor, Min Ticket)
+  // 5. Render Key Metrics Box (Investor Fast-Scan: Return, Tenor, Model 1-to-1)
   renderKeyMetrics: function (info) {
     if (!info) return '';
 
-    // 1. Clean ROI Return (Never wrap awkwardly)
-    let rawRet = (info.return || '≥30% (p.a.)').replace(/\s*\(p\.a\.\)/i, '').trim();
+    // 1. Clean ROI Return
+    let rawRet = (info.return || '28,6% – 42,9%').replace(/\s*\(p\.a\.\)/i, '').trim();
 
     // 2. Clean Tenor & Cycle Target
     let rawTenor = info.tenor || '12 Bulan';
     let cleanTenor = rawTenor.split('(')[0].trim();
     let tenorSub = 'TENOR PROYEK';
-    if (rawTenor.toLowerCase().includes('2–3x') || rawTenor.toLowerCase().includes('2-3x')) {
-      tenorSub = '2–3X SIKLUS / THN';
-    } else if (rawTenor.toLowerCase().includes('putaran')) {
-      tenorSub = 'PERPUTARAN UNIT';
-    }
-
-    // 3. Clean Minimum Ticket (Compact, sharp)
-    let cleanMin = info.min_investment || 'Rp 500 Juta';
-    if (cleanMin.includes('500.000.000')) {
-      cleanMin = 'Rp 500 Juta';
-    } else if (cleanMin.includes('1.000.000.000')) {
-      cleanMin = 'Rp 1 Miliar';
-    } else if (cleanMin.includes('2.000.000.000')) {
-      cleanMin = 'Rp 2 Miliar';
-    } else {
-      const num = Number(cleanMin.replace(/[^0-9]/g, ''));
-      if (num >= 1000000000) {
-        cleanMin = 'Rp ' + (num / 1000000000) + ' Miliar';
-      } else if (num >= 1000000) {
-        cleanMin = 'Rp ' + (num / 1000000) + ' Juta';
-      }
+    if (rawTenor.toLowerCase().includes('2–3x') || rawTenor.toLowerCase().includes('2-3x') || rawTenor.toLowerCase().includes('putaran')) {
+      tenorSub = '2–3X PUTARAN/THN';
     }
 
     return `
       <div class="project-metrics-box p-2.5 px-1 rounded-3 mb-3 bg-light border border-subtle">
         <div class="row g-0 text-center align-items-stretch">
           <div class="col-4 border-end border-subtle px-1 d-flex flex-column justify-content-center">
-            <div class="text-success fw-bold text-nowrap" style="font-size: 0.92rem; line-height: 1.2;">${rawRet}</div>
-            <div class="text-muted fw-semibold mt-1 text-truncate text-uppercase" style="font-size: 0.64rem; letter-spacing: 0.3px;">ROI (p.a.)</div>
+            <div class="text-success fw-bold text-nowrap" style="font-size: 0.88rem; line-height: 1.2;">${rawRet}</div>
+            <div class="text-muted fw-semibold mt-1 text-truncate text-uppercase" style="font-size: 0.62rem; letter-spacing: 0.3px;">ROI (p.a.)</div>
           </div>
           <div class="col-4 border-end border-subtle px-1 d-flex flex-column justify-content-center">
-            <div class="text-dark fw-bold text-nowrap" style="font-size: 0.94rem; line-height: 1.2;">${cleanTenor}</div>
-            <div class="text-muted fw-semibold mt-1 text-truncate text-uppercase" style="font-size: 0.64rem; letter-spacing: 0.3px;">${tenorSub}</div>
+            <div class="text-dark fw-bold text-nowrap" style="font-size: 0.9rem; line-height: 1.2;">${cleanTenor}</div>
+            <div class="text-muted fw-semibold mt-1 text-truncate text-uppercase" style="font-size: 0.62rem; letter-spacing: 0.3px;">${tenorSub}</div>
           </div>
           <div class="col-4 px-1 d-flex flex-column justify-content-center">
-            <div class="text-royal fw-bold text-nowrap" style="font-size: 0.92rem; line-height: 1.2;">${cleanMin}</div>
-            <div class="text-muted fw-semibold mt-1 text-truncate text-uppercase" style="font-size: 0.64rem; letter-spacing: 0.3px;">Min. Investasi</div>
+            <div class="text-royal fw-bold text-nowrap" style="font-size: 0.88rem; line-height: 1.2;">1 Investor</div>
+            <div class="text-gold fw-bold mt-1 text-truncate text-uppercase" style="font-size: 0.62rem; letter-spacing: 0.3px;">Eksklusif</div>
           </div>
         </div>
       </div>
@@ -328,43 +297,35 @@ const MGIComponents = {
       lokasi = lokasi.substring(0, 24) + '...';
     }
 
-    let payoutText = 'Tiap Siklus Penjualan';
+    let payoutText = 'Bagi Hasil Tiap Siklus Penjualan';
     const rawPayout = (info.payout || '').toLowerCase();
-    if (rawPayout.includes('siklus') || rawPayout.includes('putaran')) {
-      payoutText = 'Bagi Hasil Tiap Siklus';
-    } else if (rawPayout.includes('kuartal')) {
+    if (rawPayout.includes('kuartal')) {
       payoutText = 'Bagi Hasil Kuartalan';
-    } else if (rawPayout.includes('bulan')) {
-      payoutText = 'Bagi Hasil Bulanan';
     }
 
-    let assetBadge = 'Komatsu PC57-7 CBU';
+    let assetBadge = 'Alat Berat Siap Operasi';
     if (info.asset_backed) {
-      if (info.asset_backed.toLowerCase().includes('komatsu')) {
-        assetBadge = 'Komatsu CBU Grade A';
-      } else {
-        assetBadge = 'Unit CBU & BPKB';
-      }
+      assetBadge = 'Alat Berat Produktif';
     }
 
     return `
       <div class="project-meta-details mb-3 pt-2.5 border-top border-subtle" style="font-size: 0.8rem;">
         <div class="d-flex justify-content-between align-items-center mb-2">
-          <span class="text-muted" style="font-size: 0.76rem;">Wilayah Operasi</span>
+          <span class="text-muted" style="font-size: 0.76rem;">Wilayah Proyek</span>
           <span class="fw-semibold text-dark text-end text-truncate ms-2" style="max-width: 175px;" title="${info.lokasi || ''}">
             ${lokasi}
           </span>
         </div>
 
         <div class="d-flex justify-content-between align-items-center mb-2">
-          <span class="text-muted" style="font-size: 0.76rem;">Distribusi Laba</span>
+          <span class="text-muted" style="font-size: 0.76rem;">Distribusi Hasil</span>
           <span class="fw-semibold text-primary text-end">
             ${payoutText}
           </span>
         </div>
 
         <div class="d-flex justify-content-between align-items-center">
-          <span class="text-muted" style="font-size: 0.76rem;">Jaminan Aset</span>
+          <span class="text-muted" style="font-size: 0.76rem;">Jaminan Aset Fisik</span>
           <span class="badge bg-success-subtle text-success border border-success-subtle fw-semibold px-2 py-1" style="font-size: 0.72rem;">
             ${assetBadge}
           </span>
@@ -373,11 +334,13 @@ const MGIComponents = {
     `;
   },
 
-  // 7. Render Project Card (Bootstrap 5 Card - High Contrast Luxury)
+  // 7. Render Project Card (Bootstrap 5 Card - High Contrast Luxury 1-to-1 Model)
   renderProjectCard: function (project) {
     if (!project) return '';
     const info = project.info || {};
     const city = project.city || (info.lokasi ? info.lokasi.split(',')[0] : 'Regional');
+    const fundingRange = project.funding_range || info.target_range || info.target || 'Rp 7 – 10 Miliar';
+    const stockArmada = (info.stock_available) ? info.stock_available : 'Batch Armada Alat Berat Siap Operasi';
 
     return `
       <div class="card mgi-card h-100 shadow-sm border-0 d-flex flex-column">
@@ -391,29 +354,51 @@ const MGIComponents = {
             </span>
           </div>
 
-          <!-- Pojok Kanan Atas: Status Badge -->
+          <!-- Pojok Kanan Atas: Slot Kemitraan Tunggal -->
           <div class="position-absolute top-0 end-0 m-3 d-flex flex-column align-items-end gap-2" style="z-index: 3;">
             ${MGIComponents.renderStatusBadge(project.status)}
           </div>
         </div>
 
         <div class="card-body p-4 d-flex flex-column">
+          <!-- Model Header Badge -->
           <div class="d-flex justify-content-between align-items-center mb-2 small">
+            <span class="badge-exclusive-model">
+              <i class="bi bi-award-fill"></i> Eksklusif
+            </span>
             <span class="badge bg-light text-secondary border fw-semibold" style="font-size: 0.72rem; letter-spacing: 0.5px;">KODE: ${project.id.toUpperCase()}</span>
-            <span class="text-muted fw-semibold" style="font-size: 0.75rem;"><i class="bi bi-shield-check text-success me-1"></i>Aset Terverifikasi</span>
           </div>
 
-          <h5 class="card-title fw-bold text-dark mb-3" style="font-size: 1.05rem; line-height: 1.4; min-height: 48px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;" title="${project.title}">${project.title}</h5>
+          <h5 class="card-title fw-bold text-dark mb-3" style="font-size: 1.08rem; line-height: 1.4; min-height: 48px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;" title="${project.title}">${project.title}</h5>
+
+          <!-- Estimasi Kebutuhan Modal Range Box -->
+          <div class="project-funding-range-box">
+            <div class="funding-range-label">
+              <span>Estimasi Kebutuhan Modal:</span>
+              <span class="badge bg-gold text-dark fw-bold px-2 py-0.5 rounded-pill" style="font-size: 0.65rem;">Profesional Sektor Riil</span>
+            </div>
+            <div class="funding-range-value">${fundingRange}</div>
+            <div class="small text-muted mt-1 text-truncate" style="font-size: 0.75rem;" title="${stockArmada}">
+              <i class="bi bi-truck me-1 text-primary"></i>${stockArmada}
+            </div>
+          </div>
+
+          <!-- Fasilitas Operator Callout -->
+          <div class="operator-facility-callout">
+            <i class="bi bi-person-badge-fill"></i>
+            <div>
+              <strong>Bonus Fasilitas Operator:</strong>
+              <div class="small text-muted">Invest 5M (1 Operator) • Invest 10M (2 Operator)</div>
+            </div>
+          </div>
 
           ${MGIComponents.renderKeyMetrics(info)}
-
-          ${MGIComponents.renderProgressBar(project.funding.collected, project.funding.target)}
 
           ${MGIComponents.renderMetaRow(info)}
 
           <div class="mt-auto pt-1">
-            <button type="button" onclick="MGIAuth.handleProtectedDetail('${project.id}')" class="btn btn-outline-mgi w-100 py-2 fw-semibold d-flex align-items-center justify-content-center gap-2">
-              <span>Lihat Detail Proyek</span>
+            <button type="button" onclick="MGIAuth.handleProtectedDetail('${project.id}')" class="btn btn-outline-mgi w-100 py-2.5 fw-semibold d-flex align-items-center justify-content-center gap-2">
+              <span>Lihat Detail Kemitraan &amp; Paket</span>
               <i class="bi bi-arrow-right"></i>
             </button>
           </div>
@@ -552,7 +537,7 @@ const MGIComponents = {
                   <tbody>
                     <tr>
                       <td class="ps-3 py-2 text-muted" style="width: 45%;"><i class="bi bi-box-seam me-2 text-primary"></i>Barang</td>
-                      <td class="pe-3 py-2 fw-bold text-dark text-end">${sp.barang || 'Excavator PC57-7 (Komatsu)'}</td>
+                      <td class="pe-3 py-2 fw-bold text-dark text-end">${sp.barang || 'Unit Alat Berat Produktif'}</td>
                     </tr>
                     <tr>
                       <td class="ps-3 py-2 text-muted"><i class="bi bi-cash-stack me-2 text-primary"></i>Min. Target Proyek</td>
@@ -701,43 +686,55 @@ const MGIComponents = {
     `;
   },
 
-  // 11. Render Multi-Tier Investment Participation ("Modal Anda Mendapatkan Apa Saja?")
+  // 11. Render Multi-Tier Investment Participation ("Paket Kemitraan & Fasilitas Operator Profesional")
   renderInvestmentTiers: function (tiers) {
     if (!tiers || !tiers.length) return '';
 
     const cardsHtml = tiers.map(t => {
-      const isFeatured = t.nominal === 1000000000 || t.nominal === 2000000000;
-      const borderStyle = isFeatured ? 'border: 2px solid #C5A059 !important; box-shadow: 0 10px 25px rgba(197, 160, 89, 0.15);' : 'border: 1px solid #CBD5E1 !important;';
-      const badgeHtml = t.badge ? `<span class="badge ${isFeatured ? 'bg-gold text-white' : 'bg-light text-dark border'} rounded-pill px-3 py-1 small fw-semibold">${t.badge}</span>` : '';
+      const isFeatured = t.nominal >= 10000000000;
+      const borderStyle = isFeatured ? 'border: 2px solid #C5A059 !important; box-shadow: 0 10px 30px rgba(197, 160, 89, 0.2);' : 'border: 1px solid #CBD5E1 !important;';
+      const badgeHtml = t.badge ? `<span class="badge ${isFeatured ? 'bg-gold text-dark' : 'bg-light text-dark border'} rounded-pill px-3 py-1 small fw-bold">${t.badge}</span>` : '';
+      const opPerk = t.operator_perk || (t.nominal >= 10000000000 ? '2 Operator Profesional Bersertifikat (Double Shift)' : '1 Operator Profesional Bersertifikat');
 
       return `
-        <div class="col-12 col-md-6 col-xl-4">
+        <div class="col-12 col-md-6 col-xl-6">
           <div class="card h-100 bg-white rounded-4 overflow-hidden d-flex flex-column" style="${borderStyle}">
             <div class="p-4 border-bottom bg-light d-flex justify-content-between align-items-start">
               <div>
                 ${badgeHtml}
-                <h4 class="fw-bold text-dark mt-2 mb-0">${MGI.formatRupiah(t.nominal)}</h4>
-                <div class="text-muted small mt-1 fw-semibold">${t.label}</div>
+                <h3 class="fw-bold text-dark mt-2 mb-0" style="font-family: 'Outfit', sans-serif;">${MGI.formatRupiah(t.nominal)}</h3>
+                <div class="text-royal small mt-1 fw-bold text-uppercase" style="letter-spacing: 0.5px;">${t.label}</div>
               </div>
-              <div class="rounded-circle p-2 bg-white border shadow-sm">
+              <div class="rounded-circle p-2 bg-white border shadow-sm flex-shrink-0">
                 <i class="bi bi-shield-check text-gold fs-4"></i>
               </div>
             </div>
 
             <div class="p-4 flex-grow-1 d-flex flex-column">
-              <p class="text-secondary small mb-3">${t.deskripsi || ''}</p>
+              <!-- Operator Perk Callout Inside Tier Card -->
+              <div class="package-operator-highlight mb-3">
+                <div class="operator-icon-circle">
+                  <i class="bi bi-person-badge-fill"></i>
+                </div>
+                <div>
+                  <div class="fw-bold small text-dark">${opPerk}</div>
+                  <div class="text-muted" style="font-size: 0.75rem;">Gaji &amp; biaya operasional operator terkelola penuh dalam sistem MIU (Profesional)</div>
+                </div>
+              </div>
+
+              <p class="text-secondary small mb-3 lh-base">${t.deskripsi || ''}</p>
 
               <div class="bg-light p-3 rounded-3 mb-3 small">
                 <div class="d-flex justify-content-between mb-2">
                   <span class="text-muted"><i class="bi bi-truck me-1 text-primary"></i>Alokasi Fisik:</span>
-                  <strong class="text-dark">${t.unit_qty} Unit PC57-7</strong>
+                  <strong class="text-dark">${t.unit_qty} Unit Alat Berat</strong>
                 </div>
                 <div class="d-flex justify-content-between mb-2">
                   <span class="text-muted"><i class="bi bi-box me-1 text-primary"></i>Kapasitas Logistik:</span>
                   <strong class="text-dark">${t.container_qty}</strong>
                 </div>
                 <div class="d-flex justify-content-between mb-2">
-                  <span class="text-muted"><i class="bi bi-pie-chart me-1 text-primary"></i>Porsi Proyek:</span>
+                  <span class="text-muted"><i class="bi bi-pie-chart me-1 text-primary"></i>Porsi Kemitraan:</span>
                   <strong class="text-primary">${t.porsi_proyek}</strong>
                 </div>
                 <div class="border-top pt-2 mt-2">
@@ -748,7 +745,7 @@ const MGIComponents = {
 
               <!-- Imbal Hasil Box -->
               <div class="p-3 rounded-3 mb-4" style="background-color: #F0FDF4; border: 1px solid #BBF7D0;">
-                <div class="small text-muted mb-1 text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.5px;">Proyeksi Bagi Hasil Tahunan:</div>
+                <div class="small text-muted mb-1 text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.5px;">Proyeksi Bagi Hasil Bersih Tahunan:</div>
                 <div class="d-flex justify-content-between align-items-center mb-1">
                   <span class="small text-dark">Skenario 2x Putaran (28,6%):</span>
                   <strong class="text-success">${MGI.formatRupiah(t.profit_2x_tahunan)}/thn</strong>
@@ -760,12 +757,12 @@ const MGIComponents = {
               </div>
 
               <div class="mt-auto pt-2">
-                <button type="button" onclick="MGIComponents.selectTier(${t.nominal})" class="btn ${isFeatured ? 'btn-gold text-white' : 'btn-outline-primary'} w-100 rounded-pill fw-bold py-2 shadow-sm d-flex align-items-center justify-content-center gap-2 mb-2">
+                <button type="button" onclick="MGIComponents.selectTier(${t.nominal})" class="btn ${isFeatured ? 'btn-gold text-dark fw-bold' : 'btn-outline-primary fw-semibold'} w-100 rounded-pill py-2.5 shadow-sm d-flex align-items-center justify-content-center gap-2 mb-2">
                   <i class="bi bi-calculator-fill"></i>
-                  <span>Simulasikan Tiket Ini</span>
+                  <span>Simulasikan Paket Ini</span>
                 </button>
-                <a href="contact.html?subject=Konsultasi+Investasi+${encodeURIComponent(t.label)}+${encodeURIComponent(MGI.formatRupiah(t.nominal))}" class="btn btn-sm btn-link text-muted w-100 text-decoration-none text-center">
-                  <i class="bi bi-chat-dots me-1"></i> Konsultasi Private via WhatsApp
+                <a href="contact.html?subject=Konsultasi+Kemitraan+${encodeURIComponent(t.label)}+${encodeURIComponent(MGI.formatRupiah(t.nominal))}" class="btn btn-sm btn-link text-muted w-100 text-decoration-none text-center">
+                  <i class="bi bi-chat-dots me-1"></i> Konsultasi Kemitraan via WhatsApp
                 </a>
               </div>
             </div>
@@ -775,7 +772,7 @@ const MGIComponents = {
     }).join('');
 
     return `
-      <div class="row g-4 mb-4" id="investmentTiersContainer">
+      <div class="row g-4 mb-4 justify-content-center" id="investmentTiersContainer">
         ${cardsHtml}
       </div>
     `;

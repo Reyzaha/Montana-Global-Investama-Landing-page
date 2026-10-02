@@ -182,7 +182,20 @@
 
         </form>
 
+        <!-- Divider Atau Masuk Dengan -->
+        <div class="d-flex align-items-center my-4">
+          <hr class="flex-grow-1 border-subtle">
+          <span class="px-3 text-muted small fw-semibold">atau masuk dengan</span>
+          <hr class="flex-grow-1 border-subtle">
+        </div>
 
+        <!-- Google Sign-In Container -->
+        <div class="d-flex flex-column align-items-center mb-2">
+          <div id="googleSignInBtn" class="d-flex justify-content-center w-100" style="min-height: 44px;"></div>
+          <div class="text-muted text-center mt-2" style="font-size: 0.78rem;">
+            <i class="bi bi-shield-check text-success me-1"></i> Autentikasi aman melalui Google Identity Services
+          </div>
+        </div>
 
         <!-- Tautan Menuju Register -->
         <div class="text-center mt-4 pt-3 border-top border-subtle">
@@ -227,6 +240,8 @@
 
   <!-- Bootstrap 5 Bundle JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Google Identity Services (OAuth 2.0) -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <!-- App Core JS -->
   <script src="assets/js/renderer.js"></script>
   <script src="assets/js/auth.js"></script>
@@ -347,6 +362,52 @@
           }
         }, 600);
       });
+
+      // Initialize Google Sign-In Button
+      MGIAuth.renderGoogleSignInButton('googleSignInBtn', (googleResponse) => {
+        if (!googleResponse || !googleResponse.credential) return;
+
+        const loginType = document.getElementById('loginTypeInput') ? document.getElementById('loginTypeInput').value : 'perorangan';
+
+        alertContainer.innerHTML = `
+          <div class="alert alert-info border-0 shadow-sm rounded-3 p-3 d-flex align-items-center gap-3 mb-4" role="alert">
+            <span class="spinner-border spinner-border-sm text-primary" role="status"></span>
+            <div class="small fw-semibold text-dark">Memverifikasi kredensial Google Anda...</div>
+          </div>
+        `;
+        alertContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+        MGIAuth.loginWithGoogle(googleResponse.credential, loginType).then((res) => {
+          if (res.success) {
+            alertContainer.innerHTML = `
+              <div class="alert alert-success border-0 shadow-sm rounded-3 p-4 d-flex align-items-start gap-3 mb-4" role="alert">
+                <i class="bi bi-check-circle-fill fs-3 text-success flex-shrink-0"></i>
+                <div>
+                  <h5 class="alert-heading fw-bold mb-1">Login Berhasil!</h5>
+                  <p class="small mb-0 lh-base">
+                    ${res.message} Mengalihkan ke Dashboard Investor...
+                  </p>
+                </div>
+              </div>
+            `;
+            const targetUrl = MGIAuth.getRedirectUrl() || 'investor-dashboard.html';
+            setTimeout(() => {
+              window.location.href = targetUrl;
+            }, 800);
+          } else {
+            alertContainer.innerHTML = `
+              <div class="alert alert-danger border-0 shadow-sm rounded-3 p-4 d-flex align-items-start gap-3 mb-4" role="alert">
+                <i class="bi bi-exclamation-triangle-fill fs-3 text-danger flex-shrink-0"></i>
+                <div>
+                  <h5 class="alert-heading fw-bold mb-1">Gagal Masuk via Google</h5>
+                  <p class="small mb-0 lh-base">${res.message}</p>
+                </div>
+              </div>
+            `;
+            alertContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        });
+      }, { text: 'signin_with', shape: 'pill', width: 340 });
     });
   </script>
 </body>

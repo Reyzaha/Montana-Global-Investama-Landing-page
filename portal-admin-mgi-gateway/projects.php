@@ -169,12 +169,12 @@ require_once __DIR__ . '/includes/header.php';
                     <div class="d-flex align-items-center gap-3 p-2 bg-light rounded border">
                       <!-- Thumbnail Preview -->
                       <div class="position-relative border rounded p-1 bg-white flex-shrink-0" style="width: 72px; height: 52px; overflow: hidden;">
-                        <img id="projectImagePreview" src="../assets/img/komatsu.jpg" alt="Preview" class="w-100 h-100 rounded" style="object-fit: cover;" onerror="this.onerror=null;this.src='../assets/img/project-jabodetabek.jpg'">
+                        <img id="projectImagePreview" src="../assets/img/project-jabodetabek.jpg" alt="Preview" class="w-100 h-100 rounded" style="object-fit: cover;" onerror="this.onerror=null;this.src='../assets/img/project-jabodetabek.jpg'">
                       </div>
                       
                       <!-- Upload Controller -->
                       <div class="flex-grow-1 overflow-hidden">
-                        <input type="hidden" id="pImage" value="assets/img/komatsu.jpg">
+                        <input type="hidden" id="pImage" value="assets/img/project-jabodetabek.jpg">
                         <input type="file" id="pImageUpload" class="d-none" accept="image/png, image/jpeg, image/webp, image/gif, image/svg+xml" onchange="handleProjectImageUpload(this)">
                         
                         <div class="d-flex align-items-center gap-2 mb-1">
@@ -185,7 +185,7 @@ require_once __DIR__ . '/includes/header.php';
                           <span class="small text-muted" id="uploadImageStatus" style="font-size: 0.75rem;">Maks. 10MB</span>
                         </div>
                         <div class="small text-muted font-monospace text-truncate" id="currentImagePathDisplay" style="font-size: 0.72rem;">
-                          assets/img/komatsu.jpg
+                          assets/img/project-jabodetabek.jpg
                         </div>
                       </div>
                     </div>
@@ -339,8 +339,8 @@ require_once __DIR__ . '/includes/header.php';
                   </div>
                   <div class="col-md-4">
                     <label class="form-label">Batas Maksimum Investasi (Rp)</label>
-                    <input type="number" id="simMax" class="form-control" value="500000000000" min="10000000" step="10000000" oninput="updateMoneyPreview('simMax', 'previewSimMax')">
-                    <div class="live-rupiah-preview" id="previewSimMax">Rp 500.000.000.000</div>
+                    <input type="number" id="simMax" class="form-control" value="10000000000" min="10000000" step="10000000" oninput="updateMoneyPreview('simMax', 'previewSimMax')">
+                    <div class="live-rupiah-preview" id="previewSimMax">Rp 10.000.000.000</div>
                   </div>
                   <div class="col-md-4">
                     <label class="form-label">Default Nilai Investasi (Rp)</label>
@@ -364,7 +364,7 @@ require_once __DIR__ . '/includes/header.php';
                     <h6 class="fw-bold text-dark mb-1">
                       <i class="bi bi-layers-fill text-gold me-2"></i>Struktur Pengadaan Unit Riil &amp; Paket Pemodal (Executive RAB)
                     </h6>
-                    <small class="text-muted">Parameter unit alat berat Komatsu PC57-7 CBU, kapasitas kontainer 40FT HC, dan paket partisipasi pemodal.</small>
+                    <small class="text-muted">Parameter unit alat berat, kapasitas kontainer 40FT HC, dan paket partisipasi pemodal.</small>
                   </div>
                   <button type="button" class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1 shadow-sm" onclick="calcExecutiveRabFromTarget()">
                     <i class="bi bi-arrow-repeat"></i>
@@ -375,7 +375,7 @@ require_once __DIR__ . '/includes/header.php';
                 <div class="row g-3 mb-4">
                   <div class="col-md-3">
                     <label class="form-label small text-muted">Model Alat Berat</label>
-                    <input type="text" id="execModel" class="form-control form-control-sm fw-bold" value="Excavator PC57-7 (Komatsu)">
+                    <input type="text" id="execModel" class="form-control form-control-sm fw-bold" value="Unit Alat Berat">
                   </div>
                   <div class="col-md-3">
                     <label class="form-label small text-muted">Estimasi Total Unit</label>
@@ -669,7 +669,7 @@ require_once __DIR__ . '/includes/header.php';
 
   function calcExecutiveRabFromTarget() {
     const target = Number(document.getElementById('pFundingTarget').value) || 10000000000;
-    const model = document.getElementById('execModel').value || 'Excavator PC57-7 (Komatsu)';
+    const model = document.getElementById('execModel').value || 'Unit Alat Berat';
     const units = Math.max(1, Math.round(target / 250000000));
     const containers = Math.max(1, Math.round(units / 4));
     const targetPerputaran = document.getElementById('execTargetPerputaran').value || '2 – 3 Kali per Tahun';
@@ -678,10 +678,10 @@ require_once __DIR__ . '/includes/header.php';
     document.getElementById('execTotalContainers').value = containers;
 
     const tierTemplates = [
-      { nominal: 500000000, name: "Paket Starter (2 Unit PC57-7)", units: 2, containers: "0.5 Kontainer 40FT HC", tag: "Alokasi Pemula" },
-      { nominal: 1000000000, name: "Paket 1 Kontainer Penuh (4 Unit PC57-7)", units: 4, containers: "1 Kontainer 40FT HC Penuh", tag: "Paling Populer" },
-      { nominal: 2000000000, name: "Paket 2 Kontainer (8 Unit PC57-7)", units: 8, containers: "2 Kontainer 40FT HC", tag: "Skala Komersial" },
-      { nominal: 5000000000, name: "Paket 5 Kontainer (20 Unit PC57-7)", units: 20, containers: "5 Kontainer 40FT HC", tag: "Prioritas Institusi" }
+      { nominal: 500000000, name: "Paket Starter (2 Unit Alat Berat)", units: 2, containers: "0.5 Kontainer 40FT HC", tag: "Alokasi Pemula" },
+      { nominal: 1000000000, name: "Paket 1 Kontainer Penuh (4 Unit Alat Berat)", units: 4, containers: "1 Kontainer 40FT HC Penuh", tag: "Paling Populer" },
+      { nominal: 2000000000, name: "Paket 2 Kontainer (8 Unit Alat Berat)", units: 8, containers: "2 Kontainer 40FT HC", tag: "Skala Komersial" },
+      { nominal: 5000000000, name: "Paket 5 Kontainer (20 Unit Alat Berat)", units: 20, containers: "5 Kontainer 40FT HC", tag: "Prioritas Institusi" }
     ];
 
     let tiers = [];
@@ -693,7 +693,7 @@ require_once __DIR__ . '/includes/header.php';
           nominal_display: AdminApp.formatRupiah(t.nominal),
           name: t.name,
           units: t.units,
-          unit_description: `${t.units} Unit Excavator Komatsu PC57-7 CBU Jepang (${t.containers})`,
+          unit_description: `${t.units} Unit Alat Berat Siap Operasi (${t.containers})`,
           alokasi_modal: {
             hpp_unit: t.units * 150000000,
             rekondisi_miu: t.units * 25000000,
@@ -798,7 +798,7 @@ require_once __DIR__ . '/includes/header.php';
             const nom = t.nominal_display || AdminApp.formatRupiah(t.nominal);
             const name = t.name || t.label || 'Paket Investasi';
             const units = t.units ?? t.unit_qty ?? '-';
-            const desc = t.unit_description || t.jaminan_aset || `${units} Unit Komatsu PC57-7 CBU (${t.container_qty || 'Kontainer'})`;
+            const desc = t.unit_description || t.jaminan_aset || `${units} Unit Alat Berat Siap Operasi (${t.container_qty || 'Kontainer'})`;
             const profit = t.est_profit_per_putaran_display || AdminApp.formatRupiah(t.est_profit_per_putaran || 0);
             const roiPutaran = t.est_roi_per_putaran_pct || '14.31%';
             const roiPa = t.est_roi_pa_pct || '28.6% – 42.9%';
@@ -831,9 +831,9 @@ require_once __DIR__ . '/includes/header.php';
     document.getElementById('pTitle').value = '';
     document.getElementById('pCategory').value = 'Alat Berat & Infrastruktur';
     document.getElementById('pStatus').value = 'Open';
-    document.getElementById('pImage').value = 'assets/img/komatsu.jpg';
-    document.getElementById('projectImagePreview').src = '../assets/img/komatsu.jpg';
-    document.getElementById('currentImagePathDisplay').textContent = 'assets/img/komatsu.jpg';
+    document.getElementById('pImage').value = 'assets/img/project-jabodetabek.jpg';
+    document.getElementById('projectImagePreview').src = '../assets/img/project-jabodetabek.jpg';
+    document.getElementById('currentImagePathDisplay').textContent = 'assets/img/project-jabodetabek.jpg';
     document.getElementById('uploadImageStatus').innerHTML = 'Maks. 10MB';
     document.getElementById('pFeatured').checked = false;
     document.getElementById('pFundingTarget').value = '20000000000';
@@ -854,13 +854,13 @@ require_once __DIR__ . '/includes/header.php';
     document.getElementById('pSummary').value = '';
 
     document.getElementById('rabTableBody').innerHTML = '';
-    addRabRow({ item: 'Excavator Hydraulic Komatsu PC138US (CBU Japan)', quantity: 4, unit_price: 850000000, total: 3400000000 });
+    addRabRow({ item: 'Unit Alat Berat Produktif Siap Operasi', quantity: 4, unit_price: 850000000, total: 3400000000 });
 
     document.getElementById('simTenor').value = 36;
     document.getElementById('simReturn').value = 30.00;
     document.getElementById('simModalKerja').value = 2.20;
     document.getElementById('simMin').value = 500000000;
-    document.getElementById('simMax').value = 500000000000;
+    document.getElementById('simMax').value = 10000000000;
     document.getElementById('simDefault').value = 500000000;
 
     updateMoneyPreview('pFundingTarget', 'previewFundingTarget');
@@ -869,7 +869,7 @@ require_once __DIR__ . '/includes/header.php';
     updateMoneyPreview('simMax', 'previewSimMax');
     updateMoneyPreview('simDefault', 'previewSimDefault');
 
-    // Auto-calculate Executive Unit & Tiers for standard Komatsu PC57-7
+    // Auto-calculate Executive Unit & Tiers for standard unit alat berat
     calcExecutiveRabFromTarget();
 
     // Reset to tab 1
@@ -905,7 +905,7 @@ require_once __DIR__ . '/includes/header.php';
       document.getElementById('pTitle').value = p.title;
       document.getElementById('pCategory').value = p.category;
       document.getElementById('pStatus').value = p.status;
-      const imgPath = p.image || 'assets/img/komatsu.jpg';
+      const imgPath = p.image || 'assets/img/project-jabodetabek.jpg';
       document.getElementById('pImage').value = imgPath;
       document.getElementById('projectImagePreview').src = `../${imgPath}`;
       document.getElementById('currentImagePathDisplay').textContent = imgPath;
@@ -949,7 +949,7 @@ require_once __DIR__ . '/includes/header.php';
       document.getElementById('simReturn').value = sim.estimasi_return_persen || 30.00;
       document.getElementById('simModalKerja').value = sim.modal_kerja_bulanan_persen || 2.20;
       document.getElementById('simMin').value = sim.minimum_investasi || 500000000;
-      document.getElementById('simMax').value = sim.maximum_investasi || 500000000000;
+      document.getElementById('simMax').value = sim.maximum_investasi || 10000000000;
       document.getElementById('simDefault').value = sim.default_investasi || 500000000;
       document.getElementById('simNotes').value = sim.notes || '';
 
@@ -964,7 +964,7 @@ require_once __DIR__ . '/includes/header.php';
         currentRabExecutive = d.rab_executive;
         const sp = currentRabExecutive.spesifikasi || {};
         
-        let modelVal = currentRabExecutive.unit_model || sp.barang || 'Excavator PC57-7 (Komatsu)';
+        let modelVal = currentRabExecutive.unit_model || sp.barang || 'Unit Alat Berat';
         
         let unitsVal = currentRabExecutive.total_units;
         if (!unitsVal && sp.estimasi_unit) {

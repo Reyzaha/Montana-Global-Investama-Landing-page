@@ -150,7 +150,7 @@ try {
     $stockInventory = [
         [
             'unit_code' => 'EXC-KMT-01',
-            'model' => 'Komatsu PC138US-8 (CBU Jepang Grade A)',
+            'model' => 'Unit Alat Berat Siap Operasi',
             'serial_number' => 'KM-9481',
             'year' => 2021,
             'specification' => 'Short Tail Swing, Bucket 0.53 m³, Engine SAA4D95LE-5 (97 HP)',
@@ -164,7 +164,7 @@ try {
         ],
         [
             'unit_code' => 'EXC-KMT-02',
-            'model' => 'Komatsu PC138US-8 (CBU Jepang Grade A)',
+            'model' => 'Unit Alat Berat Siap Operasi',
             'serial_number' => 'KM-9482',
             'year' => 2021,
             'specification' => 'Short Tail Swing, Bucket 0.53 m³, Engine SAA4D95LE-5 (97 HP)',
@@ -217,7 +217,7 @@ try {
                 'total_pembelian_miu' => $totalPembelianMIU,
                 'total_pembelian_all' => $totalPembelianAll,
                 'vendor_utama' => 'PT Montana Industri Utama (MIU)',
-                'unit_terbeli' => '2 Unit Komatsu PC138US-8 CBU Jepang + Breaker Kit',
+                'unit_terbeli' => '2 Unit Alat Berat Siap Operasi + Breaker Kit',
                 'status_pengadaan' => 'Unit Lengkap di Pool Workshop',
                 'records' => $modPembelian
             ],
@@ -261,7 +261,7 @@ try {
             'penjualan' => $chartDataPenjualan,
             'laba_rugi' => $chartDataLabaRugi,
             'doughnut' => [
-                'labels' => ['Aset Unit Komatsu (via MIU)', 'Sisa Kas & Likuiditas Escrow', 'Realisasi Laba Ditahan'],
+                'labels' => ['Aset Unit Alat Berat (via MIU)', 'Sisa Kas & Likuiditas Escrow', 'Realisasi Laba Ditahan'],
                 'data' => [
                     round($totalAsetUnit / 1000000, 2),
                     round($sisaKas / 1000000, 2),

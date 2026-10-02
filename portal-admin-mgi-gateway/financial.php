@@ -263,7 +263,7 @@ require_once __DIR__ . '/includes/header.php';
 
               <div class="col-md-8">
                 <label class="form-label small fw-bold">Judul Transaksi / Billing <span class="text-danger">*</span></label>
-                <input type="text" id="formTitle" class="form-control" placeholder="Contoh: Pembelian 2x Unit Excavator Komatsu PC138US via MIU" required>
+                <input type="text" id="formTitle" class="form-control" placeholder="Contoh: Pembelian 2x Unit Alat Berat via MIU" required>
               </div>
 
               <div class="col-md-4">
@@ -305,7 +305,7 @@ require_once __DIR__ . '/includes/header.php';
 
               <div class="col-md-6">
                 <label class="form-label small fw-bold">Rincian Unit Alat Berat / Seri Fisik</label>
-                <input type="text" id="formUnitDetail" class="form-control" placeholder="Contoh: 2x Komatsu PC138US-8 (SN: KM-9481 & KM-9482) CBU Jepang">
+                <input type="text" id="formUnitDetail" class="form-control" placeholder="Contoh: 2x Unit Alat Berat Siap Operasi">
               </div>
 
               <div class="col-md-6">
@@ -338,7 +338,7 @@ require_once __DIR__ . '/includes/header.php';
             
             <div class="mb-3">
               <label class="form-label small fw-bold">Penjelasan Transparan Alokasi Dana (Tampil di Dashboard Investor):</label>
-              <textarea id="formDescription" class="form-control" rows="3" placeholder="Jelaskan secara transparan kepada investor ke mana dana dialokasikan. Contoh: Modal 5 Miliar berkurang sebesar Rp 2.800.000.000 untuk realisasi pembelian 2 unit Excavator Komatsu PC138US Grade A CBU Jepang melalui vendor internal grup PT Montana Industri Utama (MIU). Sisa kas dialokasikan untuk kesiapan operasional lapangan."></textarea>
+              <textarea id="formDescription" class="form-control" rows="3" placeholder="Jelaskan secara transparan kepada investor ke mana dana dialokasikan. Contoh: Modal 5 Miliar berkurang sebesar Rp 2.800.000.000 untuk realisasi pembelian 2 unit alat berat siap operasi melalui vendor internal grup PT Montana Indo Utama (MIU). Sisa kas dialokasikan untuk kesiapan operasional lapangan."></textarea>
             </div>
 
             <div class="d-flex align-items-center justify-content-between p-3 rounded-3 border bg-light">
@@ -414,7 +414,7 @@ require_once __DIR__ . '/includes/header.php';
             <div class="p-3 bg-light rounded-3">
               <span class="text-muted small text-uppercase fw-bold d-block mb-1">Proyek Penempatan Modal:</span>
               <h6 class="fw-bold text-dark mb-1" id="viewProjectTitle">-</h6>
-              <div class="small text-secondary" id="viewProjectCategory">Kategori Alat Berat Komatsu CBU</div>
+              <div class="small text-secondary" id="viewProjectCategory">Kategori Alat Berat</div>
               <div class="small text-muted" id="viewVendorClient">Vendor: PT Montana Industri Utama (MIU)</div>
             </div>
           </div>
@@ -455,7 +455,7 @@ require_once __DIR__ . '/includes/header.php';
         <div class="row g-3 align-items-center p-3 rounded-3 border bg-light mb-4">
           <div class="col-8">
             <h6 class="fw-bold text-dark mb-1"><i class="bi bi-shield-check text-success me-1"></i> Deklarasi Transparansi Aliran Modal</h6>
-            <p class="small text-secondary mb-0">Dokumen faktur billing ini merupakan laporan resmi realisasi penggunaan modal investor yang mengurangi saldo kas dan menambah aktiva berwujud armada fisik Komatsu yang dikelola oleh workshop grup PT Montana Industri Utama (MIU).</p>
+            <p class="small text-secondary mb-0">Dokumen faktur billing ini merupakan laporan resmi realisasi penggunaan modal investor yang mengurangi saldo kas dan menambah aktiva berwujud armada fisik alat berat yang dikelola oleh workshop grup PT Montana Indo Utama (MIU).</p>
           </div>
           <div class="col-4 text-end">
             <div class="d-inline-block text-center border p-2 bg-white rounded-2">
@@ -512,7 +512,7 @@ require_once __DIR__ . '/includes/header.php';
               </div>
               <div class="col-md-8">
                 <label class="form-label small fw-bold">Nama / Model Unit <span class="text-danger">*</span></label>
-                <input type="text" id="invItemName" class="form-control" placeholder="Contoh: Excavator Komatsu PC138US-8 (CBU Japan)" required>
+                <input type="text" id="invItemName" class="form-control" placeholder="Contoh: Unit Alat Berat Siap Operasi" required>
               </div>
               <div class="col-md-4">
                 <label class="form-label small fw-bold">Kategori</label>
@@ -864,7 +864,7 @@ require_once __DIR__ . '/includes/header.php';
       flowSelect.value = 'out';
       vendorInput.value = 'PT Montana Industri Utama (MIU)';
       if (!descArea.value) {
-        descArea.value = 'Alokasi penyerapan modal: pengurangan kas untuk pembelian unit alat berat Komatsu CBU Jepang via workshop PT Montana Industri Utama (MIU).';
+        descArea.value = 'Alokasi penyerapan modal: pengurangan kas untuk pembelian unit alat berat via workshop PT Montana Indo Utama (MIU).';
       }
     } else if (mod === 'penjualan') {
       flowSelect.value = 'in';
@@ -958,7 +958,7 @@ require_once __DIR__ . '/includes/header.php';
 
     document.getElementById('viewItemTitle').textContent = r.title;
     document.getElementById('viewItemDescription').textContent = r.description || 'Pengurangan modal untuk pengadaan unit alat berat melalui MIU.';
-    document.getElementById('viewUnitDetail').textContent = r.unit_detail || 'Unit Fisik Komatsu CBU Jepang Grade A';
+    document.getElementById('viewUnitDetail').textContent = r.unit_detail || 'Unit Fisik Alat Berat Siap Operasi';
     document.getElementById('viewModuleBadge').textContent = r.module.toUpperCase();
     document.getElementById('viewItemAmount').textContent = formatIDR(r.amount);
     document.getElementById('viewTotalAmount').textContent = formatIDR(r.amount);

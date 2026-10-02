@@ -14,7 +14,7 @@
       "entitas": "PT Montana Indo Utama (MIU)",
       "level": "1",
       "induk_langsung": "PT Montana Global Investama",
-      "fungsi_utama": "Kantor & workshop, Dukungan armada, distribusi & utilisasi alat berat Komatsu CBU Jepang Grade A (ekspansi Sumatera,Jabodetabek,Bali)"
+      "fungsi_utama": "Kantor & workshop, Dukungan armada, distribusi & utilisasi alat berat produktif (ekspansi Sumatera,Jabodetabek,Bali)"
     },
     {
       "entitas": "PT Montana Sentra Industri (MSI)",
@@ -52,7 +52,7 @@
       "level": 1,
       "icon": "truck",
       "badge": "Kantor & Workshop Sentral",
-      "description": "Entitas operasional terpadu yang berevolusi dari CV Montana Machine. Fokus pada armada alat berat khusus merek Komatsu CBU Jepang Grade A, fasilitas kantor & workshop sentral pool 4.500 m² di Kebumen, armada Montana Towing siaga 24 jam, serta utilisasi operasional di Jawa Tengah, Bali, dan NTB."
+      "description": "Entitas operasional terpadu yang berevolusi dari CV Montana Machine. Fokus pada armada alat berat produktif, fasilitas kantor & workshop sentral pool 4.500 m² di Kebumen, armada Montana Towing siaga 24 jam, serta utilisasi operasional di Jawa Tengah, Bali, dan NTB."
     },
     {
       "id": "montana-sentra-industri",
@@ -88,7 +88,7 @@
       "level": 2,
       "icon": "wrench-adjustable",
       "badge": "Fasilitas Kantor & Workshop",
-      "description": "Pangkalan workshop seluas 4.500 m² di Kebumen dengan teknisi berpengalaman, stok unit Komatsu tersedia, dan armada Montana Towing."
+      "description": "Pangkalan workshop seluas 4.500 m² di Kebumen dengan teknisi berpengalaman, stok unit alat berat tersedia, dan armada Montana Towing."
     }
   ],
   "governance_summary": {
@@ -97,7 +97,7 @@
       "Pengelola Proyek & Permodalan: MGI mengelola portofolio proyek investasi dengan imbal hasil menarik dan terukur.",
       "Suplai Impor Langsung (MSI): Impor langsung unit alat berat dan mesin dari Jepang atau Cina ke Indonesia sampai ke alamat pelanggan.",
       "Sistem dan Pengadaan Terpadu (Mypurcase): Pembelian unit dan mesin secara efisien, memangkas biaya perantara tanpa beban administrasi berlebih.",
-      "Proteksi Aset Fisik Nyata: Armada 125 unit khusus Komatsu Grade A, stok tersedia di pool, dan nilai pendanaan terukur di setiap kota operasional."
+      "Proteksi Aset Fisik Nyata: Armada 125 unit alat berat, stok tersedia di pool, dan nilai pendanaan terukur di setiap kota operasional."
     ]
   }
 }

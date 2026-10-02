@@ -272,7 +272,7 @@
           <div class="flex flex-wrap items-center gap-3 pt-2">
             <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/15 text-white backdrop-blur-sm border border-white/10">
               <i data-lucide="user" class="w-3.5 h-3.5 text-amber-300"></i>
-              <span id="heroInvestorName">Budi Pratama</span>
+              <span id="heroInvestorName">Investor MGI</span>
             </span>
             <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
               <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400"></i>
@@ -287,26 +287,26 @@
             <div class="text-[11px] font-bold uppercase tracking-wider text-slate-300 flex items-center justify-between">
               <span>Total Modal Ditempatkan</span>
               <span class="text-emerald-400 flex items-center gap-1 font-semibold text-xs">
-                <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> Kuartal 3 2026
+                <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> Kuartal Berjalan
               </span>
             </div>
             <div class="text-3xl sm:text-4xl font-black text-white mt-1 mb-5 tracking-tight" id="heroTotalInvested">
-              Rp 5 Miliar
+              Rp 0
             </div>
 
             <!-- Sub Metrics Row -->
             <div class="space-y-3 pt-4 border-t border-white/15 text-xs sm:text-sm">
               <div class="flex items-center justify-between">
                 <span class="text-slate-300">Realisasi Laba Bersih:</span>
-                <span class="font-bold text-emerald-400" id="heroNetProfit">+Rp 685.200.000</span>
+                <span class="font-bold text-emerald-400" id="heroNetProfit">Rp 0</span>
               </div>
               <div class="flex items-center justify-between">
                 <span class="text-slate-300">Dividen Diterima:</span>
-                <span class="font-bold text-cyan-300" id="heroPayoutReceived">Rp 270.000.000</span>
+                <span class="font-bold text-cyan-300" id="heroPayoutReceived">Rp 0</span>
               </div>
               <div class="flex items-center justify-between">
                 <span class="text-slate-300">Jadwal Dividen Berikutnya:</span>
-                <span class="font-medium text-amber-300" id="heroNextPayout">15 Oktober 2026</span>
+                <span class="font-medium text-amber-300" id="heroNextPayout">Belum Ada Proyek Aktif</span>
               </div>
             </div>
 
@@ -314,10 +314,10 @@
             <div class="mt-4 pt-3 border-t border-white/10">
               <div class="flex justify-between text-[11px] font-medium text-slate-300 mb-1.5">
                 <span>Pencapaian Target Yield Tahunan</span>
-                <span class="font-bold text-white">88%</span>
+                <span class="font-bold text-white" id="heroYieldText">0%</span>
               </div>
               <div class="w-full bg-white/15 rounded-full h-2 overflow-hidden">
-                <div class="bg-gradient-to-r from-amber-400 to-emerald-400 h-2 rounded-full" style="width: 88%"></div>
+                <div id="heroYieldBar" class="bg-gradient-to-r from-amber-400 to-emerald-400 h-2 rounded-full" style="width: 0%"></div>
               </div>
             </div>
           </div>
@@ -335,7 +335,7 @@
         <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
           Daftar Proyek Penempatan Modal Anda
         </h2>
-        <span class="text-xs font-semibold text-slate-500" id="activeProjectsCount">1 Proyek Sedang Berjalan Aktif</span>
+        <span class="text-xs font-semibold text-slate-500" id="activeProjectsCount">0 Proyek Sedang Berjalan Aktif</span>
       </div>
       <p class="text-xs sm:text-sm text-slate-500 mt-1">
         Klik tombol <span class="font-semibold text-slate-700">"Buka Dashboard Operasional Proyek"</span> pada proyek yang ingin Anda pantau untuk melihat stok alat berat, mutasi pembelian MIU, penjualan sewa, biaya operasional, dan laba rugi.
@@ -399,9 +399,9 @@
               placeholder="Cari proyek, lokasi..." 
               class="text-xs bg-slate-50 border border-slate-200 rounded-full px-3.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
-            <a href="invest.html" target="_blank" class="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 shrink-0">
-              Katalog Publik <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
-            </a>
+            <button onclick="loadAndRenderCatalog()" class="text-xs font-bold text-slate-600 hover:text-blue-600 flex items-center gap-1.5 shrink-0 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 transition">
+              <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Muat Ulang
+            </button>
           </div>
         </div>
 
@@ -422,10 +422,10 @@
             </div>
             <div>
               <div class="flex items-center gap-2">
-                <span class="text-xs font-bold text-slate-900">Servis Berkala Unit PC138-01 Selesai Sesuai Jadwal (SMH 1.250)</span>
+                <span class="text-xs font-bold text-slate-900">Servis Berkala Unit Alat Berat #01 Selesai Sesuai Jadwal (SMH 1.250)</span>
                 <span class="text-[10px] font-semibold text-slate-400">Kemarin, 14:20 WIB</span>
               </div>
-              <p class="text-xs text-slate-600 mt-1">Penggantian oli hidrolik dan filter resmi Komatsu Genuine Parts dilakukan oleh tim mekanik MGI Workshop Narogong. Kondisi engine 100% prima dan siap lanjut siklus sewa.</p>
+              <p class="text-xs text-slate-600 mt-1">Penggantian oli hidrolik dan filter resmi suku cadang alat berat dilakukan oleh tim mekanik MGI Workshop Narogong. Kondisi engine 100% prima dan siap lanjut siklus sewa.</p>
             </div>
           </div>
 
@@ -438,7 +438,7 @@
                 <span class="text-xs font-bold text-slate-900">Perpanjangan Kontrak Sewa 6 Bulan oleh PT Adhi Karya Sub-Kontraktor</span>
                 <span class="text-[10px] font-semibold text-slate-400">22 Sep 2026</span>
               </div>
-              <p class="text-xs text-slate-600 mt-1">Unit Komatsu PC138US-8 Nomor Registrasi MGI-EX-02 resmi diperpanjang untuk pengerjaan elevated drainase jalan arteri dengan tarif flat rate premium.</p>
+              <p class="text-xs text-slate-600 mt-1">Unit Alat Berat Nomor Registrasi MGI-EX-02 resmi diperpanjang untuk pengerjaan elevated drainase jalan arteri dengan tarif flat rate premium.</p>
             </div>
           </div>
         </div>
@@ -567,52 +567,72 @@
       <div id="tabContent-profil" class="tab-pane hidden space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Profile Card -->
-          <div class="p-5 border border-slate-200 rounded-3xl space-y-3 bg-slate-50/50">
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Informasi Investor Terdaftar</span>
-            <div class="text-xs space-y-2 pt-1 text-slate-700">
-              <p><span class="text-slate-400 block sm:inline sm:w-36" id="profNameLabel">Nama Lengkap:</span> <strong id="profNameDisplay">Budi Pratama</strong></p>
-              <p><span class="text-slate-400 block sm:inline sm:w-36">Tipe Akun:</span> <span id="profTypeDisplay" class="font-semibold text-slate-800">Perorangan</span></p>
+          <div class="p-5 sm:p-6 border border-slate-200 rounded-3xl space-y-4 bg-slate-50/50 shadow-xs">
+            <div class="flex items-center justify-between gap-2 pb-2 border-b border-slate-200/80">
+              <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Informasi Investor Terdaftar</span>
+              <button type="button" onclick="openEditProfileModal()" class="px-3 py-1.5 text-xs font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-xl flex items-center gap-1.5 transition active:scale-95 cursor-pointer shadow-2xs border border-blue-200/70">
+                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                <span>Lengkapi / Edit Data</span>
+              </button>
+            </div>
+            
+            <div class="text-xs space-y-2.5 pt-1 text-slate-700">
+              <p class="flex flex-col sm:flex-row sm:items-center"><span class="text-slate-400 sm:w-40 shrink-0" id="profNameLabel">Nama Lengkap:</span> <strong id="profNameDisplay" class="text-slate-900">-</strong></p>
+              <p class="flex flex-col sm:flex-row sm:items-center"><span class="text-slate-400 sm:w-40 shrink-0">Tipe Akun:</span> <span id="profTypeDisplay" class="font-semibold text-slate-800">Perorangan</span></p>
               
               <!-- Khusus Perorangan: Jenis Kegiatan / Usaha -->
-              <p id="profActivityRow"><span class="text-slate-400 block sm:inline sm:w-36">Jenis Kegiatan / Usaha:</span> <span id="profActivityDisplay" class="font-medium text-slate-800">Perdagangan &amp; Konstruksi</span></p>
+              <p id="profActivityRow" class="flex flex-col sm:flex-row sm:items-center"><span class="text-slate-400 sm:w-40 shrink-0">Jenis Kegiatan / Usaha:</span> <span id="profActivityDisplay" class="font-medium text-slate-800">-</span></p>
               
               <!-- Khusus Perusahaan: Nama PT & Bergerak di Bidang Apa -->
-              <p id="profCompanyRow" class="hidden"><span class="text-slate-400 block sm:inline sm:w-36">Nama Badan Usaha / PT:</span> <strong id="profCompanyNameDisplay" class="text-slate-900">-</strong></p>
-              <p id="profSectorRow" class="hidden"><span class="text-slate-400 block sm:inline sm:w-36">Bidang Usaha:</span> <span id="profSectorDisplay" class="font-medium text-slate-800">-</span></p>
+              <p id="profCompanyRow" class="hidden flex flex-col sm:flex-row sm:items-center"><span class="text-slate-400 sm:w-40 shrink-0">Nama Badan Usaha / PT:</span> <strong id="profCompanyNameDisplay" class="text-slate-900">-</strong></p>
+              <p id="profSectorRow" class="hidden flex flex-col sm:flex-row sm:items-center"><span class="text-slate-400 sm:w-40 shrink-0">Bidang Usaha:</span> <span id="profSectorDisplay" class="font-medium text-slate-800">-</span></p>
 
-              <p><span class="text-slate-400 block sm:inline sm:w-36">NIK / Paspor:</span> <span class="font-mono" id="profNikDisplay">3174**********89 (Terverifikasi)</span></p>
-              <p><span class="text-slate-400 block sm:inline sm:w-36">Status Pajak NPWP:</span> Terdaftar (Tarif PPh Pasal 23)</p>
-              <p><span class="text-slate-400 block sm:inline sm:w-36">Email Terdaftar:</span> <span id="profEmailDisplay">budi.pratama@montanainvestor.id</span></p>
-              <p><span class="text-slate-400 block sm:inline sm:w-36">No. WhatsApp:</span> <span id="profPhoneDisplay">+62 812-****-8812</span></p>
+              <p class="flex flex-col sm:flex-row sm:items-center"><span class="text-slate-400 sm:w-40 shrink-0">NIK / Paspor:</span> <span class="font-mono text-slate-800" id="profNikDisplay">-</span></p>
+              <p class="flex flex-col sm:flex-row sm:items-center"><span class="text-slate-400 sm:w-40 shrink-0">Status Pajak NPWP:</span> <span id="profNpwpDisplay">-</span></p>
+              <p class="flex flex-col sm:flex-row sm:items-center"><span class="text-slate-400 sm:w-40 shrink-0">Email Terdaftar:</span> <span id="profEmailDisplay" class="font-medium text-slate-800">-</span></p>
+              <p class="flex flex-col sm:flex-row sm:items-center"><span class="text-slate-400 sm:w-40 shrink-0">No. WhatsApp:</span> <span id="profPhoneDisplay" class="font-medium text-slate-800">-</span></p>
+              <p class="flex flex-col sm:flex-row sm:items-center"><span class="text-slate-400 sm:w-40 shrink-0">Metode Autentikasi:</span> <span id="profAuthMethodDisplay" class="font-medium text-slate-800">-</span></p>
             </div>
           </div>
 
           <!-- Password & Security Card -->
-          <div class="p-5 border border-slate-200 rounded-3xl space-y-4 bg-slate-50/50">
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Ubah Kata Sandi Akun</span>
+          <div class="p-5 sm:p-6 border border-slate-200 rounded-3xl space-y-4 bg-slate-50/50 shadow-xs">
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block" id="passCardTitle">Ubah Kata Sandi Akun</span>
+            
+            <!-- Notice Khusus Google Login (OAuth 2.0) -->
+            <div id="googleAuthNotice" class="hidden p-3.5 rounded-2xl bg-blue-50/90 border border-blue-200 text-xs text-blue-900 space-y-1">
+              <div class="flex items-center gap-1.5 font-bold text-blue-950">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span>Akun Terverifikasi via Google OAuth 2.0</span>
+              </div>
+              <p class="text-[11px] text-blue-700 leading-relaxed">
+                Anda masuk menggunakan akun Google resmi. Jika ingin masuk menggunakan kombinasi email &amp; sandi di kemudian hari, Anda cukup membuat sandi baru di bawah ini tanpa sandi lama.
+              </p>
+            </div>
+
             <form onsubmit="handlePasswordUpdate(event)" class="space-y-3">
-              <div>
+              <div id="oldPasswordGroup">
                 <label class="text-[11px] font-semibold text-slate-600 block mb-1">Kata Sandi Lama</label>
-                <input type="password" id="inputOldPassword" placeholder="••••••••" class="w-full text-xs bg-white border border-slate-300 rounded-xl px-3 py-2 focus:ring-1 focus:ring-blue-500 focus:outline-none" required>
+                <input type="password" id="inputOldPassword" placeholder="••••••••" class="w-full text-xs bg-white border border-slate-300 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <div>
                   <label class="text-[11px] font-semibold text-slate-600 block mb-1">Kata Sandi Baru</label>
-                  <input type="password" id="inputNewPassword" placeholder="Min. 8 karakter" class="w-full text-xs bg-white border border-slate-300 rounded-xl px-3 py-2 focus:ring-1 focus:ring-blue-500 focus:outline-none" required minlength="8">
+                  <input type="password" id="inputNewPassword" placeholder="Min. 8 karakter" class="w-full text-xs bg-white border border-slate-300 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none" required minlength="8">
                 </div>
                 <div>
                   <label class="text-[11px] font-semibold text-slate-600 block mb-1">Ulangi Sandi Baru</label>
-                  <input type="password" id="inputConfirmPassword" placeholder="Konfirmasi" class="w-full text-xs bg-white border border-slate-300 rounded-xl px-3 py-2 focus:ring-1 focus:ring-blue-500 focus:outline-none" required minlength="8">
+                  <input type="password" id="inputConfirmPassword" placeholder="Konfirmasi" class="w-full text-xs bg-white border border-slate-300 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none" required minlength="8">
                 </div>
               </div>
-              <button type="submit" class="w-full py-2 bg-slate-900 text-white rounded-full text-xs font-bold hover:bg-slate-800 transition active:scale-98">
+              <button type="submit" id="passSubmitBtn" class="w-full py-2.5 bg-slate-900 text-white rounded-full text-xs font-bold hover:bg-slate-800 transition active:scale-98 cursor-pointer shadow-xs">
                 Update Kata Sandi
               </button>
             </form>
 
             <div class="pt-2 border-t border-slate-200 flex items-center justify-between text-xs">
-              <span class="text-slate-600">Autentikasi Dua Langkah (2FA)</span>
-              <span class="px-2 py-0.5 text-[10px] font-bold bg-emerald-100 text-emerald-800 rounded-full">Aktif</span>
+              <span class="text-slate-600">Perlindungan Akun Finansial</span>
+              <span class="px-2.5 py-0.5 text-[10px] font-bold bg-emerald-100 text-emerald-800 rounded-full border border-emerald-200">Aktif &amp; Terlindungi</span>
             </div>
           </div>
         </div>
@@ -642,6 +662,75 @@
   <!-- ======================================================== -->
   <!-- MODALS SECTION                                           -->
   <!-- ======================================================== -->
+
+  <!-- MODAL: Lengkapi / Edit Profil Investor -->
+  <div id="editProfileModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 transition-all">
+    <div class="bg-white rounded-3xl max-w-xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-slate-200">
+      
+      <!-- Modal Header -->
+      <div class="sticky top-0 bg-white/95 backdrop-blur-md px-6 py-4 border-b border-slate-100 flex items-center justify-between z-10">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-700 flex items-center justify-center font-bold">
+            <i data-lucide="user-check" class="w-5 h-5 text-blue-600"></i>
+          </div>
+          <div>
+            <h3 class="font-extrabold text-slate-900 text-base sm:text-lg">Lengkapi &amp; Edit Profil Investor</h3>
+            <p class="text-xs text-slate-500">Kepatuhan administrasi pemodal &amp; verifikasi APU-PPT</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeModal('editProfileModal')" class="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition cursor-pointer">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <form onsubmit="handleProfileUpdate(event)" class="p-6 space-y-4">
+        <div>
+          <label class="text-xs font-bold text-slate-700 block mb-1.5">Nama Lengkap Sesuai KTP / Paspor <span class="text-rose-500">*</span></label>
+          <input type="text" id="editProfFullName" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none" required placeholder="Contoh: Juankenta .H">
+        </div>
+
+        <div>
+          <label class="text-xs font-bold text-slate-700 block mb-1.5">Alamat Email Terdaftar</label>
+          <input type="email" id="editProfEmail" class="w-full text-xs bg-slate-100 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-500 cursor-not-allowed" readonly>
+          <span class="text-[11px] text-slate-400 mt-1 block">Email terhubung dengan autentikasi utama akun Anda.</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs font-bold text-slate-700 block mb-1.5">Nomor WhatsApp Aktif <span class="text-rose-500">*</span></label>
+            <input type="tel" id="editProfPhone" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="081234567890" required>
+            <span class="text-[11px] text-slate-400 mt-0.5 block">Untuk korespondensi resmi RM MGI.</span>
+          </div>
+          <div>
+            <label class="text-xs font-bold text-slate-700 block mb-1.5">NIK / No. KTP / Paspor</label>
+            <input type="text" id="editProfNik" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="16 digit NIK / No. Paspor">
+            <span class="text-[11px] text-slate-400 mt-0.5 block">Verifikasi identitas kepemilikan aset.</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs font-bold text-slate-700 block mb-1.5">Jenis Kegiatan / Sektor Usaha</label>
+            <input type="text" id="editProfActivity" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: Perdagangan, Wiraswasta, Konstruksi">
+          </div>
+          <div>
+            <label class="text-xs font-bold text-slate-700 block mb-1.5">Nomor Pokok Wajib Pajak (NPWP)</label>
+            <input type="text" id="editProfNpwp" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="16 digit NPWP (Opsional)">
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2.5">
+          <button type="button" onclick="closeModal('editProfileModal')" class="px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition cursor-pointer">
+            Batal
+          </button>
+          <button type="submit" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition active:scale-95 cursor-pointer">
+            Simpan Perubahan Data
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <!-- 1. MODAL: Dashboard Operasional Proyek (MGI QQ Client) -->
   <div id="dashboardModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 transition-all">
@@ -1066,7 +1155,7 @@
               <div class="p-4 rounded-2xl bg-blue-50/70 border border-blue-200">
                 <span class="text-[11px] font-bold text-blue-800 uppercase tracking-wider block">Pengadaan Unit CBU (MSI)</span>
                 <div class="text-xl sm:text-2xl font-black text-blue-950 mt-1" id="opBuyKpiMsi">Rp 2.980.000.000</div>
-                <span class="text-[10px] text-blue-600 block mt-0.5">Armada Komatsu PC138US-8</span>
+                <span class="text-[10px] text-blue-600 block mt-0.5">Armada Alat Berat Produktif</span>
               </div>
               <div class="p-4 rounded-2xl bg-purple-50/70 border border-purple-200">
                 <span class="text-[11px] font-bold text-purple-800 uppercase tracking-wider block">Attachment &amp; Impor (MIU)</span>
@@ -1485,7 +1574,7 @@
                     <span class="text-emerald-700" id="opLrTableRevSubtotal">Rp 1.058.000.000</span>
                   </div>
                   <div class="flex justify-between text-slate-600 pl-3 pt-1">
-                    <span>1. Pendapatan Kontrak Sewa Excavator Komatsu:</span>
+                    <span>1. Pendapatan Kontrak Sewa Alat Berat:</span>
                     <span class="font-mono text-slate-800" id="opLrRevPrimary">Rp 970.000.000</span>
                   </div>
                   <div class="flex justify-between text-slate-600 pl-3">
@@ -1576,7 +1665,7 @@
             <div class="space-y-3">
               <h4 class="text-xs uppercase tracking-wider font-extrabold text-slate-700 flex items-center gap-1.5">
                 <i data-lucide="receipt" class="w-4 h-4 text-blue-600"></i>
-                Struktur Komponen Biaya per 1 Unit Excavator Komatsu PC57-7
+                Struktur Komponen Biaya per 1 Unit Alat Berat
               </h4>
               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs" id="opRabUnitCostGrid">
                 <!-- Injected via JS -->
@@ -1753,7 +1842,7 @@
             <tbody class="divide-y divide-slate-100" id="docViewerTableBody">
               <tr>
                 <td class="py-3 px-4 font-semibold">Alokasi Pembelian Unit Alat Berat</td>
-                <td class="py-3 px-4 text-slate-500">2x Komatsu PC138US-8 CBU Jepang via MSI</td>
+                <td class="py-3 px-4 text-slate-500">2x Unit Alat Berat Siap Operasi via MSI</td>
                 <td class="py-3 px-4 text-right font-mono font-bold">Rp 2.800.000.000</td>
               </tr>
               <tr>
@@ -1861,6 +1950,49 @@
     </div>
   </div>
 
+  <!-- 2B. MODAL: Detail Prospektus & Analisis Proyek Lengkap (In-Dashboard) -->
+  <div id="projectDetailModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 transition-all">
+    <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50 shrink-0">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-2xl bg-blue-900 text-amber-400 flex items-center justify-center">
+            <i data-lucide="file-text" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-slate-900 text-base" id="modalDetailTitle">Detail &amp; Prospektus Proyek</h3>
+            <p class="text-xs text-slate-500" id="modalDetailSubtitle">Analisis kelayakan teknis, alokasi armada unit CBU, dan simulasi dividen</p>
+          </div>
+        </div>
+        <button onclick="closeModal('projectDetailModal')" class="p-1.5 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 transition cursor-pointer">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="p-6 overflow-y-auto space-y-6 flex-1 text-slate-800" id="modalDetailBody">
+        <!-- Content will be injected dynamically -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="bg-slate-50 px-6 py-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3 shrink-0">
+        <button onclick="closeModal('projectDetailModal')" class="px-5 py-2.5 text-xs font-semibold text-slate-600 hover:bg-slate-200/60 rounded-full transition cursor-pointer">
+          Tutup
+        </button>
+        <div class="flex items-center gap-2.5">
+          <a id="modalDetailWaBtn" href="https://wa.me/6281234567890" target="_blank" class="px-4 py-2.5 text-xs font-bold text-slate-700 bg-white border border-slate-300 hover:bg-slate-100 rounded-full transition flex items-center gap-1.5 shadow-xs">
+            <i data-lucide="message-circle" class="w-3.5 h-3.5 text-emerald-600"></i>
+            <span>Konsultasi RM Prioritas</span>
+          </a>
+          <button id="modalDetailInvestCtaBtn" class="px-6 py-2.5 text-xs font-bold bg-blue-900 hover:bg-blue-800 text-white rounded-full transition shadow-md hover:shadow-lg active:scale-95 flex items-center gap-1.5 cursor-pointer">
+            <i data-lucide="plus-circle" class="w-3.5 h-3.5 text-amber-300"></i>
+            <span>Ajukan Penempatan Modal</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- 3. MODAL: Cetak Ringkasan -->
   <div id="summaryModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 transition-all">
     <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-slate-200 p-6 space-y-4 text-center">
@@ -1919,9 +2051,9 @@
       // 3. Load & Render Open Projects Catalog (Area C)
       await loadAndRenderCatalog();
 
-      // 3. Setup outside click listeners for dropdowns/modals
+      // 4. Setup outside click listeners for dropdowns/modals
       window.addEventListener('click', (event) => {
-        const modals = ['dashboardModal', 'investModal', 'summaryModal'];
+        const modals = ['dashboardModal', 'investModal', 'summaryModal', 'projectDetailModal'];
         modals.forEach(id => {
           const modal = document.getElementById(id);
           if (event.target === modal) {
@@ -1935,6 +2067,31 @@
           profileMenu.classList.add('hidden');
         }
       });
+
+      // 5. Check URL parameters to auto-open specific project or tab
+      const urlParams = new URLSearchParams(window.location.search);
+      const openProj = urlParams.get('open_project') || urlParams.get('project');
+      const tabParam = urlParams.get('tab');
+
+      if (tabParam) {
+        switchTab(tabParam);
+      }
+      if (openProj) {
+        switchTab('katalog');
+        setTimeout(() => {
+          if (typeof openProjectDetailModal === 'function') {
+            openProjectDetailModal(openProj);
+          }
+        }, 500);
+      }
+
+      // 6. Navigation Guard: Prevent accidental browser Back navigation to public pages while logged in
+      try {
+        window.history.pushState(null, null, window.location.href);
+        window.addEventListener('popstate', function () {
+          window.history.pushState(null, null, window.location.href);
+        });
+      } catch (e) {}
     });
 
     // Toggle Profile Dropdown
@@ -1965,19 +2122,46 @@
       const container = document.getElementById('investorProjectsContainer');
       if (!container) return;
 
+      const countBadge = document.getElementById('activeProjectsCount');
+
       if (!projects || projects.length === 0) {
+        if (countBadge) {
+          countBadge.innerText = '0 Proyek Sedang Berjalan Aktif';
+        }
+        const storedUser = localStorage.getItem('mgi_auth_user');
+        let userName = 'Investor';
+        try {
+          if (storedUser) {
+            const u = JSON.parse(storedUser);
+            userName = u.fullName || u.full_name || u.email?.split('@')[0] || 'Investor';
+          }
+        } catch(e) {}
+
         container.innerHTML = `
-          <div class="bg-white rounded-3xl border border-slate-200 p-8 text-center text-slate-500">
-            <i data-lucide="folder-x" class="w-12 h-12 mx-auto text-slate-300 mb-3"></i>
-            <h4 class="font-bold text-slate-700">Belum Ada Proyek Aktif</h4>
-            <p class="text-xs text-slate-400 mt-1">Anda belum memiliki portofolio penempatan modal yang sedang berjalan saat ini.</p>
+          <div class="bg-white rounded-3xl border border-dashed border-slate-300 p-8 sm:p-12 text-center shadow-xs">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 mb-4 shadow-sm border border-blue-100">
+              <i data-lucide="layers" class="w-8 h-8 text-blue-600"></i>
+            </div>
+            <h4 class="text-lg sm:text-xl font-extrabold text-slate-800 mb-1.5">Belum Ada Proyek Penempatan Modal Aktif</h4>
+            <p class="text-xs sm:text-sm text-slate-500 max-w-lg mx-auto mb-6 leading-relaxed">
+              Halo <strong class="text-slate-700">${userName}</strong>, akun investor Anda telah aktif dan terverifikasi. Saat ini Anda belum memiliki portofolio proyek yang sedang berjalan. Silakan tinjau katalog proyek terbuka di bawah ini untuk memilih penempatan modal pada unit alat berat CBU Jepang dengan proyeksi bagi hasil terukur.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-3">
+              <button onclick="switchTab('katalog')" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-blue-900 hover:bg-blue-800 text-white font-bold text-xs sm:text-sm transition-all shadow-md hover:shadow-lg active:scale-95 cursor-pointer">
+                <i data-lucide="compass" class="w-4 h-4 text-amber-300"></i>
+                Jelajahi Katalog Proyek Terbuka
+              </button>
+              <button onclick="openModal('investModal')" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-sm active:scale-95 cursor-pointer">
+                <i data-lucide="plus-circle" class="w-4 h-4"></i>
+                Simulasi Penempatan Modal
+              </button>
+            </div>
           </div>
         `;
         if (window.lucide) lucide.createIcons();
         return;
       }
 
-      const countBadge = document.getElementById('activeProjectsCount');
       if (countBadge) {
         countBadge.innerText = `${projects.length} Proyek Sedang Berjalan Aktif`;
       }
@@ -2054,7 +2238,7 @@
                 </span>
                 <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-slate-900/90 text-amber-300 border border-amber-400/30 backdrop-blur-md shadow-md">
                   <i data-lucide="shield" class="w-3.5 h-3.5"></i>
-                  ${(tier && tier.unit_qty) ? (tier.unit_qty + ' Unit Komatsu CBU Jepang') : (r.allocated_units || 'Unit CBU Jepang Grade A')}
+                  ${(tier && tier.unit_qty) ? (tier.unit_qty + ' Unit Alat Berat') : (r.allocated_units || 'Unit CBU Jepang Grade A')}
                 </span>
               </div>
 
@@ -2269,7 +2453,7 @@
 
       // 2. Fetch User Profile and Bank Details
       try {
-        const res = await fetch(`api/investor/dashboard.php?action=get&_t=${Date.now()}`, { cache: 'no-store' });
+        const res = await fetch(`api/investor/dashboard.php?action=get&_t=${Date.now()}`, { cache: 'no-store', credentials: 'same-origin' });
         if (res.ok) {
           const json = await res.json();
           if (json && json.success && json.data) {
@@ -2298,7 +2482,7 @@
                   return_rate: p.return_rate,
                   tenor: p.tenor,
                   next_payout_date: p.next_payout_date,
-                  allocated_units: p.allocated_units || '2x Komatsu PC138US-8 CBU Jepang',
+                  allocated_units: p.allocated_units || '2x Alat Berat CBU Jepang',
                   total_units: 2,
                   active_units: 2,
                   utilization_rate: '94.2%'
@@ -2307,12 +2491,17 @@
               dashboardState.projects = mappedProjects;
               renderProjectCards(mappedProjects);
               projectsLoaded = true;
-            } else if (!projectsLoaded && dashboardState.projects && dashboardState.projects.length > 0) {
-              renderProjectCards(dashboardState.projects);
+            } else if (!projectsLoaded) {
+              dashboardState.projects = [];
+              renderProjectCards([]);
               projectsLoaded = true;
             }
             return;
           }
+        } else if (res.status === 401) {
+          localStorage.removeItem('mgi_auth_user');
+          window.location.replace('login.html?redirect=investor-dashboard.html');
+          return;
         }
       } catch (err) {
         console.warn('API sync warning (falling back to cached/demo state):', err);
@@ -2349,7 +2538,15 @@
         document.getElementById('profNameDisplay').innerText = fullName;
         document.getElementById('profTypeDisplay').innerText = isCorp ? 'Perusahaan (Institusi / Korporasi)' : 'Perorangan (Individu)';
         document.getElementById('profEmailDisplay').innerText = p.email || '-';
-        document.getElementById('profPhoneDisplay').innerText = p.phone || p.company_phone || '-';
+
+        // Phone
+        const phoneEl = document.getElementById('profPhoneDisplay');
+        const phoneVal = p.phone || p.company_phone || '';
+        if (phoneVal) {
+          phoneEl.innerHTML = `<span class="font-mono text-slate-800 font-semibold">${phoneVal}</span>`;
+        } else {
+          phoneEl.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">Belum Diisi</span>`;
+        }
 
         const nameLabel = document.getElementById('profNameLabel');
         if (nameLabel) {
@@ -2363,6 +2560,69 @@
         const secRow = document.getElementById('profSectorRow');
         const secDisp = document.getElementById('profSectorDisplay');
         const nikRow = document.getElementById('profNikDisplay');
+        const npwpDisp = document.getElementById('profNpwpDisplay');
+        const authDisp = document.getElementById('profAuthMethodDisplay');
+
+        // Dynamic Kegiatan / Usaha
+        const actVal = p.business_activity || p.businessActivity || '';
+        if (actDisp) {
+          if (actVal) {
+            actDisp.innerHTML = `<span class="font-medium text-slate-800">${actVal}</span>`;
+          } else {
+            actDisp.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">Belum Dilengkapi</span>`;
+          }
+        }
+
+        // Dynamic NIK / Paspor
+        const nikVal = p.nik_paspor || p.nik || '';
+        if (nikRow) {
+          if (nikVal) {
+            const maskedNik = nikVal.length > 6 ? nikVal.substring(0, 4) + '**********' + nikVal.slice(-2) : nikVal;
+            nikRow.innerHTML = `<span class="font-mono font-semibold text-slate-800">${maskedNik}</span> <span class="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">Terverifikasi</span>`;
+          } else {
+            nikRow.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">Belum Dilengkapi</span>`;
+          }
+        }
+
+        // Dynamic NPWP
+        const npwpVal = p.npwp || '';
+        if (npwpDisp) {
+          if (npwpVal) {
+            npwpDisp.innerHTML = `<span class="font-mono font-semibold text-slate-800">${npwpVal}</span> <span class="text-[10px] text-slate-500 font-medium">(Tarif PPh Pasal 23)</span>`;
+          } else {
+            npwpDisp.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">Belum Terdaftar / Menunggu Kelengkapan</span>`;
+          }
+        }
+
+        // Metode Autentikasi
+        const isGoogle = (p.auth_provider === 'google' || p.authProvider === 'google' || !!p.google_id || (p.email && p.email.endsWith('@gmail.com')));
+        if (authDisp) {
+          if (isGoogle) {
+            authDisp.innerHTML = `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-200"><i class="bi bi-google"></i> Akun Google (OAuth 2.0)</span>`;
+          } else {
+            authDisp.innerHTML = `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-slate-100 text-slate-700"><i data-lucide="key" class="w-3 h-3"></i> Email &amp; Kata Sandi</span>`;
+          }
+        }
+
+        // Sesuaikan Card Ubah Sandi bagi pengguna Google Login
+        const googleNotice = document.getElementById('googleAuthNotice');
+        const oldPassGroup = document.getElementById('oldPasswordGroup');
+        const passCardTitle = document.getElementById('passCardTitle');
+        const passSubmitBtn = document.getElementById('passSubmitBtn');
+
+        if (isGoogle && !p.has_password) {
+          if (googleNotice) googleNotice.classList.remove('hidden');
+          if (oldPassGroup) oldPassGroup.classList.add('hidden');
+          if (document.getElementById('inputOldPassword')) document.getElementById('inputOldPassword').required = false;
+          if (passCardTitle) passCardTitle.innerText = 'Buat Kata Sandi Akun';
+          if (passSubmitBtn) passSubmitBtn.innerText = 'Simpan Kata Sandi Baru';
+        } else {
+          if (googleNotice) googleNotice.classList.add('hidden');
+          if (oldPassGroup) oldPassGroup.classList.remove('hidden');
+          if (document.getElementById('inputOldPassword')) document.getElementById('inputOldPassword').required = true;
+          if (passCardTitle) passCardTitle.innerText = 'Ubah Kata Sandi Akun';
+          if (passSubmitBtn) passSubmitBtn.innerText = 'Update Kata Sandi';
+        }
 
         if (isCorp) {
           if (actRow) actRow.classList.add('hidden');
@@ -2372,32 +2632,42 @@
           }
           if (secRow) {
             secRow.classList.remove('hidden');
-            if (secDisp) secDisp.innerText = p.business_activity || p.businessActivity || p.legal_entity || 'Kontraktor & Logistik Alat Berat';
-          }
-          if (nikRow) {
-            nikRow.innerText = p.legal_entity ? `${p.legal_entity} (Terverifikasi Kemenkumham)` : 'Badan Hukum Terverifikasi';
+            if (secDisp) secDisp.innerText = p.business_activity || p.businessActivity || p.legal_entity || '-';
           }
         } else {
           if (compRow) compRow.classList.add('hidden');
           if (secRow) secRow.classList.add('hidden');
-          if (actRow) {
-            actRow.classList.remove('hidden');
-            if (actDisp) actDisp.innerText = p.business_activity || p.businessActivity || 'Perdagangan & Jasa Profesional';
-          }
-          if (nikRow) {
-            nikRow.innerText = '3174**********89 (Terverifikasi)';
-          }
+          if (actRow) actRow.classList.remove('hidden');
         }
       }
 
-      if (data.summary) {
-        const s = data.summary;
-        if (s.totalInvested !== undefined) {
-          document.getElementById('heroTotalInvested').innerText = formatRupiahDisplay(s.totalInvested);
-        }
-        if (s.totalPayoutReceived !== undefined) {
-          document.getElementById('heroPayoutReceived').innerText = formatRupiahDisplay(s.totalPayoutReceived);
-        }
+      const s = data.summary || data.metrics;
+      if (s) {
+        const totalInv = s.totalInvested !== undefined ? s.totalInvested : (s.total_invested !== undefined ? s.total_invested : 0);
+        const totalPayout = s.totalPayoutReceived !== undefined ? s.totalPayoutReceived : (s.total_payout_received !== undefined ? s.total_payout_received : 0);
+        const netProfit = s.totalNetProfit !== undefined ? s.totalNetProfit : (s.total_net_profit !== undefined ? s.total_net_profit : 0);
+        const nextPayout = s.nextPayoutDate || s.next_payout_date;
+        const activeCount = s.activeProjectsCount !== undefined ? s.activeProjectsCount : (s.active_projects_count !== undefined ? s.active_projects_count : (data.portfolios ? data.portfolios.length : 0));
+
+        const elTotal = document.getElementById('heroTotalInvested');
+        if (elTotal) elTotal.innerText = formatRupiahDisplay(totalInv);
+
+        const elNet = document.getElementById('heroNetProfit');
+        if (elNet) elNet.innerText = totalInv > 0 ? (netProfit > 0 ? '+' + formatRupiahDisplay(netProfit) : formatRupiahDisplay(netProfit)) : 'Rp 0';
+
+        const elPayout = document.getElementById('heroPayoutReceived');
+        if (elPayout) elPayout.innerText = formatRupiahDisplay(totalPayout);
+
+        const elNext = document.getElementById('heroNextPayout');
+        if (elNext) elNext.innerText = nextPayout ? nextPayout : 'Belum Ada Proyek Aktif';
+
+        const elYieldText = document.getElementById('heroYieldText');
+        const elYieldBar = document.getElementById('heroYieldBar');
+        if (elYieldText) elYieldText.innerText = totalInv > 0 ? '88%' : '0%';
+        if (elYieldBar) elYieldBar.style.width = totalInv > 0 ? '88%' : '0%';
+
+        const elCount = document.getElementById('activeProjectsCount');
+        if (elCount) elCount.innerText = `${activeCount} Proyek Sedang Berjalan Aktif`;
       }
 
       if (data.bankAccount) {
@@ -2423,11 +2693,15 @@
       const storedUser = localStorage.getItem('mgi_auth_user');
       let fallbackProfile = {
         id: 7729,
-        full_name: 'Budi Pratama',
+        full_name: 'Investor MGI',
         account_type: 'individual',
-        email: 'budi.pratama@montanainvestor.id',
-        phone: '+62 812-9844-8812',
-        business_activity: 'Perdagangan & Konstruksi'
+        email: '',
+        phone: '',
+        business_activity: '',
+        nik_paspor: '',
+        npwp: '',
+        auth_provider: 'email',
+        has_password: true
       };
 
       if (storedUser) {
@@ -2436,13 +2710,17 @@
           const isCorp = (user.type === 'perusahaan' || user.accountType === 'corporate' || user.account_type === 'corporate');
           fallbackProfile = {
             id: user.id || 7729,
-            full_name: user.fullName || user.full_name || (isCorp ? (user.businessName || 'PT Montana Mitra') : 'Budi Pratama'),
+            full_name: user.fullName || user.full_name || (isCorp ? (user.businessName || 'Perusahaan Mitra') : (user.email ? user.email.split('@')[0] : 'Investor MGI')),
             business_name: user.businessName || user.fullName || '',
             account_type: isCorp ? 'corporate' : 'individual',
             type: isCorp ? 'perusahaan' : 'perorangan',
-            email: user.email || 'budi.pratama@montanainvestor.id',
-            phone: user.phone || '+62 812-9844-8812',
-            business_activity: user.businessActivity || user.business_activity || (isCorp ? 'Kontraktor Alat Berat' : 'Perdagangan & Jasa')
+            email: user.email || '',
+            phone: user.phone || user.companyPhone || '',
+            business_activity: user.businessActivity || user.business_activity || '',
+            nik_paspor: user.nik_paspor || user.nik || '',
+            npwp: user.npwp || '',
+            auth_provider: user.authProvider || (user.google_id ? 'google' : 'email'),
+            has_password: !user.google_id
           };
         } catch(e) {}
       }
@@ -2450,41 +2728,49 @@
       applyDataToUI({
         profile: fallbackProfile,
         summary: {
-          totalInvested: 5000000000,
-          totalPayoutReceived: 270000000
+          totalInvested: storedUser ? 0 : 5000000000,
+          totalPayoutReceived: storedUser ? 0 : 270000000,
+          totalNetProfit: storedUser ? 0 : 685200000,
+          activeProjectsCount: storedUser ? 0 : 1,
+          nextPayoutDate: storedUser ? null : '15 Oktober 2026'
         }
       });
 
       if (!dashboardState.projects || dashboardState.projects.length === 0) {
-        dashboardState.projects = [
-          {
-            id: 1,
-            project_id: 'proj-jkt-jabar',
-            nama_project: 'Ekspansi Pool & Alat Berat Regional Jabodetabek',
-            kategori: 'Proyek Ekspansi Pool & Alat Berat Komatsu',
-            lokasi: 'DKI Jakarta & Sekitarnya',
-            image: 'assets/img/project-jabodetabek.jpg',
-            contract_number: 'MGI/INV/2026/001-BP',
-            status: 'active',
-            total_dana_investor: 5000000000,
-            ringkasan: {
-              sisa_dana: 1547000000,
-              total_pembelian: 3330000000,
-              total_penjualan: 1058000000,
-              total_biaya: 123000000,
-              total_terpakai: 3453000000,
-              payout_received: 37500000,
-              return_rate: '≥32% (p.a.)',
-              tenor: '36 Bulan',
-              next_payout_date: '2026-10-15',
-              allocated_units: '2x Komatsu PC138US-8 CBU Jepang',
-              total_units: 4,
-              active_units: 2,
-              utilization_rate: '94.2%'
+        if (!storedUser) {
+          dashboardState.projects = [
+            {
+              id: 1,
+              project_id: 'proj-jkt-jabar',
+              nama_project: 'Ekspansi Pool & Alat Berat Regional Jabodetabek',
+              kategori: 'Proyek Ekspansi Pool & Alat Berat',
+              lokasi: 'DKI Jakarta & Sekitarnya',
+              image: 'assets/img/project-jabodetabek.jpg',
+              contract_number: 'MGI/INV/2026/001-BP',
+              status: 'active',
+              total_dana_investor: 5000000000,
+              ringkasan: {
+                sisa_dana: 1547000000,
+                total_pembelian: 3330000000,
+                total_penjualan: 1058000000,
+                total_biaya: 123000000,
+                total_terpakai: 3453000000,
+                payout_received: 37500000,
+                return_rate: '≥32% (p.a.)',
+                tenor: '36 Bulan',
+                next_payout_date: '2026-10-15',
+                allocated_units: '2x Alat Berat CBU Jepang',
+                total_units: 4,
+                active_units: 2,
+                utilization_rate: '94.2%'
+              }
             }
-          }
-        ];
-        renderProjectCards(dashboardState.projects);
+          ];
+          renderProjectCards(dashboardState.projects);
+        } else {
+          dashboardState.projects = [];
+          renderProjectCards([]);
+        }
       }
     }
 
@@ -2862,7 +3148,7 @@
                 <td class="py-3 px-4 font-mono font-bold text-slate-900">${s.record_number || '-'}</td>
                 <td class="py-3 px-4 text-slate-500 whitespace-nowrap">${s.transaction_date || '-'}</td>
                 <td class="py-3 px-4 font-bold text-slate-900">${s.vendor_client || 'Klien Mitra Konstruksi'}</td>
-                <td class="py-3 px-4 text-slate-700">${s.unit_detail || s.title || 'Excavator Komatsu'}</td>
+                <td class="py-3 px-4 text-slate-700">${s.unit_detail || s.title || 'Unit Alat Berat'}</td>
                 <td class="py-3 px-4 text-slate-500 text-[11px]">Sewa Operasional Site</td>
                 <td class="py-3 px-4 text-right font-mono font-bold text-emerald-700">${formatRupiahExact(s.amount)}</td>
                 <td class="py-3 px-4 text-center">
@@ -3397,7 +3683,7 @@
           tableBody.innerHTML = `
             <tr>
               <td class="py-3 px-4 font-semibold">Alokasi Pengadaan Unit Alat Berat</td>
-              <td class="py-3 px-4 text-slate-500">2x Komatsu PC138US-8 CBU Jepang via PT MSI</td>
+              <td class="py-3 px-4 text-slate-500">2x Unit Alat Berat Siap Operasi via PT MSI</td>
               <td class="py-3 px-4 text-right font-mono font-bold">Rp 2.800.000.000</td>
             </tr>
             <tr>
@@ -3414,7 +3700,7 @@
           tableBody.innerHTML = `
             <tr>
               <td class="py-3 px-4 font-semibold">Armada Unit Alat Berat</td>
-              <td class="py-3 px-4 text-slate-500">Komatsu PC138US-8 (Kondisi Grade A CBU Jepang)</td>
+              <td class="py-3 px-4 text-slate-500">Unit Alat Berat (Kondisi Grade A Siap Operasi)</td>
               <td class="py-3 px-4 text-right font-mono font-bold">Rp 1.400.000.000</td>
             </tr>
             <tr>
@@ -3431,7 +3717,7 @@
           tableBody.innerHTML = `
             <tr>
               <td class="py-3 px-4 font-semibold">Kontrak Sewa Unit Operasional</td>
-              <td class="py-3 px-4 text-slate-500">Sewa Bulanan Armada Komatsu PC138US-8 (Klien BUMN)</td>
+              <td class="py-3 px-4 text-slate-500">Sewa Bulanan Armada Alat Berat Produktif (Klien BUMN)</td>
               <td class="py-3 px-4 text-right font-mono font-bold">Rp 450.000.000</td>
             </tr>
             <tr>
@@ -3469,7 +3755,7 @@
           tableBody.innerHTML = `
             <tr>
               <td class="py-3 px-4 font-semibold">Gross Rental Revenue (Penjualan Sewa)</td>
-              <td class="py-3 px-4 text-slate-500">Akumulasi pendapatan sewa armada Komatsu di lapangan</td>
+              <td class="py-3 px-4 text-slate-500">Akumulasi pendapatan sewa armada alat berat di lapangan</td>
               <td class="py-3 px-4 text-right font-mono font-bold text-emerald-700">${formatRupiahExact(totPenjualan)}</td>
             </tr>
             <tr>
@@ -3545,7 +3831,7 @@
         tableRows = `
           <tr>
             <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 600; color: #1e293b;">Alokasi Pengadaan Unit Alat Berat</td>
-            <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">2x Komatsu PC138US-8 CBU Asli Jepang via PT Montana Sinergi Investama (MSI)</td>
+            <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">2x Unit Alat Berat Siap Operasi Asli via PT Montana Sinergi Investama (MSI)</td>
             <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; text-align: right; font-family: monospace; font-weight: bold; color: #0f172a;">Rp 2.800.000.000</td>
           </tr>
           <tr>
@@ -3569,7 +3855,7 @@
         tableRows = `
           <tr>
             <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 600; color: #1e293b;">Unit Armada Utama</td>
-            <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Komatsu PC138US-8 (Kondisi Grade A CBU Jepang, SN: 42109)</td>
+            <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Unit Alat Berat (Kondisi Grade A Siap Operasi, SN: 42109)</td>
             <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; text-align: right; font-family: monospace; font-weight: bold; color: #0f172a;">Rp 1.400.000.000</td>
           </tr>
           <tr>
@@ -3593,7 +3879,7 @@
         tableRows = `
           <tr>
             <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 600; color: #1e293b;">Pendapatan Sewa Unit Armada</td>
-            <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Paket Sewa Bulanan Armada Komatsu PC138US-8 (Klien BUMN Konstruksi)</td>
+            <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Paket Sewa Bulanan Armada Alat Berat Produktif (Klien BUMN Konstruksi)</td>
             <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; text-align: right; font-family: monospace; font-weight: bold; color: #0f172a;">Rp 450.000.000</td>
           </tr>
           <tr>
@@ -3612,7 +3898,7 @@
         tableRows = `
           <tr>
             <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 600; color: #1e293b;">Beban Pemeliharaan & Workshop</td>
-            <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Penggantian oli hidrolik Shell Tellus, filter Komatsu & mekanik pool</td>
+            <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Penggantian oli hidrolik Shell Tellus, filter alat berat & mekanik pool</td>
             <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; text-align: right; font-family: monospace; font-weight: bold; color: #0f172a;">Rp 45.000.000</td>
           </tr>
           <tr>
@@ -3960,7 +4246,7 @@
           ? '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-black bg-emerald-600 text-white shadow-sm"><i data-lucide="check-check" class="w-3.5 h-3.5"></i> Terdanai Penuh</span>'
           : `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-black bg-blue-600 text-white shadow-sm"><span class="w-2 h-2 rounded-full bg-white animate-ping"></span> Terbuka (${pct}%)</span>`;
 
-        const assetBadge = info.brand || info.asset_backed || 'Komatsu PC57-7 CBU Jepang';
+        const assetBadge = info.brand || info.asset_backed || 'Unit Alat Berat Siap Operasi';
         const returnText = info.return || '28,6% – 42,9% (p.a.)';
         const tenorText = info.tenor || '12 Bulan';
         const minInvText = info.min_investment || 'Rp 500.000.000';
@@ -4003,7 +4289,7 @@
               <div>
                 <div class="flex items-center gap-1.5 text-[11px] font-bold text-amber-700 uppercase tracking-wider mb-1">
                   <i data-lucide="truck" class="w-3.5 h-3.5 text-amber-600"></i>
-                  <span>${p.category || 'Ekspansi Unit Alat Berat Komatsu CBU'}</span>
+                  <span>${p.category || 'Ekspansi Unit Alat Berat'}</span>
                 </div>
                 <h4 class="text-base sm:text-lg font-black text-slate-900 tracking-tight leading-snug">
                   ${p.title || p.nama_project}
@@ -4047,13 +4333,14 @@
 
               <!-- Action CTAs -->
               <div class="pt-2 border-t border-slate-100 flex items-center gap-2">
-                <a 
-                  href="invest-detail.html?id=${p.id}" 
+                <button 
+                  type="button"
+                  onclick="openProjectDetailModal('${p.id}')" 
                   class="flex-1 py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 transition text-center cursor-pointer"
                 >
-                  <i data-lucide="calculator" class="w-3.5 h-3.5 text-amber-600"></i>
-                  <span>RAB &amp; Prospektus</span>
-                </a>
+                  <i data-lucide="file-text" class="w-3.5 h-3.5 text-blue-600"></i>
+                  <span>Detail &amp; Prospektus</span>
+                </button>
                 ${
                   isFullyFunded
                     ? `
@@ -4080,6 +4367,235 @@
 
       container.innerHTML = html;
       if (window.lucide) lucide.createIcons();
+    }
+
+    let activeDetailProjectId = null;
+
+    // Open Comprehensive In-Dashboard Project Detail & Prospectus Modal
+    function openProjectDetailModal(projectId) {
+      let p = catalogProjects.find(x => x.id === projectId);
+      if (!p && dashboardState.open_projects) {
+        p = dashboardState.open_projects.find(x => x.id === projectId);
+      }
+      if (!p && dashboardState.catalog_projects) {
+        p = dashboardState.catalog_projects.find(x => x.id === projectId);
+      }
+      if (!p) return;
+      activeDetailProjectId = projectId;
+
+      const f = p.funding || {};
+      const targetVal = Number(f.target || p.funding_target || 7000000000);
+      const collectedVal = Number(f.collected || p.funding_collected || 0);
+      const pct = targetVal > 0 ? Math.min(100, Math.round((collectedVal / targetVal) * 100)) : 0;
+      const isFullyFunded = p.status === 'Fully Funded' || pct >= 100;
+      const info = p.info || {};
+      const rab = p.detail?.rab_executive || null;
+      const tier1 = rab?.tiers?.[0] || null;
+      const imgUrl = p.image || 'assets/img/project-jabodetabek.jpg';
+      const locText = info.lokasi || p.lokasi || p.city || 'Indonesia';
+      const tenorText = info.tenor || p.tenor || '12 Bulan';
+      const returnText = info.return || p.return_rate || '28,6% – 42,9% (p.a.)';
+
+      document.getElementById('modalDetailTitle').innerText = p.title || p.nama_project || 'Detail Proyek Investasi';
+      document.getElementById('modalDetailSubtitle').innerText = `${p.category || 'Alat Berat'} • ${locText} • Tenor ${tenorText}`;
+
+      const waBtn = document.getElementById('modalDetailWaBtn');
+      if (waBtn) {
+        const text = encodeURIComponent(`Halo Tim RM PT Montana Global Investama, saya sedang meninjau Prospektus Proyek "${p.title || p.nama_project}" dan ingin konsultasi alokasi permodalan.`);
+        waBtn.href = `https://wa.me/6281234567890?text=${text}`;
+      }
+
+      const ctaBtn = document.getElementById('modalDetailInvestCtaBtn');
+      if (ctaBtn) {
+        if (isFullyFunded) {
+          ctaBtn.disabled = true;
+          ctaBtn.className = 'px-6 py-2.5 text-xs font-bold bg-slate-200 text-slate-400 rounded-full cursor-not-allowed flex items-center gap-1.5';
+          ctaBtn.innerHTML = '<i data-lucide="lock" class="w-3.5 h-3.5"></i><span>Terdanai Penuh</span>';
+        } else {
+          ctaBtn.disabled = false;
+          ctaBtn.className = 'px-6 py-2.5 text-xs font-bold bg-blue-900 hover:bg-blue-800 text-white rounded-full transition shadow-md hover:shadow-lg active:scale-95 flex items-center gap-1.5 cursor-pointer';
+          ctaBtn.innerHTML = '<i data-lucide="plus-circle" class="w-3.5 h-3.5 text-amber-300"></i><span>Ajukan Penempatan Modal</span>';
+          ctaBtn.onclick = () => {
+            closeModal('projectDetailModal');
+            openInvestModalForProject(projectId);
+          };
+        }
+      }
+
+      // Build rich body content
+      const bodyEl = document.getElementById('modalDetailBody');
+      if (bodyEl) {
+        bodyEl.innerHTML = `
+          <!-- 1. Hero Cover & Badges -->
+          <div class="relative rounded-2xl overflow-hidden bg-slate-900 shadow-md">
+            <img src="${imgUrl}" alt="${p.title}" class="w-full h-52 sm:h-64 object-cover filter brightness-90" onerror="this.src='assets/img/project-jabodetabek.jpg'"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent"></div>
+            
+            <div class="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
+              <span class="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-slate-950/80 text-amber-300 border border-amber-400/40 backdrop-blur-md">
+                Model: Eksklusif (1 Mitra Tunggal)
+              </span>
+              <span class="px-3 py-1 rounded-full text-xs font-black bg-white/20 text-white backdrop-blur-md border border-white/20">
+                <i data-lucide="shield-check" class="w-3.5 h-3.5 inline text-emerald-400 mr-1"></i> Underlying Aset Riil
+              </span>
+            </div>
+
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+              <div class="text-[11px] font-bold text-amber-400 uppercase tracking-widest mb-1">${locText}</div>
+              <h3 class="text-xl sm:text-2xl font-black tracking-tight leading-tight">${p.title || p.nama_project}</h3>
+            </div>
+          </div>
+
+          <!-- 2. Highlights Metrics Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <span class="text-[10px] font-bold text-slate-500 uppercase block">Kebutuhan Modal</span>
+              <span class="text-sm font-black text-slate-900 font-mono mt-0.5 block">${formatRupiahExact(targetVal)}</span>
+              <span class="text-[10px] text-slate-400 mt-0.5 block">1 Slot Tunggal</span>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-200">
+              <span class="text-[10px] font-bold text-emerald-800 uppercase block">Target Imbal Hasil</span>
+              <span class="text-sm font-black text-emerald-950 mt-0.5 block">${returnText}</span>
+              <span class="text-[10px] text-emerald-700 font-semibold mt-0.5 block">Bagi Hasil Kuartalan</span>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-blue-50/70 border border-blue-200">
+              <span class="text-[10px] font-bold text-blue-800 uppercase block">Tenor Penempatan</span>
+              <span class="text-sm font-black text-blue-950 mt-0.5 block">${tenorText}</span>
+              <span class="text-[10px] text-blue-700 font-semibold mt-0.5 block">Target 2-3x Putaran/Thn</span>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-amber-50/70 border border-amber-200">
+              <span class="text-[10px] font-bold text-amber-800 uppercase block">Alokasi Unit Fisik</span>
+              <span class="text-sm font-black text-amber-950 mt-0.5 block">${tier1 ? tier1.unit_qty + ' Unit CBU' : 'Unit CBU Jepang'}</span>
+              <span class="text-[10px] text-amber-700 font-semibold mt-0.5 block">Siap Kontrak Sewa</span>
+            </div>
+          </div>
+
+          <!-- 3. Bonus Fasilitas Operator Callout -->
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/80 flex items-start gap-3.5">
+            <div class="w-10 h-10 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+              <i data-lucide="award" class="w-5 h-5"></i>
+            </div>
+            <div class="text-xs space-y-1">
+              <h5 class="font-bold text-slate-900 text-sm">Fasilitas Operator Profesional Alat Berat (Khusus Pemodal MGI)</h5>
+              <p class="text-slate-600 leading-relaxed">
+                Setiap penempatan modal telah mencakup penyediaan tenaga operator alat berat bersertifikasi resmi BNSP:
+              </p>
+              <div class="flex flex-wrap gap-2 pt-1 font-semibold text-slate-800">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white border border-amber-300">
+                  <i data-lucide="check-circle-2" class="w-3 h-3 text-emerald-600"></i> Paket Rp 5 Miliar: <strong>1 Operator Profesional</strong>
+                </span>
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white border border-amber-300">
+                  <i data-lucide="check-circle-2" class="w-3 h-3 text-emerald-600"></i> Paket Rp 10 Miliar: <strong>2 Operator Profesional (Double Shift)</strong>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Executive RAB Structure (3-Cards) -->
+          <div class="space-y-2.5">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">Struktur Belanja Modal &amp; RAB Prospektus</h4>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-1">
+                <div class="text-[10px] font-bold text-blue-700 uppercase">1. Pengadaan Unit (MIU)</div>
+                <div class="text-base font-black text-slate-900">Unit CBU Jepang Grade A</div>
+                <p class="text-[11px] text-slate-500 leading-snug">Impor langsung alat berat dari Jepang dalam kondisi prima dan lulus uji kelayakan operasional.</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-1">
+                <div class="text-[10px] font-bold text-amber-700 uppercase">2. Workshop &amp; Perakitan (MSI)</div>
+                <div class="text-base font-black text-slate-900">QC &amp; Karoseri Standar Industri</div>
+                <p class="text-[11px] text-slate-500 leading-snug">Maintenance preventif, ganti oli hidrolik, dan standarisasi perlengkapan safety tambang/konstruksi.</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-1">
+                <div class="text-[10px] font-bold text-emerald-700 uppercase">3. Pasar Penyerapan Kontrak</div>
+                <div class="text-base font-black text-slate-900">Utilisasi Tinggi &gt;90%</div>
+                <p class="text-[11px] text-slate-500 leading-snug">Langsung terikat kontrak sewa bulanan dengan sub-kontraktor BUMN &amp; perusahaan tambang.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Interactive BEP & ROI Simulator -->
+          <div class="p-5 rounded-2xl bg-slate-900 text-white space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest block">Kalkulator Investor</span>
+                <h4 class="text-base font-bold text-white">Simulasi Penempatan Modal &amp; Imbal Hasil</h4>
+              </div>
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white/10 text-slate-300 border border-white/10">
+                Target ROI ~32% p.a.
+              </span>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between text-xs mb-2">
+                <span class="text-slate-300">Rencana Nominal Modal:</span>
+                <span class="text-lg font-black text-amber-400 font-mono" id="modalSimNominalDisplay">Rp 5.000.000.000</span>
+              </div>
+              <input 
+                type="range" 
+                id="modalSimSlider" 
+                min="500000000" 
+                max="10000000000" 
+                step="500000000" 
+                value="5000000000" 
+                oninput="updateModalSimulator(this.value)"
+                class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-amber-400"
+              />
+              <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                <span>Rp 500 Juta</span>
+                <span>Rp 5 Miliar</span>
+                <span>Rp 10 Miliar</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-2 border-t border-slate-800 text-xs">
+              <div class="p-3 rounded-xl bg-white/5 border border-white/10">
+                <span class="text-[10px] text-slate-400 block">Estimasi Dividen Kuartalan (3 Bln):</span>
+                <span class="text-sm font-bold text-cyan-300 font-mono mt-0.5 block" id="modalSimQuarterlyDisplay">Rp 400.000.000</span>
+              </div>
+              <div class="p-3 rounded-xl bg-white/5 border border-white/10">
+                <span class="text-[10px] text-slate-400 block">Estimasi Dividen Tahunan:</span>
+                <span class="text-sm font-bold text-emerald-400 font-mono mt-0.5 block" id="modalSimAnnualDisplay">Rp 1.600.000.000</span>
+              </div>
+              <div class="p-3 rounded-xl bg-white/5 border border-white/10">
+                <span class="text-[10px] text-slate-400 block">Total Modal + Hasil (12 Bln):</span>
+                <span class="text-sm font-bold text-amber-300 font-mono mt-0.5 block" id="modalSimTotalDisplay">Rp 6.600.000.000</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Legal & Governance (GCG) Statement -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-2">
+            <div class="flex items-center gap-2 font-bold text-slate-800 text-xs">
+              <i data-lucide="shield-alert" class="w-4 h-4 text-blue-600"></i>
+              <span>Kepatuhan Regulasi &amp; Perlindungan Hukum Pemodal (TARIF)</span>
+            </div>
+            <p class="leading-relaxed">
+              Seluruh transaksi penempatan modal diikat melalui <strong>Perjanjian Kerja Sama Penempatan Modal Notariil</strong> dan rekening terpisah <strong>MGI QQ Client</strong>. Aset alat berat didaftarkan dengan jaminan fidusia resmi, serta dilindungi klausul buyback guarantee pada masa akhir tenor kerja sama.
+            </p>
+          </div>
+        `;
+      }
+
+      openModal('projectDetailModal');
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function updateModalSimulator(val) {
+      const num = Number(val) || 5000000000;
+      const rate = 0.32; // 32% annual return
+      const annual = Math.round(num * rate);
+      const quarterly = Math.round(annual / 4);
+      const total = num + annual;
+
+      const nomEl = document.getElementById('modalSimNominalDisplay');
+      const quartEl = document.getElementById('modalSimQuarterlyDisplay');
+      const annEl = document.getElementById('modalSimAnnualDisplay');
+      const totEl = document.getElementById('modalSimTotalDisplay');
+
+      if (nomEl) nomEl.innerText = formatRupiahExact(num);
+      if (quartEl) quartEl.innerText = formatRupiahExact(quarterly);
+      if (annEl) annEl.innerText = formatRupiahExact(annual);
+      if (totEl) totEl.innerText = formatRupiahExact(total);
     }
 
     // Populate Select in Invest Modal
@@ -4198,10 +4714,80 @@
       document.getElementById('dispBranch').innerText = branch || '-';
     }
 
+    // Modal Edit & Lengkapi Data Profil Investor
+    function openEditProfileModal() {
+      const p = dashboardState.profile || {};
+      const stored = localStorage.getItem('mgi_auth_user');
+      let localUser = {};
+      if (stored) {
+        try { localUser = JSON.parse(stored); } catch(e) {}
+      }
+
+      document.getElementById('editProfFullName').value = p.fullName || p.full_name || localUser.fullName || localUser.full_name || '';
+      document.getElementById('editProfEmail').value = p.email || localUser.email || '';
+      document.getElementById('editProfPhone').value = p.phone || localUser.phone || '';
+      document.getElementById('editProfActivity').value = p.business_activity || p.businessActivity || localUser.businessActivity || '';
+      document.getElementById('editProfNik').value = p.nik_paspor || localUser.nik_paspor || '';
+      document.getElementById('editProfNpwp').value = p.npwp || localUser.npwp || '';
+
+      openModal('editProfileModal');
+    }
+
+    async function handleProfileUpdate(event) {
+      event.preventDefault();
+      const fullName = document.getElementById('editProfFullName').value.trim();
+      const phone = document.getElementById('editProfPhone').value.trim();
+      const activity = document.getElementById('editProfActivity').value.trim();
+      const nik = document.getElementById('editProfNik').value.trim();
+      const npwp = document.getElementById('editProfNpwp').value.trim();
+
+      try {
+        const res = await fetch('api/investor/dashboard.php?action=update_profile', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            full_name: fullName,
+            phone: phone,
+            business_activity: activity,
+            nik_paspor: nik,
+            npwp: npwp
+          })
+        });
+        const json = await res.json();
+        if (json && json.success) {
+          showToast('Data profil investor berhasil disimpan & diperbarui.');
+          closeModal('editProfileModal');
+
+          // Update local session
+          const storedUser = localStorage.getItem('mgi_auth_user');
+          if (storedUser) {
+            try {
+              const u = JSON.parse(storedUser);
+              u.fullName = fullName;
+              u.full_name = fullName;
+              u.phone = phone;
+              u.businessActivity = activity;
+              u.business_activity = activity;
+              u.nik_paspor = nik;
+              u.npwp = npwp;
+              localStorage.setItem('mgi_auth_user', JSON.stringify(u));
+            } catch(e) {}
+          }
+
+          // Reload fresh dashboard data
+          initDashboardData();
+        } else {
+          showToast(json.message || 'Gagal menyimpan profil.', false);
+        }
+      } catch(e) {
+        showToast('Terjadi kesalahan koneksi saat menyimpan profil.', false);
+      }
+    }
+
     // Password Update Handler
     async function handlePasswordUpdate(event) {
       event.preventDefault();
-      const oldPass = document.getElementById('inputOldPassword').value;
+      const oldPass = document.getElementById('inputOldPassword') ? document.getElementById('inputOldPassword').value : '';
       const newPass = document.getElementById('inputNewPassword').value;
       const confirmPass = document.getElementById('inputConfirmPassword').value;
 
@@ -4304,7 +4890,7 @@
               csvContent += `"${r.record_number || ''}","${r.transaction_date || ''}","${(r.title || '').replace(/"/g, '""')}","${(r.vendor_client || '').replace(/"/g, '""')}","${r.category || ''}","${r.amount || 0}","TEREALISASI"\n`;
             });
           } else {
-            csvContent += '"BILL-001","2026-02-15","Pengadaan Unit Komatsu","PT MSI","Pembelian","2800000000","TEREALISASI"\n';
+            csvContent += '"BILL-001","2026-02-15","Pengadaan Unit Alat Berat","PT MSI","Pembelian","2800000000","TEREALISASI"\n';
             csvContent += '"EXP-001","2026-02-20","Customs Clearance Tanjung Priok","PT MIU","Biaya","85000000","TEREALISASI"\n';
             csvContent += '"SLS-001","2026-03-10","Sewa Bulanan Konstruksi","PT PP Presisi","Penjualan","450000000","TEREALISASI"\n';
           }

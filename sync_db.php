@@ -74,7 +74,7 @@ try {
             $p['city'] ?? '',
             $p['title'],
             $p['category'] ?? 'Alat Berat & Infrastruktur',
-            $p['image'] ?? 'assets/img/komatsu.jpg',
+            $p['image'] ?? 'assets/img/project-jabodetabek.jpg',
             (int)($fnd['collected'] ?? 0),
             (int)($fnd['target'] ?? 0),
             $p['status'] ?? 'Open',
@@ -128,7 +128,7 @@ try {
             $sim['estimasi_return_persen'] ?? 30,
             $sim['modal_kerja_bulanan_persen'] ?? 2.2,
             $sim['minimum_investasi'] ?? 500000000,
-            $sim['maximum_investasi'] ?? 500000000000,
+            $sim['maximum_investasi'] ?? 10000000000,
             $sim['default_investasi'] ?? 500000000,
             'Simulasi ilustratif'
         ]);

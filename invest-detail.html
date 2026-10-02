@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Detail Proyek Investasi — PT Montana Global Investama</title>
-  <meta name="description" content="Detail alokasi permodalan, tabel funding target, rekanan Sinergi Foundation, summary kelayakan, serta simulator interaktif BEP dan ROI.">
+  <meta name="description"
+    content="Detail alokasi permodalan, tabel funding target, rekanan Sinergi Foundation, summary kelayakan, serta simulator interaktif BEP dan ROI.">
 
   <!-- Anti-Stale Cache Control: Bebas Hard Refresh / Ctrl+Shift+R -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -23,10 +25,13 @@
   <!-- Google Fonts: Inter & Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
   <!-- Custom Core Stylesheet (Solid Theme, No Gradients) -->
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body class="bg-light">
 
   <!-- Global Header Navigation -->
@@ -38,9 +43,11 @@
       <!-- Breadcrumbs -->
       <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb small">
-          <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none text-muted"><i class="bi bi-house-door me-1"></i>Beranda</a></li>
+          <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none text-muted"><i
+                class="bi bi-house-door me-1"></i>Beranda</a></li>
           <li class="breadcrumb-item"><a href="invest.html" class="text-decoration-none text-muted">Investasi</a></li>
-          <li class="breadcrumb-item active text-gold fw-semibold" aria-current="page" id="breadcrumbTitle">Detail Proyek</li>
+          <li class="breadcrumb-item active text-gold fw-semibold" aria-current="page" id="breadcrumbTitle">Detail
+            Proyek</li>
         </ol>
       </nav>
 
@@ -48,7 +55,8 @@
         <!-- Project Info & Funding Bar -->
         <div class="col-12 col-lg-7">
           <div class="d-flex align-items-center gap-2 mb-3">
-            <span class="badge bg-royal text-white px-3 py-2 fw-medium rounded-pill" id="detailCategory">Alat Berat & Infrastruktur</span>
+            <span class="badge bg-royal text-white px-3 py-2 fw-medium rounded-pill" id="detailCategory">Alat Berat &
+              Infrastruktur</span>
             <span id="detailBadgeContainer"></span>
           </div>
 
@@ -61,15 +69,19 @@
           </p>
 
           <!-- Funding Progress Card -->
-          <div class="card mgi-card shadow-sm p-4 bg-white border-0" id="detailProgressWrap" style="border-top: 5px solid #C5A059 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
+          <div class="card mgi-card shadow-sm p-4 bg-white border-0" id="detailProgressWrap"
+            style="border-top: 5px solid #C5A059 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
             <!-- Rendered dynamically -->
           </div>
         </div>
 
         <!-- Visual Cover -->
         <div class="col-12 col-lg-5">
-          <div class="card mgi-card border-0 overflow-hidden shadow-sm" style="border-top: 5px solid #1D3589 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
-            <img id="detailCoverImg" src="assets/img/project-jabodetabek.jpg" alt="Cover Proyek" class="w-100 object-fit-cover" style="height: 340px; background-color: #F8F9FA;" onerror="this.onerror=null;this.src='assets/img/project-jabodetabek.jpg';">
+          <div class="card mgi-card border-0 overflow-hidden shadow-sm"
+            style="border-top: 5px solid #1D3589 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
+            <img id="detailCoverImg" src="assets/img/project-jabodetabek.jpg" alt="Cover Proyek"
+              class="w-100 object-fit-cover" style="height: 340px; background-color: #F8F9FA;"
+              onerror="this.onerror=null;this.src='assets/img/project-jabodetabek.jpg';">
           </div>
         </div>
       </div>
@@ -84,32 +96,38 @@
         <!-- 0. EXECUTIVE RAB 3-CARD HIGHLIGHT (Matching Proposal Document) -->
         <div id="sectionRabExecutiveMount"></div>
 
-        <!-- 0.1 TIER PARTISIPASI PEMODAL: MODAL ANDA DAPAT APA SAJA? -->
-        <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionTiers" style="display: none; border-top: 5px solid #C5A059 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
-          <div class="card-header bg-white border-bottom border-subtle py-3 px-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <!-- 0.1 TIER PARTISIPASI PEMODAL: PAKET KEMITRAAN & FASILITAS OPERATOR -->
+        <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionTiers"
+          style="display: none; border-top: 5px solid #C5A059 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
+          <div
+            class="card-header bg-white border-bottom border-subtle py-3 px-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
             <div>
               <h2 class="h5 mb-1 fw-bold text-dark d-flex align-items-center gap-2">
                 <i class="bi bi-layers-fill text-gold fs-5"></i>
-                Pilihan Partisipasi Pemodal (Modal Anda Mendapatkan Apa Saja?)
+                Pilihan Paket Kemitraan &amp; Fasilitas Operator Profesional
               </h2>
               <div class="text-muted small">
-                Transparansi alokasi fisik riil unit Komatsu PC57-7, kapasitas kontainer logistik, porsi kepemilikan, dan estimasi bagi hasil per siklus.
+                Penempatan modal Rp 5 Miliar (1 Operator Profesional) atau Rp 10 Miliar (2 Operator Profesional). Gaji,
+                asuransi, dan manajemen operasional operator dikelola penuh oleh PT Montana Indo Utama.
               </div>
             </div>
             <span class="badge bg-royal text-white rounded-pill px-3 py-2 small fw-semibold">
-              <i class="bi bi-shield-check me-1"></i> Asset-Backed Protection
+              <i class="bi bi-shield-check me-1"></i> Asset-Backed &amp; Profesional
             </span>
           </div>
           <div class="card-body p-4">
             <p class="text-muted small mb-4">
-              Setiap penempatan modal langsung terhubung dengan unit fisik riil yang diadakan, direkondisi, dan dipasarkan. Pilih nominal untuk melihat kepemilikan aset dan proyeksi imbal hasil:
+              Setiap penempatan modal langsung terhubung dengan unit fisik riil yang diadakan, direkondisi, dan
+              dipasarkan lengkap dengan operator alat berat resmi. Pilih paket untuk mensimulasikan kepemilikan aset dan
+              proyeksi imbal hasil:
             </p>
             <div id="tiersMount"></div>
           </div>
         </section>
 
         <!-- 1. ALUR EKSEKUSI PROJECT: 5 TAHAP DARI PENGADAAN HINGGA BAGI HASIL -->
-        <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionWorkflow" style="display: none; border-top: 5px solid #1D3589 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
+        <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionWorkflow"
+          style="display: none; border-top: 5px solid #1D3589 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
           <div class="card-header bg-white border-bottom border-subtle py-3 px-4">
             <h2 class="h5 mb-0 fw-bold text-dark d-flex align-items-center gap-2">
               <i class="bi bi-diagram-3-fill text-royal fs-5"></i>
@@ -118,14 +136,16 @@
           </div>
           <div class="card-body p-4">
             <p class="text-muted small mb-3">
-              Siklus perputaran modal terintegrasi dalam ekosistem Montana Group dari pengadaan unit internasional hingga distribusi keuntungan:
+              Siklus perputaran modal terintegrasi dalam ekosistem Montana Group dari pengadaan unit internasional
+              hingga distribusi keuntungan:
             </p>
             <div id="workflowMount"></div>
           </div>
         </section>
 
         <!-- 2. BREAKDOWN PEMBAYARAN REKANAN EKOSISTEM (MIU vs MSI) -->
-        <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionPaymentBreakdown" style="display: none; border-top: 5px solid #C5A059 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
+        <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionPaymentBreakdown"
+          style="display: none; border-top: 5px solid #C5A059 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
           <div class="card-header bg-white border-bottom border-subtle py-3 px-4">
             <h2 class="h5 mb-0 fw-bold text-dark d-flex align-items-center gap-2">
               <i class="bi bi-cash-stack text-gold fs-5"></i>
@@ -134,14 +154,16 @@
           </div>
           <div class="card-body p-4">
             <p class="text-muted small mb-3">
-              Keterbukaan alur pembayaran operasional pengadaan unit per satu unit excavator Komatsu PC57-7 ke masing-masing pihak pelaksana operasional:
+              Keterbukaan alur pembayaran operasional pengadaan unit per satu unit alat berat ke
+              masing-masing pihak pelaksana operasional:
             </p>
             <div id="paymentBreakdownMount"></div>
           </div>
         </section>
 
         <!-- 3. Alokasi Penggunaan Modal & Pengadaan Aset Fisik -->
-        <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionWhatProvide" style="border-top: 5px solid #1D3589 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
+        <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionWhatProvide"
+          style="border-top: 5px solid #1D3589 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
           <div class="card-header bg-white border-bottom border-subtle py-3 px-4">
             <h2 class="h5 mb-0 fw-bold text-dark d-flex align-items-center gap-2">
               <i class="bi bi-pie-chart-fill text-royal fs-5"></i>
@@ -154,7 +176,8 @@
         </section>
 
         <!-- 3. Kerangka Kemitraan & Kepastian Kontrak Kerja (Offtake Agreement) -->
-        <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionSinergiFoundation" style="border-top: 5px solid #1D3589 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
+        <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionSinergiFoundation"
+          style="border-top: 5px solid #1D3589 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
           <div class="card-header bg-white border-bottom border-subtle py-3 px-4">
             <h2 class="h5 mb-0 fw-bold text-dark d-flex align-items-center gap-2">
               <i class="bi bi-building-check text-royal fs-5"></i>
@@ -167,7 +190,8 @@
         </section>
 
         <!-- 4. Ringkasan Prospektus & Analisis Kelayakan Project Investasi (Project Investment Feasibility Summary) -->
-        <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionSummary" style="border-top: 5px solid #C5A059 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
+        <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionSummary"
+          style="border-top: 5px solid #C5A059 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
           <div class="card-header bg-white border-bottom border-subtle py-3 px-4">
             <h2 class="h5 mb-0 fw-bold text-dark d-flex align-items-center gap-2">
               <i class="bi bi-file-earmark-bar-graph-fill text-gold fs-5"></i>
@@ -253,15 +277,21 @@
         return;
       }
 
-      // Access Guard: Membuka akses prospektus publik & rincian RAB agar dapat ditinjau investor
-      const isServerGated = false;
-      const isGated = false;
+      // Access Guard: Membatasi rincian prospektus & kalkulator internal khusus untuk investor yang telah login
+      if (MGIAuth.isLoggedIn()) {
+        window.location.replace(`investor-dashboard.html?tab=katalog&open_project=${encodeURIComponent(project.id)}`);
+        return;
+      }
+      const isGated = true;
 
       // Populate Header Basic Public Info
       document.title = `${project.title} — PT Montana Global Investama`;
       document.getElementById('breadcrumbTitle').textContent = project.title;
       document.getElementById('detailCategory').textContent = project.category || 'Investasi Proyek';
-      document.getElementById('detailBadgeContainer').innerHTML = MGIComponents.renderStatusBadge(project.status);
+      document.getElementById('detailBadgeContainer').innerHTML = `
+        <span class="badge-exclusive-model me-1"><i class="bi bi-award-fill"></i> Eksklusif</span>
+        ${MGIComponents.renderStatusBadge(project.status)}
+      `;
       document.getElementById('detailTitle').textContent = project.title;
       document.getElementById('detailTagline').textContent = (project.detail && project.detail.tagline) ? `"${project.detail.tagline}"` : '';
       document.getElementById('detailCoverImg').src = project.image || 'assets/img/project-jabodetabek.jpg';
@@ -352,28 +382,55 @@
         if (contentCol) contentCol.prepend(watermarkBanner);
       }
 
-      // Populate Progress Bar for Authenticated Investors
+      // Populate Exclusive Partnership & Range Permodalan for Authenticated Investors
       const progressWrap = document.getElementById('detailProgressWrap');
+      const fundingRangeText = project.funding_range || (project.info && project.info.target) || 'Rp 7 – 10 Miliar';
+      const rawReturn = (project.info && project.info.return) ? project.info.return.replace(/\s*\(p\.a\.\)/i, '').trim() : '28,6% – 42,9%';
+      const rawTenor = (project.info && project.info.tenor) ? project.info.tenor : '12 Bulan';
+
       progressWrap.innerHTML = `
         <div class="d-flex justify-content-between align-items-center mb-2">
-          <span class="text-uppercase fw-semibold small text-muted">Progres Pendanaan</span>
+          <span class="text-uppercase fw-bold small text-royal">
+            <i class="bi bi-patch-check-fill text-gold me-1"></i>Model: Eksklusif
+          </span>
           <span class="badge bg-light text-dark border border-subtle small fw-semibold">
             <i class="bi bi-shield-check text-success me-1"></i>Underlying Aset Riil
           </span>
         </div>
-        ${MGIComponents.renderProgressBar(project.funding.collected, project.funding.target)}
-        <div class="row g-2 mt-3 pt-3 border-top border-subtle text-center">
+
+        <div class="p-3 rounded-3 bg-light border border-subtle mb-3">
+          <div class="text-muted small text-uppercase fw-semibold" style="font-size: 0.72rem; letter-spacing: 0.5px;">Estimasi Kebutuhan Permodalan Wilayah</div>
+          <div class="d-flex align-items-baseline justify-content-between flex-wrap gap-2 mt-1">
+            <h3 class="fw-black text-dark mb-0 fs-4">${fundingRangeText}</h3>
+            <span class="badge bg-royal text-white px-2.5 py-1 rounded-pill small">1 Slot Tunggal</span>
+          </div>
+          <div class="text-secondary small mt-1" style="font-size: 0.76rem;">
+            Penempatan modal langsung mengikat armada operasional &amp; fasilitas operator untuk wilayah ${project.location || 'Indonesia'}.
+          </div>
+        </div>
+
+        <div class="row g-2 pt-2 border-top border-subtle text-center">
           <div class="col-4 border-end border-subtle">
             <div class="text-muted small text-uppercase" style="font-size: 0.7rem;">Tenor</div>
-            <strong class="text-dark fs-6">${project.info.tenor}</strong>
+            <strong class="text-dark fs-6">${rawTenor}</strong>
           </div>
           <div class="col-4 border-end border-subtle">
-            <div class="text-muted small text-uppercase" style="font-size: 0.7rem;">Proyeksi Return</div>
-            <strong class="text-success fs-6">${project.info.return}</strong>
+            <div class="text-muted small text-uppercase" style="font-size: 0.7rem;">ROI Proyeksi</div>
+            <strong class="text-success fs-6">${rawReturn}</strong>
           </div>
           <div class="col-4">
-            <div class="text-muted small text-uppercase" style="font-size: 0.7rem;">Min. Tiket</div>
-            <strong class="text-royal fs-6">${project.info.min_investment || 'Rp 500.000.000'}</strong>
+            <div class="text-muted small text-uppercase" style="font-size: 0.7rem;">Skema</div>
+            <strong class="text-royal fs-6">1 Investor</strong>
+          </div>
+        </div>
+
+        <div class="operator-facility-callout mt-3 p-2.5 rounded-3 d-flex align-items-center gap-2.5" style="background: #F8FAFC; border: 1.5px solid #CBD5E1;">
+          <div class="operator-icon-circle" style="width: 40px; height: 40px; min-width: 40px; background: #FEFCE8; border: 1.5px solid #C5A059; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+            <i class="bi bi-truck-front-fill fs-5" style="color: #C5A059;"></i>
+          </div>
+          <div class="small">
+            <div class="fw-bold text-dark" style="font-size: 0.82rem;">Fasilitas Operator Profesional Alat Berat </div>
+            <div class="text-secondary" style="font-size: 0.75rem;">Invest Rp 5M = <strong>1 Operator Profesional</strong> • Invest Rp 10M = <strong>2 Operator Profesional (Double Shift)</strong></div>
           </div>
         </div>
       `;
@@ -451,4 +508,5 @@
     });
   </script>
 </body>
+
 </html>
