@@ -77,6 +77,12 @@
       gtagReady = true;
       window.dataLayer = window.dataLayer || [];
       window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+
+      // Jika script sudah ada di <head>, jangan inject ulang
+      if (document.querySelector('script[src*="googletagmanager.com/gtag/js"]')) {
+        return;
+      }
+
       window.gtag('js', new Date());
       window.gtag('config', config.google_ads_id);
 
