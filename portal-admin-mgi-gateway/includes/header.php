@@ -53,7 +53,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
       <a href="leads.php" class="nav-link <?= $currentPage === 'leads.php' ? 'active' : '' ?>">
         <i class="bi bi-person-lines-fill"></i>
-        <span>Calon Investor (Iklan)</span>
+        <span>Calon Investor (Konsultasi)</span>
       </a>
 
       <a href="investors.php" class="nav-link <?= $currentPage === 'investors.php' ? 'active' : '' ?>">

@@ -58,11 +58,11 @@ require_once __DIR__ . '/includes/header.php';
       <span class="text-secondary small">Akses instan modul manajemen operasional:</span>
     </div>
     <div class="d-flex flex-wrap gap-2">
+      <a href="leads.php" class="btn btn-sm btn-primary"><i class="bi bi-person-lines-fill me-1"></i> Calon Investor (Konsultasi)</a>
       <a href="projects.php" class="btn btn-sm btn-outline-dark"><i class="bi bi-briefcase me-1"></i> Semua Proyek</a>
       <a href="projects.php?action=create" class="btn btn-sm btn-mgi-gold"><i class="bi bi-plus-circle me-1"></i> Buat Proyek Baru</a>
       <a href="investors.php" class="btn btn-sm btn-outline-dark"><i class="bi bi-person-check me-1"></i> Verifikasi Investor</a>
       <a href="content.php" class="btn btn-sm btn-outline-dark"><i class="bi bi-clock-history me-1"></i> Milestone Transformasi</a>
-      <a href="settings.php" class="btn btn-sm btn-outline-secondary"><i class="bi bi-sliders me-1"></i> Gated Content Toggle</a>
     </div>
   </div>
 </div>
