@@ -165,6 +165,44 @@ class Database {
             // Silently ignore or log during initial installation
             error_log("Schema update warning: " . $e->getMessage());
         }
+
+        // Lead capture table (Landing Page Konsultasi / Google Ads).
+        // Dipisah dari blok di atas agar tetap dibuat walau migrasi lama gagal.
+        try {
+            $db->exec("
+                CREATE TABLE IF NOT EXISTS `leads` (
+                    `id` INT AUTO_INCREMENT PRIMARY KEY,
+                    `full_name` VARCHAR(120) NOT NULL,
+                    `phone` VARCHAR(20) NOT NULL,
+                    `city` VARCHAR(100) NULL,
+                    `investment_range` VARCHAR(60) NULL,
+                    `status` ENUM('new','contacted','meeting','site_visit','deal','lost') NOT NULL DEFAULT 'new',
+                    `admin_notes` TEXT NULL,
+                    `assigned_to` VARCHAR(100) NULL,
+                    `contacted_at` DATETIME NULL,
+                    `utm_source` VARCHAR(100) NULL,
+                    `utm_medium` VARCHAR(100) NULL,
+                    `utm_campaign` VARCHAR(150) NULL,
+                    `utm_term` VARCHAR(150) NULL,
+                    `utm_content` VARCHAR(150) NULL,
+                    `gclid` VARCHAR(255) NULL,
+                    `gbraid` VARCHAR(255) NULL,
+                    `wbraid` VARCHAR(255) NULL,
+                    `landing_page` VARCHAR(255) NULL,
+                    `referrer` VARCHAR(255) NULL,
+                    `ip_address` VARCHAR(45) NULL,
+                    `user_agent` VARCHAR(255) NULL,
+                    `consent_at` DATETIME NULL,
+                    `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                    INDEX `idx_leads_status` (`status`),
+                    INDEX `idx_leads_phone` (`phone`),
+                    INDEX `idx_leads_created` (`created_at`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            ");
+        } catch (Throwable $e) {
+            error_log("Schema update warning (leads): " . $e->getMessage());
+        }
     }
 
     public static function getConnectedPort(): ?int {

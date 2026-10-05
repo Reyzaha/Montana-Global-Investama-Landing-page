@@ -100,7 +100,8 @@
         Daftar Akun <span class="text-royal">Investor</span> <span class="text-gold">MGI</span>
       </h1>
       <p class="text-muted lead mx-auto mb-0" style="max-width: 680px;">
-        Pilih kategori investor Anda untuk membuka akses eksklusif ke rincian anggaran project investasi per project, kepatuhan tata kelola TARIF, dan
+        Pilih kategori investor Anda untuk membuka akses eksklusif ke rincian anggaran project investasi per project,
+        kepatuhan tata kelola TARIF, dan
         simulasi BEP/ROI interaktif.
       </p>
     </div>
@@ -214,8 +215,10 @@
                   Jenis Kegiatan / Usaha <span class="text-danger">*</span>
                 </label>
                 <input type="text" class="form-control form-control-lg fs-6 py-2 px-3 border-subtle"
-                  id="businessActivityPerorangan" placeholder="Contoh: Perdagangan Komoditas, Konstruksi, Jasa Profesional, Wiraswasta, dll." required>
-                <div class="form-text small text-muted">Sektor industri, jenis kegiatan usaha, atau profesi utama pemodal.</div>
+                  id="businessActivityPerorangan"
+                  placeholder="Contoh: Perdagangan Komoditas, Konstruksi, Jasa Profesional, Wiraswasta, dll." required>
+                <div class="form-text small text-muted">Sektor industri, jenis kegiatan usaha, atau profesi utama
+                  pemodal.</div>
                 <div class="invalid-feedback">Silakan masukkan jenis kegiatan atau usaha Anda.</div>
               </div>
             </div>
@@ -242,9 +245,11 @@
                 <label for="businessActivityPerusahaan" class="form-label fw-bold text-dark small">
                   Bidang Usaha / Sektor Industri Perusahaan <span class="text-danger">*</span>
                 </label>
-                <input type="text" class="form-control form-control-lg fs-6 py-2 px-3 border-subtle" id="businessActivityPerusahaan"
+                <input type="text" class="form-control form-control-lg fs-6 py-2 px-3 border-subtle"
+                  id="businessActivityPerusahaan"
                   placeholder="Contoh: Kontraktor Alat Berat, Logistik Pertambangan, Konstruksi, dsb.">
-                <div class="form-text small text-muted">Fokus kegiatan komersial dan operasional utama badan usaha.</div>
+                <div class="form-text small text-muted">Fokus kegiatan komersial dan operasional utama badan usaha.
+                </div>
                 <div class="invalid-feedback">Masukkan bidang usaha atau sektor industri perusahaan.</div>
               </div>
 
@@ -354,7 +359,8 @@
               </label>
               <div class="input-group">
                 <input type="password" class="form-control form-control-lg fs-6 py-2 px-3 border-subtle"
-                  id="passwordInput" placeholder="Minimal 8 karakter" required minlength="8" oninput="checkPasswordStrength(this.value)">
+                  id="passwordInput" placeholder="Minimal 8 karakter" required minlength="8"
+                  oninput="checkPasswordStrength(this.value)">
                 <button class="btn border-subtle password-toggle-btn" type="button"
                   onclick="togglePasswordVisibility('passwordInput', this)">
                   <i class="bi bi-eye"></i>
@@ -365,12 +371,15 @@
               <div class="mt-2" id="passwordStrengthWrap">
                 <div class="d-flex justify-content-between align-items-center mb-1">
                   <span class="text-muted" style="font-size: 0.75rem;">Kekuatan Sandi:</span>
-                  <span class="fw-bold" id="passwordStrengthLabel" style="font-size: 0.75rem; color: #64748B;">Belum Diisi</span>
+                  <span class="fw-bold" id="passwordStrengthLabel" style="font-size: 0.75rem; color: #64748B;">Belum
+                    Diisi</span>
                 </div>
                 <div class="progress" style="height: 5px;">
-                  <div class="progress-bar" id="passwordStrengthBar" role="progressbar" style="width: 0%; background-color: #CBD5E1;"></div>
+                  <div class="progress-bar" id="passwordStrengthBar" role="progressbar"
+                    style="width: 0%; background-color: #CBD5E1;"></div>
                 </div>
-                <div class="text-muted mt-1" style="font-size: 0.72rem;">Minimal 8 karakter alfanumerik &amp; simbol demi perlindungan dana Anda.</div>
+                <div class="text-muted mt-1" style="font-size: 0.72rem;">Minimal 8 karakter alfanumerik &amp; simbol
+                  demi perlindungan dana Anda.</div>
               </div>
             </div>
 
@@ -396,25 +405,31 @@
             <div class="small fw-bold text-dark text-uppercase mb-3" style="letter-spacing: 0.5px;">
               <i class="bi bi-shield-check text-royal me-1"></i> Deklarasi Kepatuhan Hukum &amp; Regulasi Investasi
             </div>
-            
+
             <div class="form-check mb-3">
               <input class="form-check-input" type="checkbox" id="termsPdp" required checked>
               <label class="form-check-label small text-secondary lh-base" for="termsPdp">
-                <strong>Persetujuan Pelindungan Data Pribadi (UU No. 27 Tahun 2022):</strong> Saya menyetujui pemrosesan data identitas saya oleh PT Montana Global Investama untuk tujuan verifikasi nasabah (KYC), administrasi kepemilikan aset, dan pelaporan perpajakan sesuai perundang-undangan.
+                <strong>Persetujuan Pelindungan Data Pribadi (UU No. 27 Tahun 2022):</strong> Saya menyetujui pemrosesan
+                data identitas saya oleh PT Montana Global Investama untuk tujuan verifikasi nasabah (KYC), administrasi
+                kepemilikan aset, dan pelaporan perpajakan sesuai perundang-undangan.
               </label>
             </div>
 
             <div class="form-check mb-3">
               <input class="form-check-input" type="checkbox" id="termsApuPpt" required checked>
               <label class="form-check-label small text-secondary lh-base" for="termsApuPpt">
-                <strong>Deklarasi Anti-Pencucian Uang &amp; Pencegahan Pendanaan Terorisme (APU-PPT):</strong> Saya menyatakan dengan sesungguhnya bahwa dana yang ditempatkan bersumber dari aktivitas usaha yang sah secara hukum dan bukan merupakan hasil tindak pidana.
+                <strong>Deklarasi Anti-Pencucian Uang &amp; Pencegahan Pendanaan Terorisme (APU-PPT):</strong> Saya
+                menyatakan dengan sesungguhnya bahwa dana yang ditempatkan bersumber dari aktivitas usaha yang sah
+                secara hukum dan bukan merupakan hasil tindak pidana.
               </label>
             </div>
 
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="termsNda" required checked>
               <label class="form-check-label small text-secondary lh-base" for="termsNda">
-                <strong>Perjanjian Kerahasiaan Prospektus &amp; Keterbukaan Risiko (NDA):</strong> Saya sepakat menjaga kerahasiaan dokumen penawaran dan menyadari bahwa investasi sektor riil memiliki risiko operasional dan pasar yang terukur.
+                <strong>Perjanjian Kerahasiaan Prospektus &amp; Keterbukaan Risiko (NDA):</strong> Saya sepakat menjaga
+                kerahasiaan dokumen penawaran dan menyadari bahwa investasi sektor riil memiliki risiko operasional dan
+                pasar yang terukur.
               </label>
             </div>
           </div>

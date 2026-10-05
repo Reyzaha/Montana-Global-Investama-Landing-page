@@ -161,9 +161,39 @@ try {
                 'title' => $detailRow['summary_title'] ?? 'Ringkasan Kelayakan Investasi',
                 'content' => $detailRow['summary_content'] ?? ''
             ],
-            'simulation' => $simulation,
-            'rab_executive' => (!empty($detailRow['rab_executive_json']) ? json_decode($detailRow['rab_executive_json'], true) : ($extraProjectData[$pId] ?? null))
+            'simulation' => $simulation
         ];
+
+        $rabExec = (!empty($detailRow['rab_executive_json']) ? json_decode($detailRow['rab_executive_json'], true) : ($extraProjectData[$pId] ?? null));
+        $packageOptionsMode = $rabExec['package_options_mode'] ?? ($extra['package_options_mode'] ?? (!empty($rabExec['tiers']) ? '2' : 'none'));
+        $packageOptions = $rabExec['package_options'] ?? ($rabExec['tiers'] ?? ($extra['package_options'] ?? []));
+
+        // Format funding display & operator perk cleanly according to package_options_mode
+        $cleanTarget = 'Rp ' . number_format((float)$p['funding_target'], 0, ',', '.');
+        if ($packageOptionsMode === '2' && count($packageOptions) >= 2) {
+            $opt1Nom = !empty($packageOptions[0]['nominal']) ? ('Rp ' . number_format($packageOptions[0]['nominal'] / 1000000000, 0) . ' Miliar') : 'Rp 5 Miliar';
+            $opt2Nom = !empty($packageOptions[1]['nominal']) ? ('Rp ' . number_format($packageOptions[1]['nominal'] / 1000000000, 0) . ' Miliar') : 'Rp 10 Miliar';
+            $fRange = !empty($p['target_display']) ? $p['target_display'] : "Pilihan: {$opt1Nom} & {$opt2Nom}";
+            $opFacility = $rabExec['operator_facility'] ?? 'Fasilitas Operator: Tersedia 1 Operator atau 2 Operator Profesional';
+            $opPerk = !empty($rabExec['operator_perk']) ? $rabExec['operator_perk'] : ($extra['info']['operator_perk'] ?? 'Tersedia Pilihan 1–2 Operator Profesional');
+        } elseif ($packageOptionsMode === '1' && count($packageOptions) >= 1) {
+            $optNom = !empty($packageOptions[0]['nominal_display']) ? $packageOptions[0]['nominal_display'] : (!empty($packageOptions[0]['nominal']) ? ('Rp ' . number_format($packageOptions[0]['nominal'], 0, ',', '.')) : $cleanTarget);
+            $fRange = !empty($p['target_display']) ? $p['target_display'] : "Pilihan Paket: {$optNom}";
+            $opFacility = !empty($packageOptions[0]['operator_perk']) ? $packageOptions[0]['operator_perk'] : 'Termasuk Fasilitas 1 Operator Profesional';
+            $opPerk = !empty($packageOptions[0]['operator_perk']) ? $packageOptions[0]['operator_perk'] : 'Termasuk 1 Operator Profesional';
+        } else {
+            $packageOptionsMode = 'none';
+            $fRange = !empty($p['target_display']) ? $p['target_display'] : $cleanTarget;
+            $opFacility = '';
+            $opPerk = '';
+        }
+
+        $detail['rab_executive'] = $rabExec;
+        if ($rabExec && !empty($packageOptions)) {
+            $detail['rab_executive']['package_options_mode'] = $packageOptionsMode;
+            $detail['rab_executive']['package_options'] = $packageOptions;
+            $detail['rab_executive']['tiers'] = $packageOptions;
+        }
 
         $cIconImg = $p['city_icon_img'] ?? '';
         if (empty($cIconImg)) {
@@ -179,9 +209,6 @@ try {
             }
         }
 
-        $extra = $extraProjectInfo[$pId] ?? [];
-        $fRange = $extra['funding_range'] ?? ($p['target_display'] ?: 'Rp ' . number_format((float)$p['funding_target'], 0, ',', '.'));
-        $opFacility = $extra['operator_facility'] ?? 'Bonus Operator Profesional Resmi: 1 Operator (Invest 5M) atau 2 Operator (Invest 10M)';
         $model = $extra['model'] ?? 'Eksklusif';
 
         $infoArray = [
@@ -189,12 +216,12 @@ try {
             'target' => $fRange,
             'target_range' => $fRange,
             'investor_slot' => $extra['info']['investor_slot'] ?? ($p['status'] === 'Open' ? '1 Slot Kemitraan Terbuka' : 'Mitra Terkunci'),
-            'operator_perk' => $extra['info']['operator_perk'] ?? 'Termasuk 1–2 Operator Profesional',
+            'operator_perk' => $opPerk,
             'model' => $model,
             'tenor' => $p['tenor'],
             'return' => $p['return_rate'],
             'risk' => $p['risk_level'],
-            'min_investment' => $extra['info']['min_investment'] ?? ($p['min_investment'] ?: 'Rp 5.000.000.000 (Paket 5M / 10M)'),
+            'min_investment' => $extra['info']['min_investment'] ?? ($p['min_investment'] ?: ($packageOptionsMode === '2' ? 'Rp 5.000.000.000 (Paket 1 atau Paket 2)' : $fRange)),
             'payout' => $p['payout'],
             'remaining_days' => $p['remaining_days'],
             'asset_backed' => $p['asset_backed'],
@@ -213,6 +240,9 @@ try {
             'category' => $p['category'],
             'image' => $p['image'],
             'model' => $model,
+            'package_options_mode' => $packageOptionsMode,
+            'package_options' => $packageOptions,
+            'tiers' => $packageOptions,
             'funding_range' => $fRange,
             'funding_min' => $extra['funding_min'] ?? (float)$p['funding_collected'],
             'funding_max' => $extra['funding_max'] ?? (float)$p['funding_target'],

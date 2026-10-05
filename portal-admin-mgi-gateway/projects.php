@@ -99,7 +99,7 @@ require_once __DIR__ . '/includes/header.php';
           </li>
           <li class="nav-item">
             <button class="nav-link fw-bold small" id="tab-rab-exec-btn" data-bs-toggle="pill" data-bs-target="#tab-rab-exec" type="button">
-              <i class="bi bi-layers-fill text-warning me-1"></i> 5. Unit RAB &amp; Tiers
+              <i class="bi bi-ui-radios-grid text-warning me-1"></i> 5. Opsi Paket &amp; Fasilitas
             </button>
           </li>
         </ul>
@@ -356,90 +356,200 @@ require_once __DIR__ . '/includes/header.php';
               </div>
             </div>
 
-            <!-- TAB 5: EXECUTIVE UNIT RAB & TIERS PEMODAL -->
+            <!-- TAB 5: OPSI PAKET INVESTASI & FASILITAS OPERATOR -->
             <div class="tab-pane fade" id="tab-rab-exec">
               <div class="card p-4 border-0 rounded-3 shadow-sm bg-white">
-                <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3">
+                <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3 flex-wrap gap-2">
                   <div>
                     <h6 class="fw-bold text-dark mb-1">
-                      <i class="bi bi-layers-fill text-gold me-2"></i>Struktur Pengadaan Unit Riil &amp; Paket Pemodal (Executive RAB)
+                      <i class="bi bi-ui-radios-grid text-gold me-2"></i>Pengaturan Opsi Paket Investasi &amp; Fasilitas Operator
                     </h6>
-                    <small class="text-muted">Parameter unit alat berat, kapasitas kontainer 40FT HC, dan paket partisipasi pemodal.</small>
+                    <small class="text-muted">Tentukan apakah di dalam proyek ini ada 2 pilihan paket, hanya 1 pilihan saja, atau tanpa pilihan paket (target tunggal).</small>
                   </div>
-                  <button type="button" class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1 shadow-sm" onclick="calcExecutiveRabFromTarget()">
-                    <i class="bi bi-arrow-repeat"></i>
-                    <span>Hitung Unit &amp; Tiers Otomatis</span>
-                  </button>
-                </div>
-
-                <div class="row g-3 mb-4">
-                  <div class="col-md-3">
-                    <label class="form-label small text-muted">Model Alat Berat</label>
-                    <input type="text" id="execModel" class="form-control form-control-sm fw-bold" value="Unit Alat Berat">
-                  </div>
-                  <div class="col-md-3">
-                    <label class="form-label small text-muted">Estimasi Total Unit</label>
-                    <input type="number" id="execTotalUnits" class="form-control form-control-sm fw-bold text-primary" value="40" oninput="updateExecutiveRabSummary()">
-                  </div>
-                  <div class="col-md-3">
-                    <label class="form-label small text-muted">Estimasi Kontainer 40FT HC</label>
-                    <input type="number" id="execTotalContainers" class="form-control form-control-sm fw-bold text-primary" value="10" oninput="updateExecutiveRabSummary()">
-                  </div>
-                  <div class="col-md-3">
-                    <label class="form-label small text-muted">Target Perputaran</label>
-                    <input type="text" id="execTargetPerputaran" class="form-control form-control-sm fw-bold text-success" value="2 – 3 Kali per Tahun">
+                  <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1 shadow-sm" onclick="loadDefaultMgiPresets()">
+                      <i class="bi bi-lightning-charge-fill text-warning"></i>
+                      <span>Gunakan Preset MGI (5M &amp; 10M)</span>
+                    </button>
                   </div>
                 </div>
 
-                <!-- Unit Cost Structure Breakdown -->
-                <div class="p-3 bg-light rounded-3 border mb-4">
-                  <div class="fw-bold text-dark small mb-2 d-flex align-items-center gap-1">
-                    <i class="bi bi-calculator text-primary"></i> Parameter Biaya Pokok Per Unit (Standar Proposal Resmi)
-                  </div>
-                  <div class="row g-2 small">
-                    <div class="col-md-3">
-                      <span class="text-muted">HPP Pembelian Unit:</span>
-                      <strong class="d-block text-dark">Rp 150.000.000 (60%)</strong>
+                <!-- 1. Skema Selector: 2 Pilihan / 1 Pilihan / Tanpa Pilihan -->
+                <div class="mb-4">
+                  <label class="form-label fw-bold text-dark small mb-2">
+                    <i class="bi bi-sliders2 text-primary me-1"></i>Pilih Skema Paket untuk Proyek Ini:
+                  </label>
+                  <div class="row g-3">
+                    <div class="col-md-4">
+                      <div class="card p-3 border rounded-3 cursor-pointer h-100 package-mode-card" id="cardMode2" onclick="setPackageMode('2')">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                          <input type="radio" name="packageModeRadio" id="radioMode2" value="2" class="form-check-input mt-0" checked>
+                          <strong class="text-dark">2 Pilihan Paket</strong>
+                          <span class="badge bg-primary text-white rounded-pill ms-auto small" style="font-size: 0.65rem;">Populer</span>
+                        </div>
+                        <small class="text-muted lh-sm d-block">Investor dapat memilih 1 dari 2 opsi paket investasi (misal: Paket 5M vs Paket 10M).</small>
+                      </div>
                     </div>
-                    <div class="col-md-3">
-                      <span class="text-muted">Rekondisi Workshop MIU:</span>
-                      <strong class="d-block text-dark">Rp 25.000.000 (10%)</strong>
+                    <div class="col-md-4">
+                      <div class="card p-3 border rounded-3 cursor-pointer h-100 package-mode-card" id="cardMode1" onclick="setPackageMode('1')">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                          <input type="radio" name="packageModeRadio" id="radioMode1" value="1" class="form-check-input mt-0">
+                          <strong class="text-dark">1 Pilihan Paket Saja</strong>
+                        </div>
+                        <small class="text-muted lh-sm d-block">Hanya ada 1 opsi paket terarah (tanpa opsi komparasi lain) bagi calon investor.</small>
+                      </div>
                     </div>
-                    <div class="col-md-3">
-                      <span class="text-muted">Kontainer 40FT HC MSI:</span>
-                      <strong class="d-block text-dark">Rp 52.500.000 (21%)</strong>
-                    </div>
-                    <div class="col-md-3">
-                      <span class="text-muted">Cadangan Kas Proyek (9%):</span>
-                      <strong class="d-block text-dark">Rp 22.500.000 (9%)</strong>
-                    </div>
-                    <div class="col-12 mt-2 pt-2 border-top d-flex justify-content-between align-items-center">
-                      <span class="fw-bold text-dark">TOTAL MODAL PER SATU UNIT:</span>
-                      <strong class="text-primary fs-6">Rp 250.000.000</strong>
-                    </div>
-                    <div class="col-12 d-flex justify-content-between align-items-center">
-                      <span class="fw-semibold text-dark">Harga Jual Unit (inc PPN 11%): <strong>Rp 346.000.000</strong></span>
-                      <span class="fw-bold text-success">Estimasi Net Profit Investor: Rp 35.771.712 / unit (14,31% / siklus)</span>
+                    <div class="col-md-4">
+                      <div class="card p-3 border rounded-3 cursor-pointer h-100 package-mode-card" id="cardModeNone" onclick="setPackageMode('none')">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                          <input type="radio" name="packageModeRadio" id="radioModeNone" value="none" class="form-check-input mt-0">
+                          <strong class="text-dark">Tanpa Pilihan Paket</strong>
+                        </div>
+                        <small class="text-muted lh-sm d-block">Pendanaan tunggal standar. Tidak ada rentang atau opsi pilihan paket di landing page.</small>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <!-- Live Tiers Preview & Raw JSON -->
-                <div>
-                  <div class="d-flex justify-content-between align-items-center mb-2">
-                    <label class="form-label fw-bold text-dark mb-0 small">
-                      <i class="bi bi-box-seam text-warning me-1"></i> Paket Partisipasi Pemodal (Tiers)
-                    </label>
-                    <span class="badge bg-light text-dark border small" id="tierCountBadge">5 Paket Aktif</span>
+                <!-- 2. Kontainer Form Paket (Muncul jika Mode 1 atau 2) -->
+                <div id="packageFormsContainer">
+                  <div class="row g-3 mb-4">
+                    
+                    <!-- PILIHAN 1 (OPSI A) -->
+                    <div class="col-12 col-md-6" id="colPackage1">
+                      <div class="card border rounded-3 p-3 bg-light h-100 shadow-sm" style="border-left: 4px solid #142563 !important;">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                          <span class="fw-bold text-primary small d-flex align-items-center gap-1">
+                            <i class="bi bi-1-circle-fill"></i> PILIHAN 1 (OPSI UTAMA)
+                          </span>
+                          <span class="badge bg-primary text-white small" id="badgePilihan1">Opsi A</span>
+                        </div>
+
+                        <div class="row g-2">
+                          <div class="col-12">
+                            <label class="form-label small text-muted mb-1">Nama / Label Paket</label>
+                            <input type="text" id="opt1_label" class="form-control form-control-sm fw-semibold" value="Paket Kemitraan Eksekutif (5 Miliar)">
+                          </div>
+                          <div class="col-12">
+                            <label class="form-label small text-muted mb-1">Nominal Investasi (Rp)</label>
+                            <input type="number" id="opt1_nominal" class="form-control form-control-sm fw-bold text-primary" value="5000000000" step="500000000" oninput="updateMoneyPreview('opt1_nominal', 'previewOpt1Nominal')">
+                            <div class="live-rupiah-preview text-primary small fw-semibold" id="previewOpt1Nominal">Rp 5.000.000.000</div>
+                          </div>
+                          <div class="col-12">
+                            <label class="form-label small text-muted mb-1">Fasilitas Operator Resmi</label>
+                            <input type="text" id="opt1_operator" class="form-control form-control-sm" value="1 Operator Profesional Bersertifikat &amp; Berpengalaman">
+                            <small class="text-muted" style="font-size: 0.7rem;">Gaji &amp; operasional dikelola penuh oleh MIU</small>
+                          </div>
+                          <div class="col-12">
+                            <label class="form-label small text-muted mb-1">Alokasi Fisik Unit &amp; Kontainer</label>
+                            <input type="text" id="opt1_units" class="form-control form-control-sm" value="20 Unit Alat Berat (5 Kontainer 40FT HC)">
+                          </div>
+                          <div class="col-12">
+                            <label class="form-label small text-muted mb-1">Badge Promosi / Tag</label>
+                            <input type="text" id="opt1_badge" class="form-control form-control-sm" value="Bonus 1 Operator Profesional">
+                          </div>
+                          <div class="col-12">
+                            <label class="form-label small text-muted mb-1">Estimasi Proyeksi Imbal Hasil</label>
+                            <input type="text" id="opt1_roi" class="form-control form-control-sm" value="14,31% / siklus (28,6% – 42,9% p.a.)">
+                          </div>
+                          <div class="col-12">
+                            <label class="form-label small text-muted mb-1">Deskripsi Singkat Paket</label>
+                            <textarea id="opt1_desc" class="form-control form-control-sm" rows="2">Penempatan modal Rp 5 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.</textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- PILIHAN 2 (OPSI B) -->
+                    <div class="col-12 col-md-6" id="colPackage2">
+                      <div class="card border rounded-3 p-3 bg-light h-100 shadow-sm" style="border-left: 4px solid #C5A059 !important;">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                          <span class="fw-bold text-warning small d-flex align-items-center gap-1" style="color: #9A7B38 !important;">
+                            <i class="bi bi-2-circle-fill"></i> PILIHAN 2 (OPSI KONSORSIUM / BESAR)
+                          </span>
+                          <span class="badge bg-gold text-white small" id="badgePilihan2">Opsi B</span>
+                        </div>
+
+                        <div class="row g-2">
+                          <div class="col-12">
+                            <label class="form-label small text-muted mb-1">Nama / Label Paket</label>
+                            <input type="text" id="opt2_label" class="form-control form-control-sm fw-semibold" value="Paket Konsorsium Utama (10 Miliar)">
+                          </div>
+                          <div class="col-12">
+                            <label class="form-label small text-muted mb-1">Nominal Investasi (Rp)</label>
+                            <input type="number" id="opt2_nominal" class="form-control form-control-sm fw-bold text-warning" style="color: #9A7B38 !important;" value="10000000000" step="500000000" oninput="updateMoneyPreview('opt2_nominal', 'previewOpt2Nominal')">
+                            <div class="live-rupiah-preview text-warning small fw-semibold" id="previewOpt2Nominal" style="color: #9A7B38 !important;">Rp 10.000.000.000</div>
+                          </div>
+                          <div class="col-12">
+                            <label class="form-label small text-muted mb-1">Fasilitas Operator Resmi</label>
+                            <input type="text" id="opt2_operator" class="form-control form-control-sm" value="2 Operator Profesional (Double Shift / 24 Jam)">
+                            <small class="text-muted" style="font-size: 0.7rem;">Gaji, asuransi &amp; rotasi shift terkelola penuh</small>
+                          </div>
+                          <div class="col-12">
+                            <label class="form-label small text-muted mb-1">Alokasi Fisik Unit &amp; Kontainer</label>
+                            <input type="text" id="opt2_units" class="form-control form-control-sm" value="40 Unit Alat Berat (10 Kontainer 40FT HC)">
+                          </div>
+                          <div class="col-12">
+                            <label class="form-label small text-muted mb-1">Badge Promosi / Tag</label>
+                            <input type="text" id="opt2_badge" class="form-control form-control-sm" value="Bonus 2 Operator Profesional (Double Shift)">
+                          </div>
+                          <div class="col-12">
+                            <label class="form-label small text-muted mb-1">Estimasi Proyeksi Imbal Hasil</label>
+                            <input type="text" id="opt2_roi" class="form-control form-control-sm" value="14,31% / siklus (28,6% – 42,9% p.a.)">
+                          </div>
+                          <div class="col-12">
+                            <label class="form-label small text-muted mb-1">Deskripsi Singkat Paket</label>
+                            <textarea id="opt2_desc" class="form-control form-control-sm" rows="2">Kemitraan tunggal mendanai kapasitas penuh proyek regional (Rp 10 Miliar) dengan fasilitas 2 Operator berlisensi untuk rotasi shift 24/7, hak inspeksi fisik &amp; audit berkala di Central Workshop Kebumen, serta prioritas utama penyerapan pasar kontraktor rekanan nasional.</textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
-                  <div id="execTiersPreview" class="table-responsive border rounded-3 mb-3 bg-white">
-                    <!-- Populated dynamically via JS -->
-                  </div>
-                  <details class="small">
-                    <summary class="text-muted cursor-pointer">Lihat / Edit Raw JSON Struktur Executive RAB</summary>
-                    <textarea id="execRabJsonRaw" class="form-control font-monospace mt-2 small" rows="8" style="font-size: 0.75rem;"></textarea>
-                  </details>
                 </div>
+
+                <!-- 3. Alert Saat Mode None Aktif -->
+                <div id="noticeNonePackage" class="alert alert-light border border-info-subtle p-3 rounded-3 mb-4" style="display: none; background-color: #F0F9FF;">
+                  <div class="d-flex align-items-start gap-2">
+                    <i class="bi bi-info-circle-fill text-info fs-5 flex-shrink-0 mt-0.5"></i>
+                    <div>
+                      <strong class="text-dark d-block mb-1">Mode Tanpa Pilihan Paket Aktif</strong>
+                      <div class="text-secondary small">
+                        Proyek ini tidak akan menampilkan pilihan paket opsi (A/B) di landing page. Halaman proyek akan menampilkan target pendanaan tunggal standar tanpa rentang yang membingungkan.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 4. Parameter Spesifikasi Alat Berat & Alokasi (Collapsible) -->
+                <details class="mb-3">
+                  <summary class="fw-semibold text-dark cursor-pointer small pb-2 border-bottom">
+                    <i class="bi bi-gear-fill me-1 text-muted"></i> Pengaturan Tambahan: Spesifikasi Unit &amp; Logistik (Opsional)
+                  </summary>
+                  <div class="row g-3 mt-1 p-3 bg-light rounded-3 border">
+                    <div class="col-md-3">
+                      <label class="form-label small text-muted">Model Alat Berat</label>
+                      <input type="text" id="execModel" class="form-control form-control-sm fw-bold" value="Unit Alat Berat">
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label small text-muted">Estimasi Total Unit</label>
+                      <input type="number" id="execTotalUnits" class="form-control form-control-sm fw-bold text-primary" value="40">
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label small text-muted">Estimasi Kontainer 40FT HC</label>
+                      <input type="number" id="execTotalContainers" class="form-control form-control-sm fw-bold text-primary" value="10">
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label small text-muted">Target Perputaran</label>
+                      <input type="text" id="execTargetPerputaran" class="form-control form-control-sm fw-bold text-success" value="2 – 3 Kali per Tahun">
+                    </div>
+                  </div>
+                </details>
+
+                <details class="small">
+                  <summary class="text-muted cursor-pointer">Lihat / Edit Raw JSON Struktur Executive RAB &amp; Paket</summary>
+                  <textarea id="execRabJsonRaw" class="form-control font-monospace mt-2 small" rows="6" style="font-size: 0.75rem;"></textarea>
+                </details>
               </div>
             </div>
 
@@ -570,6 +680,23 @@ require_once __DIR__ . '/includes/header.php';
       if (p.status === 'Coming Soon') badgeClass = 'badge-coming';
       if (p.status === 'Closed') badgeClass = 'badge-closed';
 
+      // Deteksi skema pilihan paket
+      let pMode = p.package_options_mode;
+      if (!pMode) {
+        if (p.target_display && p.target_display.includes('2 Pilihan')) pMode = '2';
+        else if (p.target_display && p.target_display.includes('1 Pilihan')) pMode = '1';
+        else if (p.target_display && (p.target_display.includes('–') || p.target_display.includes('-'))) pMode = '2';
+        else pMode = '2';
+      }
+      let modeBadge = '';
+      if (pMode === '2') {
+        modeBadge = '<span class="badge bg-primary-subtle text-primary border border-primary-subtle ms-1" style="font-size: 0.68rem;"><i class="bi bi-ui-radios-grid me-1"></i>2 Pilihan</span>';
+      } else if (pMode === '1') {
+        modeBadge = '<span class="badge bg-warning-subtle text-dark border border-warning-subtle ms-1" style="font-size: 0.68rem;"><i class="bi bi-check-circle-fill me-1"></i>1 Pilihan</span>';
+      } else {
+        modeBadge = '<span class="badge bg-light text-muted border ms-1" style="font-size: 0.68rem;">Tanpa Pilihan</span>';
+      }
+
       return `
         <tr>
           <td>
@@ -580,6 +707,7 @@ require_once __DIR__ . '/includes/header.php';
             <div class="text-muted small mt-1">
               <code>${p.id}</code> &bull; ${p.category}
               ${p.city ? `<span class="badge bg-primary-subtle text-primary border border-primary-subtle ms-1"><i class="bi bi-geo-alt-fill me-1"></i>${p.city}</span>` : '<span class="badge bg-secondary-subtle text-secondary ms-1">Belum Ada Kota</span>'}
+              ${modeBadge}
               ${p.featured == 1 ? '<span class="badge bg-warning text-dark ms-1">Featured</span>' : ''}
             </div>
           </td>
@@ -667,160 +795,180 @@ require_once __DIR__ . '/includes/header.php';
     document.getElementById('rabGrandTotalDisplay').textContent = AdminApp.formatRupiah(grand);
   }
 
-  function calcExecutiveRabFromTarget() {
-    const target = Number(document.getElementById('pFundingTarget').value) || 10000000000;
-    const model = document.getElementById('execModel').value || 'Unit Alat Berat';
-    const units = Math.max(1, Math.round(target / 250000000));
-    const containers = Math.max(1, Math.round(units / 4));
-    const targetPerputaran = document.getElementById('execTargetPerputaran').value || '2 – 3 Kali per Tahun';
+  // =========================================================================
+  // MANAJEMEN SKEMA OPSI PAKET INVESTASI & FASILITAS OPERATOR
+  // =========================================================================
+  let currentPackageMode = '2'; // '2' | '1' | 'none'
 
-    document.getElementById('execTotalUnits').value = units;
-    document.getElementById('execTotalContainers').value = containers;
+  function setPackageMode(mode) {
+    currentPackageMode = mode;
 
-    const tierTemplates = [
-      { nominal: 500000000, name: "Paket Starter (2 Unit Alat Berat)", units: 2, containers: "0.5 Kontainer 40FT HC", tag: "Alokasi Pemula" },
-      { nominal: 1000000000, name: "Paket 1 Kontainer Penuh (4 Unit Alat Berat)", units: 4, containers: "1 Kontainer 40FT HC Penuh", tag: "Paling Populer" },
-      { nominal: 2000000000, name: "Paket 2 Kontainer (8 Unit Alat Berat)", units: 8, containers: "2 Kontainer 40FT HC", tag: "Skala Komersial" },
-      { nominal: 5000000000, name: "Paket 5 Kontainer (20 Unit Alat Berat)", units: 20, containers: "5 Kontainer 40FT HC", tag: "Prioritas Institusi" }
-    ];
+    // Update Radio buttons
+    const rad2 = document.getElementById('radioMode2');
+    const rad1 = document.getElementById('radioMode1');
+    const radNone = document.getElementById('radioModeNone');
+    if (rad2) rad2.checked = (mode === '2');
+    if (rad1) rad1.checked = (mode === '1');
+    if (radNone) radNone.checked = (mode === 'none');
 
-    let tiers = [];
-    tierTemplates.forEach(t => {
-      if (t.nominal <= target) {
-        const estProfitPerPutaran = t.units * 35771712;
-        tiers.push({
-          nominal: t.nominal,
-          nominal_display: AdminApp.formatRupiah(t.nominal),
-          name: t.name,
-          units: t.units,
-          unit_description: `${t.units} Unit Alat Berat Siap Operasi (${t.containers})`,
-          alokasi_modal: {
-            hpp_unit: t.units * 150000000,
-            rekondisi_miu: t.units * 25000000,
-            kontainer_msi: t.units * 52500000,
-            cadangan_kas: t.units * 22500000
-          },
-          est_profit_per_putaran: estProfitPerPutaran,
-          est_roi_per_putaran_pct: "14.31%",
-          est_roi_pa_pct: "28.6% – 42.9%",
-          est_profit_pa_range: `${AdminApp.formatRupiah(estProfitPerPutaran * 2)} – ${AdminApp.formatRupiah(estProfitPerPutaran * 3)} / tahun`,
-          benefit_tag: t.tag
-        });
-      }
+    // Update visual card border
+    ['cardMode2', 'cardMode1', 'cardModeNone'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('border-primary', 'bg-light', 'shadow-sm');
     });
-
-    if (target > 5000000000) {
-      const totalProfitPerPutaran = units * 35771712;
-      tiers.push({
-        nominal: target,
-        nominal_display: AdminApp.formatRupiah(target),
-        name: `Paket Sindikasi Penuh (${units} Unit / ${containers} Kontainer)`,
-        units: units,
-        unit_description: `Full Syndicate Project (${units} Unit / ${containers} Kontainer 40FT HC)`,
-        alokasi_modal: {
-          hpp_unit: units * 150000000,
-          rekondisi_miu: units * 25000000,
-          kontainer_msi: units * 52500000,
-          cadangan_kas: units * 22500000
-        },
-        est_profit_per_putaran: totalProfitPerPutaran,
-        est_roi_per_putaran_pct: "14.31%",
-        est_roi_pa_pct: "28.6% – 42.9%",
-        est_profit_pa_range: `${AdminApp.formatRupiah(totalProfitPerPutaran * 2)} – ${AdminApp.formatRupiah(totalProfitPerPutaran * 3)} / tahun`,
-        benefit_tag: "Eksklusif Lead Investor"
-      });
+    const activeCardId = mode === '2' ? 'cardMode2' : (mode === '1' ? 'cardMode1' : 'cardModeNone');
+    const activeEl = document.getElementById(activeCardId);
+    if (activeEl) {
+      activeEl.classList.add('border-primary', 'bg-light', 'shadow-sm');
     }
 
+    // Toggle container views
+    const formsWrap = document.getElementById('packageFormsContainer');
+    const col1 = document.getElementById('colPackage1');
+    const col2 = document.getElementById('colPackage2');
+    const noticeNone = document.getElementById('noticeNonePackage');
+
+    if (mode === '2') {
+      if (formsWrap) formsWrap.style.display = 'block';
+      if (col1) {
+        col1.style.display = 'block';
+        col1.className = 'col-12 col-md-6';
+      }
+      if (col2) {
+        col2.style.display = 'block';
+        col2.className = 'col-12 col-md-6';
+      }
+      if (noticeNone) noticeNone.style.display = 'none';
+      const b1 = document.getElementById('badgePilihan1');
+      if (b1) b1.textContent = 'Opsi A';
+    } else if (mode === '1') {
+      if (formsWrap) formsWrap.style.display = 'block';
+      if (col1) {
+        col1.style.display = 'block';
+        col1.className = 'col-12';
+      }
+      if (col2) col2.style.display = 'none';
+      if (noticeNone) noticeNone.style.display = 'none';
+      const b1 = document.getElementById('badgePilihan1');
+      if (b1) b1.textContent = 'Paket Tunggal';
+    } else {
+      // Mode None (Tanpa Pilihan Paket)
+      if (formsWrap) formsWrap.style.display = 'none';
+      if (noticeNone) noticeNone.style.display = 'block';
+    }
+
+    syncExecutiveJsonRaw();
+  }
+
+  function loadDefaultMgiPresets() {
+    setPackageMode('2');
+    document.getElementById('opt1_label').value = 'Paket Kemitraan Eksekutif (5 Miliar)';
+    document.getElementById('opt1_nominal').value = '5000000000';
+    document.getElementById('opt1_operator').value = '1 Operator Profesional Bersertifikat & Berpengalaman';
+    document.getElementById('opt1_units').value = '20 Unit Alat Berat (5 Kontainer 40FT HC)';
+    document.getElementById('opt1_badge').value = 'Bonus 1 Operator Profesional';
+    document.getElementById('opt1_roi').value = '14,31% / siklus (28,6% – 42,9% p.a.)';
+    document.getElementById('opt1_desc').value = 'Penempatan modal Rp 5 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.';
+
+    document.getElementById('opt2_label').value = 'Paket Konsorsium Utama (10 Miliar)';
+    document.getElementById('opt2_nominal').value = '10000000000';
+    document.getElementById('opt2_operator').value = '2 Operator Profesional (Double Shift / 24 Jam)';
+    document.getElementById('opt2_units').value = '40 Unit Alat Berat (10 Kontainer 40FT HC)';
+    document.getElementById('opt2_badge').value = 'Bonus 2 Operator Profesional (Double Shift)';
+    document.getElementById('opt2_roi').value = '14,31% / siklus (28,6% – 42,9% p.a.)';
+    document.getElementById('opt2_desc').value = 'Kemitraan tunggal mendanai kapasitas penuh proyek regional (Rp 10 Miliar) dengan fasilitas 2 Operator berlisensi untuk rotasi shift 24/7, hak inspeksi fisik & audit berkala di Central Workshop Kebumen, serta prioritas utama penyerapan pasar kontraktor rekanan nasional.';
+
+    updateMoneyPreview('opt1_nominal', 'previewOpt1Nominal');
+    updateMoneyPreview('opt2_nominal', 'previewOpt2Nominal');
+    syncExecutiveJsonRaw();
+    AdminApp.showToast('Preset Standar MGI (Paket 5M & 10M) berhasil dimuat!', 'info');
+  }
+
+  function buildPackageOptionsFromForm() {
+    if (currentPackageMode === 'none') {
+      return [];
+    }
+
+    const nom1 = Number(document.getElementById('opt1_nominal').value) || 5000000000;
+    const opt1 = {
+      nominal: nom1,
+      nominal_display: AdminApp.formatRupiah(nom1),
+      label: document.getElementById('opt1_label').value.trim() || 'Paket Kemitraan Eksekutif (5 Miliar)',
+      badge: document.getElementById('opt1_badge').value.trim() || 'Bonus 1 Operator Profesional',
+      featured: false,
+      unit_qty: Number((document.getElementById('opt1_units').value.match(/\d+/) || [20])[0]),
+      container_qty: document.getElementById('opt1_units').value.trim() || '5 Kontainer 40FT HC (20 Unit)',
+      porsi_proyek: `Alokasi ${document.getElementById('opt1_units').value.trim()}`,
+      jaminan_aset: `${document.getElementById('opt1_units').value.trim()} Siap Operasi`,
+      operator_perk: document.getElementById('opt1_operator').value.trim() || '1 Operator Profesional',
+      deskripsi: document.getElementById('opt1_desc').value.trim(),
+      profit_per_siklus: Math.round(nom1 * 0.14308),
+      profit_2x_tahunan: Math.round(nom1 * 0.14308 * 2),
+      profit_3x_tahunan: Math.round(nom1 * 0.14308 * 3),
+      roi_est: document.getElementById('opt1_roi').value.trim() || '28,6% – 42,9% (p.a.)'
+    };
+
+    if (currentPackageMode === '1') {
+      return [opt1];
+    }
+
+    const nom2 = Number(document.getElementById('opt2_nominal').value) || 10000000000;
+    const opt2 = {
+      nominal: nom2,
+      nominal_display: AdminApp.formatRupiah(nom2),
+      label: document.getElementById('opt2_label').value.trim() || 'Paket Konsorsium Utama (10 Miliar)',
+      badge: document.getElementById('opt2_badge').value.trim() || 'Bonus 2 Operator Profesional (Double Shift)',
+      featured: true,
+      unit_qty: Number((document.getElementById('opt2_units').value.match(/\d+/) || [40])[0]),
+      container_qty: document.getElementById('opt2_units').value.trim() || '10 Kontainer 40FT HC (40 Unit)',
+      porsi_proyek: `Eksklusivitas Penuh Seluruh Batch Regional`,
+      jaminan_aset: `${document.getElementById('opt2_units').value.trim()} Siap Operasi`,
+      operator_perk: document.getElementById('opt2_operator').value.trim() || '2 Operator Profesional (Double Shift)',
+      deskripsi: document.getElementById('opt2_desc').value.trim(),
+      profit_per_siklus: Math.round(nom2 * 0.14308),
+      profit_2x_tahunan: Math.round(nom2 * 0.14308 * 2),
+      profit_3x_tahunan: Math.round(nom2 * 0.14308 * 3),
+      roi_est: document.getElementById('opt2_roi').value.trim() || '28,6% – 42,9% (p.a.)'
+    };
+
+    return [opt1, opt2];
+  }
+
+  function syncExecutiveJsonRaw() {
+    const target = Number(document.getElementById('pFundingTarget').value) || 10000000000;
+    const model = document.getElementById('execModel').value || 'Unit Alat Berat';
+    const units = Number(document.getElementById('execTotalUnits').value) || Math.max(1, Math.round(target / 250000000));
+    const containers = Number(document.getElementById('execTotalContainers').value) || Math.max(1, Math.round(units / 4));
+    const targetPerputaran = document.getElementById('execTargetPerputaran').value || '2 – 3 Kali per Tahun';
+
+    const packageOptions = buildPackageOptionsFromForm();
+
     currentRabExecutive = {
+      package_options_mode: currentPackageMode,
+      package_options: packageOptions,
+      tiers: packageOptions, // backwards compatibility
       unit_model: model,
       total_target: target,
       total_target_display: AdminApp.formatRupiah(target),
       total_units: units,
       total_containers: containers,
+      target_perputaran: targetPerputaran,
       cost_per_unit: 250000000,
       cost_per_container: 1000000000,
-      target_perputaran: targetPerputaran,
-      unit_cost_breakdown: {
-        hpp_beli_unit: 150000000,
-        rekondisi_miu: 25000000,
-        kontainer_msi: 52500000,
-        cadangan_kas: 22500000
-      },
       selling_price_per_unit: 346000000,
       investor_net_profit_per_unit: 35771712,
       investor_roi_per_cycle_pct: "14.31%",
-      tiers: tiers
+      spesifikasi: {
+        barang: model,
+        target_perputaran: targetPerputaran,
+        estimasi_unit: `${units} Unit (${containers} Kontainer)`
+      }
     };
 
-    renderAdminTiersPreview(currentRabExecutive.tiers);
-    const jsonEl = document.getElementById('execRabJsonRaw');
-    if (jsonEl) jsonEl.value = JSON.stringify(currentRabExecutive, null, 2);
-  }
-
-  function updateExecutiveRabSummary() {
-    if (!currentRabExecutive) {
-      calcExecutiveRabFromTarget();
-      return;
+    const rawEl = document.getElementById('execRabJsonRaw');
+    if (rawEl) {
+      rawEl.value = JSON.stringify(currentRabExecutive, null, 2);
     }
-    currentRabExecutive.unit_model = document.getElementById('execModel').value;
-    currentRabExecutive.total_units = Number(document.getElementById('execTotalUnits').value) || 1;
-    currentRabExecutive.total_containers = Number(document.getElementById('execTotalContainers').value) || 1;
-    currentRabExecutive.target_perputaran = document.getElementById('execTargetPerputaran').value;
-    const jsonEl = document.getElementById('execRabJsonRaw');
-    if (jsonEl) jsonEl.value = JSON.stringify(currentRabExecutive, null, 2);
-  }
-
-  function renderAdminTiersPreview(tiers) {
-    const previewEl = document.getElementById('execTiersPreview');
-    const badgeEl = document.getElementById('tierCountBadge');
-    if (!previewEl) return;
-    if (!tiers || tiers.length === 0) {
-      previewEl.innerHTML = '<div class="p-3 text-center text-muted small">Belum ada paket partisipasi pemodal yang dihitung. Klik tombol "Hitung Unit &amp; Tiers Otomatis".</div>';
-      if (badgeEl) badgeEl.textContent = '0 Paket';
-      return;
-    }
-    if (badgeEl) badgeEl.textContent = `${tiers.length} Paket Aktif`;
-
-    previewEl.innerHTML = `
-      <table class="table table-sm table-bordered align-middle mb-0" style="font-size: 0.8rem;">
-        <thead class="table-light">
-          <tr>
-            <th style="width: 140px;">Nominal</th>
-            <th>Nama Paket &amp; Alokasi Fisik</th>
-            <th style="width: 80px;" class="text-center">Unit</th>
-            <th style="width: 150px;">Est. Profit / Putaran</th>
-            <th style="width: 110px;">Est. ROI (p.a.)</th>
-            <th style="width: 120px;">Tag</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${tiers.map(t => {
-            const nom = t.nominal_display || AdminApp.formatRupiah(t.nominal);
-            const name = t.name || t.label || 'Paket Investasi';
-            const units = t.units ?? t.unit_qty ?? '-';
-            const desc = t.unit_description || t.jaminan_aset || `${units} Unit Alat Berat Siap Operasi (${t.container_qty || 'Kontainer'})`;
-            const profit = t.est_profit_per_putaran_display || AdminApp.formatRupiah(t.est_profit_per_putaran || 0);
-            const roiPutaran = t.est_roi_per_putaran_pct || '14.31%';
-            const roiPa = t.est_roi_pa_pct || '28.6% – 42.9%';
-            const tag = t.benefit_tag || t.badge || '-';
-
-            return `
-              <tr>
-                <td class="fw-bold text-primary">${nom}</td>
-                <td>
-                  <div class="fw-semibold text-dark">${name}</div>
-                  <div class="text-muted" style="font-size: 0.75rem;">${desc}</div>
-                </td>
-                <td class="text-center fw-bold">${units} Unit</td>
-                <td class="text-success fw-bold">${profit} <span class="badge bg-success-subtle text-success">${roiPutaran}</span></td>
-                <td class="text-primary fw-bold">${roiPa}</td>
-                <td><span class="badge bg-secondary-subtle text-secondary">${tag}</span></td>
-              </tr>
-            `;
-          }).join('')}
-        </tbody>
-      </table>
-    `;
   }
 
   function openCreateModal() {
@@ -836,15 +984,15 @@ require_once __DIR__ . '/includes/header.php';
     document.getElementById('currentImagePathDisplay').textContent = 'assets/img/project-jabodetabek.jpg';
     document.getElementById('uploadImageStatus').innerHTML = 'Maks. 10MB';
     document.getElementById('pFeatured').checked = false;
-    document.getElementById('pFundingTarget').value = '20000000000';
+    document.getElementById('pFundingTarget').value = '10000000000';
     document.getElementById('pFundingCollected').value = '0';
     document.getElementById('pCityId').value = '';
     document.getElementById('pLokasi').value = 'Kebumen & Cilacap, Jawa Tengah';
-    document.getElementById('pTenor').value = '36 Bulan';
-    document.getElementById('pReturnRate').value = '≥30% (p.a.)';
+    document.getElementById('pTenor').value = '12 Bulan';
+    document.getElementById('pReturnRate').value = '28,6% – 42,9% (p.a.)';
     document.getElementById('pRiskLevel').value = 'Menengah - Terukur';
-    document.getElementById('pMinInvest').value = 'Rp 500.000.000';
-    document.getElementById('pPayout').value = 'Bagi Hasil Kompetitif';
+    document.getElementById('pMinInvest').value = 'Rp 5.000.000.000';
+    document.getElementById('pPayout').value = 'Bagi Hasil Per Siklus';
     document.getElementById('pRemainingDays').value = '30 Hari Tersisa';
     document.getElementById('pAssetBacked').value = 'Unit CBU Grade A & BPKB';
 
@@ -856,12 +1004,12 @@ require_once __DIR__ . '/includes/header.php';
     document.getElementById('rabTableBody').innerHTML = '';
     addRabRow({ item: 'Unit Alat Berat Produktif Siap Operasi', quantity: 4, unit_price: 850000000, total: 3400000000 });
 
-    document.getElementById('simTenor').value = 36;
-    document.getElementById('simReturn').value = 30.00;
-    document.getElementById('simModalKerja').value = 2.20;
-    document.getElementById('simMin').value = 500000000;
+    document.getElementById('simTenor').value = 12;
+    document.getElementById('simReturn').value = 28.62;
+    document.getElementById('simModalKerja').value = 2.38;
+    document.getElementById('simMin').value = 5000000000;
     document.getElementById('simMax').value = 10000000000;
-    document.getElementById('simDefault').value = 500000000;
+    document.getElementById('simDefault').value = 5000000000;
 
     updateMoneyPreview('pFundingTarget', 'previewFundingTarget');
     updateMoneyPreview('pFundingCollected', 'previewFundingCollected');
@@ -869,8 +1017,8 @@ require_once __DIR__ . '/includes/header.php';
     updateMoneyPreview('simMax', 'previewSimMax');
     updateMoneyPreview('simDefault', 'previewSimDefault');
 
-    // Auto-calculate Executive Unit & Tiers for standard unit alat berat
-    calcExecutiveRabFromTarget();
+    // Default preset 2 pilihan paket (5M & 10M)
+    loadDefaultMgiPresets();
 
     // Reset to tab 1
     const tabEl = document.getElementById('tab-basic-btn');
@@ -945,12 +1093,12 @@ require_once __DIR__ . '/includes/header.php';
       }
 
       // Simulation
-      document.getElementById('simTenor').value = sim.tenor_bulan || 36;
-      document.getElementById('simReturn').value = sim.estimasi_return_persen || 30.00;
-      document.getElementById('simModalKerja').value = sim.modal_kerja_bulanan_persen || 2.20;
-      document.getElementById('simMin').value = sim.minimum_investasi || 500000000;
+      document.getElementById('simTenor').value = sim.tenor_bulan || 12;
+      document.getElementById('simReturn').value = sim.estimasi_return_persen || 28.62;
+      document.getElementById('simModalKerja').value = sim.modal_kerja_bulanan_persen || 2.38;
+      document.getElementById('simMin').value = sim.minimum_investasi || 5000000000;
       document.getElementById('simMax').value = sim.maximum_investasi || 10000000000;
-      document.getElementById('simDefault').value = sim.default_investasi || 500000000;
+      document.getElementById('simDefault').value = sim.default_investasi || 5000000000;
       document.getElementById('simNotes').value = sim.notes || '';
 
       updateMoneyPreview('pFundingTarget', 'previewFundingTarget');
@@ -959,36 +1107,53 @@ require_once __DIR__ . '/includes/header.php';
       updateMoneyPreview('simMax', 'previewSimMax');
       updateMoneyPreview('simDefault', 'previewSimDefault');
 
-      // Populate Tab 5: Executive Unit RAB & Tiers
+      // Populate Tab 5: Opsi Paket Investasi & Fasilitas Operator
       if (d && d.rab_executive && typeof d.rab_executive === 'object') {
         currentRabExecutive = d.rab_executive;
         const sp = currentRabExecutive.spesifikasi || {};
         
-        let modelVal = currentRabExecutive.unit_model || sp.barang || 'Unit Alat Berat';
-        
-        let unitsVal = currentRabExecutive.total_units;
-        if (!unitsVal && sp.estimasi_unit) {
-          const m = sp.estimasi_unit.match(/(\d+)\s*Unit/i);
-          if (m) unitsVal = parseInt(m[1]);
-        }
-        if (!unitsVal) unitsVal = Math.max(1, Math.round(Number(p.funding_target) / 250000000));
-        
-        let contVal = currentRabExecutive.total_containers;
-        if (!contVal && sp.estimasi_unit) {
-          const m = sp.estimasi_unit.match(/(\d+)\s*Kontainer/i);
-          if (m) contVal = parseInt(m[1]);
-        }
-        if (!contVal) contVal = Math.max(1, Math.round(unitsVal / 4));
-
-        document.getElementById('execModel').value = modelVal;
-        document.getElementById('execTotalUnits').value = unitsVal;
-        document.getElementById('execTotalContainers').value = contVal;
+        document.getElementById('execModel').value = currentRabExecutive.unit_model || sp.barang || 'Unit Alat Berat';
+        document.getElementById('execTotalUnits').value = currentRabExecutive.total_units || 40;
+        document.getElementById('execTotalContainers').value = currentRabExecutive.total_containers || 10;
         document.getElementById('execTargetPerputaran').value = currentRabExecutive.target_perputaran || sp.target_perputaran || '2 – 3 Kali per Tahun';
-        renderAdminTiersPreview(currentRabExecutive.tiers || []);
-        const rawJsonEl = document.getElementById('execRabJsonRaw');
-        if (rawJsonEl) rawJsonEl.value = JSON.stringify(currentRabExecutive, null, 2);
+
+        // Deteksi mode paket
+        let detectedMode = currentRabExecutive.package_options_mode;
+        const optionsList = currentRabExecutive.package_options || currentRabExecutive.tiers || [];
+        if (!detectedMode) {
+          if (optionsList.length >= 2) detectedMode = '2';
+          else if (optionsList.length === 1) detectedMode = '1';
+          else detectedMode = 'none';
+        }
+        setPackageMode(detectedMode);
+
+        if (optionsList.length > 0) {
+          const opt1 = optionsList[0];
+          document.getElementById('opt1_label').value = opt1.label || opt1.name || 'Paket Kemitraan Eksekutif (5 Miliar)';
+          document.getElementById('opt1_nominal').value = opt1.nominal || 5000000000;
+          document.getElementById('opt1_operator').value = opt1.operator_perk || '1 Operator Profesional Bersertifikat & Berpengalaman';
+          document.getElementById('opt1_units').value = opt1.container_qty || opt1.unit_description || `${opt1.unit_qty || opt1.units || 20} Unit Alat Berat (5 Kontainer 40FT HC)`;
+          document.getElementById('opt1_badge').value = opt1.badge || opt1.benefit_tag || 'Bonus 1 Operator Profesional';
+          document.getElementById('opt1_roi').value = opt1.roi_est || opt1.est_roi_pa_pct || '14,31% / siklus (28,6% – 42,9% p.a.)';
+          document.getElementById('opt1_desc').value = opt1.deskripsi || '';
+        }
+
+        if (optionsList.length > 1) {
+          const opt2 = optionsList[1];
+          document.getElementById('opt2_label').value = opt2.label || opt2.name || 'Paket Konsorsium Utama (10 Miliar)';
+          document.getElementById('opt2_nominal').value = opt2.nominal || 10000000000;
+          document.getElementById('opt2_operator').value = opt2.operator_perk || '2 Operator Profesional (Double Shift / 24 Jam)';
+          document.getElementById('opt2_units').value = opt2.container_qty || opt2.unit_description || `${opt2.unit_qty || opt2.units || 40} Unit Alat Berat (10 Kontainer 40FT HC)`;
+          document.getElementById('opt2_badge').value = opt2.badge || opt2.benefit_tag || 'Bonus 2 Operator Profesional (Double Shift)';
+          document.getElementById('opt2_roi').value = opt2.roi_est || opt2.est_roi_pa_pct || '14,31% / siklus (28,6% – 42,9% p.a.)';
+          document.getElementById('opt2_desc').value = opt2.deskripsi || '';
+        }
+
+        updateMoneyPreview('opt1_nominal', 'previewOpt1Nominal');
+        updateMoneyPreview('opt2_nominal', 'previewOpt2Nominal');
+        syncExecutiveJsonRaw();
       } else {
-        calcExecutiveRabFromTarget();
+        loadDefaultMgiPresets();
       }
 
       modalInstance.show();
@@ -1026,6 +1191,28 @@ require_once __DIR__ . '/includes/header.php';
     const selectedCityId = citySelect.value ? Number(citySelect.value) : null;
     const selectedCityName = citySelect.selectedIndex > 0 ? citySelect.options[citySelect.selectedIndex].text.split(' (')[0].trim() : '';
 
+    // Synchronize package options & build target_display
+    syncExecutiveJsonRaw();
+
+    let targetDisplay = AdminApp.formatRupiah(fundingTarget);
+    let minInvest = AdminApp.formatRupiah(fundingTarget);
+
+    if (currentPackageMode === '2') {
+      const opts = currentRabExecutive.package_options || [];
+      const n1 = opts[0] ? opts[0].nominal : 5000000000;
+      const n2 = opts[1] ? opts[1].nominal : 10000000000;
+      targetDisplay = `Pilihan Paket: ${AdminApp.formatCompact(n1)} & ${AdminApp.formatCompact(n2)}`;
+      minInvest = AdminApp.formatRupiah(Math.min(n1, n2));
+    } else if (currentPackageMode === '1') {
+      const opts = currentRabExecutive.package_options || [];
+      const n1 = opts[0] ? opts[0].nominal : fundingTarget;
+      targetDisplay = `Pilihan Paket: ${AdminApp.formatRupiah(n1)}`;
+      minInvest = AdminApp.formatRupiah(n1);
+    } else {
+      targetDisplay = AdminApp.formatRupiah(fundingTarget);
+      minInvest = AdminApp.formatRupiah(fundingTarget);
+    }
+
     const payload = {
       id: id,
       title: title,
@@ -1038,10 +1225,11 @@ require_once __DIR__ . '/includes/header.php';
       funding_target: fundingTarget,
       funding_collected: document.getElementById('pFundingCollected').value || 0,
       lokasi: document.getElementById('pLokasi').value,
+      target_display: targetDisplay,
       tenor: document.getElementById('pTenor').value,
       return_rate: document.getElementById('pReturnRate').value,
       risk_level: document.getElementById('pRiskLevel').value,
-      min_investment: document.getElementById('pMinInvest').value,
+      min_investment: minInvest,
       payout: document.getElementById('pPayout').value,
       remaining_days: document.getElementById('pRemainingDays').value,
       asset_backed: document.getElementById('pAssetBacked').value,
@@ -1058,22 +1246,10 @@ require_once __DIR__ . '/includes/header.php';
         maximum_investasi: document.getElementById('simMax').value,
         default_investasi: document.getElementById('simDefault').value,
         notes: document.getElementById('simNotes').value
-      }
+      },
+      package_options_mode: currentPackageMode,
+      rab_executive: currentRabExecutive
     };
-
-    // Attach Tab 5 Executive Unit RAB & Tiers
-    const rawRabJson = document.getElementById('execRabJsonRaw') ? document.getElementById('execRabJsonRaw').value.trim() : '';
-    if (rawRabJson) {
-      try {
-        currentRabExecutive = JSON.parse(rawRabJson);
-      } catch (err) {
-        console.warn('Gagal parse execRabJsonRaw JSON, menggunakan objek currentRabExecutive:', err);
-      }
-    }
-    if (!currentRabExecutive) {
-      calcExecutiveRabFromTarget();
-    }
-    payload.rab_executive = currentRabExecutive;
 
     const btn = document.getElementById('btnSaveProject');
     btn.disabled = true;

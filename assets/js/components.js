@@ -17,33 +17,10 @@ const MGIComponents = {
           Beranda
         </a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle ${isAboutActive ? 'active' : ''}" href="about.html" id="navbarDropdownAbout" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <li class="nav-item">
+        <a class="nav-link ${isAboutActive ? 'active' : ''}" href="about.html">
           Tentang Kami
         </a>
-        <ul class="dropdown-menu shadow-lg border-0" aria-labelledby="navbarDropdownAbout">
-          <li>
-            <a class="dropdown-item py-2 fw-semibold" href="about.html">
-              <i class="bi bi-building text-gold me-2"></i> Profil Montana Group
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item py-2" href="about.html#transformasi">
-              <i class="bi bi-clock-history text-gold me-2"></i> Perjalanan Transformasi
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item py-2" href="about.html#persiapan-entitas">
-              <i class="bi bi-diagram-3 text-gold me-2"></i> Sinergi &amp; Persiapan Entitas
-            </a>
-          </li>
-          <li><hr class="dropdown-divider border-secondary opacity-25 my-1"></li>
-          <li>
-            <a class="dropdown-item py-2" href="about.html#tata-kelola">
-              <i class="bi bi-shield-check text-gold me-2"></i> Tata Kelola TARIF
-            </a>
-          </li>
-        </ul>
       </li>
       <li class="nav-item">
         <a class="nav-link ${activePage === 'invest' ? 'active' : ''}" href="invest.html">
@@ -339,8 +316,119 @@ const MGIComponents = {
     if (!project) return '';
     const info = project.info || {};
     const city = project.city || (info.lokasi ? info.lokasi.split(',')[0] : 'Regional');
-    const fundingRange = project.funding_range || info.target_range || info.target || 'Rp 7 – 10 Miliar';
+    const rabExec = (project.detail && project.detail.rab_executive) ? project.detail.rab_executive : null;
+    
+    // Resolve Mode: '2', '1', or 'none'
+    const mode = project.package_options_mode || (rabExec && rabExec.package_options_mode) || ((project.package_options && project.package_options.length === 2) || (rabExec && rabExec.tiers && rabExec.tiers.length === 2) ? '2' : ((project.package_options && project.package_options.length === 1) || (rabExec && rabExec.tiers && rabExec.tiers.length === 1) ? '1' : 'none'));
+    const options = project.package_options || (rabExec && (rabExec.package_options || rabExec.tiers)) || project.tiers || [];
     const stockArmada = (info.stock_available) ? info.stock_available : 'Batch Armada Alat Berat Siap Operasi';
+
+    let optionsPillsHtml = '';
+    let fundingBoxHtml = '';
+    let operatorCalloutHtml = '';
+    let ctaText = 'Lihat Detail Proyek';
+
+    if (mode === '2' && options.length >= 2) {
+      const opt1 = options[0];
+      const opt2 = options[1];
+      const nom1Disp = opt1.nominal_display || MGI.formatRupiahCompact(opt1.nominal);
+      const nom2Disp = opt2.nominal_display || MGI.formatRupiahCompact(opt2.nominal);
+      const perk1 = opt1.operator_perk ? '1 Operator' : 'Opsi 1';
+      const perk2 = opt2.operator_perk ? '2 Operator' : 'Opsi 2';
+
+      optionsPillsHtml = `
+        <div class="project-options-pills">
+          <span class="project-option-pill pill-opt1" title="${opt1.label || ''}">
+            <i class="bi bi-1-circle-fill"></i> Pilihan 1: ${nom1Disp} (${perk1})
+          </span>
+          <span class="project-option-pill pill-opt2" title="${opt2.label || ''}">
+            <i class="bi bi-2-circle-fill"></i> Pilihan 2: ${nom2Disp} (${perk2})
+          </span>
+        </div>
+      `;
+
+      fundingBoxHtml = `
+        <div class="project-funding-range-box">
+          <div class="funding-range-label">
+            <span>Pilihan Paket Investasi:</span>
+            <span class="badge bg-gold text-dark fw-bold px-2 py-0.5 rounded-pill" style="font-size: 0.65rem;">2 Pilihan Paket</span>
+          </div>
+          <div class="funding-range-value">${nom1Disp} &amp; ${nom2Disp}</div>
+          <div class="small text-muted mt-1 text-truncate" style="font-size: 0.75rem;" title="${stockArmada}">
+            <i class="bi bi-check2-circle me-1 text-primary"></i>Investor dapat memilih Paket 1 (${nom1Disp}) atau Paket 2 (${nom2Disp})
+          </div>
+        </div>
+      `;
+
+      operatorCalloutHtml = `
+        <div class="operator-facility-callout">
+          <i class="bi bi-person-badge-fill"></i>
+          <div>
+            <strong>Fasilitas Operator Profesional:</strong>
+            <div class="small text-muted">Paket 1 (${nom1Disp}) = 1 Operator • Paket 2 (${nom2Disp}) = 2 Operator</div>
+          </div>
+        </div>
+      `;
+
+      ctaText = 'Lihat Detail &amp; Pilih Paket';
+    } else if (mode === '1' && options.length >= 1) {
+      const opt = options[0];
+      const nomDisp = opt.nominal_display || MGI.formatRupiah(opt.nominal);
+      const perk = opt.operator_perk || 'Termasuk Fasilitas 1 Operator Profesional';
+
+      optionsPillsHtml = `
+        <div class="project-options-pills">
+          <span class="project-option-pill pill-single" title="${opt.label || ''}">
+            <i class="bi bi-check-circle-fill"></i> Paket Tunggal: ${nomDisp}
+          </span>
+        </div>
+      `;
+
+      fundingBoxHtml = `
+        <div class="project-funding-range-box">
+          <div class="funding-range-label">
+            <span>Nilai Paket Kemitraan:</span>
+            <span class="badge bg-royal text-white fw-bold px-2 py-0.5 rounded-pill" style="font-size: 0.65rem;">1 Pilihan Paket</span>
+          </div>
+          <div class="funding-range-value">${nomDisp}</div>
+          <div class="small text-muted mt-1 text-truncate" style="font-size: 0.75rem;" title="${stockArmada}">
+            <i class="bi bi-truck me-1 text-primary"></i>${opt.unit_qty ? opt.unit_qty + ' Unit Alat Berat' : stockArmada}
+          </div>
+        </div>
+      `;
+
+      if (perk) {
+        operatorCalloutHtml = `
+          <div class="operator-facility-callout">
+            <i class="bi bi-person-badge-fill"></i>
+            <div>
+              <strong>Bonus Fasilitas Operator:</strong>
+              <div class="small text-muted">${perk}</div>
+            </div>
+          </div>
+        `;
+      }
+
+      ctaText = 'Lihat Detail Kemitraan';
+    } else {
+      // Mode 'none' (Tanpa Pilihan Paket)
+      const targetVal = project.funding && project.funding.target ? MGI.formatRupiah(project.funding.target) : (info.target || 'Rp 10.000.000.000');
+
+      fundingBoxHtml = `
+        <div class="project-funding-range-box">
+          <div class="funding-range-label">
+            <span>Target Pendanaan Proyek:</span>
+            <span class="badge bg-secondary text-white fw-bold px-2 py-0.5 rounded-pill" style="font-size: 0.65rem;">Target Riil</span>
+          </div>
+          <div class="funding-range-value">${targetVal}</div>
+          <div class="small text-muted mt-1 text-truncate" style="font-size: 0.75rem;" title="${stockArmada}">
+            <i class="bi bi-truck me-1 text-primary"></i>${stockArmada}
+          </div>
+        </div>
+      `;
+
+      ctaText = 'Lihat Detail Proyek';
+    }
 
     return `
       <div class="card mgi-card h-100 shadow-sm border-0 d-flex flex-column">
@@ -369,28 +457,13 @@ const MGIComponents = {
             <span class="badge bg-light text-secondary border fw-semibold" style="font-size: 0.72rem; letter-spacing: 0.5px;">KODE: ${project.id.toUpperCase()}</span>
           </div>
 
-          <h5 class="card-title fw-bold text-dark mb-3" style="font-size: 1.08rem; line-height: 1.4; min-height: 48px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;" title="${project.title}">${project.title}</h5>
+          <h5 class="card-title fw-bold text-dark mb-2" style="font-size: 1.08rem; line-height: 1.4; min-height: 48px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;" title="${project.title}">${project.title}</h5>
 
-          <!-- Estimasi Kebutuhan Modal Range Box -->
-          <div class="project-funding-range-box">
-            <div class="funding-range-label">
-              <span>Estimasi Kebutuhan Modal:</span>
-              <span class="badge bg-gold text-dark fw-bold px-2 py-0.5 rounded-pill" style="font-size: 0.65rem;">Profesional Sektor Riil</span>
-            </div>
-            <div class="funding-range-value">${fundingRange}</div>
-            <div class="small text-muted mt-1 text-truncate" style="font-size: 0.75rem;" title="${stockArmada}">
-              <i class="bi bi-truck me-1 text-primary"></i>${stockArmada}
-            </div>
-          </div>
+          ${optionsPillsHtml}
 
-          <!-- Fasilitas Operator Callout -->
-          <div class="operator-facility-callout">
-            <i class="bi bi-person-badge-fill"></i>
-            <div>
-              <strong>Bonus Fasilitas Operator:</strong>
-              <div class="small text-muted">Invest 5M (1 Operator) • Invest 10M (2 Operator)</div>
-            </div>
-          </div>
+          ${fundingBoxHtml}
+
+          ${operatorCalloutHtml}
 
           ${MGIComponents.renderKeyMetrics(info)}
 
@@ -398,7 +471,7 @@ const MGIComponents = {
 
           <div class="mt-auto pt-1">
             <button type="button" onclick="MGIAuth.handleProtectedDetail('${project.id}')" class="btn btn-outline-mgi w-100 py-2.5 fw-semibold d-flex align-items-center justify-content-center gap-2">
-              <span>Lihat Detail Kemitraan &amp; Paket</span>
+              <span>${ctaText}</span>
               <i class="bi bi-arrow-right"></i>
             </button>
           </div>
@@ -687,26 +760,126 @@ const MGIComponents = {
   },
 
   // 11. Render Multi-Tier Investment Participation ("Paket Kemitraan & Fasilitas Operator Profesional")
-  renderInvestmentTiers: function (tiers) {
-    if (!tiers || !tiers.length) return '';
+  renderInvestmentTiers: function (tiers, optionsMode = '2', project = null) {
+    if (optionsMode === 'none' || !tiers || !tiers.length) {
+      return '';
+    }
 
-    const cardsHtml = tiers.map(t => {
-      const isFeatured = t.nominal >= 10000000000;
-      const borderStyle = isFeatured ? 'border: 2px solid #C5A059 !important; box-shadow: 0 10px 30px rgba(197, 160, 89, 0.2);' : 'border: 1px solid #CBD5E1 !important;';
-      const badgeHtml = t.badge ? `<span class="badge ${isFeatured ? 'bg-gold text-dark' : 'bg-light text-dark border'} rounded-pill px-3 py-1 small fw-bold">${t.badge}</span>` : '';
-      const opPerk = t.operator_perk || (t.nominal >= 10000000000 ? '2 Operator Profesional Bersertifikat (Double Shift)' : '1 Operator Profesional Bersertifikat');
+    const projectId = project ? project.id : (typeof MGI !== 'undefined' ? (MGI.getQueryParam('id') || 'proj-jkt-jabar') : 'proj-jkt-jabar');
+    const projectTitle = project ? project.title : 'Dealer Alat Berat';
+
+    // 1 OPTION MODE
+    if (optionsMode === '1' || tiers.length === 1) {
+      const t = tiers[0];
+      const nomDisp = t.nominal_display || MGI.formatRupiah(t.nominal);
+      const opPerk = t.operator_perk || '1 Operator Profesional Bersertifikat';
 
       return `
-        <div class="col-12 col-md-6 col-xl-6">
-          <div class="card h-100 bg-white rounded-4 overflow-hidden d-flex flex-column" style="${borderStyle}">
-            <div class="p-4 border-bottom bg-light d-flex justify-content-between align-items-start">
+        <div class="row justify-content-center mb-4" id="investmentTiersContainer">
+          <div class="col-12 col-lg-8">
+            <div class="card bg-white rounded-4 overflow-hidden border shadow-sm" style="border: 2px solid #1D3589 !important;">
+              <div class="p-4 bg-light border-bottom d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div>
+                  <span class="badge bg-royal text-white rounded-pill px-3 py-1 small fw-bold mb-1">
+                    <i class="bi bi-star-fill text-gold me-1"></i> Paket Kemitraan Tunggal
+                  </span>
+                  <h3 class="fw-bold text-dark mt-1 mb-0" style="font-family: 'Outfit', sans-serif;">${nomDisp}</h3>
+                  <div class="text-royal small mt-1 fw-bold text-uppercase" style="letter-spacing: 0.5px;">${t.label}</div>
+                </div>
+                <div class="rounded-circle p-2 bg-white border shadow-sm">
+                  <i class="bi bi-shield-check text-gold fs-3"></i>
+                </div>
+              </div>
+
+              <div class="p-4">
+                <div class="package-operator-highlight mb-3">
+                  <div class="operator-icon-circle">
+                    <i class="bi bi-person-badge-fill"></i>
+                  </div>
+                  <div>
+                    <div class="fw-bold small text-dark">${opPerk}</div>
+                    <div class="text-muted" style="font-size: 0.75rem;">Gaji &amp; biaya operasional operator terkelola penuh dalam sistem MIU (Profesional)</div>
+                  </div>
+                </div>
+
+                <p class="text-secondary small mb-3 lh-base">${t.deskripsi || 'Penempatan modal proyek dengan alokasi unit fisik terukur dan fasilitas operasional terpadu.'}</p>
+
+                <div class="bg-light p-3 rounded-3 mb-3 small">
+                  <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted"><i class="bi bi-truck me-1 text-primary"></i>Alokasi Fisik:</span>
+                    <strong class="text-dark">${t.unit_qty || '20'} Unit Alat Berat</strong>
+                  </div>
+                  <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted"><i class="bi bi-box me-1 text-primary"></i>Kapasitas Logistik:</span>
+                    <strong class="text-dark">${t.container_qty || '5 Kontainer 40FT HC'}</strong>
+                  </div>
+                  <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted"><i class="bi bi-pie-chart me-1 text-primary"></i>Porsi Kemitraan:</span>
+                    <strong class="text-primary">${t.porsi_proyek || 'Alokasi Penuh'}</strong>
+                  </div>
+                  <div class="border-top pt-2 mt-2">
+                    <div class="text-muted small" style="font-size: 0.75rem;">Jaminan Aset (*Underlying*):</div>
+                    <strong class="text-dark small d-block">${t.jaminan_aset || 'Unit Alat Berat Siap Operasi'}</strong>
+                  </div>
+                </div>
+
+                <!-- Imbal Hasil Box -->
+                <div class="p-3 rounded-3 mb-4" style="background-color: #F0FDF4; border: 1px solid #BBF7D0;">
+                  <div class="small text-muted mb-1 text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.5px;">Proyeksi Bagi Hasil Bersih Tahunan:</div>
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="small text-dark">Skenario 2x Putaran (28,6%):</span>
+                    <strong class="text-success">${MGI.formatRupiah(t.profit_2x_tahunan || (t.nominal * 0.286))}/thn</strong>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="small text-dark">Skenario 3x Putaran (42,9%):</span>
+                    <strong class="text-success fs-6">${MGI.formatRupiah(t.profit_3x_tahunan || (t.nominal * 0.429))}/thn</strong>
+                  </div>
+                </div>
+
+                <div class="row g-2">
+                  <div class="col-12 col-sm-6">
+                    <button type="button" onclick="MGIComponents.selectTier(${t.nominal})" class="btn btn-outline-primary fw-semibold w-100 rounded-pill py-2.5 shadow-sm d-flex align-items-center justify-content-center gap-2">
+                      <i class="bi bi-calculator-fill"></i>
+                      <span>Simulasikan Paket</span>
+                    </button>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <button type="button" onclick="MGIComponents.openInterestModal('${projectId}', 0)" class="btn btn-gold text-dark fw-bold w-100 rounded-pill py-2.5 shadow-sm d-flex align-items-center justify-content-center gap-2">
+                      <i class="bi bi-check2-circle"></i>
+                      <span>Ajukan Minat Investasi</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 2 OPTIONS MODE
+    const cardsHtml = tiers.slice(0, 2).map((t, idx) => {
+      const isOption2 = idx === 1;
+      const borderClass = isOption2 ? 'active-selected' : '';
+      const badgeHtml = isOption2 
+        ? `<span class="badge bg-gold text-dark rounded-pill px-3 py-1 small fw-bold">Pilihan 2 (Kapasitas Penuh)</span>`
+        : `<span class="badge bg-royal text-white rounded-pill px-3 py-1 small fw-bold">Pilihan 1 (Tiket Eksekutif)</span>`;
+      const opPerk = t.operator_perk || (isOption2 ? '2 Operator Profesional Bersertifikat (Double Shift)' : '1 Operator Profesional Bersertifikat');
+      const nomDisp = t.nominal_display || MGI.formatRupiah(t.nominal);
+
+      return `
+        <div class="col-12 col-lg-6">
+          <div class="option-select-card card h-100 bg-white rounded-4 overflow-hidden d-flex flex-column ${borderClass}" id="tierCard-${idx}" onclick="MGIComponents.selectOption(${idx}, ${t.nominal}, '${projectId}')">
+            
+            <div class="option-select-indicator" id="tierCheck-${idx}" title="Status Pilihan">
+              <i class="bi bi-check-lg"></i>
+            </div>
+
+            <div class="p-4 border-bottom bg-light d-flex justify-content-between align-items-start pe-5">
               <div>
                 ${badgeHtml}
-                <h3 class="fw-bold text-dark mt-2 mb-0" style="font-family: 'Outfit', sans-serif;">${MGI.formatRupiah(t.nominal)}</h3>
+                <h3 class="fw-bold text-dark mt-2 mb-0" style="font-family: 'Outfit', sans-serif;">${nomDisp}</h3>
                 <div class="text-royal small mt-1 fw-bold text-uppercase" style="letter-spacing: 0.5px;">${t.label}</div>
-              </div>
-              <div class="rounded-circle p-2 bg-white border shadow-sm flex-shrink-0">
-                <i class="bi bi-shield-check text-gold fs-4"></i>
               </div>
             </div>
 
@@ -727,19 +900,19 @@ const MGIComponents = {
               <div class="bg-light p-3 rounded-3 mb-3 small">
                 <div class="d-flex justify-content-between mb-2">
                   <span class="text-muted"><i class="bi bi-truck me-1 text-primary"></i>Alokasi Fisik:</span>
-                  <strong class="text-dark">${t.unit_qty} Unit Alat Berat</strong>
+                  <strong class="text-dark">${t.unit_qty || (isOption2 ? '40' : '20')} Unit Alat Berat</strong>
                 </div>
                 <div class="d-flex justify-content-between mb-2">
                   <span class="text-muted"><i class="bi bi-box me-1 text-primary"></i>Kapasitas Logistik:</span>
-                  <strong class="text-dark">${t.container_qty}</strong>
+                  <strong class="text-dark">${t.container_qty || (isOption2 ? '10 Kontainer 40FT HC' : '5 Kontainer 40FT HC')}</strong>
                 </div>
                 <div class="d-flex justify-content-between mb-2">
                   <span class="text-muted"><i class="bi bi-pie-chart me-1 text-primary"></i>Porsi Kemitraan:</span>
-                  <strong class="text-primary">${t.porsi_proyek}</strong>
+                  <strong class="text-primary">${t.porsi_proyek || (isOption2 ? 'Eksklusivitas Penuh' : 'Alokasi 20 Unit')}</strong>
                 </div>
                 <div class="border-top pt-2 mt-2">
                   <div class="text-muted small" style="font-size: 0.75rem;">Jaminan Aset (*Underlying*):</div>
-                  <strong class="text-dark small d-block">${t.jaminan_aset}</strong>
+                  <strong class="text-dark small d-block">${t.jaminan_aset || 'Unit Fisik Alat Berat Siap Operasi'}</strong>
                 </div>
               </div>
 
@@ -748,21 +921,29 @@ const MGIComponents = {
                 <div class="small text-muted mb-1 text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.5px;">Proyeksi Bagi Hasil Bersih Tahunan:</div>
                 <div class="d-flex justify-content-between align-items-center mb-1">
                   <span class="small text-dark">Skenario 2x Putaran (28,6%):</span>
-                  <strong class="text-success">${MGI.formatRupiah(t.profit_2x_tahunan)}/thn</strong>
+                  <strong class="text-success">${MGI.formatRupiah(t.profit_2x_tahunan || (t.nominal * 0.286))}/thn</strong>
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
                   <span class="small text-dark">Skenario 3x Putaran (42,9%):</span>
-                  <strong class="text-success fs-6">${MGI.formatRupiah(t.profit_3x_tahunan)}/thn</strong>
+                  <strong class="text-success fs-6">${MGI.formatRupiah(t.profit_3x_tahunan || (t.nominal * 0.429))}/thn</strong>
                 </div>
               </div>
 
               <div class="mt-auto pt-2">
-                <button type="button" onclick="MGIComponents.selectTier(${t.nominal})" class="btn ${isFeatured ? 'btn-gold text-dark fw-bold' : 'btn-outline-primary fw-semibold'} w-100 rounded-pill py-2.5 shadow-sm d-flex align-items-center justify-content-center gap-2 mb-2">
-                  <i class="bi bi-calculator-fill"></i>
-                  <span>Simulasikan Paket Ini</span>
-                </button>
-                <a href="contact.html?subject=Konsultasi+Kemitraan+${encodeURIComponent(t.label)}+${encodeURIComponent(MGI.formatRupiah(t.nominal))}" class="btn btn-sm btn-link text-muted w-100 text-decoration-none text-center">
-                  <i class="bi bi-chat-dots me-1"></i> Konsultasi Kemitraan via WhatsApp
+                <div class="row g-2 mb-2">
+                  <div class="col-6">
+                    <button type="button" onclick="event.stopPropagation(); MGIComponents.selectOption(${idx}, ${t.nominal}, '${projectId}')" class="btn btn-outline-primary btn-sm fw-semibold w-100 rounded-pill py-2">
+                      <i class="bi bi-hand-index-thumb me-1"></i> Pilih Opsi Ini
+                    </button>
+                  </div>
+                  <div class="col-6">
+                    <button type="button" onclick="event.stopPropagation(); MGIComponents.openInterestModal('${projectId}', ${idx})" class="btn ${isOption2 ? 'btn-gold text-dark' : 'btn-royal text-white'} btn-sm fw-bold w-100 rounded-pill py-2 shadow-sm">
+                      <i class="bi bi-check2-circle me-1"></i> Ajukan Minat
+                    </button>
+                  </div>
+                </div>
+                <a href="contact.html?subject=Konsultasi+Kemitraan+${encodeURIComponent(t.label)}+${encodeURIComponent(nomDisp)}" class="btn btn-sm btn-link text-muted w-100 text-decoration-none text-center" onclick="event.stopPropagation();">
+                  <i class="bi bi-chat-dots me-1"></i> Konsultasi WhatsApp untuk Opsi Ini
                 </a>
               </div>
             </div>
@@ -772,13 +953,35 @@ const MGIComponents = {
     }).join('');
 
     return `
+      <div class="alert alert-light border border-subtle p-3 rounded-3 mb-4 text-center">
+        <i class="bi bi-info-circle text-primary me-1"></i>
+        <span class="small text-secondary">Silakan klik salah satu kartu opsi di bawah untuk memilih nominal dan fasilitas operator yang Anda inginkan:</span>
+      </div>
       <div class="row g-4 mb-4 justify-content-center" id="investmentTiersContainer">
         ${cardsHtml}
       </div>
     `;
   },
 
-  // Helper: Pilih Tier dan Otomatis Scroll & Sinkronkan ke Simulator BEP
+  // Helper: Pilih Opsi 1 atau Opsi 2 dan perbarui state visual serta simulator
+  selectOption: function (index, nominal, projectId) {
+    const card0 = document.getElementById('tierCard-0');
+    const card1 = document.getElementById('tierCard-1');
+    if (card0 && card1) {
+      if (index === 0) {
+        card0.classList.add('active-selected');
+        card1.classList.remove('active-selected');
+      } else {
+        card1.classList.add('active-selected');
+        card0.classList.remove('active-selected');
+      }
+    }
+
+    if (typeof MGISimulator !== 'undefined' && MGISimulator.setInvestment) {
+      MGISimulator.setInvestment(nominal);
+    }
+  },
+
   selectTier: function (nominal) {
     if (typeof MGISimulator !== 'undefined' && MGISimulator.setInvestment) {
       MGISimulator.setInvestment(nominal);
@@ -787,6 +990,184 @@ const MGIComponents = {
     if (simSec) {
       simSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  },
+
+  // 11.1 Dialog Modal Minat Investasi (Capture Lead & Connect to WhatsApp)
+  openInterestModal: function (projectId, optionIndex) {
+    let p = window.currentProjectDetail;
+    if (!p && typeof MGI !== 'undefined' && MGI._cachedData && MGI._cachedData.projects) {
+      p = MGI._cachedData.projects.find(item => item.id === projectId);
+    }
+    const title = p ? p.title : 'Proyek Investasi Montana';
+    const rabExec = (p && p.detail && p.detail.rab_executive) ? p.detail.rab_executive : null;
+    const options = (p && p.package_options) || (rabExec && (rabExec.package_options || rabExec.tiers)) || [];
+    const opt = options[optionIndex] || options[0] || null;
+
+    const optLabel = opt ? opt.label : (optionIndex === 1 ? 'Paket 10 Miliar' : 'Paket 5 Miliar');
+    const optNominal = opt ? (opt.nominal_display || MGI.formatRupiah(opt.nominal)) : (optionIndex === 1 ? 'Rp 10.000.000.000' : 'Rp 5.000.000.000');
+    const optPerk = opt ? (opt.operator_perk || (optionIndex === 1 ? 'Bonus 2 Operator Profesional' : 'Bonus 1 Operator Profesional')) : 'Termasuk Fasilitas Operator';
+
+    let modalEl = document.getElementById('mgiInterestModal');
+    if (!modalEl) {
+      const wrap = document.createElement('div');
+      wrap.innerHTML = `
+        <div class="modal fade" id="mgiInterestModal" tabindex="-1" aria-labelledby="mgiInterestModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+              <div class="modal-header bg-royal text-white border-bottom-0 py-3 px-4">
+                <div class="d-flex align-items-center gap-2">
+                  <i class="bi bi-bookmark-check-fill text-gold fs-5"></i>
+                  <h5 class="modal-title fw-bold mb-0 text-white" id="mgiInterestModalLabel">Formulir Minat Investasi</h5>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Tutup"></button>
+              </div>
+              <div class="modal-body p-4">
+                <!-- Selected Package Callout -->
+                <div class="p-3 rounded-3 mb-3 bg-light border border-subtle" id="interestModalPackageCard">
+                  <!-- Rendered dynamically -->
+                </div>
+
+                <form id="interestSubmitForm" onsubmit="event.preventDefault(); MGIComponents.submitInterestForm();">
+                  <input type="hidden" id="interestProjectId" value="">
+                  <input type="hidden" id="interestOptionIndex" value="0">
+                  <input type="hidden" id="interestOptionNominal" value="">
+                  <input type="hidden" id="interestOptionLabel" value="">
+
+                  <div class="mb-3">
+                    <label class="form-label small fw-bold text-dark">Nama Investor / Nama Perusahaan <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control rounded-pill px-3" id="interestFullName" placeholder="Contoh: Bpk. Bambang / PT Maju Mandiri" required>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label small fw-bold text-dark">Nomor WhatsApp Aktif <span class="text-danger">*</span></label>
+                    <input type="tel" class="form-control rounded-pill px-3" id="interestPhone" placeholder="Contoh: 081234567890" required>
+                    <div class="form-text small">Dokumen resmi &amp; jadwal konsultasi akan dikirimkan via WhatsApp.</div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label small fw-bold text-dark">Kota Domisili <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control rounded-pill px-3" id="interestCity" placeholder="Contoh: Jakarta / Surabaya / Denpasar" required>
+                  </div>
+
+                  <div class="form-check mb-4">
+                    <input class="form-check-input" type="checkbox" id="interestConsent" required checked>
+                    <label class="form-check-label small text-secondary" for="interestConsent">
+                      Saya bersedia dihubungi oleh Tim Manajer Investasi PT Montana Global Investama terkait dokumen penawaran kemitraan ini.
+                    </label>
+                  </div>
+
+                  <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-gold py-2.5 rounded-pill fw-bold text-dark shadow-sm d-flex align-items-center justify-content-center gap-2" id="interestSubmitBtn">
+                      <i class="bi bi-whatsapp"></i>
+                      <span>Konfirmasi Minat &amp; Hubungi Tim</span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(wrap.firstElementChild);
+      modalEl = document.getElementById('mgiInterestModal');
+    }
+
+    // Populate data
+    document.getElementById('interestProjectId').value = projectId;
+    document.getElementById('interestOptionIndex').value = optionIndex;
+    document.getElementById('interestOptionNominal').value = optNominal;
+    document.getElementById('interestOptionLabel').value = optLabel;
+
+    const pkgCard = document.getElementById('interestModalPackageCard');
+    if (pkgCard) {
+      pkgCard.innerHTML = `
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <span class="badge bg-royal text-white small px-2 py-0.5 rounded-pill">Pilihan Terpilih</span>
+          <span class="small text-muted">${title}</span>
+        </div>
+        <div class="fs-5 fw-bold text-dark mt-1">${optNominal}</div>
+        <div class="text-royal small fw-semibold">${optLabel}</div>
+        <div class="text-success small mt-1"><i class="bi bi-person-badge-fill me-1"></i>${optPerk}</div>
+      `;
+    }
+
+    // Pre-fill user data if logged in
+    if (typeof MGIAuth !== 'undefined' && MGIAuth.isLoggedIn()) {
+      const user = MGIAuth.getCurrentUser();
+      if (user) {
+        const nameField = document.getElementById('interestFullName');
+        if (nameField && !nameField.value) nameField.value = user.fullName || user.businessName || '';
+        const phoneField = document.getElementById('interestPhone');
+        if (phoneField && !phoneField.value) phoneField.value = user.phone || '';
+      }
+    }
+
+    const modal = new bootstrap.Modal(modalEl);
+    modal.show();
+  },
+
+  // Submit Interest Form and Redirect to WhatsApp
+  submitInterestForm: async function () {
+    const submitBtn = document.getElementById('interestSubmitBtn');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span>Memproses...`;
+    }
+
+    const fullName = document.getElementById('interestFullName').value.trim();
+    const phone = document.getElementById('interestPhone').value.trim();
+    const city = document.getElementById('interestCity').value.trim();
+    const projectId = document.getElementById('interestProjectId').value;
+    const optionNominal = document.getElementById('interestOptionNominal').value;
+    const optionLabel = document.getElementById('interestOptionLabel').value;
+    const consent = document.getElementById('interestConsent').checked;
+
+    // Send to leads API
+    try {
+      let csrf = '';
+      try {
+        const cfgRes = await fetch('api/leads.php?action=config');
+        if (cfgRes.ok) {
+          const cfg = await cfgRes.json();
+          csrf = (cfg.data && cfg.data.csrf_token) ? cfg.data.csrf_token : (cfg.csrf_token || '');
+        }
+      } catch (e) {}
+
+      await fetch('api/leads.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          csrf_token: csrf,
+          full_name: fullName,
+          phone: phone,
+          city: city,
+          investment_range: '> Rp 5 Miliar',
+          consent: consent,
+          attribution: {
+            landing_page: window.location.href,
+            referrer: document.referrer,
+            project_id: projectId,
+            option_selected: `${optionLabel} (${optionNominal})`
+          }
+        })
+      });
+    } catch (err) {
+      console.warn('[MGI Interest] Error saving lead to backend:', err);
+    }
+
+    // Dismiss Modal
+    const modalEl = document.getElementById('mgiInterestModal');
+    if (modalEl) {
+      const bsModal = bootstrap.Modal.getInstance(modalEl);
+      if (bsModal) bsModal.hide();
+    }
+
+    // Build WhatsApp Message
+    const targetPhone = '6281211116666'; // Official MGI line
+    const text = `Halo Tim Manajer Investasi PT Montana Global Investama,\n\nSaya *${fullName}* dari *${city}*.\nSaya berminat untuk penempatan modal kemitraan pada:\n• Proyek: *${projectId.toUpperCase()}*\n• Paket Dipilih: *${optionLabel}*\n• Nilai Permodalan: *${optionNominal}*\n\nMohon informasi ketersediaan slot kemitraan, berkas prospektus, dan jadwal konsultasi tatap muka. Terima kasih.`;
+    const waUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(text)}`;
+
+    window.open(waUrl, '_blank');
   },
 
   // 12. Render Project Workflow (5 Tahap Ekosistem Montana)

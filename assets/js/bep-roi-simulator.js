@@ -7,7 +7,7 @@ const MGISimulator = {
   // Initialize and mount simulator into a container
   init: function (containerId, simulationConfig) {
     const container = document.getElementById(containerId);
-    if (!container) return;    const minInvestment = 500000000; // Rp 500 Juta
+    if (!container) return; const minInvestment = 500000000; // Rp 500 Juta
     const maxInvestment = 10000000000; // Rp 10 Miliar (10M)
 
     const config = simulationConfig || {};
@@ -171,7 +171,7 @@ const MGISimulator = {
       const grandTotalReturn = inv + totalProfit;
       const monthlyReturn = totalProfit / tenorMonths;
       const annualizedRoi = (totalReturnRate / (tenorMonths / 12)) * 100;
-      
+
       const bepMonthEstimate = Math.min(tenorMonths, Math.max(12, Math.round(tenorMonths * 0.58)));
 
       const compactText = MGI.formatRupiahCompact(inv);
@@ -208,7 +208,7 @@ const MGISimulator = {
       const pos = Number(e.target.value);
       currentInvestment = posToNominal(pos);
       recalculate(currentInvestment);
-      
+
       document.querySelectorAll('.chip-btn').forEach(btn => {
         btn.classList.toggle('active', Number(btn.getAttribute('data-val')) === currentInvestment);
       });
@@ -227,7 +227,7 @@ const MGISimulator = {
     });
 
     // Expose update handler
-    MGISimulator._updateValue = function(val) {
+    MGISimulator._updateValue = function (val) {
       const num = Number(val);
       if (isNaN(num)) return;
       currentInvestment = Math.max(minInvestment, Math.min(maxInvestment, num));

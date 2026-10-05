@@ -87,6 +87,15 @@
       color: #1d1d1f;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      text-wrap: balance;
+    }
+
+    p, li {
+      text-wrap: pretty;
     }
 
     .apple-glass-topbar {
@@ -193,23 +202,31 @@
             </button>
 
             <!-- Dropdown Menu -->
-            <div id="profileDropdownMenu" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-slate-200/80 py-2 z-50 text-xs text-slate-700">
+            <div id="profileDropdownMenu" class="hidden absolute right-0 mt-2 w-60 bg-white rounded-2xl shadow-xl border border-slate-200/80 py-2 z-50 text-xs text-slate-700">
               <div class="px-4 py-2 border-b border-slate-100">
                 <p class="font-bold text-slate-900 truncate" id="dropdownUserName">Budi Pratama</p>
                 <p class="text-slate-400 text-[11px] truncate" id="dropdownUserEmail">budi.pratama@montanainvestor.id</p>
               </div>
-              <button onclick="switchTab('katalog'); toggleProfileDropdown();" class="w-full text-left px-4 py-2 hover:bg-slate-50 flex items-center gap-2">
-                <i data-lucide="briefcase" class="w-4 h-4 text-amber-500"></i> Portofolio Proyek
+              <button type="button" onclick="navigateFromProfileMenu('portofolio')" class="w-full text-left px-4 py-2.5 hover:bg-slate-50 flex items-center gap-2.5 transition-colors cursor-pointer">
+                <i data-lucide="briefcase" class="w-4 h-4 text-amber-500 shrink-0"></i> 
+                <span>Portofolio Proyek</span>
               </button>
-              <button onclick="switchTab('rekening'); toggleProfileDropdown();" class="w-full text-left px-4 py-2 hover:bg-slate-50 flex items-center gap-2">
-                <i data-lucide="credit-card" class="w-4 h-4 text-blue-500"></i> Rekening Dividen
+              <button type="button" onclick="navigateFromProfileMenu('katalog')" class="w-full text-left px-4 py-2.5 hover:bg-slate-50 flex items-center gap-2.5 transition-colors cursor-pointer">
+                <i data-lucide="folder-kanban" class="w-4 h-4 text-indigo-500 shrink-0"></i> 
+                <span>Katalog Proyek Terbuka</span>
               </button>
-              <button onclick="switchTab('profil'); toggleProfileDropdown();" class="w-full text-left px-4 py-2 hover:bg-slate-50 flex items-center gap-2">
-                <i data-lucide="user-check" class="w-4 h-4 text-emerald-500"></i> Profil &amp; Keamanan
+              <button type="button" onclick="navigateFromProfileMenu('rekening')" class="w-full text-left px-4 py-2.5 hover:bg-slate-50 flex items-center gap-2.5 transition-colors cursor-pointer">
+                <i data-lucide="credit-card" class="w-4 h-4 text-blue-500 shrink-0"></i> 
+                <span>Rekening Dividen</span>
+              </button>
+              <button type="button" onclick="navigateFromProfileMenu('profil')" class="w-full text-left px-4 py-2.5 hover:bg-slate-50 flex items-center gap-2.5 transition-colors cursor-pointer">
+                <i data-lucide="user-check" class="w-4 h-4 text-emerald-500 shrink-0"></i> 
+                <span>Profil &amp; Keamanan</span>
               </button>
               <div class="border-t border-slate-100 my-1"></div>
-              <button onclick="logoutInvestor()" class="w-full text-left px-4 py-2 text-rose-600 hover:bg-rose-50 flex items-center gap-2 font-semibold">
-                <i data-lucide="log-out" class="w-4 h-4"></i> Keluar (Logout)
+              <button type="button" onclick="logoutInvestor()" class="w-full text-left px-4 py-2.5 text-rose-600 hover:bg-rose-50 flex items-center gap-2.5 font-semibold transition-colors cursor-pointer">
+                <i data-lucide="log-out" class="w-4 h-4 shrink-0"></i> 
+                <span>Keluar (Logout)</span>
               </button>
             </div>
           </div>
@@ -238,12 +255,12 @@
       </div>
 
       <!-- Action Buttons (Apple Pill Style) -->
-      <div class="flex items-center gap-3">
-        <button onclick="openModal('summaryModal')" class="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-semibold rounded-full shadow-xs transition-all active:scale-95">
+      <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+        <button onclick="openModal('summaryModal')" class="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-semibold rounded-full shadow-xs transition-all active:scale-95 cursor-pointer">
           <i data-lucide="printer" class="w-4 h-4 text-slate-500"></i>
           Cetak Ringkasan
         </button>
-        <button onclick="openModal('investModal')" class="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-semibold rounded-full shadow-sm transition-all active:scale-95">
+        <button onclick="openModal('investModal')" class="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-semibold rounded-full shadow-sm transition-all active:scale-95 cursor-pointer">
           <i data-lucide="plus-circle" class="w-4 h-4 text-amber-400"></i>
           Tambah Penempatan
         </button>
@@ -413,7 +430,6 @@
         </div>
       </div>
 
-      <!-- TAB 2: Update Lapangan & Berita -->
       <div id="tabContent-update" class="tab-pane hidden space-y-4">
         <div class="space-y-3" id="updatesListContainer">
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-4">
@@ -1512,25 +1528,25 @@
             </div>
 
             <!-- Mathematical Formula Bar -->
-            <div class="p-4 sm:p-5 rounded-2xl bg-slate-900 text-white shadow-md border border-amber-400/30">
-              <div class="text-[11px] font-bold uppercase tracking-wider text-amber-300 mb-2 flex items-center gap-1.5">
-                <i data-lucide="calculator" class="w-3.5 h-3.5"></i>
+            <div class="p-4 sm:p-5 rounded-2xl bg-slate-50/90 text-slate-900 shadow-2xs border border-slate-200/90">
+              <div class="text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-2 flex items-center gap-1.5">
+                <i data-lucide="calculator" class="w-3.5 h-3.5 text-blue-600"></i>
                 RUMUS PERHITUNGAN LABA BERSIH OPERASIONAL PROYEK
               </div>
               <div class="flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm">
-                <div class="bg-white/10 px-3.5 py-2 rounded-xl border border-white/10">
-                  <span class="text-slate-400 block text-[10px] uppercase font-bold">Total Penjualan (Sewa)</span>
-                  <strong class="text-emerald-400 text-base sm:text-lg font-mono" id="opLrFormulaSale">Rp 1.058.000.000</strong>
+                <div class="bg-white px-3.5 py-2 rounded-xl border border-slate-200/90 shadow-2xs">
+                  <span class="text-slate-500 block text-[10px] uppercase font-bold tracking-wider">Total Penjualan (Sewa)</span>
+                  <strong class="text-emerald-700 text-base sm:text-lg font-bold" id="opLrFormulaSale">Rp 1.058.000.000</strong>
                 </div>
-                <span class="text-2xl font-black text-amber-400">−</span>
-                <div class="bg-white/10 px-3.5 py-2 rounded-xl border border-white/10">
-                  <span class="text-slate-400 block text-[10px] uppercase font-bold">Total Biaya (Impor &amp; Workshop)</span>
-                  <strong class="text-rose-400 text-base sm:text-lg font-mono" id="opLrFormulaCost">Rp 123.000.000</strong>
+                <span class="text-2xl font-black text-slate-300">−</span>
+                <div class="bg-white px-3.5 py-2 rounded-xl border border-slate-200/90 shadow-2xs">
+                  <span class="text-slate-500 block text-[10px] uppercase font-bold tracking-wider">Total Biaya (Impor &amp; Workshop)</span>
+                  <strong class="text-rose-700 text-base sm:text-lg font-bold" id="opLrFormulaCost">Rp 123.000.000</strong>
                 </div>
-                <span class="text-2xl font-black text-amber-400">=</span>
-                <div class="bg-gradient-to-r from-amber-500 to-amber-600 px-4 py-2 rounded-xl text-slate-950 font-black shadow-lg border border-amber-300">
-                  <span class="text-slate-900 block text-[10px] uppercase font-black">Laba Bersih Operasional</span>
-                  <span class="text-base sm:text-xl font-mono" id="opLrFormulaProfit">Rp 935.000.000</span>
+                <span class="text-2xl font-black text-slate-300">=</span>
+                <div class="bg-gradient-to-r from-emerald-50 to-teal-50 px-4 py-2 rounded-xl text-emerald-950 font-bold shadow-2xs border border-emerald-200">
+                  <span class="text-emerald-800 block text-[10px] uppercase font-bold tracking-wider">Laba Bersih Operasional</span>
+                  <span class="text-base sm:text-xl font-bold text-emerald-900" id="opLrFormulaProfit">Rp 935.000.000</span>
                 </div>
               </div>
             </div>
@@ -1654,10 +1670,10 @@
                 </p>
               </div>
 
-              <div class="shrink-0 bg-slate-900 text-white p-4 rounded-2xl border border-slate-800 text-right">
-                <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider block">Target Total Proyek</span>
-                <div class="text-lg sm:text-xl font-mono font-black text-amber-400 mt-0.5" id="opRabTargetTotal">Rp 10.000.000.000</div>
-                <span class="text-[11px] text-slate-300" id="opRabTargetSub">40 Unit (10 Kontainer)</span>
+              <div class="shrink-0 bg-slate-50 border border-slate-200/90 p-4 rounded-2xl text-right shadow-2xs">
+                <span class="text-[10px] text-slate-500 uppercase font-bold tracking-wider block">Target Total Proyek</span>
+                <div class="text-lg sm:text-xl font-bold text-slate-900 mt-0.5" id="opRabTargetTotal">Rp 10.000.000.000</div>
+                <span class="text-[11px] text-slate-500" id="opRabTargetSub">40 Unit (10 Kontainer)</span>
               </div>
             </div>
 
@@ -1906,46 +1922,88 @@
       <div class="p-6 space-y-4">
         <div>
           <label class="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">Pilih Sektor Proyek</label>
-          <select id="investProjectSelect" onchange="calculateSimulatedYield()" class="w-full text-xs sm:text-sm bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 focus:ring-1 focus:ring-blue-500 focus:outline-none">
+          <select id="investProjectSelect" onchange="onInvestProjectChange()" class="w-full text-xs sm:text-sm bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 focus:ring-1 focus:ring-blue-500 focus:outline-none">
             <option>Memuat daftar proyek terbuka...</option>
           </select>
         </div>
 
+        <!-- Pilihan Paket Investasi (Menggantikan input manual nominal bebas) -->
         <div>
-          <label class="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">Rencana Nominal Penempatan (Rp)</label>
-          <input 
-            type="number" 
-            id="investAmountInput" 
-            value="1000000000" 
-            step="100000000"
-            oninput="calculateSimulatedYield()"
-            class="w-full text-xs sm:text-sm bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 font-mono focus:ring-1 focus:ring-blue-500 focus:outline-none"
-          />
-          <span class="text-[11px] text-slate-500 mt-1 block">Minimal penempatan modal baru: Rp 500.000.000</span>
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-700 block">Pilihan Paket Investasi</label>
+            <span class="text-[11px] font-semibold text-blue-700 px-2 py-0.5 rounded-full bg-blue-50 border border-blue-200" id="investPackageModeBadge">Pilih Salah Satu Paket</span>
+          </div>
+
+          <!-- Hidden inputs for form processing & backward compatibility -->
+          <input type="hidden" id="investSelectedNominal" value="10000000000">
+          <input type="hidden" id="investSelectedPackageIdx" value="0">
+          <input type="hidden" id="investAmountInput" value="10000000000">
+
+          <!-- Dynamic Container for Package Cards -->
+          <div id="investPackageOptionsContainer" class="space-y-2">
+            <!-- Will be rendered dynamically based on selected project's package options -->
+          </div>
+
+          <!-- Alert jika proyek Fully Funded -->
+          <div id="investProjectFundedAlert" class="hidden p-4 rounded-2xl border border-emerald-300 bg-emerald-50 text-emerald-900 space-y-1.5">
+            <div class="flex items-center gap-2 font-bold text-xs">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
+              <span>Proyek Ini Telah Didanai Penuh (100% Terkunci)</span>
+            </div>
+            <p class="text-[11px] text-emerald-700 leading-snug">
+              Seluruh alokasi pendanaan untuk proyek ini telah terpenuhi oleh pemodal sebelumnya. Silakan pilih dealer atau wilayah proyek lain yang masih berstatus <strong>Open</strong>.
+            </p>
+          </div>
         </div>
 
-        <!-- Simulation Box -->
-        <div class="bg-amber-50/70 border border-amber-200/80 rounded-2xl p-4 space-y-2">
-          <span class="text-xs font-bold text-amber-900 block uppercase tracking-wider">Estimasi Proyeksi Imbal Hasil</span>
-          <div class="flex justify-between text-xs text-amber-900">
-            <span>Estimasi Dividen Tahunan (Est. ~32%):</span>
-            <span class="font-bold text-emerald-700 text-sm" id="simulatedReturn">Rp 320.000.000 / tahun</span>
+        <!-- 3-Year Return Simulation Box (Tenor Maksimal 36 Bulan) -->
+        <div class="bg-gradient-to-br from-amber-50 to-orange-50/60 border border-amber-200/90 rounded-2xl p-4 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
+              <i data-lucide="calculator" class="w-3.5 h-3.5 text-amber-600"></i>
+              Simulasi Return Selama 3 Tahun (36 Bulan)
+            </span>
+            <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-200/80 text-amber-900 font-mono" id="simModalRoiBadge">
+              +90% Imbal Hasil
+            </span>
           </div>
-          <div class="flex justify-between text-xs text-amber-900">
-            <span>Penyaluran Dividen:</span>
-            <span class="font-medium">Per Kuartal (3 Bulan Sekali)</span>
+          
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div class="p-2.5 bg-white/90 rounded-xl border border-amber-100/90 shadow-2xs space-y-0.5">
+              <span class="text-[10px] text-slate-500 block">Dividen Tahunan (Est. ~30%):</span>
+              <span class="font-bold text-emerald-700 text-xs sm:text-sm font-mono block" id="simModalAnnualReturn">Rp 300.000.000 / thn</span>
+              <span class="text-[10px] text-slate-400 block font-mono" id="simModalQuarterlyReturn">Rp 75.000.000 / kuartal</span>
+            </div>
+            <div class="p-2.5 bg-white/90 rounded-xl border border-amber-100/90 shadow-2xs space-y-0.5">
+              <span class="text-[10px] text-slate-500 block">Total Dividen 3 Tahun:</span>
+              <span class="font-bold text-amber-700 text-xs sm:text-sm font-mono block" id="simModal4YearReturn">Rp 900.000.000</span>
+              <span class="text-[10px] text-slate-400 block">12x Transfer Kuartalan</span>
+            </div>
           </div>
+
+          <div class="pt-2 border-t border-amber-200/70 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs">
+            <div>
+              <span class="text-amber-950 font-bold block">Total Diterima Pemodal:</span>
+              <span class="text-[10px] text-slate-500">100% Pokok Kembali + Total Dividen 3 Tahun</span>
+            </div>
+            <span class="font-black text-blue-900 text-sm sm:text-base font-mono" id="simModalGrandTotal">Rp 1.900.000.000</span>
+          </div>
+
+          <span id="simulatedReturn" class="hidden"></span>
         </div>
 
         <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 text-xs text-slate-500 flex items-start gap-2">
           <i data-lucide="info" class="w-4 h-4 text-blue-600 shrink-0 mt-0.5"></i>
-          <span>Pengajuan ini akan diteruskan ke Relationship Manager (RM) Prioritas Anda untuk penyiapan adendum kontrak dan notarisasi.</span>
+          <span>Pengajuan paket kemitraan ini akan diteruskan ke Relationship Manager (RM) Prioritas Anda untuk penyiapan adendum kontrak dan notarisasi.</span>
         </div>
       </div>
 
       <div class="bg-slate-50 px-6 py-4 border-t border-slate-200 flex justify-end gap-2.5">
         <button onclick="closeModal('investModal')" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-200/60 rounded-full transition">Batal</button>
-        <button onclick="submitInvestForm()" class="px-5 py-2 text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white rounded-full transition shadow-sm active:scale-95">Kirim Pengajuan Minat</button>
+        <button id="btnSubmitInvest" onclick="submitInvestForm()" class="px-5 py-2 text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white rounded-full transition shadow-sm active:scale-95 flex items-center gap-1.5 cursor-pointer">
+          <i data-lucide="send" class="w-3.5 h-3.5"></i>
+          <span>Kirim Pengajuan Minat</span>
+        </button>
       </div>
     </div>
   </div>
@@ -1980,10 +2038,6 @@
           Tutup
         </button>
         <div class="flex items-center gap-2.5">
-          <a id="modalDetailWaBtn" href="https://wa.me/6281234567890" target="_blank" class="px-4 py-2.5 text-xs font-bold text-slate-700 bg-white border border-slate-300 hover:bg-slate-100 rounded-full transition flex items-center gap-1.5 shadow-xs">
-            <i data-lucide="message-circle" class="w-3.5 h-3.5 text-emerald-600"></i>
-            <span>Konsultasi RM Prioritas</span>
-          </a>
           <button id="modalDetailInvestCtaBtn" class="px-6 py-2.5 text-xs font-bold bg-blue-900 hover:bg-blue-800 text-white rounded-full transition shadow-md hover:shadow-lg active:scale-95 flex items-center gap-1.5 cursor-pointer">
             <i data-lucide="plus-circle" class="w-3.5 h-3.5 text-amber-300"></i>
             <span>Ajukan Penempatan Modal</span>
@@ -2051,6 +2105,13 @@
       // 3. Load & Render Open Projects Catalog (Area C)
       await loadAndRenderCatalog();
 
+      // 3B. Initialize Modal Return Simulator
+      try {
+        calculateSimulatedYield();
+      } catch (e) {
+        console.warn('Yield init notice:', e);
+      }
+
       // 4. Setup outside click listeners for dropdowns/modals
       window.addEventListener('click', (event) => {
         const modals = ['dashboardModal', 'investModal', 'summaryModal', 'projectDetailModal'];
@@ -2099,6 +2160,40 @@
       const menu = document.getElementById('profileDropdownMenu');
       if (menu) {
         menu.classList.toggle('hidden');
+        if (!menu.classList.contains('hidden') && window.lucide) {
+          lucide.createIcons();
+        }
+      }
+    }
+
+    // Enhanced Navigation from Profile Dropdown Menu
+    function navigateFromProfileMenu(action) {
+      const menu = document.getElementById('profileDropdownMenu');
+      if (menu) menu.classList.add('hidden');
+
+      if (action === 'portofolio') {
+        const target = document.getElementById('investorProjectsContainer') || document.getElementById('activeProjectsCount') || document.getElementById('dashInvestorGreeting');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      } else if (action === 'katalog') {
+        switchTab('katalog');
+        setTimeout(() => {
+          const target = document.getElementById('tabNavGroup') || document.getElementById('tabContent-katalog');
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
+      } else if (action === 'rekening') {
+        switchTab('rekening');
+        setTimeout(() => {
+          const target = document.getElementById('tabNavGroup') || document.getElementById('tabContent-rekening');
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
+      } else if (action === 'profil') {
+        switchTab('profil');
+        setTimeout(() => {
+          const target = document.getElementById('tabNavGroup') || document.getElementById('tabContent-profil');
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
       }
     }
 
@@ -2153,7 +2248,7 @@
               </button>
               <button onclick="openModal('investModal')" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-sm active:scale-95 cursor-pointer">
                 <i data-lucide="plus-circle" class="w-4 h-4"></i>
-                Simulasi Penempatan Modal
+                Tambah Penempatan Baru
               </button>
             </div>
           </div>
@@ -4396,14 +4491,90 @@
       const tenorText = info.tenor || p.tenor || '12 Bulan';
       const returnText = info.return || p.return_rate || '28,6% – 42,9% (p.a.)';
 
+      const modalOptions = p.package_options || (rab && (rab.package_options || rab.tiers)) || p.tiers || [];
+      const modalMode = p.package_options_mode || (rab && rab.package_options_mode) || (modalOptions.length === 2 ? '2' : (modalOptions.length === 1 ? '1' : 'none'));
+
+      let operatorBadgesHtml = '';
+      if (modalMode === '2' && modalOptions.length >= 2) {
+        const nom1Disp = modalOptions[0].nominal_display || formatRupiahDisplay(modalOptions[0].nominal);
+        const nom2Disp = modalOptions[1].nominal_display || formatRupiahDisplay(modalOptions[1].nominal);
+        operatorBadgesHtml = `
+          <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white border border-amber-300">
+            <i data-lucide="check-circle-2" class="w-3 h-3 text-emerald-600"></i> Pilihan 1 (${nom1Disp}): <strong>1 Operator Profesional</strong>
+          </span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white border border-amber-300">
+            <i data-lucide="check-circle-2" class="w-3 h-3 text-emerald-600"></i> Pilihan 2 (${nom2Disp}): <strong>2 Operator Profesional (Double Shift)</strong>
+          </span>
+        `;
+      } else {
+        const nomDisp = modalOptions[0]?.nominal_display || formatRupiahDisplay(modalOptions[0]?.nominal || targetVal);
+        const perk = modalOptions[0]?.operator_perk || 'Bonus 1 Operator Profesional Resmi MGI';
+        operatorBadgesHtml = `
+          <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white border border-amber-300">
+            <i data-lucide="check-circle-2" class="w-3 h-3 text-emerald-600"></i> Paket Kemitraan (${nomDisp}): <strong>${perk}</strong>
+          </span>
+        `;
+      }
+
+      let simPackageButtonsHtml = '';
+      let initialDetailNominal = targetVal;
+      if (modalMode === '2' && modalOptions.length >= 2) {
+        const nom1 = Number(modalOptions[0].nominal) || 7500000000;
+        const nom2 = Number(modalOptions[1].nominal) || 10000000000;
+        initialDetailNominal = nom1;
+        const nom1Disp = modalOptions[0].nominal_display || formatRupiahDisplay(nom1);
+        const nom2Disp = modalOptions[1].nominal_display || formatRupiahDisplay(nom2);
+        simPackageButtonsHtml = `
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-2">
+            <button 
+              type="button" 
+              id="detailSimBtn-0" 
+              onclick="selectDetailSimPackage(0, ${nom1})" 
+              class="detail-sim-btn p-3.5 rounded-2xl border-2 border-blue-900 bg-blue-50/60 text-slate-900 font-bold text-xs flex items-center justify-between transition cursor-pointer text-left shadow-xs ring-1 ring-blue-900/10"
+            >
+              <div>
+                <span class="block text-[10px] text-blue-900 uppercase font-bold tracking-wider">Pilihan 1 (${modalOptions[0].badge || '1 Operator'})</span>
+                <span class="text-sm font-bold text-slate-900">${nom1Disp}</span>
+              </div>
+              <span id="detailSimCheck-0" class="w-6 h-6 rounded-full bg-blue-900 text-white flex items-center justify-center text-xs font-bold shrink-0 shadow-2xs">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i>
+              </span>
+            </button>
+            <button 
+              type="button" 
+              id="detailSimBtn-1" 
+              onclick="selectDetailSimPackage(1, ${nom2})" 
+              class="detail-sim-btn p-3.5 rounded-2xl border border-slate-200 bg-white hover:border-slate-300 text-slate-700 font-bold text-xs flex items-center justify-between transition cursor-pointer text-left"
+            >
+              <div>
+                <span class="block text-[10px] text-slate-500 uppercase font-semibold tracking-wider">Pilihan 2 (${modalOptions[1].badge || '2 Operator'})</span>
+                <span class="text-sm font-bold text-slate-800">${nom2Disp}</span>
+              </div>
+              <span id="detailSimCheck-1" class="w-6 h-6 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-xs font-bold shrink-0">
+                2
+              </span>
+            </button>
+          </div>
+        `;
+      } else {
+        const nom1 = Number(modalOptions[0]?.nominal) || targetVal;
+        initialDetailNominal = nom1;
+        const nom1Disp = modalOptions[0]?.nominal_display || formatRupiahDisplay(nom1);
+        simPackageButtonsHtml = `
+          <div class="mt-2">
+            <div class="p-3.5 rounded-2xl border border-slate-200/90 bg-white text-slate-900 font-bold text-xs flex items-center justify-between shadow-2xs">
+              <div>
+                <span class="block text-[10px] text-slate-500 uppercase font-bold tracking-wider">Paket Kemitraan Tunggal (${modalOptions[0]?.operator_perk || '1 Operator Resmi'})</span>
+                <span class="text-base font-bold text-slate-900">${nom1Disp}</span>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-200/80 text-[10px] font-bold uppercase tracking-wider">Paket Penuh</span>
+            </div>
+          </div>
+        `;
+      }
+
       document.getElementById('modalDetailTitle').innerText = p.title || p.nama_project || 'Detail Proyek Investasi';
       document.getElementById('modalDetailSubtitle').innerText = `${p.category || 'Alat Berat'} • ${locText} • Tenor ${tenorText}`;
-
-      const waBtn = document.getElementById('modalDetailWaBtn');
-      if (waBtn) {
-        const text = encodeURIComponent(`Halo Tim RM PT Montana Global Investama, saya sedang meninjau Prospektus Proyek "${p.title || p.nama_project}" dan ingin konsultasi alokasi permodalan.`);
-        waBtn.href = `https://wa.me/6281234567890?text=${text}`;
-      }
 
       const ctaBtn = document.getElementById('modalDetailInvestCtaBtn');
       if (ctaBtn) {
@@ -4450,22 +4621,22 @@
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
               <span class="text-[10px] font-bold text-slate-500 uppercase block">Kebutuhan Modal</span>
-              <span class="text-sm font-black text-slate-900 font-mono mt-0.5 block">${formatRupiahExact(targetVal)}</span>
+              <span class="text-sm font-bold text-slate-900 mt-0.5 block">${formatRupiahExact(targetVal)}</span>
               <span class="text-[10px] text-slate-400 mt-0.5 block">1 Slot Tunggal</span>
             </div>
             <div class="p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-200">
               <span class="text-[10px] font-bold text-emerald-800 uppercase block">Target Imbal Hasil</span>
-              <span class="text-sm font-black text-emerald-950 mt-0.5 block">${returnText}</span>
+              <span class="text-sm font-bold text-emerald-950 mt-0.5 block">${returnText}</span>
               <span class="text-[10px] text-emerald-700 font-semibold mt-0.5 block">Bagi Hasil Kuartalan</span>
             </div>
             <div class="p-3.5 rounded-2xl bg-blue-50/70 border border-blue-200">
               <span class="text-[10px] font-bold text-blue-800 uppercase block">Tenor Penempatan</span>
-              <span class="text-sm font-black text-blue-950 mt-0.5 block">${tenorText}</span>
+              <span class="text-sm font-bold text-blue-950 mt-0.5 block">${tenorText}</span>
               <span class="text-[10px] text-blue-700 font-semibold mt-0.5 block">Target 2-3x Putaran/Thn</span>
             </div>
             <div class="p-3.5 rounded-2xl bg-amber-50/70 border border-amber-200">
               <span class="text-[10px] font-bold text-amber-800 uppercase block">Alokasi Unit Fisik</span>
-              <span class="text-sm font-black text-amber-950 mt-0.5 block">${tier1 ? tier1.unit_qty + ' Unit CBU' : 'Unit CBU Jepang'}</span>
+              <span class="text-sm font-bold text-amber-950 mt-0.5 block">${tier1 ? tier1.unit_qty + ' Unit CBU' : 'Unit CBU Jepang'}</span>
               <span class="text-[10px] text-amber-700 font-semibold mt-0.5 block">Siap Kontrak Sewa</span>
             </div>
           </div>
@@ -4481,12 +4652,7 @@
                 Setiap penempatan modal telah mencakup penyediaan tenaga operator alat berat bersertifikasi resmi BNSP:
               </p>
               <div class="flex flex-wrap gap-2 pt-1 font-semibold text-slate-800">
-                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white border border-amber-300">
-                  <i data-lucide="check-circle-2" class="w-3 h-3 text-emerald-600"></i> Paket Rp 5 Miliar: <strong>1 Operator Profesional</strong>
-                </span>
-                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white border border-amber-300">
-                  <i data-lucide="check-circle-2" class="w-3 h-3 text-emerald-600"></i> Paket Rp 10 Miliar: <strong>2 Operator Profesional (Double Shift)</strong>
-                </span>
+                ${operatorBadgesHtml}
               </div>
             </div>
           </div>
@@ -4513,52 +4679,75 @@
             </div>
           </div>
 
-          <!-- 5. Interactive BEP & ROI Simulator -->
-          <div class="p-5 rounded-2xl bg-slate-900 text-white space-y-4">
-            <div class="flex items-center justify-between">
+          <!-- 5. Interactive 3-Year Capital & Return Simulator -->
+          <div class="p-5 sm:p-6 rounded-3xl bg-slate-50/90 text-slate-900 space-y-5 border border-slate-200 shadow-xs">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3.5 border-b border-slate-200">
               <div>
-                <span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest block">Kalkulator Investor</span>
-                <h4 class="text-base font-bold text-white">Simulasi Penempatan Modal &amp; Imbal Hasil</h4>
+                <span class="text-[10px] font-bold text-amber-800 uppercase tracking-widest block">Simulasi Portofolio Investor</span>
+                <h4 class="text-base font-bold text-slate-900 tracking-tight">Simulasi Penempatan Modal &amp; Imbal Hasil 3 Tahun</h4>
               </div>
-              <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white/10 text-slate-300 border border-white/10">
-                Target ROI ~32% p.a.
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/90 self-start sm:self-auto" id="modalSimRateBadge">
+                Target ROI ~32% p.a. (Tenor 36 Bulan)
               </span>
             </div>
 
             <div>
               <div class="flex items-center justify-between text-xs mb-2">
-                <span class="text-slate-300">Rencana Nominal Modal:</span>
-                <span class="text-lg font-black text-amber-400 font-mono" id="modalSimNominalDisplay">Rp 5.000.000.000</span>
+                <span class="text-slate-600 font-medium">Pilihan Paket Investasi Tersedia:</span>
+                <span class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight" id="modalSimNominalDisplay">${formatRupiahExact(initialDetailNominal)}</span>
               </div>
-              <input 
-                type="range" 
-                id="modalSimSlider" 
-                min="500000000" 
-                max="10000000000" 
-                step="500000000" 
-                value="5000000000" 
-                oninput="updateModalSimulator(this.value)"
-                class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-amber-400"
-              />
-              <div class="flex justify-between text-[10px] text-slate-400 mt-1">
-                <span>Rp 500 Juta</span>
-                <span>Rp 5 Miliar</span>
-                <span>Rp 10 Miliar</span>
+              ${simPackageButtonsHtml}
+            </div>
+
+            <!-- 3-Year Progression Cards -->
+            <div class="space-y-2">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">Proyeksi Hasil Tiap Tahun (Tenor Maksimal 36 Bulan):</span>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
+                <div class="p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-1">
+                  <div class="flex justify-between items-center text-[10px] font-bold text-slate-500">
+                    <span class="tracking-wider uppercase">TAHUN 1</span>
+                    <span class="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold text-[10px]" id="modalSimT1Roi">+32%</span>
+                  </div>
+                  <span class="text-xs sm:text-sm font-bold text-slate-900 block" id="modalSimT1Div">Rp 1.600.000.000</span>
+                  <span class="text-[10px] text-slate-500 block">Akumulasi: <strong class="text-slate-700 font-semibold" id="modalSimT1Accum">Rp 1.600.000.000</strong></span>
+                </div>
+
+                <div class="p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-1">
+                  <div class="flex justify-between items-center text-[10px] font-bold text-slate-500">
+                    <span class="tracking-wider uppercase">TAHUN 2</span>
+                    <span class="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold text-[10px]" id="modalSimT2Roi">+64%</span>
+                  </div>
+                  <span class="text-xs sm:text-sm font-bold text-slate-900 block" id="modalSimT2Div">Rp 1.600.000.000</span>
+                  <span class="text-[10px] text-slate-500 block">Akumulasi: <strong class="text-slate-700 font-semibold" id="modalSimT2Accum">Rp 3.200.000.000</strong></span>
+                </div>
+
+                <div class="p-3.5 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50/40 border border-amber-200/90 shadow-2xs space-y-1">
+                  <div class="flex justify-between items-center text-[10px] font-bold text-amber-900">
+                    <span class="tracking-wider uppercase">TAHUN 3 (FINAL)</span>
+                    <span class="text-amber-800 bg-amber-100/90 px-2 py-0.5 rounded-full font-bold text-[10px]" id="modalSimT3Roi">+96%</span>
+                  </div>
+                  <span class="text-xs sm:text-sm font-bold text-amber-950 block" id="modalSimT3Div">Rp 1.600.000.000</span>
+                  <span class="text-[10px] text-amber-800 font-semibold block">+ 100% Pokok Kembali Utuh</span>
+                </div>
               </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-2 border-t border-slate-800 text-xs">
-              <div class="p-3 rounded-xl bg-white/5 border border-white/10">
-                <span class="text-[10px] text-slate-400 block">Estimasi Dividen Kuartalan (3 Bln):</span>
-                <span class="text-sm font-bold text-cyan-300 font-mono mt-0.5 block" id="modalSimQuarterlyDisplay">Rp 400.000.000</span>
+            <!-- Summary Breakdown Badges -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-2 border-t border-slate-200 text-xs">
+              <div class="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+                <span class="text-[10px] text-slate-500 font-medium block">Dividen per Kuartal (3 Bln):</span>
+                <span class="text-sm font-bold text-slate-900 mt-0.5 block" id="modalSimQuarterlyDisplay">Rp 400.000.000</span>
+                <span class="text-[10px] text-slate-400">12 kali transfer dividen</span>
               </div>
-              <div class="p-3 rounded-xl bg-white/5 border border-white/10">
-                <span class="text-[10px] text-slate-400 block">Estimasi Dividen Tahunan:</span>
-                <span class="text-sm font-bold text-emerald-400 font-mono mt-0.5 block" id="modalSimAnnualDisplay">Rp 1.600.000.000</span>
+              <div class="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+                <span class="text-[10px] text-slate-500 font-medium block">Total Dividen 3 Tahun (Murni):</span>
+                <span class="text-sm font-bold text-emerald-700 mt-0.5 block" id="modalSimAnnualDisplay">Rp 4.800.000.000</span>
+                <span class="text-[10px] text-emerald-700 font-bold" id="modalSimTotalRoiLabel">+96% Total Imbal Hasil</span>
               </div>
-              <div class="p-3 rounded-xl bg-white/5 border border-white/10">
-                <span class="text-[10px] text-slate-400 block">Total Modal + Hasil (12 Bln):</span>
-                <span class="text-sm font-bold text-amber-300 font-mono mt-0.5 block" id="modalSimTotalDisplay">Rp 6.600.000.000</span>
+              <div class="p-3 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100/60 border border-amber-300/80 shadow-2xs">
+                <span class="text-[10px] text-amber-900 block font-bold">Total Modal + Dividen 3 Tahun:</span>
+                <span class="text-sm font-black text-amber-950 mt-0.5 block" id="modalSimTotalDisplay">Rp 9.800.000.000</span>
+                <span class="text-[10px] text-amber-800/90">Pengembalian 100% pokok di akhir tenor</span>
               </div>
             </div>
           </div>
@@ -4580,22 +4769,77 @@
       if (window.lucide) lucide.createIcons();
     }
 
+    function selectDetailSimPackage(idx, nominal) {
+      document.querySelectorAll('.detail-sim-btn').forEach((b, i) => {
+        const check = document.getElementById('detailSimCheck-' + i);
+        if (i === idx) {
+          b.className = 'detail-sim-btn p-3.5 rounded-2xl border-2 border-blue-900 bg-blue-50/60 text-slate-900 font-bold text-xs flex items-center justify-between transition cursor-pointer text-left shadow-xs ring-1 ring-blue-900/10';
+          if (check) {
+            check.className = 'w-6 h-6 rounded-full bg-blue-900 text-white flex items-center justify-center text-xs font-bold shrink-0 shadow-2xs';
+            check.innerHTML = '<i data-lucide="check" class="w-3.5 h-3.5"></i>';
+          }
+        } else {
+          b.className = 'detail-sim-btn p-3.5 rounded-2xl border border-slate-200 bg-white hover:border-slate-300 text-slate-700 font-bold text-xs flex items-center justify-between transition cursor-pointer text-left';
+          if (check) {
+            check.className = 'w-6 h-6 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-xs font-bold shrink-0';
+            check.innerText = String(i + 1);
+          }
+        }
+      });
+      updateModalSimulator(nominal);
+      if (window.lucide) lucide.createIcons();
+    }
+
     function updateModalSimulator(val) {
       const num = Number(val) || 5000000000;
-      const rate = 0.32; // 32% annual return
+      let rate = 0.32; // Default 32% annual return
+      if (activeDetailProjectId) {
+        const p = catalogProjects.find(x => x.id === activeDetailProjectId);
+        if (p && p.detail?.rab_executive?.struktur_biaya_unit?.return_per_siklus) {
+          rate = (p.detail.rab_executive.struktur_biaya_unit.return_per_siklus / 100) * 2.5;
+        }
+      }
+
       const annual = Math.round(num * rate);
       const quarterly = Math.round(annual / 4);
-      const total = num + annual;
+      const totalDividend3Y = annual * 3;
+      const grandTotal3Y = num + totalDividend3Y;
+      const totalRoiPercent = Math.round(rate * 3 * 100);
+      const annualRoiPercent = Math.round(rate * 100);
 
       const nomEl = document.getElementById('modalSimNominalDisplay');
       const quartEl = document.getElementById('modalSimQuarterlyDisplay');
       const annEl = document.getElementById('modalSimAnnualDisplay');
       const totEl = document.getElementById('modalSimTotalDisplay');
+      const roiLabel = document.getElementById('modalSimTotalRoiLabel');
 
       if (nomEl) nomEl.innerText = formatRupiahExact(num);
       if (quartEl) quartEl.innerText = formatRupiahExact(quarterly);
-      if (annEl) annEl.innerText = formatRupiahExact(annual);
-      if (totEl) totEl.innerText = formatRupiahExact(total);
+      if (annEl) annEl.innerText = formatRupiahExact(totalDividend3Y);
+      if (totEl) totEl.innerText = formatRupiahExact(grandTotal3Y);
+      if (roiLabel) roiLabel.innerText = `+${totalRoiPercent}% Total Imbal Hasil`;
+
+      // Year-by-year elements in modal (3 Years)
+      const t1Div = document.getElementById('modalSimT1Div');
+      const t1Accum = document.getElementById('modalSimT1Accum');
+      const t1Roi = document.getElementById('modalSimT1Roi');
+      if (t1Div) t1Div.innerText = formatRupiahExact(annual);
+      if (t1Accum) t1Accum.innerText = formatRupiahExact(annual);
+      if (t1Roi) t1Roi.innerText = `+${annualRoiPercent}%`;
+
+      const t2Div = document.getElementById('modalSimT2Div');
+      const t2Accum = document.getElementById('modalSimT2Accum');
+      const t2Roi = document.getElementById('modalSimT2Roi');
+      if (t2Div) t2Div.innerText = formatRupiahExact(annual);
+      if (t2Accum) t2Accum.innerText = formatRupiahExact(annual * 2);
+      if (t2Roi) t2Roi.innerText = `+${annualRoiPercent * 2}%`;
+
+      const t3Div = document.getElementById('modalSimT3Div');
+      const t3Accum = document.getElementById('modalSimT3Accum');
+      const t3Roi = document.getElementById('modalSimT3Roi');
+      if (t3Div) t3Div.innerText = formatRupiahExact(annual);
+      if (t3Accum) t3Accum.innerText = formatRupiahExact(totalDividend3Y);
+      if (t3Roi) t3Roi.innerText = `+${totalRoiPercent}%`;
     }
 
     // Populate Select in Invest Modal
@@ -4613,55 +4857,296 @@
           </option>
         `;
       }).join('');
+
+      // Auto-render package options for first non-full project or first option
+      const firstAvailable = projects.find(p => p.status !== 'Fully Funded') || projects[0];
+      if (firstAvailable) {
+        select.value = firstAvailable.id;
+        renderInvestModalPackages(firstAvailable.id, 0);
+      }
+    }
+
+    // Triggered on user changing project in dropdown
+    function onInvestProjectChange() {
+      const select = document.getElementById('investProjectSelect');
+      if (select && select.value) {
+        renderInvestModalPackages(select.value, 0);
+      }
+    }
+
+    // Render Package Options inside Modal (No manual freeform number input!)
+    function renderInvestModalPackages(projectId, defaultPackageIdx = 0) {
+      const container = document.getElementById('investPackageOptionsContainer');
+      const alertFunded = document.getElementById('investProjectFundedAlert');
+      const badge = document.getElementById('investPackageModeBadge');
+      const submitBtn = document.getElementById('btnSubmitInvest');
+      if (!container) return;
+
+      // Find project in catalog or dashboardState
+      let p = catalogProjects.find(x => x.id === projectId);
+      if (!p && dashboardState.projects) {
+        p = dashboardState.projects.find(x => x.id === projectId);
+      }
+
+      if (!p) {
+        container.innerHTML = '<div class="text-xs text-slate-400 p-2">Pilih proyek untuk melihat paket investasi.</div>';
+        return;
+      }
+
+      const isFull = p.status === 'Fully Funded';
+
+      if (isFull) {
+        if (alertFunded) alertFunded.classList.remove('hidden');
+        container.classList.add('hidden');
+        if (badge) {
+          badge.innerText = 'Terdanai Penuh';
+          badge.className = 'text-[11px] font-semibold text-emerald-700 px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200';
+        }
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.className = 'px-5 py-2 text-xs font-bold bg-slate-200 text-slate-400 rounded-full cursor-not-allowed flex items-center gap-1.5';
+          submitBtn.innerHTML = '<i data-lucide="lock" class="w-3.5 h-3.5"></i><span>Proyek Terdanai Penuh</span>';
+        }
+        const nomInput = document.getElementById('investSelectedNominal');
+        const legacyInput = document.getElementById('investAmountInput');
+        if (nomInput) nomInput.value = 0;
+        if (legacyInput) legacyInput.value = 0;
+        calculateSimulatedYield();
+        if (window.lucide) lucide.createIcons();
+        return;
+      }
+
+      // Proyek Berstatus Open
+      if (alertFunded) alertFunded.classList.add('hidden');
+      container.classList.remove('hidden');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.className = 'px-5 py-2 text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white rounded-full transition shadow-sm active:scale-95 flex items-center gap-1.5 cursor-pointer';
+        submitBtn.innerHTML = '<i data-lucide="send" class="w-3.5 h-3.5"></i><span>Kirim Pengajuan Minat</span>';
+      }
+
+      const rab = p.detail?.rab_executive || null;
+      let options = p.package_options || (rab && (rab.package_options || rab.tiers)) || p.tiers || [];
+      const mode = p.package_options_mode || (rab && rab.package_options_mode) || (options.length === 2 ? '2' : (options.length === 1 ? '1' : 'none'));
+
+      // If mode 2: 2 distinct choices (e.g. Jabodetabek & Jabar or Bali: 7.5M and 10M)
+      if (mode === '2' && options.length >= 2) {
+        if (badge) {
+          badge.innerText = 'Tersedia 2 Pilihan Paket (Klik untuk Memilih)';
+          badge.className = 'text-[11px] font-semibold text-amber-800 px-2.5 py-0.5 rounded-full bg-amber-50 border border-amber-300';
+        }
+
+        const opt1 = options[0];
+        const opt2 = options[1];
+        const nom1 = Number(opt1.nominal) || 7500000000;
+        const nom2 = Number(opt2.nominal) || 10000000000;
+        const nom1Disp = opt1.nominal_display || formatRupiahDisplay(nom1);
+        const nom2Disp = opt2.nominal_display || formatRupiahDisplay(nom2);
+        const perk1 = opt1.operator_perk || '1 Operator Profesional';
+        const perk2 = opt2.operator_perk || '2 Operator Profesional (Double Shift)';
+
+        container.innerHTML = `
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <!-- Pilihan 1 -->
+            <div 
+              id="modalPkgCard-0" 
+              onclick="selectModalPackage(0, ${nom1})" 
+              class="modal-pkg-card relative cursor-pointer p-3.5 rounded-2xl border-2 transition-all duration-200 select-none ${defaultPackageIdx === 0 ? 'border-blue-600 bg-blue-50/70 shadow-xs ring-2 ring-blue-500/20' : 'border-slate-200 hover:border-blue-300 bg-white'}"
+            >
+              <div class="flex items-center justify-between gap-1 mb-1">
+                <span class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                  <span class="w-5 h-5 rounded-full bg-blue-100 text-blue-700 text-[10px] font-black flex items-center justify-center">1</span>
+                  Pilihan 1
+                </span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 border border-amber-200 flex items-center gap-1">
+                  <i data-lucide="award" class="w-3 h-3 text-amber-600"></i> ${opt1.badge || '1 Operator'}
+                </span>
+              </div>
+              <div class="text-base font-black text-blue-900 font-mono my-0.5">${nom1Disp}</div>
+              <div class="text-[11px] text-slate-600 font-medium flex items-center gap-1 mt-1">
+                <i data-lucide="truck" class="w-3.5 h-3.5 text-blue-600 shrink-0"></i>
+                <span>${opt1.unit_qty ? opt1.unit_qty + ' Unit Alat Berat' : '30 Unit Armada CBU'}</span>
+              </div>
+              <p class="text-[10px] text-slate-500 mt-1 leading-snug">
+                ${perk1} yang disediakan dan dikelola langsung oleh tim operasional MIU.
+              </p>
+              <div class="mt-2 pt-2 border-t border-slate-200/70 flex items-center justify-between text-[10px] font-semibold text-emerald-700">
+                <span>Est. Imbal Hasil:</span>
+                <span class="font-mono font-bold">~28,6% – 42,9% p.a.</span>
+              </div>
+            </div>
+
+            <!-- Pilihan 2 -->
+            <div 
+              id="modalPkgCard-1" 
+              onclick="selectModalPackage(1, ${nom2})" 
+              class="modal-pkg-card relative cursor-pointer p-3.5 rounded-2xl border-2 transition-all duration-200 select-none ${defaultPackageIdx === 1 ? 'border-blue-600 bg-blue-50/70 shadow-xs ring-2 ring-blue-500/20' : 'border-slate-200 hover:border-blue-300 bg-white'}"
+            >
+              <div class="flex items-center justify-between gap-1 mb-1">
+                <span class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                  <span class="w-5 h-5 rounded-full bg-blue-100 text-blue-700 text-[10px] font-black flex items-center justify-center">2</span>
+                  Pilihan 2
+                </span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 border border-amber-200 flex items-center gap-1">
+                  <i data-lucide="award" class="w-3 h-3 text-amber-600"></i> ${opt2.badge || '2 Operator'}
+                </span>
+              </div>
+              <div class="text-base font-black text-blue-900 font-mono my-0.5">${nom2Disp}</div>
+              <div class="text-[11px] text-slate-600 font-medium flex items-center gap-1 mt-1">
+                <i data-lucide="truck" class="w-3.5 h-3.5 text-blue-600 shrink-0"></i>
+                <span>${opt2.unit_qty ? opt2.unit_qty + ' Unit Alat Berat' : '40 Unit Armada Penuh'}</span>
+              </div>
+              <p class="text-[10px] text-slate-500 mt-1 leading-snug">
+                ${perk2} untuk rotasi shift 24/7 di lapangan tanpa repot.
+              </p>
+              <div class="mt-2 pt-2 border-t border-slate-200/70 flex items-center justify-between text-[10px] font-semibold text-emerald-700">
+                <span>Est. Imbal Hasil:</span>
+                <span class="font-mono font-bold">~28,6% – 42,9% p.a.</span>
+              </div>
+            </div>
+          </div>
+        `;
+
+        selectModalPackage(defaultPackageIdx, defaultPackageIdx === 1 ? nom2 : nom1);
+      } else {
+        // Mode 1: Single clean package (Surabaya, Makassar, Sumatra, NTT, etc.)
+        if (badge) {
+          badge.innerText = '1 Pilihan Paket Tunggal';
+          badge.className = 'text-[11px] font-semibold text-blue-700 px-2 py-0.5 rounded-full bg-blue-50 border border-blue-200';
+        }
+
+        const opt = options.length > 0 ? options[0] : null;
+        const targetNom = opt ? (Number(opt.nominal) || 5000000000) : (Number(p.funding?.target || p.funding_target) || 5000000000);
+        const targetDisp = opt?.nominal_display || formatRupiahDisplay(targetNom);
+        const perk = opt?.operator_perk || 'Bonus 1 Operator Profesional Resmi MGI';
+        const units = opt?.unit_qty ? `${opt.unit_qty} Unit Alat Berat CBU` : 'Armada Regional Siap Operasi';
+
+        container.innerHTML = `
+          <div 
+            id="modalPkgCard-0" 
+            class="modal-pkg-card p-4 rounded-2xl border-2 border-blue-600 bg-blue-50/60 shadow-xs relative select-none"
+          >
+            <div class="flex items-center justify-between gap-2 mb-1.5">
+              <span class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-blue-600"></i>
+                ${opt?.label || 'Paket Kemitraan Tunggal'}
+              </span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 border border-amber-200 flex items-center gap-1">
+                <i data-lucide="award" class="w-3 h-3 text-amber-600"></i> ${opt?.badge || 'Bonus 1 Operator'}
+              </span>
+            </div>
+            
+            <div class="text-lg font-black text-blue-950 font-mono my-0.5">${targetDisp}</div>
+            
+            <div class="text-[11px] text-slate-700 font-medium flex items-center gap-1.5 mt-1.5">
+              <i data-lucide="truck" class="w-3.5 h-3.5 text-blue-600 shrink-0"></i>
+              <span>Alokasi Penuh Armada: <strong>${units}</strong></span>
+            </div>
+            
+            <p class="text-[11px] text-slate-500 mt-1 leading-relaxed">
+              ${perk} yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.
+            </p>
+
+            <div class="mt-2.5 pt-2 border-t border-blue-200/70 flex items-center justify-between text-[11px] font-semibold text-emerald-700">
+              <span>Target Imbal Hasil Kemitraan:</span>
+              <span class="font-mono font-bold">~28,6% – 42,9% p.a.</span>
+            </div>
+          </div>
+        `;
+
+        selectModalPackage(0, targetNom);
+      }
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // Select package in modal
+    function selectModalPackage(idx, nominal) {
+      document.querySelectorAll('.modal-pkg-card').forEach((card, i) => {
+        if (i === idx) {
+          card.className = 'modal-pkg-card relative cursor-pointer p-3.5 rounded-2xl border-2 transition-all duration-200 select-none border-blue-600 bg-blue-50/70 shadow-xs ring-2 ring-blue-500/20';
+        } else {
+          card.className = 'modal-pkg-card relative cursor-pointer p-3.5 rounded-2xl border-2 transition-all duration-200 select-none border-slate-200 hover:border-blue-300 bg-white';
+        }
+      });
+
+      // Update hidden inputs
+      const nomInput = document.getElementById('investSelectedNominal');
+      const idxInput = document.getElementById('investSelectedPackageIdx');
+      const legacyInput = document.getElementById('investAmountInput');
+
+      if (nomInput) nomInput.value = nominal;
+      if (idxInput) idxInput.value = idx;
+      if (legacyInput) legacyInput.value = nominal;
+
+      calculateSimulatedYield();
     }
 
     // Open Modal for Specific Project from Catalog
-    function openInvestModalForProject(projectId) {
+    function openInvestModalForProject(projectId, packageIdx = 0) {
       const select = document.getElementById('investProjectSelect');
       if (select && projectId) {
         select.value = projectId;
-        const p = catalogProjects.find(x => x.id === projectId);
-        if (p && p.info && p.info.min_investment) {
-          const rawMin = parseInt(p.info.min_investment.replace(/[^0-9]/g, ''), 10);
-          if (rawMin && !isNaN(rawMin)) {
-            const input = document.getElementById('investAmountInput');
-            if (input) {
-              input.min = rawMin;
-              if (Number(input.value) < rawMin) {
-                input.value = rawMin;
-              }
-            }
-          }
-        }
       }
-      calculateSimulatedYield();
+      renderInvestModalPackages(projectId, packageIdx);
       openModal('investModal');
     }
 
-    // Simulated Yield Calculator
+    // Simulated Yield Calculator (3-Year Horizon - Tenor Maksimal 36 Bulan)
     function calculateSimulatedYield() {
-      const input = document.getElementById('investAmountInput');
-      const output = document.getElementById('simulatedReturn');
+      const nomInput = document.getElementById('investSelectedNominal') || document.getElementById('investAmountInput');
       const select = document.getElementById('investProjectSelect');
-      if (!input || !output) return;
+      if (!nomInput) return;
 
-      const val = parseFloat(input.value) || 0;
-      let returnRate = 0.32; // Default 32%
+      const val = parseFloat(nomInput.value) || 0;
+      let returnRate = 0.30; // Default 30% p.a.
 
       if (select && select.value) {
-        const p = catalogProjects.find(x => x.id === select.value);
+        let p = catalogProjects.find(x => x.id === select.value);
+        if (!p && dashboardState.projects) {
+          p = dashboardState.projects.find(x => x.id === select.value);
+        }
         if (p && p.detail?.rab_executive?.struktur_biaya_unit?.return_per_siklus) {
           const cycleRate = p.detail.rab_executive.struktur_biaya_unit.return_per_siklus / 100;
-          returnRate = cycleRate * 2.5; // average annual ~35.7%
+          returnRate = cycleRate * 2.5; // ~32% - 35%
         }
       }
 
+      if (val <= 0) {
+        const annualEl = document.getElementById('simModalAnnualReturn');
+        const quartEl = document.getElementById('simModalQuarterlyReturn');
+        const div3YEl = document.getElementById('simModal4YearReturn');
+        const grandEl = document.getElementById('simModalGrandTotal');
+        const roiBadge = document.getElementById('simModalRoiBadge');
+        if (annualEl) annualEl.innerText = 'Rp 0 / thn';
+        if (quartEl) quartEl.innerText = 'Rp 0 / kuartal';
+        if (div3YEl) div3YEl.innerText = 'Rp 0';
+        if (grandEl) grandEl.innerText = 'Rp 0';
+        if (roiBadge) roiBadge.innerText = '0% Imbal Hasil';
+        return;
+      }
+
       const annualEstimate = Math.round(val * returnRate);
-      const cycleEstimate = Math.round(annualEstimate / 2.5);
-      output.innerHTML = `
-        <span>Rp ${annualEstimate.toLocaleString('id-ID')} / tahun</span>
-        <span class="block text-[10px] text-amber-700 font-normal mt-0.5">(Est. Rp ${cycleEstimate.toLocaleString('id-ID')} per siklus perputaran)</span>
-      `;
+      const quarterlyEstimate = Math.round(annualEstimate / 4);
+      const totalDividend3Y = annualEstimate * 3;
+      const grandTotal3Y = val + totalDividend3Y;
+      const roiTotalPercent = Math.round(returnRate * 3 * 100);
+
+      const annualEl = document.getElementById('simModalAnnualReturn');
+      const quartEl = document.getElementById('simModalQuarterlyReturn');
+      const div3YEl = document.getElementById('simModal4YearReturn');
+      const grandEl = document.getElementById('simModalGrandTotal');
+      const roiBadge = document.getElementById('simModalRoiBadge');
+      const legacyOutput = document.getElementById('simulatedReturn');
+
+      if (annualEl) annualEl.innerText = formatRupiahExact(annualEstimate) + ' / thn';
+      if (quartEl) quartEl.innerText = formatRupiahExact(quarterlyEstimate) + ' / kuartal';
+      if (div3YEl) div3YEl.innerText = formatRupiahExact(totalDividend3Y);
+      if (grandEl) grandEl.innerText = formatRupiahExact(grandTotal3Y);
+      if (roiBadge) roiBadge.innerText = `+${roiTotalPercent}% Imbal Hasil`;
+      if (legacyOutput) {
+        legacyOutput.innerHTML = `<span>${formatRupiahExact(annualEstimate)} / tahun</span>`;
+      }
     }
 
     // Search Filter for Catalog Cards
@@ -4855,8 +5340,27 @@
 
     // Investment Interest Submission
     function submitInvestForm() {
+      const select = document.getElementById('investProjectSelect');
+      const nomInput = document.getElementById('investSelectedNominal') || document.getElementById('investAmountInput');
+      const idxInput = document.getElementById('investSelectedPackageIdx');
+      
+      const nominal = parseFloat(nomInput?.value) || 0;
+      if (nominal <= 0) {
+        showToast('Silakan pilih proyek dan paket investasi yang berstatus Open.', false);
+        return;
+      }
+
+      const projId = select?.value || '';
+      let p = catalogProjects.find(x => x.id === projId) || (dashboardState.projects ? dashboardState.projects.find(x => x.id === projId) : null);
+      const pTitle = p ? (p.title || p.nama_project) : 'Proyek Investasi';
+      
+      const pOptions = p?.package_options || p?.detail?.rab_executive?.package_options || p?.tiers || [];
+      const pkgIdx = parseInt(idxInput?.value || '0', 10);
+      const pkg = pOptions[pkgIdx] || (pOptions[0] || null);
+      const pkgLabel = pkg ? (pkg.label || ('Paket ' + formatRupiahDisplay(nominal))) : formatRupiahDisplay(nominal);
+
       closeModal('investModal');
-      showToast('Minat penempatan modal berhasil dicatat. RM Prioritas MGI akan menghubungi Anda.');
+      showToast(`Minat penempatan ${pTitle} (${pkgLabel}) senilai ${formatRupiahExact(nominal)} berhasil dicatat. RM Prioritas MGI akan segera menghubungi Anda.`);
     }
 
     // Print & Export Action

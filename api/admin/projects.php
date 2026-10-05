@@ -94,6 +94,7 @@ try {
                    c.name as city_name,
                    c.slug as city_slug,
                    c.icon as city_icon,
+                   pd.rab_executive_json,
                    COALESCE(sub.item_count, 0) as item_count,
                    CASE 
                        WHEN p.funding_target > 0 THEN ROUND((p.funding_collected / p.funding_target * 100), 2)
@@ -101,6 +102,7 @@ try {
                    END as funding_percent
             FROM projects p
             LEFT JOIN cities c ON p.city_id = c.id
+            LEFT JOIN project_details pd ON p.id = pd.project_id
             LEFT JOIN (
                 SELECT project_id, COUNT(id) as item_count
                 FROM funding_items
@@ -109,6 +111,16 @@ try {
             ORDER BY p.sort_order ASC, p.created_at DESC
         ");
         $projects = $stmt->fetchAll();
+
+        foreach ($projects as &$p) {
+            $rabExec = null;
+            if (!empty($p['rab_executive_json'])) {
+                $rabExec = json_decode($p['rab_executive_json'], true);
+            }
+            $p['package_options_mode'] = $rabExec['package_options_mode'] ?? (!empty($rabExec['tiers']) ? '2' : 'none');
+            $p['package_options'] = $rabExec['package_options'] ?? ($rabExec['tiers'] ?? []);
+        }
+        unset($p);
 
         sendJsonResponse($projects);
     }
@@ -669,7 +681,13 @@ function syncProjectToJson(string $id, array $payload): void {
             if (isset($payload['funding_collected'])) $p['funding']['collected'] = (float)$payload['funding_collected'];
             
             if (!isset($p['info'])) $p['info'] = [];
-            if (isset($payload['funding_target'])) $p['info']['target'] = 'Rp ' . number_format((float)$payload['funding_target'], 0, ',', '.');
+            
+            $targetDisplayVal = !empty($payload['target_display']) ? trim($payload['target_display']) : (isset($payload['funding_target']) ? ('Rp ' . number_format((float)$payload['funding_target'], 0, ',', '.')) : ($p['info']['target'] ?? ''));
+            $p['target_display'] = $targetDisplayVal;
+            $p['funding_range'] = $targetDisplayVal;
+            $p['info']['target'] = $targetDisplayVal;
+            $p['info']['target_range'] = $targetDisplayVal;
+
             if (isset($payload['tenor'])) $p['info']['tenor'] = $payload['tenor'];
             if (isset($payload['return_rate'])) $p['info']['return'] = $payload['return_rate'];
             if (isset($payload['min_investment'])) $p['info']['min_investment'] = $payload['min_investment'];
@@ -694,9 +712,15 @@ function syncProjectToJson(string $id, array $payload): void {
             }
             
             if (!empty($payload['rab_executive'])) {
-                $p['detail']['rab_executive'] = is_string($payload['rab_executive']) 
+                $rab = is_string($payload['rab_executive']) 
                     ? json_decode($payload['rab_executive'], true) 
                     : $payload['rab_executive'];
+                $p['detail']['rab_executive'] = $rab;
+                $p['package_options_mode'] = $rab['package_options_mode'] ?? 'none';
+                $p['package_options'] = $rab['package_options'] ?? ($rab['tiers'] ?? []);
+                if (!empty($rab['operator_perk'])) {
+                    $p['info']['operator_perk'] = $rab['operator_perk'];
+                }
             }
             break;
         }

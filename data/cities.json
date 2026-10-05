@@ -1,15 +1,6 @@
 {
     "cities": [
         {
-            "id": 1,
-            "name": "Surabaya",
-            "slug": "surabaya",
-            "icon": "bi-building-fill",
-            "is_active_segment": 1,
-            "sort_order": 1,
-            "description": "Sentra Industri, Koridor Logistik Pelabuhan Tanjung Perak & Infrastruktur Jawa Timur"
-        },
-        {
             "id": 2,
             "name": "Denpasar",
             "slug": "denpasar",

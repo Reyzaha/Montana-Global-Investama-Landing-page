@@ -136,8 +136,26 @@
       MGIComponents.renderNavbar('invest');
       MGIComponents.renderFooter();
 
-      // Fetch projects data
-      const data = await MGI.fetchData('data/projects.json');
+      // Fetch projects data with dynamic API priority & static fallback
+      let data = null;
+      try {
+        const res = await fetch('api/projects.php', { cache: 'no-store' });
+        if (res.ok) {
+          const apiJson = await res.json();
+          data = (apiJson && apiJson.data) ? apiJson.data : apiJson;
+        }
+      } catch (e) {
+        console.warn('[Invest] API fetch fallback to static json');
+      }
+
+      if (!data || !data.projects) {
+        data = await MGI.fetchData('data/projects.json');
+      }
+
+      if (typeof MGI !== 'undefined') {
+        MGI._cachedData = data;
+      }
+
       if (!data || !data.projects) {
         const grid = document.getElementById('investProjectsGrid');
         if (grid) {
