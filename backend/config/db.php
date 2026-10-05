@@ -174,7 +174,7 @@ class Database {
                     `id` INT AUTO_INCREMENT PRIMARY KEY,
                     `account_type` ENUM('perorangan','perusahaan') NOT NULL DEFAULT 'perorangan',
                     `full_name` VARCHAR(120) NOT NULL,
-                    `phone` VARCHAR(20) NOT NULL,
+                    `phone` VARCHAR(20) NULL DEFAULT NULL,
                     `email` VARCHAR(150) NULL,
                     `business_name` VARCHAR(150) NULL,
                     `legal_entity` VARCHAR(50) NULL,
@@ -202,9 +202,15 @@ class Database {
                     `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                     INDEX `idx_leads_status` (`status`),
                     INDEX `idx_leads_phone` (`phone`),
+                    INDEX `idx_leads_email` (`email`),
                     INDEX `idx_leads_created` (`created_at`)
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
             ");
+
+            // Pastikan phone nullable jika tabel lama dibuat NOT NULL
+            try {
+                $db->exec("ALTER TABLE `leads` MODIFY COLUMN `phone` VARCHAR(20) NULL DEFAULT NULL");
+            } catch (Throwable $_) {}
 
             // Tambah kolom Perorangan/Perusahaan bila tabel sudah terlanjur dibuat versi lama
             $leadCols = [

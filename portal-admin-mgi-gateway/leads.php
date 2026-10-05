@@ -6,7 +6,7 @@ require_once __DIR__ . '/includes/header.php';
 <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
   <div>
     <h5 class="fw-bold text-dark mb-1">Daftar Leads &amp; Calon Investor</h5>
-    <p class="text-muted small mb-0">Kelola prospek yang masuk dari Landing Page Konsultasi Google Ads (Perorangan &amp; Perusahaan), pantau pipeline, dan lakukan follow-up via WhatsApp.</p>
+    <p class="text-muted small mb-0">Kelola data calon investor yang masuk dari Landing Page Konsultasi Google Ads (Perorangan &amp; Perusahaan), pantau pipeline, dan tindak lanjuti via Email resmi.</p>
   </div>
   <div class="d-flex align-items-center gap-2">
     <a href="../api/admin/leads.php?export=csv" class="btn btn-outline-success btn-sm d-flex align-items-center gap-2 shadow-sm">
@@ -72,7 +72,7 @@ require_once __DIR__ . '/includes/header.php';
     </ul>
 
     <div class="d-flex flex-wrap align-items-center gap-2">
-      <input type="text" id="leadSearch" class="form-control form-control-sm" placeholder="Cari nama, PT, no WA, kota..." style="width: 220px;" oninput="loadLeads()">
+      <input type="text" id="leadSearch" class="form-control form-control-sm" placeholder="Cari nama, perusahaan, email, kota..." style="width: 250px;" oninput="loadLeads()">
       <select id="leadStatusFilter" class="form-select form-select-sm" style="width: 150px;" onchange="loadLeads()">
         <option value="">Semua Status</option>
         <option value="new">Baru</option>
@@ -92,7 +92,7 @@ require_once __DIR__ . '/includes/header.php';
           <th>Tanggal</th>
           <th>Nama / Entitas</th>
           <th>Kategori</th>
-          <th>Kontak (WA &amp; Email)</th>
+          <th>Email Resmi</th>
           <th>Kota Domisili</th>
           <th>Rencana Modal</th>
           <th>Sumber Iklan</th>
@@ -118,7 +118,7 @@ require_once __DIR__ . '/includes/header.php';
       <div class="modal-header text-white" style="background: #142563;">
         <h5 class="modal-title fw-bold">
           <i class="bi bi-person-lines-fill me-2 text-warning" style="color: #C5A059 !important;"></i>
-          <span>Detail &amp; Tindak Lanjut Prospek Investor</span>
+          <span>Detail &amp; Tindak Lanjut Calon Investor</span>
         </h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -149,8 +149,8 @@ require_once __DIR__ . '/includes/header.php';
                 <label class="form-label small fw-bold">Status Pipeline</label>
                 <select id="mLeadStatus" class="form-select">
                   <option value="new">Baru (Belum Dihubungi)</option>
-                  <option value="contacted">Dihubungi (Follow-up WA)</option>
-                  <option value="meeting">Jadwal Meeting</option>
+                  <option value="contacted">Dihubungi (Follow-up Email/Diskusi)</option>
+                  <option value="meeting">Jadwal Meeting Kantor Pusat</option>
                   <option value="site_visit">Site Visit Workshop Kebumen</option>
                   <option value="deal">Deal (Closing)</option>
                   <option value="lost">Tidak Lanjut (Lost)</option>
@@ -161,13 +161,13 @@ require_once __DIR__ . '/includes/header.php';
                 <input type="text" id="mLeadAssigned" class="form-control" placeholder="Contoh: RM Jakarta / Admin 1">
               </div>
               <div class="col-md-4 d-flex align-items-end">
-                <a href="#" id="mLeadWaBtn" target="_blank" class="btn btn-success w-100 fw-bold d-flex align-items-center justify-content-center gap-2">
-                  <i class="bi bi-whatsapp"></i> Chat WhatsApp
+                <a href="#" id="mLeadEmailBtn" class="btn btn-outline-primary w-100 fw-bold d-flex align-items-center justify-content-center gap-2">
+                  <i class="bi bi-envelope-fill"></i> Kirim Email
                 </a>
               </div>
               <div class="col-12">
                 <label class="form-label small fw-bold">Catatan Perkembangan Diskusi (Follow-up Notes)</label>
-                <textarea id="mLeadNotes" class="form-control" rows="3" placeholder="Contoh: Klien tertarik alokasi 2 unit excavator paket 5M, minta jadwal meeting offline di kantor BSD hari Kamis."></textarea>
+                <textarea id="mLeadNotes" class="form-control" rows="3" placeholder="Contoh: Klien minta dikirimkan prospektus paket 5M via email dan dijadwalkan meeting di kantor BSD hari Kamis."></textarea>
               </div>
               <div class="col-12 text-end">
                 <button type="submit" id="btnSaveLead" class="btn btn-mgi-primary px-4">
@@ -249,12 +249,9 @@ require_once __DIR__ . '/includes/header.php';
           day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
         });
 
-        // WhatsApp direct link
-        const cleanPhone = String(l.phone || '').replace(/\D/g, '');
-        const waText = encodeURIComponent(`Halo Bapak/Ibu ${l.full_name}, kami dari tim PT Montana Global Investama menindaklanjuti permintaan konsultasi investasi proyek yang telah diajukan. Apakah ada waktu luang untuk berdiskusi?`);
-        const waUrl = `https://wa.me/${cleanPhone}?text=${waText}`;
-
         const sourceLabel = l.utm_source ? `${l.utm_source}` : (l.gclid ? 'Google Ads' : 'Langsung');
+        const mailtoSub = encodeURIComponent(`Tindak Lanjut Konsultasi Investasi Proyek — PT Montana Global Investama`);
+        const mailtoLink = l.email ? `mailto:${l.email}?subject=${mailtoSub}` : '#';
 
         return `
           <tr>
@@ -269,8 +266,11 @@ require_once __DIR__ . '/includes/header.php';
               </span>
             </td>
             <td>
-              <div class="fw-bold text-dark font-monospace">${l.phone}</div>
-              <small class="text-muted">${l.email || '-'}</small>
+              ${l.email ? `
+                <a href="${mailtoLink}" class="fw-semibold text-primary text-decoration-none d-inline-flex align-items-center gap-1">
+                  <i class="bi bi-envelope"></i> ${l.email}
+                </a>
+              ` : '<span class="text-muted">-</span>'}
             </td>
             <td>${l.city || '-'}</td>
             <td>
@@ -282,11 +282,13 @@ require_once __DIR__ . '/includes/header.php';
             </td>
             <td>${statusBadge}</td>
             <td class="text-end" style="white-space: nowrap;">
-              <a href="${waUrl}" target="_blank" class="btn btn-sm btn-success py-1 px-2.5 d-inline-flex align-items-center gap-1 me-1" title="Chat WhatsApp Sekarang">
-                <i class="bi bi-whatsapp"></i>
-                <span class="small fw-semibold">Chat</span>
-              </a>
-              <button type="button" class="btn btn-sm btn-outline-primary py-1 px-2.5 d-inline-flex align-items-center gap-1" onclick="viewLeadDetail(${l.id})">
+              ${l.email ? `
+                <a href="${mailtoLink}" class="btn btn-sm btn-outline-secondary py-1 px-2.5 d-inline-flex align-items-center gap-1 me-1" title="Kirim Email Resmi">
+                  <i class="bi bi-envelope-fill"></i>
+                  <span class="small fw-semibold">Email</span>
+                </a>
+              ` : ''}
+              <button type="button" class="btn btn-sm btn-primary py-1 px-2.5 d-inline-flex align-items-center gap-1" onclick="viewLeadDetail(${l.id})">
                 <i class="bi bi-pencil-square"></i>
                 <span>Kelola</span>
               </button>
@@ -314,20 +316,24 @@ require_once __DIR__ . '/includes/header.php';
     document.getElementById('mLeadAssigned').value = l.assigned_to || '';
     document.getElementById('mLeadNotes').value = l.admin_notes || '';
 
-    // Set WhatsApp link
-    const cleanPhone = String(l.phone || '').replace(/\D/g, '');
-    const waText = encodeURIComponent(`Halo Bapak/Ibu ${l.full_name}, kami dari tim PT Montana Global Investama menindaklanjuti permintaan konsultasi investasi proyek yang telah diajukan.`);
-    document.getElementById('mLeadWaBtn').href = `https://wa.me/${cleanPhone}?text=${waText}`;
+    // Set Email link
+    const emailSubject = encodeURIComponent(`Tindak Lanjut Konsultasi Investasi Proyek — PT Montana Global Investama`);
+    const emailBtn = document.getElementById('mLeadEmailBtn');
+    if (l.email) {
+      emailBtn.href = `mailto:${l.email}?subject=${emailSubject}`;
+      emailBtn.classList.remove('disabled');
+    } else {
+      emailBtn.href = '#';
+      emailBtn.classList.add('disabled');
+    }
 
     const grid = document.getElementById('mLeadGrid');
     grid.innerHTML = `
       <div class="col-md-6">
-        <small class="text-muted d-block">Nomor WhatsApp</small>
-        <strong class="font-monospace text-primary fs-6">+${cleanPhone}</strong>
-      </div>
-      <div class="col-md-6">
-        <small class="text-muted d-block">Alamat Email</small>
-        <strong>${l.email || '-'}</strong>
+        <small class="text-muted d-block">Alamat Email Resmi</small>
+        <a href="mailto:${l.email || ''}" class="fs-6 fw-bold text-primary text-decoration-none">
+          <i class="bi bi-envelope me-1"></i>${l.email || '-'}
+        </a>
       </div>
       <div class="col-md-6">
         <small class="text-muted d-block">Kota Domisili</small>
@@ -335,7 +341,11 @@ require_once __DIR__ . '/includes/header.php';
       </div>
       <div class="col-md-6">
         <small class="text-muted d-block">Rencana Nominal Penempatan Modal</small>
-        <strong class="text-success">${l.investment_range || '-'}</strong>
+        <strong class="text-success fs-6">${l.investment_range || '-'}</strong>
+      </div>
+      <div class="col-md-6">
+        <small class="text-muted d-block">Kategori Calon Investor</small>
+        <strong>${isCorp ? 'Perusahaan / Korporasi' : 'Perorangan / Individu'}</strong>
       </div>
       ${isCorp ? `
         <div class="col-md-6">

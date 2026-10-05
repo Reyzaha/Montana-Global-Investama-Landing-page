@@ -58,8 +58,8 @@
       flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--navy); color: var(--gold-2);
       font-weight: 800; font-size: .8rem; display: inline-flex; align-items: center; justify-content: center;
     }
-    .btn-wa { background: #25D366; color: #fff; border-radius: 14px; font-weight: 800; padding: .95rem 1rem; }
-    .btn-wa:hover { background: #1EBE5B; color: #fff; }
+    .btn-navy { background: var(--navy); color: #fff; border-radius: 14px; font-weight: 700; padding: .85rem 1rem; border: none; }
+    .btn-navy:hover { background: #142563; color: #fff; }
     .btn-ghost { border: 1.5px solid var(--line); border-radius: 14px; font-weight: 700; color: var(--ink); padding: .85rem 1rem; }
     .btn-ghost:hover { border-color: var(--gold); color: var(--ink); background: #FBF6EA; }
     @media (prefers-reduced-motion: reduce) { .ty-card, .check::after { animation: none; } }
@@ -75,23 +75,22 @@
     <div class="ty-card text-center">
       <div class="check" aria-hidden="true"><i class="bi bi-check-lg"></i></div>
       <h1 class="h2 fw-bold mb-2" id="tyTitle">Terima Kasih!</h1>
-      <p class="text-secondary mb-4" id="tySub">Permintaan konsultasi Anda sudah kami terima. Tim investasi kami akan menghubungi Anda via WhatsApp pada jam kerja.</p>
+      <p class="text-secondary mb-4" id="tySub">Permintaan konsultasi Anda telah berhasil kami terima. Tim Investor Relations PT Montana Global Investama akan mempelajari pengajuan Anda dan mengirimkan prospektus resmi serta konfirmasi jadwal melalui Email.</p>
 
       <div class="summary text-start mb-4 d-none" id="tySummary"></div>
 
       <div class="d-grid gap-2 mb-4">
-        <a href="#" class="btn btn-wa d-none" id="tyWaBtn" target="_blank" rel="noopener">
-          <i class="bi bi-whatsapp me-1"></i> Percepat: Chat Tim Kami Sekarang
+        <a href="index.html" class="btn btn-navy">
+          <i class="bi bi-arrow-left me-1"></i> Kembali ke Beranda &amp; Profil Perusahaan
         </a>
-        <a href="index.html" class="btn btn-ghost">Pelajari Profil Perusahaan</a>
       </div>
 
       <div class="text-start">
-        <h2 class="h6 fw-bold mb-3">Langkah selanjutnya</h2>
+        <h2 class="h6 fw-bold mb-3">Langkah selanjutnya:</h2>
         <ul class="list-unstyled next mb-0">
-          <li><span class="n">1</span><span>Tim kami menghubungi Anda untuk memahami kebutuhan dan tujuan investasi.</span></li>
-          <li><span class="n">2</span><span>Presentasi skema proyek, simulasi, dan profil risiko secara terbuka.</span></li>
-          <li><span class="n">3</span><span>Jadwalkan meeting di kantor BSD dan site visit ke workshop Kebumen.</span></li>
+          <li><span class="n">1</span><span>Tim Investor Relations memverifikasi kebutuhan dan alokasi modal proyek.</span></li>
+          <li><span class="n">2</span><span>Pengiriman dokumen prospektus, skema bagi hasil, dan legalitas fisik via email resmi.</span></li>
+          <li><span class="n">3</span><span>Jadwal diskusi mendalam di kantor pusat BSD atau kunjungan fisik ke workshop Kebumen.</span></li>
         </ul>
       </div>
     </div>
@@ -116,11 +115,12 @@
         const first = (lead.name || '').split(' ')[0];
         if (first) document.getElementById('tyTitle').textContent = 'Terima Kasih, ' + first + '!';
         if (lead.duplicate) {
-          document.getElementById('tySub').textContent = 'Data Anda sudah kami terima sebelumnya. Tim investasi kami akan segera menghubungi Anda via WhatsApp.';
+          document.getElementById('tySub').textContent = 'Data pengajuan Anda sudah kami terima sebelumnya. Tim kami akan segera meninjau dan mengirimkan balasan melalui Email.';
         }
         const rows = [['Kategori', lead.type === 'perusahaan' ? 'Perusahaan' : 'Perorangan']];
         if (lead.company) rows.push(['Perusahaan', lead.company]);
         rows.push([lead.type === 'perusahaan' ? 'PIC' : 'Nama', lead.name]);
+        if (lead.email) rows.push(['Email', lead.email]);
         if (lead.range) rows.push(['Rencana nominal', lead.range]);
         const box = document.getElementById('tySummary');
         box.innerHTML = rows.map(([k, v]) => `<div class="row-i"><span>${esc(k)}</span><span>${esc(v)}</span></div>`).join('');
@@ -130,22 +130,7 @@
       // Konversi hanya dikirim jika benar-benar datang dari submit form (bukan refresh / akses langsung)
       const fresh = lead && lead.at && (Date.now() - lead.at) < 30 * 60 * 1000 && !lead.converted && !lead.duplicate;
 
-      MGILead.init({ floatingWA: false }).then((cfg) => {
-        if (cfg && cfg.whatsapp_number) {
-          let msg = 'Halo tim Montana Global Investama, saya baru saja mengisi form konsultasi';
-          if (lead) {
-            msg += lead.type === 'perusahaan'
-              ? `. Saya ${lead.name} dari ${lead.company}`
-              : `. Nama saya ${lead.name}`;
-            if (lead.range) msg += `, rencana nominal ${lead.range}`;
-          }
-          msg += '. Mohon informasi lebih lanjut.';
-          const btn = document.getElementById('tyWaBtn');
-          btn.href = MGILead.waLink(cfg.whatsapp_number, msg);
-          btn.classList.remove('d-none');
-          btn.addEventListener('click', () => MGILead.trackEvent('whatsapp_click', { location: 'thank_you' }));
-        }
-
+      MGILead.init().then((cfg) => {
         if (fresh) {
           // beri waktu gtag.js termuat
           const tryTrack = (n) => {

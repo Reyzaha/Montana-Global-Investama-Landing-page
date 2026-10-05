@@ -24,7 +24,6 @@ if ($method === 'GET') {
 
     sendJsonResponse([
         'csrf_token'                  => getCsrfToken(),
-        'whatsapp_number'             => normalizeIndonesianPhone($config['lead_whatsapp_number']) ?? '',
         'google_ads_id'               => (preg_match('/^AW-\d+$/', $config['google_ads_id']) ? $config['google_ads_id'] : 'AW-18495194532'),
         'google_ads_conversion_label' => preg_replace('/[^A-Za-z0-9_\-]/', '', $config['google_ads_conversion_label']),
         'investment_ranges'           => LEAD_INVESTMENT_RANGES,
@@ -50,7 +49,7 @@ if ($method === 'POST') {
 
     // 3. Rate limit: maksimal 5 pengiriman per jam per sesi/IP
     if (!checkRateLimit('lead_submit', 5, 3600)) {
-        sendJsonError('Terlalu banyak pengiriman. Silakan hubungi kami langsung via WhatsApp.', 429);
+        sendJsonError('Terlalu banyak pengiriman. Silakan tunggu beberapa saat.', 429);
     }
 
     // 4. Validasi (field berbeda untuk Perorangan vs Perusahaan, seperti register.html)
@@ -58,7 +57,6 @@ if ($method === 'POST') {
     $accountType = ($input['account_type'] ?? 'perorangan') === 'perusahaan' ? 'perusahaan' : 'perorangan';
     $isCorp   = $accountType === 'perusahaan';
     $fullName = cleanLeadText($input['full_name'] ?? null, 120);
-    $phone    = normalizeIndonesianPhone((string)($input['phone'] ?? ''));
     $emailRaw = trim((string)($input['email'] ?? ''));
     $email    = $emailRaw !== '' ? filter_var($emailRaw, FILTER_VALIDATE_EMAIL) : null;
     $city     = cleanLeadText($input['city'] ?? null, 100);
@@ -72,11 +70,12 @@ if ($method === 'POST') {
     if (!$fullName || mb_strlen($fullName) < 3) {
         $errors['full_name'] = $isCorp ? 'Nama PIC minimal 3 karakter.' : 'Nama minimal 3 karakter.';
     }
-    if (!$phone) $errors['phone'] = 'Nomor WhatsApp tidak valid. Contoh: 0812 3456 7890';
-    if ($emailRaw !== '' && !$email) $errors['email'] = 'Format email tidak valid.';
+    if (!$email) {
+        $errors['email'] = 'Alamat email aktif wajib diisi dengan format yang benar.';
+    }
     if (!$city || mb_strlen($city) < 2) $errors['city'] = 'Kota domisili wajib diisi.';
     if (!in_array($range, LEAD_INVESTMENT_RANGES, true)) $errors['investment_range'] = 'Pilih rencana nominal investasi.';
-    if (!$consent) $errors['consent'] = 'Persetujuan dihubungi wajib dicentang.';
+    if (!$consent) $errors['consent'] = 'Persetujuan wajib dicentang.';
 
     if ($isCorp) {
         if (!$businessName || mb_strlen($businessName) < 2) $errors['business_name'] = 'Nama perusahaan wajib diisi.';
@@ -93,19 +92,19 @@ if ($method === 'POST') {
     try {
         $db = getDB();
 
-        // 5. Cegah duplikat: nomor sama dalam 24 jam terakhir → kembalikan lead lama
-        $stmtDup = $db->prepare("SELECT id FROM leads WHERE phone = ? AND created_at >= (NOW() - INTERVAL 1 DAY) ORDER BY id DESC LIMIT 1");
-        $stmtDup->execute([$phone]);
+        // 5. Cegah duplikat: email sama dalam 24 jam terakhir → kembalikan lead lama
+        $stmtDup = $db->prepare("SELECT id FROM leads WHERE email = ? AND created_at >= (NOW() - INTERVAL 1 DAY) ORDER BY id DESC LIMIT 1");
+        $stmtDup->execute([$email]);
         $existingId = $stmtDup->fetchColumn();
         if ($existingId) {
-            sendJsonResponse(['lead_id' => (int)$existingId, 'duplicate' => true], 200, 'Data Anda sudah kami terima sebelumnya. Tim kami akan segera menghubungi Anda.');
+            sendJsonResponse(['lead_id' => (int)$existingId, 'duplicate' => true], 200, 'Data konsultasi Anda sudah kami terima sebelumnya. Tim kami akan segera meninjau dan menghubungi via email.');
         }
 
         $lead = [
             'account_type'     => $accountType,
             'full_name'        => $fullName,
-            'phone'            => $phone,
-            'email'            => $email ? mb_substr($email, 0, 150) : null,
+            'phone'            => null,
+            'email'            => mb_substr($email, 0, 150),
             'business_name'    => $businessName,
             'legal_entity'     => $legalEntity,
             'pic_position'     => $picPosition,
@@ -133,10 +132,10 @@ if ($method === 'POST') {
         recordFailedAttempt('lead_submit', 3600); // hitung kuota pengiriman
         notifyNewLead($db, $lead);
 
-        sendJsonResponse(['lead_id' => $leadId], 201, 'Terima kasih! Tim kami akan menghubungi Anda via WhatsApp.');
+        sendJsonResponse(['lead_id' => $leadId], 201, 'Terima kasih! Permintaan konsultasi Anda telah kami terima dan tim kami akan menghubungi via email.');
 
     } catch (Throwable $e) {
-        sendJsonException($e, 'Data belum berhasil terkirim. Silakan coba lagi atau hubungi kami via WhatsApp.');
+        sendJsonException($e, 'Data belum berhasil terkirim. Silakan coba lagi.');
     }
 }
 

@@ -36,9 +36,9 @@ try {
             $params[] = $type;
         }
         if ($search !== '') {
-            $where .= ' AND (full_name LIKE ? OR phone LIKE ? OR email LIKE ? OR business_name LIKE ? OR city LIKE ? OR utm_campaign LIKE ? OR utm_term LIKE ?)';
+            $where .= ' AND (full_name LIKE ? OR email LIKE ? OR business_name LIKE ? OR city LIKE ? OR utm_campaign LIKE ? OR utm_term LIKE ?)';
             $term = '%' . $search . '%';
-            array_push($params, $term, $term, $term, $term, $term, $term, $term);
+            array_push($params, $term, $term, $term, $term, $term, $term);
         }
         if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $from)) {
             $where .= ' AND created_at >= ?';
@@ -57,16 +57,16 @@ try {
         if (($_GET['export'] ?? '') === 'csv') {
             while (ob_get_level() > 0) ob_end_clean();
             header('Content-Type: text/csv; charset=utf-8');
-            header('Content-Disposition: attachment; filename="leads-mgi-' . date('Ymd-His') . '.csv"');
+            header('Content-Disposition: attachment; filename="calon-investor-mgi-' . date('Ymd-His') . '.csv"');
             $out = fopen('php://output', 'w');
             fwrite($out, "\xEF\xBB\xBF"); // BOM agar Excel membaca UTF-8
-            fputcsv($out, ['ID', 'Tanggal', 'Kategori', 'Nama / PIC', 'Jabatan PIC', 'Perusahaan', 'Badan Hukum', 'WhatsApp', 'Email', 'Kota', 'Rencana Nominal', 'Status', 'PIC Sales', 'Catatan',
+            fputcsv($out, ['ID', 'Tanggal', 'Kategori', 'Nama / PIC', 'Jabatan PIC', 'Perusahaan', 'Badan Hukum', 'Email Resmi', 'Kota Domisili', 'Rencana Nominal', 'Status', 'PIC Sales', 'Catatan Admin',
                 'UTM Source', 'UTM Medium', 'UTM Campaign', 'UTM Term', 'GCLID', 'Landing Page']);
             foreach ($leads as $l) {
                 fputcsv($out, [
                     $l['id'], $l['created_at'], LEAD_ACCOUNT_TYPES[$l['account_type']] ?? $l['account_type'],
                     $l['full_name'], $l['pic_position'], $l['business_name'], $l['legal_entity'],
-                    '+' . $l['phone'], $l['email'], $l['city'], $l['investment_range'],
+                    $l['email'], $l['city'], $l['investment_range'],
                     LEAD_STATUSES[$l['status']] ?? $l['status'], $l['assigned_to'], $l['admin_notes'],
                     $l['utm_source'], $l['utm_medium'], $l['utm_campaign'], $l['utm_term'], $l['gclid'], $l['landing_page'],
                 ]);

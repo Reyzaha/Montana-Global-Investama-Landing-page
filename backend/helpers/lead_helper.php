@@ -36,7 +36,6 @@ const LEAD_LEGAL_ENTITIES = ['Perseroan Terbatas (PT)', 'Persekutuan Komanditer 
 
 // Setting keys yang aman diekspos ke publik (JANGAN masukkan token rahasia di sini).
 const LEAD_PUBLIC_SETTING_KEYS = [
-    'lead_whatsapp_number',
     'google_ads_id',
     'google_ads_conversion_label',
 ];
@@ -110,15 +109,12 @@ function notifyNewLead(PDO $db, array $lead): void {
         $lines[] = 'Nama     : ' . $lead['full_name'];
     }
     array_push($lines,
-        'WhatsApp : +' . $lead['phone'],
         'Email    : ' . ($lead['email'] ?? '-'),
         'Kota     : ' . ($lead['city'] ?? '-'),
         'Nominal  : ' . ($lead['investment_range'] ?? '-'),
         'Sumber   : ' . ($lead['utm_source'] ?? ($lead['gclid'] ? 'google_ads' : 'langsung')),
         'Kampanye : ' . ($lead['utm_campaign'] ?? '-'),
-        'Keyword  : ' . ($lead['utm_term'] ?? '-'),
-        '',
-        'Chat langsung: https://wa.me/' . $lead['phone']
+        'Keyword  : ' . ($lead['utm_term'] ?? '-')
     );
     $text = implode("\n", $lines);
 

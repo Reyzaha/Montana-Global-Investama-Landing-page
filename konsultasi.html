@@ -296,9 +296,9 @@
       <a href="index.html" class="lp-logo" aria-label="Beranda PT Montana Global Investama">
         <img src="assets/img/mgi-official-logo.png" alt="PT Montana Global Investama" height="32">
       </a>
-      <a href="#" id="topWaBtn" class="btn btn-wa-top d-none" target="_blank" rel="noopener">
-        <i class="bi bi-whatsapp me-1"></i> <span class="d-none d-sm-inline">Chat </span>WhatsApp
-      </a>
+      <span class="badge bg-light text-dark border px-3 py-2 fw-semibold">
+        <i class="bi bi-shield-lock-fill text-success me-1"></i> Layanan Resmi Investor
+      </span>
     </div>
   </header>
 
@@ -336,7 +336,7 @@
                 <span class="lp-secure"><i class="bi bi-lock-fill"></i> Data aman</span>
               </div>
               <h2 class="mt-2 mb-1">Jadwalkan Konsultasi</h2>
-              <p class="small text-secondary mb-3">Isi data singkat di bawah. Tim kami akan menghubungi Anda via WhatsApp pada jam kerja.</p>
+              <p class="small text-secondary mb-3">Isi formulir singkat di bawah. Tim Investor Relations kami akan mempelajari kebutuhan investasi Anda dan mengirimkan prospektus resmi melalui Email.</p>
 
               <div class="alert alert-danger alert-lp" id="formAlert" role="alert"></div>
 
@@ -391,21 +391,13 @@
                     <div class="field-error" data-for="full_name"></div>
                   </div>
                   <div class="col-sm-6">
-                    <label for="phone" class="form-label" id="phoneLabel">No. WhatsApp</label>
-                    <div class="input-group" id="phoneGroup">
-                      <span class="input-group-text">+62</span>
-                      <input type="tel" class="form-control" id="phone" name="phone" placeholder="812 3456 7890" inputmode="tel" autocomplete="tel-national" maxlength="18" required>
-                    </div>
-                    <div class="field-error" data-for="phone"></div>
-                  </div>
-                  <div class="col-sm-6">
                     <label for="city" class="form-label">Kota Domisili</label>
                     <input type="text" class="form-control" id="city" name="city" placeholder="Contoh: Jakarta" autocomplete="address-level2" maxlength="100" required>
                     <div class="field-error" data-for="city"></div>
                   </div>
-                  <div class="col-12">
-                    <label for="email" class="form-label">Email <span class="opt">(opsional)</span></label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="nama@email.com" autocomplete="email" maxlength="150">
+                  <div class="col-sm-6">
+                    <label for="email" class="form-label" id="emailLabel">Alamat Email Resmi</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="nama@perusahaan.com" autocomplete="email" maxlength="150" required>
                     <div class="field-error" data-for="email"></div>
                   </div>
                   <div class="col-12">
@@ -426,8 +418,7 @@
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox" id="consent" name="consent" required>
                       <label class="form-check-label lp-consent" for="consent">
-                        Saya setuju dihubungi oleh tim PT Montana Global Investama via WhatsApp/telepon dan
-                        menyetujui <a href="kebijakan-privasi.html" target="_blank" rel="noopener">Kebijakan Privasi</a>.
+                        Saya setuju data ini diproses oleh tim PT Montana Global Investama untuk penyampaian prospektus resmi &amp; jadwal konsultasi, serta menyetujui <a href="kebijakan-privasi.html" target="_blank" rel="noopener">Kebijakan Privasi</a>.
                       </label>
                     </div>
                     <div class="field-error" data-for="consent"></div>
@@ -437,7 +428,7 @@
                     <button type="submit" class="btn btn-submit" id="submitBtn">
                       <span class="btn-label">Jadwalkan Konsultasi Gratis <i class="bi bi-arrow-right ms-1"></i></span>
                     </button>
-                    <p class="text-center lp-secure mt-2 mb-0">Respons pada jam kerja: Senin–Jumat, 08.00–17.00 WIB</p>
+                    <p class="text-center lp-secure mt-2 mb-0">Tanggapan resmi dikirimkan via email pada jam kerja: Senin–Jumat, 08.00–17.00 WIB</p>
                   </div>
                 </div>
               </form>
@@ -509,9 +500,9 @@
           if (!isCorp) clearError(el.name);
         });
         document.getElementById('fullNameLabel').textContent = isCorp ? 'Nama PIC (Penanggung Jawab)' : 'Nama Lengkap';
-        document.getElementById('fullName').placeholder = isCorp ? 'Nama perwakilan perusahaan' : 'Contoh: Budi Pratama';
-        document.getElementById('phoneLabel').textContent = isCorp ? 'No. WhatsApp PIC' : 'No. WhatsApp';
-        document.getElementById('email').placeholder = isCorp ? 'nama@perusahaan.com' : 'nama@email.com';
+        document.getElementById('fullName').placeholder = isCorp ? 'Nama perwakilan resmi perusahaan' : 'Contoh: Budi Pratama';
+        document.getElementById('emailLabel').textContent = isCorp ? 'Alamat Email Resmi Perusahaan' : 'Alamat Email Resmi';
+        document.getElementById('email').placeholder = isCorp ? 'pic@perusahaan.com' : 'nama@email.com';
         if (isCorp) setTimeout(() => document.getElementById('businessName').focus({ preventScroll: true }), 200);
       }
       typeButtons.forEach((btn) => {
@@ -529,8 +520,8 @@
       const urlType = new URLSearchParams(location.search).get('tipe');
       setType(urlType === 'perusahaan' ? 'perusahaan' : 'perorangan');
 
-      // ----- Konfigurasi backend (CSRF, WA, Google Ads) -----
-      MGILead.init({ waMessage: 'Halo tim Montana Global Investama, saya tertarik konsultasi investasi alat berat.' })
+      // ----- Konfigurasi backend (CSRF, Google Ads) -----
+      MGILead.init()
         .then((cfg) => {
           config = cfg || {};
           csrfToken = config.csrf_token || '';
@@ -540,15 +531,6 @@
           if (Array.isArray(config.legal_entities) && config.legal_entities.length) {
             fillSelect(document.getElementById('legalEntity'), config.legal_entities);
           }
-          if (config.whatsapp_number) {
-            const link = MGILead.waLink(config.whatsapp_number, 'Halo tim Montana Global Investama, saya tertarik konsultasi investasi alat berat.');
-            ['topWaBtn', 'bottomWaBtn'].forEach((id) => {
-              const el = document.getElementById(id);
-              el.href = link;
-              el.classList.remove('d-none');
-              el.addEventListener('click', () => MGILead.trackEvent('whatsapp_click', { location: id }));
-            });
-          }
         });
 
       // ----- Validasi -----
@@ -556,25 +538,16 @@
         const el = form.querySelector(`[name="${name}"]`);
         const err = form.querySelector(`.field-error[data-for="${name}"]`);
         if (el) el.classList.add('is-invalid');
-        if (name === 'phone') document.getElementById('phoneGroup').classList.add('is-invalid-group');
         if (err) { err.textContent = msg; err.style.display = 'block'; }
       }
       function clearError(name) {
         const el = form.querySelector(`[name="${name}"]`);
         const err = form.querySelector(`.field-error[data-for="${name}"]`);
         if (el) el.classList.remove('is-invalid');
-        if (name === 'phone') document.getElementById('phoneGroup').classList.remove('is-invalid-group');
         if (err) { err.textContent = ''; err.style.display = 'none'; }
       }
       form.addEventListener('input', (e) => { if (e.target.name) clearError(e.target.name); });
       form.addEventListener('change', (e) => { if (e.target.name) clearError(e.target.name); });
-
-      function normalizePhone(v) {
-        let d = (v || '').replace(/\D/g, '');
-        if (d.startsWith('62')) d = d.slice(2);
-        if (d.startsWith('0')) d = d.slice(1);
-        return d;
-      }
 
       function validate(data) {
         const errs = {};
@@ -585,9 +558,8 @@
           if (!data.pic_position) errs.pic_position = 'Jabatan PIC wajib diisi.';
         }
         if (!data.full_name || data.full_name.length < 3) errs.full_name = isCorp ? 'Nama PIC minimal 3 karakter.' : 'Nama minimal 3 karakter.';
-        if (!/^8\d{7,12}$/.test(normalizePhone(data.phone))) errs.phone = 'Nomor WhatsApp tidak valid. Contoh: 812 3456 7890';
         if (!data.city || data.city.length < 2) errs.city = 'Kota domisili wajib diisi.';
-        if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.email)) errs.email = 'Format email tidak valid.';
+        if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.email)) errs.email = 'Format email tidak valid (contoh: nama@domain.com).';
         if (!data.investment_range) errs.investment_range = 'Pilih rencana nominal investasi.';
         if (!data.consent) errs.consent = 'Mohon centang persetujuan untuk melanjutkan.';
         return errs;
@@ -605,15 +577,13 @@
         alertBox.style.display = 'none';
         form.querySelectorAll('.field-error').forEach((el) => { el.style.display = 'none'; });
         form.querySelectorAll('.is-invalid').forEach((el) => el.classList.remove('is-invalid'));
-        document.getElementById('phoneGroup').classList.remove('is-invalid-group');
 
         const isCorp = accountTypeInput.value === 'perusahaan';
         const data = {
           account_type: accountTypeInput.value,
           full_name: form.full_name.value.trim(),
-          phone: form.phone.value.trim(),
-          city: form.city.value.trim(),
           email: form.email.value.trim(),
+          city: form.city.value.trim(),
           investment_range: form.investment_range.value,
           consent: form.consent.checked,
           website: form.website.value,
@@ -630,7 +600,6 @@
           return;
         }
 
-        data.phone = '0' + normalizePhone(data.phone);
         data.csrf_token = csrfToken;
         data.attribution = MGILead.getAttribution() || {};
 
@@ -650,6 +619,7 @@
                 id: json.data && json.data.lead_id,
                 name: data.full_name,
                 company: isCorp ? data.business_name : '',
+                email: data.email,
                 type: data.account_type,
                 range: data.investment_range,
                 duplicate: !!(json.data && json.data.duplicate),
@@ -667,12 +637,12 @@
           alertBox.style.display = 'block';
           if (json && json.status === 403) {
             // CSRF kedaluwarsa: ambil token baru agar pengguna cukup klik kirim ulang
-            const cfg = await fetch('api/leads.php?action=config', { credentials: 'same-origin' }).then((r) => r.json()).catch(() => null);
+            const cfg = await fetch('api/leads.php', { credentials: 'same-origin' }).then((r) => r.json()).catch(() => null);
             if (cfg && cfg.data) csrfToken = cfg.data.csrf_token || csrfToken;
             alertBox.textContent = 'Sesi diperbarui. Silakan klik tombol kirim sekali lagi.';
           }
         } catch (err) {
-          alertBox.textContent = 'Koneksi terputus. Periksa internet Anda lalu coba lagi' + (config.whatsapp_number ? ', atau hubungi kami via WhatsApp.' : '.');
+          alertBox.textContent = 'Koneksi terputus. Periksa jaringan internet Anda lalu coba lagi.';
           alertBox.style.display = 'block';
         } finally {
           setLoading(false);
