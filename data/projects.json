@@ -1364,7 +1364,7 @@
             "city_icon_img": "assets/img/city-jkt-jabar.png",
             "title": "Dealer Sumatra",
             "category": "Pengadaan & Perputaran Unit Alat Berat",
-            "image": "assets/img/project-sumatra.jpg",
+            "image": "assets/img/project-denpasar.jpg",
             "funding": {
                 "collected": 0,
                 "target": 7000000000,
@@ -1608,7 +1608,7 @@
             "city_icon_img": "assets/img/city-jkt-jabar.png",
             "title": "Dealer NTT",
             "category": "Pengadaan & Perputaran Unit Alat Berat",
-            "image": "assets/img/project-ntt.jpg",
+            "image": "assets/img/project-kebumen.jpg",
             "funding": {
                 "collected": 0,
                 "target": 5000000000,
