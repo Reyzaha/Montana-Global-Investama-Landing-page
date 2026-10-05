@@ -8,11 +8,12 @@
 require_once __DIR__ . '/../config/db.php';
 
 // Pilihan rentang rencana nominal investasi (ubah di sini bila perlu).
+// Disesuaikan dengan minimum paket proyek saat ini (Rp 5 Miliar).
 const LEAD_INVESTMENT_RANGES = [
-    '< Rp 500 Juta',
-    'Rp 500 Juta – 1 Miliar',
-    'Rp 1 – 5 Miliar',
-    '> Rp 5 Miliar',
+    '< Rp 5 Miliar',
+    'Rp 5 – 10 Miliar',
+    'Rp 10 – 25 Miliar',
+    '> Rp 25 Miliar',
     'Belum tahu, ingin diskusi dulu',
 ];
 
@@ -24,6 +25,14 @@ const LEAD_STATUSES = [
     'deal'       => 'Deal',
     'lost'       => 'Tidak Lanjut',
 ];
+
+const LEAD_ACCOUNT_TYPES = [
+    'perorangan' => 'Perorangan',
+    'perusahaan' => 'Perusahaan',
+];
+
+// Selaras dengan pilihan badan hukum di register.html
+const LEAD_LEGAL_ENTITIES = ['Perseroan Terbatas (PT)', 'Persekutuan Komanditer (CV)', 'PT Perorangan', 'Usaha Dagang (UD)', 'Tidak ada'];
 
 // Setting keys yang aman diekspos ke publik (JANGAN masukkan token rahasia di sini).
 const LEAD_PUBLIC_SETTING_KEYS = [
@@ -88,19 +97,29 @@ function cleanLeadText(?string $value, int $maxLen): ?string {
 function notifyNewLead(PDO $db, array $lead): void {
     $s = getLeadSettings($db, ['lead_notify_email', 'telegram_bot_token', 'telegram_chat_id']);
 
+    $isCorp = ($lead['account_type'] ?? 'perorangan') === 'perusahaan';
     $lines = [
         'Lead baru dari Landing Page Konsultasi',
         '--------------------------------------',
-        'Nama     : ' . $lead['full_name'],
+        'Kategori : ' . ($isCorp ? 'PERUSAHAAN' : 'Perorangan'),
+    ];
+    if ($isCorp) {
+        $lines[] = 'Perusahaan: ' . trim(($lead['legal_entity'] ?? '') . ' ' . ($lead['business_name'] ?? ''));
+        $lines[] = 'PIC      : ' . $lead['full_name'] . (!empty($lead['pic_position']) ? ' (' . $lead['pic_position'] . ')' : '');
+    } else {
+        $lines[] = 'Nama     : ' . $lead['full_name'];
+    }
+    array_push($lines,
         'WhatsApp : +' . $lead['phone'],
+        'Email    : ' . ($lead['email'] ?? '-'),
         'Kota     : ' . ($lead['city'] ?? '-'),
         'Nominal  : ' . ($lead['investment_range'] ?? '-'),
         'Sumber   : ' . ($lead['utm_source'] ?? ($lead['gclid'] ? 'google_ads' : 'langsung')),
         'Kampanye : ' . ($lead['utm_campaign'] ?? '-'),
         'Keyword  : ' . ($lead['utm_term'] ?? '-'),
         '',
-        'Chat langsung: https://wa.me/' . $lead['phone'],
-    ];
+        'Chat langsung: https://wa.me/' . $lead['phone']
+    );
     $text = implode("\n", $lines);
 
     // 1. Email

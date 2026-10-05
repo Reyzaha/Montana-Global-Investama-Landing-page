@@ -172,8 +172,13 @@ class Database {
             $db->exec("
                 CREATE TABLE IF NOT EXISTS `leads` (
                     `id` INT AUTO_INCREMENT PRIMARY KEY,
+                    `account_type` ENUM('perorangan','perusahaan') NOT NULL DEFAULT 'perorangan',
                     `full_name` VARCHAR(120) NOT NULL,
                     `phone` VARCHAR(20) NOT NULL,
+                    `email` VARCHAR(150) NULL,
+                    `business_name` VARCHAR(150) NULL,
+                    `legal_entity` VARCHAR(50) NULL,
+                    `pic_position` VARCHAR(100) NULL,
                     `city` VARCHAR(100) NULL,
                     `investment_range` VARCHAR(60) NULL,
                     `status` ENUM('new','contacted','meeting','site_visit','deal','lost') NOT NULL DEFAULT 'new',
@@ -200,6 +205,21 @@ class Database {
                     INDEX `idx_leads_created` (`created_at`)
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
             ");
+
+            // Tambah kolom Perorangan/Perusahaan bila tabel sudah terlanjur dibuat versi lama
+            $leadCols = [
+                'account_type'  => "ENUM('perorangan','perusahaan') NOT NULL DEFAULT 'perorangan' AFTER `id`",
+                'email'         => "VARCHAR(150) NULL AFTER `phone`",
+                'business_name' => "VARCHAR(150) NULL AFTER `email`",
+                'legal_entity'  => "VARCHAR(50) NULL AFTER `business_name`",
+                'pic_position'  => "VARCHAR(100) NULL AFTER `legal_entity`",
+            ];
+            foreach ($leadCols as $col => $def) {
+                $exists = $db->query("SHOW COLUMNS FROM `leads` LIKE '{$col}'")->fetchAll();
+                if (empty($exists)) {
+                    $db->exec("ALTER TABLE `leads` ADD COLUMN `{$col}` {$def}");
+                }
+            }
         } catch (Throwable $e) {
             error_log("Schema update warning (leads): " . $e->getMessage());
         }

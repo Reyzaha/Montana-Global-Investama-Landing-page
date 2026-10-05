@@ -28,6 +28,7 @@ if ($method === 'GET') {
         'google_ads_id'               => preg_match('/^AW-\d+$/', $config['google_ads_id']) ? $config['google_ads_id'] : '',
         'google_ads_conversion_label' => preg_replace('/[^A-Za-z0-9_\-]/', '', $config['google_ads_conversion_label']),
         'investment_ranges'           => LEAD_INVESTMENT_RANGES,
+        'legal_entities'              => LEAD_LEGAL_ENTITIES,
     ]);
 }
 
@@ -52,19 +53,36 @@ if ($method === 'POST') {
         sendJsonError('Terlalu banyak pengiriman. Silakan hubungi kami langsung via WhatsApp.', 429);
     }
 
-    // 4. Validasi
+    // 4. Validasi (field berbeda untuk Perorangan vs Perusahaan, seperti register.html)
     $errors = [];
+    $accountType = ($input['account_type'] ?? 'perorangan') === 'perusahaan' ? 'perusahaan' : 'perorangan';
+    $isCorp   = $accountType === 'perusahaan';
     $fullName = cleanLeadText($input['full_name'] ?? null, 120);
     $phone    = normalizeIndonesianPhone((string)($input['phone'] ?? ''));
+    $emailRaw = trim((string)($input['email'] ?? ''));
+    $email    = $emailRaw !== '' ? filter_var($emailRaw, FILTER_VALIDATE_EMAIL) : null;
     $city     = cleanLeadText($input['city'] ?? null, 100);
     $range    = (string)($input['investment_range'] ?? '');
     $consent  = filter_var($input['consent'] ?? false, FILTER_VALIDATE_BOOLEAN);
 
-    if (!$fullName || mb_strlen($fullName) < 3) $errors['full_name'] = 'Nama minimal 3 karakter.';
+    $businessName = $isCorp ? cleanLeadText($input['business_name'] ?? null, 150) : null;
+    $legalEntity  = $isCorp ? (string)($input['legal_entity'] ?? '') : null;
+    $picPosition  = $isCorp ? cleanLeadText($input['pic_position'] ?? null, 100) : null;
+
+    if (!$fullName || mb_strlen($fullName) < 3) {
+        $errors['full_name'] = $isCorp ? 'Nama PIC minimal 3 karakter.' : 'Nama minimal 3 karakter.';
+    }
     if (!$phone) $errors['phone'] = 'Nomor WhatsApp tidak valid. Contoh: 0812 3456 7890';
+    if ($emailRaw !== '' && !$email) $errors['email'] = 'Format email tidak valid.';
     if (!$city || mb_strlen($city) < 2) $errors['city'] = 'Kota domisili wajib diisi.';
     if (!in_array($range, LEAD_INVESTMENT_RANGES, true)) $errors['investment_range'] = 'Pilih rencana nominal investasi.';
     if (!$consent) $errors['consent'] = 'Persetujuan dihubungi wajib dicentang.';
+
+    if ($isCorp) {
+        if (!$businessName || mb_strlen($businessName) < 2) $errors['business_name'] = 'Nama perusahaan wajib diisi.';
+        if (!in_array($legalEntity, LEAD_LEGAL_ENTITIES, true)) $errors['legal_entity'] = 'Pilih badan hukum usaha.';
+        if (!$picPosition) $errors['pic_position'] = 'Jabatan PIC wajib diisi.';
+    }
 
     if (!empty($errors)) {
         sendJsonError('Mohon periksa kembali data Anda.', 422, $errors);
@@ -84,8 +102,13 @@ if ($method === 'POST') {
         }
 
         $lead = [
+            'account_type'     => $accountType,
             'full_name'        => $fullName,
             'phone'            => $phone,
+            'email'            => $email ? mb_substr($email, 0, 150) : null,
+            'business_name'    => $businessName,
+            'legal_entity'     => $legalEntity,
+            'pic_position'     => $picPosition,
             'city'             => $city,
             'investment_range' => $range,
             'utm_source'       => cleanLeadText($attr['utm_source'] ?? null, 100),
