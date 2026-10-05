@@ -162,8 +162,8 @@
         <!-- Logo & Branding -->
         <div class="flex items-center gap-3.5">
           <a href="index.html" class="flex items-center gap-3 text-decoration-none group">
-            <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-mgi-navy to-mgi-blue flex items-center justify-center shadow-md shadow-blue-900/10 text-white font-extrabold text-xl tracking-tighter ring-1 ring-white/30 group-hover:scale-105 transition-transform">
-              <span class="text-amber-400">M</span>GI
+            <div class="h-11 px-2.5 py-1.5 rounded-2xl bg-white border border-slate-200/90 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+              <img src="assets/img/mgi-official-logo.png" alt="PT Montana Global Investama Logo" class="h-7 w-auto object-contain">
             </div>
             <div>
               <div class="flex items-center gap-2">
@@ -307,7 +307,7 @@
                 <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> Kuartal Berjalan
               </span>
             </div>
-            <div class="text-3xl sm:text-4xl font-black text-white mt-1 mb-5 tracking-tight" id="heroTotalInvested">
+            <div class="text-3xl sm:text-4xl font-extrabold text-white mt-1 mb-5 tracking-tight" id="heroTotalInvested">
               Rp 0
             </div>
 
@@ -319,11 +319,11 @@
               </div>
               <div class="flex items-center justify-between">
                 <span class="text-slate-300">Dividen Diterima:</span>
-                <span class="font-bold text-cyan-300" id="heroPayoutReceived">Rp 0</span>
+                <span class="font-bold text-white" id="heroPayoutReceived">Rp 0</span>
               </div>
               <div class="flex items-center justify-between">
                 <span class="text-slate-300">Jadwal Dividen Berikutnya:</span>
-                <span class="font-medium text-amber-300" id="heroNextPayout">Belum Ada Proyek Aktif</span>
+                <span class="font-semibold text-amber-300" id="heroNextPayout">Belum Ada Proyek Aktif</span>
               </div>
             </div>
 
@@ -821,61 +821,61 @@
         </div>
 
         
-        <!-- MODULAR NAVIGATION BAR (Based on User Reference) -->
-        <div class="bg-slate-900 rounded-3xl p-4 sm:p-5 shadow-xl border border-slate-800 text-white">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 border-b border-slate-800 pb-3">
+        <!-- MODULAR NAVIGATION BAR (Institutional Private Equity Design) -->
+        <div class="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-slate-200/90 text-slate-800">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 border-b border-slate-100 pb-3.5">
             <div>
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-white/10 text-amber-300 border border-white/10">
-                <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+              <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-slate-100 text-slate-700 border border-slate-200">
+                <i data-lucide="layers" class="w-3.5 h-3.5 text-blue-900"></i>
                 NAVIGASI MODUL RINCI OPERASIONAL &amp; KEUANGAN PROYEK
               </div>
-              <h4 class="text-base sm:text-lg font-extrabold text-white mt-1">
+              <h4 class="text-base sm:text-lg font-extrabold text-slate-900 mt-1 tracking-tight">
                 Pilih Modul Transparansi Proyek
               </h4>
             </div>
-            <span class="text-xs text-slate-400">Pilih modul di bawah untuk rincian data transaksi, mutasi unit &amp; laporan</span>
+            <span class="text-xs text-slate-500">Pilih modul di bawah untuk rincian data transaksi, mutasi unit &amp; laporan</span>
           </div>
 
-          <!-- Buttons Row matching User Request: stock/inventory, pembelian, penjualan, biaya, labarugi, neraca, grafik, rab -->
+          <!-- Buttons Row: stock/inventory, pembelian, penjualan, biaya, labarugi, neraca, grafik, rab -->
           <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5" id="opModuleNavButtons">
             <!-- 1. Stock / Inventory -->
-            <button onclick="switchOperationalModule('inventory')" id="opNavBtn-inventory" class="op-nav-btn py-3 px-3 rounded-2xl bg-blue-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-md active:scale-95 ring-2 ring-blue-400/60 cursor-pointer">
+            <button onclick="switchOperationalModule('inventory')" id="opNavBtn-inventory" class="op-nav-btn py-3 px-3 rounded-2xl bg-blue-900 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-95 ring-2 ring-blue-900/20 cursor-pointer">
               <i data-lucide="boxes" class="w-4 h-4 text-white"></i>
               <span>Stock / Inventory</span>
             </button>
             <!-- 2. Pembelian -->
-            <button onclick="switchOperationalModule('pembelian')" id="opNavBtn-pembelian" class="op-nav-btn py-3 px-3 rounded-2xl bg-slate-800/90 hover:bg-slate-800 text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-95 border border-slate-700/60 cursor-pointer">
-              <i data-lucide="shopping-cart" class="w-4 h-4 text-amber-400"></i>
+            <button onclick="switchOperationalModule('pembelian')" id="opNavBtn-pembelian" class="op-nav-btn py-3 px-3 rounded-2xl bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition-all active:scale-95 border border-slate-200/90 cursor-pointer">
+              <i data-lucide="shopping-cart" class="w-4 h-4 text-amber-600"></i>
               <span>Pembelian</span>
             </button>
             <!-- 3. Penjualan -->
-            <button onclick="switchOperationalModule('penjualan')" id="opNavBtn-penjualan" class="op-nav-btn py-3 px-3 rounded-2xl bg-slate-800/90 hover:bg-slate-800 text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-95 border border-slate-700/60 cursor-pointer">
-              <i data-lucide="trending-up" class="w-4 h-4 text-emerald-400"></i>
+            <button onclick="switchOperationalModule('penjualan')" id="opNavBtn-penjualan" class="op-nav-btn py-3 px-3 rounded-2xl bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition-all active:scale-95 border border-slate-200/90 cursor-pointer">
+              <i data-lucide="trending-up" class="w-4 h-4 text-emerald-600"></i>
               <span>Penjualan</span>
             </button>
             <!-- 4. Biaya -->
-            <button onclick="switchOperationalModule('biaya')" id="opNavBtn-biaya" class="op-nav-btn py-3 px-3 rounded-2xl bg-slate-800/90 hover:bg-slate-800 text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-95 border border-slate-700/60 cursor-pointer">
-              <i data-lucide="wallet" class="w-4 h-4 text-rose-400"></i>
+            <button onclick="switchOperationalModule('biaya')" id="opNavBtn-biaya" class="op-nav-btn py-3 px-3 rounded-2xl bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition-all active:scale-95 border border-slate-200/90 cursor-pointer">
+              <i data-lucide="wallet" class="w-4 h-4 text-rose-600"></i>
               <span>Biaya</span>
             </button>
             <!-- 5. = Laba Rugi (Highlighted Gold Button) -->
-            <button onclick="switchOperationalModule('labarugi')" id="opNavBtn-labarugi" class="op-nav-btn py-3 px-3 rounded-2xl bg-[#C5A059] hover:bg-[#b38f4a] text-slate-950 font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-lg active:scale-95 border border-amber-300 ring-2 ring-amber-400/40 cursor-pointer">
-              <i data-lucide="award" class="w-4 h-4 text-slate-950"></i>
+            <button onclick="switchOperationalModule('labarugi')" id="opNavBtn-labarugi" class="op-nav-btn py-3 px-3 rounded-2xl bg-amber-50 hover:bg-amber-100/80 text-amber-950 font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-xs active:scale-95 border border-amber-300 ring-1 ring-amber-300 cursor-pointer">
+              <i data-lucide="award" class="w-4 h-4 text-amber-700"></i>
               <span>= Laba Rugi</span>
             </button>
             <!-- 6. Neraca -->
-            <button onclick="switchOperationalModule('neraca')" id="opNavBtn-neraca" class="op-nav-btn py-3 px-3 rounded-2xl bg-slate-800/90 hover:bg-slate-800 text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-95 border border-slate-700/60 cursor-pointer">
-              <i data-lucide="scale" class="w-4 h-4 text-indigo-400"></i>
+            <button onclick="switchOperationalModule('neraca')" id="opNavBtn-neraca" class="op-nav-btn py-3 px-3 rounded-2xl bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition-all active:scale-95 border border-slate-200/90 cursor-pointer">
+              <i data-lucide="scale" class="w-4 h-4 text-indigo-600"></i>
               <span>Neraca</span>
             </button>
             <!-- 7. Ikhtisar & 4 Grafik -->
-            <button onclick="switchOperationalModule('overview')" id="opNavBtn-overview" class="op-nav-btn py-3 px-3 rounded-2xl bg-slate-800/90 hover:bg-slate-800 text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-95 border border-slate-700/60 cursor-pointer">
-              <i data-lucide="line-chart" class="w-4 h-4 text-cyan-400"></i>
+            <button onclick="switchOperationalModule('overview')" id="opNavBtn-overview" class="op-nav-btn py-3 px-3 rounded-2xl bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition-all active:scale-95 border border-slate-200/90 cursor-pointer">
+              <i data-lucide="line-chart" class="w-4 h-4 text-cyan-600"></i>
               <span>Ikhtisar</span>
             </button>
             <!-- 8. RAB & Alokasi Modal -->
-            <button onclick="switchOperationalModule('rab')" id="opNavBtn-rab" class="op-nav-btn py-3 px-3 rounded-2xl bg-slate-800/90 hover:bg-slate-800 text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-95 border border-slate-700/60 cursor-pointer">
-              <i data-lucide="calculator" class="w-4 h-4 text-amber-400"></i>
+            <button onclick="switchOperationalModule('rab')" id="opNavBtn-rab" class="op-nav-btn py-3 px-3 rounded-2xl bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition-all active:scale-95 border border-slate-200/90 cursor-pointer">
+              <i data-lucide="calculator" class="w-4 h-4 text-blue-700"></i>
               <span>RAB &amp; Alokasi</span>
             </button>
           </div>
@@ -2277,19 +2277,19 @@
         let tierCardHtml = '';
         if (tier) {
           tierCardHtml = `
-            <!-- Hak Alokasi Unit Fisik & Paket Portofolio -->
-            <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-500/10 via-amber-50/60 to-slate-50 border border-amber-300/80 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xs">
+            <!-- Hak Alokasi Unit Fisik & Paket Portofolio (Executive Institutional Style) -->
+            <div class="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div class="flex items-start gap-3.5">
-                <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-600 text-slate-950 flex items-center justify-center shrink-0 shadow-md">
-                  <i data-lucide="package-check" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 flex items-center justify-center shrink-0 shadow-2xs">
+                  <i data-lucide="package-check" class="w-5 h-5 sm:w-6 sm:h-6 text-amber-700"></i>
                 </div>
                 <div>
                   <div class="flex items-center gap-2 flex-wrap">
-                    <span class="text-[11px] uppercase tracking-wider font-extrabold text-amber-900">Hak Kepemilikan Fisik Unit</span>
-                    <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-400 text-slate-950">${tier.badge || 'Portofolio Terdaftar'}</span>
-                    <span class="text-[11px] font-bold text-slate-600">${tier.porsi_proyek || ''}</span>
+                    <span class="text-[10px] uppercase tracking-wider font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80">Hak Kepemilikan Fisik Unit</span>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-800 border border-slate-200">${tier.badge || 'Portofolio Terdaftar'}</span>
+                    <span class="text-[11px] font-semibold text-slate-500">${tier.porsi_proyek || ''}</span>
                   </div>
-                  <h4 class="text-sm sm:text-base font-extrabold text-slate-900 mt-0.5">${tier.label || 'Paket Kepemilikan Armada'}</h4>
+                  <h4 class="text-sm sm:text-base font-bold text-slate-900 mt-1">${tier.label || 'Paket Kepemilikan Armada'}</h4>
                   <div class="text-xs text-slate-600 mt-1 flex flex-wrap items-center gap-x-4 gap-y-1">
                     <span class="inline-flex items-center gap-1 font-semibold text-slate-800">
                       <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600"></i> ${tier.jaminan_aset || r.allocated_units}
@@ -2297,15 +2297,15 @@
                     <span class="inline-flex items-center gap-1 text-slate-600">
                       <i data-lucide="box" class="w-3.5 h-3.5 text-blue-600"></i> ${tier.container_qty || '-'}
                     </span>
-                    <span class="inline-flex items-center gap-1 font-bold text-amber-800">
-                      <i data-lucide="coins" class="w-3.5 h-3.5 text-amber-600"></i> Est. Profit: ${formatRupiahExact(tier.profit_per_siklus || 0)} / siklus
+                    <span class="inline-flex items-center gap-1 font-bold text-emerald-800">
+                      <i data-lucide="coins" class="w-3.5 h-3.5 text-emerald-600"></i> Est. Profit: ${formatRupiahExact(tier.profit_per_siklus || 0)} / siklus
                     </span>
                   </div>
                 </div>
               </div>
               <div class="shrink-0 flex items-center gap-2">
-                <button onclick="openOperationalDashboard('${pId}', 'rab')" class="w-full md:w-auto px-4 py-2.5 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-600 text-slate-950 flex items-center justify-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer">
-                  <i data-lucide="calculator" class="w-3.5 h-3.5"></i>
+                <button onclick="openOperationalDashboard('${pId}', 'rab')" class="w-full md:w-auto px-4 py-2.5 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white flex items-center justify-center gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer">
+                  <i data-lucide="calculator" class="w-3.5 h-3.5 text-amber-400"></i>
                   <span>Lihat Acuan RAB</span>
                 </button>
               </div>
@@ -2412,11 +2412,11 @@
 
               ${tierCardHtml}
 
-              <!-- Modular Quick Module Access Strip (Styled as User Screenshot) -->
+              <!-- Modular Quick Module Access Strip (Institutional Clean Design) -->
               <div class="pt-2 pb-1">
                 <div class="flex items-center justify-between mb-2">
                   <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                    <i data-lucide="layers" class="w-3.5 h-3.5 text-blue-600"></i>
+                    <i data-lucide="layers" class="w-3.5 h-3.5 text-blue-900"></i>
                     Buka Langsung Modul Rinci:
                   </span>
                   <span class="text-[10px] text-slate-400">Klik modul untuk rincian data transaksi &amp; acuan RAB</span>
@@ -2424,51 +2424,51 @@
                 <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
                   <button 
                     onclick="openOperationalDashboard('${pId}', 'inventory')"
-                    class="py-2.5 px-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold text-center transition flex items-center justify-center gap-1.5 shadow-xs active:scale-95 cursor-pointer border border-slate-700/60"
+                    class="py-2.5 px-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-semibold text-center transition flex items-center justify-center gap-1.5 shadow-2xs active:scale-95 cursor-pointer border border-slate-200/90"
                   >
-                    <i data-lucide="boxes" class="w-3.5 h-3.5 text-blue-400"></i>
+                    <i data-lucide="boxes" class="w-3.5 h-3.5 text-blue-700"></i>
                     <span>Stock / Inventory</span>
                   </button>
                   <button 
                     onclick="openOperationalDashboard('${pId}', 'pembelian')"
-                    class="py-2.5 px-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold text-center transition flex items-center justify-center gap-1.5 shadow-xs active:scale-95 cursor-pointer border border-slate-700/60"
+                    class="py-2.5 px-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-semibold text-center transition flex items-center justify-center gap-1.5 shadow-2xs active:scale-95 cursor-pointer border border-slate-200/90"
                   >
-                    <i data-lucide="shopping-cart" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <i data-lucide="shopping-cart" class="w-3.5 h-3.5 text-amber-600"></i>
                     <span>Pembelian</span>
                   </button>
                   <button 
                     onclick="openOperationalDashboard('${pId}', 'penjualan')"
-                    class="py-2.5 px-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold text-center transition flex items-center justify-center gap-1.5 shadow-xs active:scale-95 cursor-pointer border border-slate-700/60"
+                    class="py-2.5 px-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-semibold text-center transition flex items-center justify-center gap-1.5 shadow-2xs active:scale-95 cursor-pointer border border-slate-200/90"
                   >
-                    <i data-lucide="trending-up" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    <i data-lucide="trending-up" class="w-3.5 h-3.5 text-emerald-600"></i>
                     <span>Penjualan</span>
                   </button>
                   <button 
                     onclick="openOperationalDashboard('${pId}', 'biaya')"
-                    class="py-2.5 px-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold text-center transition flex items-center justify-center gap-1.5 shadow-xs active:scale-95 cursor-pointer border border-slate-700/60"
+                    class="py-2.5 px-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-semibold text-center transition flex items-center justify-center gap-1.5 shadow-2xs active:scale-95 cursor-pointer border border-slate-200/90"
                   >
-                    <i data-lucide="wallet" class="w-3.5 h-3.5 text-rose-400"></i>
+                    <i data-lucide="wallet" class="w-3.5 h-3.5 text-rose-600"></i>
                     <span>Biaya</span>
                   </button>
                   <button 
                     onclick="openOperationalDashboard('${pId}', 'labarugi')"
-                    class="py-2.5 px-2 rounded-xl bg-[#C5A059] hover:bg-[#b38f4a] text-slate-950 font-black text-xs text-center transition flex items-center justify-center gap-1.5 shadow-md active:scale-95 border border-amber-300 cursor-pointer"
+                    class="py-2.5 px-2 rounded-xl bg-amber-50 hover:bg-amber-100/80 text-amber-950 font-black text-xs text-center transition flex items-center justify-center gap-1.5 shadow-xs active:scale-95 border border-amber-300 ring-1 ring-amber-300 cursor-pointer"
                   >
-                    <i data-lucide="award" class="w-3.5 h-3.5 text-slate-950"></i>
+                    <i data-lucide="award" class="w-3.5 h-3.5 text-amber-700"></i>
                     <span>= Laba Rugi</span>
                   </button>
                   <button 
                     onclick="openOperationalDashboard('${pId}', 'neraca')"
-                    class="py-2.5 px-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold text-center transition flex items-center justify-center gap-1.5 shadow-xs active:scale-95 cursor-pointer border border-slate-700/60"
+                    class="py-2.5 px-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-semibold text-center transition flex items-center justify-center gap-1.5 shadow-2xs active:scale-95 cursor-pointer border border-slate-200/90"
                   >
-                    <i data-lucide="scale" class="w-3.5 h-3.5 text-indigo-400"></i>
+                    <i data-lucide="scale" class="w-3.5 h-3.5 text-indigo-600"></i>
                     <span>Neraca</span>
                   </button>
                   <button 
                     onclick="openOperationalDashboard('${pId}', 'rab')"
-                    class="py-2.5 px-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold text-center transition flex items-center justify-center gap-1.5 shadow-xs active:scale-95 cursor-pointer border border-slate-700/60"
+                    class="py-2.5 px-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-semibold text-center transition flex items-center justify-center gap-1.5 shadow-2xs active:scale-95 cursor-pointer border border-slate-200/90"
                   >
-                    <i data-lucide="calculator" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <i data-lucide="calculator" class="w-3.5 h-3.5 text-blue-700"></i>
                     <span>RAB Acuan</span>
                   </button>
                 </div>
@@ -2930,18 +2930,18 @@
       document.querySelectorAll('.op-nav-btn').forEach(btn => {
         const isGold = btn.id === 'opNavBtn-labarugi';
         if (isGold) {
-          btn.className = 'op-nav-btn py-3 px-3 rounded-2xl bg-[#C5A059] hover:bg-[#b38f4a] text-slate-950 font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-md active:scale-95 border border-amber-300 cursor-pointer';
+          btn.className = 'op-nav-btn py-3 px-3 rounded-2xl bg-amber-50 hover:bg-amber-100/80 text-amber-950 font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-xs active:scale-95 border border-amber-300 ring-1 ring-amber-300 cursor-pointer';
         } else {
-          btn.className = 'op-nav-btn py-3 px-3 rounded-2xl bg-slate-800/90 hover:bg-slate-800 text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-95 border border-slate-700/60 cursor-pointer';
+          btn.className = 'op-nav-btn py-3 px-3 rounded-2xl bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition-all active:scale-95 border border-slate-200/90 cursor-pointer';
         }
       });
 
       const activeBtn = document.getElementById('opNavBtn-' + activeOpModuleKey);
       if (activeBtn) {
         if (activeOpModuleKey === 'labarugi') {
-          activeBtn.className = 'op-nav-btn py-3 px-3 rounded-2xl bg-[#C5A059] text-slate-950 font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-xl active:scale-95 border-2 border-white ring-4 ring-amber-400/50 cursor-pointer';
+          activeBtn.className = 'op-nav-btn py-3 px-3 rounded-2xl bg-amber-500 text-slate-950 font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-md active:scale-95 border-2 border-amber-600 ring-2 ring-amber-400/40 cursor-pointer';
         } else {
-          activeBtn.className = 'op-nav-btn py-3 px-3 rounded-2xl bg-blue-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-md active:scale-95 ring-2 ring-blue-400/60 cursor-pointer';
+          activeBtn.className = 'op-nav-btn py-3 px-3 rounded-2xl bg-blue-900 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-95 ring-2 ring-blue-900/20 cursor-pointer';
         }
       }
 
