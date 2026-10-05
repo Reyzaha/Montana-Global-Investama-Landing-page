@@ -51,6 +51,11 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         <span>Kelola Proyek Investasi</span>
       </a>
 
+      <a href="leads.php" class="nav-link <?= $currentPage === 'leads.php' ? 'active' : '' ?>">
+        <i class="bi bi-person-lines-fill"></i>
+        <span>Leads Konsultasi (Iklan)</span>
+      </a>
+
       <a href="investors.php" class="nav-link <?= $currentPage === 'investors.php' ? 'active' : '' ?>">
         <i class="bi bi-people-fill"></i>
         <span>Manajemen Investor</span>

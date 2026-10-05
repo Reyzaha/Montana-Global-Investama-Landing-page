@@ -25,7 +25,7 @@ if ($method === 'GET') {
     sendJsonResponse([
         'csrf_token'                  => getCsrfToken(),
         'whatsapp_number'             => normalizeIndonesianPhone($config['lead_whatsapp_number']) ?? '',
-        'google_ads_id'               => preg_match('/^AW-\d+$/', $config['google_ads_id']) ? $config['google_ads_id'] : '',
+        'google_ads_id'               => (preg_match('/^AW-\d+$/', $config['google_ads_id']) ? $config['google_ads_id'] : 'AW-18495194532'),
         'google_ads_conversion_label' => preg_replace('/[^A-Za-z0-9_\-]/', '', $config['google_ads_conversion_label']),
         'investment_ranges'           => LEAD_INVESTMENT_RANGES,
         'legal_entities'              => LEAD_LEGAL_ENTITIES,
