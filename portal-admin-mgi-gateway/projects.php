@@ -84,7 +84,7 @@ require_once __DIR__ . '/includes/header.php';
           </li>
           <li class="nav-item">
             <button class="nav-link fw-bold small" id="tab-desc-btn" data-bs-toggle="pill" data-bs-target="#tab-desc" type="button">
-              2. Deskripsi Prospektus
+              2. Deskripsi Proposal Proyek
             </button>
           </li>
           <li class="nav-item">
@@ -252,7 +252,7 @@ require_once __DIR__ . '/includes/header.php';
             <div class="tab-pane fade" id="tab-desc">
               <div class="card p-4 border-0 rounded-3 shadow-sm bg-white">
                 <div class="mb-3">
-                  <label class="form-label">Tagline Prospektus</label>
+                  <label class="form-label">Tagline Proposal Proyek</label>
                   <input type="text" id="pTagline" class="form-control" placeholder="Ekspansi Unit Produktif CBU Jepang Siap Operasi Proyek Nasional">
                 </div>
 

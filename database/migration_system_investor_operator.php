@@ -90,7 +90,7 @@ try {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
         $stmtDoc->execute([
-            'proj-jkt-jabar', 1, 'DOC-RAB-2026-001', 'Prospektus & Rencana Anggaran Biaya (RAB) Unit Alat Berat', 'pembelian', 'documents/proj-jkt-jabar/prospektus-rab-alat-berat.pdf', '2.8 MB', 'Operator MGI', 'published', '2026-01-20 10:00:00'
+            'proj-jkt-jabar', 1, 'DOC-RAB-2026-001', 'Proposal Proyek & Rencana Anggaran Biaya (RAB) Unit Alat Berat', 'pembelian', 'documents/proj-jkt-jabar/proposal proyek-rab-alat-berat.pdf', '2.8 MB', 'Operator MGI', 'published', '2026-01-20 10:00:00'
         ]);
         $stmtDoc->execute([
             'proj-jkt-jabar', 1, 'DOC-CBU-2026-002', 'Sertifikat Kepemilikan & Dokumen Bea Cukai CBU Jepang (Form CBU)', 'inventory', 'documents/proj-jkt-jabar/dokumen-cbu-bea-cukai.pdf', '3.4 MB', 'Operator MGI', 'published', '2026-02-12 14:30:00'

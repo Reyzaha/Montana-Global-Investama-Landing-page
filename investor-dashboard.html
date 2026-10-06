@@ -161,7 +161,7 @@
       <div class="flex items-center justify-between h-20">
         <!-- Logo & Branding -->
         <div class="flex items-center gap-3.5">
-          <a href="index.html" class="flex items-center gap-3 text-decoration-none group">
+          <a href="/" class="flex items-center gap-3 text-decoration-none group">
             <div class="h-11 px-2.5 py-1.5 rounded-2xl bg-white border border-slate-200/90 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
               <img src="assets/img/mgi-official-logo.png" alt="PT Montana Global Investama Logo" class="h-7 w-auto object-contain">
             </div>
@@ -180,7 +180,7 @@
 
         <!-- Right Quick Actions -->
         <div class="flex items-center gap-3">
-          <a href="index.html" target="_blank" class="hidden md:inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 rounded-full transition-all">
+          <a href="/" target="_blank" class="hidden md:inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 rounded-full transition-all">
             <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
             Website Publik
           </a>
@@ -895,7 +895,7 @@
                 Rincian Transparansi Penggunaan Dana Investor
               </h4>
               <p class="text-xs text-slate-600 mt-0.5">
-                Dana investor <strong class="text-slate-900" id="opBillingSummaryCap">Rp 5.000.000.000</strong> dialokasikan oleh operator untuk pengadaan unit alat berat melalui <strong>PT Montana Sinergi Investama (MSI)</strong> ditambah biaya logistik impor, customs clearance via <strong>PT Montana Industri Utama (MIU)</strong>.
+                Dana investor <strong class="text-slate-900" id="opBillingSummaryCap">Rp 5.000.000.000</strong> dialokasikan oleh operator untuk pengadaan unit alat berat melalui <strong>PT Montana Sentra Industri (MSI)</strong> ditambah biaya logistik impor, customs clearance via <strong>PT Montana Indo Utama (MIU)</strong>.
               </p>
             </div>
             
@@ -1156,7 +1156,7 @@
                   Rincian Transaksi Belanja Pengadaan Unit Alat Berat
                 </h4>
                 <p class="text-xs text-slate-500 mt-0.5">
-                  Seluruh realisasi belanja unit ekskavator CBU dan perlengkapan melalui PT Montana Sinergi Investama (MSI) dan PT Montana Industri Utama (MIU).
+                  Seluruh realisasi belanja unit ekskavator CBU dan perlengkapan melalui PT Montana Sentra Industri (MSI) dan PT Montana Indo Utama (MIU).
                 </p>
               </div>
             </div>
@@ -2008,7 +2008,7 @@
     </div>
   </div>
 
-  <!-- 2B. MODAL: Detail Prospektus & Analisis Proyek Lengkap (In-Dashboard) -->
+  <!-- 2B. MODAL: Detail Proposal Proyek & Analisis Proyek Lengkap (In-Dashboard) -->
   <div id="projectDetailModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 transition-all">
     <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
       <!-- Modal Header -->
@@ -2018,7 +2018,7 @@
             <i data-lucide="file-text" class="w-5 h-5"></i>
           </div>
           <div>
-            <h3 class="font-bold text-slate-900 text-base" id="modalDetailTitle">Detail &amp; Prospektus Proyek</h3>
+            <h3 class="font-bold text-slate-900 text-base" id="modalDetailTitle">Detail &amp; Proposal Proyek Proyek</h3>
             <p class="text-xs text-slate-500" id="modalDetailSubtitle">Analisis kelayakan teknis, alokasi armada unit CBU, dan simulasi dividen</p>
           </div>
         </div>
@@ -3048,7 +3048,7 @@
             <tr class="hover:bg-slate-50 transition">
               <td class="py-3 px-4 font-mono font-bold text-slate-900">${b.record_number || 'BILL-MGI-001'}</td>
               <td class="py-3 px-4 font-semibold text-slate-900">${b.title || '-'}</td>
-              <td class="py-3 px-4 text-slate-600">${b.vendor_client || 'PT Montana Sinergi Investama'}</td>
+              <td class="py-3 px-4 text-slate-600">${b.vendor_client || 'PT Montana Sentra Industri'}</td>
               <td class="py-3 px-4 text-slate-500 whitespace-nowrap">${b.transaction_date || '-'}</td>
               <td class="py-3 px-4 text-right font-mono font-bold text-slate-900">${formatRupiahExact(b.amount)}</td>
               <td class="py-3 px-4 text-center">
@@ -3203,7 +3203,7 @@
                 <td class="py-3 px-4 font-mono font-bold text-slate-900">${p.record_number || '-'}</td>
                 <td class="py-3 px-4 text-slate-500 whitespace-nowrap">${p.transaction_date || '-'}</td>
                 <td class="py-3 px-4 font-bold text-slate-900">${p.title || '-'}</td>
-                <td class="py-3 px-4 text-slate-700 font-semibold">${p.vendor_client || 'PT Montana Sinergi Investama'}</td>
+                <td class="py-3 px-4 text-slate-700 font-semibold">${p.vendor_client || 'PT Montana Sentra Industri'}</td>
                 <td class="py-3 px-4 text-slate-500 text-[11px]">${p.unit_detail || p.description || '-'}</td>
                 <td class="py-3 px-4 text-right font-mono font-bold text-slate-900">${formatRupiahExact(p.amount)}</td>
                 <td class="py-3 px-4 text-center">
@@ -3283,7 +3283,7 @@
                 <td class="py-3 px-4 font-mono font-bold text-slate-900">${c.record_number || '-'}</td>
                 <td class="py-3 px-4 text-slate-500 whitespace-nowrap">${c.transaction_date || '-'}</td>
                 <td class="py-3 px-4 font-bold text-slate-900">${c.title || '-'}</td>
-                <td class="py-3 px-4 text-slate-700">${c.vendor_client || 'PT Montana Industri Utama (MIU)'}</td>
+                <td class="py-3 px-4 text-slate-700">${c.vendor_client || 'PT Montana Indo Utama (MIU)'}</td>
                 <td class="py-3 px-4"><span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-rose-50 text-rose-700 border border-rose-100">${c.category || 'Biaya'}</span></td>
                 <td class="py-3 px-4 text-right font-mono font-bold text-rose-700">${formatRupiahExact(c.amount)}</td>
                 <td class="py-3 px-4 text-center">
@@ -3933,12 +3933,12 @@
         tableRows = `
           <tr>
             <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 600; color: #1e293b;">Alokasi Pengadaan Unit Alat Berat</td>
-            <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">2x Unit Alat Berat Siap Operasi Asli via PT Montana Sinergi Investama (MSI)</td>
+            <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">2x Unit Alat Berat Siap Operasi Asli via PT Montana Sentra Industri (MSI)</td>
             <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; text-align: right; font-family: monospace; font-weight: bold; color: #0f172a;">Rp 2.800.000.000</td>
           </tr>
           <tr>
             <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 600; color: #1e293b;">Biaya Logistik & Customs Clearance</td>
-            <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Handling Pelabuhan Tanjung Priok via PT Montana Industri Utama (MIU)</td>
+            <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Handling Pelabuhan Tanjung Priok via PT Montana Indo Utama (MIU)</td>
             <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; text-align: right; font-family: monospace; font-weight: bold; color: #0f172a;">Rp 85.000.000</td>
           </tr>
           <tr>
@@ -4441,7 +4441,7 @@
                   class="flex-1 py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 transition text-center cursor-pointer"
                 >
                   <i data-lucide="file-text" class="w-3.5 h-3.5 text-blue-600"></i>
-                  <span>Detail &amp; Prospektus</span>
+                  <span>Detail &amp; Proposal Proyek</span>
                 </button>
                 ${
                   isFullyFunded
@@ -4727,7 +4727,7 @@
           <div class="space-y-3">
             <div class="flex items-center justify-between">
               <div>
-                <span class="text-[10px] font-bold text-blue-900 uppercase tracking-widest block">Struktur Belanja Modal Prospektus</span>
+                <span class="text-[10px] font-bold text-blue-900 uppercase tracking-widest block">Struktur Belanja Modal Proposal Proyek</span>
                 <h4 class="text-sm sm:text-base font-bold text-slate-900 tracking-tight">Rencana Anggaran Biaya (RAB) &amp; Alokasi Modal Pengadaan</h4>
               </div>
               <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
@@ -4784,7 +4784,7 @@
             <div class="p-3.5 rounded-2xl bg-amber-50/80 border border-amber-200/90 text-slate-700 text-[11px] leading-relaxed flex items-start gap-2.5">
               <i data-lucide="info" class="w-4 h-4 text-amber-700 shrink-0 mt-0.5"></i>
               <div>
-                <strong class="font-bold text-amber-950">Catatan Baku Prospektus:</strong>
+                <strong class="font-bold text-amber-950">Catatan Baku Proposal Proyek:</strong>
                 ${rabCatatan}
               </div>
             </div>
@@ -4794,7 +4794,7 @@
           <div class="p-5 sm:p-6 rounded-3xl bg-slate-50/90 text-slate-900 space-y-5 border border-slate-200 shadow-xs">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3.5 border-b border-slate-200">
               <div>
-                <span class="text-[10px] font-bold text-amber-800 uppercase tracking-widest block">Prospektus Kinerja Investasi</span>
+                <span class="text-[10px] font-bold text-amber-800 uppercase tracking-widest block">Proposal Proyek Kinerja Investasi</span>
                 <h4 class="text-base font-bold text-slate-900 tracking-tight">Proyeksi Return Tahunan (Periode 12 Bulan)</h4>
               </div>
               <span class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/90 self-start sm:self-auto" id="modalSimRateBadge">
@@ -5205,7 +5205,7 @@
       openModal('investModal');
     }
 
-    // Simulated Yield Calculator (Periode 12 Bulan - Skenario 2x vs 3x Putaran Sesuai Prospektus)
+    // Simulated Yield Calculator (Periode 12 Bulan - Skenario 2x vs 3x Putaran Sesuai Proposal Proyek)
     function calculateSimulatedYield() {
       const nomInput = document.getElementById('investSelectedNominal') || document.getElementById('investAmountInput');
       const select = document.getElementById('investProjectSelect');

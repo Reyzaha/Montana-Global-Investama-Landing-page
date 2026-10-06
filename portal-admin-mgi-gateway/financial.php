@@ -300,7 +300,7 @@ require_once __DIR__ . '/includes/header.php';
             <div class="row g-3">
               <div class="col-md-6">
                 <label class="form-label small fw-bold">Vendor / Mitra Penyedia</label>
-                <input type="text" id="formVendorClient" class="form-control" placeholder="Contoh: PT Montana Industri Utama (MIU)" value="PT Montana Industri Utama (MIU)">
+                <input type="text" id="formVendorClient" class="form-control" placeholder="Contoh: PT Montana Indo Utama (MIU)" value="PT Montana Indo Utama (MIU)">
               </div>
 
               <div class="col-md-6">
@@ -415,7 +415,7 @@ require_once __DIR__ . '/includes/header.php';
               <span class="text-muted small text-uppercase fw-bold d-block mb-1">Proyek Penempatan Modal:</span>
               <h6 class="fw-bold text-dark mb-1" id="viewProjectTitle">-</h6>
               <div class="small text-secondary" id="viewProjectCategory">Kategori Alat Berat</div>
-              <div class="small text-muted" id="viewVendorClient">Vendor: PT Montana Industri Utama (MIU)</div>
+              <div class="small text-muted" id="viewVendorClient">Vendor: PT Montana Indo Utama (MIU)</div>
             </div>
           </div>
         </div>
@@ -862,7 +862,7 @@ require_once __DIR__ . '/includes/header.php';
 
     if (mod === 'pembelian') {
       flowSelect.value = 'out';
-      vendorInput.value = 'PT Montana Industri Utama (MIU)';
+      vendorInput.value = 'PT Montana Indo Utama (MIU)';
       if (!descArea.value) {
         descArea.value = 'Alokasi penyerapan modal: pengurangan kas untuk pembelian unit alat berat via workshop PT Montana Indo Utama (MIU).';
       }
@@ -954,7 +954,7 @@ require_once __DIR__ . '/includes/header.php';
 
     document.getElementById('viewProjectTitle').textContent = r.project_title;
     document.getElementById('viewProjectCategory').textContent = r.project_category;
-    document.getElementById('viewVendorClient').textContent = 'Vendor/Klien: ' + (r.vendor_client || 'PT Montana Industri Utama (MIU)');
+    document.getElementById('viewVendorClient').textContent = 'Vendor/Klien: ' + (r.vendor_client || 'PT Montana Indo Utama (MIU)');
 
     document.getElementById('viewItemTitle').textContent = r.title;
     document.getElementById('viewItemDescription').textContent = r.description || 'Pengurangan modal untuk pengadaan unit alat berat melalui MIU.';
@@ -1027,13 +1027,13 @@ require_once __DIR__ . '/includes/header.php';
     if (type === 'biaya') {
       moduleSelect.value = 'biaya';
       catInput.value = 'Biaya Impor MIU & Customs';
-      vendorInput.value = 'PT Montana Industri Utama (MIU)';
+      vendorInput.value = 'PT Montana Indo Utama (MIU)';
       titleInput.value = 'Biaya Impor & Customs Clearance Unit via MIU';
       isBilling.checked = false;
     } else if (type === 'pembelian') {
       moduleSelect.value = 'pembelian';
       catInput.value = 'Pengadaan Unit Alat Berat (MSI)';
-      vendorInput.value = 'PT Montana Sinergi Investama (MSI)';
+      vendorInput.value = 'PT Montana Sentra Industri (MSI)';
       titleInput.value = 'Pembelian Unit Alat Berat via MSI';
       isBilling.checked = true;
     } else if (type === 'penjualan') {
@@ -1045,7 +1045,7 @@ require_once __DIR__ . '/includes/header.php';
     } else if (type === 'billing') {
       moduleSelect.value = 'pembelian';
       catInput.value = 'Alokasi Modal Proyek (MSI & MIU)';
-      vendorInput.value = 'PT Montana Sinergi Investama (MSI)';
+      vendorInput.value = 'PT Montana Sentra Industri (MSI)';
       titleInput.value = 'Faktur Alokasi Dana Pembelian Unit via MSI & MIU';
       isBilling.checked = true;
     }

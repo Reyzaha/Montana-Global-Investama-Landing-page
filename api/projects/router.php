@@ -345,7 +345,7 @@ try {
             $invId = !empty($input['investor_id']) ? (int)$input['investor_id'] : 1;
             $title = trim($input['title'] ?? 'Alokasi Penggunaan Dana Proyek');
             $category = trim($input['category'] ?? 'Alokasi Modal Proyek');
-            $vendor = trim($input['vendor_client'] ?? 'PT Montana Industri Utama (MIU)');
+            $vendor = trim($input['vendor_client'] ?? 'PT Montana Indo Utama (MIU)');
             $unitDetail = trim($input['unit_detail'] ?? '');
             $amount = cleanAmount($input['amount'] ?? 0);
             $desc = trim($input['description'] ?? '');
@@ -387,7 +387,7 @@ try {
             $invId = !empty($input['investor_id']) ? (int)$input['investor_id'] : 1;
             $title = trim($input['title'] ?? 'Pembelian Unit Alat Berat');
             $category = trim($input['category'] ?? 'Pengadaan Unit (MSI/MIU)');
-            $vendor = trim($input['vendor_client'] ?? 'PT Montana Sinergi Investama (MSI)');
+            $vendor = trim($input['vendor_client'] ?? 'PT Montana Sentra Industri (MSI)');
             $unitDetail = trim($input['unit_detail'] ?? '');
             $amount = cleanAmount($input['amount'] ?? 0);
             $desc = trim($input['description'] ?? '');
@@ -471,7 +471,7 @@ try {
             $invId = !empty($input['investor_id']) ? (int)$input['investor_id'] : 1;
             $title = trim($input['title'] ?? 'Biaya Impor & Customs MIU');
             $category = trim($input['category'] ?? 'Biaya Impor / Workshop');
-            $vendor = trim($input['vendor_client'] ?? 'PT Montana Industri Utama (MIU)');
+            $vendor = trim($input['vendor_client'] ?? 'PT Montana Indo Utama (MIU)');
             $amount = cleanAmount($input['amount'] ?? 0);
             $desc = trim($input['description'] ?? '');
             $date = !empty($input['transaction_date']) ? $input['transaction_date'] : date('Y-m-d');

@@ -167,7 +167,7 @@ require_once __DIR__ . '/includes/header.php';
               </div>
               <div class="col-12">
                 <label class="form-label small fw-bold">Catatan Perkembangan Diskusi (Follow-up Notes)</label>
-                <textarea id="mLeadNotes" class="form-control" rows="3" placeholder="Contoh: Klien minta dikirimkan prospektus paket 5M via email dan dijadwalkan meeting di kantor BSD hari Kamis."></textarea>
+                <textarea id="mLeadNotes" class="form-control" rows="3" placeholder="Contoh: Klien minta dikirimkan proposal proyek paket 5M via email dan dijadwalkan meeting di kantor BSD hari Kamis."></textarea>
               </div>
               <div class="col-12 text-end">
                 <button type="submit" id="btnSaveLead" class="btn btn-mgi-primary px-4">

@@ -85,7 +85,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         <span>Pengaturan Sistem</span>
       </a>
 
-      <a href="../index.html" target="_blank" class="nav-link">
+      <a href="../index" target="_blank" class="nav-link">
         <i class="bi bi-box-arrow-up-right"></i>
         <span>Lihat Website Publik</span>
       </a>

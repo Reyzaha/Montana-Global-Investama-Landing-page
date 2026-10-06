@@ -170,7 +170,7 @@ $error = $_GET['error'] ?? '';
       </div>
 
       <div class="mt-4 pt-3 border-top text-center">
-        <a href="../index.html" class="text-decoration-none text-muted small">
+        <a href="../index" class="text-decoration-none text-muted small">
           <i class="bi bi-arrow-left me-1"></i> Kembali ke Landing Page Publik
         </a>
       </div>

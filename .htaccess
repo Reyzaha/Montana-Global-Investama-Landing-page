@@ -41,3 +41,13 @@ RewriteRule ^api/projects/([^/]+)/costs/?$ api/projects/router.php?project_id=$1
 RewriteRule ^api/projects/([^/]+)/inventory/?$ api/projects/router.php?project_id=$1&action=inventory [QSA,L]
 RewriteRule ^api/projects/([^/]+)/documents/?$ api/projects/router.php?project_id=$1&action=documents [QSA,L]
 RewriteRule ^api/projects/([^/]+)/stream/?$ api/projects/router.php?project_id=$1&action=stream [QSA,L]
+
+
+# 6. Clean URLs & Error Pages
+ErrorDocument 404 /404.html
+ErrorDocument 500 /404.html
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [L,QSA]

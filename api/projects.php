@@ -133,7 +133,7 @@ try {
             $viewerWatermark = 'DOKUMEN RAHASIA PT MONTANA GLOBAL INVESTAMA — DIAKSES OLEH: ' . strtoupper($investorSession['name']) . ' (' . $investorSession['email'] . ') — ' . date('d/m/Y H:i');
         }
 
-        // Data lengkap untuk prospektus proyek
+        // Data lengkap untuk proposal proyek proyek
         $detail = [
             'tagline' => $detailRow['tagline'] ?? '',
             'is_gated' => false,

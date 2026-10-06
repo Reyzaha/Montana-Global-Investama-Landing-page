@@ -13,27 +13,27 @@ const MGIComponents = {
 
     const linksHtml = `
       <li class="nav-item">
-        <a class="nav-link ${activePage === 'home' ? 'active' : ''}" href="index.html">
+        <a class="nav-link ${activePage === 'home' ? 'active' : ''}" href="/">
           Beranda
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link ${isAboutActive ? 'active' : ''}" href="about.html">
+        <a class="nav-link ${isAboutActive ? 'active' : ''}" href="about">
           Tentang Kami
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link ${activePage === 'invest' ? 'active' : ''}" href="invest.html">
+        <a class="nav-link ${activePage === 'invest' ? 'active' : ''}" href="invest">
           Proyek Investasi
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link ${activePage === 'ekosistem' ? 'active' : ''}" href="ekosistem.html">
+        <a class="nav-link ${activePage === 'ekosistem' ? 'active' : ''}" href="ekosistem">
           Ekosistem
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link ${activePage === 'contact' ? 'active' : ''}" href="contact.html">
+        <a class="nav-link ${activePage === 'contact' ? 'active' : ''}" href="contact">
           Kontak Kami
         </a>
       </li>
@@ -65,10 +65,10 @@ const MGIComponents = {
                   <div class="text-white-50 small text-truncate" style="font-size: 0.75rem;">${user.email}</div>
                   <div class="badge bg-gold text-dark small mt-1" style="border-radius: var(--apple-radius-pill);">Investor ${typeLabel}</div>
                 </li>
-                <li><a class="dropdown-item py-2 fw-semibold text-white" href="investor-dashboard.html"><i class="bi bi-speedometer2 me-2 text-gold"></i>Dashboard Investor</a></li>
-                <li><a class="dropdown-item py-2 text-white" href="investor-dashboard.html"><i class="bi bi-pie-chart-fill me-2 text-gold"></i>My Portofolio &amp; Dividen</a></li>
-                <li><a class="dropdown-item py-2 text-white" href="invest.html"><i class="bi bi-grid me-2 text-gold"></i>Katalog Project Terbuka</a></li>
-                <li><a class="dropdown-item py-2 text-white" href="contact.html"><i class="bi bi-geo-alt me-2 text-gold"></i>Lokasi & Layanan</a></li>
+                <li><a class="dropdown-item py-2 fw-semibold text-white" href="investor-dashboard"><i class="bi bi-speedometer2 me-2 text-gold"></i>Dashboard Investor</a></li>
+                <li><a class="dropdown-item py-2 text-white" href="investor-dashboard"><i class="bi bi-pie-chart-fill me-2 text-gold"></i>My Portofolio &amp; Dividen</a></li>
+                <li><a class="dropdown-item py-2 text-white" href="invest"><i class="bi bi-grid me-2 text-gold"></i>Katalog Project Terbuka</a></li>
+                <li><a class="dropdown-item py-2 text-white" href="contact"><i class="bi bi-geo-alt me-2 text-gold"></i>Lokasi & Layanan</a></li>
                 <li><hr class="dropdown-divider border-secondary opacity-25"></li>
                 <li><a class="dropdown-item py-2 text-danger fw-semibold" href="javascript:void(0)" onclick="MGIAuth.logout('index.html')"><i class="bi bi-box-arrow-right me-2"></i>Keluar (Logout)</a></li>
               </ul>
@@ -78,10 +78,10 @@ const MGIComponents = {
       } else {
         authCtaHtml = `
           <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
-            <a href="login.html" class="btn btn-navbar-login btn-apple-login">
+            <a href="login" class="btn btn-navbar-login btn-apple-login">
               <i class="bi bi-box-arrow-in-right"></i> Masuk
             </a>
-            <a href="register.html" class="btn btn-navbar-cta btn-apple-cta">
+            <a href="register" class="btn btn-navbar-cta btn-apple-cta">
               <i class="bi bi-shield-lock-fill"></i> Portal Investor
             </a>
           </div>
@@ -92,7 +92,7 @@ const MGIComponents = {
     navContainer.innerHTML = `
       <nav class="navbar navbar-expand-xl site-navbar sticky-top">
         <div class="container">
-          <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+          <a class="navbar-brand d-flex align-items-center gap-2" href="/">
             <div class="navbar-logo-badge">
               <img src="assets/img/mgi-official-logo.png" alt="PT Montana Global Investama Logo" height="34" class="d-inline-block">
             </div>
@@ -136,7 +136,7 @@ const MGIComponents = {
         <div class="container">
           <div class="row g-4 mb-5">
             <div class="col-lg-4 col-md-6">
-              <a href="index.html" class="d-inline-block mb-3">
+              <a href="/" class="d-inline-block mb-3">
                 <div class="bg-white p-2 rounded-2 d-inline-block shadow-sm">
                   <img src="assets/img/mgi-official-logo.png" alt="MGI Logo" height="48">
                 </div>
@@ -152,19 +152,19 @@ const MGIComponents = {
             <div class="col-lg-2 col-md-6">
               <h6 class="fw-bold text-white text-uppercase mb-3 small tracking-wide pb-1 d-inline-block" style="border-bottom: 2px solid var(--mgi-gold);">Navigasi Utama</h6>
               <ul class="list-unstyled mb-0">
-                <li><a href="index.html" class="footer-link">Beranda</a></li>
-                <li><a href="about.html" class="footer-link">Profil Perusahaan</a></li>
-                <li><a href="invest.html" class="footer-link">Portofolio Proyek Investasi</a></li>
-                <li><a href="transformasi.html" class="footer-link">Transformasi Perusahaan</a></li>
-                <li><a href="contact.html" class="footer-link">Kontak Kami</a></li>
+                <li><a href="/" class="footer-link">Beranda</a></li>
+                <li><a href="about" class="footer-link">Profil Perusahaan</a></li>
+                <li><a href="invest" class="footer-link">Portofolio Proyek Investasi</a></li>
+                <li><a href="transformasi" class="footer-link">Transformasi Perusahaan</a></li>
+                <li><a href="contact" class="footer-link">Kontak Kami</a></li>
               </ul>
             </div>
 
             <div class="col-lg-3 col-md-6">
               <h6 class="fw-bold text-white text-uppercase mb-3 small tracking-wide pb-1 d-inline-block" style="border-bottom: 2px solid var(--mgi-gold);">Struktur &amp; Sinergi</h6>
               <ul class="list-unstyled mb-0">
-                <li><a href="preparation.html" class="footer-link">Struktur Alur Kerja Entitas</a></li>
-                <li><a href="ekosistem.html" class="footer-link">Ekosistem Terpadu</a></li>
+                <li><a href="preparation" class="footer-link">Struktur Alur Kerja Entitas</a></li>
+                <li><a href="ekosistem" class="footer-link">Ekosistem Terpadu</a></li>
                 <li><a href="javascript:void(0)" onclick="MGIAuth.handleProtectedDetail('proj-jkt-jabar')" class="footer-link">Simulasi Titik Impas &amp; Bagi Hasil</a></li>
                 <li><a href="about.html#tata-kelola" class="footer-link">Tata Kelola Perusahaan (TARIF)</a></li>
               </ul>
@@ -567,17 +567,17 @@ const MGIComponents = {
               <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-mgi-gold-subtle text-gold mb-3 mx-auto" style="width: 64px; height: 64px; font-size: 1.8rem; border: 2px solid #C5A059;">
                 <i class="bi bi-file-earmark-bar-graph-fill"></i>
               </div>
-              <h4 class="fw-bold text-dark mb-2">Prospektus &amp; Simulasi BEP</h4>
+              <h4 class="fw-bold text-dark mb-2">Proposal Proyek &amp; Simulasi BEP</h4>
               <p class="text-secondary small mb-4 lh-base">
                 Untuk memenuhi standar <strong>Tata Kelola Perusahaan yang Baik</strong> serta kepatuhan regulasi penawaran investasi, rincian alokasi belanja modal, spesifikasi aset fisik, dan simulasi BEP/ROI hanya dapat diakses oleh investor terdaftar.
               </p>
 
               <div class="d-grid gap-2 mb-3">
-                <a href="login.html" class="btn btn-mgi-blue py-2 px-4 rounded-pill fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2" id="authModalLoginBtn">
+                <a href="login" class="btn btn-mgi-blue py-2 px-4 rounded-pill fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2" id="authModalLoginBtn">
                   <i class="bi bi-box-arrow-in-right"></i>
                   <span>Masuk ke Akun Investor</span>
                 </a>
-                <a href="register.html" class="btn btn-gold py-2 px-4 rounded-pill fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2 text-white" id="authModalRegisterBtn">
+                <a href="register" class="btn btn-gold py-2 px-4 rounded-pill fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2 text-white" id="authModalRegisterBtn">
                   <i class="bi bi-person-plus-fill"></i>
                   <span>Daftar Akun Baru (Perorangan / Perusahaan)</span>
                 </a>
@@ -1171,7 +1171,7 @@ const MGIComponents = {
 
     // Build WhatsApp Message
     const targetPhone = '6281211116666'; // Official MGI line
-    const text = `Halo Tim Manajer Investasi PT Montana Global Investama,\n\nSaya *${fullName}* dari *${city}*.\nSaya berminat untuk penempatan modal kemitraan pada:\n• Proyek: *${projectId.toUpperCase()}*\n• Paket Dipilih: *${optionLabel}*\n• Nilai Permodalan: *${optionNominal}*\n\nMohon informasi ketersediaan slot kemitraan, berkas prospektus, dan jadwal konsultasi tatap muka. Terima kasih.`;
+    const text = `Halo Tim Manajer Investasi PT Montana Global Investama,\n\nSaya *${fullName}* dari *${city}*.\nSaya berminat untuk penempatan modal kemitraan pada:\n• Proyek: *${projectId.toUpperCase()}*\n• Paket Dipilih: *${optionLabel}*\n• Nilai Permodalan: *${optionNominal}*\n\nMohon informasi ketersediaan slot kemitraan, berkas proposal proyek, dan jadwal konsultasi tatap muka. Terima kasih.`;
     const waUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(text)}`;
 
     window.open(waUrl, '_blank');

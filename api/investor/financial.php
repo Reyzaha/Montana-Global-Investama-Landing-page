@@ -159,7 +159,7 @@ try {
             'current_status' => 'Operasional Lapangan (Sewa Aktif)',
             'gps_status' => 'Online 100% (Signal Strong)',
             'last_service' => '2026-03-28 (Service 500 Jam Rutin)',
-            'procured_via' => 'PT Montana Industri Utama (MIU)',
+            'procured_via' => 'PT Montana Indo Utama (MIU)',
             'insurance' => 'All Risk Marine & Heavy Equipment Covered'
         ],
         [
@@ -173,7 +173,7 @@ try {
             'current_status' => 'Siaga Operasi / Standby di Pool Kebumen',
             'gps_status' => 'Online 100% (Signal Strong)',
             'last_service' => '2026-03-28 (Inspeksi & Ganti Oli Rutin)',
-            'procured_via' => 'PT Montana Industri Utama (MIU)',
+            'procured_via' => 'PT Montana Indo Utama (MIU)',
             'insurance' => 'All Risk Marine & Heavy Equipment Covered'
         ],
         [
@@ -187,7 +187,7 @@ try {
             'current_status' => 'Siaga di Workshop Pool (Siap Pasang)',
             'gps_status' => 'Tergabung pada Aset Armada MIU',
             'last_service' => '2026-02-15 (Kalibrasi Tekanan Hidrolik)',
-            'procured_via' => 'PT Montana Industri Utama (MIU)',
+            'procured_via' => 'PT Montana Indo Utama (MIU)',
             'insurance' => 'Covered by Fleet Policy'
         ]
     ];
@@ -216,7 +216,7 @@ try {
             'pembelian' => [
                 'total_pembelian_miu' => $totalPembelianMIU,
                 'total_pembelian_all' => $totalPembelianAll,
-                'vendor_utama' => 'PT Montana Industri Utama (MIU)',
+                'vendor_utama' => 'PT Montana Indo Utama (MIU)',
                 'unit_terbeli' => '2 Unit Alat Berat Siap Operasi + Breaker Kit',
                 'status_pengadaan' => 'Unit Lengkap di Pool Workshop',
                 'records' => $modPembelian
