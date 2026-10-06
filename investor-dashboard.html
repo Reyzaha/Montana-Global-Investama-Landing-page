@@ -3394,26 +3394,33 @@
         // Unit Cost Grid
         const costGrid = document.getElementById('opRabUnitCostGrid');
         if (costGrid) {
+          const hppVal = unitCost.harga_pokok_beli || alloc.hpp_unit || 500000000;
+          const kVal = unitCost.container_alokasi || alloc.kontainer_40ft || 52500000;
+          const rVal = unitCost.ongkos_rekondisi || alloc.ongkos_rekondisi || 25000000;
+          const totModalUnit = unitCost.total_biaya_unit || alloc.modal_dasar_per_unit || (hppVal + kVal + rVal);
+          const estJualUnit = unitCost.harga_jual_unit || 650000000;
+          const retCycle = unitCost.return_per_siklus || 12.55;
+
           costGrid.innerHTML = `
             <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
-              <span class="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">1. HPP Beli Unit (Lelang CBU Jepang)</span>
-              <div class="text-slate-900 font-mono font-black text-sm mt-0.5">${formatRupiahExact(unitCost.harga_pokok_beli || 150000000)}</div>
+              <span class="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">1. HPP Beli Unit (CBU Jepang Grade A)</span>
+              <div class="text-slate-900 font-mono font-black text-sm mt-0.5">${formatRupiahExact(hppVal)}</div>
               <span class="text-[10px] text-slate-500">Standar seleksi ketat Grade A lelang</span>
             </div>
             <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
               <span class="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">2. Kontainer Laut 40FT (PT MSI)</span>
-              <div class="text-slate-900 font-mono font-black text-sm mt-0.5">${formatRupiahExact(unitCost.container_alokasi || 52500000)}</div>
-              <span class="text-[10px] text-slate-500">Porsi per unit (4 unit / kontainer 40FT)</span>
+              <div class="text-slate-900 font-mono font-black text-sm mt-0.5">${formatRupiahExact(kVal)}</div>
+              <span class="text-[10px] text-slate-500">Alokasi per unit (4 unit / kontainer 40FT)</span>
             </div>
             <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
               <span class="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">3. Rekondisi & Workshop (PT MIU)</span>
-              <div class="text-slate-900 font-mono font-black text-sm mt-0.5">${formatRupiahExact(unitCost.ongkos_rekondisi || 25000000)}</div>
+              <div class="text-slate-900 font-mono font-black text-sm mt-0.5">${formatRupiahExact(rVal)}</div>
               <span class="text-[10px] text-slate-500">Overhaul mesin, uji 100 titik & repaint</span>
             </div>
             <div class="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-300">
-              <span class="text-amber-900 block text-[10px] uppercase font-black tracking-wider">Total Modal -> Estimasi Jual</span>
-              <div class="text-amber-950 font-mono font-black text-sm mt-0.5">${formatRupiahExact(unitCost.total_biaya_unit || 310228288)} -> <span class="text-emerald-700">${formatRupiahExact(unitCost.harga_jual_unit || 346000000)}</span></div>
-              <span class="text-[10px] text-emerald-700 font-extrabold">Margin Bersih: ${unitCost.return_per_siklus || 14.31}% / siklus</span>
+              <span class="text-amber-900 block text-[10px] uppercase font-black tracking-wider">Modal Dasar -> Estimasi Nilai</span>
+              <div class="text-amber-950 font-mono font-black text-sm mt-0.5">${formatRupiahExact(totModalUnit)} -> <span class="text-emerald-700">${formatRupiahExact(estJualUnit)}</span></div>
+              <span class="text-[10px] text-emerald-700 font-extrabold">Margin Terukur: ${retCycle}% / siklus</span>
             </div>
           `;
         }
@@ -4573,6 +4580,60 @@
         `;
       }
 
+      // Prepare RAB data & rows
+      const fundingTarget = p.detail?.funding_target || {};
+      const fundingRows = fundingTarget.rows || p.funding_items || [];
+      const rabCatatan = rab?.catatan || 'Komponen PPN 11%, garansi pemeliharaan (1%), insentif penjualan (1%), dan fee sukses MIU (12%) baru timbul saat unit terjual dan dipotong dari penerimaan penjualan (revenue deductions), bukan dari modal awal investasi.';
+      const unitQty = tier1?.unit_qty || (rab?.alokasi_dana?.total_unit) || (fundingRows[0]?.quantity) || 25;
+
+      let rabRowsHtml = '';
+      if (fundingRows && fundingRows.length > 0) {
+        rabRowsHtml = fundingRows.map((r, idx) => `
+          <tr class="hover:bg-slate-50/80 transition border-b border-slate-100 last:border-b-0">
+            <td class="py-2.5 px-3 text-center font-bold text-slate-400">${r.no || (idx + 1)}</td>
+            <td class="py-2.5 px-3 font-semibold text-slate-900">${r.item}</td>
+            <td class="py-2.5 px-3 text-center text-slate-700 font-medium">${r.quantity ? r.quantity + ' Unit' : '-'}</td>
+            <td class="py-2.5 px-3 text-right font-mono text-slate-600">${formatRupiahExact(r.unit_price)}</td>
+            <td class="py-2.5 px-3 text-right font-mono font-bold text-blue-950">${formatRupiahExact(r.total)}</td>
+          </tr>
+        `).join('');
+      } else {
+        const hppTot = unitQty * 500000000;
+        const kTot = unitQty * 52500000;
+        const rTot = unitQty * 25000000;
+        const cTot = Math.max(0, targetVal - (hppTot + kTot + rTot));
+        rabRowsHtml = `
+          <tr class="hover:bg-slate-50/80 transition border-b border-slate-100">
+            <td class="py-2.5 px-3 text-center font-bold text-slate-400">1</td>
+            <td class="py-2.5 px-3 font-semibold text-slate-900">Harga Pokok Pembelian (HPP) Unit Alat Berat (CBU Grade A)</td>
+            <td class="py-2.5 px-3 text-center text-slate-700 font-medium">${unitQty} Unit</td>
+            <td class="py-2.5 px-3 text-right font-mono text-slate-600">Rp 500.000.000</td>
+            <td class="py-2.5 px-3 text-right font-mono font-bold text-blue-950">${formatRupiahExact(hppTot)}</td>
+          </tr>
+          <tr class="hover:bg-slate-50/80 transition border-b border-slate-100">
+            <td class="py-2.5 px-3 text-center font-bold text-slate-400">2</td>
+            <td class="py-2.5 px-3 font-semibold text-slate-900">Alokasi Kontainer 40FT HC Door-to-Door (PT MSI - Ekosistem)</td>
+            <td class="py-2.5 px-3 text-center text-slate-700 font-medium">${unitQty} Unit</td>
+            <td class="py-2.5 px-3 text-right font-mono text-slate-600">Rp 52.500.000</td>
+            <td class="py-2.5 px-3 text-right font-mono font-bold text-blue-950">${formatRupiahExact(kTot)}</td>
+          </tr>
+          <tr class="hover:bg-slate-50/80 transition border-b border-slate-100">
+            <td class="py-2.5 px-3 text-center font-bold text-slate-400">3</td>
+            <td class="py-2.5 px-3 font-semibold text-slate-900">Ongkos Rekondisi & Workshop Overhaul (PT MIU - Ekosistem)</td>
+            <td class="py-2.5 px-3 text-center text-slate-700 font-medium">${unitQty} Unit</td>
+            <td class="py-2.5 px-3 text-right font-mono text-slate-600">Rp 25.000.000</td>
+            <td class="py-2.5 px-3 text-right font-mono font-bold text-blue-950">${formatRupiahExact(rTot)}</td>
+          </tr>
+          <tr class="hover:bg-slate-50/80 transition">
+            <td class="py-2.5 px-3 text-center font-bold text-slate-400">4</td>
+            <td class="py-2.5 px-3 font-semibold text-slate-900">Dana Pencadangan & Likuiditas Operasional Proyek</td>
+            <td class="py-2.5 px-3 text-center text-slate-700 font-medium">${unitQty} Unit</td>
+            <td class="py-2.5 px-3 text-right font-mono text-slate-600">${formatRupiahExact(Math.round(cTot / unitQty))}</td>
+            <td class="py-2.5 px-3 text-right font-mono font-bold text-blue-950">${formatRupiahExact(cTot)}</td>
+          </tr>
+        `;
+      }
+
       document.getElementById('modalDetailTitle').innerText = p.title || p.nama_project || 'Detail Proyek Investasi';
       document.getElementById('modalDetailSubtitle').innerText = `${p.category || 'Alat Berat'} • ${locText} • Tenor ${tenorText}`;
 
@@ -4636,7 +4697,7 @@
             </div>
             <div class="p-3.5 rounded-2xl bg-amber-50/70 border border-amber-200">
               <span class="text-[10px] font-bold text-amber-800 uppercase block">Alokasi Unit Fisik</span>
-              <span class="text-sm font-bold text-amber-950 mt-0.5 block">${tier1 ? tier1.unit_qty + ' Unit CBU' : 'Unit CBU Jepang'}</span>
+              <span class="text-sm font-bold text-amber-950 mt-0.5 block">${unitQty} Unit CBU</span>
               <span class="text-[10px] text-amber-700 font-semibold mt-0.5 block">Siap Kontrak Sewa</span>
             </div>
           </div>
@@ -4657,24 +4718,69 @@
             </div>
           </div>
 
-          <!-- 4. Executive RAB Structure (3-Cards) -->
-          <div class="space-y-2.5">
-            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">Struktur Belanja Modal &amp; RAB Prospektus</h4>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <!-- 4. Rencana Anggaran Biaya (RAB) & Alokasi Modal Pengadaan -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-[10px] font-bold text-blue-900 uppercase tracking-widest block">Struktur Belanja Modal Prospektus</span>
+                <h4 class="text-sm sm:text-base font-bold text-slate-900 tracking-tight">Rencana Anggaran Biaya (RAB) &amp; Alokasi Modal Pengadaan</h4>
+              </div>
+              <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
+                Alokasi ${unitQty} Unit CBU
+              </span>
+            </div>
+
+            <!-- 2 Pilar Ekosistem Operasional (Hapus Kartu ke-3 Pasar Penyerapan Kontrak) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-1">
-                <div class="text-[10px] font-bold text-blue-700 uppercase">1. Pengadaan Unit (MIU)</div>
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-bold text-blue-700 uppercase">1. Pengadaan Unit (PT MIU)</span>
+                  <span class="text-xs font-black text-slate-900">Rp 500.000.000 / Unit</span>
+                </div>
                 <div class="text-base font-black text-slate-900">Unit CBU Jepang Grade A</div>
-                <p class="text-[11px] text-slate-500 leading-snug">Impor langsung alat berat dari Jepang dalam kondisi prima dan lulus uji kelayakan operasional.</p>
+                <p class="text-[11px] text-slate-500 leading-snug">Harga Pokok Pembelian (HPP) impor langsung alat berat dari Jepang dalam kondisi prima dan lulus uji kelayakan operasional.</p>
               </div>
+
               <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-1">
-                <div class="text-[10px] font-bold text-amber-700 uppercase">2. Workshop &amp; Perakitan (MSI)</div>
-                <div class="text-base font-black text-slate-900">QC &amp; Karoseri Standar Industri</div>
-                <p class="text-[11px] text-slate-500 leading-snug">Maintenance preventif, ganti oli hidrolik, dan standarisasi perlengkapan safety tambang/konstruksi.</p>
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-bold text-amber-700 uppercase">2. Workshop &amp; Logistik (PT MSI &amp; MIU)</span>
+                  <span class="text-xs font-black text-slate-900">Rp 77.500.000 / Unit</span>
+                </div>
+                <div class="text-base font-black text-slate-900">Kontainer 40FT HC &amp; Rekondisi</div>
+                <p class="text-[11px] text-slate-500 leading-snug">Alokasi kontainer 40ft HC door-to-door (Rp 52,5 jt/unit) dan ongkos rekondisi workshop overhaul (Rp 25 jt/unit). Total modal operasional dasar: Rp 577,5 jt/unit.</p>
               </div>
-              <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-1">
-                <div class="text-[10px] font-bold text-emerald-700 uppercase">3. Pasar Penyerapan Kontrak</div>
-                <div class="text-base font-black text-slate-900">Utilisasi Tinggi &gt;90%</div>
-                <p class="text-[11px] text-slate-500 leading-snug">Langsung terikat kontrak sewa bulanan dengan sub-kontraktor BUMN &amp; perusahaan tambang.</p>
+            </div>
+
+            <!-- Tabel Detail RAB Sesuai Formula Baku -->
+            <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-2xs">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold">
+                    <th class="py-2.5 px-3 text-center w-10">No</th>
+                    <th class="py-2.5 px-3">Komponen Alokasi Pengadaan</th>
+                    <th class="py-2.5 px-3 text-center">Volume</th>
+                    <th class="py-2.5 px-3 text-right">Biaya Satuan (IDR)</th>
+                    <th class="py-2.5 px-3 text-right">Total Alokasi (IDR)</th>
+                  </tr>
+                </thead>
+                <tbody class="text-slate-800">
+                  ${rabRowsHtml}
+                </tbody>
+                <tfoot>
+                  <tr class="bg-slate-100 font-bold border-t-2 border-slate-200">
+                    <td colspan="4" class="py-2.5 px-3 text-right text-slate-700 uppercase text-[11px] tracking-wider">Grand Total Target Pendanaan:</td>
+                    <td class="py-2.5 px-3 text-right text-sm font-black text-blue-950">${formatRupiahExact(targetVal)}</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+
+            <!-- Catatan Baku Brosur / Revenue Deductions -->
+            <div class="p-3.5 rounded-2xl bg-amber-50/80 border border-amber-200/90 text-slate-700 text-[11px] leading-relaxed flex items-start gap-2.5">
+              <i data-lucide="info" class="w-4 h-4 text-amber-700 shrink-0 mt-0.5"></i>
+              <div>
+                <strong class="font-bold text-amber-950">Catatan Baku Prospektus:</strong>
+                ${rabCatatan}
               </div>
             </div>
           </div>
