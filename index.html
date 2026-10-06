@@ -586,34 +586,34 @@
                   <div class="p-3 bg-light rounded-1 border mb-3">
                     <div class="brief-meta-row">
                       <span class="text-muted">Aset Pendukung:</span>
-                      <strong class="text-dark">${(featured.info && featured.info.brand) || 'Alat Berat Siap Operasi'}</strong>
+                      <strong class="text-dark">${(featured.info && (featured.info.asset_backed || featured.info.brand)) || 'Aset Fisik Unit Alat Berat Siap Operasi'}</strong>
+                    </div>
+                    <div class="brief-meta-row">
+                      <span class="text-muted">Alokasi Armada:</span>
+                      <strong class="text-dark">${(featured.info && featured.info.stock_available) || (featured.package_options && featured.package_options[0]?.unit_qty ? featured.package_options[0].unit_qty + ' Unit Alat Berat' : '25 Unit Alat Berat Siap Operasi')}</strong>
                     </div>
                     <div class="brief-meta-row">
                       <span class="text-muted">Nilai Pendanaan:</span>
-                      <strong class="text-royal">${(featured.info && featured.info.capitalization_value) || 'Rp 32,5 Miliar'}</strong>
-                    </div>
-                    <div class="brief-meta-row">
-                      <span class="text-muted">Target Alokasi Modal:</span>
-                      <strong class="text-dark">${(featured.info && featured.info.target) || 'Rp 25 Miliar'}</strong>
+                      <strong class="text-royal">${(featured.info && featured.info.target) || (featured.funding && MGIComponents.formatRupiah(featured.funding.target)) || 'Rp 15.000.000.000'}</strong>
                     </div>
                   </div>
 
                   <div class="row g-2 mb-3 text-center">
                     <div class="col-4">
                       <div class="p-2 border rounded-1 bg-white">
-                        <div class="fw-bold text-success fs-6 lh-1 mb-1">${(featured.info && featured.info.return) || '≥32%'}</div>
+                        <div class="fw-bold text-success fs-6 lh-1 mb-1">${(featured.info && featured.info.return) || '28,6% – 42,9% (p.a.)'}</div>
                         <div class="text-muted text-uppercase fw-semibold" style="font-size: 0.65rem;">Estimasi ROI</div>
                       </div>
                     </div>
                     <div class="col-4">
                       <div class="p-2 border rounded-1 bg-white">
-                        <div class="fw-bold text-dark fs-6 lh-1 mb-1">${(featured.info && featured.info.tenor) || '36 Bulan'}</div>
+                        <div class="fw-bold text-dark fs-6 lh-1 mb-1">${(featured.info && featured.info.tenor) || '12 Bulan (Target 2–3x Putaran/Tahun)'}</div>
                         <div class="text-muted text-uppercase fw-semibold" style="font-size: 0.65rem;">Jangka Waktu</div>
                       </div>
                     </div>
                     <div class="col-4">
                       <div class="p-2 border rounded-1 bg-white">
-                        <div class="fw-bold text-royal fs-6 lh-1 mb-1">${(featured.info && featured.info.payout ? featured.info.payout.replace(/^Bagi Hasil\s*/i, '') : 'Kompetitif')}</div>
+                        <div class="fw-bold text-royal fs-6 lh-1 mb-1">${(featured.info && featured.info.payout ? featured.info.payout.replace(/^Bagi Hasil\s*/i, '') : 'Tutup Buku Tahunan')}</div>
                         <div class="text-muted text-uppercase fw-semibold" style="font-size: 0.65rem;">Bagi Hasil</div>
                       </div>
                     </div>

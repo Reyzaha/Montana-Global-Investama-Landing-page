@@ -274,10 +274,12 @@ const MGIComponents = {
       lokasi = lokasi.substring(0, 24) + '...';
     }
 
-    let payoutText = 'Bagi Hasil Tiap Siklus Penjualan';
+    let payoutText = 'Tutup Buku Laporan Tahunan';
     const rawPayout = (info.payout || '').toLowerCase();
-    if (rawPayout.includes('kuartal')) {
-      payoutText = 'Bagi Hasil Kuartalan';
+    if (rawPayout.includes('tutup buku')) {
+      payoutText = 'Tutup Buku Tahunan';
+    } else if (rawPayout.includes('kuartal')) {
+      payoutText = 'Tutup Buku Tahunan';
     }
 
     let assetBadge = 'Alat Berat Siap Operasi';
