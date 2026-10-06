@@ -1956,37 +1956,37 @@
           </div>
         </div>
 
-        <!-- 3-Year Return Simulation Box (Tenor Maksimal 36 Bulan) -->
+        <!-- Return Simulation Box (Periode 12 Bulan - Target 2-3x Putaran Sesuai Brosur) -->
         <div class="bg-gradient-to-br from-amber-50 to-orange-50/60 border border-amber-200/90 rounded-2xl p-4 space-y-3">
           <div class="flex items-center justify-between">
             <span class="text-xs font-bold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
               <i data-lucide="calculator" class="w-3.5 h-3.5 text-amber-600"></i>
-              Simulasi Return Selama 3 Tahun (36 Bulan)
+              Simulasi Return Tahunan (Periode 12 Bulan)
             </span>
-            <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-200/80 text-amber-900 font-mono" id="simModalRoiBadge">
-              +90% Imbal Hasil
+            <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 font-mono" id="simModalRoiBadge">
+              28,6% – 42,9% p.a.
             </span>
           </div>
           
           <div class="grid grid-cols-2 gap-2 text-xs">
             <div class="p-2.5 bg-white/90 rounded-xl border border-amber-100/90 shadow-2xs space-y-0.5">
-              <span class="text-[10px] text-slate-500 block">Dividen Tahunan (Est. ~30%):</span>
-              <span class="font-bold text-emerald-700 text-xs sm:text-sm font-mono block" id="simModalAnnualReturn">Rp 300.000.000 / thn</span>
-              <span class="text-[10px] text-slate-400 block font-mono" id="simModalQuarterlyReturn">Rp 75.000.000 / kuartal</span>
+              <span class="text-[10px] text-slate-500 block">Skenario 2x Putaran (28,6%):</span>
+              <span class="font-bold text-blue-900 text-xs sm:text-sm font-mono block" id="simModalAnnualReturn">Rp 4.293.000.000</span>
+              <span class="text-[10px] text-slate-400 block font-mono" id="simModalQuarterlyReturn">Tutup buku tahunan</span>
             </div>
             <div class="p-2.5 bg-white/90 rounded-xl border border-amber-100/90 shadow-2xs space-y-0.5">
-              <span class="text-[10px] text-slate-500 block">Total Dividen 3 Tahun:</span>
-              <span class="font-bold text-amber-700 text-xs sm:text-sm font-mono block" id="simModal4YearReturn">Rp 900.000.000</span>
-              <span class="text-[10px] text-slate-400 block">12x Transfer Kuartalan</span>
+              <span class="text-[10px] text-slate-500 block">Skenario 3x Putaran (42,9%):</span>
+              <span class="font-bold text-emerald-700 text-xs sm:text-sm font-mono block" id="simModal4YearReturn">Rp 6.439.500.000</span>
+              <span class="text-[10px] text-slate-400 block">Target perputaran optimal</span>
             </div>
           </div>
 
           <div class="pt-2 border-t border-amber-200/70 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs">
             <div>
               <span class="text-amber-950 font-bold block">Total Diterima Pemodal:</span>
-              <span class="text-[10px] text-slate-500">100% Pokok Kembali + Total Dividen 3 Tahun</span>
+              <span class="text-[10px] text-slate-500">100% Pokok Kembali Utuh + Dividen Hasil Putaran</span>
             </div>
-            <span class="font-black text-blue-900 text-sm sm:text-base font-mono" id="simModalGrandTotal">Rp 1.900.000.000</span>
+            <span class="font-black text-blue-900 text-sm sm:text-base font-mono" id="simModalGrandTotal">Rp 19.293.000.000 – Rp 21.439.500.000</span>
           </div>
 
           <span id="simulatedReturn" class="hidden"></span>
@@ -4790,15 +4790,15 @@
             </div>
           </div>
 
-          <!-- 5. Interactive 3-Year Capital & Return Simulator -->
+          <!-- 5. Proyeksi Return Tahunan (Periode 12 Bulan - Skenario 2x vs 3x Putaran Sesuai Brosur) -->
           <div class="p-5 sm:p-6 rounded-3xl bg-slate-50/90 text-slate-900 space-y-5 border border-slate-200 shadow-xs">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3.5 border-b border-slate-200">
               <div>
-                <span class="text-[10px] font-bold text-amber-800 uppercase tracking-widest block">Simulasi Portofolio Investor</span>
-                <h4 class="text-base font-bold text-slate-900 tracking-tight">Simulasi Penempatan Modal &amp; Imbal Hasil 3 Tahun</h4>
+                <span class="text-[10px] font-bold text-amber-800 uppercase tracking-widest block">Prospektus Kinerja Investasi</span>
+                <h4 class="text-base font-bold text-slate-900 tracking-tight">Proyeksi Return Tahunan (Periode 12 Bulan)</h4>
               </div>
               <span class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/90 self-start sm:self-auto" id="modalSimRateBadge">
-                Target ROI ~32% p.a. (Tenor 36 Bulan)
+                Target 2–3x Putaran / Tahun
               </span>
             </div>
 
@@ -4810,35 +4810,42 @@
               ${simPackageButtonsHtml}
             </div>
 
-            <!-- 3-Year Progression Cards -->
+            <!-- 2-Scenario Cards (Sesuai Brosur Resmi Halaman 2 & 4) -->
             <div class="space-y-2">
-              <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">Proyeksi Hasil Tiap Tahun (Tenor Maksimal 36 Bulan):</span>
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
-                <div class="p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-1">
-                  <div class="flex justify-between items-center text-[10px] font-bold text-slate-500">
-                    <span class="tracking-wider uppercase">TAHUN 1</span>
-                    <span class="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold text-[10px]" id="modalSimT1Roi">+32%</span>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">Simulasi Skenario Perputaran Modal dalam 12 Bulan:</span>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                <!-- Skenario 2x Putaran -->
+                <div class="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
+                  <div class="flex justify-between items-center text-[10px] font-bold text-slate-600">
+                    <span class="tracking-wider uppercase flex items-center gap-1"><i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-600"></i> SKENARIO 2x PERPUTARAN</span>
+                    <span class="text-blue-800 bg-blue-50 px-2.5 py-0.5 rounded-full font-bold text-xs" id="modalSim2xRoiBadge">28,62% p.a.</span>
                   </div>
-                  <span class="text-xs sm:text-sm font-bold text-slate-900 block" id="modalSimT1Div">Rp 1.600.000.000</span>
-                  <span class="text-[10px] text-slate-500 block">Akumulasi: <strong class="text-slate-700 font-semibold" id="modalSimT1Accum">Rp 1.600.000.000</strong></span>
+                  <div class="space-y-0.5">
+                    <span class="text-[10px] text-slate-400 block font-medium">Estimasi Profit Bersih Tahunan:</span>
+                    <span class="text-base sm:text-lg font-black text-slate-900 block" id="modalSim2xProfit">Rp 4.293.000.000</span>
+                  </div>
+                  <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
+                    <span class="text-slate-500 font-medium">Total Diterima (Pokok + Profit):</span>
+                    <strong class="text-blue-900 font-bold" id="modalSim2xTotal">Rp 19.293.000.000</strong>
+                  </div>
+                  <span class="text-[10px] text-slate-400 block">*100% Modal Pokok kembali utuh saat tutup buku laporan tahunan.</span>
                 </div>
 
-                <div class="p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-1">
-                  <div class="flex justify-between items-center text-[10px] font-bold text-slate-500">
-                    <span class="tracking-wider uppercase">TAHUN 2</span>
-                    <span class="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold text-[10px]" id="modalSimT2Roi">+64%</span>
-                  </div>
-                  <span class="text-xs sm:text-sm font-bold text-slate-900 block" id="modalSimT2Div">Rp 1.600.000.000</span>
-                  <span class="text-[10px] text-slate-500 block">Akumulasi: <strong class="text-slate-700 font-semibold" id="modalSimT2Accum">Rp 3.200.000.000</strong></span>
-                </div>
-
-                <div class="p-3.5 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50/40 border border-amber-200/90 shadow-2xs space-y-1">
+                <!-- Skenario 3x Putaran -->
+                <div class="p-4 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50/50 border border-amber-200 shadow-2xs space-y-2">
                   <div class="flex justify-between items-center text-[10px] font-bold text-amber-900">
-                    <span class="tracking-wider uppercase">TAHUN 3 (FINAL)</span>
-                    <span class="text-amber-800 bg-amber-100/90 px-2 py-0.5 rounded-full font-bold text-[10px]" id="modalSimT3Roi">+96%</span>
+                    <span class="tracking-wider uppercase flex items-center gap-1"><i data-lucide="zap" class="w-3.5 h-3.5 text-amber-600"></i> SKENARIO 3x PERPUTARAN (OPTIMAL)</span>
+                    <span class="text-emerald-800 bg-emerald-100/90 px-2.5 py-0.5 rounded-full font-bold text-xs" id="modalSim3xRoiBadge">42,93% p.a.</span>
                   </div>
-                  <span class="text-xs sm:text-sm font-bold text-amber-950 block" id="modalSimT3Div">Rp 1.600.000.000</span>
-                  <span class="text-[10px] text-amber-800 font-semibold block">+ 100% Pokok Kembali Utuh</span>
+                  <div class="space-y-0.5">
+                    <span class="text-[10px] text-amber-800 block font-medium">Estimasi Profit Bersih Tahunan:</span>
+                    <span class="text-base sm:text-lg font-black text-emerald-700 block" id="modalSim3xProfit">Rp 6.439.500.000</span>
+                  </div>
+                  <div class="pt-2 border-t border-amber-200/60 flex items-center justify-between text-[11px]">
+                    <span class="text-amber-900 font-medium">Total Diterima (Pokok + Profit):</span>
+                    <strong class="text-emerald-900 font-bold" id="modalSim3xTotal">Rp 21.439.500.000</strong>
+                  </div>
+                  <span class="text-[10px] text-amber-800/80 block">*100% Modal Pokok kembali utuh saat tutup buku laporan tahunan.</span>
                 </div>
               </div>
             </div>
@@ -4846,19 +4853,19 @@
             <!-- Summary Breakdown Badges -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-2 border-t border-slate-200 text-xs">
               <div class="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
-                <span class="text-[10px] text-slate-500 font-medium block">Dividen Tahunan (per Tahun):</span>
-                <span class="text-sm font-bold text-slate-900 mt-0.5 block" id="modalSimQuarterlyDisplay">Rp 4.800.000.000</span>
-                <span class="text-[10px] text-slate-400">Pada saat tutup buku laporan tahunan</span>
+                <span class="text-[10px] text-slate-500 font-medium block">Modal Pokok Investasi:</span>
+                <span class="text-sm font-bold text-slate-900 mt-0.5 block" id="modalSimSumCapital">Rp 15.000.000.000</span>
+                <span class="text-[10px] text-slate-400">100% kembali utuh di akhir tenor 12 bulan</span>
               </div>
               <div class="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
-                <span class="text-[10px] text-slate-500 font-medium block">Total Dividen 3 Tahun (Murni):</span>
-                <span class="text-sm font-bold text-emerald-700 mt-0.5 block" id="modalSimAnnualDisplay">Rp 4.800.000.000</span>
-                <span class="text-[10px] text-emerald-700 font-bold" id="modalSimTotalRoiLabel">+96% Total Imbal Hasil</span>
+                <span class="text-[10px] text-slate-500 font-medium block">Rentang Profit Tahunan (2x–3x Putaran):</span>
+                <span class="text-sm font-bold text-emerald-700 mt-0.5 block" id="modalSimSumRange">Rp 4.293.000.000 – Rp 6.439.500.000</span>
+                <span class="text-[10px] text-emerald-700 font-bold">Dibagikan saat tutup buku laporan tahunan</span>
               </div>
               <div class="p-3 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100/60 border border-amber-300/80 shadow-2xs">
-                <span class="text-[10px] text-amber-900 block font-bold">Total Modal + Dividen 3 Tahun:</span>
-                <span class="text-sm font-black text-amber-950 mt-0.5 block" id="modalSimTotalDisplay">Rp 9.800.000.000</span>
-                <span class="text-[10px] text-amber-800/90">Pengembalian 100% pokok di akhir tenor</span>
+                <span class="text-[10px] text-amber-900 block font-bold">Total Diterima Pemodal (Pokok + Profit):</span>
+                <span class="text-sm font-black text-amber-950 mt-0.5 block" id="modalSimSumGrand">Rp 19.293.000.000 – Rp 21.439.500.000</span>
+                <span class="text-[10px] text-amber-800/90">Pencairan penuh di akhir periode 12 bulan</span>
               </div>
             </div>
           </div>
@@ -4902,55 +4909,50 @@
     }
 
     function updateModalSimulator(val) {
-      const num = Number(val) || 5000000000;
-      let rate = 0.32; // Default 32% annual return
+      const num = Number(val) || 15000000000;
+      let cycleReturn = 0.1431; // Default 14.31% per siklus
+
       if (activeDetailProjectId) {
         const p = catalogProjects.find(x => x.id === activeDetailProjectId);
         if (p && p.detail?.rab_executive?.struktur_biaya_unit?.return_per_siklus) {
-          rate = (p.detail.rab_executive.struktur_biaya_unit.return_per_siklus / 100) * 2.5;
+          cycleReturn = p.detail.rab_executive.struktur_biaya_unit.return_per_siklus / 100;
         }
       }
 
-      const annual = Math.round(num * rate);
-      const quarterly = Math.round(annual / 4);
-      const totalDividend3Y = annual * 3;
-      const grandTotal3Y = num + totalDividend3Y;
-      const totalRoiPercent = Math.round(rate * 3 * 100);
-      const annualRoiPercent = Math.round(rate * 100);
+      const rate2x = cycleReturn * 2; // ~28.62% p.a.
+      const rate3x = cycleReturn * 3; // ~42.93% p.a.
+
+      const profit2x = Math.round(num * rate2x);
+      const profit3x = Math.round(num * rate3x);
+      const total2x = num + profit2x;
+      const total3x = num + profit3x;
 
       const nomEl = document.getElementById('modalSimNominalDisplay');
-      const quartEl = document.getElementById('modalSimQuarterlyDisplay');
-      const annEl = document.getElementById('modalSimAnnualDisplay');
-      const totEl = document.getElementById('modalSimTotalDisplay');
-      const roiLabel = document.getElementById('modalSimTotalRoiLabel');
-
       if (nomEl) nomEl.innerText = formatRupiahExact(num);
-      if (quartEl) quartEl.innerText = formatRupiahExact(annual);
-      if (annEl) annEl.innerText = formatRupiahExact(totalDividend3Y);
-      if (totEl) totEl.innerText = formatRupiahExact(grandTotal3Y);
-      if (roiLabel) roiLabel.innerText = `+${totalRoiPercent}% Total Imbal Hasil`;
 
-      // Year-by-year elements in modal (3 Years)
-      const t1Div = document.getElementById('modalSimT1Div');
-      const t1Accum = document.getElementById('modalSimT1Accum');
-      const t1Roi = document.getElementById('modalSimT1Roi');
-      if (t1Div) t1Div.innerText = formatRupiahExact(annual);
-      if (t1Accum) t1Accum.innerText = formatRupiahExact(annual);
-      if (t1Roi) t1Roi.innerText = `+${annualRoiPercent}%`;
+      // Skenario 2x
+      const sim2xProfit = document.getElementById('modalSim2xProfit');
+      const sim2xTotal = document.getElementById('modalSim2xTotal');
+      const sim2xBadge = document.getElementById('modalSim2xRoiBadge');
+      if (sim2xProfit) sim2xProfit.innerText = formatRupiahExact(profit2x);
+      if (sim2xTotal) sim2xTotal.innerText = formatRupiahExact(total2x);
+      if (sim2xBadge) sim2xBadge.innerText = `${(rate2x * 100).toFixed(2)}% p.a.`;
 
-      const t2Div = document.getElementById('modalSimT2Div');
-      const t2Accum = document.getElementById('modalSimT2Accum');
-      const t2Roi = document.getElementById('modalSimT2Roi');
-      if (t2Div) t2Div.innerText = formatRupiahExact(annual);
-      if (t2Accum) t2Accum.innerText = formatRupiahExact(annual * 2);
-      if (t2Roi) t2Roi.innerText = `+${annualRoiPercent * 2}%`;
+      // Skenario 3x
+      const sim3xProfit = document.getElementById('modalSim3xProfit');
+      const sim3xTotal = document.getElementById('modalSim3xTotal');
+      const sim3xBadge = document.getElementById('modalSim3xRoiBadge');
+      if (sim3xProfit) sim3xProfit.innerText = formatRupiahExact(profit3x);
+      if (sim3xTotal) sim3xTotal.innerText = formatRupiahExact(total3x);
+      if (sim3xBadge) sim3xBadge.innerText = `${(rate3x * 100).toFixed(2)}% p.a.`;
 
-      const t3Div = document.getElementById('modalSimT3Div');
-      const t3Accum = document.getElementById('modalSimT3Accum');
-      const t3Roi = document.getElementById('modalSimT3Roi');
-      if (t3Div) t3Div.innerText = formatRupiahExact(annual);
-      if (t3Accum) t3Accum.innerText = formatRupiahExact(totalDividend3Y);
-      if (t3Roi) t3Roi.innerText = `+${totalRoiPercent}%`;
+      // Summary boxes
+      const simSumCapital = document.getElementById('modalSimSumCapital');
+      const simSumRange = document.getElementById('modalSimSumRange');
+      const simSumGrand = document.getElementById('modalSimSumGrand');
+      if (simSumCapital) simSumCapital.innerText = formatRupiahExact(num);
+      if (simSumRange) simSumRange.innerText = `${formatRupiahExact(profit2x)} – ${formatRupiahExact(profit3x)}`;
+      if (simSumGrand) simSumGrand.innerText = `${formatRupiahExact(total2x)} – ${formatRupiahExact(total3x)}`;
     }
 
     // Populate Select in Invest Modal
@@ -5203,14 +5205,14 @@
       openModal('investModal');
     }
 
-    // Simulated Yield Calculator (3-Year Horizon - Tenor Maksimal 36 Bulan)
+    // Simulated Yield Calculator (Periode 12 Bulan - Skenario 2x vs 3x Putaran Sesuai Prospektus)
     function calculateSimulatedYield() {
       const nomInput = document.getElementById('investSelectedNominal') || document.getElementById('investAmountInput');
       const select = document.getElementById('investProjectSelect');
       if (!nomInput) return;
 
       const val = parseFloat(nomInput.value) || 0;
-      let returnRate = 0.30; // Default 30% p.a.
+      let cycleReturn = 0.1431; // Default 14.31% per siklus
 
       if (select && select.value) {
         let p = catalogProjects.find(x => x.id === select.value);
@@ -5218,30 +5220,9 @@
           p = dashboardState.projects.find(x => x.id === select.value);
         }
         if (p && p.detail?.rab_executive?.struktur_biaya_unit?.return_per_siklus) {
-          const cycleRate = p.detail.rab_executive.struktur_biaya_unit.return_per_siklus / 100;
-          returnRate = cycleRate * 2.5; // ~32% - 35%
+          cycleReturn = p.detail.rab_executive.struktur_biaya_unit.return_per_siklus / 100;
         }
       }
-
-      if (val <= 0) {
-        const annualEl = document.getElementById('simModalAnnualReturn');
-        const quartEl = document.getElementById('simModalQuarterlyReturn');
-        const div3YEl = document.getElementById('simModal4YearReturn');
-        const grandEl = document.getElementById('simModalGrandTotal');
-        const roiBadge = document.getElementById('simModalRoiBadge');
-        if (annualEl) annualEl.innerText = 'Rp 0 / thn';
-        if (quartEl) quartEl.innerText = 'Rp 0 / kuartal';
-        if (div3YEl) div3YEl.innerText = 'Rp 0';
-        if (grandEl) grandEl.innerText = 'Rp 0';
-        if (roiBadge) roiBadge.innerText = '0% Imbal Hasil';
-        return;
-      }
-
-      const annualEstimate = Math.round(val * returnRate);
-      const quarterlyEstimate = Math.round(annualEstimate / 4);
-      const totalDividend3Y = annualEstimate * 3;
-      const grandTotal3Y = val + totalDividend3Y;
-      const roiTotalPercent = Math.round(returnRate * 3 * 100);
 
       const annualEl = document.getElementById('simModalAnnualReturn');
       const quartEl = document.getElementById('simModalQuarterlyReturn');
@@ -5250,13 +5231,30 @@
       const roiBadge = document.getElementById('simModalRoiBadge');
       const legacyOutput = document.getElementById('simulatedReturn');
 
-      if (annualEl) annualEl.innerText = formatRupiahExact(annualEstimate) + ' / thn';
-      if (quartEl) quartEl.innerText = formatRupiahExact(quarterlyEstimate) + ' / kuartal';
-      if (div3YEl) div3YEl.innerText = formatRupiahExact(totalDividend3Y);
-      if (grandEl) grandEl.innerText = formatRupiahExact(grandTotal3Y);
-      if (roiBadge) roiBadge.innerText = `+${roiTotalPercent}% Imbal Hasil`;
+      if (val <= 0) {
+        if (annualEl) annualEl.innerText = 'Rp 0';
+        if (quartEl) quartEl.innerText = 'Tutup buku tahunan';
+        if (div3YEl) div3YEl.innerText = 'Rp 0';
+        if (grandEl) grandEl.innerText = 'Rp 0';
+        if (roiBadge) roiBadge.innerText = '28,6% – 42,9% p.a.';
+        return;
+      }
+
+      const rate2x = cycleReturn * 2; // ~28.62% p.a.
+      const rate3x = cycleReturn * 3; // ~42.93% p.a.
+
+      const profit2x = Math.round(val * rate2x);
+      const profit3x = Math.round(val * rate3x);
+      const total2x = val + profit2x;
+      const total3x = val + profit3x;
+
+      if (annualEl) annualEl.innerText = formatRupiahExact(profit2x);
+      if (quartEl) quartEl.innerText = 'Tutup buku tahunan';
+      if (div3YEl) div3YEl.innerText = formatRupiahExact(profit3x);
+      if (grandEl) grandEl.innerText = `${formatRupiahExact(total2x)} – ${formatRupiahExact(total3x)}`;
+      if (roiBadge) roiBadge.innerText = `${(rate2x * 100).toFixed(1).replace('.', ',')}% – ${(rate3x * 100).toFixed(1).replace('.', ',')}% p.a.`;
       if (legacyOutput) {
-        legacyOutput.innerHTML = `<span>${formatRupiahExact(annualEstimate)} / tahun</span>`;
+        legacyOutput.innerHTML = `<span>${formatRupiahExact(profit2x)} – ${formatRupiahExact(profit3x)} / tahun</span>`;
       }
     }
 
