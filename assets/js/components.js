@@ -488,15 +488,20 @@ const MGIComponents = {
     const rows = fundingData.rows;
     let grandTotal = fundingData.grand_total || 0;
 
-    let rowsHtml = rows.map(r => `
+    let rowsHtml = rows.map(r => {
+      const isPencadangan = (r.item && (r.item.toLowerCase().includes('cadangan') || r.item.toLowerCase().includes('pencadangan') || r.item.toLowerCase().includes('likuiditas')));
+      const volDisp = isPencadangan ? '-' : (r.quantity ? r.quantity + ' Unit' : '-');
+      const priceDisp = isPencadangan ? '-' : MGI.formatRupiah(r.unit_price);
+      return `
       <tr>
         <td class="text-center fw-bold" style="width: 60px;">${r.no}</td>
         <td><strong class="text-mgi-dark">${r.item}</strong></td>
-        <td class="text-center">${r.quantity} Unit</td>
-        <td class="text-end">${MGI.formatRupiah(r.unit_price)}</td>
+        <td class="text-center">${volDisp}</td>
+        <td class="text-end">${priceDisp}</td>
         <td class="text-end text-mgi-gold fw-bold">${MGI.formatRupiah(r.total)}</td>
       </tr>
-    `).join('');
+      `;
+    }).join('');
 
     return `
       <div class="table-responsive table-mgi shadow-sm">

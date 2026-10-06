@@ -2333,7 +2333,7 @@
                 </span>
                 <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-slate-900/90 text-amber-300 border border-amber-400/30 backdrop-blur-md shadow-md">
                   <i data-lucide="shield" class="w-3.5 h-3.5"></i>
-                  ${(tier && tier.unit_qty) ? (tier.unit_qty + ' Unit Alat Berat') : (r.allocated_units || 'Unit CBU Jepang Grade A')}
+                  ${(tier && tier.unit_qty) ? (tier.unit_qty + ' Unit Alat Berat') : (r.allocated_units || 'Unit Alat Berat')}
                 </span>
               </div>
 
@@ -3403,7 +3403,7 @@
 
           costGrid.innerHTML = `
             <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
-              <span class="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">1. HPP Beli Unit (CBU Jepang Grade A)</span>
+              <span class="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">1. HPP Beli Unit (Alat Berat)</span>
               <div class="text-slate-900 font-mono font-black text-sm mt-0.5">${formatRupiahExact(hppVal)}</div>
               <span class="text-[10px] text-slate-500">Standar seleksi ketat Grade A lelang</span>
             </div>
@@ -4588,15 +4588,20 @@
 
       let rabRowsHtml = '';
       if (fundingRows && fundingRows.length > 0) {
-        rabRowsHtml = fundingRows.map((r, idx) => `
+        rabRowsHtml = fundingRows.map((r, idx) => {
+          const isPencadangan = (r.item && (r.item.toLowerCase().includes('cadangan') || r.item.toLowerCase().includes('pencadangan') || r.item.toLowerCase().includes('likuiditas')));
+          const volDisplay = isPencadangan ? '-' : (r.quantity ? r.quantity + ' Unit' : '-');
+          const unitPriceDisplay = isPencadangan ? '-' : formatRupiahExact(r.unit_price);
+          return `
           <tr class="hover:bg-slate-50/80 transition border-b border-slate-100 last:border-b-0">
             <td class="py-2.5 px-3 text-center font-bold text-slate-400">${r.no || (idx + 1)}</td>
             <td class="py-2.5 px-3 font-semibold text-slate-900">${r.item}</td>
-            <td class="py-2.5 px-3 text-center text-slate-700 font-medium">${r.quantity ? r.quantity + ' Unit' : '-'}</td>
-            <td class="py-2.5 px-3 text-right font-mono text-slate-600">${formatRupiahExact(r.unit_price)}</td>
+            <td class="py-2.5 px-3 text-center text-slate-700 font-medium">${volDisplay}</td>
+            <td class="py-2.5 px-3 text-right font-mono text-slate-600">${unitPriceDisplay}</td>
             <td class="py-2.5 px-3 text-right font-mono font-bold text-blue-950">${formatRupiahExact(r.total)}</td>
           </tr>
-        `).join('');
+        `;
+        }).join('');
       } else {
         const hppTot = unitQty * 500000000;
         const kTot = unitQty * 52500000;
@@ -4605,7 +4610,7 @@
         rabRowsHtml = `
           <tr class="hover:bg-slate-50/80 transition border-b border-slate-100">
             <td class="py-2.5 px-3 text-center font-bold text-slate-400">1</td>
-            <td class="py-2.5 px-3 font-semibold text-slate-900">Harga Pokok Pembelian (HPP) Unit Alat Berat (CBU Grade A)</td>
+            <td class="py-2.5 px-3 font-semibold text-slate-900">Harga Pokok Pembelian (HPP) Unit Alat Berat</td>
             <td class="py-2.5 px-3 text-center text-slate-700 font-medium">${unitQty} Unit</td>
             <td class="py-2.5 px-3 text-right font-mono text-slate-600">Rp 500.000.000</td>
             <td class="py-2.5 px-3 text-right font-mono font-bold text-blue-950">${formatRupiahExact(hppTot)}</td>
@@ -4627,8 +4632,8 @@
           <tr class="hover:bg-slate-50/80 transition">
             <td class="py-2.5 px-3 text-center font-bold text-slate-400">4</td>
             <td class="py-2.5 px-3 font-semibold text-slate-900">Dana Pencadangan & Likuiditas Operasional Proyek</td>
-            <td class="py-2.5 px-3 text-center text-slate-700 font-medium">${unitQty} Unit</td>
-            <td class="py-2.5 px-3 text-right font-mono text-slate-600">${formatRupiahExact(Math.round(cTot / unitQty))}</td>
+            <td class="py-2.5 px-3 text-center text-slate-500 font-medium">-</td>
+            <td class="py-2.5 px-3 text-right font-mono text-slate-500">-</td>
             <td class="py-2.5 px-3 text-right font-mono font-bold text-blue-950">${formatRupiahExact(cTot)}</td>
           </tr>
         `;
@@ -4688,7 +4693,7 @@
             <div class="p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-200">
               <span class="text-[10px] font-bold text-emerald-800 uppercase block">Target Imbal Hasil</span>
               <span class="text-sm font-bold text-emerald-950 mt-0.5 block">${returnText}</span>
-              <span class="text-[10px] text-emerald-700 font-semibold mt-0.5 block">Bagi Hasil Kuartalan</span>
+              <span class="text-[10px] text-emerald-700 font-semibold mt-0.5 block">Tutup Buku Tahunan</span>
             </div>
             <div class="p-3.5 rounded-2xl bg-blue-50/70 border border-blue-200">
               <span class="text-[10px] font-bold text-blue-800 uppercase block">Tenor Penempatan</span>
@@ -4697,7 +4702,7 @@
             </div>
             <div class="p-3.5 rounded-2xl bg-amber-50/70 border border-amber-200">
               <span class="text-[10px] font-bold text-amber-800 uppercase block">Alokasi Unit Fisik</span>
-              <span class="text-sm font-bold text-amber-950 mt-0.5 block">${unitQty} Unit CBU</span>
+              <span class="text-sm font-bold text-amber-950 mt-0.5 block">${unitQty} Unit Alat Berat</span>
               <span class="text-[10px] text-amber-700 font-semibold mt-0.5 block">Siap Kontrak Sewa</span>
             </div>
           </div>
@@ -4726,7 +4731,7 @@
                 <h4 class="text-sm sm:text-base font-bold text-slate-900 tracking-tight">Rencana Anggaran Biaya (RAB) &amp; Alokasi Modal Pengadaan</h4>
               </div>
               <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
-                Alokasi ${unitQty} Unit CBU
+                Alokasi ${unitQty} Unit Alat Berat
               </span>
             </div>
 
@@ -4737,8 +4742,8 @@
                   <span class="text-[10px] font-bold text-blue-700 uppercase">1. Pengadaan Unit (PT MIU)</span>
                   <span class="text-xs font-black text-slate-900">Rp 500.000.000 / Unit</span>
                 </div>
-                <div class="text-base font-black text-slate-900">Unit CBU Jepang Grade A</div>
-                <p class="text-[11px] text-slate-500 leading-snug">Harga Pokok Pembelian (HPP) impor langsung alat berat dari Jepang dalam kondisi prima dan lulus uji kelayakan operasional.</p>
+                <div class="text-base font-black text-slate-900">Alat Berat</div>
+                <p class="text-[11px] text-slate-500 leading-snug">Harga Pokok Pembelian (HPP) pengadaan alat berat dalam kondisi prima dan lulus uji kelayakan operasional.</p>
               </div>
 
               <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-1">
@@ -4841,9 +4846,9 @@
             <!-- Summary Breakdown Badges -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-2 border-t border-slate-200 text-xs">
               <div class="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
-                <span class="text-[10px] text-slate-500 font-medium block">Dividen per Kuartal (3 Bln):</span>
-                <span class="text-sm font-bold text-slate-900 mt-0.5 block" id="modalSimQuarterlyDisplay">Rp 400.000.000</span>
-                <span class="text-[10px] text-slate-400">12 kali transfer dividen</span>
+                <span class="text-[10px] text-slate-500 font-medium block">Dividen Tahunan (per Tahun):</span>
+                <span class="text-sm font-bold text-slate-900 mt-0.5 block" id="modalSimQuarterlyDisplay">Rp 4.800.000.000</span>
+                <span class="text-[10px] text-slate-400">Pada saat tutup buku laporan tahunan</span>
               </div>
               <div class="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
                 <span class="text-[10px] text-slate-500 font-medium block">Total Dividen 3 Tahun (Murni):</span>
@@ -4920,7 +4925,7 @@
       const roiLabel = document.getElementById('modalSimTotalRoiLabel');
 
       if (nomEl) nomEl.innerText = formatRupiahExact(num);
-      if (quartEl) quartEl.innerText = formatRupiahExact(quarterly);
+      if (quartEl) quartEl.innerText = formatRupiahExact(annual);
       if (annEl) annEl.innerText = formatRupiahExact(totalDividend3Y);
       if (totEl) totEl.innerText = formatRupiahExact(grandTotal3Y);
       if (roiLabel) roiLabel.innerText = `+${totalRoiPercent}% Total Imbal Hasil`;
