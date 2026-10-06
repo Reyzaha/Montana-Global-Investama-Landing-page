@@ -1,6 +1,15 @@
 {
     "cities": [
         {
+            "id": 1,
+            "name": "Jabodetabek & Jawa Barat",
+            "slug": "jabodetabek",
+            "icon": "bi-geo-alt-fill",
+            "is_active_segment": 1,
+            "sort_order": 1,
+            "description": "Project Ekspansi Sentral Pool & Heavy Duty Alat Berat Regional Jabodetabek & Jawa Barat"
+        },
+        {
             "id": 2,
             "name": "Denpasar",
             "slug": "denpasar",
@@ -11,39 +20,84 @@
         },
         {
             "id": 3,
-            "name": "Makassar",
-            "slug": "makassar",
-            "icon": "bi-geo-alt-fill",
-            "is_active_segment": 1,
-            "sort_order": 3,
-            "description": "Gerbang Indonesia Timur, Logistik Pelabuhan New Port & Penunjang Sektor Sumber Daya"
-        },
-        {
-            "id": 4,
             "name": "Kebumen",
             "slug": "kebumen",
             "icon": "bi-gear-wide-connected",
             "is_active_segment": 1,
+            "sort_order": 3,
+            "description": "Sentral Pool & Central Workshop Montana 4.500 m², Jalur JJLS & Sektor Infrastruktur Jawa Tengah"
+        },
+        {
+            "id": 4,
+            "name": "Sumatra",
+            "slug": "sumatra",
+            "icon": "bi-geo-alt-fill",
+            "is_active_segment": 1,
             "sort_order": 4,
-            "description": "Sentral Pool & Workshop Montana 4.500 m², Jalur JJLS & Agribisnis Jawa Tengah"
+            "description": "Dukungan Armada Sektor Perkebunan, Pertambangan & Logistik Koridor Sumatra"
         },
         {
             "id": 5,
-            "name": "Jabodetabek",
-            "slug": "jabodetabek",
+            "name": "Pontianak",
+            "slug": "pontianak",
             "icon": "bi-geo-alt-fill",
             "is_active_segment": 1,
             "sort_order": 5,
-            "description": "Project Ekspansi Sentral Pool & Heavy Duty Alat Berat Regional Jabodetabek"
+            "description": "Penetrasi Pasar Alat Berat & Penguatan Sektor Industri Kalimantan Barat"
         },
         {
             "id": 6,
-            "name": "Jawa Barat",
-            "slug": "jawa-barat",
-            "icon": "bi-water",
+            "name": "Banjarmasin",
+            "slug": "banjarmasin",
+            "icon": "bi-geo-alt-fill",
             "is_active_segment": 1,
             "sort_order": 6,
-            "description": "Sentralisasi Efisiensi Proyek Normalisasi Sungai dan Penanganan Daerah Aliran Sungai Jawa Barat"
+            "description": "Dukungan Armada Earthmoving & Heavy Duty Logistik Kalimantan Selatan"
+        },
+        {
+            "id": 7,
+            "name": "Aceh",
+            "slug": "aceh",
+            "icon": "bi-geo-alt-fill",
+            "is_active_segment": 1,
+            "sort_order": 7,
+            "description": "Pengadaan Armada Alat Berat Sektor Konstruksi & Infrastruktur Strategis Aceh"
+        },
+        {
+            "id": 8,
+            "name": "Makassar",
+            "slug": "makassar",
+            "icon": "bi-geo-alt-fill",
+            "is_active_segment": 1,
+            "sort_order": 8,
+            "description": "Gerbang Indonesia Timur, Logistik Pelabuhan New Port & Penunjang Sektor Sumber Daya"
+        },
+        {
+            "id": 9,
+            "name": "Palu",
+            "slug": "palu",
+            "icon": "bi-geo-alt-fill",
+            "is_active_segment": 1,
+            "sort_order": 9,
+            "description": "Suplai Unit Alat Berat Penunjang Smelter, Industri & Rekonstruksi Sulawesi Tengah"
+        },
+        {
+            "id": 10,
+            "name": "Surabaya",
+            "slug": "surabaya",
+            "icon": "bi-building",
+            "is_active_segment": 1,
+            "sort_order": 10,
+            "description": "Hub Distribusi Utama & Pusat Penyerapan Pasar Konstruksi Jawa Timur"
+        },
+        {
+            "id": 11,
+            "name": "NTT",
+            "slug": "ntt",
+            "icon": "bi-geo-alt-fill",
+            "is_active_segment": 1,
+            "sort_order": 11,
+            "description": "Pengadaan Unit Alat Berat untuk Pengembangan Infrastruktur Kepulauan NTT"
         }
     ]
 }

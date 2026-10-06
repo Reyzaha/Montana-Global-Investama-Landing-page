@@ -1,10 +1,11 @@
 {
     "currency": "IDR",
-    "disclaimer_text": "Target imbal hasil dan proyeksi cashflow berbasis kontrak operasional riil. Seluruh alokasi modal didukung jaminan unit fisik alat berat siap operasi yang beroperasi di berbagai lokasi strategis ekspansi wilayah nasional.",
+    "disclaimer_text": "Target ilustratif berdasarkan proyeksi kinerja, bukan jaminan — hasil aktual mengikuti kinerja riil usaha dan dapat lebih rendah dari target. Investasi pada instrumen sektor riil mengandung risiko fluktuasi pasar dan operasional. Harap membaca seluruh dokumen penawaran dan Risk Disclosure Statement secara cermat.",
     "projects": [
         {
             "id": "proj-jkt-jabar",
             "city": "Jabodetabek",
+            "city_slug": "jabodetabek",
             "city_icon": "bi-geo-alt-fill",
             "city_icon_img": "assets/img/city-jkt-jabar.png",
             "title": "Dealer Jabodetabek & Jawa Barat",
@@ -12,53 +13,39 @@
             "image": "assets/img/project-jabodetabek.jpg",
             "funding": {
                 "collected": 0,
-                "target": 10000000000,
+                "target": 15000000000,
                 "currency": "IDR"
             },
             "status": "Open",
             "featured": true,
             "info": {
                 "lokasi": "DKI Jakarta & Koridor Industri Jabodetabek - Jawa Barat",
-                "target": "Rp 10.000.000.000",
+                "target": "Rp 15.000.000.000",
                 "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
                 "return": "28,6% – 42,9% (p.a.)",
-                "min_investment": "Rp 7.500.000.000 (Paket 7.5M / 10M)",
+                "min_investment": "Rp 15.000.000.000",
                 "payout": "Bagi Hasil Per Siklus Penjualan / Kuartalan",
-                "remaining_days": "30 Hari Tersisa",
+                "remaining_days": "Slot Kemitraan Terbuka",
                 "asset_backed": "Aset Fisik Unit Alat Berat Siap Operasi",
-                "operator_perk": "Bonus 1–2 Operator Profesional Resmi MGI"
+                "operator_perk": "2 Operator Profesional Alat Berat Bersertifikat (Rotasi Shift & Pengawasan)"
             },
-            "package_options_mode": "2",
+            "package_options_mode": "1",
             "package_options": [
                 {
-                    "nominal": 7500000000,
-                    "label": "Paket Kemitraan Eksekutif (7.5 Miliar)",
-                    "badge": "Bonus 1 Operator Profesional",
-                    "featured": false,
-                    "unit_qty": 30,
-                    "container_qty": "7.5 Kontainer 40FT HC (30 Unit)",
-                    "porsi_proyek": "Alokasi 30 Unit Fisik Alat Berat",
-                    "jaminan_aset": "30 Unit Fisik Alat Berat Siap Operasi",
-                    "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
-                    "deskripsi": "Penempatan modal Rp 7,5 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
-                    "profit_per_siklus": 1073151360,
-                    "profit_2x_tahunan": 2146302720,
-                    "profit_3x_tahunan": 3219454080
-                },
-                {
-                    "nominal": 10000000000,
-                    "label": "Paket Konsorsium Utama (10 Miliar)",
+                    "nominal": 15000000000,
+                    "nominal_display": "Rp 15.000.000.000",
+                    "label": "Paket Kemitraan Tunggal (15 Miliar)",
                     "badge": "Bonus 2 Operator Profesional (Double Shift)",
                     "featured": true,
-                    "unit_qty": 40,
-                    "container_qty": "10 Kontainer 40FT HC (40 Unit)",
-                    "porsi_proyek": "Eksklusivitas Penuh Seluruh Batch Regional",
-                    "jaminan_aset": "Seluruh 40 Unit Fisik Alat Berat Siap Operasi",
+                    "unit_qty": 60,
+                    "container_qty": "15 Kontainer 40FT HC (60 Unit)",
+                    "porsi_proyek": "Alokasi Penuh Batch Regional (60 Unit)",
+                    "jaminan_aset": "Seluruh 60 Unit Fisik Alat Berat Siap Operasi",
                     "operator_perk": "2 Operator Profesional Alat Berat Bersertifikat (Rotasi Shift & Pengawasan)",
-                    "deskripsi": "Kemitraan tunggal mendanai kapasitas penuh proyek regional (Rp 10 Miliar) dengan fasilitas 2 Operator berlisensi untuk rotasi shift 24/7, hak inspeksi fisik & audit berkala di Central Workshop Kebumen, serta prioritas utama penyerapan pasar kontraktor rekanan nasional.",
-                    "profit_per_siklus": 1430868480,
-                    "profit_2x_tahunan": 2861736960,
-                    "profit_3x_tahunan": 4292605440
+                    "deskripsi": "Penempatan modal penuh Rp 15.000.000.000 untuk mendanai kapasitas penuh proyek regional (60 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                    "profit_per_siklus": 2146302720,
+                    "profit_2x_tahunan": 4292605440,
+                    "profit_3x_tahunan": 6438908160
                 }
             ],
             "detail": {
@@ -66,12 +53,12 @@
                 "is_gated": false,
                 "what_will_provide": {
                     "type": "text",
-                    "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 40 Unit Alat Berat)",
-                    "content": "Permodalan dialokasikan untuk pengadaan armada unit alat berat siap operasi sebanyak 40 unit (10 Kontainer 40FT HC), pengerjaan rekondisi komprehensif di Central Workshop PT Montana Indo Utama, serta penanganan logistik impor door-to-door oleh PT Montana Sentra Industri guna memenuhi tingginya permintaan sektor infrastruktur dan industri regional Jabodetabek."
+                    "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 60 Unit Alat Berat)",
+                    "content": "Permodalan dialokasikan untuk pengadaan armada unit alat berat siap operasi sebanyak 60 unit (15 Kontainer 40FT HC), pengerjaan rekondisi komprehensif di Central Workshop PT Montana Indo Utama, serta penanganan logistik impor door-to-door oleh PT Montana Sentra Industri guna memenuhi tingginya permintaan sektor infrastruktur dan industri regional Jabodetabek & Jawa Barat."
                 },
                 "funding_target": {
                     "type": "table",
-                    "title": "Target Pendanaan & Nilai Alokasi Belanja Modal",
+                    "title": "Target Pendanaan & Rencana Anggaran Biaya (CAPEX Breakdown)",
                     "columns": [
                         "No",
                         "Item Pengadaan / Spesifikasi",
@@ -83,33 +70,33 @@
                         {
                             "no": 1,
                             "item": "Harga Pokok Pembelian Unit Alat Berat",
-                            "quantity": 40,
+                            "quantity": 60,
                             "unit_price": 150000000,
-                            "total": 6000000000
+                            "total": 9000000000
                         },
                         {
                             "no": 2,
                             "item": "Jasa Impor & Kontainer 40FT HC Door-to-Door (PT MSI)",
-                            "quantity": 10,
+                            "quantity": 15,
                             "unit_price": 210000000,
-                            "total": 2100000000
+                            "total": 3150000000
                         },
                         {
                             "no": 3,
                             "item": "Ongkos Rekondisi & Workshop Overhaul (PT MIU)",
-                            "quantity": 40,
+                            "quantity": 60,
                             "unit_price": 25000000,
-                            "total": 1000000000
+                            "total": 1500000000
                         },
                         {
                             "no": 4,
                             "item": "Dana Pencadangan & Likuiditas Operasional (9%)",
                             "quantity": 1,
-                            "unit_price": 900000000,
-                            "total": 900000000
+                            "unit_price": 1350000000,
+                            "total": 1350000000
                         }
                     ],
-                    "grand_total": 10000000000,
+                    "grand_total": 15000000000,
                     "is_gated": false
                 },
                 "about_sinergi_foundation": {
@@ -126,307 +113,33 @@
                     "tenor_bulan": 12,
                     "estimasi_return_persen": 28.62,
                     "modal_kerja_bulanan_persen": 2.38,
-                    "minimum_investasi": 7500000000,
-                    "maximum_investasi": 10000000000,
-                    "default_investasi": 7500000000,
-                    "notes": "Simulasi ilustratif kemitraan berbasis perputaran armada riil alat berat dengan fasilitas Bonus 1–2 Operator Profesional Resmi MGI."
+                    "minimum_investasi": 15000000000,
+                    "maximum_investasi": 15000000000,
+                    "default_investasi": 15000000000,
+                    "notes": "Target perputaran 2–3 kali per tahun merupakan proyeksi berbasis kinerja riil penjualan unit."
                 },
                 "rab_executive": {
                     "spesifikasi": {
                         "barang": "Unit Alat Berat",
-                        "minimum_investasi": 7500000000,
-                        "minimum_tiket": 7500000000,
+                        "minimum_investasi": 15000000000,
+                        "minimum_tiket": 15000000000,
                         "periode_investasi": "12 Bulan",
                         "target_perputaran": "2 – 3 Kali per Tahun",
                         "sistem_penjualan": "Door to Door via PT MIU",
-                        "estimasi_unit": "40 Unit (10 Kontainer)",
+                        "estimasi_unit": "60 Unit (15 Kontainer)",
                         "container_used": "40FT HC Door-to-Door (MSI)",
                         "kapasitas_container": "4 Unit / Container",
                         "catatan": "Alokasi pengadaan armada batch regional dari total dana investasi.",
                         "model_kemitraan": "Eksklusif (Exclusive Partnership)",
-                        "kebutuhan_modal_range": "Pilihan Paket: Rp 7.5 Miliar & Rp 10 Miliar",
-                        "fasilitas_operator": "Bonus 1–2 Operator Profesional Resmi MGI"
+                        "kebutuhan_modal_range": "Pilihan Paket: Rp 15.000.000.000",
+                        "fasilitas_operator": "Bonus 2 Operator Profesional Resmi MGI"
                     },
                     "alokasi_dana": {
-                        "modal_operasional_label": "Modal Operasional Awal (Pengadaan 40 Unit)",
-                        "modal_operasional_awal": 9100000000,
+                        "modal_operasional_label": "Modal Operasional Awal (Pengadaan 60 Unit)",
+                        "modal_operasional_awal": 13650000000,
                         "dana_pencadangan_label": "Dana Pencadangan / Likuiditas (9%)",
-                        "dana_pencadangan": 900000000,
-                        "total_investasi": 10000000000,
-                        "catatan": "Komponen PPN, budget garansi, budget insentif, dan fee sukses MIU baru timbul saat unit terjual sehingga tidak dibebankan pada dana awal."
-                    },
-                    "struktur_biaya_unit": {
-                        "harga_pokok_beli": 150000000,
-                        "ppn_11": 34288288,
-                        "ongkos_rekondisi": 25000000,
-                        "container_alokasi": 52500000,
-                        "budget_garansi": 3460000,
-                        "budget_insentif": 3460000,
-                        "fee_miu": 41520000,
-                        "total_biaya_unit": 310228288,
-                        "harga_jual_unit": 346000000,
-                        "profit_bersih_unit": 35771712,
-                        "return_per_siklus": 14.31
-                    },
-                    "package_options_mode": "2",
-                    "package_options": [
-                        {
-                            "nominal": 7500000000,
-                            "label": "Paket Kemitraan Eksekutif (7.5 Miliar)",
-                            "badge": "Bonus 1 Operator Profesional",
-                            "featured": false,
-                            "unit_qty": 30,
-                            "container_qty": "7.5 Kontainer 40FT HC (30 Unit)",
-                            "porsi_proyek": "Alokasi 30 Unit Fisik Alat Berat",
-                            "jaminan_aset": "30 Unit Fisik Alat Berat Siap Operasi",
-                            "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
-                            "deskripsi": "Penempatan modal Rp 7,5 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
-                            "profit_per_siklus": 1073151360,
-                            "profit_2x_tahunan": 2146302720,
-                            "profit_3x_tahunan": 3219454080
-                        },
-                        {
-                            "nominal": 10000000000,
-                            "label": "Paket Konsorsium Utama (10 Miliar)",
-                            "badge": "Bonus 2 Operator Profesional (Double Shift)",
-                            "featured": true,
-                            "unit_qty": 40,
-                            "container_qty": "10 Kontainer 40FT HC (40 Unit)",
-                            "porsi_proyek": "Eksklusivitas Penuh Seluruh Batch Regional",
-                            "jaminan_aset": "Seluruh 40 Unit Fisik Alat Berat Siap Operasi",
-                            "operator_perk": "2 Operator Profesional Alat Berat Bersertifikat (Rotasi Shift & Pengawasan)",
-                            "deskripsi": "Kemitraan tunggal mendanai kapasitas penuh proyek regional (Rp 10 Miliar) dengan fasilitas 2 Operator berlisensi untuk rotasi shift 24/7, hak inspeksi fisik & audit berkala di Central Workshop Kebumen, serta prioritas utama penyerapan pasar kontraktor rekanan nasional.",
-                            "profit_per_siklus": 1430868480,
-                            "profit_2x_tahunan": 2861736960,
-                            "profit_3x_tahunan": 4292605440
-                        }
-                    ],
-                    "tiers": [
-                        {
-                            "nominal": 7500000000,
-                            "label": "Paket Kemitraan Eksekutif (7.5 Miliar)",
-                            "badge": "Bonus 1 Operator Profesional",
-                            "featured": false,
-                            "unit_qty": 30,
-                            "container_qty": "7.5 Kontainer 40FT HC (30 Unit)",
-                            "porsi_proyek": "Alokasi 30 Unit Fisik Alat Berat",
-                            "jaminan_aset": "30 Unit Fisik Alat Berat Siap Operasi",
-                            "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
-                            "deskripsi": "Penempatan modal Rp 7,5 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
-                            "profit_per_siklus": 1073151360,
-                            "profit_2x_tahunan": 2146302720,
-                            "profit_3x_tahunan": 3219454080
-                        },
-                        {
-                            "nominal": 10000000000,
-                            "label": "Paket Konsorsium Utama (10 Miliar)",
-                            "badge": "Bonus 2 Operator Profesional (Double Shift)",
-                            "featured": true,
-                            "unit_qty": 40,
-                            "container_qty": "10 Kontainer 40FT HC (40 Unit)",
-                            "porsi_proyek": "Eksklusivitas Penuh Seluruh Batch Regional",
-                            "jaminan_aset": "Seluruh 40 Unit Fisik Alat Berat Siap Operasi",
-                            "operator_perk": "2 Operator Profesional Alat Berat Bersertifikat (Rotasi Shift & Pengawasan)",
-                            "deskripsi": "Kemitraan tunggal mendanai kapasitas penuh proyek regional (Rp 10 Miliar) dengan fasilitas 2 Operator berlisensi untuk rotasi shift 24/7, hak inspeksi fisik & audit berkala di Central Workshop Kebumen, serta prioritas utama penyerapan pasar kontraktor rekanan nasional.",
-                            "profit_per_siklus": 1430868480,
-                            "profit_2x_tahunan": 2861736960,
-                            "profit_3x_tahunan": 4292605440
-                        }
-                    ],
-                    "operator_perk": "Bonus 1–2 Operator Profesional Resmi MGI",
-                    "alur_project": [
-                        {
-                            "step": 1,
-                            "title": "Pengadaan CBU Jepang",
-                            "desc": "Pembelian unit alat berat langsung dari lelang & mitra terpercaya dengan standar seleksi Grade A."
-                        },
-                        {
-                            "step": 2,
-                            "title": "Logistik Laut (PT MSI)",
-                            "desc": "Pengangkutan laut menggunakan kontainer 40FT HC (kapasitas 4 unit/kontainer) door-to-door hingga ke pelabuhan domestik dan izin impor lengkap."
-                        },
-                        {
-                            "step": 3,
-                            "title": "Rekondisi Workshop (PT MIU)",
-                            "desc": "Inspeksi 100 titik, peremajaan hidrolik, overhaul mesin, pengecatan ulang, dan uji beban kerja di Central Workshop PT Montana Indo Utama."
-                        },
-                        {
-                            "step": 4,
-                            "title": "Penjualan Pasar Nasional",
-                            "desc": "Pemasaran unit siap kerja langsung ke end-user (kontraktor tambang, infrastruktur, perkebunan) dengan offtake & garansi resmi 1%."
-                        },
-                        {
-                            "step": 5,
-                            "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
-                        }
-                    ],
-                    "breakdown_pembayaran_unit": [
-                        {
-                            "no": 1,
-                            "komponen": "Harga Beli Unit + Ongkos Rekondisi Workshop",
-                            "penerima": "PT MIU",
-                            "nominal": 175000000,
-                            "keterangan": "HPP Pembelian unit CBU Jepang (Rp 150 jt) + jasa rekondisi & overhaul standar operasional (Rp 25 jt)"
-                        },
-                        {
-                            "no": 2,
-                            "komponen": "Ongkos Kontainer 40FT HC Door-to-Door",
-                            "penerima": "PT MSI",
-                            "nominal": 52500000,
-                            "keterangan": "Alokasi per unit (Rp 210.000.000 per 1 kontainer 40FT HC yang memuat 4 unit alat berat)"
-                        },
-                        {
-                            "no": 3,
-                            "komponen": "Dana Pencadangan / Likuiditas Kas Operasional (9%)",
-                            "penerima": "Kas Cadangan",
-                            "nominal": 22500000,
-                            "keterangan": "Buffer likuiditas proyek tahap awal untuk memastikan kelancaran operasional sebelum unit terjual"
-                        }
-                    ],
-                    "total_miu_per_unit": 175000000,
-                    "total_msi_per_unit": 52500000,
-                    "dana_cadangan_per_unit": 22500000,
-                    "total_biaya_per_unit": 250000000
-                }
-            }
-        },
-        {
-            "id": "proj-surabaya",
-            "city": "Surabaya",
-            "city_icon": "bi-geo-alt-fill",
-            "city_icon_img": "assets/img/city-jkt-jabar.png",
-            "title": "Dealer Surabaya",
-            "category": "Pengadaan & Perputaran Unit Alat Berat",
-            "image": "assets/img/project-surabaya.jpg",
-            "funding": {
-                "collected": 0,
-                "target": 5000000000,
-                "currency": "IDR"
-            },
-            "status": "Open",
-            "featured": false,
-            "info": {
-                "lokasi": "Surabaya & Jawa Timur",
-                "target": "Rp 5.000.000.000",
-                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
-                "return": "28,6% – 42,9% (p.a.)",
-                "min_investment": "Rp 5.000.000.000",
-                "payout": "Bagi Hasil Per Siklus Penjualan / Kuartalan",
-                "remaining_days": "30 Hari Tersisa",
-                "asset_backed": "Aset Fisik Unit Alat Berat Siap Operasi",
-                "operator_perk": "Bonus 1 Operator Profesional Resmi MGI"
-            },
-            "package_options_mode": "1",
-            "package_options": [
-                {
-                    "nominal": 5000000000,
-                    "label": "Paket Kemitraan Eksekutif (5 Miliar)",
-                    "badge": "Bonus 1 Operator Profesional",
-                    "featured": true,
-                    "unit_qty": 20,
-                    "container_qty": "5 Kontainer 40FT HC (20 Unit)",
-                    "porsi_proyek": "Alokasi Penuh Batch Regional (20 Unit)",
-                    "jaminan_aset": "20 Unit Fisik Alat Berat Siap Operasi",
-                    "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
-                    "deskripsi": "Penempatan modal penuh Rp 5 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
-                    "profit_per_siklus": 715434240,
-                    "profit_2x_tahunan": 1430868480,
-                    "profit_3x_tahunan": 2146302720
-                }
-            ],
-            "detail": {
-                "tagline": "Kemitraan Strategis Pengadaan Armada Alat Berat CBU Jepang Wilayah Surabaya",
-                "is_gated": false,
-                "what_will_provide": {
-                    "type": "text",
-                    "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 20 Unit Alat Berat)",
-                    "content": "Permodalan dialokasikan untuk pengadaan armada unit alat berat siap operasi sebanyak 20 unit (5 Kontainer 40FT HC), pengerjaan rekondisi komprehensif di Central Workshop PT Montana Indo Utama, serta penanganan logistik impor door-to-door oleh PT Montana Sentra Industri guna memenuhi tingginya permintaan sektor infrastruktur dan industri regional Surabaya."
-                },
-                "funding_target": {
-                    "type": "table",
-                    "title": "Target Pendanaan & Nilai Alokasi Belanja Modal",
-                    "columns": [
-                        "No",
-                        "Item Pengadaan / Spesifikasi",
-                        "Qty",
-                        "Harga Satuan (IDR)",
-                        "Total Alokasi (IDR)"
-                    ],
-                    "rows": [
-                        {
-                            "no": 1,
-                            "item": "Harga Pokok Pembelian Unit Alat Berat",
-                            "quantity": 20,
-                            "unit_price": 150000000,
-                            "total": 3000000000
-                        },
-                        {
-                            "no": 2,
-                            "item": "Jasa Impor & Kontainer 40FT HC Door-to-Door (PT MSI)",
-                            "quantity": 5,
-                            "unit_price": 210000000,
-                            "total": 1050000000
-                        },
-                        {
-                            "no": 3,
-                            "item": "Ongkos Rekondisi & Workshop Overhaul (PT MIU)",
-                            "quantity": 20,
-                            "unit_price": 25000000,
-                            "total": 500000000
-                        },
-                        {
-                            "no": 4,
-                            "item": "Dana Pencadangan & Likuiditas Operasional (9%)",
-                            "quantity": 1,
-                            "unit_price": 450000000,
-                            "total": 450000000
-                        }
-                    ],
-                    "grand_total": 5000000000,
-                    "is_gated": false
-                },
-                "about_sinergi_foundation": {
-                    "type": "text",
-                    "title": "Kerangka Kemitraan Strategis & Penyerapan Pasar (Offtake Framework)",
-                    "content": "Pengadaan unit ini didukung oleh ekosistem Montana Group: PT Montana Sentra Industri (PT MSI) menangani logistik maritim internasional dan izin kepabeanan, sementara PT Montana Indo Utama (PT MIU) menangani workshop rekondisi teknis, offtake pemasaran langsung kepada kontraktor rekanan, serta penyediaan fasilitas operator profesional."
-                },
-                "summary": {
-                    "type": "text",
-                    "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Surabaya menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 28,6% – 42,9% p.a."
-                },
-                "simulation": {
-                    "tenor_bulan": 12,
-                    "estimasi_return_persen": 28.62,
-                    "modal_kerja_bulanan_persen": 2.38,
-                    "minimum_investasi": 5000000000,
-                    "maximum_investasi": 5000000000,
-                    "default_investasi": 5000000000,
-                    "notes": "Simulasi ilustratif kemitraan berbasis perputaran armada riil alat berat dengan fasilitas Bonus 1 Operator Profesional Resmi MGI."
-                },
-                "rab_executive": {
-                    "spesifikasi": {
-                        "barang": "Unit Alat Berat",
-                        "minimum_investasi": 5000000000,
-                        "minimum_tiket": 5000000000,
-                        "periode_investasi": "12 Bulan",
-                        "target_perputaran": "2 – 3 Kali per Tahun",
-                        "sistem_penjualan": "Door to Door via PT MIU",
-                        "estimasi_unit": "20 Unit (5 Kontainer)",
-                        "container_used": "40FT HC Door-to-Door (MSI)",
-                        "kapasitas_container": "4 Unit / Container",
-                        "catatan": "Alokasi pengadaan armada batch regional dari total dana investasi.",
-                        "model_kemitraan": "Eksklusif (Exclusive Partnership)",
-                        "kebutuhan_modal_range": "Pilihan Paket: Rp 5 Miliar",
-                        "fasilitas_operator": "Bonus 1 Operator Profesional Resmi MGI"
-                    },
-                    "alokasi_dana": {
-                        "modal_operasional_label": "Modal Operasional Awal (Pengadaan 20 Unit)",
-                        "modal_operasional_awal": 4550000000,
-                        "dana_pencadangan_label": "Dana Pencadangan / Likuiditas (9%)",
-                        "dana_pencadangan": 450000000,
-                        "total_investasi": 5000000000,
+                        "dana_pencadangan": 1350000000,
+                        "total_investasi": 15000000000,
                         "catatan": "Komponen PPN, budget garansi, budget insentif, dan fee sukses MIU baru timbul saat unit terjual sehingga tidak dibebankan pada dana awal."
                     },
                     "struktur_biaya_unit": {
@@ -445,39 +158,41 @@
                     "package_options_mode": "1",
                     "package_options": [
                         {
-                            "nominal": 5000000000,
-                            "label": "Paket Kemitraan Eksekutif (5 Miliar)",
-                            "badge": "Bonus 1 Operator Profesional",
+                            "nominal": 15000000000,
+                            "nominal_display": "Rp 15.000.000.000",
+                            "label": "Paket Kemitraan Tunggal (15 Miliar)",
+                            "badge": "Bonus 2 Operator Profesional (Double Shift)",
                             "featured": true,
-                            "unit_qty": 20,
-                            "container_qty": "5 Kontainer 40FT HC (20 Unit)",
-                            "porsi_proyek": "Alokasi Penuh Batch Regional (20 Unit)",
-                            "jaminan_aset": "20 Unit Fisik Alat Berat Siap Operasi",
-                            "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
-                            "deskripsi": "Penempatan modal penuh Rp 5 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
-                            "profit_per_siklus": 715434240,
-                            "profit_2x_tahunan": 1430868480,
-                            "profit_3x_tahunan": 2146302720
+                            "unit_qty": 60,
+                            "container_qty": "15 Kontainer 40FT HC (60 Unit)",
+                            "porsi_proyek": "Alokasi Penuh Batch Regional (60 Unit)",
+                            "jaminan_aset": "Seluruh 60 Unit Fisik Alat Berat Siap Operasi",
+                            "operator_perk": "2 Operator Profesional Alat Berat Bersertifikat (Rotasi Shift & Pengawasan)",
+                            "deskripsi": "Penempatan modal penuh Rp 15.000.000.000 untuk mendanai kapasitas penuh proyek regional (60 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "profit_per_siklus": 2146302720,
+                            "profit_2x_tahunan": 4292605440,
+                            "profit_3x_tahunan": 6438908160
                         }
                     ],
                     "tiers": [
                         {
-                            "nominal": 5000000000,
-                            "label": "Paket Kemitraan Eksekutif (5 Miliar)",
-                            "badge": "Bonus 1 Operator Profesional",
+                            "nominal": 15000000000,
+                            "nominal_display": "Rp 15.000.000.000",
+                            "label": "Paket Kemitraan Tunggal (15 Miliar)",
+                            "badge": "Bonus 2 Operator Profesional (Double Shift)",
                             "featured": true,
-                            "unit_qty": 20,
-                            "container_qty": "5 Kontainer 40FT HC (20 Unit)",
-                            "porsi_proyek": "Alokasi Penuh Batch Regional (20 Unit)",
-                            "jaminan_aset": "20 Unit Fisik Alat Berat Siap Operasi",
-                            "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
-                            "deskripsi": "Penempatan modal penuh Rp 5 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
-                            "profit_per_siklus": 715434240,
-                            "profit_2x_tahunan": 1430868480,
-                            "profit_3x_tahunan": 2146302720
+                            "unit_qty": 60,
+                            "container_qty": "15 Kontainer 40FT HC (60 Unit)",
+                            "porsi_proyek": "Alokasi Penuh Batch Regional (60 Unit)",
+                            "jaminan_aset": "Seluruh 60 Unit Fisik Alat Berat Siap Operasi",
+                            "operator_perk": "2 Operator Profesional Alat Berat Bersertifikat (Rotasi Shift & Pengawasan)",
+                            "deskripsi": "Penempatan modal penuh Rp 15.000.000.000 untuk mendanai kapasitas penuh proyek regional (60 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "profit_per_siklus": 2146302720,
+                            "profit_2x_tahunan": 4292605440,
+                            "profit_3x_tahunan": 6438908160
                         }
                     ],
-                    "operator_perk": "Bonus 1 Operator Profesional Resmi MGI",
+                    "operator_perk": "Bonus 2 Operator Profesional Resmi MGI",
                     "alur_project": [
                         {
                             "step": 1,
@@ -538,60 +253,47 @@
         {
             "id": "proj-denpasar",
             "city": "Denpasar",
+            "city_slug": "denpasar",
             "city_icon": "bi-sun-fill",
-            "city_icon_img": "assets/img/city-jkt-jabar.png",
+            "city_icon_img": "assets/img/city-denpasar.png",
             "title": "Dealer Denpasar / Bali",
             "category": "Pengadaan & Perputaran Unit Alat Berat",
             "image": "assets/img/project-denpasar.jpg",
             "funding": {
                 "collected": 0,
-                "target": 10000000000,
+                "target": 5000000000,
                 "currency": "IDR"
             },
             "status": "Open",
             "featured": false,
             "info": {
                 "lokasi": "Denpasar & Bali",
-                "target": "Rp 10.000.000.000",
+                "target": "Rp 5.000.000.000",
                 "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
                 "return": "28,6% – 42,9% (p.a.)",
-                "min_investment": "Rp 7.500.000.000 (Paket 7.5M / 10M)",
+                "min_investment": "Rp 5.000.000.000",
                 "payout": "Bagi Hasil Per Siklus Penjualan / Kuartalan",
-                "remaining_days": "30 Hari Tersisa",
+                "remaining_days": "Slot Kemitraan Terbuka",
                 "asset_backed": "Aset Fisik Unit Alat Berat Siap Operasi",
-                "operator_perk": "Bonus 1–2 Operator Profesional Resmi MGI"
+                "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman"
             },
-            "package_options_mode": "2",
+            "package_options_mode": "1",
             "package_options": [
                 {
-                    "nominal": 7500000000,
-                    "label": "Paket Kemitraan Eksekutif (7.5 Miliar)",
+                    "nominal": 5000000000,
+                    "nominal_display": "Rp 5.000.000.000",
+                    "label": "Paket Kemitraan Tunggal (5 Miliar)",
                     "badge": "Bonus 1 Operator Profesional",
-                    "featured": false,
-                    "unit_qty": 30,
-                    "container_qty": "7.5 Kontainer 40FT HC (30 Unit)",
-                    "porsi_proyek": "Alokasi 30 Unit Fisik Alat Berat",
-                    "jaminan_aset": "30 Unit Fisik Alat Berat Siap Operasi",
-                    "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
-                    "deskripsi": "Penempatan modal Rp 7,5 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
-                    "profit_per_siklus": 1073151360,
-                    "profit_2x_tahunan": 2146302720,
-                    "profit_3x_tahunan": 3219454080
-                },
-                {
-                    "nominal": 10000000000,
-                    "label": "Paket Konsorsium Utama (10 Miliar)",
-                    "badge": "Bonus 2 Operator Profesional (Double Shift)",
                     "featured": true,
-                    "unit_qty": 40,
-                    "container_qty": "10 Kontainer 40FT HC (40 Unit)",
-                    "porsi_proyek": "Eksklusivitas Penuh Seluruh Batch Regional",
-                    "jaminan_aset": "Seluruh 40 Unit Fisik Alat Berat Siap Operasi",
-                    "operator_perk": "2 Operator Profesional Alat Berat Bersertifikat (Rotasi Shift & Pengawasan)",
-                    "deskripsi": "Kemitraan tunggal mendanai kapasitas penuh proyek regional (Rp 10 Miliar) dengan fasilitas 2 Operator berlisensi untuk rotasi shift 24/7, hak inspeksi fisik & audit berkala di Central Workshop Kebumen, serta prioritas utama penyerapan pasar kontraktor rekanan nasional.",
-                    "profit_per_siklus": 1430868480,
-                    "profit_2x_tahunan": 2861736960,
-                    "profit_3x_tahunan": 4292605440
+                    "unit_qty": 20,
+                    "container_qty": "5 Kontainer 40FT HC (20 Unit)",
+                    "porsi_proyek": "Alokasi Penuh Batch Regional (20 Unit)",
+                    "jaminan_aset": "Seluruh 20 Unit Fisik Alat Berat Siap Operasi",
+                    "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
+                    "deskripsi": "Penempatan modal penuh Rp 5.000.000.000 untuk mendanai kapasitas penuh proyek regional (20 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                    "profit_per_siklus": 715434240,
+                    "profit_2x_tahunan": 1430868480,
+                    "profit_3x_tahunan": 2146302720
                 }
             ],
             "detail": {
@@ -599,12 +301,12 @@
                 "is_gated": false,
                 "what_will_provide": {
                     "type": "text",
-                    "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 40 Unit Alat Berat)",
-                    "content": "Permodalan dialokasikan untuk pengadaan armada unit alat berat siap operasi sebanyak 40 unit (10 Kontainer 40FT HC), pengerjaan rekondisi komprehensif di Central Workshop PT Montana Indo Utama, serta penanganan logistik impor door-to-door oleh PT Montana Sentra Industri guna memenuhi tingginya permintaan sektor infrastruktur dan industri regional Denpasar."
+                    "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 20 Unit Alat Berat)",
+                    "content": "Permodalan dialokasikan untuk pengadaan armada unit alat berat siap operasi sebanyak 20 unit (5 Kontainer 40FT HC), pengerjaan rekondisi komprehensif di Central Workshop PT Montana Indo Utama, serta penanganan logistik impor door-to-door oleh PT Montana Sentra Industri guna memenuhi tingginya permintaan sektor infrastruktur dan industri regional Denpasar dan Bali."
                 },
                 "funding_target": {
                     "type": "table",
-                    "title": "Target Pendanaan & Nilai Alokasi Belanja Modal",
+                    "title": "Target Pendanaan & Rencana Anggaran Biaya (CAPEX Breakdown)",
                     "columns": [
                         "No",
                         "Item Pengadaan / Spesifikasi",
@@ -616,33 +318,33 @@
                         {
                             "no": 1,
                             "item": "Harga Pokok Pembelian Unit Alat Berat",
-                            "quantity": 40,
+                            "quantity": 20,
                             "unit_price": 150000000,
-                            "total": 6000000000
+                            "total": 3000000000
                         },
                         {
                             "no": 2,
                             "item": "Jasa Impor & Kontainer 40FT HC Door-to-Door (PT MSI)",
-                            "quantity": 10,
+                            "quantity": 5,
                             "unit_price": 210000000,
-                            "total": 2100000000
+                            "total": 1050000000
                         },
                         {
                             "no": 3,
                             "item": "Ongkos Rekondisi & Workshop Overhaul (PT MIU)",
-                            "quantity": 40,
+                            "quantity": 20,
                             "unit_price": 25000000,
-                            "total": 1000000000
+                            "total": 500000000
                         },
                         {
                             "no": 4,
                             "item": "Dana Pencadangan & Likuiditas Operasional (9%)",
                             "quantity": 1,
-                            "unit_price": 900000000,
-                            "total": 900000000
+                            "unit_price": 450000000,
+                            "total": 450000000
                         }
                     ],
-                    "grand_total": 10000000000,
+                    "grand_total": 5000000000,
                     "is_gated": false
                 },
                 "about_sinergi_foundation": {
@@ -659,307 +361,33 @@
                     "tenor_bulan": 12,
                     "estimasi_return_persen": 28.62,
                     "modal_kerja_bulanan_persen": 2.38,
-                    "minimum_investasi": 7500000000,
-                    "maximum_investasi": 10000000000,
-                    "default_investasi": 7500000000,
-                    "notes": "Simulasi ilustratif kemitraan berbasis perputaran armada riil alat berat dengan fasilitas Bonus 1–2 Operator Profesional Resmi MGI."
+                    "minimum_investasi": 5000000000,
+                    "maximum_investasi": 5000000000,
+                    "default_investasi": 5000000000,
+                    "notes": "Target perputaran 2–3 kali per tahun merupakan proyeksi berbasis kinerja riil penjualan unit."
                 },
                 "rab_executive": {
                     "spesifikasi": {
                         "barang": "Unit Alat Berat",
-                        "minimum_investasi": 7500000000,
-                        "minimum_tiket": 7500000000,
+                        "minimum_investasi": 5000000000,
+                        "minimum_tiket": 5000000000,
                         "periode_investasi": "12 Bulan",
                         "target_perputaran": "2 – 3 Kali per Tahun",
                         "sistem_penjualan": "Door to Door via PT MIU",
-                        "estimasi_unit": "40 Unit (10 Kontainer)",
+                        "estimasi_unit": "20 Unit (5 Kontainer)",
                         "container_used": "40FT HC Door-to-Door (MSI)",
                         "kapasitas_container": "4 Unit / Container",
                         "catatan": "Alokasi pengadaan armada batch regional dari total dana investasi.",
                         "model_kemitraan": "Eksklusif (Exclusive Partnership)",
-                        "kebutuhan_modal_range": "Pilihan Paket: Rp 7.5 Miliar & Rp 10 Miliar",
-                        "fasilitas_operator": "Bonus 1–2 Operator Profesional Resmi MGI"
-                    },
-                    "alokasi_dana": {
-                        "modal_operasional_label": "Modal Operasional Awal (Pengadaan 40 Unit)",
-                        "modal_operasional_awal": 9100000000,
-                        "dana_pencadangan_label": "Dana Pencadangan / Likuiditas (9%)",
-                        "dana_pencadangan": 900000000,
-                        "total_investasi": 10000000000,
-                        "catatan": "Komponen PPN, budget garansi, budget insentif, dan fee sukses MIU baru timbul saat unit terjual sehingga tidak dibebankan pada dana awal."
-                    },
-                    "struktur_biaya_unit": {
-                        "harga_pokok_beli": 150000000,
-                        "ppn_11": 34288288,
-                        "ongkos_rekondisi": 25000000,
-                        "container_alokasi": 52500000,
-                        "budget_garansi": 3460000,
-                        "budget_insentif": 3460000,
-                        "fee_miu": 41520000,
-                        "total_biaya_unit": 310228288,
-                        "harga_jual_unit": 346000000,
-                        "profit_bersih_unit": 35771712,
-                        "return_per_siklus": 14.31
-                    },
-                    "package_options_mode": "2",
-                    "package_options": [
-                        {
-                            "nominal": 7500000000,
-                            "label": "Paket Kemitraan Eksekutif (7.5 Miliar)",
-                            "badge": "Bonus 1 Operator Profesional",
-                            "featured": false,
-                            "unit_qty": 30,
-                            "container_qty": "7.5 Kontainer 40FT HC (30 Unit)",
-                            "porsi_proyek": "Alokasi 30 Unit Fisik Alat Berat",
-                            "jaminan_aset": "30 Unit Fisik Alat Berat Siap Operasi",
-                            "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
-                            "deskripsi": "Penempatan modal Rp 7,5 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
-                            "profit_per_siklus": 1073151360,
-                            "profit_2x_tahunan": 2146302720,
-                            "profit_3x_tahunan": 3219454080
-                        },
-                        {
-                            "nominal": 10000000000,
-                            "label": "Paket Konsorsium Utama (10 Miliar)",
-                            "badge": "Bonus 2 Operator Profesional (Double Shift)",
-                            "featured": true,
-                            "unit_qty": 40,
-                            "container_qty": "10 Kontainer 40FT HC (40 Unit)",
-                            "porsi_proyek": "Eksklusivitas Penuh Seluruh Batch Regional",
-                            "jaminan_aset": "Seluruh 40 Unit Fisik Alat Berat Siap Operasi",
-                            "operator_perk": "2 Operator Profesional Alat Berat Bersertifikat (Rotasi Shift & Pengawasan)",
-                            "deskripsi": "Kemitraan tunggal mendanai kapasitas penuh proyek regional (Rp 10 Miliar) dengan fasilitas 2 Operator berlisensi untuk rotasi shift 24/7, hak inspeksi fisik & audit berkala di Central Workshop Kebumen, serta prioritas utama penyerapan pasar kontraktor rekanan nasional.",
-                            "profit_per_siklus": 1430868480,
-                            "profit_2x_tahunan": 2861736960,
-                            "profit_3x_tahunan": 4292605440
-                        }
-                    ],
-                    "tiers": [
-                        {
-                            "nominal": 7500000000,
-                            "label": "Paket Kemitraan Eksekutif (7.5 Miliar)",
-                            "badge": "Bonus 1 Operator Profesional",
-                            "featured": false,
-                            "unit_qty": 30,
-                            "container_qty": "7.5 Kontainer 40FT HC (30 Unit)",
-                            "porsi_proyek": "Alokasi 30 Unit Fisik Alat Berat",
-                            "jaminan_aset": "30 Unit Fisik Alat Berat Siap Operasi",
-                            "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
-                            "deskripsi": "Penempatan modal Rp 7,5 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
-                            "profit_per_siklus": 1073151360,
-                            "profit_2x_tahunan": 2146302720,
-                            "profit_3x_tahunan": 3219454080
-                        },
-                        {
-                            "nominal": 10000000000,
-                            "label": "Paket Konsorsium Utama (10 Miliar)",
-                            "badge": "Bonus 2 Operator Profesional (Double Shift)",
-                            "featured": true,
-                            "unit_qty": 40,
-                            "container_qty": "10 Kontainer 40FT HC (40 Unit)",
-                            "porsi_proyek": "Eksklusivitas Penuh Seluruh Batch Regional",
-                            "jaminan_aset": "Seluruh 40 Unit Fisik Alat Berat Siap Operasi",
-                            "operator_perk": "2 Operator Profesional Alat Berat Bersertifikat (Rotasi Shift & Pengawasan)",
-                            "deskripsi": "Kemitraan tunggal mendanai kapasitas penuh proyek regional (Rp 10 Miliar) dengan fasilitas 2 Operator berlisensi untuk rotasi shift 24/7, hak inspeksi fisik & audit berkala di Central Workshop Kebumen, serta prioritas utama penyerapan pasar kontraktor rekanan nasional.",
-                            "profit_per_siklus": 1430868480,
-                            "profit_2x_tahunan": 2861736960,
-                            "profit_3x_tahunan": 4292605440
-                        }
-                    ],
-                    "operator_perk": "Bonus 1–2 Operator Profesional Resmi MGI",
-                    "alur_project": [
-                        {
-                            "step": 1,
-                            "title": "Pengadaan CBU Jepang",
-                            "desc": "Pembelian unit alat berat langsung dari lelang & mitra terpercaya dengan standar seleksi Grade A."
-                        },
-                        {
-                            "step": 2,
-                            "title": "Logistik Laut (PT MSI)",
-                            "desc": "Pengangkutan laut menggunakan kontainer 40FT HC (kapasitas 4 unit/kontainer) door-to-door hingga ke pelabuhan domestik dan izin impor lengkap."
-                        },
-                        {
-                            "step": 3,
-                            "title": "Rekondisi Workshop (PT MIU)",
-                            "desc": "Inspeksi 100 titik, peremajaan hidrolik, overhaul mesin, pengecatan ulang, dan uji beban kerja di Central Workshop PT Montana Indo Utama."
-                        },
-                        {
-                            "step": 4,
-                            "title": "Penjualan Pasar Nasional",
-                            "desc": "Pemasaran unit siap kerja langsung ke end-user (kontraktor tambang, infrastruktur, perkebunan) dengan offtake & garansi resmi 1%."
-                        },
-                        {
-                            "step": 5,
-                            "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
-                        }
-                    ],
-                    "breakdown_pembayaran_unit": [
-                        {
-                            "no": 1,
-                            "komponen": "Harga Beli Unit + Ongkos Rekondisi Workshop",
-                            "penerima": "PT MIU",
-                            "nominal": 175000000,
-                            "keterangan": "HPP Pembelian unit CBU Jepang (Rp 150 jt) + jasa rekondisi & overhaul standar operasional (Rp 25 jt)"
-                        },
-                        {
-                            "no": 2,
-                            "komponen": "Ongkos Kontainer 40FT HC Door-to-Door",
-                            "penerima": "PT MSI",
-                            "nominal": 52500000,
-                            "keterangan": "Alokasi per unit (Rp 210.000.000 per 1 kontainer 40FT HC yang memuat 4 unit alat berat)"
-                        },
-                        {
-                            "no": 3,
-                            "komponen": "Dana Pencadangan / Likuiditas Kas Operasional (9%)",
-                            "penerima": "Kas Cadangan",
-                            "nominal": 22500000,
-                            "keterangan": "Buffer likuiditas proyek tahap awal untuk memastikan kelancaran operasional sebelum unit terjual"
-                        }
-                    ],
-                    "total_miu_per_unit": 175000000,
-                    "total_msi_per_unit": 52500000,
-                    "dana_cadangan_per_unit": 22500000,
-                    "total_biaya_per_unit": 250000000
-                }
-            }
-        },
-        {
-            "id": "proj-makassar",
-            "city": "Makassar",
-            "city_icon": "bi-geo-alt-fill",
-            "city_icon_img": "assets/img/city-jkt-jabar.png",
-            "title": "Dealer Makassar",
-            "category": "Pengadaan & Perputaran Unit Alat Berat",
-            "image": "assets/img/project-makasar.jpg",
-            "funding": {
-                "collected": 0,
-                "target": 7000000000,
-                "currency": "IDR"
-            },
-            "status": "Open",
-            "featured": false,
-            "info": {
-                "lokasi": "Makassar & Sulawesi Selatan",
-                "target": "Rp 7.000.000.000",
-                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
-                "return": "28,6% – 42,9% (p.a.)",
-                "min_investment": "Rp 7.000.000.000",
-                "payout": "Bagi Hasil Per Siklus Penjualan / Kuartalan",
-                "remaining_days": "30 Hari Tersisa",
-                "asset_backed": "Aset Fisik Unit Alat Berat Siap Operasi",
-                "operator_perk": "Bonus 1 Operator Profesional Resmi MGI"
-            },
-            "package_options_mode": "1",
-            "package_options": [
-                {
-                    "nominal": 7000000000,
-                    "label": "Paket Kemitraan Eksekutif (7 Miliar)",
-                    "badge": "Bonus 1 Operator Profesional",
-                    "featured": true,
-                    "unit_qty": 28,
-                    "container_qty": "7 Kontainer 40FT HC (28 Unit)",
-                    "porsi_proyek": "Alokasi Penuh Batch Regional (28 Unit)",
-                    "jaminan_aset": "28 Unit Fisik Alat Berat Siap Operasi",
-                    "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
-                    "deskripsi": "Penempatan modal penuh Rp 7 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
-                    "profit_per_siklus": 1001607936,
-                    "profit_2x_tahunan": 2003215872,
-                    "profit_3x_tahunan": 3004823808
-                }
-            ],
-            "detail": {
-                "tagline": "Kemitraan Strategis Pengadaan Armada Alat Berat CBU Jepang Wilayah Makassar",
-                "is_gated": false,
-                "what_will_provide": {
-                    "type": "text",
-                    "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 28 Unit Alat Berat)",
-                    "content": "Permodalan dialokasikan untuk pengadaan armada unit alat berat siap operasi sebanyak 28 unit (7 Kontainer 40FT HC), pengerjaan rekondisi komprehensif di Central Workshop PT Montana Indo Utama, serta penanganan logistik impor door-to-door oleh PT Montana Sentra Industri guna memenuhi tingginya permintaan sektor infrastruktur dan industri regional Makassar."
-                },
-                "funding_target": {
-                    "type": "table",
-                    "title": "Target Pendanaan & Nilai Alokasi Belanja Modal",
-                    "columns": [
-                        "No",
-                        "Item Pengadaan / Spesifikasi",
-                        "Qty",
-                        "Harga Satuan (IDR)",
-                        "Total Alokasi (IDR)"
-                    ],
-                    "rows": [
-                        {
-                            "no": 1,
-                            "item": "Harga Pokok Pembelian Unit Alat Berat",
-                            "quantity": 28,
-                            "unit_price": 150000000,
-                            "total": 4200000000
-                        },
-                        {
-                            "no": 2,
-                            "item": "Jasa Impor & Kontainer 40FT HC Door-to-Door (PT MSI)",
-                            "quantity": 7,
-                            "unit_price": 210000000,
-                            "total": 1470000000
-                        },
-                        {
-                            "no": 3,
-                            "item": "Ongkos Rekondisi & Workshop Overhaul (PT MIU)",
-                            "quantity": 28,
-                            "unit_price": 25000000,
-                            "total": 700000000
-                        },
-                        {
-                            "no": 4,
-                            "item": "Dana Pencadangan & Likuiditas Operasional (9%)",
-                            "quantity": 1,
-                            "unit_price": 630000000,
-                            "total": 630000000
-                        }
-                    ],
-                    "grand_total": 7000000000,
-                    "is_gated": false
-                },
-                "about_sinergi_foundation": {
-                    "type": "text",
-                    "title": "Kerangka Kemitraan Strategis & Penyerapan Pasar (Offtake Framework)",
-                    "content": "Pengadaan unit ini didukung oleh ekosistem Montana Group: PT Montana Sentra Industri (PT MSI) menangani logistik maritim internasional dan izin kepabeanan, sementara PT Montana Indo Utama (PT MIU) menangani workshop rekondisi teknis, offtake pemasaran langsung kepada kontraktor rekanan, serta penyediaan fasilitas operator profesional."
-                },
-                "summary": {
-                    "type": "text",
-                    "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Makassar menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 28,6% – 42,9% p.a."
-                },
-                "simulation": {
-                    "tenor_bulan": 12,
-                    "estimasi_return_persen": 28.62,
-                    "modal_kerja_bulanan_persen": 2.38,
-                    "minimum_investasi": 7000000000,
-                    "maximum_investasi": 7000000000,
-                    "default_investasi": 7000000000,
-                    "notes": "Simulasi ilustratif kemitraan berbasis perputaran armada riil alat berat dengan fasilitas Bonus 1 Operator Profesional Resmi MGI."
-                },
-                "rab_executive": {
-                    "spesifikasi": {
-                        "barang": "Unit Alat Berat",
-                        "minimum_investasi": 7000000000,
-                        "minimum_tiket": 7000000000,
-                        "periode_investasi": "12 Bulan",
-                        "target_perputaran": "2 – 3 Kali per Tahun",
-                        "sistem_penjualan": "Door to Door via PT MIU",
-                        "estimasi_unit": "28 Unit (7 Kontainer)",
-                        "container_used": "40FT HC Door-to-Door (MSI)",
-                        "kapasitas_container": "4 Unit / Container",
-                        "catatan": "Alokasi pengadaan armada batch regional dari total dana investasi.",
-                        "model_kemitraan": "Eksklusif (Exclusive Partnership)",
-                        "kebutuhan_modal_range": "Pilihan Paket: Rp 7 Miliar",
+                        "kebutuhan_modal_range": "Pilihan Paket: Rp 5.000.000.000",
                         "fasilitas_operator": "Bonus 1 Operator Profesional Resmi MGI"
                     },
                     "alokasi_dana": {
-                        "modal_operasional_label": "Modal Operasional Awal (Pengadaan 28 Unit)",
-                        "modal_operasional_awal": 6370000000,
+                        "modal_operasional_label": "Modal Operasional Awal (Pengadaan 20 Unit)",
+                        "modal_operasional_awal": 4550000000,
                         "dana_pencadangan_label": "Dana Pencadangan / Likuiditas (9%)",
-                        "dana_pencadangan": 630000000,
-                        "total_investasi": 7000000000,
+                        "dana_pencadangan": 450000000,
+                        "total_investasi": 5000000000,
                         "catatan": "Komponen PPN, budget garansi, budget insentif, dan fee sukses MIU baru timbul saat unit terjual sehingga tidak dibebankan pada dana awal."
                     },
                     "struktur_biaya_unit": {
@@ -978,36 +406,38 @@
                     "package_options_mode": "1",
                     "package_options": [
                         {
-                            "nominal": 7000000000,
-                            "label": "Paket Kemitraan Eksekutif (7 Miliar)",
+                            "nominal": 5000000000,
+                            "nominal_display": "Rp 5.000.000.000",
+                            "label": "Paket Kemitraan Tunggal (5 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
-                            "unit_qty": 28,
-                            "container_qty": "7 Kontainer 40FT HC (28 Unit)",
-                            "porsi_proyek": "Alokasi Penuh Batch Regional (28 Unit)",
-                            "jaminan_aset": "28 Unit Fisik Alat Berat Siap Operasi",
+                            "unit_qty": 20,
+                            "container_qty": "5 Kontainer 40FT HC (20 Unit)",
+                            "porsi_proyek": "Alokasi Penuh Batch Regional (20 Unit)",
+                            "jaminan_aset": "Seluruh 20 Unit Fisik Alat Berat Siap Operasi",
                             "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
-                            "deskripsi": "Penempatan modal penuh Rp 7 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
-                            "profit_per_siklus": 1001607936,
-                            "profit_2x_tahunan": 2003215872,
-                            "profit_3x_tahunan": 3004823808
+                            "deskripsi": "Penempatan modal penuh Rp 5.000.000.000 untuk mendanai kapasitas penuh proyek regional (20 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "profit_per_siklus": 715434240,
+                            "profit_2x_tahunan": 1430868480,
+                            "profit_3x_tahunan": 2146302720
                         }
                     ],
                     "tiers": [
                         {
-                            "nominal": 7000000000,
-                            "label": "Paket Kemitraan Eksekutif (7 Miliar)",
+                            "nominal": 5000000000,
+                            "nominal_display": "Rp 5.000.000.000",
+                            "label": "Paket Kemitraan Tunggal (5 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
-                            "unit_qty": 28,
-                            "container_qty": "7 Kontainer 40FT HC (28 Unit)",
-                            "porsi_proyek": "Alokasi Penuh Batch Regional (28 Unit)",
-                            "jaminan_aset": "28 Unit Fisik Alat Berat Siap Operasi",
+                            "unit_qty": 20,
+                            "container_qty": "5 Kontainer 40FT HC (20 Unit)",
+                            "porsi_proyek": "Alokasi Penuh Batch Regional (20 Unit)",
+                            "jaminan_aset": "Seluruh 20 Unit Fisik Alat Berat Siap Operasi",
                             "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
-                            "deskripsi": "Penempatan modal penuh Rp 7 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
-                            "profit_per_siklus": 1001607936,
-                            "profit_2x_tahunan": 2003215872,
-                            "profit_3x_tahunan": 3004823808
+                            "deskripsi": "Penempatan modal penuh Rp 5.000.000.000 untuk mendanai kapasitas penuh proyek regional (20 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "profit_per_siklus": 715434240,
+                            "profit_2x_tahunan": 1430868480,
+                            "profit_3x_tahunan": 2146302720
                         }
                     ],
                     "operator_perk": "Bonus 1 Operator Profesional Resmi MGI",
@@ -1071,60 +501,47 @@
         {
             "id": "proj-kebumen",
             "city": "Kebumen",
-            "city_icon": "bi-building-gear",
-            "city_icon_img": "assets/img/city-jkt-jabar.png",
+            "city_slug": "kebumen",
+            "city_icon": "bi-gear-wide-connected",
+            "city_icon_img": "assets/img/icon-miu-truck.png",
             "title": "Workshop Alat Berat Kebumen",
             "category": "Pengadaan & Perputaran Unit Alat Berat",
             "image": "assets/img/project-kebumen.jpg",
             "funding": {
-                "collected": 10000000000,
-                "target": 10000000000,
+                "collected": 15000000000,
+                "target": 15000000000,
                 "currency": "IDR"
             },
             "status": "Fully Funded",
             "featured": true,
             "info": {
                 "lokasi": "Kebumen & Jawa Tengah",
-                "target": "Rp 10.000.000.000",
+                "target": "Rp 15.000.000.000",
                 "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
                 "return": "28,6% – 42,9% (p.a.)",
-                "min_investment": "Rp 5.000.000.000 (Terdanai Penuh)",
+                "min_investment": "Rp 15.000.000.000 (Terdanai Penuh)",
                 "payout": "Bagi Hasil Per Siklus Penjualan / Kuartalan",
                 "remaining_days": "Terdanai Penuh",
                 "asset_backed": "Aset Fisik Unit Alat Berat Siap Operasi",
-                "operator_perk": "Bonus 1–2 Operator Profesional Resmi MGI"
+                "operator_perk": "2 Operator Profesional Alat Berat Bersertifikat (Rotasi Shift & Pengawasan)"
             },
-            "package_options_mode": "2",
+            "package_options_mode": "1",
             "package_options": [
                 {
-                    "nominal": 5000000000,
-                    "label": "Paket Kemitraan Eksekutif (5 Miliar)",
-                    "badge": "Bonus 1 Operator Profesional",
-                    "featured": true,
-                    "unit_qty": 20,
-                    "container_qty": "5 Kontainer 40FT HC (20 Unit)",
-                    "porsi_proyek": "Alokasi Penuh Batch Regional (20 Unit)",
-                    "jaminan_aset": "20 Unit Fisik Alat Berat Siap Operasi",
-                    "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
-                    "deskripsi": "Penempatan modal penuh Rp 5 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
-                    "profit_per_siklus": 715434240,
-                    "profit_2x_tahunan": 1430868480,
-                    "profit_3x_tahunan": 2146302720
-                },
-                {
-                    "nominal": 10000000000,
-                    "label": "Paket Konsorsium Utama (10 Miliar)",
+                    "nominal": 15000000000,
+                    "nominal_display": "Rp 15.000.000.000",
+                    "label": "Paket Kemitraan Tunggal (15 Miliar)",
                     "badge": "Bonus 2 Operator Profesional (Double Shift)",
                     "featured": true,
-                    "unit_qty": 40,
-                    "container_qty": "10 Kontainer 40FT HC (40 Unit)",
-                    "porsi_proyek": "Eksklusivitas Penuh Seluruh Batch Regional",
-                    "jaminan_aset": "Seluruh 40 Unit Fisik Alat Berat Siap Operasi",
+                    "unit_qty": 60,
+                    "container_qty": "15 Kontainer 40FT HC (60 Unit)",
+                    "porsi_proyek": "Alokasi Penuh Batch Regional (60 Unit)",
+                    "jaminan_aset": "Seluruh 60 Unit Fisik Alat Berat Siap Operasi",
                     "operator_perk": "2 Operator Profesional Alat Berat Bersertifikat (Rotasi Shift & Pengawasan)",
-                    "deskripsi": "Kemitraan tunggal mendanai kapasitas penuh proyek regional (Rp 10 Miliar) dengan fasilitas 2 Operator berlisensi untuk rotasi shift 24/7, hak inspeksi fisik & audit berkala di Central Workshop Kebumen, serta prioritas utama penyerapan pasar kontraktor rekanan nasional.",
-                    "profit_per_siklus": 1430868480,
-                    "profit_2x_tahunan": 2861736960,
-                    "profit_3x_tahunan": 4292605440
+                    "deskripsi": "Penempatan modal penuh Rp 15.000.000.000 untuk mendanai kapasitas penuh proyek regional (60 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                    "profit_per_siklus": 2146302720,
+                    "profit_2x_tahunan": 4292605440,
+                    "profit_3x_tahunan": 6438908160
                 }
             ],
             "detail": {
@@ -1132,12 +549,12 @@
                 "is_gated": false,
                 "what_will_provide": {
                     "type": "text",
-                    "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 40 Unit Alat Berat)",
-                    "content": "Permodalan dialokasikan untuk pengadaan armada unit alat berat siap operasi sebanyak 40 unit (10 Kontainer 40FT HC), pengerjaan rekondisi komprehensif di Central Workshop PT Montana Indo Utama, serta penanganan logistik impor door-to-door oleh PT Montana Sentra Industri guna memenuhi tingginya permintaan sektor infrastruktur dan industri regional Kebumen."
+                    "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 60 Unit Alat Berat)",
+                    "content": "Permodalan dialokasikan untuk pengadaan armada unit alat berat siap operasi sebanyak 60 unit (15 Kontainer 40FT HC), pengerjaan rekondisi komprehensif di Central Workshop PT Montana Indo Utama, serta penanganan logistik impor door-to-door oleh PT Montana Sentra Industri guna memenuhi tingginya permintaan sektor infrastruktur dan industri Central Workshop Kebumen & koridor Jawa Tengah."
                 },
                 "funding_target": {
                     "type": "table",
-                    "title": "Target Pendanaan & Nilai Alokasi Belanja Modal",
+                    "title": "Target Pendanaan & Rencana Anggaran Biaya (CAPEX Breakdown)",
                     "columns": [
                         "No",
                         "Item Pengadaan / Spesifikasi",
@@ -1149,33 +566,33 @@
                         {
                             "no": 1,
                             "item": "Harga Pokok Pembelian Unit Alat Berat",
-                            "quantity": 40,
+                            "quantity": 60,
                             "unit_price": 150000000,
-                            "total": 6000000000
+                            "total": 9000000000
                         },
                         {
                             "no": 2,
                             "item": "Jasa Impor & Kontainer 40FT HC Door-to-Door (PT MSI)",
-                            "quantity": 10,
+                            "quantity": 15,
                             "unit_price": 210000000,
-                            "total": 2100000000
+                            "total": 3150000000
                         },
                         {
                             "no": 3,
                             "item": "Ongkos Rekondisi & Workshop Overhaul (PT MIU)",
-                            "quantity": 40,
+                            "quantity": 60,
                             "unit_price": 25000000,
-                            "total": 1000000000
+                            "total": 1500000000
                         },
                         {
                             "no": 4,
                             "item": "Dana Pencadangan & Likuiditas Operasional (9%)",
                             "quantity": 1,
-                            "unit_price": 900000000,
-                            "total": 900000000
+                            "unit_price": 1350000000,
+                            "total": 1350000000
                         }
                     ],
-                    "grand_total": 10000000000,
+                    "grand_total": 15000000000,
                     "is_gated": false
                 },
                 "about_sinergi_foundation": {
@@ -1192,33 +609,33 @@
                     "tenor_bulan": 12,
                     "estimasi_return_persen": 28.62,
                     "modal_kerja_bulanan_persen": 2.38,
-                    "minimum_investasi": 5000000000,
-                    "maximum_investasi": 10000000000,
-                    "default_investasi": 5000000000,
-                    "notes": "Simulasi ilustratif kemitraan berbasis perputaran armada riil alat berat dengan fasilitas Bonus 1–2 Operator Profesional Resmi MGI."
+                    "minimum_investasi": 15000000000,
+                    "maximum_investasi": 15000000000,
+                    "default_investasi": 15000000000,
+                    "notes": "Target perputaran 2–3 kali per tahun merupakan proyeksi berbasis kinerja riil penjualan unit."
                 },
                 "rab_executive": {
                     "spesifikasi": {
                         "barang": "Unit Alat Berat",
-                        "minimum_investasi": 5000000000,
-                        "minimum_tiket": 5000000000,
+                        "minimum_investasi": 15000000000,
+                        "minimum_tiket": 15000000000,
                         "periode_investasi": "12 Bulan",
                         "target_perputaran": "2 – 3 Kali per Tahun",
                         "sistem_penjualan": "Door to Door via PT MIU",
-                        "estimasi_unit": "40 Unit (10 Kontainer)",
+                        "estimasi_unit": "60 Unit (15 Kontainer)",
                         "container_used": "40FT HC Door-to-Door (MSI)",
                         "kapasitas_container": "4 Unit / Container",
                         "catatan": "Alokasi pengadaan armada batch regional dari total dana investasi.",
                         "model_kemitraan": "Eksklusif (Exclusive Partnership)",
-                        "kebutuhan_modal_range": "Pilihan Paket: Rp 5 Miliar & Rp 10 Miliar",
-                        "fasilitas_operator": "Bonus 1–2 Operator Profesional Resmi MGI"
+                        "kebutuhan_modal_range": "Pilihan Paket: Rp 15.000.000.000",
+                        "fasilitas_operator": "Bonus 2 Operator Profesional Resmi MGI"
                     },
                     "alokasi_dana": {
-                        "modal_operasional_label": "Modal Operasional Awal (Pengadaan 40 Unit)",
-                        "modal_operasional_awal": 9100000000,
+                        "modal_operasional_label": "Modal Operasional Awal (Pengadaan 60 Unit)",
+                        "modal_operasional_awal": 13650000000,
                         "dana_pencadangan_label": "Dana Pencadangan / Likuiditas (9%)",
-                        "dana_pencadangan": 900000000,
-                        "total_investasi": 10000000000,
+                        "dana_pencadangan": 1350000000,
+                        "total_investasi": 15000000000,
                         "catatan": "Komponen PPN, budget garansi, budget insentif, dan fee sukses MIU baru timbul saat unit terjual sehingga tidak dibebankan pada dana awal."
                     },
                     "struktur_biaya_unit": {
@@ -1234,72 +651,44 @@
                         "profit_bersih_unit": 35771712,
                         "return_per_siklus": 14.31
                     },
-                    "package_options_mode": "2",
+                    "package_options_mode": "1",
                     "package_options": [
                         {
-                            "nominal": 5000000000,
-                            "label": "Paket Kemitraan Eksekutif (5 Miliar)",
-                            "badge": "Bonus 1 Operator Profesional",
-                            "featured": true,
-                            "unit_qty": 20,
-                            "container_qty": "5 Kontainer 40FT HC (20 Unit)",
-                            "porsi_proyek": "Alokasi Penuh Batch Regional (20 Unit)",
-                            "jaminan_aset": "20 Unit Fisik Alat Berat Siap Operasi",
-                            "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
-                            "deskripsi": "Penempatan modal penuh Rp 5 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
-                            "profit_per_siklus": 715434240,
-                            "profit_2x_tahunan": 1430868480,
-                            "profit_3x_tahunan": 2146302720
-                        },
-                        {
-                            "nominal": 10000000000,
-                            "label": "Paket Konsorsium Utama (10 Miliar)",
+                            "nominal": 15000000000,
+                            "nominal_display": "Rp 15.000.000.000",
+                            "label": "Paket Kemitraan Tunggal (15 Miliar)",
                             "badge": "Bonus 2 Operator Profesional (Double Shift)",
                             "featured": true,
-                            "unit_qty": 40,
-                            "container_qty": "10 Kontainer 40FT HC (40 Unit)",
-                            "porsi_proyek": "Eksklusivitas Penuh Seluruh Batch Regional",
-                            "jaminan_aset": "Seluruh 40 Unit Fisik Alat Berat Siap Operasi",
+                            "unit_qty": 60,
+                            "container_qty": "15 Kontainer 40FT HC (60 Unit)",
+                            "porsi_proyek": "Alokasi Penuh Batch Regional (60 Unit)",
+                            "jaminan_aset": "Seluruh 60 Unit Fisik Alat Berat Siap Operasi",
                             "operator_perk": "2 Operator Profesional Alat Berat Bersertifikat (Rotasi Shift & Pengawasan)",
-                            "deskripsi": "Kemitraan tunggal mendanai kapasitas penuh proyek regional (Rp 10 Miliar) dengan fasilitas 2 Operator berlisensi untuk rotasi shift 24/7, hak inspeksi fisik & audit berkala di Central Workshop Kebumen, serta prioritas utama penyerapan pasar kontraktor rekanan nasional.",
-                            "profit_per_siklus": 1430868480,
-                            "profit_2x_tahunan": 2861736960,
-                            "profit_3x_tahunan": 4292605440
+                            "deskripsi": "Penempatan modal penuh Rp 15.000.000.000 untuk mendanai kapasitas penuh proyek regional (60 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "profit_per_siklus": 2146302720,
+                            "profit_2x_tahunan": 4292605440,
+                            "profit_3x_tahunan": 6438908160
                         }
                     ],
                     "tiers": [
                         {
-                            "nominal": 5000000000,
-                            "label": "Paket Kemitraan Eksekutif (5 Miliar)",
-                            "badge": "Bonus 1 Operator Profesional",
-                            "featured": true,
-                            "unit_qty": 20,
-                            "container_qty": "5 Kontainer 40FT HC (20 Unit)",
-                            "porsi_proyek": "Alokasi Penuh Batch Regional (20 Unit)",
-                            "jaminan_aset": "20 Unit Fisik Alat Berat Siap Operasi",
-                            "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
-                            "deskripsi": "Penempatan modal penuh Rp 5 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
-                            "profit_per_siklus": 715434240,
-                            "profit_2x_tahunan": 1430868480,
-                            "profit_3x_tahunan": 2146302720
-                        },
-                        {
-                            "nominal": 10000000000,
-                            "label": "Paket Konsorsium Utama (10 Miliar)",
+                            "nominal": 15000000000,
+                            "nominal_display": "Rp 15.000.000.000",
+                            "label": "Paket Kemitraan Tunggal (15 Miliar)",
                             "badge": "Bonus 2 Operator Profesional (Double Shift)",
                             "featured": true,
-                            "unit_qty": 40,
-                            "container_qty": "10 Kontainer 40FT HC (40 Unit)",
-                            "porsi_proyek": "Eksklusivitas Penuh Seluruh Batch Regional",
-                            "jaminan_aset": "Seluruh 40 Unit Fisik Alat Berat Siap Operasi",
+                            "unit_qty": 60,
+                            "container_qty": "15 Kontainer 40FT HC (60 Unit)",
+                            "porsi_proyek": "Alokasi Penuh Batch Regional (60 Unit)",
+                            "jaminan_aset": "Seluruh 60 Unit Fisik Alat Berat Siap Operasi",
                             "operator_perk": "2 Operator Profesional Alat Berat Bersertifikat (Rotasi Shift & Pengawasan)",
-                            "deskripsi": "Kemitraan tunggal mendanai kapasitas penuh proyek regional (Rp 10 Miliar) dengan fasilitas 2 Operator berlisensi untuk rotasi shift 24/7, hak inspeksi fisik & audit berkala di Central Workshop Kebumen, serta prioritas utama penyerapan pasar kontraktor rekanan nasional.",
-                            "profit_per_siklus": 1430868480,
-                            "profit_2x_tahunan": 2861736960,
-                            "profit_3x_tahunan": 4292605440
+                            "deskripsi": "Penempatan modal penuh Rp 15.000.000.000 untuk mendanai kapasitas penuh proyek regional (60 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "profit_per_siklus": 2146302720,
+                            "profit_2x_tahunan": 4292605440,
+                            "profit_3x_tahunan": 6438908160
                         }
                     ],
-                    "operator_perk": "Bonus 1–2 Operator Profesional Resmi MGI",
+                    "operator_perk": "Bonus 2 Operator Profesional Resmi MGI",
                     "alur_project": [
                         {
                             "step": 1,
@@ -1360,11 +749,12 @@
         {
             "id": "proj-sumatra",
             "city": "Sumatra",
+            "city_slug": "sumatra",
             "city_icon": "bi-geo-alt-fill",
             "city_icon_img": "assets/img/city-jkt-jabar.png",
             "title": "Dealer Sumatra",
             "category": "Pengadaan & Perputaran Unit Alat Berat",
-            "image": "assets/img/project-denpasar.jpg",
+            "image": "assets/img/project-sumatra.jpg",
             "funding": {
                 "collected": 0,
                 "target": 7000000000,
@@ -1379,23 +769,24 @@
                 "return": "28,6% – 42,9% (p.a.)",
                 "min_investment": "Rp 7.000.000.000",
                 "payout": "Bagi Hasil Per Siklus Penjualan / Kuartalan",
-                "remaining_days": "45 Hari Tersisa",
+                "remaining_days": "Slot Kemitraan Terbuka",
                 "asset_backed": "Aset Fisik Unit Alat Berat Siap Operasi",
-                "operator_perk": "Bonus 1 Operator Profesional Resmi MGI"
+                "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman"
             },
             "package_options_mode": "1",
             "package_options": [
                 {
                     "nominal": 7000000000,
-                    "label": "Paket Kemitraan Eksekutif (7 Miliar)",
+                    "nominal_display": "Rp 7.000.000.000",
+                    "label": "Paket Kemitraan Tunggal (7 Miliar)",
                     "badge": "Bonus 1 Operator Profesional",
                     "featured": true,
                     "unit_qty": 28,
                     "container_qty": "7 Kontainer 40FT HC (28 Unit)",
                     "porsi_proyek": "Alokasi Penuh Batch Regional (28 Unit)",
-                    "jaminan_aset": "28 Unit Fisik Alat Berat Siap Operasi",
+                    "jaminan_aset": "Seluruh 28 Unit Fisik Alat Berat Siap Operasi",
                     "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
-                    "deskripsi": "Penempatan modal penuh Rp 7 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                    "deskripsi": "Penempatan modal penuh Rp 7.000.000.000 untuk mendanai kapasitas penuh proyek regional (28 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                     "profit_per_siklus": 1001607936,
                     "profit_2x_tahunan": 2003215872,
                     "profit_3x_tahunan": 3004823808
@@ -1407,11 +798,11 @@
                 "what_will_provide": {
                     "type": "text",
                     "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 28 Unit Alat Berat)",
-                    "content": "Permodalan dialokasikan untuk pengadaan armada unit alat berat siap operasi sebanyak 28 unit (7 Kontainer 40FT HC), pengerjaan rekondisi komprehensif di Central Workshop PT Montana Indo Utama, serta penanganan logistik impor door-to-door oleh PT Montana Sentra Industri guna memenuhi tingginya permintaan sektor infrastruktur dan industri regional Sumatra."
+                    "content": "Permodalan dialokasikan untuk pengadaan armada unit alat berat siap operasi sebanyak 28 unit (7 Kontainer 40FT HC), pengerjaan rekondisi komprehensif di Central Workshop PT Montana Indo Utama, serta penanganan logistik impor door-to-door oleh PT Montana Sentra Industri guna memenuhi tingginya permintaan sektor infrastruktur dan industri kawasan industri dan perkebunan Sumatra."
                 },
                 "funding_target": {
                     "type": "table",
-                    "title": "Target Pendanaan & Nilai Alokasi Belanja Modal",
+                    "title": "Target Pendanaan & Rencana Anggaran Biaya (CAPEX Breakdown)",
                     "columns": [
                         "No",
                         "Item Pengadaan / Spesifikasi",
@@ -1469,7 +860,7 @@
                     "minimum_investasi": 7000000000,
                     "maximum_investasi": 7000000000,
                     "default_investasi": 7000000000,
-                    "notes": "Simulasi ilustratif kemitraan berbasis perputaran armada riil alat berat dengan fasilitas Bonus 1 Operator Profesional Resmi MGI."
+                    "notes": "Target perputaran 2–3 kali per tahun merupakan proyeksi berbasis kinerja riil penjualan unit."
                 },
                 "rab_executive": {
                     "spesifikasi": {
@@ -1484,7 +875,7 @@
                         "kapasitas_container": "4 Unit / Container",
                         "catatan": "Alokasi pengadaan armada batch regional dari total dana investasi.",
                         "model_kemitraan": "Eksklusif (Exclusive Partnership)",
-                        "kebutuhan_modal_range": "Pilihan Paket: Rp 7 Miliar",
+                        "kebutuhan_modal_range": "Pilihan Paket: Rp 7.000.000.000",
                         "fasilitas_operator": "Bonus 1 Operator Profesional Resmi MGI"
                     },
                     "alokasi_dana": {
@@ -1512,15 +903,16 @@
                     "package_options": [
                         {
                             "nominal": 7000000000,
-                            "label": "Paket Kemitraan Eksekutif (7 Miliar)",
+                            "nominal_display": "Rp 7.000.000.000",
+                            "label": "Paket Kemitraan Tunggal (7 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
                             "unit_qty": 28,
                             "container_qty": "7 Kontainer 40FT HC (28 Unit)",
                             "porsi_proyek": "Alokasi Penuh Batch Regional (28 Unit)",
-                            "jaminan_aset": "28 Unit Fisik Alat Berat Siap Operasi",
+                            "jaminan_aset": "Seluruh 28 Unit Fisik Alat Berat Siap Operasi",
                             "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
-                            "deskripsi": "Penempatan modal penuh Rp 7 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "deskripsi": "Penempatan modal penuh Rp 7.000.000.000 untuk mendanai kapasitas penuh proyek regional (28 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                             "profit_per_siklus": 1001607936,
                             "profit_2x_tahunan": 2003215872,
                             "profit_3x_tahunan": 3004823808
@@ -1529,15 +921,16 @@
                     "tiers": [
                         {
                             "nominal": 7000000000,
-                            "label": "Paket Kemitraan Eksekutif (7 Miliar)",
+                            "nominal_display": "Rp 7.000.000.000",
+                            "label": "Paket Kemitraan Tunggal (7 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
                             "unit_qty": 28,
                             "container_qty": "7 Kontainer 40FT HC (28 Unit)",
                             "porsi_proyek": "Alokasi Penuh Batch Regional (28 Unit)",
-                            "jaminan_aset": "28 Unit Fisik Alat Berat Siap Operasi",
+                            "jaminan_aset": "Seluruh 28 Unit Fisik Alat Berat Siap Operasi",
                             "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
-                            "deskripsi": "Penempatan modal penuh Rp 7 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "deskripsi": "Penempatan modal penuh Rp 7.000.000.000 untuk mendanai kapasitas penuh proyek regional (28 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                             "profit_per_siklus": 1001607936,
                             "profit_2x_tahunan": 2003215872,
                             "profit_3x_tahunan": 3004823808
@@ -1602,13 +995,1502 @@
             }
         },
         {
-            "id": "proj-ntt",
-            "city": "NTT",
+            "id": "proj-pontianak",
+            "city": "Pontianak",
+            "city_slug": "pontianak",
+            "city_icon": "bi-geo-alt-fill",
+            "city_icon_img": "assets/img/city-surabaya.png",
+            "title": "Dealer Pontianak",
+            "category": "Pengadaan & Perputaran Unit Alat Berat",
+            "image": "assets/img/project-surabaya.jpg",
+            "funding": {
+                "collected": 0,
+                "target": 2000000000,
+                "currency": "IDR"
+            },
+            "status": "Open",
+            "featured": false,
+            "info": {
+                "lokasi": "Pontianak & Kalimantan Barat",
+                "target": "Rp 2.000.000.000",
+                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "return": "28,6% – 42,9% (p.a.)",
+                "min_investment": "Rp 2.000.000.000",
+                "payout": "Bagi Hasil Per Siklus Penjualan / Kuartalan",
+                "remaining_days": "Slot Kemitraan Terbuka",
+                "asset_backed": "Aset Fisik Unit Alat Berat Siap Operasi",
+                "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman"
+            },
+            "package_options_mode": "1",
+            "package_options": [
+                {
+                    "nominal": 2000000000,
+                    "nominal_display": "Rp 2.000.000.000",
+                    "label": "Paket Kemitraan Tunggal (2 Miliar)",
+                    "badge": "Bonus 1 Operator Profesional",
+                    "featured": true,
+                    "unit_qty": 8,
+                    "container_qty": "2 Kontainer 40FT HC (8 Unit)",
+                    "porsi_proyek": "Alokasi Penuh Batch Regional (8 Unit)",
+                    "jaminan_aset": "Seluruh 8 Unit Fisik Alat Berat Siap Operasi",
+                    "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
+                    "deskripsi": "Penempatan modal penuh Rp 2.000.000.000 untuk mendanai kapasitas penuh proyek regional (8 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                    "profit_per_siklus": 286173696,
+                    "profit_2x_tahunan": 572347392,
+                    "profit_3x_tahunan": 858521088
+                }
+            ],
+            "detail": {
+                "tagline": "Kemitraan Strategis Pengadaan Armada Alat Berat CBU Jepang Wilayah Pontianak",
+                "is_gated": false,
+                "what_will_provide": {
+                    "type": "text",
+                    "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 8 Unit Alat Berat)",
+                    "content": "Permodalan dialokasikan untuk pengadaan armada unit alat berat siap operasi sebanyak 8 unit (2 Kontainer 40FT HC), pengerjaan rekondisi komprehensif di Central Workshop PT Montana Indo Utama, serta penanganan logistik impor door-to-door oleh PT Montana Sentra Industri guna memenuhi tingginya permintaan sektor infrastruktur dan industri Pontianak dan koridor industri Kalimantan Barat."
+                },
+                "funding_target": {
+                    "type": "table",
+                    "title": "Target Pendanaan & Rencana Anggaran Biaya (CAPEX Breakdown)",
+                    "columns": [
+                        "No",
+                        "Item Pengadaan / Spesifikasi",
+                        "Qty",
+                        "Harga Satuan (IDR)",
+                        "Total Alokasi (IDR)"
+                    ],
+                    "rows": [
+                        {
+                            "no": 1,
+                            "item": "Harga Pokok Pembelian Unit Alat Berat",
+                            "quantity": 8,
+                            "unit_price": 150000000,
+                            "total": 1200000000
+                        },
+                        {
+                            "no": 2,
+                            "item": "Jasa Impor & Kontainer 40FT HC Door-to-Door (PT MSI)",
+                            "quantity": 2,
+                            "unit_price": 210000000,
+                            "total": 420000000
+                        },
+                        {
+                            "no": 3,
+                            "item": "Ongkos Rekondisi & Workshop Overhaul (PT MIU)",
+                            "quantity": 8,
+                            "unit_price": 25000000,
+                            "total": 200000000
+                        },
+                        {
+                            "no": 4,
+                            "item": "Dana Pencadangan & Likuiditas Operasional (9%)",
+                            "quantity": 1,
+                            "unit_price": 180000000,
+                            "total": 180000000
+                        }
+                    ],
+                    "grand_total": 2000000000,
+                    "is_gated": false
+                },
+                "about_sinergi_foundation": {
+                    "type": "text",
+                    "title": "Kerangka Kemitraan Strategis & Penyerapan Pasar (Offtake Framework)",
+                    "content": "Pengadaan unit ini didukung oleh ekosistem Montana Group: PT Montana Sentra Industri (PT MSI) menangani logistik maritim internasional dan izin kepabeanan, sementara PT Montana Indo Utama (PT MIU) menangani workshop rekondisi teknis, offtake pemasaran langsung kepada kontraktor rekanan, serta penyediaan fasilitas operator profesional."
+                },
+                "summary": {
+                    "type": "text",
+                    "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
+                    "content": "Proyek investasi armada alat berat di Pontianak menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 28,6% – 42,9% p.a."
+                },
+                "simulation": {
+                    "tenor_bulan": 12,
+                    "estimasi_return_persen": 28.62,
+                    "modal_kerja_bulanan_persen": 2.38,
+                    "minimum_investasi": 2000000000,
+                    "maximum_investasi": 2000000000,
+                    "default_investasi": 2000000000,
+                    "notes": "Target perputaran 2–3 kali per tahun merupakan proyeksi berbasis kinerja riil penjualan unit."
+                },
+                "rab_executive": {
+                    "spesifikasi": {
+                        "barang": "Unit Alat Berat",
+                        "minimum_investasi": 2000000000,
+                        "minimum_tiket": 2000000000,
+                        "periode_investasi": "12 Bulan",
+                        "target_perputaran": "2 – 3 Kali per Tahun",
+                        "sistem_penjualan": "Door to Door via PT MIU",
+                        "estimasi_unit": "8 Unit (2 Kontainer)",
+                        "container_used": "40FT HC Door-to-Door (MSI)",
+                        "kapasitas_container": "4 Unit / Container",
+                        "catatan": "Alokasi pengadaan armada batch regional dari total dana investasi.",
+                        "model_kemitraan": "Eksklusif (Exclusive Partnership)",
+                        "kebutuhan_modal_range": "Pilihan Paket: Rp 2.000.000.000",
+                        "fasilitas_operator": "Bonus 1 Operator Profesional Resmi MGI"
+                    },
+                    "alokasi_dana": {
+                        "modal_operasional_label": "Modal Operasional Awal (Pengadaan 8 Unit)",
+                        "modal_operasional_awal": 1820000000,
+                        "dana_pencadangan_label": "Dana Pencadangan / Likuiditas (9%)",
+                        "dana_pencadangan": 180000000,
+                        "total_investasi": 2000000000,
+                        "catatan": "Komponen PPN, budget garansi, budget insentif, dan fee sukses MIU baru timbul saat unit terjual sehingga tidak dibebankan pada dana awal."
+                    },
+                    "struktur_biaya_unit": {
+                        "harga_pokok_beli": 150000000,
+                        "ppn_11": 34288288,
+                        "ongkos_rekondisi": 25000000,
+                        "container_alokasi": 52500000,
+                        "budget_garansi": 3460000,
+                        "budget_insentif": 3460000,
+                        "fee_miu": 41520000,
+                        "total_biaya_unit": 310228288,
+                        "harga_jual_unit": 346000000,
+                        "profit_bersih_unit": 35771712,
+                        "return_per_siklus": 14.31
+                    },
+                    "package_options_mode": "1",
+                    "package_options": [
+                        {
+                            "nominal": 2000000000,
+                            "nominal_display": "Rp 2.000.000.000",
+                            "label": "Paket Kemitraan Tunggal (2 Miliar)",
+                            "badge": "Bonus 1 Operator Profesional",
+                            "featured": true,
+                            "unit_qty": 8,
+                            "container_qty": "2 Kontainer 40FT HC (8 Unit)",
+                            "porsi_proyek": "Alokasi Penuh Batch Regional (8 Unit)",
+                            "jaminan_aset": "Seluruh 8 Unit Fisik Alat Berat Siap Operasi",
+                            "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
+                            "deskripsi": "Penempatan modal penuh Rp 2.000.000.000 untuk mendanai kapasitas penuh proyek regional (8 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "profit_per_siklus": 286173696,
+                            "profit_2x_tahunan": 572347392,
+                            "profit_3x_tahunan": 858521088
+                        }
+                    ],
+                    "tiers": [
+                        {
+                            "nominal": 2000000000,
+                            "nominal_display": "Rp 2.000.000.000",
+                            "label": "Paket Kemitraan Tunggal (2 Miliar)",
+                            "badge": "Bonus 1 Operator Profesional",
+                            "featured": true,
+                            "unit_qty": 8,
+                            "container_qty": "2 Kontainer 40FT HC (8 Unit)",
+                            "porsi_proyek": "Alokasi Penuh Batch Regional (8 Unit)",
+                            "jaminan_aset": "Seluruh 8 Unit Fisik Alat Berat Siap Operasi",
+                            "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
+                            "deskripsi": "Penempatan modal penuh Rp 2.000.000.000 untuk mendanai kapasitas penuh proyek regional (8 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "profit_per_siklus": 286173696,
+                            "profit_2x_tahunan": 572347392,
+                            "profit_3x_tahunan": 858521088
+                        }
+                    ],
+                    "operator_perk": "Bonus 1 Operator Profesional Resmi MGI",
+                    "alur_project": [
+                        {
+                            "step": 1,
+                            "title": "Pengadaan CBU Jepang",
+                            "desc": "Pembelian unit alat berat langsung dari lelang & mitra terpercaya dengan standar seleksi Grade A."
+                        },
+                        {
+                            "step": 2,
+                            "title": "Logistik Laut (PT MSI)",
+                            "desc": "Pengangkutan laut menggunakan kontainer 40FT HC (kapasitas 4 unit/kontainer) door-to-door hingga ke pelabuhan domestik dan izin impor lengkap."
+                        },
+                        {
+                            "step": 3,
+                            "title": "Rekondisi Workshop (PT MIU)",
+                            "desc": "Inspeksi 100 titik, peremajaan hidrolik, overhaul mesin, pengecatan ulang, dan uji beban kerja di Central Workshop PT Montana Indo Utama."
+                        },
+                        {
+                            "step": 4,
+                            "title": "Penjualan Pasar Nasional",
+                            "desc": "Pemasaran unit siap kerja langsung ke end-user (kontraktor tambang, infrastruktur, perkebunan) dengan offtake & garansi resmi 1%."
+                        },
+                        {
+                            "step": 5,
+                            "title": "Bagi Hasil Pemodal",
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                        }
+                    ],
+                    "breakdown_pembayaran_unit": [
+                        {
+                            "no": 1,
+                            "komponen": "Harga Beli Unit + Ongkos Rekondisi Workshop",
+                            "penerima": "PT MIU",
+                            "nominal": 175000000,
+                            "keterangan": "HPP Pembelian unit CBU Jepang (Rp 150 jt) + jasa rekondisi & overhaul standar operasional (Rp 25 jt)"
+                        },
+                        {
+                            "no": 2,
+                            "komponen": "Ongkos Kontainer 40FT HC Door-to-Door",
+                            "penerima": "PT MSI",
+                            "nominal": 52500000,
+                            "keterangan": "Alokasi per unit (Rp 210.000.000 per 1 kontainer 40FT HC yang memuat 4 unit alat berat)"
+                        },
+                        {
+                            "no": 3,
+                            "komponen": "Dana Pencadangan / Likuiditas Kas Operasional (9%)",
+                            "penerima": "Kas Cadangan",
+                            "nominal": 22500000,
+                            "keterangan": "Buffer likuiditas proyek tahap awal untuk memastikan kelancaran operasional sebelum unit terjual"
+                        }
+                    ],
+                    "total_miu_per_unit": 175000000,
+                    "total_msi_per_unit": 52500000,
+                    "dana_cadangan_per_unit": 22500000,
+                    "total_biaya_per_unit": 250000000
+                }
+            }
+        },
+        {
+            "id": "proj-banjarmasin",
+            "city": "Banjarmasin",
+            "city_slug": "banjarmasin",
+            "city_icon": "bi-geo-alt-fill",
+            "city_icon_img": "assets/img/city-makassar.png",
+            "title": "Dealer Banjarmasin",
+            "category": "Pengadaan & Perputaran Unit Alat Berat",
+            "image": "assets/img/project-makasar.jpg",
+            "funding": {
+                "collected": 0,
+                "target": 3000000000,
+                "currency": "IDR"
+            },
+            "status": "Open",
+            "featured": false,
+            "info": {
+                "lokasi": "Banjarmasin & Kalimantan Selatan",
+                "target": "Rp 3.000.000.000",
+                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "return": "28,6% – 42,9% (p.a.)",
+                "min_investment": "Rp 3.000.000.000",
+                "payout": "Bagi Hasil Per Siklus Penjualan / Kuartalan",
+                "remaining_days": "Slot Kemitraan Terbuka",
+                "asset_backed": "Aset Fisik Unit Alat Berat Siap Operasi",
+                "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman"
+            },
+            "package_options_mode": "1",
+            "package_options": [
+                {
+                    "nominal": 3000000000,
+                    "nominal_display": "Rp 3.000.000.000",
+                    "label": "Paket Kemitraan Tunggal (3 Miliar)",
+                    "badge": "Bonus 1 Operator Profesional",
+                    "featured": true,
+                    "unit_qty": 12,
+                    "container_qty": "3 Kontainer 40FT HC (12 Unit)",
+                    "porsi_proyek": "Alokasi Penuh Batch Regional (12 Unit)",
+                    "jaminan_aset": "Seluruh 12 Unit Fisik Alat Berat Siap Operasi",
+                    "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
+                    "deskripsi": "Penempatan modal penuh Rp 3.000.000.000 untuk mendanai kapasitas penuh proyek regional (12 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                    "profit_per_siklus": 429260544,
+                    "profit_2x_tahunan": 858521088,
+                    "profit_3x_tahunan": 1287781632
+                }
+            ],
+            "detail": {
+                "tagline": "Kemitraan Strategis Pengadaan Armada Alat Berat CBU Jepang Wilayah Banjarmasin",
+                "is_gated": false,
+                "what_will_provide": {
+                    "type": "text",
+                    "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 12 Unit Alat Berat)",
+                    "content": "Permodalan dialokasikan untuk pengadaan armada unit alat berat siap operasi sebanyak 12 unit (3 Kontainer 40FT HC), pengerjaan rekondisi komprehensif di Central Workshop PT Montana Indo Utama, serta penanganan logistik impor door-to-door oleh PT Montana Sentra Industri guna memenuhi tingginya permintaan sektor infrastruktur dan industri Banjarmasin dan sektor pertambangan/perkebunan Kalimantan Selatan."
+                },
+                "funding_target": {
+                    "type": "table",
+                    "title": "Target Pendanaan & Rencana Anggaran Biaya (CAPEX Breakdown)",
+                    "columns": [
+                        "No",
+                        "Item Pengadaan / Spesifikasi",
+                        "Qty",
+                        "Harga Satuan (IDR)",
+                        "Total Alokasi (IDR)"
+                    ],
+                    "rows": [
+                        {
+                            "no": 1,
+                            "item": "Harga Pokok Pembelian Unit Alat Berat",
+                            "quantity": 12,
+                            "unit_price": 150000000,
+                            "total": 1800000000
+                        },
+                        {
+                            "no": 2,
+                            "item": "Jasa Impor & Kontainer 40FT HC Door-to-Door (PT MSI)",
+                            "quantity": 3,
+                            "unit_price": 210000000,
+                            "total": 630000000
+                        },
+                        {
+                            "no": 3,
+                            "item": "Ongkos Rekondisi & Workshop Overhaul (PT MIU)",
+                            "quantity": 12,
+                            "unit_price": 25000000,
+                            "total": 300000000
+                        },
+                        {
+                            "no": 4,
+                            "item": "Dana Pencadangan & Likuiditas Operasional (9%)",
+                            "quantity": 1,
+                            "unit_price": 270000000,
+                            "total": 270000000
+                        }
+                    ],
+                    "grand_total": 3000000000,
+                    "is_gated": false
+                },
+                "about_sinergi_foundation": {
+                    "type": "text",
+                    "title": "Kerangka Kemitraan Strategis & Penyerapan Pasar (Offtake Framework)",
+                    "content": "Pengadaan unit ini didukung oleh ekosistem Montana Group: PT Montana Sentra Industri (PT MSI) menangani logistik maritim internasional dan izin kepabeanan, sementara PT Montana Indo Utama (PT MIU) menangani workshop rekondisi teknis, offtake pemasaran langsung kepada kontraktor rekanan, serta penyediaan fasilitas operator profesional."
+                },
+                "summary": {
+                    "type": "text",
+                    "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
+                    "content": "Proyek investasi armada alat berat di Banjarmasin menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 28,6% – 42,9% p.a."
+                },
+                "simulation": {
+                    "tenor_bulan": 12,
+                    "estimasi_return_persen": 28.62,
+                    "modal_kerja_bulanan_persen": 2.38,
+                    "minimum_investasi": 3000000000,
+                    "maximum_investasi": 3000000000,
+                    "default_investasi": 3000000000,
+                    "notes": "Target perputaran 2–3 kali per tahun merupakan proyeksi berbasis kinerja riil penjualan unit."
+                },
+                "rab_executive": {
+                    "spesifikasi": {
+                        "barang": "Unit Alat Berat",
+                        "minimum_investasi": 3000000000,
+                        "minimum_tiket": 3000000000,
+                        "periode_investasi": "12 Bulan",
+                        "target_perputaran": "2 – 3 Kali per Tahun",
+                        "sistem_penjualan": "Door to Door via PT MIU",
+                        "estimasi_unit": "12 Unit (3 Kontainer)",
+                        "container_used": "40FT HC Door-to-Door (MSI)",
+                        "kapasitas_container": "4 Unit / Container",
+                        "catatan": "Alokasi pengadaan armada batch regional dari total dana investasi.",
+                        "model_kemitraan": "Eksklusif (Exclusive Partnership)",
+                        "kebutuhan_modal_range": "Pilihan Paket: Rp 3.000.000.000",
+                        "fasilitas_operator": "Bonus 1 Operator Profesional Resmi MGI"
+                    },
+                    "alokasi_dana": {
+                        "modal_operasional_label": "Modal Operasional Awal (Pengadaan 12 Unit)",
+                        "modal_operasional_awal": 2730000000,
+                        "dana_pencadangan_label": "Dana Pencadangan / Likuiditas (9%)",
+                        "dana_pencadangan": 270000000,
+                        "total_investasi": 3000000000,
+                        "catatan": "Komponen PPN, budget garansi, budget insentif, dan fee sukses MIU baru timbul saat unit terjual sehingga tidak dibebankan pada dana awal."
+                    },
+                    "struktur_biaya_unit": {
+                        "harga_pokok_beli": 150000000,
+                        "ppn_11": 34288288,
+                        "ongkos_rekondisi": 25000000,
+                        "container_alokasi": 52500000,
+                        "budget_garansi": 3460000,
+                        "budget_insentif": 3460000,
+                        "fee_miu": 41520000,
+                        "total_biaya_unit": 310228288,
+                        "harga_jual_unit": 346000000,
+                        "profit_bersih_unit": 35771712,
+                        "return_per_siklus": 14.31
+                    },
+                    "package_options_mode": "1",
+                    "package_options": [
+                        {
+                            "nominal": 3000000000,
+                            "nominal_display": "Rp 3.000.000.000",
+                            "label": "Paket Kemitraan Tunggal (3 Miliar)",
+                            "badge": "Bonus 1 Operator Profesional",
+                            "featured": true,
+                            "unit_qty": 12,
+                            "container_qty": "3 Kontainer 40FT HC (12 Unit)",
+                            "porsi_proyek": "Alokasi Penuh Batch Regional (12 Unit)",
+                            "jaminan_aset": "Seluruh 12 Unit Fisik Alat Berat Siap Operasi",
+                            "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
+                            "deskripsi": "Penempatan modal penuh Rp 3.000.000.000 untuk mendanai kapasitas penuh proyek regional (12 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "profit_per_siklus": 429260544,
+                            "profit_2x_tahunan": 858521088,
+                            "profit_3x_tahunan": 1287781632
+                        }
+                    ],
+                    "tiers": [
+                        {
+                            "nominal": 3000000000,
+                            "nominal_display": "Rp 3.000.000.000",
+                            "label": "Paket Kemitraan Tunggal (3 Miliar)",
+                            "badge": "Bonus 1 Operator Profesional",
+                            "featured": true,
+                            "unit_qty": 12,
+                            "container_qty": "3 Kontainer 40FT HC (12 Unit)",
+                            "porsi_proyek": "Alokasi Penuh Batch Regional (12 Unit)",
+                            "jaminan_aset": "Seluruh 12 Unit Fisik Alat Berat Siap Operasi",
+                            "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
+                            "deskripsi": "Penempatan modal penuh Rp 3.000.000.000 untuk mendanai kapasitas penuh proyek regional (12 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "profit_per_siklus": 429260544,
+                            "profit_2x_tahunan": 858521088,
+                            "profit_3x_tahunan": 1287781632
+                        }
+                    ],
+                    "operator_perk": "Bonus 1 Operator Profesional Resmi MGI",
+                    "alur_project": [
+                        {
+                            "step": 1,
+                            "title": "Pengadaan CBU Jepang",
+                            "desc": "Pembelian unit alat berat langsung dari lelang & mitra terpercaya dengan standar seleksi Grade A."
+                        },
+                        {
+                            "step": 2,
+                            "title": "Logistik Laut (PT MSI)",
+                            "desc": "Pengangkutan laut menggunakan kontainer 40FT HC (kapasitas 4 unit/kontainer) door-to-door hingga ke pelabuhan domestik dan izin impor lengkap."
+                        },
+                        {
+                            "step": 3,
+                            "title": "Rekondisi Workshop (PT MIU)",
+                            "desc": "Inspeksi 100 titik, peremajaan hidrolik, overhaul mesin, pengecatan ulang, dan uji beban kerja di Central Workshop PT Montana Indo Utama."
+                        },
+                        {
+                            "step": 4,
+                            "title": "Penjualan Pasar Nasional",
+                            "desc": "Pemasaran unit siap kerja langsung ke end-user (kontraktor tambang, infrastruktur, perkebunan) dengan offtake & garansi resmi 1%."
+                        },
+                        {
+                            "step": 5,
+                            "title": "Bagi Hasil Pemodal",
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                        }
+                    ],
+                    "breakdown_pembayaran_unit": [
+                        {
+                            "no": 1,
+                            "komponen": "Harga Beli Unit + Ongkos Rekondisi Workshop",
+                            "penerima": "PT MIU",
+                            "nominal": 175000000,
+                            "keterangan": "HPP Pembelian unit CBU Jepang (Rp 150 jt) + jasa rekondisi & overhaul standar operasional (Rp 25 jt)"
+                        },
+                        {
+                            "no": 2,
+                            "komponen": "Ongkos Kontainer 40FT HC Door-to-Door",
+                            "penerima": "PT MSI",
+                            "nominal": 52500000,
+                            "keterangan": "Alokasi per unit (Rp 210.000.000 per 1 kontainer 40FT HC yang memuat 4 unit alat berat)"
+                        },
+                        {
+                            "no": 3,
+                            "komponen": "Dana Pencadangan / Likuiditas Kas Operasional (9%)",
+                            "penerima": "Kas Cadangan",
+                            "nominal": 22500000,
+                            "keterangan": "Buffer likuiditas proyek tahap awal untuk memastikan kelancaran operasional sebelum unit terjual"
+                        }
+                    ],
+                    "total_miu_per_unit": 175000000,
+                    "total_msi_per_unit": 52500000,
+                    "dana_cadangan_per_unit": 22500000,
+                    "total_biaya_per_unit": 250000000
+                }
+            }
+        },
+        {
+            "id": "proj-aceh",
+            "city": "Aceh",
+            "city_slug": "aceh",
             "city_icon": "bi-geo-alt-fill",
             "city_icon_img": "assets/img/city-jkt-jabar.png",
+            "title": "Dealer Aceh",
+            "category": "Pengadaan & Perputaran Unit Alat Berat",
+            "image": "assets/img/project-sumatra.jpg",
+            "funding": {
+                "collected": 0,
+                "target": 7500000000,
+                "currency": "IDR"
+            },
+            "status": "Open",
+            "featured": false,
+            "info": {
+                "lokasi": "Banda Aceh & Wilayah Aceh",
+                "target": "Rp 7.500.000.000",
+                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "return": "28,6% – 42,9% (p.a.)",
+                "min_investment": "Rp 7.500.000.000",
+                "payout": "Bagi Hasil Per Siklus Penjualan / Kuartalan",
+                "remaining_days": "Slot Kemitraan Terbuka",
+                "asset_backed": "Aset Fisik Unit Alat Berat Siap Operasi",
+                "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman"
+            },
+            "package_options_mode": "1",
+            "package_options": [
+                {
+                    "nominal": 7500000000,
+                    "nominal_display": "Rp 7.500.000.000",
+                    "label": "Paket Kemitraan Tunggal (7.5 Miliar)",
+                    "badge": "Bonus 1 Operator Profesional",
+                    "featured": true,
+                    "unit_qty": 30,
+                    "container_qty": "7.5 Kontainer 40FT HC (30 Unit)",
+                    "porsi_proyek": "Alokasi Penuh Batch Regional (30 Unit)",
+                    "jaminan_aset": "Seluruh 30 Unit Fisik Alat Berat Siap Operasi",
+                    "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
+                    "deskripsi": "Penempatan modal penuh Rp 7.500.000.000 untuk mendanai kapasitas penuh proyek regional (30 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                    "profit_per_siklus": 1073151360,
+                    "profit_2x_tahunan": 2146302720,
+                    "profit_3x_tahunan": 3219454080
+                }
+            ],
+            "detail": {
+                "tagline": "Kemitraan Strategis Pengadaan Armada Alat Berat CBU Jepang Wilayah Aceh",
+                "is_gated": false,
+                "what_will_provide": {
+                    "type": "text",
+                    "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 30 Unit Alat Berat)",
+                    "content": "Permodalan dialokasikan untuk pengadaan armada unit alat berat siap operasi sebanyak 30 unit (7.5 Kontainer 40FT HC), pengerjaan rekondisi komprehensif di Central Workshop PT Montana Indo Utama, serta penanganan logistik impor door-to-door oleh PT Montana Sentra Industri guna memenuhi tingginya permintaan sektor infrastruktur dan industri wilayah pembangunan infrastruktur Aceh."
+                },
+                "funding_target": {
+                    "type": "table",
+                    "title": "Target Pendanaan & Rencana Anggaran Biaya (CAPEX Breakdown)",
+                    "columns": [
+                        "No",
+                        "Item Pengadaan / Spesifikasi",
+                        "Qty",
+                        "Harga Satuan (IDR)",
+                        "Total Alokasi (IDR)"
+                    ],
+                    "rows": [
+                        {
+                            "no": 1,
+                            "item": "Harga Pokok Pembelian Unit Alat Berat",
+                            "quantity": 30,
+                            "unit_price": 150000000,
+                            "total": 4500000000
+                        },
+                        {
+                            "no": 2,
+                            "item": "Jasa Impor & Kontainer 40FT HC Door-to-Door (PT MSI)",
+                            "quantity": 7.5,
+                            "unit_price": 210000000,
+                            "total": 1575000000
+                        },
+                        {
+                            "no": 3,
+                            "item": "Ongkos Rekondisi & Workshop Overhaul (PT MIU)",
+                            "quantity": 30,
+                            "unit_price": 25000000,
+                            "total": 750000000
+                        },
+                        {
+                            "no": 4,
+                            "item": "Dana Pencadangan & Likuiditas Operasional (9%)",
+                            "quantity": 1,
+                            "unit_price": 675000000,
+                            "total": 675000000
+                        }
+                    ],
+                    "grand_total": 7500000000,
+                    "is_gated": false
+                },
+                "about_sinergi_foundation": {
+                    "type": "text",
+                    "title": "Kerangka Kemitraan Strategis & Penyerapan Pasar (Offtake Framework)",
+                    "content": "Pengadaan unit ini didukung oleh ekosistem Montana Group: PT Montana Sentra Industri (PT MSI) menangani logistik maritim internasional dan izin kepabeanan, sementara PT Montana Indo Utama (PT MIU) menangani workshop rekondisi teknis, offtake pemasaran langsung kepada kontraktor rekanan, serta penyediaan fasilitas operator profesional."
+                },
+                "summary": {
+                    "type": "text",
+                    "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
+                    "content": "Proyek investasi armada alat berat di Aceh menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 28,6% – 42,9% p.a."
+                },
+                "simulation": {
+                    "tenor_bulan": 12,
+                    "estimasi_return_persen": 28.62,
+                    "modal_kerja_bulanan_persen": 2.38,
+                    "minimum_investasi": 7500000000,
+                    "maximum_investasi": 7500000000,
+                    "default_investasi": 7500000000,
+                    "notes": "Target perputaran 2–3 kali per tahun merupakan proyeksi berbasis kinerja riil penjualan unit."
+                },
+                "rab_executive": {
+                    "spesifikasi": {
+                        "barang": "Unit Alat Berat",
+                        "minimum_investasi": 7500000000,
+                        "minimum_tiket": 7500000000,
+                        "periode_investasi": "12 Bulan",
+                        "target_perputaran": "2 – 3 Kali per Tahun",
+                        "sistem_penjualan": "Door to Door via PT MIU",
+                        "estimasi_unit": "30 Unit (7.5 Kontainer)",
+                        "container_used": "40FT HC Door-to-Door (MSI)",
+                        "kapasitas_container": "4 Unit / Container",
+                        "catatan": "Alokasi pengadaan armada batch regional dari total dana investasi.",
+                        "model_kemitraan": "Eksklusif (Exclusive Partnership)",
+                        "kebutuhan_modal_range": "Pilihan Paket: Rp 7.500.000.000",
+                        "fasilitas_operator": "Bonus 1 Operator Profesional Resmi MGI"
+                    },
+                    "alokasi_dana": {
+                        "modal_operasional_label": "Modal Operasional Awal (Pengadaan 30 Unit)",
+                        "modal_operasional_awal": 6825000000,
+                        "dana_pencadangan_label": "Dana Pencadangan / Likuiditas (9%)",
+                        "dana_pencadangan": 675000000,
+                        "total_investasi": 7500000000,
+                        "catatan": "Komponen PPN, budget garansi, budget insentif, dan fee sukses MIU baru timbul saat unit terjual sehingga tidak dibebankan pada dana awal."
+                    },
+                    "struktur_biaya_unit": {
+                        "harga_pokok_beli": 150000000,
+                        "ppn_11": 34288288,
+                        "ongkos_rekondisi": 25000000,
+                        "container_alokasi": 52500000,
+                        "budget_garansi": 3460000,
+                        "budget_insentif": 3460000,
+                        "fee_miu": 41520000,
+                        "total_biaya_unit": 310228288,
+                        "harga_jual_unit": 346000000,
+                        "profit_bersih_unit": 35771712,
+                        "return_per_siklus": 14.31
+                    },
+                    "package_options_mode": "1",
+                    "package_options": [
+                        {
+                            "nominal": 7500000000,
+                            "nominal_display": "Rp 7.500.000.000",
+                            "label": "Paket Kemitraan Tunggal (7.5 Miliar)",
+                            "badge": "Bonus 1 Operator Profesional",
+                            "featured": true,
+                            "unit_qty": 30,
+                            "container_qty": "7.5 Kontainer 40FT HC (30 Unit)",
+                            "porsi_proyek": "Alokasi Penuh Batch Regional (30 Unit)",
+                            "jaminan_aset": "Seluruh 30 Unit Fisik Alat Berat Siap Operasi",
+                            "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
+                            "deskripsi": "Penempatan modal penuh Rp 7.500.000.000 untuk mendanai kapasitas penuh proyek regional (30 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "profit_per_siklus": 1073151360,
+                            "profit_2x_tahunan": 2146302720,
+                            "profit_3x_tahunan": 3219454080
+                        }
+                    ],
+                    "tiers": [
+                        {
+                            "nominal": 7500000000,
+                            "nominal_display": "Rp 7.500.000.000",
+                            "label": "Paket Kemitraan Tunggal (7.5 Miliar)",
+                            "badge": "Bonus 1 Operator Profesional",
+                            "featured": true,
+                            "unit_qty": 30,
+                            "container_qty": "7.5 Kontainer 40FT HC (30 Unit)",
+                            "porsi_proyek": "Alokasi Penuh Batch Regional (30 Unit)",
+                            "jaminan_aset": "Seluruh 30 Unit Fisik Alat Berat Siap Operasi",
+                            "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
+                            "deskripsi": "Penempatan modal penuh Rp 7.500.000.000 untuk mendanai kapasitas penuh proyek regional (30 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "profit_per_siklus": 1073151360,
+                            "profit_2x_tahunan": 2146302720,
+                            "profit_3x_tahunan": 3219454080
+                        }
+                    ],
+                    "operator_perk": "Bonus 1 Operator Profesional Resmi MGI",
+                    "alur_project": [
+                        {
+                            "step": 1,
+                            "title": "Pengadaan CBU Jepang",
+                            "desc": "Pembelian unit alat berat langsung dari lelang & mitra terpercaya dengan standar seleksi Grade A."
+                        },
+                        {
+                            "step": 2,
+                            "title": "Logistik Laut (PT MSI)",
+                            "desc": "Pengangkutan laut menggunakan kontainer 40FT HC (kapasitas 4 unit/kontainer) door-to-door hingga ke pelabuhan domestik dan izin impor lengkap."
+                        },
+                        {
+                            "step": 3,
+                            "title": "Rekondisi Workshop (PT MIU)",
+                            "desc": "Inspeksi 100 titik, peremajaan hidrolik, overhaul mesin, pengecatan ulang, dan uji beban kerja di Central Workshop PT Montana Indo Utama."
+                        },
+                        {
+                            "step": 4,
+                            "title": "Penjualan Pasar Nasional",
+                            "desc": "Pemasaran unit siap kerja langsung ke end-user (kontraktor tambang, infrastruktur, perkebunan) dengan offtake & garansi resmi 1%."
+                        },
+                        {
+                            "step": 5,
+                            "title": "Bagi Hasil Pemodal",
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                        }
+                    ],
+                    "breakdown_pembayaran_unit": [
+                        {
+                            "no": 1,
+                            "komponen": "Harga Beli Unit + Ongkos Rekondisi Workshop",
+                            "penerima": "PT MIU",
+                            "nominal": 175000000,
+                            "keterangan": "HPP Pembelian unit CBU Jepang (Rp 150 jt) + jasa rekondisi & overhaul standar operasional (Rp 25 jt)"
+                        },
+                        {
+                            "no": 2,
+                            "komponen": "Ongkos Kontainer 40FT HC Door-to-Door",
+                            "penerima": "PT MSI",
+                            "nominal": 52500000,
+                            "keterangan": "Alokasi per unit (Rp 210.000.000 per 1 kontainer 40FT HC yang memuat 4 unit alat berat)"
+                        },
+                        {
+                            "no": 3,
+                            "komponen": "Dana Pencadangan / Likuiditas Kas Operasional (9%)",
+                            "penerima": "Kas Cadangan",
+                            "nominal": 22500000,
+                            "keterangan": "Buffer likuiditas proyek tahap awal untuk memastikan kelancaran operasional sebelum unit terjual"
+                        }
+                    ],
+                    "total_miu_per_unit": 175000000,
+                    "total_msi_per_unit": 52500000,
+                    "dana_cadangan_per_unit": 22500000,
+                    "total_biaya_per_unit": 250000000
+                }
+            }
+        },
+        {
+            "id": "proj-makassar",
+            "city": "Makassar",
+            "city_slug": "makassar",
+            "city_icon": "bi-geo-alt-fill",
+            "city_icon_img": "assets/img/city-makassar.png",
+            "title": "Dealer Makassar",
+            "category": "Pengadaan & Perputaran Unit Alat Berat",
+            "image": "assets/img/project-makasar.jpg",
+            "funding": {
+                "collected": 0,
+                "target": 3000000000,
+                "currency": "IDR"
+            },
+            "status": "Open",
+            "featured": false,
+            "info": {
+                "lokasi": "Makassar & Sulawesi Selatan",
+                "target": "Rp 3.000.000.000",
+                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "return": "28,6% – 42,9% (p.a.)",
+                "min_investment": "Rp 3.000.000.000",
+                "payout": "Bagi Hasil Per Siklus Penjualan / Kuartalan",
+                "remaining_days": "Slot Kemitraan Terbuka",
+                "asset_backed": "Aset Fisik Unit Alat Berat Siap Operasi",
+                "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman"
+            },
+            "package_options_mode": "1",
+            "package_options": [
+                {
+                    "nominal": 3000000000,
+                    "nominal_display": "Rp 3.000.000.000",
+                    "label": "Paket Kemitraan Tunggal (3 Miliar)",
+                    "badge": "Bonus 1 Operator Profesional",
+                    "featured": true,
+                    "unit_qty": 12,
+                    "container_qty": "3 Kontainer 40FT HC (12 Unit)",
+                    "porsi_proyek": "Alokasi Penuh Batch Regional (12 Unit)",
+                    "jaminan_aset": "Seluruh 12 Unit Fisik Alat Berat Siap Operasi",
+                    "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
+                    "deskripsi": "Penempatan modal penuh Rp 3.000.000.000 untuk mendanai kapasitas penuh proyek regional (12 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                    "profit_per_siklus": 429260544,
+                    "profit_2x_tahunan": 858521088,
+                    "profit_3x_tahunan": 1287781632
+                }
+            ],
+            "detail": {
+                "tagline": "Kemitraan Strategis Pengadaan Armada Alat Berat CBU Jepang Wilayah Makassar",
+                "is_gated": false,
+                "what_will_provide": {
+                    "type": "text",
+                    "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 12 Unit Alat Berat)",
+                    "content": "Permodalan dialokasikan untuk pengadaan armada unit alat berat siap operasi sebanyak 12 unit (3 Kontainer 40FT HC), pengerjaan rekondisi komprehensif di Central Workshop PT Montana Indo Utama, serta penanganan logistik impor door-to-door oleh PT Montana Sentra Industri guna memenuhi tingginya permintaan sektor infrastruktur dan industri Makassar dan gerbang logistik Indonesia Timur."
+                },
+                "funding_target": {
+                    "type": "table",
+                    "title": "Target Pendanaan & Rencana Anggaran Biaya (CAPEX Breakdown)",
+                    "columns": [
+                        "No",
+                        "Item Pengadaan / Spesifikasi",
+                        "Qty",
+                        "Harga Satuan (IDR)",
+                        "Total Alokasi (IDR)"
+                    ],
+                    "rows": [
+                        {
+                            "no": 1,
+                            "item": "Harga Pokok Pembelian Unit Alat Berat",
+                            "quantity": 12,
+                            "unit_price": 150000000,
+                            "total": 1800000000
+                        },
+                        {
+                            "no": 2,
+                            "item": "Jasa Impor & Kontainer 40FT HC Door-to-Door (PT MSI)",
+                            "quantity": 3,
+                            "unit_price": 210000000,
+                            "total": 630000000
+                        },
+                        {
+                            "no": 3,
+                            "item": "Ongkos Rekondisi & Workshop Overhaul (PT MIU)",
+                            "quantity": 12,
+                            "unit_price": 25000000,
+                            "total": 300000000
+                        },
+                        {
+                            "no": 4,
+                            "item": "Dana Pencadangan & Likuiditas Operasional (9%)",
+                            "quantity": 1,
+                            "unit_price": 270000000,
+                            "total": 270000000
+                        }
+                    ],
+                    "grand_total": 3000000000,
+                    "is_gated": false
+                },
+                "about_sinergi_foundation": {
+                    "type": "text",
+                    "title": "Kerangka Kemitraan Strategis & Penyerapan Pasar (Offtake Framework)",
+                    "content": "Pengadaan unit ini didukung oleh ekosistem Montana Group: PT Montana Sentra Industri (PT MSI) menangani logistik maritim internasional dan izin kepabeanan, sementara PT Montana Indo Utama (PT MIU) menangani workshop rekondisi teknis, offtake pemasaran langsung kepada kontraktor rekanan, serta penyediaan fasilitas operator profesional."
+                },
+                "summary": {
+                    "type": "text",
+                    "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
+                    "content": "Proyek investasi armada alat berat di Makassar menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 28,6% – 42,9% p.a."
+                },
+                "simulation": {
+                    "tenor_bulan": 12,
+                    "estimasi_return_persen": 28.62,
+                    "modal_kerja_bulanan_persen": 2.38,
+                    "minimum_investasi": 3000000000,
+                    "maximum_investasi": 3000000000,
+                    "default_investasi": 3000000000,
+                    "notes": "Target perputaran 2–3 kali per tahun merupakan proyeksi berbasis kinerja riil penjualan unit."
+                },
+                "rab_executive": {
+                    "spesifikasi": {
+                        "barang": "Unit Alat Berat",
+                        "minimum_investasi": 3000000000,
+                        "minimum_tiket": 3000000000,
+                        "periode_investasi": "12 Bulan",
+                        "target_perputaran": "2 – 3 Kali per Tahun",
+                        "sistem_penjualan": "Door to Door via PT MIU",
+                        "estimasi_unit": "12 Unit (3 Kontainer)",
+                        "container_used": "40FT HC Door-to-Door (MSI)",
+                        "kapasitas_container": "4 Unit / Container",
+                        "catatan": "Alokasi pengadaan armada batch regional dari total dana investasi.",
+                        "model_kemitraan": "Eksklusif (Exclusive Partnership)",
+                        "kebutuhan_modal_range": "Pilihan Paket: Rp 3.000.000.000",
+                        "fasilitas_operator": "Bonus 1 Operator Profesional Resmi MGI"
+                    },
+                    "alokasi_dana": {
+                        "modal_operasional_label": "Modal Operasional Awal (Pengadaan 12 Unit)",
+                        "modal_operasional_awal": 2730000000,
+                        "dana_pencadangan_label": "Dana Pencadangan / Likuiditas (9%)",
+                        "dana_pencadangan": 270000000,
+                        "total_investasi": 3000000000,
+                        "catatan": "Komponen PPN, budget garansi, budget insentif, dan fee sukses MIU baru timbul saat unit terjual sehingga tidak dibebankan pada dana awal."
+                    },
+                    "struktur_biaya_unit": {
+                        "harga_pokok_beli": 150000000,
+                        "ppn_11": 34288288,
+                        "ongkos_rekondisi": 25000000,
+                        "container_alokasi": 52500000,
+                        "budget_garansi": 3460000,
+                        "budget_insentif": 3460000,
+                        "fee_miu": 41520000,
+                        "total_biaya_unit": 310228288,
+                        "harga_jual_unit": 346000000,
+                        "profit_bersih_unit": 35771712,
+                        "return_per_siklus": 14.31
+                    },
+                    "package_options_mode": "1",
+                    "package_options": [
+                        {
+                            "nominal": 3000000000,
+                            "nominal_display": "Rp 3.000.000.000",
+                            "label": "Paket Kemitraan Tunggal (3 Miliar)",
+                            "badge": "Bonus 1 Operator Profesional",
+                            "featured": true,
+                            "unit_qty": 12,
+                            "container_qty": "3 Kontainer 40FT HC (12 Unit)",
+                            "porsi_proyek": "Alokasi Penuh Batch Regional (12 Unit)",
+                            "jaminan_aset": "Seluruh 12 Unit Fisik Alat Berat Siap Operasi",
+                            "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
+                            "deskripsi": "Penempatan modal penuh Rp 3.000.000.000 untuk mendanai kapasitas penuh proyek regional (12 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "profit_per_siklus": 429260544,
+                            "profit_2x_tahunan": 858521088,
+                            "profit_3x_tahunan": 1287781632
+                        }
+                    ],
+                    "tiers": [
+                        {
+                            "nominal": 3000000000,
+                            "nominal_display": "Rp 3.000.000.000",
+                            "label": "Paket Kemitraan Tunggal (3 Miliar)",
+                            "badge": "Bonus 1 Operator Profesional",
+                            "featured": true,
+                            "unit_qty": 12,
+                            "container_qty": "3 Kontainer 40FT HC (12 Unit)",
+                            "porsi_proyek": "Alokasi Penuh Batch Regional (12 Unit)",
+                            "jaminan_aset": "Seluruh 12 Unit Fisik Alat Berat Siap Operasi",
+                            "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
+                            "deskripsi": "Penempatan modal penuh Rp 3.000.000.000 untuk mendanai kapasitas penuh proyek regional (12 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "profit_per_siklus": 429260544,
+                            "profit_2x_tahunan": 858521088,
+                            "profit_3x_tahunan": 1287781632
+                        }
+                    ],
+                    "operator_perk": "Bonus 1 Operator Profesional Resmi MGI",
+                    "alur_project": [
+                        {
+                            "step": 1,
+                            "title": "Pengadaan CBU Jepang",
+                            "desc": "Pembelian unit alat berat langsung dari lelang & mitra terpercaya dengan standar seleksi Grade A."
+                        },
+                        {
+                            "step": 2,
+                            "title": "Logistik Laut (PT MSI)",
+                            "desc": "Pengangkutan laut menggunakan kontainer 40FT HC (kapasitas 4 unit/kontainer) door-to-door hingga ke pelabuhan domestik dan izin impor lengkap."
+                        },
+                        {
+                            "step": 3,
+                            "title": "Rekondisi Workshop (PT MIU)",
+                            "desc": "Inspeksi 100 titik, peremajaan hidrolik, overhaul mesin, pengecatan ulang, dan uji beban kerja di Central Workshop PT Montana Indo Utama."
+                        },
+                        {
+                            "step": 4,
+                            "title": "Penjualan Pasar Nasional",
+                            "desc": "Pemasaran unit siap kerja langsung ke end-user (kontraktor tambang, infrastruktur, perkebunan) dengan offtake & garansi resmi 1%."
+                        },
+                        {
+                            "step": 5,
+                            "title": "Bagi Hasil Pemodal",
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                        }
+                    ],
+                    "breakdown_pembayaran_unit": [
+                        {
+                            "no": 1,
+                            "komponen": "Harga Beli Unit + Ongkos Rekondisi Workshop",
+                            "penerima": "PT MIU",
+                            "nominal": 175000000,
+                            "keterangan": "HPP Pembelian unit CBU Jepang (Rp 150 jt) + jasa rekondisi & overhaul standar operasional (Rp 25 jt)"
+                        },
+                        {
+                            "no": 2,
+                            "komponen": "Ongkos Kontainer 40FT HC Door-to-Door",
+                            "penerima": "PT MSI",
+                            "nominal": 52500000,
+                            "keterangan": "Alokasi per unit (Rp 210.000.000 per 1 kontainer 40FT HC yang memuat 4 unit alat berat)"
+                        },
+                        {
+                            "no": 3,
+                            "komponen": "Dana Pencadangan / Likuiditas Kas Operasional (9%)",
+                            "penerima": "Kas Cadangan",
+                            "nominal": 22500000,
+                            "keterangan": "Buffer likuiditas proyek tahap awal untuk memastikan kelancaran operasional sebelum unit terjual"
+                        }
+                    ],
+                    "total_miu_per_unit": 175000000,
+                    "total_msi_per_unit": 52500000,
+                    "dana_cadangan_per_unit": 22500000,
+                    "total_biaya_per_unit": 250000000
+                }
+            }
+        },
+        {
+            "id": "proj-palu",
+            "city": "Palu",
+            "city_slug": "palu",
+            "city_icon": "bi-geo-alt-fill",
+            "city_icon_img": "assets/img/city-makassar.png",
+            "title": "Dealer Palu",
+            "category": "Pengadaan & Perputaran Unit Alat Berat",
+            "image": "assets/img/project-makasar.jpg",
+            "funding": {
+                "collected": 0,
+                "target": 2000000000,
+                "currency": "IDR"
+            },
+            "status": "Open",
+            "featured": false,
+            "info": {
+                "lokasi": "Palu & Sulawesi Tengah",
+                "target": "Rp 2.000.000.000",
+                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "return": "28,6% – 42,9% (p.a.)",
+                "min_investment": "Rp 2.000.000.000",
+                "payout": "Bagi Hasil Per Siklus Penjualan / Kuartalan",
+                "remaining_days": "Slot Kemitraan Terbuka",
+                "asset_backed": "Aset Fisik Unit Alat Berat Siap Operasi",
+                "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman"
+            },
+            "package_options_mode": "1",
+            "package_options": [
+                {
+                    "nominal": 2000000000,
+                    "nominal_display": "Rp 2.000.000.000",
+                    "label": "Paket Kemitraan Tunggal (2 Miliar)",
+                    "badge": "Bonus 1 Operator Profesional",
+                    "featured": true,
+                    "unit_qty": 8,
+                    "container_qty": "2 Kontainer 40FT HC (8 Unit)",
+                    "porsi_proyek": "Alokasi Penuh Batch Regional (8 Unit)",
+                    "jaminan_aset": "Seluruh 8 Unit Fisik Alat Berat Siap Operasi",
+                    "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
+                    "deskripsi": "Penempatan modal penuh Rp 2.000.000.000 untuk mendanai kapasitas penuh proyek regional (8 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                    "profit_per_siklus": 286173696,
+                    "profit_2x_tahunan": 572347392,
+                    "profit_3x_tahunan": 858521088
+                }
+            ],
+            "detail": {
+                "tagline": "Kemitraan Strategis Pengadaan Armada Alat Berat CBU Jepang Wilayah Palu",
+                "is_gated": false,
+                "what_will_provide": {
+                    "type": "text",
+                    "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 8 Unit Alat Berat)",
+                    "content": "Permodalan dialokasikan untuk pengadaan armada unit alat berat siap operasi sebanyak 8 unit (2 Kontainer 40FT HC), pengerjaan rekondisi komprehensif di Central Workshop PT Montana Indo Utama, serta penanganan logistik impor door-to-door oleh PT Montana Sentra Industri guna memenuhi tingginya permintaan sektor infrastruktur dan industri Palu dan sektor pertambangan/konstruksi Sulawesi Tengah."
+                },
+                "funding_target": {
+                    "type": "table",
+                    "title": "Target Pendanaan & Rencana Anggaran Biaya (CAPEX Breakdown)",
+                    "columns": [
+                        "No",
+                        "Item Pengadaan / Spesifikasi",
+                        "Qty",
+                        "Harga Satuan (IDR)",
+                        "Total Alokasi (IDR)"
+                    ],
+                    "rows": [
+                        {
+                            "no": 1,
+                            "item": "Harga Pokok Pembelian Unit Alat Berat",
+                            "quantity": 8,
+                            "unit_price": 150000000,
+                            "total": 1200000000
+                        },
+                        {
+                            "no": 2,
+                            "item": "Jasa Impor & Kontainer 40FT HC Door-to-Door (PT MSI)",
+                            "quantity": 2,
+                            "unit_price": 210000000,
+                            "total": 420000000
+                        },
+                        {
+                            "no": 3,
+                            "item": "Ongkos Rekondisi & Workshop Overhaul (PT MIU)",
+                            "quantity": 8,
+                            "unit_price": 25000000,
+                            "total": 200000000
+                        },
+                        {
+                            "no": 4,
+                            "item": "Dana Pencadangan & Likuiditas Operasional (9%)",
+                            "quantity": 1,
+                            "unit_price": 180000000,
+                            "total": 180000000
+                        }
+                    ],
+                    "grand_total": 2000000000,
+                    "is_gated": false
+                },
+                "about_sinergi_foundation": {
+                    "type": "text",
+                    "title": "Kerangka Kemitraan Strategis & Penyerapan Pasar (Offtake Framework)",
+                    "content": "Pengadaan unit ini didukung oleh ekosistem Montana Group: PT Montana Sentra Industri (PT MSI) menangani logistik maritim internasional dan izin kepabeanan, sementara PT Montana Indo Utama (PT MIU) menangani workshop rekondisi teknis, offtake pemasaran langsung kepada kontraktor rekanan, serta penyediaan fasilitas operator profesional."
+                },
+                "summary": {
+                    "type": "text",
+                    "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
+                    "content": "Proyek investasi armada alat berat di Palu menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 28,6% – 42,9% p.a."
+                },
+                "simulation": {
+                    "tenor_bulan": 12,
+                    "estimasi_return_persen": 28.62,
+                    "modal_kerja_bulanan_persen": 2.38,
+                    "minimum_investasi": 2000000000,
+                    "maximum_investasi": 2000000000,
+                    "default_investasi": 2000000000,
+                    "notes": "Target perputaran 2–3 kali per tahun merupakan proyeksi berbasis kinerja riil penjualan unit."
+                },
+                "rab_executive": {
+                    "spesifikasi": {
+                        "barang": "Unit Alat Berat",
+                        "minimum_investasi": 2000000000,
+                        "minimum_tiket": 2000000000,
+                        "periode_investasi": "12 Bulan",
+                        "target_perputaran": "2 – 3 Kali per Tahun",
+                        "sistem_penjualan": "Door to Door via PT MIU",
+                        "estimasi_unit": "8 Unit (2 Kontainer)",
+                        "container_used": "40FT HC Door-to-Door (MSI)",
+                        "kapasitas_container": "4 Unit / Container",
+                        "catatan": "Alokasi pengadaan armada batch regional dari total dana investasi.",
+                        "model_kemitraan": "Eksklusif (Exclusive Partnership)",
+                        "kebutuhan_modal_range": "Pilihan Paket: Rp 2.000.000.000",
+                        "fasilitas_operator": "Bonus 1 Operator Profesional Resmi MGI"
+                    },
+                    "alokasi_dana": {
+                        "modal_operasional_label": "Modal Operasional Awal (Pengadaan 8 Unit)",
+                        "modal_operasional_awal": 1820000000,
+                        "dana_pencadangan_label": "Dana Pencadangan / Likuiditas (9%)",
+                        "dana_pencadangan": 180000000,
+                        "total_investasi": 2000000000,
+                        "catatan": "Komponen PPN, budget garansi, budget insentif, dan fee sukses MIU baru timbul saat unit terjual sehingga tidak dibebankan pada dana awal."
+                    },
+                    "struktur_biaya_unit": {
+                        "harga_pokok_beli": 150000000,
+                        "ppn_11": 34288288,
+                        "ongkos_rekondisi": 25000000,
+                        "container_alokasi": 52500000,
+                        "budget_garansi": 3460000,
+                        "budget_insentif": 3460000,
+                        "fee_miu": 41520000,
+                        "total_biaya_unit": 310228288,
+                        "harga_jual_unit": 346000000,
+                        "profit_bersih_unit": 35771712,
+                        "return_per_siklus": 14.31
+                    },
+                    "package_options_mode": "1",
+                    "package_options": [
+                        {
+                            "nominal": 2000000000,
+                            "nominal_display": "Rp 2.000.000.000",
+                            "label": "Paket Kemitraan Tunggal (2 Miliar)",
+                            "badge": "Bonus 1 Operator Profesional",
+                            "featured": true,
+                            "unit_qty": 8,
+                            "container_qty": "2 Kontainer 40FT HC (8 Unit)",
+                            "porsi_proyek": "Alokasi Penuh Batch Regional (8 Unit)",
+                            "jaminan_aset": "Seluruh 8 Unit Fisik Alat Berat Siap Operasi",
+                            "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
+                            "deskripsi": "Penempatan modal penuh Rp 2.000.000.000 untuk mendanai kapasitas penuh proyek regional (8 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "profit_per_siklus": 286173696,
+                            "profit_2x_tahunan": 572347392,
+                            "profit_3x_tahunan": 858521088
+                        }
+                    ],
+                    "tiers": [
+                        {
+                            "nominal": 2000000000,
+                            "nominal_display": "Rp 2.000.000.000",
+                            "label": "Paket Kemitraan Tunggal (2 Miliar)",
+                            "badge": "Bonus 1 Operator Profesional",
+                            "featured": true,
+                            "unit_qty": 8,
+                            "container_qty": "2 Kontainer 40FT HC (8 Unit)",
+                            "porsi_proyek": "Alokasi Penuh Batch Regional (8 Unit)",
+                            "jaminan_aset": "Seluruh 8 Unit Fisik Alat Berat Siap Operasi",
+                            "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
+                            "deskripsi": "Penempatan modal penuh Rp 2.000.000.000 untuk mendanai kapasitas penuh proyek regional (8 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "profit_per_siklus": 286173696,
+                            "profit_2x_tahunan": 572347392,
+                            "profit_3x_tahunan": 858521088
+                        }
+                    ],
+                    "operator_perk": "Bonus 1 Operator Profesional Resmi MGI",
+                    "alur_project": [
+                        {
+                            "step": 1,
+                            "title": "Pengadaan CBU Jepang",
+                            "desc": "Pembelian unit alat berat langsung dari lelang & mitra terpercaya dengan standar seleksi Grade A."
+                        },
+                        {
+                            "step": 2,
+                            "title": "Logistik Laut (PT MSI)",
+                            "desc": "Pengangkutan laut menggunakan kontainer 40FT HC (kapasitas 4 unit/kontainer) door-to-door hingga ke pelabuhan domestik dan izin impor lengkap."
+                        },
+                        {
+                            "step": 3,
+                            "title": "Rekondisi Workshop (PT MIU)",
+                            "desc": "Inspeksi 100 titik, peremajaan hidrolik, overhaul mesin, pengecatan ulang, dan uji beban kerja di Central Workshop PT Montana Indo Utama."
+                        },
+                        {
+                            "step": 4,
+                            "title": "Penjualan Pasar Nasional",
+                            "desc": "Pemasaran unit siap kerja langsung ke end-user (kontraktor tambang, infrastruktur, perkebunan) dengan offtake & garansi resmi 1%."
+                        },
+                        {
+                            "step": 5,
+                            "title": "Bagi Hasil Pemodal",
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                        }
+                    ],
+                    "breakdown_pembayaran_unit": [
+                        {
+                            "no": 1,
+                            "komponen": "Harga Beli Unit + Ongkos Rekondisi Workshop",
+                            "penerima": "PT MIU",
+                            "nominal": 175000000,
+                            "keterangan": "HPP Pembelian unit CBU Jepang (Rp 150 jt) + jasa rekondisi & overhaul standar operasional (Rp 25 jt)"
+                        },
+                        {
+                            "no": 2,
+                            "komponen": "Ongkos Kontainer 40FT HC Door-to-Door",
+                            "penerima": "PT MSI",
+                            "nominal": 52500000,
+                            "keterangan": "Alokasi per unit (Rp 210.000.000 per 1 kontainer 40FT HC yang memuat 4 unit alat berat)"
+                        },
+                        {
+                            "no": 3,
+                            "komponen": "Dana Pencadangan / Likuiditas Kas Operasional (9%)",
+                            "penerima": "Kas Cadangan",
+                            "nominal": 22500000,
+                            "keterangan": "Buffer likuiditas proyek tahap awal untuk memastikan kelancaran operasional sebelum unit terjual"
+                        }
+                    ],
+                    "total_miu_per_unit": 175000000,
+                    "total_msi_per_unit": 52500000,
+                    "dana_cadangan_per_unit": 22500000,
+                    "total_biaya_per_unit": 250000000
+                }
+            }
+        },
+        {
+            "id": "proj-surabaya",
+            "city": "Surabaya",
+            "city_slug": "surabaya",
+            "city_icon": "bi-building",
+            "city_icon_img": "assets/img/city-surabaya.png",
+            "title": "Dealer Surabaya",
+            "category": "Pengadaan & Perputaran Unit Alat Berat",
+            "image": "assets/img/project-surabaya.jpg",
+            "funding": {
+                "collected": 0,
+                "target": 5000000000,
+                "currency": "IDR"
+            },
+            "status": "Open",
+            "featured": false,
+            "info": {
+                "lokasi": "Surabaya & Jawa Timur",
+                "target": "Rp 5.000.000.000",
+                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "return": "28,6% – 42,9% (p.a.)",
+                "min_investment": "Rp 5.000.000.000",
+                "payout": "Bagi Hasil Per Siklus Penjualan / Kuartalan",
+                "remaining_days": "Slot Kemitraan Terbuka",
+                "asset_backed": "Aset Fisik Unit Alat Berat Siap Operasi",
+                "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman"
+            },
+            "package_options_mode": "1",
+            "package_options": [
+                {
+                    "nominal": 5000000000,
+                    "nominal_display": "Rp 5.000.000.000",
+                    "label": "Paket Kemitraan Tunggal (5 Miliar)",
+                    "badge": "Bonus 1 Operator Profesional",
+                    "featured": true,
+                    "unit_qty": 20,
+                    "container_qty": "5 Kontainer 40FT HC (20 Unit)",
+                    "porsi_proyek": "Alokasi Penuh Batch Regional (20 Unit)",
+                    "jaminan_aset": "Seluruh 20 Unit Fisik Alat Berat Siap Operasi",
+                    "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
+                    "deskripsi": "Penempatan modal penuh Rp 5.000.000.000 untuk mendanai kapasitas penuh proyek regional (20 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                    "profit_per_siklus": 715434240,
+                    "profit_2x_tahunan": 1430868480,
+                    "profit_3x_tahunan": 2146302720
+                }
+            ],
+            "detail": {
+                "tagline": "Kemitraan Strategis Pengadaan Armada Alat Berat CBU Jepang Wilayah Surabaya",
+                "is_gated": false,
+                "what_will_provide": {
+                    "type": "text",
+                    "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 20 Unit Alat Berat)",
+                    "content": "Permodalan dialokasikan untuk pengadaan armada unit alat berat siap operasi sebanyak 20 unit (5 Kontainer 40FT HC), pengerjaan rekondisi komprehensif di Central Workshop PT Montana Indo Utama, serta penanganan logistik impor door-to-door oleh PT Montana Sentra Industri guna memenuhi tingginya permintaan sektor infrastruktur dan industri Surabaya dan kawasan industri Jawa Timur."
+                },
+                "funding_target": {
+                    "type": "table",
+                    "title": "Target Pendanaan & Rencana Anggaran Biaya (CAPEX Breakdown)",
+                    "columns": [
+                        "No",
+                        "Item Pengadaan / Spesifikasi",
+                        "Qty",
+                        "Harga Satuan (IDR)",
+                        "Total Alokasi (IDR)"
+                    ],
+                    "rows": [
+                        {
+                            "no": 1,
+                            "item": "Harga Pokok Pembelian Unit Alat Berat",
+                            "quantity": 20,
+                            "unit_price": 150000000,
+                            "total": 3000000000
+                        },
+                        {
+                            "no": 2,
+                            "item": "Jasa Impor & Kontainer 40FT HC Door-to-Door (PT MSI)",
+                            "quantity": 5,
+                            "unit_price": 210000000,
+                            "total": 1050000000
+                        },
+                        {
+                            "no": 3,
+                            "item": "Ongkos Rekondisi & Workshop Overhaul (PT MIU)",
+                            "quantity": 20,
+                            "unit_price": 25000000,
+                            "total": 500000000
+                        },
+                        {
+                            "no": 4,
+                            "item": "Dana Pencadangan & Likuiditas Operasional (9%)",
+                            "quantity": 1,
+                            "unit_price": 450000000,
+                            "total": 450000000
+                        }
+                    ],
+                    "grand_total": 5000000000,
+                    "is_gated": false
+                },
+                "about_sinergi_foundation": {
+                    "type": "text",
+                    "title": "Kerangka Kemitraan Strategis & Penyerapan Pasar (Offtake Framework)",
+                    "content": "Pengadaan unit ini didukung oleh ekosistem Montana Group: PT Montana Sentra Industri (PT MSI) menangani logistik maritim internasional dan izin kepabeanan, sementara PT Montana Indo Utama (PT MIU) menangani workshop rekondisi teknis, offtake pemasaran langsung kepada kontraktor rekanan, serta penyediaan fasilitas operator profesional."
+                },
+                "summary": {
+                    "type": "text",
+                    "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
+                    "content": "Proyek investasi armada alat berat di Surabaya menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 28,6% – 42,9% p.a."
+                },
+                "simulation": {
+                    "tenor_bulan": 12,
+                    "estimasi_return_persen": 28.62,
+                    "modal_kerja_bulanan_persen": 2.38,
+                    "minimum_investasi": 5000000000,
+                    "maximum_investasi": 5000000000,
+                    "default_investasi": 5000000000,
+                    "notes": "Target perputaran 2–3 kali per tahun merupakan proyeksi berbasis kinerja riil penjualan unit."
+                },
+                "rab_executive": {
+                    "spesifikasi": {
+                        "barang": "Unit Alat Berat",
+                        "minimum_investasi": 5000000000,
+                        "minimum_tiket": 5000000000,
+                        "periode_investasi": "12 Bulan",
+                        "target_perputaran": "2 – 3 Kali per Tahun",
+                        "sistem_penjualan": "Door to Door via PT MIU",
+                        "estimasi_unit": "20 Unit (5 Kontainer)",
+                        "container_used": "40FT HC Door-to-Door (MSI)",
+                        "kapasitas_container": "4 Unit / Container",
+                        "catatan": "Alokasi pengadaan armada batch regional dari total dana investasi.",
+                        "model_kemitraan": "Eksklusif (Exclusive Partnership)",
+                        "kebutuhan_modal_range": "Pilihan Paket: Rp 5.000.000.000",
+                        "fasilitas_operator": "Bonus 1 Operator Profesional Resmi MGI"
+                    },
+                    "alokasi_dana": {
+                        "modal_operasional_label": "Modal Operasional Awal (Pengadaan 20 Unit)",
+                        "modal_operasional_awal": 4550000000,
+                        "dana_pencadangan_label": "Dana Pencadangan / Likuiditas (9%)",
+                        "dana_pencadangan": 450000000,
+                        "total_investasi": 5000000000,
+                        "catatan": "Komponen PPN, budget garansi, budget insentif, dan fee sukses MIU baru timbul saat unit terjual sehingga tidak dibebankan pada dana awal."
+                    },
+                    "struktur_biaya_unit": {
+                        "harga_pokok_beli": 150000000,
+                        "ppn_11": 34288288,
+                        "ongkos_rekondisi": 25000000,
+                        "container_alokasi": 52500000,
+                        "budget_garansi": 3460000,
+                        "budget_insentif": 3460000,
+                        "fee_miu": 41520000,
+                        "total_biaya_unit": 310228288,
+                        "harga_jual_unit": 346000000,
+                        "profit_bersih_unit": 35771712,
+                        "return_per_siklus": 14.31
+                    },
+                    "package_options_mode": "1",
+                    "package_options": [
+                        {
+                            "nominal": 5000000000,
+                            "nominal_display": "Rp 5.000.000.000",
+                            "label": "Paket Kemitraan Tunggal (5 Miliar)",
+                            "badge": "Bonus 1 Operator Profesional",
+                            "featured": true,
+                            "unit_qty": 20,
+                            "container_qty": "5 Kontainer 40FT HC (20 Unit)",
+                            "porsi_proyek": "Alokasi Penuh Batch Regional (20 Unit)",
+                            "jaminan_aset": "Seluruh 20 Unit Fisik Alat Berat Siap Operasi",
+                            "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
+                            "deskripsi": "Penempatan modal penuh Rp 5.000.000.000 untuk mendanai kapasitas penuh proyek regional (20 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "profit_per_siklus": 715434240,
+                            "profit_2x_tahunan": 1430868480,
+                            "profit_3x_tahunan": 2146302720
+                        }
+                    ],
+                    "tiers": [
+                        {
+                            "nominal": 5000000000,
+                            "nominal_display": "Rp 5.000.000.000",
+                            "label": "Paket Kemitraan Tunggal (5 Miliar)",
+                            "badge": "Bonus 1 Operator Profesional",
+                            "featured": true,
+                            "unit_qty": 20,
+                            "container_qty": "5 Kontainer 40FT HC (20 Unit)",
+                            "porsi_proyek": "Alokasi Penuh Batch Regional (20 Unit)",
+                            "jaminan_aset": "Seluruh 20 Unit Fisik Alat Berat Siap Operasi",
+                            "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
+                            "deskripsi": "Penempatan modal penuh Rp 5.000.000.000 untuk mendanai kapasitas penuh proyek regional (20 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "profit_per_siklus": 715434240,
+                            "profit_2x_tahunan": 1430868480,
+                            "profit_3x_tahunan": 2146302720
+                        }
+                    ],
+                    "operator_perk": "Bonus 1 Operator Profesional Resmi MGI",
+                    "alur_project": [
+                        {
+                            "step": 1,
+                            "title": "Pengadaan CBU Jepang",
+                            "desc": "Pembelian unit alat berat langsung dari lelang & mitra terpercaya dengan standar seleksi Grade A."
+                        },
+                        {
+                            "step": 2,
+                            "title": "Logistik Laut (PT MSI)",
+                            "desc": "Pengangkutan laut menggunakan kontainer 40FT HC (kapasitas 4 unit/kontainer) door-to-door hingga ke pelabuhan domestik dan izin impor lengkap."
+                        },
+                        {
+                            "step": 3,
+                            "title": "Rekondisi Workshop (PT MIU)",
+                            "desc": "Inspeksi 100 titik, peremajaan hidrolik, overhaul mesin, pengecatan ulang, dan uji beban kerja di Central Workshop PT Montana Indo Utama."
+                        },
+                        {
+                            "step": 4,
+                            "title": "Penjualan Pasar Nasional",
+                            "desc": "Pemasaran unit siap kerja langsung ke end-user (kontraktor tambang, infrastruktur, perkebunan) dengan offtake & garansi resmi 1%."
+                        },
+                        {
+                            "step": 5,
+                            "title": "Bagi Hasil Pemodal",
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                        }
+                    ],
+                    "breakdown_pembayaran_unit": [
+                        {
+                            "no": 1,
+                            "komponen": "Harga Beli Unit + Ongkos Rekondisi Workshop",
+                            "penerima": "PT MIU",
+                            "nominal": 175000000,
+                            "keterangan": "HPP Pembelian unit CBU Jepang (Rp 150 jt) + jasa rekondisi & overhaul standar operasional (Rp 25 jt)"
+                        },
+                        {
+                            "no": 2,
+                            "komponen": "Ongkos Kontainer 40FT HC Door-to-Door",
+                            "penerima": "PT MSI",
+                            "nominal": 52500000,
+                            "keterangan": "Alokasi per unit (Rp 210.000.000 per 1 kontainer 40FT HC yang memuat 4 unit alat berat)"
+                        },
+                        {
+                            "no": 3,
+                            "komponen": "Dana Pencadangan / Likuiditas Kas Operasional (9%)",
+                            "penerima": "Kas Cadangan",
+                            "nominal": 22500000,
+                            "keterangan": "Buffer likuiditas proyek tahap awal untuk memastikan kelancaran operasional sebelum unit terjual"
+                        }
+                    ],
+                    "total_miu_per_unit": 175000000,
+                    "total_msi_per_unit": 52500000,
+                    "dana_cadangan_per_unit": 22500000,
+                    "total_biaya_per_unit": 250000000
+                }
+            }
+        },
+        {
+            "id": "proj-ntt",
+            "city": "NTT",
+            "city_slug": "ntt",
+            "city_icon": "bi-geo-alt-fill",
+            "city_icon_img": "assets/img/city-denpasar.png",
             "title": "Dealer NTT",
             "category": "Pengadaan & Perputaran Unit Alat Berat",
-            "image": "assets/img/project-kebumen.jpg",
+            "image": "assets/img/project-ntt.jpg",
             "funding": {
                 "collected": 0,
                 "target": 5000000000,
@@ -1623,23 +2505,24 @@
                 "return": "28,6% – 42,9% (p.a.)",
                 "min_investment": "Rp 5.000.000.000",
                 "payout": "Bagi Hasil Per Siklus Penjualan / Kuartalan",
-                "remaining_days": "45 Hari Tersisa",
+                "remaining_days": "Slot Kemitraan Terbuka",
                 "asset_backed": "Aset Fisik Unit Alat Berat Siap Operasi",
-                "operator_perk": "Bonus 1 Operator Profesional Resmi MGI"
+                "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman"
             },
             "package_options_mode": "1",
             "package_options": [
                 {
                     "nominal": 5000000000,
-                    "label": "Paket Kemitraan Eksekutif (5 Miliar)",
+                    "nominal_display": "Rp 5.000.000.000",
+                    "label": "Paket Kemitraan Tunggal (5 Miliar)",
                     "badge": "Bonus 1 Operator Profesional",
                     "featured": true,
                     "unit_qty": 20,
                     "container_qty": "5 Kontainer 40FT HC (20 Unit)",
                     "porsi_proyek": "Alokasi Penuh Batch Regional (20 Unit)",
-                    "jaminan_aset": "20 Unit Fisik Alat Berat Siap Operasi",
+                    "jaminan_aset": "Seluruh 20 Unit Fisik Alat Berat Siap Operasi",
                     "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
-                    "deskripsi": "Penempatan modal penuh Rp 5 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                    "deskripsi": "Penempatan modal penuh Rp 5.000.000.000 untuk mendanai kapasitas penuh proyek regional (20 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                     "profit_per_siklus": 715434240,
                     "profit_2x_tahunan": 1430868480,
                     "profit_3x_tahunan": 2146302720
@@ -1651,11 +2534,11 @@
                 "what_will_provide": {
                     "type": "text",
                     "title": "Alokasi Penggunaan Modal Proyek (Pengadaan 20 Unit Alat Berat)",
-                    "content": "Permodalan dialokasikan untuk pengadaan armada unit alat berat siap operasi sebanyak 20 unit (5 Kontainer 40FT HC), pengerjaan rekondisi komprehensif di Central Workshop PT Montana Indo Utama, serta penanganan logistik impor door-to-door oleh PT Montana Sentra Industri guna memenuhi tingginya permintaan sektor infrastruktur dan industri regional NTT."
+                    "content": "Permodalan dialokasikan untuk pengadaan armada unit alat berat siap operasi sebanyak 20 unit (5 Kontainer 40FT HC), pengerjaan rekondisi komprehensif di Central Workshop PT Montana Indo Utama, serta penanganan logistik impor door-to-door oleh PT Montana Sentra Industri guna memenuhi tingginya permintaan sektor infrastruktur dan industri Kupang dan kepulauan Nusa Tenggara Timur."
                 },
                 "funding_target": {
                     "type": "table",
-                    "title": "Target Pendanaan & Nilai Alokasi Belanja Modal",
+                    "title": "Target Pendanaan & Rencana Anggaran Biaya (CAPEX Breakdown)",
                     "columns": [
                         "No",
                         "Item Pengadaan / Spesifikasi",
@@ -1713,7 +2596,7 @@
                     "minimum_investasi": 5000000000,
                     "maximum_investasi": 5000000000,
                     "default_investasi": 5000000000,
-                    "notes": "Simulasi ilustratif kemitraan berbasis perputaran armada riil alat berat dengan fasilitas Bonus 1 Operator Profesional Resmi MGI."
+                    "notes": "Target perputaran 2–3 kali per tahun merupakan proyeksi berbasis kinerja riil penjualan unit."
                 },
                 "rab_executive": {
                     "spesifikasi": {
@@ -1728,7 +2611,7 @@
                         "kapasitas_container": "4 Unit / Container",
                         "catatan": "Alokasi pengadaan armada batch regional dari total dana investasi.",
                         "model_kemitraan": "Eksklusif (Exclusive Partnership)",
-                        "kebutuhan_modal_range": "Pilihan Paket: Rp 5 Miliar",
+                        "kebutuhan_modal_range": "Pilihan Paket: Rp 5.000.000.000",
                         "fasilitas_operator": "Bonus 1 Operator Profesional Resmi MGI"
                     },
                     "alokasi_dana": {
@@ -1756,15 +2639,16 @@
                     "package_options": [
                         {
                             "nominal": 5000000000,
-                            "label": "Paket Kemitraan Eksekutif (5 Miliar)",
+                            "nominal_display": "Rp 5.000.000.000",
+                            "label": "Paket Kemitraan Tunggal (5 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
                             "unit_qty": 20,
                             "container_qty": "5 Kontainer 40FT HC (20 Unit)",
                             "porsi_proyek": "Alokasi Penuh Batch Regional (20 Unit)",
-                            "jaminan_aset": "20 Unit Fisik Alat Berat Siap Operasi",
+                            "jaminan_aset": "Seluruh 20 Unit Fisik Alat Berat Siap Operasi",
                             "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
-                            "deskripsi": "Penempatan modal penuh Rp 5 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "deskripsi": "Penempatan modal penuh Rp 5.000.000.000 untuk mendanai kapasitas penuh proyek regional (20 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                             "profit_per_siklus": 715434240,
                             "profit_2x_tahunan": 1430868480,
                             "profit_3x_tahunan": 2146302720
@@ -1773,15 +2657,16 @@
                     "tiers": [
                         {
                             "nominal": 5000000000,
-                            "label": "Paket Kemitraan Eksekutif (5 Miliar)",
+                            "nominal_display": "Rp 5.000.000.000",
+                            "label": "Paket Kemitraan Tunggal (5 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
                             "unit_qty": 20,
                             "container_qty": "5 Kontainer 40FT HC (20 Unit)",
                             "porsi_proyek": "Alokasi Penuh Batch Regional (20 Unit)",
-                            "jaminan_aset": "20 Unit Fisik Alat Berat Siap Operasi",
+                            "jaminan_aset": "Seluruh 20 Unit Fisik Alat Berat Siap Operasi",
                             "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
-                            "deskripsi": "Penempatan modal penuh Rp 5 Miliar dengan fasilitas 1 Operator alat berat resmi yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
+                            "deskripsi": "Penempatan modal penuh Rp 5.000.000.000 untuk mendanai kapasitas penuh proyek regional (20 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                             "profit_per_siklus": 715434240,
                             "profit_2x_tahunan": 1430868480,
                             "profit_3x_tahunan": 2146302720

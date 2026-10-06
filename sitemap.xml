@@ -18,38 +18,68 @@
 
   <!-- Proyek Detail Per Lokasi (Platform Pendanaan Sektor Riil) -->
   <url>
-    <loc>https://montanainvestama.com/invest-detail.html?id=proj-kebumen</loc>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
     <loc>https://montanainvestama.com/invest-detail.html?id=proj-jkt-jabar</loc>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://montanainvestama.com/invest-detail.html?id=proj-surabaya</loc>
-    <lastmod>2026-10-01</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://montanainvestama.com/invest-detail.html?id=proj-denpasar</loc>
-    <lastmod>2026-10-01</lastmod>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://montanainvestama.com/invest-detail.html?id=proj-kebumen</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://montanainvestama.com/invest-detail.html?id=proj-sumatra</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://montanainvestama.com/invest-detail.html?id=proj-pontianak</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://montanainvestama.com/invest-detail.html?id=proj-banjarmasin</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://montanainvestama.com/invest-detail.html?id=proj-aceh</loc>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://montanainvestama.com/invest-detail.html?id=proj-makassar</loc>
-    <lastmod>2026-10-01</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://montanainvestama.com/invest-detail.html?id=proj-jawa-barat</loc>
-    <lastmod>2026-10-01</lastmod>
+    <loc>https://montanainvestama.com/invest-detail.html?id=proj-palu</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://montanainvestama.com/invest-detail.html?id=proj-surabaya</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://montanainvestama.com/invest-detail.html?id=proj-ntt</loc>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.90</priority>
   </url>
