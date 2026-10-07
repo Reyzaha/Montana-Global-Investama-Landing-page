@@ -99,7 +99,7 @@ try {
             'proj-jkt-jabar', 1, 'DOC-BILL-2026-001', 'Faktur Alokasi Dana Pembelian 2 Unit Alat Berat via MSI & Biaya Impor MIU', 'billing', 'documents/proj-jkt-jabar/faktur-alokasi-dana-msi-miu.pdf', '1.2 MB', 'Operator MGI', 'published', '2026-02-15 09:15:00'
         ]);
         $stmtDoc->execute([
-            'proj-jkt-jabar', 1, 'DOC-REP-2026-Q2', 'Buku Laporan Operasional Kuartal II 2026 (SMH, Sewa, Laba Rugi)', 'laporan', 'documents/proj-jkt-jabar/laporan-operasional-q2-2026.pdf', '4.1 MB', 'Operator MGI', 'published', '2026-07-20 16:00:00'
+            'proj-jkt-jabar', 1, 'DOC-REP-2026-Q2', 'Buku Laporan Operasional Kuartal II 2026 (SMH, Penjualan, Laba Rugi)', 'laporan', 'documents/proj-jkt-jabar/laporan-operasional-q2-2026.pdf', '4.1 MB', 'Operator MGI', 'published', '2026-07-20 16:00:00'
         ]);
         echo "   - Seeded initial documents for proj-jkt-jabar.\n";
     }

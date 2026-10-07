@@ -31,7 +31,7 @@ require_once __DIR__ . '/includes/header.php';
         <li><a class="dropdown-item py-2" href="javascript:void(0)" onclick="openOperatorInput('billing')"><i class="bi bi-calculator me-2 text-warning"></i> Buat Billing / Alokasi Dana</a></li>
         <li><a class="dropdown-item py-2" href="javascript:void(0)" onclick="openOperatorInput('pembelian')"><i class="bi bi-cart-check-fill me-2 text-danger"></i> Input Pembelian Unit (via MSI)</a></li>
         <li><a class="dropdown-item py-2" href="javascript:void(0)" onclick="openOperatorInput('biaya')"><i class="bi bi-cash-stack me-2 text-danger"></i> Input Biaya (Impor MIU / Workshop)</a></li>
-        <li><a class="dropdown-item py-2" href="javascript:void(0)" onclick="openOperatorInput('penjualan')"><i class="bi bi-receipt-cutoff me-2 text-info"></i> Input Penjualan (Kontrak Sewa)</a></li>
+        <li><a class="dropdown-item py-2" href="javascript:void(0)" onclick="openOperatorInput('penjualan')"><i class="bi bi-receipt-cutoff me-2 text-info"></i> Input Penjualan Unit CBU</a></li>
         <li><hr class="dropdown-divider"></li>
         <li><h6 class="dropdown-header text-uppercase text-muted fw-bold" style="font-size: 0.68rem;">Inventaris &amp; Berkas PDF</h6></li>
         <li><a class="dropdown-item py-2" href="javascript:void(0)" onclick="openInventoryModal()"><i class="bi bi-truck-front-fill me-2 text-primary"></i> Input Inventory / Stok Unit Alat</a></li>
@@ -75,7 +75,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="admin-card p-3 h-100 bg-white border-start border-4 border-info">
       <div class="text-muted small text-uppercase fw-bold" style="font-size: 0.7rem; letter-spacing: 0.5px;">Penjualan / Revenue</div>
       <div class="fs-5 fw-bold text-info mt-1" id="kpiPenjualan">Rp 0</div>
-      <small class="text-muted" style="font-size: 0.72rem;">Kontrak Sewa &amp; Utilisasi</small>
+      <small class="text-muted" style="font-size: 0.72rem;">Penjualan Unit CBU</small>
     </div>
   </div>
 
@@ -239,7 +239,7 @@ require_once __DIR__ . '/includes/header.php';
                 <select id="formModule" class="form-select" required onchange="handleModuleChange()">
                   <option value="pembelian">Modul 3: Pembelian (Pengadaan Unit MSI/MIU / Belanja Modal)</option>
                   <option value="biaya">Modul Biaya: Biaya (Biaya Impor MIU / Workshop / Bea Cukai)</option>
-                  <option value="penjualan">Modul 4: Penjualan (Revenue / Kontrak Sewa Alat)</option>
+                  <option value="penjualan">Modul 4: Penjualan (Revenue / Penjualan Unit CBU)</option>
                   <option value="labarugi">Modul 2: Laba Rugi (Beban Operasional / Dividen Bagi Hasil)</option>
                   <option value="neraca">Modul 1: Neraca Keuangan (Kas Bank / Aset Tetap Unit / Modal)</option>
                 </select>
@@ -252,8 +252,8 @@ require_once __DIR__ . '/includes/header.php';
                   <option value="Pengadaan Unit Alat Berat (MIU)">
                   <option value="Attachment & Logistik CBU (MIU)">
                   <option value="Suku Cadang & Komponen Fast-Moving (MIU)">
-                  <option value="Kontrak Sewa Unit Mining">
-                  <option value="Kontrak Sewa Unit Infrastruktur">
+                  <option value="Penjualan Unit Mining">
+                  <option value="Penjualan Unit Infrastruktur">
                   <option value="Beban Pemeliharaan & Workshop">
                   <option value="Distribusi Dividen Bagi Hasil">
                   <option value="Modal Disetor & Kas Awal">
@@ -1038,9 +1038,9 @@ require_once __DIR__ . '/includes/header.php';
       isBilling.checked = true;
     } else if (type === 'penjualan') {
       moduleSelect.value = 'penjualan';
-      catInput.value = 'Kontrak Sewa Infrastruktur';
+      catInput.value = 'Penjualan Unit Infrastruktur';
       vendorInput.value = 'PT Wijaya Kusuma Kontraktor';
-      titleInput.value = 'Invoice Kontrak Sewa Unit Alat Berat';
+      titleInput.value = 'Invoice Penjualan Unit Alat Berat CBU';
       isBilling.checked = false;
     } else if (type === 'billing') {
       moduleSelect.value = 'pembelian';

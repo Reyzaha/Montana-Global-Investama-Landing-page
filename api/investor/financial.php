@@ -156,7 +156,7 @@ try {
             'specification' => 'Short Tail Swing, Bucket 0.53 m³, Engine SAA4D95LE-5 (97 HP)',
             'hour_meter' => '680 Jam',
             'location' => 'Koridor Timur Jabodetabek (Proyek Cut & Fill)',
-            'current_status' => 'Operasional Lapangan (Sewa Aktif)',
+            'current_status' => 'Operasional Lapangan (Siap Jual & Operasi)',
             'gps_status' => 'Online 100% (Signal Strong)',
             'last_service' => '2026-03-28 (Service 500 Jam Rutin)',
             'procured_via' => 'PT Montana Indo Utama (MIU)',

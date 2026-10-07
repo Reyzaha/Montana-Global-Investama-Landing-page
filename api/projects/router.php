@@ -222,7 +222,7 @@ try {
         // Structured Income Statement (Laba Rugi)
         $labaRugiData = [
             'pendapatan' => [
-                'sewa_alat_berat' => $totalPenjualan,
+                'penjualan_alat_berat' => $totalPenjualan,
                 'pendapatan_lain' => 0,
                 'total_pendapatan' => $totalPenjualan
             ],
@@ -427,8 +427,8 @@ try {
         // 3. PENJUALAN (POST /api/projects/:id/sales)
         if ($action === 'sales') {
             $invId = !empty($input['investor_id']) ? (int)$input['investor_id'] : 1;
-            $title = trim($input['title'] ?? 'Kontrak Sewa Utilisasi Unit');
-            $category = trim($input['category'] ?? 'Kontrak Sewa Infrastruktur');
+            $title = trim($input['title'] ?? 'Kontrak Penjualan Unit Alat Berat');
+            $category = trim($input['category'] ?? 'Penjualan Unit Infrastruktur');
             $client = trim($input['vendor_client'] ?? 'Klien Mitra Konstruksi');
             $unitDetail = trim($input['unit_detail'] ?? '');
             $amount = cleanAmount($input['amount'] ?? 0);
@@ -437,7 +437,7 @@ try {
             $recNum = 'INV-SLS-' . date('Ymd') . '-' . rand(100, 999);
 
             if ($amount <= 0) {
-                sendJsonError('Nominal penjualan/sewa harus lebih besar dari 0.', 422);
+                sendJsonError('Nominal penjualan harus lebih besar dari 0.', 422);
             }
 
             $stmt = $db->prepare("
@@ -455,14 +455,14 @@ try {
                 (project_id, investor_id, doc_number, doc_title, doc_type, file_path, file_size, published_by, status, published_at)
                 VALUES (?, ?, ?, ?, 'penjualan', ?, '1.3 MB', 'Operator MGI', 'published', NOW())
             ");
-            $docTitle = "Invoice Kontrak Sewa: {$title} ({$client})";
+            $docTitle = "Invoice Penjualan: {$title} ({$client})";
             $stmtDoc->execute([$projectId, $invId, $docNum, $docTitle, "documents/{$projectId}/{$docNum}.pdf"]);
 
             touchProjectUpdate($projectId);
             sendJsonResponse([
                 'id' => $insertedId,
                 'record_number' => $recNum,
-                'message' => 'Transaksi penjualan/sewa berhasil dicatat dan laporan terbit.'
+                'message' => 'Transaksi penjualan berhasil dicatat dan laporan terbit.'
             ], 201);
         }
 

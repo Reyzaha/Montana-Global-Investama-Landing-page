@@ -386,6 +386,9 @@ const MGIComponents = {
         </div>
       `;
 
+      const cardRabQty = (project.detail?.funding_target?.rows?.[0]?.quantity) || (project.funding_items?.[0]?.quantity);
+      const cardUnitCount = cardRabQty ? cardRabQty : (opt.unit_qty || 25);
+
       fundingBoxHtml = `
         <div class="project-funding-range-box">
           <div class="funding-range-label">
@@ -393,8 +396,8 @@ const MGIComponents = {
             <span class="badge bg-royal text-white fw-bold px-2 py-0.5 rounded-pill" style="font-size: 0.65rem;">1 Pilihan Paket</span>
           </div>
           <div class="funding-range-value">${nomDisp}</div>
-          <div class="small text-muted mt-1 text-truncate" style="font-size: 0.75rem;" title="${stockArmada}">
-            <i class="bi bi-truck me-1 text-primary"></i>${opt.unit_qty ? opt.unit_qty + ' Unit Alat Berat' : stockArmada}
+          <div class="small text-muted mt-1 text-truncate" style="font-size: 0.75rem;" title="${cardUnitCount} Unit Alat Berat Siap Jual &amp; Distribusi">
+            <i class="bi bi-truck me-1 text-primary"></i>${cardUnitCount} Unit Alat Berat
           </div>
         </div>
       `;
@@ -415,6 +418,8 @@ const MGIComponents = {
     } else {
       // Mode 'none' (Tanpa Pilihan Paket)
       const targetVal = project.funding && project.funding.target ? MGI.formatRupiah(project.funding.target) : (info.target || 'Rp 10.000.000.000');
+      const noneRabQty = (project.detail?.funding_target?.rows?.[0]?.quantity) || (project.funding_items?.[0]?.quantity);
+      const noneUnitText = noneRabQty ? `${noneRabQty} Unit Alat Berat Siap Jual &amp; Operasi` : stockArmada;
 
       fundingBoxHtml = `
         <div class="project-funding-range-box">
@@ -423,8 +428,8 @@ const MGIComponents = {
             <span class="badge bg-secondary text-white fw-bold px-2 py-0.5 rounded-pill" style="font-size: 0.65rem;">Target Riil</span>
           </div>
           <div class="funding-range-value">${targetVal}</div>
-          <div class="small text-muted mt-1 text-truncate" style="font-size: 0.75rem;" title="${stockArmada}">
-            <i class="bi bi-truck me-1 text-primary"></i>${stockArmada}
+          <div class="small text-muted mt-1 text-truncate" style="font-size: 0.75rem;" title="${noneUnitText}">
+            <i class="bi bi-truck me-1 text-primary"></i>${noneUnitText}
           </div>
         </div>
       `;

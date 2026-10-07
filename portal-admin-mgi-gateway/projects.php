@@ -884,22 +884,44 @@ require_once __DIR__ . '/includes/header.php';
     AdminApp.showToast('Preset Standar MGI (Paket 5M & 10M) berhasil dimuat!', 'info');
   }
 
+  function extractUnitCount(strVal, fallbackNum = 20) {
+    if (!strVal) return fallbackNum;
+    const str = String(strVal);
+    // 1. Cocokkan angka sebelum kata 'unit' atau 'alat'
+    const unitMatch = str.match(/(\d+)\s*(?:unit|alat)/i);
+    if (unitMatch) return Number(unitMatch[1]);
+    // 2. Cek apakah ada baris RAB pertama dengan Qty valid
+    const firstRabTr = document.querySelector('#rabTableBody tr');
+    if (firstRabTr) {
+      const rabQty = Number(firstRabTr.querySelector('.rab-qty')?.value);
+      if (rabQty > 0) return rabQty;
+    }
+    // 3. Ambil angka bilangan bulat terbesar (menghindari mengambil 6 dari 6.25 kontainer)
+    const numMatches = str.match(/\b\d+\b/g);
+    if (numMatches && numMatches.length > 0) {
+      return Math.max(...numMatches.map(Number));
+    }
+    return fallbackNum;
+  }
+
   function buildPackageOptionsFromForm() {
     if (currentPackageMode === 'none') {
       return [];
     }
 
     const nom1 = Number(document.getElementById('opt1_nominal').value) || 5000000000;
+    const opt1UnitsRaw = document.getElementById('opt1_units').value.trim();
+    const opt1UnitQty = extractUnitCount(opt1UnitsRaw, 25);
     const opt1 = {
       nominal: nom1,
       nominal_display: AdminApp.formatRupiah(nom1),
       label: document.getElementById('opt1_label').value.trim() || 'Paket Kemitraan Eksekutif (5 Miliar)',
       badge: document.getElementById('opt1_badge').value.trim() || 'Bonus 1 Operator Profesional',
       featured: false,
-      unit_qty: Number((document.getElementById('opt1_units').value.match(/\d+/) || [20])[0]),
-      container_qty: document.getElementById('opt1_units').value.trim() || '5 Kontainer 40FT HC (20 Unit)',
-      porsi_proyek: `Alokasi ${document.getElementById('opt1_units').value.trim()}`,
-      jaminan_aset: `${document.getElementById('opt1_units').value.trim()} Siap Operasi`,
+      unit_qty: opt1UnitQty,
+      container_qty: opt1UnitsRaw || `${opt1UnitQty} Unit Alat Berat`,
+      porsi_proyek: `Alokasi ${opt1UnitsRaw || opt1UnitQty + ' Unit Alat Berat'}`,
+      jaminan_aset: `${opt1UnitsRaw || opt1UnitQty + ' Unit'} Siap Operasi & Jual`,
       operator_perk: document.getElementById('opt1_operator').value.trim() || '1 Operator Profesional',
       deskripsi: document.getElementById('opt1_desc').value.trim(),
       profit_per_siklus: Math.round(nom1 * 0.14308),
@@ -913,16 +935,18 @@ require_once __DIR__ . '/includes/header.php';
     }
 
     const nom2 = Number(document.getElementById('opt2_nominal').value) || 10000000000;
+    const opt2UnitsRaw = document.getElementById('opt2_units').value.trim();
+    const opt2UnitQty = extractUnitCount(opt2UnitsRaw, 40);
     const opt2 = {
       nominal: nom2,
       nominal_display: AdminApp.formatRupiah(nom2),
       label: document.getElementById('opt2_label').value.trim() || 'Paket Konsorsium Utama (10 Miliar)',
       badge: document.getElementById('opt2_badge').value.trim() || 'Bonus 2 Operator Profesional (Double Shift)',
       featured: true,
-      unit_qty: Number((document.getElementById('opt2_units').value.match(/\d+/) || [40])[0]),
-      container_qty: document.getElementById('opt2_units').value.trim() || '10 Kontainer 40FT HC (40 Unit)',
+      unit_qty: opt2UnitQty,
+      container_qty: opt2UnitsRaw || `${opt2UnitQty} Unit Alat Berat`,
       porsi_proyek: `Eksklusivitas Penuh Seluruh Batch Regional`,
-      jaminan_aset: `${document.getElementById('opt2_units').value.trim()} Siap Operasi`,
+      jaminan_aset: `${opt2UnitsRaw || opt2UnitQty + ' Unit'} Siap Operasi & Jual`,
       operator_perk: document.getElementById('opt2_operator').value.trim() || '2 Operator Profesional (Double Shift)',
       deskripsi: document.getElementById('opt2_desc').value.trim(),
       profit_per_siklus: Math.round(nom2 * 0.14308),
@@ -1132,7 +1156,10 @@ require_once __DIR__ . '/includes/header.php';
           document.getElementById('opt1_label').value = opt1.label || opt1.name || 'Paket Kemitraan Eksekutif (5 Miliar)';
           document.getElementById('opt1_nominal').value = opt1.nominal || 5000000000;
           document.getElementById('opt1_operator').value = opt1.operator_perk || '1 Operator Profesional Bersertifikat & Berpengalaman';
-          document.getElementById('opt1_units').value = opt1.container_qty || opt1.unit_description || `${opt1.unit_qty || opt1.units || 20} Unit Alat Berat (5 Kontainer 40FT HC)`;
+          let u1 = opt1.unit_qty || opt1.units || 25;
+          let c1 = opt1.container_qty || opt1.unit_description || `${u1} Unit Alat Berat`;
+          if (!c1.toLowerCase().includes('unit')) c1 = `${u1} Unit Alat Berat (${c1})`;
+          document.getElementById('opt1_units').value = c1;
           document.getElementById('opt1_badge').value = opt1.badge || opt1.benefit_tag || 'Bonus 1 Operator Profesional';
           document.getElementById('opt1_roi').value = opt1.roi_est || opt1.est_roi_pa_pct || '14,31% / siklus (28,6% – 42,9% p.a.)';
           document.getElementById('opt1_desc').value = opt1.deskripsi || '';
@@ -1143,7 +1170,10 @@ require_once __DIR__ . '/includes/header.php';
           document.getElementById('opt2_label').value = opt2.label || opt2.name || 'Paket Konsorsium Utama (10 Miliar)';
           document.getElementById('opt2_nominal').value = opt2.nominal || 10000000000;
           document.getElementById('opt2_operator').value = opt2.operator_perk || '2 Operator Profesional (Double Shift / 24 Jam)';
-          document.getElementById('opt2_units').value = opt2.container_qty || opt2.unit_description || `${opt2.unit_qty || opt2.units || 40} Unit Alat Berat (10 Kontainer 40FT HC)`;
+          let u2 = opt2.unit_qty || opt2.units || 40;
+          let c2 = opt2.container_qty || opt2.unit_description || `${u2} Unit Alat Berat`;
+          if (!c2.toLowerCase().includes('unit')) c2 = `${u2} Unit Alat Berat (${c2})`;
+          document.getElementById('opt2_units').value = c2;
           document.getElementById('opt2_badge').value = opt2.badge || opt2.benefit_tag || 'Bonus 2 Operator Profesional (Double Shift)';
           document.getElementById('opt2_roi').value = opt2.roi_est || opt2.est_roi_pa_pct || '14,31% / siklus (28,6% – 42,9% p.a.)';
           document.getElementById('opt2_desc').value = opt2.deskripsi || '';

@@ -168,6 +168,23 @@ try {
         $packageOptionsMode = $rabExec['package_options_mode'] ?? ($extra['package_options_mode'] ?? (!empty($rabExec['tiers']) ? '2' : 'none'));
         $packageOptions = $rabExec['package_options'] ?? ($rabExec['tiers'] ?? ($extra['package_options'] ?? []));
 
+        // Selaraskan unit_qty paket kemitraan dengan kuantitas item 1 RAB (misal: 25 unit)
+        $rabMainQty = !empty($fundingRows[0]['quantity']) ? (int)$fundingRows[0]['quantity'] : 0;
+        if ($rabMainQty > 0 && !empty($packageOptions)) {
+            foreach ($packageOptions as &$po) {
+                if (empty($po['unit_qty']) || $po['unit_qty'] != $rabMainQty) {
+                    $po['unit_qty'] = $rabMainQty;
+                }
+            }
+            unset($po);
+            if (!empty($rabExec['tiers'])) {
+                foreach ($rabExec['tiers'] as &$tr) {
+                    $tr['unit_qty'] = $rabMainQty;
+                }
+                unset($tr);
+            }
+        }
+
         // Format funding display & operator perk cleanly according to package_options_mode
         $cleanTarget = 'Rp ' . number_format((float)$p['funding_target'], 0, ',', '.');
         if ($packageOptionsMode === '2' && count($packageOptions) >= 2) {
