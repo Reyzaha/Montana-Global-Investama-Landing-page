@@ -22,7 +22,7 @@
                 "lokasi": "DKI Jakarta & Koridor Industri Jabodetabek - Jawa Barat",
                 "target": "Rp 15.000.000.000",
                 "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
-                "return": "28,6% – 42,9% (p.a.)",
+                "return": "20,0% – 25,0% (p.a.)",
                 "min_investment": "Rp 15.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -45,8 +45,8 @@
                     "operator_perk": "2 Operator Profesional Alat Berat Bersertifikat (Rotasi Shift & Pengawasan)",
                     "deskripsi": "Penempatan modal penuh Rp 15.000.000.000 untuk mendanai kapasitas penuh proyek regional Jabodetabek (25 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                     "profit_per_siklus": 2146200000,
-                    "profit_2x_tahunan": 4292400000,
-                    "profit_3x_tahunan": 6438600000
+                    "profit_2x_tahunan": 3000000000,
+                    "profit_3x_tahunan": 3750000000
                 }
             ],
             "detail": {
@@ -108,11 +108,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Jabodetabek menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 28,6% – 42,9% p.a."
+                    "content": "Proyek investasi armada alat berat di Jabodetabek menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 20,0% – 25,0% p.a."
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 28.62,
+                    "estimasi_return_persen": 20,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 15000000000,
                     "maximum_investasi": 15000000000,
@@ -189,8 +189,8 @@
                             "operator_perk": "2 Operator Profesional Alat Berat Bersertifikat (Rotasi Shift & Pengawasan)",
                             "deskripsi": "Penempatan modal penuh Rp 15.000.000.000 untuk mendanai kapasitas penuh proyek regional Jabodetabek (25 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                             "profit_per_siklus": 2146200000,
-                            "profit_2x_tahunan": 4292400000,
-                            "profit_3x_tahunan": 6438600000
+                            "profit_2x_tahunan": 3000000000,
+                            "profit_3x_tahunan": 3750000000
                         }
                     ],
                     "operator_perk": "2 Operator Profesional Alat Berat Bersertifikat (Rotasi Shift & Pengawasan)",
@@ -218,7 +218,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
@@ -271,7 +271,7 @@
                 "lokasi": "Denpasar & Bali",
                 "target": "Rp 5.000.000.000",
                 "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
-                "return": "28,6% – 42,9% (p.a.)",
+                "return": "20,0% – 25,0% (p.a.)",
                 "min_investment": "Rp 5.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -294,8 +294,8 @@
                     "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
                     "deskripsi": "Penempatan modal penuh Rp 5.000.000.000 untuk mendanai kapasitas penuh proyek regional Denpasar (8 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                     "profit_per_siklus": 715400000,
-                    "profit_2x_tahunan": 1430800000,
-                    "profit_3x_tahunan": 2146200000
+                    "profit_2x_tahunan": 1000000000,
+                    "profit_3x_tahunan": 1250000000
                 }
             ],
             "detail": {
@@ -357,11 +357,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Denpasar menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 28,6% – 42,9% p.a."
+                    "content": "Proyek investasi armada alat berat di Denpasar menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 20,0% – 25,0% p.a."
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 28.62,
+                    "estimasi_return_persen": 20,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 5000000000,
                     "maximum_investasi": 5000000000,
@@ -438,8 +438,8 @@
                             "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
                             "deskripsi": "Penempatan modal penuh Rp 5.000.000.000 untuk mendanai kapasitas penuh proyek regional Denpasar (8 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                             "profit_per_siklus": 715400000,
-                            "profit_2x_tahunan": 1430800000,
-                            "profit_3x_tahunan": 2146200000
+                            "profit_2x_tahunan": 1000000000,
+                            "profit_3x_tahunan": 1250000000
                         }
                     ],
                     "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
@@ -467,7 +467,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
@@ -520,7 +520,7 @@
                 "lokasi": "Kebumen & Jawa Tengah",
                 "target": "Rp 15.000.000.000",
                 "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
-                "return": "28,6% – 42,9% (p.a.)",
+                "return": "20,0% – 25,0% (p.a.)",
                 "min_investment": "Rp 15.000.000.000 (Terdanai Penuh)",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Terdanai Penuh",
@@ -543,8 +543,8 @@
                     "operator_perk": "2 Operator Profesional Alat Berat Bersertifikat (Rotasi Shift & Pengawasan)",
                     "deskripsi": "Penempatan modal penuh Rp 15.000.000.000 untuk mendanai kapasitas penuh proyek regional Kebumen (25 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                     "profit_per_siklus": 2146200000,
-                    "profit_2x_tahunan": 4292400000,
-                    "profit_3x_tahunan": 6438600000
+                    "profit_2x_tahunan": 3000000000,
+                    "profit_3x_tahunan": 3750000000
                 }
             ],
             "detail": {
@@ -606,11 +606,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Kebumen menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 28,6% – 42,9% p.a."
+                    "content": "Proyek investasi armada alat berat di Kebumen menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 20,0% – 25,0% p.a."
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 28.62,
+                    "estimasi_return_persen": 20,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 15000000000,
                     "maximum_investasi": 15000000000,
@@ -687,8 +687,8 @@
                             "operator_perk": "2 Operator Profesional Alat Berat Bersertifikat (Rotasi Shift & Pengawasan)",
                             "deskripsi": "Penempatan modal penuh Rp 15.000.000.000 untuk mendanai kapasitas penuh proyek regional Kebumen (25 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                             "profit_per_siklus": 2146200000,
-                            "profit_2x_tahunan": 4292400000,
-                            "profit_3x_tahunan": 6438600000
+                            "profit_2x_tahunan": 3000000000,
+                            "profit_3x_tahunan": 3750000000
                         }
                     ],
                     "operator_perk": "2 Operator Profesional Alat Berat Bersertifikat (Rotasi Shift & Pengawasan)",
@@ -716,7 +716,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
@@ -769,7 +769,7 @@
                 "lokasi": "Medan & Koridor Industri Sumatra",
                 "target": "Rp 7.000.000.000",
                 "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
-                "return": "28,6% – 42,9% (p.a.)",
+                "return": "20,0% – 25,0% (p.a.)",
                 "min_investment": "Rp 7.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -792,8 +792,8 @@
                     "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
                     "deskripsi": "Penempatan modal penuh Rp 7.000.000.000 untuk mendanai kapasitas penuh proyek regional Sumatra (11 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                     "profit_per_siklus": 1001560000,
-                    "profit_2x_tahunan": 2003120000,
-                    "profit_3x_tahunan": 3004680000
+                    "profit_2x_tahunan": 1400000000,
+                    "profit_3x_tahunan": 1750000000
                 }
             ],
             "detail": {
@@ -855,11 +855,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Sumatra menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 28,6% – 42,9% p.a."
+                    "content": "Proyek investasi armada alat berat di Sumatra menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 20,0% – 25,0% p.a."
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 28.62,
+                    "estimasi_return_persen": 20,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 7000000000,
                     "maximum_investasi": 7000000000,
@@ -936,8 +936,8 @@
                             "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
                             "deskripsi": "Penempatan modal penuh Rp 7.000.000.000 untuk mendanai kapasitas penuh proyek regional Sumatra (11 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                             "profit_per_siklus": 1001560000,
-                            "profit_2x_tahunan": 2003120000,
-                            "profit_3x_tahunan": 3004680000
+                            "profit_2x_tahunan": 1400000000,
+                            "profit_3x_tahunan": 1750000000
                         }
                     ],
                     "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
@@ -965,7 +965,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
@@ -1018,7 +1018,7 @@
                 "lokasi": "Pontianak & Kalimantan Barat",
                 "target": "Rp 2.000.000.000",
                 "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
-                "return": "28,6% – 42,9% (p.a.)",
+                "return": "20,0% – 25,0% (p.a.)",
                 "min_investment": "Rp 2.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -1041,8 +1041,8 @@
                     "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
                     "deskripsi": "Penempatan modal penuh Rp 2.000.000.000 untuk mendanai kapasitas penuh proyek regional Pontianak (3 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                     "profit_per_siklus": 286160000,
-                    "profit_2x_tahunan": 572320000,
-                    "profit_3x_tahunan": 858480000
+                    "profit_2x_tahunan": 400000000,
+                    "profit_3x_tahunan": 500000000
                 }
             ],
             "detail": {
@@ -1104,11 +1104,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Pontianak menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 28,6% – 42,9% p.a."
+                    "content": "Proyek investasi armada alat berat di Pontianak menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 20,0% – 25,0% p.a."
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 28.62,
+                    "estimasi_return_persen": 20,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 2000000000,
                     "maximum_investasi": 2000000000,
@@ -1185,8 +1185,8 @@
                             "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
                             "deskripsi": "Penempatan modal penuh Rp 2.000.000.000 untuk mendanai kapasitas penuh proyek regional Pontianak (3 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                             "profit_per_siklus": 286160000,
-                            "profit_2x_tahunan": 572320000,
-                            "profit_3x_tahunan": 858480000
+                            "profit_2x_tahunan": 400000000,
+                            "profit_3x_tahunan": 500000000
                         }
                     ],
                     "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
@@ -1214,7 +1214,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
@@ -1267,7 +1267,7 @@
                 "lokasi": "Banjarmasin & Kalimantan Selatan",
                 "target": "Rp 3.000.000.000",
                 "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
-                "return": "28,6% – 42,9% (p.a.)",
+                "return": "20,0% – 25,0% (p.a.)",
                 "min_investment": "Rp 3.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -1290,8 +1290,8 @@
                     "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
                     "deskripsi": "Penempatan modal penuh Rp 3.000.000.000 untuk mendanai kapasitas penuh proyek regional Banjarmasin (5 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                     "profit_per_siklus": 429240000,
-                    "profit_2x_tahunan": 858480000,
-                    "profit_3x_tahunan": 1287720000
+                    "profit_2x_tahunan": 600000000,
+                    "profit_3x_tahunan": 750000000
                 }
             ],
             "detail": {
@@ -1353,11 +1353,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Banjarmasin menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 28,6% – 42,9% p.a."
+                    "content": "Proyek investasi armada alat berat di Banjarmasin menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 20,0% – 25,0% p.a."
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 28.62,
+                    "estimasi_return_persen": 20,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 3000000000,
                     "maximum_investasi": 3000000000,
@@ -1434,8 +1434,8 @@
                             "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
                             "deskripsi": "Penempatan modal penuh Rp 3.000.000.000 untuk mendanai kapasitas penuh proyek regional Banjarmasin (5 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                             "profit_per_siklus": 429240000,
-                            "profit_2x_tahunan": 858480000,
-                            "profit_3x_tahunan": 1287720000
+                            "profit_2x_tahunan": 600000000,
+                            "profit_3x_tahunan": 750000000
                         }
                     ],
                     "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
@@ -1463,7 +1463,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
@@ -1516,7 +1516,7 @@
                 "lokasi": "Banda Aceh & Wilayah Aceh",
                 "target": "Rp 7.500.000.000",
                 "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
-                "return": "28,6% – 42,9% (p.a.)",
+                "return": "20,0% – 25,0% (p.a.)",
                 "min_investment": "Rp 7.500.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -1539,8 +1539,8 @@
                     "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
                     "deskripsi": "Penempatan modal penuh Rp 7.500.000.000 untuk mendanai kapasitas penuh proyek regional Aceh (12 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                     "profit_per_siklus": 1073100000,
-                    "profit_2x_tahunan": 2146200000,
-                    "profit_3x_tahunan": 3219300000
+                    "profit_2x_tahunan": 1500000000,
+                    "profit_3x_tahunan": 1875000000
                 }
             ],
             "detail": {
@@ -1602,11 +1602,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Aceh menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 28,6% – 42,9% p.a."
+                    "content": "Proyek investasi armada alat berat di Aceh menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 20,0% – 25,0% p.a."
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 28.62,
+                    "estimasi_return_persen": 20,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 7500000000,
                     "maximum_investasi": 7500000000,
@@ -1683,8 +1683,8 @@
                             "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
                             "deskripsi": "Penempatan modal penuh Rp 7.500.000.000 untuk mendanai kapasitas penuh proyek regional Aceh (12 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                             "profit_per_siklus": 1073100000,
-                            "profit_2x_tahunan": 2146200000,
-                            "profit_3x_tahunan": 3219300000
+                            "profit_2x_tahunan": 1500000000,
+                            "profit_3x_tahunan": 1875000000
                         }
                     ],
                     "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
@@ -1712,7 +1712,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
@@ -1765,7 +1765,7 @@
                 "lokasi": "Makassar & Sulawesi Selatan",
                 "target": "Rp 3.000.000.000",
                 "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
-                "return": "28,6% – 42,9% (p.a.)",
+                "return": "20,0% – 25,0% (p.a.)",
                 "min_investment": "Rp 3.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -1788,8 +1788,8 @@
                     "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
                     "deskripsi": "Penempatan modal penuh Rp 3.000.000.000 untuk mendanai kapasitas penuh proyek regional Makassar (5 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                     "profit_per_siklus": 429240000,
-                    "profit_2x_tahunan": 858480000,
-                    "profit_3x_tahunan": 1287720000
+                    "profit_2x_tahunan": 600000000,
+                    "profit_3x_tahunan": 750000000
                 }
             ],
             "detail": {
@@ -1851,11 +1851,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Makassar menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 28,6% – 42,9% p.a."
+                    "content": "Proyek investasi armada alat berat di Makassar menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 20,0% – 25,0% p.a."
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 28.62,
+                    "estimasi_return_persen": 20,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 3000000000,
                     "maximum_investasi": 3000000000,
@@ -1932,8 +1932,8 @@
                             "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
                             "deskripsi": "Penempatan modal penuh Rp 3.000.000.000 untuk mendanai kapasitas penuh proyek regional Makassar (5 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                             "profit_per_siklus": 429240000,
-                            "profit_2x_tahunan": 858480000,
-                            "profit_3x_tahunan": 1287720000
+                            "profit_2x_tahunan": 600000000,
+                            "profit_3x_tahunan": 750000000
                         }
                     ],
                     "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
@@ -1961,7 +1961,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
@@ -2014,7 +2014,7 @@
                 "lokasi": "Palu & Sulawesi Tengah",
                 "target": "Rp 2.000.000.000",
                 "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
-                "return": "28,6% – 42,9% (p.a.)",
+                "return": "20,0% – 25,0% (p.a.)",
                 "min_investment": "Rp 2.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -2037,8 +2037,8 @@
                     "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
                     "deskripsi": "Penempatan modal penuh Rp 2.000.000.000 untuk mendanai kapasitas penuh proyek regional Palu (3 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                     "profit_per_siklus": 286160000,
-                    "profit_2x_tahunan": 572320000,
-                    "profit_3x_tahunan": 858480000
+                    "profit_2x_tahunan": 400000000,
+                    "profit_3x_tahunan": 500000000
                 }
             ],
             "detail": {
@@ -2100,11 +2100,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Palu menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 28,6% – 42,9% p.a."
+                    "content": "Proyek investasi armada alat berat di Palu menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 20,0% – 25,0% p.a."
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 28.62,
+                    "estimasi_return_persen": 20,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 2000000000,
                     "maximum_investasi": 2000000000,
@@ -2181,8 +2181,8 @@
                             "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
                             "deskripsi": "Penempatan modal penuh Rp 2.000.000.000 untuk mendanai kapasitas penuh proyek regional Palu (3 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                             "profit_per_siklus": 286160000,
-                            "profit_2x_tahunan": 572320000,
-                            "profit_3x_tahunan": 858480000
+                            "profit_2x_tahunan": 400000000,
+                            "profit_3x_tahunan": 500000000
                         }
                     ],
                     "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
@@ -2210,7 +2210,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
@@ -2263,7 +2263,7 @@
                 "lokasi": "Surabaya & Jawa Timur",
                 "target": "Rp 5.000.000.000",
                 "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
-                "return": "28,6% – 42,9% (p.a.)",
+                "return": "20,0% – 25,0% (p.a.)",
                 "min_investment": "Rp 5.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -2286,8 +2286,8 @@
                     "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
                     "deskripsi": "Penempatan modal penuh Rp 5.000.000.000 untuk mendanai kapasitas penuh proyek regional Surabaya (8 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                     "profit_per_siklus": 715400000,
-                    "profit_2x_tahunan": 1430800000,
-                    "profit_3x_tahunan": 2146200000
+                    "profit_2x_tahunan": 1000000000,
+                    "profit_3x_tahunan": 1250000000
                 }
             ],
             "detail": {
@@ -2349,11 +2349,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Surabaya menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 28,6% – 42,9% p.a."
+                    "content": "Proyek investasi armada alat berat di Surabaya menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 20,0% – 25,0% p.a."
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 28.62,
+                    "estimasi_return_persen": 20,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 5000000000,
                     "maximum_investasi": 5000000000,
@@ -2430,8 +2430,8 @@
                             "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
                             "deskripsi": "Penempatan modal penuh Rp 5.000.000.000 untuk mendanai kapasitas penuh proyek regional Surabaya (8 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                             "profit_per_siklus": 715400000,
-                            "profit_2x_tahunan": 1430800000,
-                            "profit_3x_tahunan": 2146200000
+                            "profit_2x_tahunan": 1000000000,
+                            "profit_3x_tahunan": 1250000000
                         }
                     ],
                     "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
@@ -2459,7 +2459,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
@@ -2512,7 +2512,7 @@
                 "lokasi": "Kupang & Wilayah Nusa Tenggara Timur",
                 "target": "Rp 5.000.000.000",
                 "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
-                "return": "28,6% – 42,9% (p.a.)",
+                "return": "20,0% – 25,0% (p.a.)",
                 "min_investment": "Rp 5.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -2535,8 +2535,8 @@
                     "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
                     "deskripsi": "Penempatan modal penuh Rp 5.000.000.000 untuk mendanai kapasitas penuh proyek regional NTT (8 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                     "profit_per_siklus": 715400000,
-                    "profit_2x_tahunan": 1430800000,
-                    "profit_3x_tahunan": 2146200000
+                    "profit_2x_tahunan": 1000000000,
+                    "profit_3x_tahunan": 1250000000
                 }
             ],
             "detail": {
@@ -2598,11 +2598,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di NTT menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 28,6% – 42,9% p.a."
+                    "content": "Proyek investasi armada alat berat di NTT menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal 2–3 kali per tahun dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 20,0% – 25,0% p.a."
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 28.62,
+                    "estimasi_return_persen": 20,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 5000000000,
                     "maximum_investasi": 5000000000,
@@ -2679,8 +2679,8 @@
                             "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
                             "deskripsi": "Penempatan modal penuh Rp 5.000.000.000 untuk mendanai kapasitas penuh proyek regional NTT (8 Unit Alat Berat) dengan fasilitas Operator resmi MGI yang disediakan dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.",
                             "profit_per_siklus": 715400000,
-                            "profit_2x_tahunan": 1430800000,
-                            "profit_3x_tahunan": 2146200000
+                            "profit_2x_tahunan": 1000000000,
+                            "profit_3x_tahunan": 1250000000
                         }
                     ],
                     "operator_perk": "1 Operator Profesional Alat Berat Bersertifikat & Berpengalaman",
@@ -2708,7 +2708,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 28,6% – 42,9% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
