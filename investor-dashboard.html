@@ -189,14 +189,14 @@
           <div class="relative group">
             <button id="profileDropdownBtn" onclick="toggleProfileDropdown()" class="flex items-center gap-2.5 pl-2 sm:pl-3 border-l border-slate-200 hover:opacity-90 transition-opacity">
               <div id="userAvatarCircle" class="w-9 h-9 rounded-full bg-gradient-to-br from-amber-600 to-amber-700 text-white flex items-center justify-center font-bold text-sm shadow-sm ring-2 ring-white">
-                B
+                I
               </div>
               <div class="hidden sm:block text-left">
                 <div class="flex items-center gap-1.5">
-                  <span id="navInvestorName" class="text-xs font-bold text-slate-900 truncate max-w-[120px]">Budi Pratama</span>
-                  <span id="navInvestorType" class="px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-slate-900 text-white">Perorangan</span>
+                  <span id="navInvestorName" class="text-xs font-bold text-slate-900 truncate max-w-[120px]">Investor</span>
+                  <span id="navInvestorType" class="px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-slate-900 text-white">Investor MGI</span>
                 </div>
-                <p id="navInvestorId" class="text-[10px] text-slate-400">Investor ID: #MGI-7729</p>
+                <p id="navInvestorId" class="text-[10px] text-slate-400">Portal Investor</p>
               </div>
               <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400"></i>
             </button>
@@ -204,8 +204,8 @@
             <!-- Dropdown Menu -->
             <div id="profileDropdownMenu" class="hidden absolute right-0 mt-2 w-60 bg-white rounded-2xl shadow-xl border border-slate-200/80 py-2 z-50 text-xs text-slate-700">
               <div class="px-4 py-2 border-b border-slate-100">
-                <p class="font-bold text-slate-900 truncate" id="dropdownUserName">Budi Pratama</p>
-                <p class="text-slate-400 text-[11px] truncate" id="dropdownUserEmail">budi.pratama@montanainvestor.id</p>
+                <p class="font-bold text-slate-900 truncate" id="dropdownUserName">Investor MGI</p>
+                <p class="text-slate-400 text-[11px] truncate" id="dropdownUserEmail">-</p>
               </div>
               <button type="button" onclick="navigateFromProfileMenu('portofolio')" class="w-full text-left px-4 py-2.5 hover:bg-slate-50 flex items-center gap-2.5 transition-colors cursor-pointer">
                 <i data-lucide="briefcase" class="w-4 h-4 text-amber-500 shrink-0"></i> 
@@ -246,7 +246,7 @@
           Portofolio Sehat &amp; Berjalan
         </div>
         <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-          Selamat Datang, <span id="dashInvestorGreeting" class="text-amber-600">Budi Pratama!</span>
+          Selamat Datang, <span id="dashInvestorGreeting" class="text-amber-600">Investor!</span>
           <span class="inline-block transform hover:rotate-12 transition-transform cursor-pointer">👋</span>
         </h1>
         <p class="text-sm text-slate-500 mt-1 max-w-2xl leading-relaxed">
@@ -468,31 +468,31 @@
             <div class="bg-gradient-to-br from-slate-950 via-slate-900 to-mgi-navy text-white p-6 rounded-3xl border border-amber-500/40 shadow-xl relative overflow-hidden">
               <div class="absolute -right-8 -bottom-8 w-36 h-36 rounded-full bg-amber-500/10 blur-xl pointer-events-none"></div>
               <div class="flex items-center justify-between mb-6">
-                <span class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-white/10 text-amber-300 border border-white/10">
-                  REKENING TERVERIFIKASI
+                <span id="dispBankStatusBadge" class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                  BELUM DIATUR
                 </span>
                 <i data-lucide="credit-card" class="w-6 h-6 text-amber-400"></i>
               </div>
               <div class="space-y-1 mb-6">
                 <span class="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Nama Bank</span>
-                <h5 class="text-lg font-bold tracking-wide" id="dispBankName">Bank Central Asia (BCA)</h5>
-                <p class="text-sm font-mono text-amber-300 tracking-wider pt-1" id="dispAccNumber">8830-1928-11</p>
+                <h5 class="text-lg font-bold tracking-wide text-slate-300" id="dispBankName">Belum Ada Rekening</h5>
+                <p class="text-sm font-mono text-slate-400 tracking-wider pt-1" id="dispAccNumber">---- ---- ----</p>
               </div>
               <div class="flex justify-between items-end text-xs text-slate-300 pt-2 border-t border-white/10">
                 <div>
                   <span class="text-[10px] text-slate-400 uppercase block">Atas Nama:</span>
-                  <span class="font-bold text-white" id="dispAccHolder">BUDI PRATAMA</span>
+                  <span class="font-bold text-white uppercase" id="dispAccHolder">-</span>
                 </div>
                 <div class="text-right">
                   <span class="text-[10px] text-slate-400 uppercase block">Cabang:</span>
-                  <span class="font-medium" id="dispBranch">KCP Sudirman</span>
+                  <span class="font-medium text-slate-300" id="dispBranch">-</span>
                 </div>
               </div>
             </div>
 
             <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 text-xs text-slate-500 flex items-start gap-2.5">
               <i data-lucide="info" class="w-4 h-4 text-blue-600 shrink-0 mt-0.5"></i>
-              <span>Dividen bagi hasil akan ditransfer secara otomatis ke rekening aktif di atas sesuai jadwal kuartalan.</span>
+              <span>Dividen bagi hasil akan ditransfer secara otomatis ke rekening aktif di atas sesuai jadwal kuartalan atau tutup buku tahunan.</span>
             </div>
           </div>
 
@@ -517,20 +517,20 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label class="text-xs font-semibold text-slate-700 block mb-1">Nomor Rekening</label>
-                  <input type="text" id="editAccNumber" value="8830192811" class="w-full text-xs bg-white border border-slate-300 rounded-xl px-3 py-2.5 font-mono focus:ring-1 focus:ring-blue-500 focus:outline-none" required>
+                  <input type="text" id="editAccNumber" value="" placeholder="Contoh: 8830192811" class="w-full text-xs bg-white border border-slate-300 rounded-xl px-3 py-2.5 font-mono focus:ring-1 focus:ring-blue-500 focus:outline-none" required>
                 </div>
                 <div>
                   <label class="text-xs font-semibold text-slate-700 block mb-1">Nama Pemilik Rekening</label>
-                  <input type="text" id="editAccHolder" value="Budi Pratama" class="w-full text-xs bg-white border border-slate-300 rounded-xl px-3 py-2.5 focus:ring-1 focus:ring-blue-500 focus:outline-none" required>
+                  <input type="text" id="editAccHolder" value="" placeholder="Nama sesuai buku tabungan" class="w-full text-xs bg-white border border-slate-300 rounded-xl px-3 py-2.5 focus:ring-1 focus:ring-blue-500 focus:outline-none" required>
                 </div>
               </div>
               <div>
                 <label class="text-xs font-semibold text-slate-700 block mb-1">Kantor Cabang (Opsional)</label>
-                <input type="text" id="editBranch" value="KCP Sudirman" class="w-full text-xs bg-white border border-slate-300 rounded-xl px-3 py-2.5 focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                <input type="text" id="editBranch" value="" placeholder="Contoh: KCU Sudirman Jakarta" class="w-full text-xs bg-white border border-slate-300 rounded-xl px-3 py-2.5 focus:ring-1 focus:ring-blue-500 focus:outline-none">
               </div>
               <div class="pt-2">
-                <button type="submit" class="px-5 py-2.5 bg-slate-900 text-white rounded-full text-xs font-bold hover:bg-slate-800 transition active:scale-95 shadow-sm">
-                  Simpan Perubahan Rekening
+                <button type="submit" id="btnSaveBank" class="px-5 py-2.5 bg-slate-900 text-white rounded-full text-xs font-bold hover:bg-slate-800 transition active:scale-95 shadow-sm">
+                  Simpan Rekening Dividen
                 </button>
               </div>
             </form>
@@ -539,7 +539,10 @@
 
         <!-- Dividend History Table -->
         <div class="pt-4 border-t border-slate-200">
-          <h5 class="text-xs font-bold uppercase tracking-wider text-slate-600 mb-3">Riwayat Penyaluran Dividen Masuk</h5>
+          <div class="flex items-center justify-between mb-3">
+            <h5 class="text-xs font-bold uppercase tracking-wider text-slate-600">Riwayat Penyaluran Dividen Masuk</h5>
+            <span class="text-[10px] text-slate-400 font-medium">Laporan Audit Kas Real-time</span>
+          </div>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs text-slate-600 border border-slate-200 rounded-xl overflow-hidden">
               <thead class="bg-slate-100 text-slate-700 font-bold uppercase text-[10px]">
@@ -551,27 +554,15 @@
                   <th class="p-3">Status</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-slate-200">
+              <tbody id="dividendHistoryTableBody" class="divide-y divide-slate-200">
                 <tr>
-                  <td class="p-3 font-semibold text-slate-800">Kuartal II 2026</td>
-                  <td class="p-3">15 Juli 2026</td>
-                  <td class="p-3 font-bold text-emerald-600">Rp 90.000.000</td>
-                  <td class="p-3 font-mono">TRX/BCA/20260715/0981</td>
-                  <td class="p-3"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Berhasil Masuk</span></td>
-                </tr>
-                <tr>
-                  <td class="p-3 font-semibold text-slate-800">Kuartal I 2026</td>
-                  <td class="p-3">15 April 2026</td>
-                  <td class="p-3 font-bold text-emerald-600">Rp 90.000.000</td>
-                  <td class="p-3 font-mono">TRX/BCA/20260415/0411</td>
-                  <td class="p-3"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Berhasil Masuk</span></td>
-                </tr>
-                <tr>
-                  <td class="p-3 font-semibold text-slate-800">Kuartal IV 2025</td>
-                  <td class="p-3">15 Januari 2026</td>
-                  <td class="p-3 font-bold text-emerald-600">Rp 90.000.000</td>
-                  <td class="p-3 font-mono">TRX/BCA/20260115/0122</td>
-                  <td class="p-3"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Berhasil Masuk</span></td>
+                  <td colspan="5" class="py-8 text-center text-slate-400 text-xs">
+                    <div class="flex flex-col items-center justify-center gap-1.5 py-4">
+                      <i data-lucide="inbox" class="w-8 h-8 text-slate-300"></i>
+                      <span class="font-semibold text-slate-600">Belum Ada Penyaluran Dividen</span>
+                      <p class="text-[11px] text-slate-400 max-w-sm">Riwayat pencairan dividen bagi hasil akan otomatis tercatat di sini setelah Anda memiliki portofolio aktif dan memasuki periode tutup buku tahunan/kuartalan.</p>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -2858,17 +2849,114 @@
         if (elCount) elCount.innerText = `${activeCount} Proyek Sedang Berjalan Aktif`;
       }
 
-      if (data.bankAccount) {
-        const b = data.bankAccount;
-        document.getElementById('dispBankName').innerText = b.bank_name || 'Bank Central Asia (BCA)';
-        document.getElementById('dispAccNumber').innerText = b.account_number || '-';
-        document.getElementById('dispAccHolder').innerText = b.account_holder || '-';
-        document.getElementById('dispBranch').innerText = b.branch || '-';
+      // Render Bank Account Section
+      const b = data.bank_account || data.bankAccount;
+      const bankBadge = document.getElementById('dispBankStatusBadge');
+      const btnSaveBank = document.getElementById('btnSaveBank');
 
-        document.getElementById('editBankName').value = b.bank_name || 'Bank Central Asia (BCA)';
-        document.getElementById('editAccNumber').value = b.account_number || '';
-        document.getElementById('editAccHolder').value = b.account_holder || '';
-        document.getElementById('editBranch').value = b.branch || '';
+      if (b && (b.account_number || b.bank_name)) {
+        if (bankBadge) {
+          bankBadge.innerText = 'REKENING TERVERIFIKASI';
+          bankBadge.className = 'px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+        }
+        if (btnSaveBank) btnSaveBank.innerText = 'Perbarui Rekening Dividen';
+
+        const elBankName = document.getElementById('dispBankName');
+        if (elBankName) elBankName.innerText = b.bank_name || '-';
+        const elAccNumber = document.getElementById('dispAccNumber');
+        if (elAccNumber) elAccNumber.innerText = b.account_number || '-';
+        const elAccHolder = document.getElementById('dispAccHolder');
+        if (elAccHolder) elAccHolder.innerText = b.account_holder || '-';
+        const elBranch = document.getElementById('dispBranch');
+        if (elBranch) elBranch.innerText = b.branch || '-';
+
+        const editBankName = document.getElementById('editBankName');
+        if (editBankName && b.bank_name) editBankName.value = b.bank_name;
+        const editAccNumber = document.getElementById('editAccNumber');
+        if (editAccNumber) editAccNumber.value = b.account_number || '';
+        const editAccHolder = document.getElementById('editAccHolder');
+        if (editAccHolder) editAccHolder.value = b.account_holder || '';
+        const editBranch = document.getElementById('editBranch');
+        if (editBranch) editBranch.value = b.branch || '';
+      } else {
+        // Akun baru belum ada rekening bank terdaftar
+        if (bankBadge) {
+          bankBadge.innerText = 'BELUM DIATUR';
+          bankBadge.className = 'px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30';
+        }
+        if (btnSaveBank) btnSaveBank.innerText = 'Simpan Rekening Dividen';
+
+        const elBankName = document.getElementById('dispBankName');
+        if (elBankName) elBankName.innerText = 'Belum Ada Rekening';
+        const elAccNumber = document.getElementById('dispAccNumber');
+        if (elAccNumber) elAccNumber.innerText = '---- ---- ----';
+        const elAccHolder = document.getElementById('dispAccHolder');
+        if (elAccHolder) elAccHolder.innerText = '-';
+        const elBranch = document.getElementById('dispBranch');
+        if (elBranch) elBranch.innerText = '-';
+
+        const editAccNumber = document.getElementById('editAccNumber');
+        if (editAccNumber) editAccNumber.value = '';
+        const editAccHolder = document.getElementById('editAccHolder');
+        const profName = (data.profile && (data.profile.fullName || data.profile.full_name || data.profile.business_name)) || '';
+        if (editAccHolder && !editAccHolder.value) {
+          editAccHolder.value = profName;
+        }
+        const editBranch = document.getElementById('editBranch');
+        if (editBranch) editBranch.value = '';
+      }
+
+      // Render Riwayat Dividen Masuk Secara Dinamis
+      const divTableBody = document.getElementById('dividendHistoryTableBody');
+      if (divTableBody) {
+        const finRecords = data.financial_records || [];
+        const divRecords = finRecords.filter(r => 
+          (r.category && r.category.toLowerCase().includes('dividen')) || 
+          (r.title && r.title.toLowerCase().includes('dividen'))
+        );
+        const portsWithPayout = (data.portfolios || []).filter(p => Number(p.payout_received || 0) > 0);
+
+        if (divRecords.length > 0) {
+          divTableBody.innerHTML = divRecords.map(r => `
+            <tr class="hover:bg-slate-50/70 transition">
+              <td class="p-3 font-semibold text-slate-800">${r.title || 'Dividen Bagi Hasil'}</td>
+              <td class="p-3 text-slate-500">${r.transaction_date || '-'}</td>
+              <td class="p-3 font-bold text-emerald-600 font-mono">+${formatRupiahExact(r.amount || 0)}</td>
+              <td class="p-3 font-mono text-[11px] text-slate-500">${r.record_number || '-'}</td>
+              <td class="p-3">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                  ${r.status === 'completed' || r.status === 'lunas' ? 'Berhasil Masuk' : (r.status || 'Berhasil Masuk')}
+                </span>
+              </td>
+            </tr>
+          `).join('');
+        } else if (portsWithPayout.length > 0) {
+          divTableBody.innerHTML = portsWithPayout.map(p => `
+            <tr class="hover:bg-slate-50/70 transition">
+              <td class="p-3 font-semibold text-slate-800">${p.project_title || 'Dividen Proyek'}</td>
+              <td class="p-3 text-slate-500">${p.start_date || '-'}</td>
+              <td class="p-3 font-bold text-emerald-600 font-mono">+${formatRupiahExact(p.payout_received || 0)}</td>
+              <td class="p-3 font-mono text-[11px] text-slate-500">${p.contract_number ? 'TRX-' + p.contract_number : '-'}</td>
+              <td class="p-3">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                  Berhasil Masuk
+                </span>
+              </td>
+            </tr>
+          `).join('');
+        } else {
+          divTableBody.innerHTML = `
+            <tr>
+              <td colspan="5" class="py-8 text-center text-slate-400 text-xs">
+                <div class="flex flex-col items-center justify-center gap-1.5 py-4">
+                  <i data-lucide="inbox" class="w-8 h-8 text-slate-300"></i>
+                  <span class="font-semibold text-slate-600">Belum Ada Penyaluran Dividen</span>
+                  <p class="text-[11px] text-slate-400 max-w-sm">Riwayat pencairan dividen bagi hasil akan otomatis tercatat di sini setelah Anda memiliki portofolio aktif dan memasuki periode transfer bagi hasil.</p>
+                </div>
+              </td>
+            </tr>
+          `;
+        }
       }
 
       if (window.lucide) {
@@ -5615,11 +5703,25 @@
         showToast('Rekening berhasil diperbarui.');
       }
 
-      // Update Visual Card
+      // Update Visual Card & State
       document.getElementById('dispBankName').innerText = bankName;
       document.getElementById('dispAccNumber').innerText = accNumber;
       document.getElementById('dispAccHolder').innerText = accHolder;
       document.getElementById('dispBranch').innerText = branch || '-';
+
+      const bankBadge = document.getElementById('dispBankStatusBadge');
+      if (bankBadge) {
+        bankBadge.innerText = 'REKENING TERVERIFIKASI';
+        bankBadge.className = 'px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+      }
+      const btnSaveBank = document.getElementById('btnSaveBank');
+      if (btnSaveBank) btnSaveBank.innerText = 'Perbarui Rekening Dividen';
+
+      if (!dashboardState.bank_account) dashboardState.bank_account = {};
+      dashboardState.bank_account.bank_name = bankName;
+      dashboardState.bank_account.account_number = accNumber;
+      dashboardState.bank_account.account_holder = accHolder;
+      dashboardState.bank_account.branch = branch;
     }
 
     // Modal Edit & Lengkapi Data Profil Investor

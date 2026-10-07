@@ -204,6 +204,13 @@ try {
                 'account_holder' => $bankAccount['account_holder'],
                 'branch' => $bankAccount['branch'] ?? ''
             ] : null,
+            'bankAccount' => $bankAccount ? [
+                'id' => (int)$bankAccount['id'],
+                'bank_name' => $bankAccount['bank_name'],
+                'account_number' => $bankAccount['account_number'],
+                'account_holder' => $bankAccount['account_holder'],
+                'branch' => $bankAccount['branch'] ?? ''
+            ] : null,
             'campaign_updates' => $campaignUpdates,
             'open_projects' => $openProjects,
             'catalog_projects' => $catalogProjects,
