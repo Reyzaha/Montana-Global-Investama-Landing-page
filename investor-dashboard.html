@@ -1956,107 +1956,277 @@
           </div>
         </div>
 
-        <!-- Return Simulation Box (Periode 12 Bulan - Skenario 20% s/d 25%) -->
-        <div class="bg-gradient-to-br from-amber-50 to-orange-50/60 border border-amber-200/90 rounded-2xl p-4 space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
-              <i data-lucide="calculator" class="w-3.5 h-3.5 text-amber-600"></i>
-              Simulasi Return Tahunan (Periode 12 Bulan)
-            </span>
-            <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 font-mono" id="simModalRoiBadge">
-              20,0% – 25,0% p.a.
-            </span>
-          </div>
-          
-          <div class="grid grid-cols-2 gap-2 text-xs">
-            <div class="p-2.5 bg-white/90 rounded-xl border border-amber-100/90 shadow-2xs space-y-0.5">
-              <span class="text-[10px] text-slate-500 block">Skenario Standar (20%):</span>
-              <span class="font-bold text-blue-900 text-xs sm:text-sm font-mono block" id="simModalAnnualReturn">Rp 3.000.000.000</span>
-              <span class="text-[10px] text-slate-400 block font-mono" id="simModalQuarterlyReturn">Tutup buku tahunan</span>
-            </div>
-            <div class="p-2.5 bg-white/90 rounded-xl border border-amber-100/90 shadow-2xs space-y-0.5">
-              <span class="text-[10px] text-slate-500 block">Skenario Optimal (25%):</span>
-              <span class="font-bold text-emerald-700 text-xs sm:text-sm font-mono block" id="simModal4YearReturn">Rp 3.750.000.000</span>
-              <span class="text-[10px] text-slate-400 block">Target imbal hasil optimal</span>
-            </div>
-          </div>
-
-          <div class="pt-2 border-t border-amber-200/70 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs">
-            <div>
-              <span class="text-amber-950 font-bold block">Total Diterima Pemodal:</span>
-              <span class="text-[10px] text-slate-500">100% Pokok Kembali Utuh + Dividen Hasil Putaran</span>
-            </div>
-            <span class="font-black text-blue-900 text-sm sm:text-base font-mono" id="simModalGrandTotal">Rp 18.000.000.000 – Rp 18.750.000.000</span>
-          </div>
-
-          <span id="simulatedReturn" class="hidden"></span>
+        <!-- Dual-View Tab Switcher: Ringkasan Net vs Transparansi Fee & Bagi Hasil -->
+        <div class="flex items-center gap-1.5 p-1 bg-slate-200/80 rounded-2xl border border-slate-300/80 text-xs font-bold">
+          <button type="button" id="investSimTabBtnNet" onclick="switchInvestSimTab('net')" class="flex-1 py-2 px-3 rounded-xl bg-white text-blue-900 shadow-2xs flex items-center justify-center gap-1.5 transition">
+            <i data-lucide="wallet" class="w-3.5 h-3.5 text-blue-600"></i>
+            <span>Ringkasan Net Pemodal (20%–25%)</span>
+          </button>
+          <button type="button" id="investSimTabBtnWaterfall" onclick="switchInvestSimTab('waterfall')" class="flex-1 py-2 px-3 rounded-xl text-slate-600 hover:text-slate-900 flex items-center justify-center gap-1.5 transition">
+            <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5 text-amber-600"></i>
+            <span>Transparansi Fee &amp; Bagi Hasil</span>
+          </button>
         </div>
 
-        <!-- Rincian Proyeksi Tenor Multi-Periode (12, 24, 36 Bulan) -->
-        <div class="bg-white border border-slate-200/90 rounded-2xl p-4 space-y-3 shadow-2xs">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
-              <i data-lucide="layers" class="w-3.5 h-3.5 text-blue-600"></i>
-              Rincian Proyeksi Tenor (12, 24, 36 Bulan)
-            </span>
-            <span class="text-[10px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full">
-              Akumulasi Dividen + Pokok
-            </span>
+        <!-- TAB 1: VIEW RINGKASAN NET PEMODAL -->
+        <div id="investSimViewNet" class="space-y-3">
+          <!-- Return Simulation Box (Periode 12 Bulan - Skenario 20% s/d 25%) -->
+          <div class="bg-gradient-to-br from-amber-50 to-orange-50/60 border border-amber-200/90 rounded-2xl p-4 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="calculator" class="w-3.5 h-3.5 text-amber-600"></i>
+                Simulasi Return Tahunan (Periode 12 Bulan)
+              </span>
+              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 font-mono" id="simModalRoiBadge">
+                20,0% – 25,0% p.a.
+              </span>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div class="p-2.5 bg-white/90 rounded-xl border border-amber-100/90 shadow-2xs space-y-0.5">
+                <span class="text-[10px] text-slate-500 block">Skenario Standar (20%):</span>
+                <span class="font-bold text-blue-900 text-xs sm:text-sm font-mono block" id="simModalAnnualReturn">Rp 3.000.000.000</span>
+                <span class="text-[10px] text-slate-400 block font-mono" id="simModalQuarterlyReturn">Tutup buku tahunan</span>
+              </div>
+              <div class="p-2.5 bg-white/90 rounded-xl border border-amber-100/90 shadow-2xs space-y-0.5">
+                <span class="text-[10px] text-slate-500 block">Skenario Optimal (25%):</span>
+                <span class="font-bold text-emerald-700 text-xs sm:text-sm font-mono block" id="simModal4YearReturn">Rp 3.750.000.000</span>
+                <span class="text-[10px] text-slate-400 block">Target imbal hasil optimal</span>
+              </div>
+            </div>
+
+            <div class="pt-2 border-t border-amber-200/70 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs">
+              <div>
+                <span class="text-amber-950 font-bold block">Total Diterima Pemodal:</span>
+                <span class="text-[10px] text-slate-500">100% Pokok Kembali Utuh + Dividen Hasil Putaran</span>
+              </div>
+              <span class="font-black text-blue-900 text-sm sm:text-base font-mono" id="simModalGrandTotal">Rp 18.000.000.000 – Rp 18.750.000.000</span>
+            </div>
+
+            <span id="simulatedReturn" class="hidden"></span>
           </div>
 
+          <!-- Rincian Proyeksi Tenor Multi-Periode (12, 24, 36 Bulan) -->
+          <div class="bg-white border border-slate-200/90 rounded-2xl p-4 space-y-3 shadow-2xs">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="layers" class="w-3.5 h-3.5 text-blue-600"></i>
+                Rincian Proyeksi Tenor (12, 24, 36 Bulan)
+              </span>
+              <span class="text-[10px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full">
+                Akumulasi Dividen + Pokok
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
+              <!-- 12 Bulan -->
+              <div class="p-3 rounded-xl bg-slate-50/80 border border-slate-200/90 space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 border border-blue-200 uppercase">12 Bulan (1 Th)</span>
+                  <span class="text-[10px] text-slate-500 font-medium">1 Tahun</span>
+                </div>
+                <div class="space-y-0.5">
+                  <span class="text-[10px] text-slate-500 block">Estimasi Profit:</span>
+                  <span class="font-bold text-slate-900 text-xs font-mono block" id="simModal12mProfit">Rp 3.000.000.000 – Rp 3.750.000.000</span>
+                  <span class="text-[10px] text-emerald-700 font-semibold block" id="simModal12mRoi">20% – 25% p.a.</span>
+                </div>
+                <div class="pt-1.5 border-t border-slate-200">
+                  <span class="text-[10px] text-slate-500 block">Total Diterima (Pokok + Profit):</span>
+                  <span class="font-bold text-blue-900 text-xs font-mono block" id="simModal12mTotal">Rp 18.000.000.000 – Rp 18.750.000.000</span>
+                </div>
+                <span class="text-[9px] text-slate-400 block leading-tight">*100% Pokok kembali di akhir tenor</span>
+              </div>
+
+              <!-- 24 Bulan -->
+              <div class="p-3 rounded-xl bg-slate-50/80 border border-slate-200/90 space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-700 border border-indigo-200 uppercase">24 Bulan (2 Th)</span>
+                  <span class="text-[10px] text-slate-500 font-medium">2 Tahun</span>
+                </div>
+                <div class="space-y-0.5">
+                  <span class="text-[10px] text-slate-500 block">Akumulasi Profit:</span>
+                  <span class="font-bold text-slate-900 text-xs font-mono block" id="simModal24mProfit">Rp 7.500.000.000 – Rp 9.000.000.000</span>
+                  <span class="text-[10px] text-indigo-700 font-semibold block" id="simModal24mRoi">25% – 30% p.a. (Akumulasi 50% – 60%)</span>
+                </div>
+                <div class="pt-1.5 border-t border-slate-200">
+                  <span class="text-[10px] text-slate-500 block">Total Diterima (Pokok + Profit):</span>
+                  <span class="font-bold text-indigo-900 text-xs font-mono block" id="simModal24mTotal">Rp 22.500.000.000 – Rp 24.000.000.000</span>
+                </div>
+                <span class="text-[9px] text-slate-400 block leading-tight">*100% Pokok kembali di akhir tenor</span>
+              </div>
+
+              <!-- 36 Bulan -->
+              <div class="p-3 rounded-xl bg-gradient-to-br from-amber-50 to-orange-50/60 border border-amber-200 space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 border border-amber-300 uppercase">36 Bulan (3 Th)</span>
+                  <span class="text-[10px] text-amber-800 font-medium">3 Tahun</span>
+                </div>
+                <div class="space-y-0.5">
+                  <span class="text-[10px] text-amber-900 block">Akumulasi Profit:</span>
+                  <span class="font-bold text-emerald-700 text-xs font-mono block" id="simModal36mProfit">Rp 13.500.000.000 – Rp 15.750.000.000</span>
+                  <span class="text-[10px] text-emerald-800 font-semibold block" id="simModal36mRoi">30% – 35% p.a. (Akumulasi 90% – 105%)</span>
+                </div>
+                <div class="pt-1.5 border-t border-amber-200">
+                  <span class="text-[10px] text-amber-900 block font-medium">Total Diterima (Pokok + Profit):</span>
+                  <span class="font-black text-amber-950 text-xs font-mono block" id="simModal36mTotal">Rp 28.500.000.000 – Rp 30.750.000.000</span>
+                </div>
+                <span class="text-[9px] text-amber-800/80 block leading-tight">*100% Pokok kembali di akhir tenor</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: VIEW TRANSPARANSI MANAGEMENT FEE & WATERFALL BAGI HASIL -->
+        <div id="investSimViewWaterfall" class="space-y-3.5 hidden">
+          <!-- Selector Porsi Bagi Hasil -->
+          <div class="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2.5">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+              <div>
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Skema Pembagian Hasil (Profit Sharing)</span>
+                <strong class="text-xs font-bold text-slate-900">Pilih Porsi Bagi Hasil Bersih (Setelah Management Fee 5%):</strong>
+              </div>
+              <span class="text-[10px] font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200 self-start sm:self-auto">
+                Kemitraan Terstruktur
+              </span>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2">
+              <button type="button" id="investSplitBtn-0" onclick="setInvestProfitSplit(1.0, 0)" class="py-2.5 px-2 rounded-xl border-2 border-blue-900 bg-blue-50/70 text-blue-950 font-bold text-xs transition shadow-2xs text-center flex flex-col items-center justify-center">
+                <span class="text-xs font-black">100% Investor</span>
+                <span class="text-[10px] text-emerald-700 font-semibold mt-0.5">Net 20% – 25% (Standar MGI)</span>
+              </button>
+              <button type="button" id="investSplitBtn-1" onclick="setInvestProfitSplit(0.80, 1)" class="py-2.5 px-2 rounded-xl border border-slate-200 bg-white text-slate-700 hover:text-slate-900 font-semibold text-xs transition text-center flex flex-col items-center justify-center">
+                <span class="text-xs font-black">80% : 20%</span>
+                <span class="text-[10px] text-slate-500 mt-0.5">Net 16% – 20% (Prioritas)</span>
+              </button>
+              <button type="button" id="investSplitBtn-2" onclick="setInvestProfitSplit(0.75, 2)" class="py-2.5 px-2 rounded-xl border border-slate-200 bg-white text-slate-700 hover:text-slate-900 font-semibold text-xs transition text-center flex flex-col items-center justify-center">
+                <span class="text-xs font-black">75% : 25%</span>
+                <span class="text-[10px] text-slate-500 mt-0.5">Net 15% – 18,75% (Konsorsium)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 3 Key Metric Cards -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
-            <!-- 12 Bulan -->
-            <div class="p-3 rounded-xl bg-slate-50/80 border border-slate-200/90 space-y-1.5">
-              <div class="flex items-center justify-between">
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 border border-blue-200 uppercase">12 Bulan (1 Th)</span>
-                <span class="text-[10px] text-slate-500 font-medium">1 Tahun</span>
+            <!-- Gross Return Card -->
+            <div class="p-3 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-1">
+              <span class="text-[10px] text-slate-500 font-medium block">Gross Imbal Hasil Operasional:</span>
+              <span class="text-xs sm:text-sm font-black text-slate-900 font-mono block" id="investWfGrossProfit">Rp 3.750.000.000 – Rp 4.500.000.000</span>
+              <div class="flex items-center justify-between pt-1 border-t border-slate-100 text-[10px]">
+                <span class="text-slate-400">Yield Kotor Proyek:</span>
+                <span class="font-bold text-slate-700" id="investWfGrossRate">25,00% – 30,00% p.a.</span>
               </div>
-              <div class="space-y-0.5">
-                <span class="text-[10px] text-slate-500 block">Estimasi Profit:</span>
-                <span class="font-bold text-slate-900 text-xs font-mono block" id="simModal12mProfit">Rp 3.000.000.000 – Rp 3.750.000.000</span>
-                <span class="text-[10px] text-emerald-700 font-semibold block" id="simModal12mRoi">20% – 25% p.a.</span>
-              </div>
-              <div class="pt-1.5 border-t border-slate-200">
-                <span class="text-[10px] text-slate-500 block">Total Diterima (Pokok + Profit):</span>
-                <span class="font-bold text-blue-900 text-xs font-mono block" id="simModal12mTotal">Rp 18.000.000.000 – Rp 18.750.000.000</span>
-              </div>
-              <span class="text-[9px] text-slate-400 block leading-tight">*100% Pokok kembali di akhir tenor</span>
             </div>
 
-            <!-- 24 Bulan -->
-            <div class="p-3 rounded-xl bg-slate-50/80 border border-slate-200/90 space-y-1.5">
-              <div class="flex items-center justify-between">
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-700 border border-indigo-200 uppercase">24 Bulan (2 Th)</span>
-                <span class="text-[10px] text-slate-500 font-medium">2 Tahun</span>
+            <!-- Management Fee Card -->
+            <div class="p-3 rounded-2xl bg-amber-50/60 border border-amber-200 shadow-2xs space-y-1">
+              <div class="flex items-center justify-between text-[10px]">
+                <span class="text-amber-900 font-bold block">Management Fee MGI:</span>
+                <span class="font-bold px-2 py-0.5 rounded-full bg-amber-200/80 text-amber-950 font-mono" id="investWfMgmtFeeRate">5,00% p.a.</span>
               </div>
-              <div class="space-y-0.5">
-                <span class="text-[10px] text-slate-500 block">Akumulasi Profit:</span>
-                <span class="font-bold text-slate-900 text-xs font-mono block" id="simModal24mProfit">Rp 7.500.000.000 – Rp 9.000.000.000</span>
-                <span class="text-[10px] text-indigo-700 font-semibold block" id="simModal24mRoi">25% – 30% p.a. (Akumulasi 50% – 60%)</span>
+              <span class="text-xs sm:text-sm font-black text-amber-950 font-mono block" id="investWfMgmtFee">Rp 750.000.000</span>
+              <div class="pt-1 border-t border-amber-200/60 text-[10px] text-amber-800/90 leading-tight">
+                Legal notaris, bea cukai MSI &amp; QC unit MIU
               </div>
-              <div class="pt-1.5 border-t border-slate-200">
-                <span class="text-[10px] text-slate-500 block">Total Diterima (Pokok + Profit):</span>
-                <span class="font-bold text-indigo-900 text-xs font-mono block" id="simModal24mTotal">Rp 22.500.000.000 – Rp 24.000.000.000</span>
-              </div>
-              <span class="text-[9px] text-slate-400 block leading-tight">*100% Pokok kembali di akhir tenor</span>
             </div>
 
-            <!-- 36 Bulan -->
-            <div class="p-3 rounded-xl bg-gradient-to-br from-amber-50 to-orange-50/60 border border-amber-200 space-y-1.5">
-              <div class="flex items-center justify-between">
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 border border-amber-300 uppercase">36 Bulan (3 Th)</span>
-                <span class="text-[10px] text-amber-800 font-medium">3 Tahun</span>
+            <!-- Net Imbal Hasil Pemodal -->
+            <div class="p-3 rounded-2xl bg-emerald-50/70 border border-emerald-300 shadow-2xs space-y-1">
+              <div class="flex items-center justify-between text-[10px]">
+                <span class="text-emerald-900 font-bold block">Net Imbal Hasil Pemodal:</span>
+                <span class="font-bold px-2 py-0.5 rounded-full bg-emerald-200/90 text-emerald-950 font-mono" id="investWfNetInvestorRoi">20,00% – 25,00% p.a.</span>
               </div>
-              <div class="space-y-0.5">
-                <span class="text-[10px] text-amber-900 block">Akumulasi Profit:</span>
-                <span class="font-bold text-emerald-700 text-xs font-mono block" id="simModal36mProfit">Rp 13.500.000.000 – Rp 15.750.000.000</span>
-                <span class="text-[10px] text-emerald-800 font-semibold block" id="simModal36mRoi">30% – 35% p.a. (Akumulasi 90% – 105%)</span>
+              <span class="text-xs sm:text-sm font-black text-emerald-800 font-mono block" id="investWfNetInvestorProfit">Rp 3.000.000.000 – Rp 3.750.000.000</span>
+              <div class="pt-1 border-t border-emerald-200 text-[10px] text-emerald-700 font-semibold leading-tight">
+                Bersih diterima pemodal (Tutup buku 12 bln)
               </div>
-              <div class="pt-1.5 border-t border-amber-200">
-                <span class="text-[10px] text-amber-900 block font-medium">Total Diterima (Pokok + Profit):</span>
-                <span class="font-black text-amber-950 text-xs font-mono block" id="simModal36mTotal">Rp 28.500.000.000 – Rp 30.750.000.000</span>
-              </div>
-              <span class="text-[9px] text-amber-800/80 block leading-tight">*100% Pokok kembali di akhir tenor</span>
+            </div>
+          </div>
+
+          <!-- Tabel Waterfall Aliran Finansial -->
+          <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-2xs">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold">
+                  <th class="py-2 px-3">Komponen Finansial Simulasi</th>
+                  <th class="py-2 px-3 text-center">Persentase</th>
+                  <th class="py-2 px-3 text-right">Nominal Skenario 12 Bulan (IDR)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-slate-800 text-[11px]">
+                <tr class="hover:bg-slate-50/50">
+                  <td class="py-2 px-3 font-semibold text-slate-900">
+                    <span class="inline-block w-2 h-2 rounded-full bg-blue-600 mr-1.5"></span>
+                    Modal Pokok Penempatan Investasi
+                  </td>
+                  <td class="py-2 px-3 text-center text-slate-500 font-mono">100%</td>
+                  <td class="py-2 px-3 text-right font-mono font-bold text-slate-900" id="investWfTableCapital">Rp 15.000.000.000</td>
+                </tr>
+                <tr class="hover:bg-slate-50/50">
+                  <td class="py-2 px-3 font-semibold text-slate-900">
+                    <span class="text-emerald-600 font-bold mr-1">(+)</span>
+                    Gross Imbal Hasil Proyek (Sebelum Fee)
+                  </td>
+                  <td class="py-2 px-3 text-center text-slate-600 font-mono">25,00% – 30,00%</td>
+                  <td class="py-2 px-3 text-right font-mono font-bold text-slate-900" id="investWfTableGross">Rp 3.750.000.000 – Rp 4.500.000.000</td>
+                </tr>
+                <tr class="hover:bg-slate-50/50 bg-amber-50/30">
+                  <td class="py-2 px-3 font-semibold text-amber-950">
+                    <span class="text-amber-700 font-bold mr-1">(-)</span>
+                    Tarif Management Fee MGI (Operasional &amp; Ekosistem)
+                  </td>
+                  <td class="py-2 px-3 text-center text-amber-900 font-mono font-bold">5,00% p.a.</td>
+                  <td class="py-2 px-3 text-right font-mono font-bold text-amber-900" id="investWfTableMgmtFee">- Rp 750.000.000</td>
+                </tr>
+                <tr class="hover:bg-slate-50/50 bg-slate-50/80 font-semibold">
+                  <td class="py-2 px-3 text-slate-900">
+                    <span class="text-blue-600 font-bold mr-1">(=)</span>
+                    Net Profit Pool (Dasar Alokasi Bagi Hasil)
+                  </td>
+                  <td class="py-2 px-3 text-center text-slate-700 font-mono">20,00% – 25,00%</td>
+                  <td class="py-2 px-3 text-right font-mono font-bold text-blue-900" id="investWfTableNetPool">Rp 3.000.000.000 – Rp 3.750.000.000</td>
+                </tr>
+                <tr class="hover:bg-slate-50/50">
+                  <td class="py-2 px-3 font-semibold text-emerald-950 pl-5" id="investWfTableInvestorShareLabel">
+                    ↳ Porsi Dividen Bersih Pemodal (100%):
+                  </td>
+                  <td class="py-2 px-3 text-center text-emerald-800 font-mono font-bold" id="investWfTableInvestorPct">20,00% – 25,00%</td>
+                  <td class="py-2 px-3 text-right font-mono font-bold text-emerald-700" id="investWfTableInvestorShare">Rp 3.000.000.000 – Rp 3.750.000.000</td>
+                </tr>
+                <tr class="hover:bg-slate-50/50 text-slate-500">
+                  <td class="py-2 px-3 pl-5" id="investWfTableMgiShareLabel">
+                    ↳ Porsi Bagi Hasil MGI (0%):
+                  </td>
+                  <td class="py-2 px-3 text-center font-mono" id="investWfTableMgiPct">0,00%</td>
+                  <td class="py-2 px-3 text-right font-mono" id="investWfTableMgiShare">Rp 0</td>
+                </tr>
+                <tr class="hover:bg-slate-50/50 text-slate-500 text-[10px]">
+                  <td class="py-1.5 px-3 pl-5 italic">
+                    Total Penerimaan MGI (Management Fee + Bagi Hasil MGI):
+                  </td>
+                  <td class="py-1.5 px-3 text-center font-mono">-</td>
+                  <td class="py-1.5 px-3 text-right font-mono font-semibold" id="investWfTableMgiTotal">Rp 750.000.000</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr class="bg-gradient-to-r from-emerald-50 to-blue-50 border-t-2 border-emerald-300">
+                  <td colspan="2" class="py-2.5 px-3 font-black text-slate-900 text-xs">
+                    TOTAL DITERIMA PEMODAL (POKOK + HASIL BERSIH):
+                  </td>
+                  <td class="py-2.5 px-3 text-right font-mono font-black text-emerald-900 text-sm" id="investWfTableGrandTotal">
+                    Rp 18.000.000.000 – Rp 18.750.000.000
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <!-- Catatan Transparansi Finansial -->
+          <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-600 text-[10px] leading-relaxed flex items-start gap-2">
+            <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+            <div>
+              <strong class="font-bold text-slate-800">Transparansi Finansial MGI:</strong>
+              Tarif Management Fee 5,00% p.a. dibebankan dari hasil kotor perputaran operasional armada, tidak memotong modal pokok awal investor. Modal pokok tetap dikembalikan 100% utuh pada saat jatuh tempo kontrak.
             </div>
           </div>
         </div>
@@ -4882,128 +5052,298 @@
               ${simPackageButtonsHtml}
             </div>
 
-            <!-- 2-Scenario Cards (Sesuai Brosur Resmi Halaman 2 & 4) -->
-            <div class="space-y-2">
-              <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">Simulasi Skenario Perputaran Modal dalam 12 Bulan:</span>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                <!-- Skenario 2x Putaran -->
-                <div class="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
-                  <div class="flex justify-between items-center text-[10px] font-bold text-slate-600">
-                    <span class="tracking-wider uppercase flex items-center gap-1"><i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-600"></i> SKENARIO 2x PERPUTARAN</span>
-                    <span class="text-blue-800 bg-blue-50 px-2.5 py-0.5 rounded-full font-bold text-xs" id="modalSim2xRoiBadge">20,00% p.a.</span>
+            <!-- Dual-View Tab Switcher: Ringkasan Net vs Transparansi Fee & Bagi Hasil -->
+            <div class="flex items-center gap-1.5 p-1 bg-slate-200/80 rounded-2xl border border-slate-300/80 text-xs font-bold">
+              <button type="button" id="detailSimTabBtnNet" onclick="switchDetailSimTab('net')" class="flex-1 py-2 px-3 rounded-xl bg-white text-blue-900 shadow-2xs flex items-center justify-center gap-1.5 transition">
+                <i data-lucide="wallet" class="w-3.5 h-3.5 text-blue-600"></i>
+                <span>Ringkasan Net Pemodal (20%–25%)</span>
+              </button>
+              <button type="button" id="detailSimTabBtnWaterfall" onclick="switchDetailSimTab('waterfall')" class="flex-1 py-2 px-3 rounded-xl text-slate-600 hover:text-slate-900 flex items-center justify-center gap-1.5 transition">
+                <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5 text-amber-600"></i>
+                <span>Transparansi Fee &amp; Bagi Hasil</span>
+              </button>
+            </div>
+
+            <!-- TAB 1: VIEW RINGKASAN NET PEMODAL -->
+            <div id="detailSimViewNet" class="space-y-4">
+              <!-- 2-Scenario Cards (Sesuai Brosur Resmi Halaman 2 & 4) -->
+              <div class="space-y-2">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">Simulasi Skenario Perputaran Modal dalam 12 Bulan:</span>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <!-- Skenario 2x Putaran -->
+                  <div class="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
+                    <div class="flex justify-between items-center text-[10px] font-bold text-slate-600">
+                      <span class="tracking-wider uppercase flex items-center gap-1"><i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-600"></i> SKENARIO 2x PERPUTARAN</span>
+                      <span class="text-blue-800 bg-blue-50 px-2.5 py-0.5 rounded-full font-bold text-xs" id="modalSim2xRoiBadge">20,00% p.a.</span>
+                    </div>
+                    <div class="space-y-0.5">
+                      <span class="text-[10px] text-slate-400 block font-medium">Estimasi Profit Bersih Tahunan:</span>
+                      <span class="text-base sm:text-lg font-black text-slate-900 block" id="modalSim2xProfit">Rp 3.000.000.000</span>
+                    </div>
+                    <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
+                      <span class="text-slate-500 font-medium">Total Diterima (Pokok + Profit):</span>
+                      <strong class="text-blue-900 font-bold" id="modalSim2xTotal">Rp 18.000.000.000</strong>
+                    </div>
+                    <span class="text-[10px] text-slate-400 block">*100% Modal Pokok kembali utuh saat tutup buku laporan tahunan.</span>
                   </div>
-                  <div class="space-y-0.5">
-                    <span class="text-[10px] text-slate-400 block font-medium">Estimasi Profit Bersih Tahunan:</span>
-                    <span class="text-base sm:text-lg font-black text-slate-900 block" id="modalSim2xProfit">Rp 3.000.000.000</span>
+
+                  <!-- Skenario 3x Putaran -->
+                  <div class="p-4 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50/50 border border-amber-200 shadow-2xs space-y-2">
+                    <div class="flex justify-between items-center text-[10px] font-bold text-amber-900">
+                      <span class="tracking-wider uppercase flex items-center gap-1"><i data-lucide="zap" class="w-3.5 h-3.5 text-amber-600"></i> SKENARIO 3x PERPUTARAN (OPTIMAL)</span>
+                      <span class="text-emerald-800 bg-emerald-100/90 px-2.5 py-0.5 rounded-full font-bold text-xs" id="modalSim3xRoiBadge">25,00% p.a.</span>
+                    </div>
+                    <div class="space-y-0.5">
+                      <span class="text-[10px] text-amber-800 block font-medium">Estimasi Profit Bersih Tahunan:</span>
+                      <span class="text-base sm:text-lg font-black text-emerald-700 block" id="modalSim3xProfit">Rp 3.750.000.000</span>
+                    </div>
+                    <div class="pt-2 border-t border-amber-200/60 flex items-center justify-between text-[11px]">
+                      <span class="text-amber-900 font-medium">Total Diterima (Pokok + Profit):</span>
+                      <strong class="text-emerald-900 font-bold" id="modalSim3xTotal">Rp 18.750.000.000</strong>
+                    </div>
+                    <span class="text-[10px] text-amber-800/80 block">*100% Modal Pokok kembali utuh saat tutup buku laporan tahunan.</span>
                   </div>
-                  <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
-                    <span class="text-slate-500 font-medium">Total Diterima (Pokok + Profit):</span>
-                    <strong class="text-blue-900 font-bold" id="modalSim2xTotal">Rp 18.000.000.000</strong>
-                  </div>
-                  <span class="text-[10px] text-slate-400 block">*100% Modal Pokok kembali utuh saat tutup buku laporan tahunan.</span>
+                </div>
+              </div>
+
+              <!-- Summary Breakdown Badges -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-2 border-t border-slate-200 text-xs">
+                <div class="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+                  <span class="text-[10px] text-slate-500 font-medium block">Modal Pokok Investasi:</span>
+                  <span class="text-sm font-bold text-slate-900 mt-0.5 block" id="modalSimSumCapital">Rp 15.000.000.000</span>
+                  <span class="text-[10px] text-slate-400">100% kembali utuh di akhir tenor 12 bulan</span>
+                </div>
+                <div class="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+                  <span class="text-[10px] text-slate-500 font-medium block">Rentang Profit Tahunan (1 Tahun):</span>
+                  <span class="text-sm font-bold text-emerald-700 mt-0.5 block" id="modalSimSumRange">Rp 3.000.000.000 – Rp 3.750.000.000</span>
+                  <span class="text-[10px] text-emerald-700 font-bold">Dibagikan saat tutup buku laporan tahunan</span>
+                </div>
+                <div class="p-3 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100/60 border border-amber-300/80 shadow-2xs">
+                  <span class="text-[10px] text-amber-900 block font-bold">Total Diterima Pemodal (Pokok + Profit):</span>
+                  <span class="text-sm font-black text-amber-950 mt-0.5 block" id="modalSimSumGrand">Rp 18.000.000.000 – Rp 18.750.000.000</span>
+                  <span class="text-[10px] text-amber-800/90">Pencairan penuh di akhir periode 12 bulan</span>
+                </div>
+              </div>
+
+              <!-- Detail Rincian Tenor Multi-Periode (12, 24, 36 Bulan) -->
+              <div class="pt-3 border-t border-slate-200 space-y-2.5">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                    <i data-lucide="layers" class="w-3.5 h-3.5 text-blue-600"></i>
+                    Rincian Simulasi Berdasarkan Tenor Investasi (12, 24, 36 Bulan):
+                  </span>
+                  <span class="text-[10px] text-slate-500 font-medium">Perhitungan Akumulasi Skenario Putaran</span>
                 </div>
 
-                <!-- Skenario 3x Putaran -->
-                <div class="p-4 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50/50 border border-amber-200 shadow-2xs space-y-2">
-                  <div class="flex justify-between items-center text-[10px] font-bold text-amber-900">
-                    <span class="tracking-wider uppercase flex items-center gap-1"><i data-lucide="zap" class="w-3.5 h-3.5 text-amber-600"></i> SKENARIO 3x PERPUTARAN (OPTIMAL)</span>
-                    <span class="text-emerald-800 bg-emerald-100/90 px-2.5 py-0.5 rounded-full font-bold text-xs" id="modalSim3xRoiBadge">25,00% p.a.</span>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                  <!-- 12 Bulan -->
+                  <div class="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
+                    <div class="flex justify-between items-center text-[10px]">
+                      <span class="font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">TENOR 12 BULAN</span>
+                      <span class="text-slate-500 font-semibold">2–3x Putaran</span>
+                    </div>
+                    <div class="space-y-0.5">
+                      <span class="text-[10px] text-slate-400 block font-medium">Estimasi Profit:</span>
+                      <span class="text-xs sm:text-sm font-bold text-slate-900 font-mono block" id="modalSimDetail12mProfit">Rp 3.000.000.000 – Rp 3.750.000.000</span>
+                      <span class="text-[10px] text-emerald-700 font-semibold block" id="modalSimDetail12mRoi">20% – 25% p.a.</span>
+                    </div>
+                    <div class="pt-2 border-t border-slate-100 space-y-0.5">
+                      <span class="text-[10px] text-slate-500 font-medium block">Total Diterima (Pokok + Profit):</span>
+                      <strong class="text-xs sm:text-sm font-black text-blue-900 font-mono block" id="modalSimDetail12mTotal">Rp 18.000.000.000 – Rp 18.750.000.000</strong>
+                    </div>
+                    <span class="text-[10px] text-slate-400 block leading-tight">*100% modal pokok kembali di akhir tenor 12 bulan.</span>
                   </div>
-                  <div class="space-y-0.5">
-                    <span class="text-[10px] text-amber-800 block font-medium">Estimasi Profit Bersih Tahunan:</span>
-                    <span class="text-base sm:text-lg font-black text-emerald-700 block" id="modalSim3xProfit">Rp 3.750.000.000</span>
+
+                  <!-- 24 Bulan -->
+                  <div class="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
+                    <div class="flex justify-between items-center text-[10px]">
+                      <span class="font-bold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">TENOR 24 BULAN</span>
+                      <span class="text-slate-500 font-semibold">4–6x Putaran</span>
+                    </div>
+                    <div class="space-y-0.5">
+                      <span class="text-[10px] text-slate-400 block font-medium">Akumulasi Profit (2 Tahun):</span>
+                      <span class="text-xs sm:text-sm font-bold text-slate-900 font-mono block" id="modalSimDetail24mProfit">Rp 7.500.000.000 – Rp 9.000.000.000</span>
+                      <span class="text-[10px] text-indigo-700 font-semibold block" id="modalSimDetail24mRoi">25% – 30% p.a. (Akumulasi 50% – 60%)</span>
+                    </div>
+                    <div class="pt-2 border-t border-slate-100 space-y-0.5">
+                      <span class="text-[10px] text-slate-500 font-medium block">Total Diterima (Pokok + Profit):</span>
+                      <strong class="text-xs sm:text-sm font-black text-indigo-900 font-mono block" id="modalSimDetail24mTotal">Rp 22.500.000.000 – Rp 24.000.000.000</strong>
+                    </div>
+                    <span class="text-[10px] text-slate-400 block leading-tight">*100% modal pokok kembali di akhir tenor 24 bulan.</span>
                   </div>
-                  <div class="pt-2 border-t border-amber-200/60 flex items-center justify-between text-[11px]">
-                    <span class="text-amber-900 font-medium">Total Diterima (Pokok + Profit):</span>
-                    <strong class="text-emerald-900 font-bold" id="modalSim3xTotal">Rp 18.750.000.000</strong>
+
+                  <!-- 36 Bulan -->
+                  <div class="p-3.5 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50/50 border border-amber-200 shadow-2xs space-y-2">
+                    <div class="flex justify-between items-center text-[10px]">
+                      <span class="font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">TENOR 36 BULAN</span>
+                      <span class="text-amber-800 font-semibold">6–9x Putaran</span>
+                    </div>
+                    <div class="space-y-0.5">
+                      <span class="text-[10px] text-amber-800/80 block font-medium">Akumulasi Profit (3 Tahun):</span>
+                      <span class="text-xs sm:text-sm font-bold text-emerald-700 font-mono block" id="modalSimDetail36mProfit">Rp 13.500.000.000 – Rp 15.750.000.000</span>
+                      <span class="text-[10px] text-emerald-800 font-semibold block" id="modalSimDetail36mRoi">30% – 35% p.a. (Akumulasi 90% – 105%)</span>
+                    </div>
+                    <div class="pt-2 border-t border-amber-200/60 space-y-0.5">
+                      <span class="text-[10px] text-amber-900 font-medium block">Total Diterima (Pokok + Profit):</span>
+                      <strong class="text-xs sm:text-sm font-black text-amber-950 font-mono block" id="modalSimDetail36mTotal">Rp 28.500.000.000 – Rp 30.750.000.000</strong>
+                    </div>
+                    <span class="text-[10px] text-amber-800/80 block leading-tight">*100% modal pokok kembali di akhir tenor 36 bulan.</span>
                   </div>
-                  <span class="text-[10px] text-amber-800/80 block">*100% Modal Pokok kembali utuh saat tutup buku laporan tahunan.</span>
                 </div>
               </div>
             </div>
 
-            <!-- Summary Breakdown Badges -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-2 border-t border-slate-200 text-xs">
-              <div class="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
-                <span class="text-[10px] text-slate-500 font-medium block">Modal Pokok Investasi:</span>
-                <span class="text-sm font-bold text-slate-900 mt-0.5 block" id="modalSimSumCapital">Rp 15.000.000.000</span>
-                <span class="text-[10px] text-slate-400">100% kembali utuh di akhir tenor 12 bulan</span>
-              </div>
-              <div class="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
-                <span class="text-[10px] text-slate-500 font-medium block">Rentang Profit Tahunan (1 Tahun):</span>
-                <span class="text-sm font-bold text-emerald-700 mt-0.5 block" id="modalSimSumRange">Rp 3.000.000.000 – Rp 3.750.000.000</span>
-                <span class="text-[10px] text-emerald-700 font-bold">Dibagikan saat tutup buku laporan tahunan</span>
-              </div>
-              <div class="p-3 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100/60 border border-amber-300/80 shadow-2xs">
-                <span class="text-[10px] text-amber-900 block font-bold">Total Diterima Pemodal (Pokok + Profit):</span>
-                <span class="text-sm font-black text-amber-950 mt-0.5 block" id="modalSimSumGrand">Rp 18.000.000.000 – Rp 18.750.000.000</span>
-                <span class="text-[10px] text-amber-800/90">Pencairan penuh di akhir periode 12 bulan</span>
-              </div>
-            </div>
-
-            <!-- Detail Rincian Tenor Multi-Periode (12, 24, 36 Bulan) -->
-            <div class="pt-3 border-t border-slate-200 space-y-2.5">
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                  <i data-lucide="layers" class="w-3.5 h-3.5 text-blue-600"></i>
-                  Rincian Simulasi Berdasarkan Tenor Investasi (12, 24, 36 Bulan):
-                </span>
-                <span class="text-[10px] text-slate-500 font-medium">Perhitungan Akumulasi Skenario Putaran</span>
-              </div>
-
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-                <!-- 12 Bulan -->
-                <div class="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
-                  <div class="flex justify-between items-center text-[10px]">
-                    <span class="font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">TENOR 12 BULAN</span>
-                    <span class="text-slate-500 font-semibold">2–3x Putaran</span>
+            <!-- TAB 2: VIEW TRANSPARANSI MANAGEMENT FEE & WATERFALL BAGI HASIL -->
+            <div id="detailSimViewWaterfall" class="space-y-4 hidden">
+              <!-- Selector Porsi Bagi Hasil -->
+              <div class="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2.5">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                  <div>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Skema Pembagian Hasil (Profit Sharing)</span>
+                    <strong class="text-xs font-bold text-slate-900">Pilih Porsi Bagi Hasil Bersih (Setelah Management Fee 5%):</strong>
                   </div>
-                  <div class="space-y-0.5">
-                    <span class="text-[10px] text-slate-400 block font-medium">Estimasi Profit:</span>
-                    <span class="text-xs sm:text-sm font-bold text-slate-900 font-mono block" id="modalSimDetail12mProfit">Rp 3.000.000.000 – Rp 3.750.000.000</span>
-                    <span class="text-[10px] text-emerald-700 font-semibold block" id="modalSimDetail12mRoi">20% – 25% p.a.</span>
-                  </div>
-                  <div class="pt-2 border-t border-slate-100 space-y-0.5">
-                    <span class="text-[10px] text-slate-500 font-medium block">Total Diterima (Pokok + Profit):</span>
-                    <strong class="text-xs sm:text-sm font-black text-blue-900 font-mono block" id="modalSimDetail12mTotal">Rp 18.000.000.000 – Rp 18.750.000.000</strong>
-                  </div>
-                  <span class="text-[10px] text-slate-400 block leading-tight">*100% modal pokok kembali di akhir tenor 12 bulan.</span>
+                  <span class="text-[10px] font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200 self-start sm:self-auto">
+                    Kemitraan Terstruktur
+                  </span>
                 </div>
 
-                <!-- 24 Bulan -->
-                <div class="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
-                  <div class="flex justify-between items-center text-[10px]">
-                    <span class="font-bold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">TENOR 24 BULAN</span>
-                    <span class="text-slate-500 font-semibold">4–6x Putaran</span>
+                <div class="grid grid-cols-3 gap-2">
+                  <button type="button" id="detailSplitBtn-0" onclick="setDetailProfitSplit(1.0, 0)" class="py-2.5 px-2 rounded-xl border-2 border-blue-900 bg-blue-50/70 text-blue-950 font-bold text-xs transition shadow-2xs text-center flex flex-col items-center justify-center">
+                    <span class="text-xs font-black">100% Investor</span>
+                    <span class="text-[10px] text-emerald-700 font-semibold mt-0.5">Net 20% – 25% (Standar MGI)</span>
+                  </button>
+                  <button type="button" id="detailSplitBtn-1" onclick="setDetailProfitSplit(0.80, 1)" class="py-2.5 px-2 rounded-xl border border-slate-200 bg-white text-slate-700 hover:text-slate-900 font-semibold text-xs transition text-center flex flex-col items-center justify-center">
+                    <span class="text-xs font-black">80% : 20%</span>
+                    <span class="text-[10px] text-slate-500 mt-0.5">Net 16% – 20% (Prioritas)</span>
+                  </button>
+                  <button type="button" id="detailSplitBtn-2" onclick="setDetailProfitSplit(0.75, 2)" class="py-2.5 px-2 rounded-xl border border-slate-200 bg-white text-slate-700 hover:text-slate-900 font-semibold text-xs transition text-center flex flex-col items-center justify-center">
+                    <span class="text-xs font-black">75% : 25%</span>
+                    <span class="text-[10px] text-slate-500 mt-0.5">Net 15% – 18,75% (Konsorsium)</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 3 Key Metric Cards -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
+                <!-- Gross Return Card -->
+                <div class="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-1">
+                  <span class="text-[10px] text-slate-500 font-medium block">Gross Imbal Hasil Operasional:</span>
+                  <span class="text-sm sm:text-base font-black text-slate-900 font-mono block" id="detailWfGrossProfit">Rp 3.750.000.000 – Rp 4.500.000.000</span>
+                  <div class="flex items-center justify-between pt-1 border-t border-slate-100 text-[10px]">
+                    <span class="text-slate-400">Yield Kotor Proyek:</span>
+                    <span class="font-bold text-slate-700" id="detailWfGrossRate">25,00% – 30,00% p.a.</span>
                   </div>
-                  <div class="space-y-0.5">
-                    <span class="text-[10px] text-slate-400 block font-medium">Akumulasi Profit (2 Tahun):</span>
-                    <span class="text-xs sm:text-sm font-bold text-slate-900 font-mono block" id="modalSimDetail24mProfit">Rp 7.500.000.000 – Rp 9.000.000.000</span>
-                    <span class="text-[10px] text-indigo-700 font-semibold block" id="modalSimDetail24mRoi">25% – 30% p.a. (Akumulasi 50% – 60%)</span>
-                  </div>
-                  <div class="pt-2 border-t border-slate-100 space-y-0.5">
-                    <span class="text-[10px] text-slate-500 font-medium block">Total Diterima (Pokok + Profit):</span>
-                    <strong class="text-xs sm:text-sm font-black text-indigo-900 font-mono block" id="modalSimDetail24mTotal">Rp 22.500.000.000 – Rp 24.000.000.000</strong>
-                  </div>
-                  <span class="text-[10px] text-slate-400 block leading-tight">*100% modal pokok kembali di akhir tenor 24 bulan.</span>
                 </div>
 
-                <!-- 36 Bulan -->
-                <div class="p-3.5 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50/50 border border-amber-200 shadow-2xs space-y-2">
-                  <div class="flex justify-between items-center text-[10px]">
-                    <span class="font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">TENOR 36 BULAN</span>
-                    <span class="text-amber-800 font-semibold">6–9x Putaran</span>
+                <!-- Management Fee Card -->
+                <div class="p-3.5 rounded-2xl bg-amber-50/60 border border-amber-200 shadow-2xs space-y-1">
+                  <div class="flex items-center justify-between text-[10px]">
+                    <span class="text-amber-900 font-bold block">Tarif Management Fee MGI:</span>
+                    <span class="font-bold px-2 py-0.5 rounded-full bg-amber-200/80 text-amber-950 font-mono" id="detailWfMgmtFeeRate">5,00% p.a.</span>
                   </div>
-                  <div class="space-y-0.5">
-                    <span class="text-[10px] text-amber-800/80 block font-medium">Akumulasi Profit (3 Tahun):</span>
-                    <span class="text-xs sm:text-sm font-bold text-emerald-700 font-mono block" id="modalSimDetail36mProfit">Rp 13.500.000.000 – Rp 15.750.000.000</span>
-                    <span class="text-[10px] text-emerald-800 font-semibold block" id="modalSimDetail36mRoi">30% – 35% p.a. (Akumulasi 90% – 105%)</span>
+                  <span class="text-sm sm:text-base font-black text-amber-950 font-mono block" id="detailWfMgmtFee">Rp 750.000.000</span>
+                  <div class="pt-1 border-t border-amber-200/60 text-[10px] text-amber-800/90 leading-tight">
+                    Legal notaris, bea cukai MSI, workshop MIU &amp; QC
                   </div>
-                  <div class="pt-2 border-t border-amber-200/60 space-y-0.5">
-                    <span class="text-[10px] text-amber-900 font-medium block">Total Diterima (Pokok + Profit):</span>
-                    <strong class="text-xs sm:text-sm font-black text-amber-950 font-mono block" id="modalSimDetail36mTotal">Rp 28.500.000.000 – Rp 30.750.000.000</strong>
+                </div>
+
+                <!-- Net Imbal Hasil Pemodal -->
+                <div class="p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-300 shadow-2xs space-y-1">
+                  <div class="flex items-center justify-between text-[10px]">
+                    <span class="text-emerald-900 font-bold block">Net Imbal Hasil Pemodal:</span>
+                    <span class="font-bold px-2 py-0.5 rounded-full bg-emerald-200/90 text-emerald-950 font-mono" id="detailWfNetInvestorRoi">20,00% – 25,00% p.a.</span>
                   </div>
-                  <span class="text-[10px] text-amber-800/80 block leading-tight">*100% modal pokok kembali di akhir tenor 36 bulan.</span>
+                  <span class="text-sm sm:text-base font-black text-emerald-800 font-mono block" id="detailWfNetInvestorProfit">Rp 3.000.000.000 – Rp 3.750.000.000</span>
+                  <div class="pt-1 border-t border-emerald-200 text-[10px] text-emerald-700 font-semibold leading-tight">
+                    Bersih diterima pemodal (Tutup buku 12 bulan)
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tabel Waterfall Transparansi Aliran Dana Finansial -->
+              <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-2xs">
+                <table class="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold">
+                      <th class="py-2.5 px-3">Komponen Finansial Simulasi</th>
+                      <th class="py-2.5 px-3 text-center">Persentase</th>
+                      <th class="py-2.5 px-3 text-right">Nominal Skenario 12 Bulan (IDR)</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100 text-slate-800">
+                    <tr class="hover:bg-slate-50/50">
+                      <td class="py-2.5 px-3 font-semibold text-slate-900">
+                        <span class="inline-block w-2 h-2 rounded-full bg-blue-600 mr-1.5"></span>
+                        Modal Pokok Penempatan Investasi
+                      </td>
+                      <td class="py-2.5 px-3 text-center text-slate-500 font-mono">100%</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-slate-900" id="detailWfTableCapital">Rp 15.000.000.000</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/50">
+                      <td class="py-2.5 px-3 font-semibold text-slate-900">
+                        <span class="text-emerald-600 font-bold mr-1">(+)</span>
+                        Gross Imbal Hasil Proyek (Sebelum Beban Pengelolaan)
+                      </td>
+                      <td class="py-2.5 px-3 text-center text-slate-600 font-mono">25,00% – 30,00%</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-slate-900" id="detailWfTableGross">Rp 3.750.000.000 – Rp 4.500.000.000</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/50 bg-amber-50/30">
+                      <td class="py-2.5 px-3 font-semibold text-amber-950">
+                        <span class="text-amber-700 font-bold mr-1">(-)</span>
+                        Tarif Management Fee MGI (Operasional, Legalitas &amp; Ekosistem)
+                      </td>
+                      <td class="py-2.5 px-3 text-center text-amber-900 font-mono font-bold">5,00% p.a.</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-amber-900" id="detailWfTableMgmtFee">- Rp 750.000.000</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/50 bg-slate-50/80 font-semibold">
+                      <td class="py-2.5 px-3 text-slate-900">
+                        <span class="text-blue-600 font-bold mr-1">(=)</span>
+                        Net Profit Pool (Dasar Alokasi Bagi Hasil)
+                      </td>
+                      <td class="py-2.5 px-3 text-center text-slate-700 font-mono">20,00% – 25,00%</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-blue-900" id="detailWfTableNetPool">Rp 3.000.000.000 – Rp 3.750.000.000</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/50">
+                      <td class="py-2.5 px-3 font-semibold text-emerald-950 pl-6" id="detailWfTableInvestorShareLabel">
+                        ↳ Porsi Dividen Bersih Pemodal (100%):
+                      </td>
+                      <td class="py-2.5 px-3 text-center text-emerald-800 font-mono font-bold" id="detailWfTableInvestorPct">20,00% – 25,00%</td>
+                      <td class="py-2.5 px-3 text-right font-mono font-bold text-emerald-700" id="detailWfTableInvestorShare">Rp 3.000.000.000 – Rp 3.750.000.000</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/50 text-slate-500">
+                      <td class="py-2.5 px-3 pl-6" id="detailWfTableMgiShareLabel">
+                        ↳ Porsi Bagi Hasil MGI (0%):
+                      </td>
+                      <td class="py-2.5 px-3 text-center font-mono" id="detailWfTableMgiPct">0,00%</td>
+                      <td class="py-2.5 px-3 text-right font-mono" id="detailWfTableMgiShare">Rp 0</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/50 text-slate-500 text-[11px]">
+                      <td class="py-2 px-3 pl-6 italic">
+                        Total Penerimaan MGI (Management Fee + Bagi Hasil MGI):
+                      </td>
+                      <td class="py-2 px-3 text-center font-mono">-</td>
+                      <td class="py-2 px-3 text-right font-mono font-semibold" id="detailWfTableMgiTotal">Rp 750.000.000</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr class="bg-gradient-to-r from-emerald-50 to-blue-50 border-t-2 border-emerald-300">
+                      <td colspan="2" class="py-3 px-3 font-black text-slate-900 text-xs sm:text-sm">
+                        TOTAL DITERIMA PEMODAL (POKOK + HASIL BERSIH):
+                      </td>
+                      <td class="py-3 px-3 text-right font-mono font-black text-emerald-900 text-sm sm:text-base" id="detailWfTableGrandTotal">
+                        Rp 18.000.000.000 – Rp 18.750.000.000
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+
+              <!-- Catatan Transparansi -->
+              <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-slate-600 text-[11px] leading-relaxed flex items-start gap-2.5">
+                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                <div>
+                  <strong class="font-bold text-slate-800">Transparansi Finansial MGI:</strong>
+                  Tarif Management Fee 5,00% p.a. dipotong dari hasil kotor perputaran armada tanpa memotong modal pokok investasi awal. Modal pokok dijamin kembali utuh 100% pada saat tutup buku laporan tahunan, dan seluruh dividen dibagikan tepat waktu sesuai klausul akta notariil.
                 </div>
               </div>
             </div>
@@ -5022,12 +5362,101 @@
         `;
       }
 
+      currentDetailProfitSplit = 1.0;
+      currentDetailSplitIdx = 0;
+      switchDetailSimTab('net');
       openModal('projectDetailModal');
       updateModalSimulator(initialDetailNominal);
       if (window.lucide) lucide.createIcons();
     }
 
+    // Global simulation state for profit split & tabs
+    let currentDetailProfitSplit = 1.0;
+    let currentDetailSplitIdx = 0;
+    let currentInvestProfitSplit = 1.0;
+    let currentInvestSplitIdx = 0;
+    window._lastDetailModalNominal = 15000000000;
+
+    function switchDetailSimTab(tab) {
+      const isNet = tab === 'net';
+      const viewNet = document.getElementById('detailSimViewNet');
+      const viewWf = document.getElementById('detailSimViewWaterfall');
+      const btnNet = document.getElementById('detailSimTabBtnNet');
+      const btnWf = document.getElementById('detailSimTabBtnWaterfall');
+
+      if (viewNet) viewNet.classList.toggle('hidden', !isNet);
+      if (viewWf) viewWf.classList.toggle('hidden', isNet);
+
+      if (btnNet) {
+        btnNet.className = isNet
+          ? 'flex-1 py-2 px-3 rounded-xl bg-white text-blue-900 shadow-2xs font-bold text-xs flex items-center justify-center gap-1.5 transition'
+          : 'flex-1 py-2 px-3 rounded-xl text-slate-600 hover:text-slate-900 font-bold text-xs flex items-center justify-center gap-1.5 transition';
+      }
+      if (btnWf) {
+        btnWf.className = !isNet
+          ? 'flex-1 py-2 px-3 rounded-xl bg-white text-blue-900 shadow-2xs font-bold text-xs flex items-center justify-center gap-1.5 transition'
+          : 'flex-1 py-2 px-3 rounded-xl text-slate-600 hover:text-slate-900 font-bold text-xs flex items-center justify-center gap-1.5 transition';
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function switchInvestSimTab(tab) {
+      const isNet = tab === 'net';
+      const viewNet = document.getElementById('investSimViewNet');
+      const viewWf = document.getElementById('investSimViewWaterfall');
+      const btnNet = document.getElementById('investSimTabBtnNet');
+      const btnWf = document.getElementById('investSimTabBtnWaterfall');
+
+      if (viewNet) viewNet.classList.toggle('hidden', !isNet);
+      if (viewWf) viewWf.classList.toggle('hidden', isNet);
+
+      if (btnNet) {
+        btnNet.className = isNet
+          ? 'flex-1 py-2 px-3 rounded-xl bg-white text-blue-900 shadow-2xs font-bold text-xs flex items-center justify-center gap-1.5 transition'
+          : 'flex-1 py-2 px-3 rounded-xl text-slate-600 hover:text-slate-900 font-bold text-xs flex items-center justify-center gap-1.5 transition';
+      }
+      if (btnWf) {
+        btnWf.className = !isNet
+          ? 'flex-1 py-2 px-3 rounded-xl bg-white text-blue-900 shadow-2xs font-bold text-xs flex items-center justify-center gap-1.5 transition'
+          : 'flex-1 py-2 px-3 rounded-xl text-slate-600 hover:text-slate-900 font-bold text-xs flex items-center justify-center gap-1.5 transition';
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function setDetailProfitSplit(splitInvestor, idx) {
+      currentDetailProfitSplit = splitInvestor;
+      currentDetailSplitIdx = idx;
+      [0, 1, 2].forEach(i => {
+        const btn = document.getElementById('detailSplitBtn-' + i);
+        if (btn) {
+          if (i === idx) {
+            btn.className = 'py-2.5 px-2 rounded-xl border-2 border-blue-900 bg-blue-50/70 text-blue-950 font-bold text-xs transition shadow-2xs text-center flex flex-col items-center justify-center';
+          } else {
+            btn.className = 'py-2.5 px-2 rounded-xl border border-slate-200 bg-white text-slate-700 hover:text-slate-900 font-semibold text-xs transition text-center flex flex-col items-center justify-center';
+          }
+        }
+      });
+      updateModalSimulator(window._lastDetailModalNominal || 15000000000);
+    }
+
+    function setInvestProfitSplit(splitInvestor, idx) {
+      currentInvestProfitSplit = splitInvestor;
+      currentInvestSplitIdx = idx;
+      [0, 1, 2].forEach(i => {
+        const btn = document.getElementById('investSplitBtn-' + i);
+        if (btn) {
+          if (i === idx) {
+            btn.className = 'py-2.5 px-2 rounded-xl border-2 border-blue-900 bg-blue-50/70 text-blue-950 font-bold text-xs transition shadow-2xs text-center flex flex-col items-center justify-center';
+          } else {
+            btn.className = 'py-2.5 px-2 rounded-xl border border-slate-200 bg-white text-slate-700 hover:text-slate-900 font-semibold text-xs transition text-center flex flex-col items-center justify-center';
+          }
+        }
+      });
+      calculateSimulatedYield();
+    }
+
     function selectDetailSimPackage(idx, nominal) {
+      window._lastDetailModalNominal = nominal;
       document.querySelectorAll('.detail-sim-btn').forEach((b, i) => {
         const check = document.getElementById('detailSimCheck-' + i);
         if (i === idx) {
@@ -5050,6 +5479,7 @@
 
     function updateModalSimulator(val) {
       const num = Number(val) || 15000000000;
+      window._lastDetailModalNominal = num;
       
       // Skenario ROI perputaran modal:
       // 1 Tahun: 20% s/d 25% (Putaran 2x - 3x)
@@ -5131,6 +5561,73 @@
       if (dm36p) dm36p.innerText = `${formatRupiahExact(dp36min)} – ${formatRupiahExact(dp36max)}`;
       if (dm36t) dm36t.innerText = `${formatRupiahExact(dt36min)} – ${formatRupiahExact(dt36max)}`;
       if (dm36r) dm36r.innerText = `30% – 35% p.a. (Akumulasi 90% – 105%)`;
+
+      // --- Perhitungan Waterfall & Management Fee Tab 2 ---
+      const mgmtFee = Math.round(num * 0.05); // Management Fee 5% p.a.
+      const grossProfitMin = Math.round(num * 0.25); // Gross Yield 25%
+      const grossProfitMax = Math.round(num * 0.30); // Gross Yield 30%
+      const netPoolMin = grossProfitMin - mgmtFee; // 20%
+      const netPoolMax = grossProfitMax - mgmtFee; // 25%
+
+      const splitInvestor = currentDetailProfitSplit || 1.0;
+      const splitMgi = Math.max(0, 1.0 - splitInvestor);
+
+      const invProfitMin = Math.round(netPoolMin * splitInvestor);
+      const invProfitMax = Math.round(netPoolMax * splitInvestor);
+      const invRoiMin = ((invProfitMin / num) * 100).toFixed(2).replace('.', ',');
+      const invRoiMax = ((invProfitMax / num) * 100).toFixed(2).replace('.', ',');
+
+      const mgiProfitMin = netPoolMin - invProfitMin;
+      const mgiProfitMax = netPoolMax - invProfitMax;
+      const mgiTotalMin = mgmtFee + mgiProfitMin;
+      const mgiTotalMax = mgmtFee + mgiProfitMax;
+
+      const grandInvMin = num + invProfitMin;
+      const grandInvMax = num + invProfitMax;
+
+      // Populate Tab 2 Detail Waterfall Elements
+      const dWfGrossProfit = document.getElementById('detailWfGrossProfit');
+      const dWfGrossRate = document.getElementById('detailWfGrossRate');
+      const dWfMgmtFee = document.getElementById('detailWfMgmtFee');
+      const dWfNetInvProfit = document.getElementById('detailWfNetInvestorProfit');
+      const dWfNetInvRoi = document.getElementById('detailWfNetInvestorRoi');
+
+      const dWfTableCap = document.getElementById('detailWfTableCapital');
+      const dWfTableGross = document.getElementById('detailWfTableGross');
+      const dWfTableFee = document.getElementById('detailWfTableMgmtFee');
+      const dWfTableNet = document.getElementById('detailWfTableNetPool');
+      const dWfTableInvLbl = document.getElementById('detailWfTableInvestorShareLabel');
+      const dWfTableInvPct = document.getElementById('detailWfTableInvestorPct');
+      const dWfTableInvShare = document.getElementById('detailWfTableInvestorShare');
+      const dWfTableMgiLbl = document.getElementById('detailWfTableMgiShareLabel');
+      const dWfTableMgiPct = document.getElementById('detailWfTableMgiPct');
+      const dWfTableMgiShare = document.getElementById('detailWfTableMgiShare');
+      const dWfTableMgiTotal = document.getElementById('detailWfTableMgiTotal');
+      const dWfTableGrand = document.getElementById('detailWfTableGrandTotal');
+
+      if (dWfGrossProfit) dWfGrossProfit.innerText = `${formatRupiahExact(grossProfitMin)} – ${formatRupiahExact(grossProfitMax)}`;
+      if (dWfGrossRate) dWfGrossRate.innerText = `25,00% – 30,00% p.a.`;
+      if (dWfMgmtFee) dWfMgmtFee.innerText = formatRupiahExact(mgmtFee);
+      if (dWfNetInvProfit) dWfNetInvProfit.innerText = `${formatRupiahExact(invProfitMin)} – ${formatRupiahExact(invProfitMax)}`;
+      if (dWfNetInvRoi) dWfNetInvRoi.innerText = `${invRoiMin}% – ${invRoiMax}% p.a.`;
+
+      if (dWfTableCap) dWfTableCap.innerText = formatRupiahExact(num);
+      if (dWfTableGross) dWfTableGross.innerText = `${formatRupiahExact(grossProfitMin)} – ${formatRupiahExact(grossProfitMax)}`;
+      if (dWfTableFee) dWfTableFee.innerText = `- ${formatRupiahExact(mgmtFee)}`;
+      if (dWfTableNet) dWfTableNet.innerText = `${formatRupiahExact(netPoolMin)} – ${formatRupiahExact(netPoolMax)}`;
+      
+      const invPctLabel = Math.round(splitInvestor * 100);
+      const mgiPctLabel = Math.round(splitMgi * 100);
+      if (dWfTableInvLbl) dWfTableInvLbl.innerText = `↳ Porsi Dividen Bersih Pemodal (${invPctLabel}%):`;
+      if (dWfTableInvPct) dWfTableInvPct.innerText = `${invRoiMin}% – ${invRoiMax}%`;
+      if (dWfTableInvShare) dWfTableInvShare.innerText = `${formatRupiahExact(invProfitMin)} – ${formatRupiahExact(invProfitMax)}`;
+
+      if (dWfTableMgiLbl) dWfTableMgiLbl.innerText = `↳ Porsi Bagi Hasil MGI (${mgiPctLabel}%):`;
+      if (dWfTableMgiPct) dWfTableMgiPct.innerText = `${(splitMgi * 20).toFixed(2).replace('.', ',')}% – ${(splitMgi * 25).toFixed(2).replace('.', ',')}%`;
+      if (dWfTableMgiShare) dWfTableMgiShare.innerText = `${formatRupiahExact(mgiProfitMin)} – ${formatRupiahExact(mgiProfitMax)}`;
+      if (dWfTableMgiTotal) dWfTableMgiTotal.innerText = `${formatRupiahExact(mgiTotalMin)} – ${formatRupiahExact(mgiTotalMax)}`;
+
+      if (dWfTableGrand) dWfTableGrand.innerText = `${formatRupiahExact(grandInvMin)} – ${formatRupiahExact(grandInvMax)}`;
     }
 
     // Populate Select in Invest Modal
@@ -5379,6 +5876,9 @@
       if (select && projectId) {
         select.value = projectId;
       }
+      currentInvestProfitSplit = 1.0;
+      currentInvestSplitIdx = 0;
+      switchInvestSimTab('net');
       renderInvestModalPackages(projectId, packageIdx);
       openModal('investModal');
     }
@@ -5420,6 +5920,29 @@
           const el = document.getElementById(id);
           if (el) el.innerText = 'Rp 0';
         });
+
+        const iWfGrossProfit = document.getElementById('investWfGrossProfit');
+        const iWfMgmtFee = document.getElementById('investWfMgmtFee');
+        const iWfNetInvProfit = document.getElementById('investWfNetInvestorProfit');
+        const iWfTableCap = document.getElementById('investWfTableCapital');
+        const iWfTableGross = document.getElementById('investWfTableGross');
+        const iWfTableFee = document.getElementById('investWfTableMgmtFee');
+        const iWfTableNet = document.getElementById('investWfTableNetPool');
+        const iWfTableInvShare = document.getElementById('investWfTableInvestorShare');
+        const iWfTableMgiShare = document.getElementById('investWfTableMgiShare');
+        const iWfTableMgiTotal = document.getElementById('investWfTableMgiTotal');
+        const iWfTableGrand = document.getElementById('investWfTableGrandTotal');
+        if (iWfGrossProfit) iWfGrossProfit.innerText = 'Rp 0';
+        if (iWfMgmtFee) iWfMgmtFee.innerText = 'Rp 0';
+        if (iWfNetInvProfit) iWfNetInvProfit.innerText = 'Rp 0';
+        if (iWfTableCap) iWfTableCap.innerText = 'Rp 0';
+        if (iWfTableGross) iWfTableGross.innerText = 'Rp 0';
+        if (iWfTableFee) iWfTableFee.innerText = 'Rp 0';
+        if (iWfTableNet) iWfTableNet.innerText = 'Rp 0';
+        if (iWfTableInvShare) iWfTableInvShare.innerText = 'Rp 0';
+        if (iWfTableMgiShare) iWfTableMgiShare.innerText = 'Rp 0';
+        if (iWfTableMgiTotal) iWfTableMgiTotal.innerText = 'Rp 0';
+        if (iWfTableGrand) iWfTableGrand.innerText = 'Rp 0';
         return;
       }
 
@@ -5485,6 +6008,73 @@
       if (m36p) m36p.innerText = `${formatRupiahExact(p36min)} – ${formatRupiahExact(p36max)}`;
       if (m36t) m36t.innerText = `${formatRupiahExact(t36min)} – ${formatRupiahExact(t36max)}`;
       if (m36r) m36r.innerText = `30% – 35% p.a. (Akumulasi 90% – 105%)`;
+
+      // --- Perhitungan Waterfall & Management Fee Invest Modal Tab 2 ---
+      const mgmtFee = Math.round(val * 0.05); // Management Fee 5% p.a.
+      const grossProfitMin = Math.round(val * 0.25); // Gross Yield 25%
+      const grossProfitMax = Math.round(val * 0.30); // Gross Yield 30%
+      const netPoolMin = grossProfitMin - mgmtFee; // 20%
+      const netPoolMax = grossProfitMax - mgmtFee; // 25%
+
+      const splitInvestor = currentInvestProfitSplit || 1.0;
+      const splitMgi = Math.max(0, 1.0 - splitInvestor);
+
+      const invProfitMin = Math.round(netPoolMin * splitInvestor);
+      const invProfitMax = Math.round(netPoolMax * splitInvestor);
+      const invRoiMin = val > 0 ? ((invProfitMin / val) * 100).toFixed(2).replace('.', ',') : '0,00';
+      const invRoiMax = val > 0 ? ((invProfitMax / val) * 100).toFixed(2).replace('.', ',') : '0,00';
+
+      const mgiProfitMin = netPoolMin - invProfitMin;
+      const mgiProfitMax = netPoolMax - invProfitMax;
+      const mgiTotalMin = mgmtFee + mgiProfitMin;
+      const mgiTotalMax = mgmtFee + mgiProfitMax;
+
+      const grandInvMin = val + invProfitMin;
+      const grandInvMax = val + invProfitMax;
+
+      // Populate Tab 2 Invest Waterfall Elements
+      const iWfGrossProfit = document.getElementById('investWfGrossProfit');
+      const iWfGrossRate = document.getElementById('investWfGrossRate');
+      const iWfMgmtFee = document.getElementById('investWfMgmtFee');
+      const iWfNetInvProfit = document.getElementById('investWfNetInvestorProfit');
+      const iWfNetInvRoi = document.getElementById('investWfNetInvestorRoi');
+
+      const iWfTableCap = document.getElementById('investWfTableCapital');
+      const iWfTableGross = document.getElementById('investWfTableGross');
+      const iWfTableFee = document.getElementById('investWfTableMgmtFee');
+      const iWfTableNet = document.getElementById('investWfTableNetPool');
+      const iWfTableInvLbl = document.getElementById('investWfTableInvestorShareLabel');
+      const iWfTableInvPct = document.getElementById('investWfTableInvestorPct');
+      const iWfTableInvShare = document.getElementById('investWfTableInvestorShare');
+      const iWfTableMgiLbl = document.getElementById('investWfTableMgiShareLabel');
+      const iWfTableMgiPct = document.getElementById('investWfTableMgiPct');
+      const iWfTableMgiShare = document.getElementById('investWfTableMgiShare');
+      const iWfTableMgiTotal = document.getElementById('investWfTableMgiTotal');
+      const iWfTableGrand = document.getElementById('investWfTableGrandTotal');
+
+      if (iWfGrossProfit) iWfGrossProfit.innerText = `${formatRupiahExact(grossProfitMin)} – ${formatRupiahExact(grossProfitMax)}`;
+      if (iWfGrossRate) iWfGrossRate.innerText = `25,00% – 30,00% p.a.`;
+      if (iWfMgmtFee) iWfMgmtFee.innerText = formatRupiahExact(mgmtFee);
+      if (iWfNetInvProfit) iWfNetInvProfit.innerText = `${formatRupiahExact(invProfitMin)} – ${formatRupiahExact(invProfitMax)}`;
+      if (iWfNetInvRoi) iWfNetInvRoi.innerText = `${invRoiMin}% – ${invRoiMax}% p.a.`;
+
+      if (iWfTableCap) iWfTableCap.innerText = formatRupiahExact(val);
+      if (iWfTableGross) iWfTableGross.innerText = `${formatRupiahExact(grossProfitMin)} – ${formatRupiahExact(grossProfitMax)}`;
+      if (iWfTableFee) iWfTableFee.innerText = `- ${formatRupiahExact(mgmtFee)}`;
+      if (iWfTableNet) iWfTableNet.innerText = `${formatRupiahExact(netPoolMin)} – ${formatRupiahExact(netPoolMax)}`;
+      
+      const invPctLabel = Math.round(splitInvestor * 100);
+      const mgiPctLabel = Math.round(splitMgi * 100);
+      if (iWfTableInvLbl) iWfTableInvLbl.innerText = `↳ Porsi Dividen Bersih Pemodal (${invPctLabel}%):`;
+      if (iWfTableInvPct) iWfTableInvPct.innerText = `${invRoiMin}% – ${invRoiMax}%`;
+      if (iWfTableInvShare) iWfTableInvShare.innerText = `${formatRupiahExact(invProfitMin)} – ${formatRupiahExact(invProfitMax)}`;
+
+      if (iWfTableMgiLbl) iWfTableMgiLbl.innerText = `↳ Porsi Bagi Hasil MGI (${mgiPctLabel}%):`;
+      if (iWfTableMgiPct) iWfTableMgiPct.innerText = `${(splitMgi * 20).toFixed(2).replace('.', ',')}% – ${(splitMgi * 25).toFixed(2).replace('.', ',')}%`;
+      if (iWfTableMgiShare) iWfTableMgiShare.innerText = `${formatRupiahExact(mgiProfitMin)} – ${formatRupiahExact(mgiProfitMax)}`;
+      if (iWfTableMgiTotal) iWfTableMgiTotal.innerText = `${formatRupiahExact(mgiTotalMin)} – ${formatRupiahExact(mgiTotalMax)}`;
+
+      if (iWfTableGrand) iWfTableGrand.innerText = `${formatRupiahExact(grandInvMin)} – ${formatRupiahExact(grandInvMax)}`;
     }
 
     // Search Filter for Catalog Cards
