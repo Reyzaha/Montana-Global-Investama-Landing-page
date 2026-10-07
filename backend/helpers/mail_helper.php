@@ -112,16 +112,26 @@ function sendSmtpMail(array $cfg, string $to, string $subject, string $htmlBody,
         return ['success' => false, 'message' => "AUTH LOGIN tidak didukung: {$auth}"];
     }
 
-    $sendUser = $sendCommand(base64_encode($user));
+    $sendUser = $sendCommand(base64_encode(trim($user)));
     if (!str_starts_with($sendUser, '334')) {
         fclose($socket);
         return ['success' => false, 'message' => "Username SMTP ditolak: {$sendUser}"];
     }
 
-    $sendPass = $sendCommand(base64_encode($pass));
+    $passAttempt = $pass;
+    $sendPass = $sendCommand(base64_encode($passAttempt));
+    if (!str_starts_with($sendPass, '235') && $passAttempt !== trim($passAttempt)) {
+        // Coba ulang dengan password yang di-trim spasi jika ada spasi ekstra
+        $sendPass = $sendCommand(base64_encode(trim($passAttempt)));
+    }
+
     if (!str_starts_with($sendPass, '235')) {
         fclose($socket);
-        return ['success' => false, 'message' => "Autentikasi SMTP gagal: Password email Hostinger tidak valid."];
+        $respStr = trim($sendPass);
+        return [
+            'success' => false, 
+            'message' => "Autentikasi SMTP gagal ({$respStr}): Password untuk akun {$user} tidak valid. Pastikan Anda memasukkan Password Mailbox Email Hostinger (bukan password login akun hPanel). Coba tes login terlebih dahulu di https://mail.hostinger.com."
+        ];
     }
 
     $mailFrom = $sendCommand("MAIL FROM:<{$user}>");
