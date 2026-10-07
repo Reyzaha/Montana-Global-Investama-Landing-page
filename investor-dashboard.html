@@ -1903,8 +1903,8 @@
 
   <!-- 2. MODAL: Tambah Penempatan Modal -->
   <div id="investModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 transition-all">
-    <div class="bg-white rounded-3xl max-w-xl w-full shadow-2xl border border-slate-200 overflow-hidden">
-      <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+    <div class="bg-white rounded-3xl max-w-xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
+      <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between shrink-0">
         <div class="flex items-center gap-2.5">
           <div class="w-9 h-9 rounded-2xl bg-slate-900 text-amber-400 flex items-center justify-center">
             <i data-lucide="plus-circle" class="w-5 h-5"></i>
@@ -1919,7 +1919,7 @@
         </button>
       </div>
 
-      <div class="p-6 space-y-4">
+      <div class="p-5 sm:p-6 overflow-y-auto flex-1 space-y-3.5">
         <div>
           <label class="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-1.5">Pilih Sektor Proyek</label>
           <select id="investProjectSelect" onchange="onInvestProjectChange()" class="w-full text-xs sm:text-sm bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 focus:ring-1 focus:ring-blue-500 focus:outline-none">
@@ -1956,115 +1956,124 @@
           </div>
         </div>
 
-        <!-- Return Simulation Box (Periode 12 Bulan - Skenario 20% s/d 25%) -->
-        <div class="bg-gradient-to-br from-amber-50 to-orange-50/60 border border-amber-200/90 rounded-2xl p-4 space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
-              <i data-lucide="calculator" class="w-3.5 h-3.5 text-amber-600"></i>
-              Simulasi Proyeksi Return (Periode 12 Bulan)
-            </span>
-            <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 font-mono" id="simModalRoiBadge">
-              Estimasi 20,0% – 25,0% p.a.
-            </span>
-          </div>
-          
-          <div class="grid grid-cols-2 gap-2 text-xs">
-            <div class="p-2.5 bg-white/90 rounded-xl border border-amber-100/90 shadow-2xs space-y-0.5">
-              <span class="text-[10px] text-slate-500 block">Skenario Standar (Simulasi 20%):</span>
-              <span class="font-bold text-blue-900 text-xs sm:text-sm font-mono block" id="simModalAnnualReturn">Rp 3.000.000.000</span>
-              <span class="text-[10px] text-slate-400 block font-mono" id="simModalQuarterlyReturn">Tutup buku tahunan</span>
-            </div>
-            <div class="p-2.5 bg-white/90 rounded-xl border border-amber-100/90 shadow-2xs space-y-0.5">
-              <span class="text-[10px] text-slate-500 block">Skenario Optimal (Simulasi 25%):</span>
-              <span class="font-bold text-emerald-700 text-xs sm:text-sm font-mono block" id="simModal4YearReturn">Rp 3.750.000.000</span>
-              <span class="text-[10px] text-slate-400 block">Target estimasi optimal</span>
-            </div>
-          </div>
-
-          <div class="pt-2 border-t border-amber-200/70 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs">
+        <!-- Return Simulation Box & Interactive Tenor Selector -->
+        <div class="bg-gradient-to-br from-amber-50 to-orange-50/60 border border-amber-200/90 rounded-2xl p-3.5 sm:p-4 space-y-3">
+          <!-- Header: Title & Interactive Tenor Pills -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
-              <span class="text-amber-950 font-bold block">Estimasi Total Diterima Pemodal:</span>
-              <span class="text-[10px] text-slate-500">100% Pokok Kembali Utuh + Dividen Hasil Putaran</span>
+              <span class="text-xs font-bold text-amber-950 uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="calculator" class="w-3.5 h-3.5 text-amber-600"></i>
+                Simulasi Proyeksi Return
+              </span>
+              <span class="text-[10px] text-amber-800/80 font-medium block">Pilih durasi tenor untuk simulasi imbal hasil:</span>
             </div>
-            <span class="font-black text-blue-900 text-sm sm:text-base font-mono" id="simModalGrandTotal">Rp 18.000.000.000 – Rp 18.750.000.000</span>
+
+            <!-- Tenor Selector Pills (12, 24, 36 Bulan) -->
+            <div class="inline-flex p-0.5 bg-amber-200/70 border border-amber-300/90 rounded-xl text-[11px] font-bold self-start sm:self-auto">
+              <button 
+                type="button" 
+                id="tabTenor12" 
+                onclick="setInvestModalTenor(12)" 
+                class="px-2.5 py-1 rounded-lg transition-all cursor-pointer bg-white text-blue-900 shadow-xs font-bold"
+              >
+                12 Bulan
+              </button>
+              <button 
+                type="button" 
+                id="tabTenor24" 
+                onclick="setInvestModalTenor(24)" 
+                class="px-2.5 py-1 rounded-lg transition-all cursor-pointer text-amber-900 hover:text-amber-950 font-semibold"
+              >
+                24 Bulan
+              </button>
+              <button 
+                type="button" 
+                id="tabTenor36" 
+                onclick="setInvestModalTenor(36)" 
+                class="px-2.5 py-1 rounded-lg transition-all cursor-pointer text-amber-900 hover:text-amber-950 font-semibold"
+              >
+                36 Bulan
+              </button>
+            </div>
           </div>
 
-          <!-- Highlight Penekanan Bahwa Ini Adalah Simulasi -->
-          <div class="p-2.5 bg-amber-100/70 rounded-xl border border-amber-200/80 text-[10px] text-amber-900 flex items-start gap-2 leading-relaxed">
+          <!-- Main Stats Card for Selected Tenor -->
+          <div class="p-3 bg-white/95 rounded-xl border border-amber-200/70 shadow-2xs space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-800" id="simModalTenorTitle">Tenor 12 Bulan (1 Tahun)</span>
+              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 font-mono" id="simModalRoiBadge">
+                Estimasi 20,0% – 25,0% p.a.
+              </span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div class="p-2.5 bg-slate-50/80 rounded-xl border border-slate-100 space-y-0.5">
+                <span class="text-[10px] text-slate-500 block" id="simModalLabelStandar">Skenario Standar (Simulasi 20%):</span>
+                <span class="font-bold text-blue-900 text-xs sm:text-sm font-mono block" id="simModalAnnualReturn">Rp 3.000.000.000</span>
+                <span class="text-[10px] text-slate-400 block font-mono" id="simModalQuarterlyReturn">Tutup buku tahunan</span>
+              </div>
+              <div class="p-2.5 bg-slate-50/80 rounded-xl border border-slate-100 space-y-0.5">
+                <span class="text-[10px] text-slate-500 block" id="simModalLabelOptimal">Skenario Optimal (Simulasi 25%):</span>
+                <span class="font-bold text-emerald-700 text-xs sm:text-sm font-mono block" id="simModal4YearReturn">Rp 3.750.000.000</span>
+                <span class="text-[10px] text-slate-400 block" id="simModalSubOptimal">Target estimasi optimal</span>
+              </div>
+            </div>
+
+            <div class="pt-2 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs">
+              <div>
+                <span class="text-amber-950 font-bold block">Estimasi Total Diterima Pemodal:</span>
+                <span class="text-[10px] text-slate-500 block" id="simModalPokokNote">*100% Pokok kembali di akhir tenor 12 bulan</span>
+              </div>
+              <span class="font-black text-blue-900 text-sm sm:text-base font-mono" id="simModalGrandTotal">Rp 18.000.000.000 – Rp 18.750.000.000</span>
+            </div>
+          </div>
+
+          <!-- Quick Comparison 3 Tenor (Compact Chips) -->
+          <div class="grid grid-cols-3 gap-1.5 text-[10px]">
+            <div 
+              onclick="setInvestModalTenor(12)" 
+              id="miniTenorCard12" 
+              class="cursor-pointer p-2 rounded-xl border transition-all bg-white border-blue-600 shadow-xs ring-2 ring-blue-500/20 space-y-0.5"
+            >
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-blue-900">12 Bulan</span>
+                <span class="text-[9px] text-emerald-700 font-bold">20–25%</span>
+              </div>
+              <span class="font-mono text-slate-600 block text-[9.5px] truncate" id="miniTenorTotal12">Rp 18,0M – 18,75M</span>
+            </div>
+
+            <div 
+              onclick="setInvestModalTenor(24)" 
+              id="miniTenorCard24" 
+              class="cursor-pointer p-2 rounded-xl border transition-all bg-white/70 border-slate-200 hover:border-amber-300 space-y-0.5"
+            >
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-slate-700">24 Bulan</span>
+                <span class="text-[9px] text-indigo-700 font-bold">25–30%</span>
+              </div>
+              <span class="font-mono text-slate-600 block text-[9.5px] truncate" id="miniTenorTotal24">Rp 22,5M – 24,0M</span>
+            </div>
+
+            <div 
+              onclick="setInvestModalTenor(36)" 
+              id="miniTenorCard36" 
+              class="cursor-pointer p-2 rounded-xl border transition-all bg-white/70 border-slate-200 hover:border-amber-300 space-y-0.5"
+            >
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-slate-700">36 Bulan</span>
+                <span class="text-[9px] text-emerald-800 font-bold">30–35%</span>
+              </div>
+              <span class="font-mono text-slate-600 block text-[9.5px] truncate" id="miniTenorTotal36">Rp 28,5M – 30,75M</span>
+            </div>
+          </div>
+
+          <!-- Highlight Catatan Simulasi Singkat -->
+          <div class="p-2 bg-amber-100/70 rounded-xl border border-amber-200/80 text-[10px] text-amber-900 flex items-start gap-1.5 leading-snug">
             <i data-lucide="info" class="w-3.5 h-3.5 text-amber-700 shrink-0 mt-0.5"></i>
-            <span><strong>Catatan Simulasi:</strong> Angka di atas merupakan <u>simulasi proyeksi indikatif</u> berdasarkan estimasi perputaran modal armada (2–3x siklus/tahun). Hasil aktual mengikuti realisasi operasional dan laporan tutup buku tahunan resmi.</span>
+            <span><strong>Catatan Simulasi:</strong> Angka merupakan <u>simulasi proyeksi indikatif</u> perputaran modal armada. Hasil aktual mengikuti laporan tutup buku tahunan.</span>
           </div>
 
           <span id="simulatedReturn" class="hidden"></span>
-        </div>
-
-        <!-- Rincian Proyeksi Tenor Multi-Periode (12, 24, 36 Bulan) -->
-        <div class="bg-white border border-slate-200/90 rounded-2xl p-4 space-y-3 shadow-2xs">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
-              <i data-lucide="layers" class="w-3.5 h-3.5 text-blue-600"></i>
-              Simulasi Proyeksi Multi-Tenor (12, 24, 36 Bulan)
-            </span>
-            <span class="text-[10px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full">
-              Estimasi Akumulasi Dividen + Pokok
-            </span>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
-            <!-- 12 Bulan -->
-            <div class="p-3 rounded-xl bg-slate-50/80 border border-slate-200/90 space-y-1.5">
-              <div class="flex items-center justify-between">
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 border border-blue-200 uppercase">12 Bulan (1 Th)</span>
-                <span class="text-[10px] text-slate-500 font-medium">1 Tahun</span>
-              </div>
-              <div class="space-y-0.5">
-                <span class="text-[10px] text-slate-500 block">Estimasi Profit:</span>
-                <span class="font-bold text-slate-900 text-xs font-mono block" id="simModal12mProfit">Rp 3.000.000.000 – Rp 3.750.000.000</span>
-                <span class="text-[10px] text-emerald-700 font-semibold block" id="simModal12mRoi">Simulasi 20% – 25% p.a.</span>
-              </div>
-              <div class="pt-1.5 border-t border-slate-200">
-                <span class="text-[10px] text-slate-500 block">Estimasi Total Diterima:</span>
-                <span class="font-bold text-blue-900 text-xs font-mono block" id="simModal12mTotal">Rp 18.000.000.000 – Rp 18.750.000.000</span>
-              </div>
-              <span class="text-[9px] text-slate-400 block leading-tight">*100% Pokok kembali di akhir tenor</span>
-            </div>
-
-            <!-- 24 Bulan -->
-            <div class="p-3 rounded-xl bg-slate-50/80 border border-slate-200/90 space-y-1.5">
-              <div class="flex items-center justify-between">
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-700 border border-indigo-200 uppercase">24 Bulan (2 Th)</span>
-                <span class="text-[10px] text-slate-500 font-medium">2 Tahun</span>
-              </div>
-              <div class="space-y-0.5">
-                <span class="text-[10px] text-slate-500 block">Akumulasi Profit:</span>
-                <span class="font-bold text-slate-900 text-xs font-mono block" id="simModal24mProfit">Rp 7.500.000.000 – Rp 9.000.000.000</span>
-                <span class="text-[10px] text-indigo-700 font-semibold block" id="simModal24mRoi">Simulasi 25% – 30% p.a. (Akum. 50% – 60%)</span>
-              </div>
-              <div class="pt-1.5 border-t border-slate-200">
-                <span class="text-[10px] text-slate-500 block">Estimasi Total Diterima:</span>
-                <span class="font-bold text-indigo-900 text-xs font-mono block" id="simModal24mTotal">Rp 22.500.000.000 – Rp 24.000.000.000</span>
-              </div>
-              <span class="text-[9px] text-slate-400 block leading-tight">*100% Pokok kembali di akhir tenor</span>
-            </div>
-
-            <!-- 36 Bulan -->
-            <div class="p-3 rounded-xl bg-gradient-to-br from-amber-50 to-orange-50/60 border border-amber-200 space-y-1.5">
-              <div class="flex items-center justify-between">
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 border border-amber-300 uppercase">36 Bulan (3 Th)</span>
-                <span class="text-[10px] text-amber-800 font-medium">3 Tahun</span>
-              </div>
-              <div class="space-y-0.5">
-                <span class="text-[10px] text-amber-900 block">Akumulasi Profit:</span>
-                <span class="font-bold text-emerald-700 text-xs font-mono block" id="simModal36mProfit">Rp 13.500.000.000 – Rp 15.750.000.000</span>
-                <span class="text-[10px] text-emerald-800 font-semibold block" id="simModal36mRoi">Simulasi 30% – 35% p.a. (Akum. 90% – 105%)</span>
-              </div>
-              <div class="pt-1.5 border-t border-amber-200">
-                <span class="text-[10px] text-amber-900 block font-medium">Estimasi Total Diterima:</span>
-                <span class="font-black text-amber-950 text-xs font-mono block" id="simModal36mTotal">Rp 28.500.000.000 – Rp 30.750.000.000</span>
-              </div>
-              <span class="text-[9px] text-amber-800/80 block leading-tight">*100% Pokok kembali di akhir tenor</span>
-            </div>
-          </div>
         </div>
 
         <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 text-xs text-slate-500 flex items-start gap-2">
@@ -2073,7 +2082,7 @@
         </div>
       </div>
 
-      <div class="bg-slate-50 px-6 py-4 border-t border-slate-200 flex justify-end gap-2.5">
+      <div class="bg-slate-50 px-6 py-3.5 border-t border-slate-200 flex justify-end gap-2.5 shrink-0">
         <button onclick="closeModal('investModal')" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-200/60 rounded-full transition">Batal</button>
         <button id="btnSubmitInvest" onclick="submitInvestForm()" class="px-5 py-2 text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white rounded-full transition shadow-sm active:scale-95 flex items-center gap-1.5 cursor-pointer">
           <i data-lucide="send" class="w-3.5 h-3.5"></i>
@@ -2285,6 +2294,15 @@
         return `Rp ${val} Miliar`;
       }
       return 'Rp ' + Number(num).toLocaleString('id-ID');
+    }
+
+    function formatRupiahCompact(num) {
+      if (!num || isNaN(num)) return 'Rp 0';
+      const m = num / 1000000000;
+      if (m >= 1) {
+        return 'Rp ' + m.toLocaleString('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 2 }) + ' M';
+      }
+      return formatRupiahDisplay(num);
     }
 
     // Dynamic Project Cards Renderer (Stage 1)
@@ -2972,7 +2990,11 @@
         modal.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
         if (modalId === 'investModal') {
-          calculateSimulatedYield();
+          if (typeof setInvestModalTenor === 'function') {
+            setInvestModalTenor(12);
+          } else {
+            calculateSimulatedYield();
+          }
         }
         if (window.lucide) lucide.createIcons();
       }
@@ -5330,9 +5352,9 @@
         container.innerHTML = `
           <div 
             id="modalPkgCard-0" 
-            class="modal-pkg-card p-4 rounded-2xl border-2 border-blue-600 bg-blue-50/60 shadow-xs relative select-none"
+            class="modal-pkg-card p-3 sm:p-3.5 rounded-2xl border-2 border-blue-600 bg-blue-50/60 shadow-xs relative select-none"
           >
-            <div class="flex items-center justify-between gap-2 mb-1.5">
+            <div class="flex items-center justify-between gap-2 mb-1">
               <span class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
                 <i data-lucide="check-circle-2" class="w-4 h-4 text-blue-600"></i>
                 ${opt?.label || 'Paket Kemitraan Tunggal'}
@@ -5342,18 +5364,18 @@
               </span>
             </div>
             
-            <div class="text-lg font-black text-blue-950 font-mono my-0.5">${targetDisp}</div>
+            <div class="text-base sm:text-lg font-black text-blue-950 font-mono my-0.5">${targetDisp}</div>
             
-            <div class="text-[11px] text-slate-700 font-medium flex items-center gap-1.5 mt-1.5">
+            <div class="text-[11px] text-slate-700 font-medium flex items-center gap-1.5 mt-1">
               <i data-lucide="truck" class="w-3.5 h-3.5 text-blue-600 shrink-0"></i>
               <span>Alokasi Penuh Armada: <strong>${units}</strong></span>
             </div>
             
-            <p class="text-[11px] text-slate-500 mt-1 leading-relaxed">
-              ${perk} yang disediakan, digaji, dan dikelola langsung oleh tim operasional PT Montana Indo Utama (MIU) untuk memastikan kesiapan unit di lapangan tanpa repot manajemen operasional harian.
+            <p class="text-[10.5px] text-slate-500 mt-1 leading-snug">
+              ${perk} – dikelola langsung oleh tim operasional MIU untuk memastikan kesiapan unit di lapangan.
             </p>
 
-            <div class="mt-2.5 pt-2 border-t border-blue-200/70 flex items-center justify-between text-[11px] font-semibold text-emerald-700">
+            <div class="mt-2 pt-1.5 border-t border-blue-200/70 flex items-center justify-between text-[10.5px] font-semibold text-emerald-700">
               <span>Target Imbal Hasil Kemitraan:</span>
               <span class="font-mono font-bold">20,0% – 25,0% p.a.</span>
             </div>
@@ -5388,34 +5410,52 @@
       calculateSimulatedYield();
     }
 
+    // Interactive Tenor State for Invest Modal
+    let currentInvestModalTenor = 12;
+
+    function setInvestModalTenor(months) {
+      currentInvestModalTenor = months;
+
+      [12, 24, 36].forEach(m => {
+        const btn = document.getElementById('tabTenor' + m);
+        const card = document.getElementById('miniTenorCard' + m);
+        if (btn) {
+          if (m === months) {
+            btn.className = 'px-2.5 py-1 rounded-lg transition-all cursor-pointer bg-white text-blue-900 shadow-xs font-bold';
+          } else {
+            btn.className = 'px-2.5 py-1 rounded-lg transition-all cursor-pointer text-amber-900 hover:text-amber-950 font-semibold';
+          }
+        }
+        if (card) {
+          if (m === months) {
+            card.className = 'cursor-pointer p-2 rounded-xl border transition-all bg-white border-blue-600 shadow-xs ring-2 ring-blue-500/20 space-y-0.5';
+          } else {
+            card.className = 'cursor-pointer p-2 rounded-xl border transition-all bg-white/70 border-slate-200 hover:border-amber-300 space-y-0.5';
+          }
+        }
+      });
+
+      calculateSimulatedYield();
+    }
+
     // Open Modal for Specific Project from Catalog
     function openInvestModalForProject(projectId, packageIdx = 0) {
       const select = document.getElementById('investProjectSelect');
       if (select && projectId) {
         select.value = projectId;
       }
+      setInvestModalTenor(12);
       renderInvestModalPackages(projectId, packageIdx);
       openModal('investModal');
     }
 
-    // Simulated Yield Calculator (Periode 12 Bulan - Skenario 2x vs 3x Putaran Sesuai Proposal Proyek)
+    // Simulated Yield Calculator (Dinamis Berdasarkan Tenor 12, 24, 36 Bulan)
     function calculateSimulatedYield() {
       const nomInput = document.getElementById('investSelectedNominal') || document.getElementById('investAmountInput');
       const select = document.getElementById('investProjectSelect');
       if (!nomInput) return;
 
       const val = parseFloat(nomInput.value) || 0;
-      let cycleReturn = 0.1431; // Default 14.31% per siklus
-
-      if (select && select.value) {
-        let p = catalogProjects.find(x => x.id === select.value);
-        if (!p && dashboardState.projects) {
-          p = dashboardState.projects.find(x => x.id === select.value);
-        }
-        if (p && p.detail?.rab_executive?.struktur_biaya_unit?.return_per_siklus) {
-          cycleReturn = p.detail.rab_executive.struktur_biaya_unit.return_per_siklus / 100;
-        }
-      }
 
       const annualEl = document.getElementById('simModalAnnualReturn');
       const quartEl = document.getElementById('simModalQuarterlyReturn');
@@ -5429,12 +5469,7 @@
         if (quartEl) quartEl.innerText = 'Tutup buku tahunan';
         if (div3YEl) div3YEl.innerText = 'Rp 0';
         if (grandEl) grandEl.innerText = 'Rp 0';
-        if (roiBadge) roiBadge.innerText = '20,0% – 25,0% p.a.';
-
-        ['simModal12mProfit', 'simModal12mTotal', 'simModal24mProfit', 'simModal24mTotal', 'simModal36mProfit', 'simModal36mTotal'].forEach(id => {
-          const el = document.getElementById(id);
-          if (el) el.innerText = 'Rp 0';
-        });
+        if (roiBadge) roiBadge.innerText = 'Estimasi 20,0% – 25,0% p.a.';
         return;
       }
 
@@ -5449,25 +5484,10 @@
       const rate3yMin = 0.30;
       const rate3yMax = 0.35;
 
-      const profit2x = Math.round(val * rate1yMin); // Skenario 1 Tahun (20%)
-      const profit3x = Math.round(val * rate1yMax); // Skenario 1 Tahun Optimal (25%)
-      const total2x = val + profit2x;
-      const total3x = val + profit3x;
-
-      if (annualEl) annualEl.innerText = formatRupiahExact(profit2x);
-      if (quartEl) quartEl.innerText = 'Tutup buku tahunan';
-      if (div3YEl) div3YEl.innerText = formatRupiahExact(profit3x);
-      if (grandEl) grandEl.innerText = `${formatRupiahExact(total2x)} – ${formatRupiahExact(total3x)}`;
-      if (roiBadge) roiBadge.innerText = 'Estimasi 20,0% – 25,0% p.a.';
-      if (legacyOutput) {
-        legacyOutput.innerHTML = `<span>${formatRupiahExact(profit2x)} – ${formatRupiahExact(profit3x)} / tahun</span>`;
-      }
-
-      // Hitung rincian multi-tenor 12, 24, 36 Bulan di Invest Modal
-      const p12min = profit2x;
-      const p12max = profit3x;
-      const t12min = total2x;
-      const t12max = total3x;
+      const p12min = Math.round(val * rate1yMin);
+      const p12max = Math.round(val * rate1yMax);
+      const t12min = val + p12min;
+      const t12max = val + p12max;
 
       const p24min = Math.round(val * rate2yMin * 2);
       const p24max = Math.round(val * rate2yMax * 2);
@@ -5479,27 +5499,77 @@
       const t36min = val + p36min;
       const t36max = val + p36max;
 
-      const m12p = document.getElementById('simModal12mProfit');
-      const m12t = document.getElementById('simModal12mTotal');
-      const m12r = document.getElementById('simModal12mRoi');
-      const m24p = document.getElementById('simModal24mProfit');
-      const m24t = document.getElementById('simModal24mTotal');
-      const m24r = document.getElementById('simModal24mRoi');
-      const m36p = document.getElementById('simModal36mProfit');
-      const m36t = document.getElementById('simModal36mTotal');
-      const m36r = document.getElementById('simModal36mRoi');
+      // Update Mini Tenor Comparison Cards
+      const m12Tot = document.getElementById('miniTenorTotal12');
+      const m24Tot = document.getElementById('miniTenorTotal24');
+      const m36Tot = document.getElementById('miniTenorTotal36');
+      if (m12Tot) m12Tot.innerText = `${formatRupiahCompact(t12min)} – ${formatRupiahCompact(t12max)}`;
+      if (m24Tot) m24Tot.innerText = `${formatRupiahCompact(t24min)} – ${formatRupiahCompact(t24max)}`;
+      if (m36Tot) m36Tot.innerText = `${formatRupiahCompact(t36min)} – ${formatRupiahCompact(t36max)}`;
 
-      if (m12p) m12p.innerText = `${formatRupiahExact(p12min)} – ${formatRupiahExact(p12max)}`;
-      if (m12t) m12t.innerText = `${formatRupiahExact(t12min)} – ${formatRupiahExact(t12max)}`;
-      if (m12r) m12r.innerText = `Simulasi 20% – 25% p.a.`;
+      // Active Tenor Calculations
+      let curProfitMin, curProfitMax, curTotalMin, curTotalMax, curRoiText, curTenorTitle, curLblStd, curLblOpt, curSubStd, curSubOpt, curNote;
 
-      if (m24p) m24p.innerText = `${formatRupiahExact(p24min)} – ${formatRupiahExact(p24max)}`;
-      if (m24t) m24t.innerText = `${formatRupiahExact(t24min)} – ${formatRupiahExact(t24max)}`;
-      if (m24r) m24r.innerText = `Simulasi 25% – 30% p.a. (Akumulasi 50% – 60%)`;
+      if (currentInvestModalTenor === 24) {
+        curProfitMin = p24min;
+        curProfitMax = p24max;
+        curTotalMin = t24min;
+        curTotalMax = t24max;
+        curRoiText = 'Estimasi 25,0% – 30,0% p.a.';
+        curTenorTitle = 'Tenor 24 Bulan (2 Tahun)';
+        curLblStd = 'Skenario Standar (Simulasi 25% p.a.):';
+        curLblOpt = 'Skenario Optimal (Simulasi 30% p.a.):';
+        curSubStd = 'Akumulasi 2 Tahun (4–6x putaran)';
+        curSubOpt = 'Target perputaran optimal 2 tahun';
+        curNote = '*100% Pokok kembali di akhir tenor 24 bulan';
+      } else if (currentInvestModalTenor === 36) {
+        curProfitMin = p36min;
+        curProfitMax = p36max;
+        curTotalMin = t36min;
+        curTotalMax = t36max;
+        curRoiText = 'Estimasi 30,0% – 35,0% p.a.';
+        curTenorTitle = 'Tenor 36 Bulan (3 Tahun)';
+        curLblStd = 'Skenario Standar (Simulasi 30% p.a.):';
+        curLblOpt = 'Skenario Optimal (Simulasi 35% p.a.):';
+        curSubStd = 'Akumulasi 3 Tahun (6–9x putaran)';
+        curSubOpt = 'Target perputaran optimal 3 tahun';
+        curNote = '*100% Pokok kembali di akhir tenor 36 bulan';
+      } else {
+        curProfitMin = p12min;
+        curProfitMax = p12max;
+        curTotalMin = t12min;
+        curTotalMax = t12max;
+        curRoiText = 'Estimasi 20,0% – 25,0% p.a.';
+        curTenorTitle = 'Tenor 12 Bulan (1 Tahun)';
+        curLblStd = 'Skenario Standar (Simulasi 20%):';
+        curLblOpt = 'Skenario Optimal (Simulasi 25%):';
+        curSubStd = 'Tutup buku tahunan';
+        curSubOpt = 'Target estimasi optimal';
+        curNote = '*100% Pokok kembali di akhir tenor 12 bulan';
+      }
 
-      if (m36p) m36p.innerText = `${formatRupiahExact(p36min)} – ${formatRupiahExact(p36max)}`;
-      if (m36t) m36t.innerText = `${formatRupiahExact(t36min)} – ${formatRupiahExact(t36max)}`;
-      if (m36r) m36r.innerText = `Simulasi 30% – 35% p.a. (Akumulasi 90% – 105%)`;
+      if (annualEl) annualEl.innerText = formatRupiahExact(curProfitMin);
+      if (div3YEl) div3YEl.innerText = formatRupiahExact(curProfitMax);
+      if (grandEl) grandEl.innerText = `${formatRupiahExact(curTotalMin)} – ${formatRupiahExact(curTotalMax)}`;
+      if (roiBadge) roiBadge.innerText = curRoiText;
+
+      const tTitle = document.getElementById('simModalTenorTitle');
+      const lStd = document.getElementById('simModalLabelStandar');
+      const lOpt = document.getElementById('simModalLabelOptimal');
+      const sStd = document.getElementById('simModalSubStandar');
+      const sOpt = document.getElementById('simModalSubOptimal');
+      const pNote = document.getElementById('simModalPokokNote');
+
+      if (tTitle) tTitle.innerText = curTenorTitle;
+      if (lStd) lStd.innerText = curLblStd;
+      if (lOpt) lOpt.innerText = curLblOpt;
+      if (sStd) sStd.innerText = curSubStd;
+      if (sOpt) sOpt.innerText = curSubOpt;
+      if (pNote) pNote.innerText = curNote;
+
+      if (legacyOutput) {
+        legacyOutput.innerHTML = `<span>${formatRupiahExact(curProfitMin)} – ${formatRupiahExact(curProfitMax)} / tahun</span>`;
+      }
     }
 
     // Search Filter for Catalog Cards
