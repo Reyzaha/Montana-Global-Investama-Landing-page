@@ -176,7 +176,7 @@ const MGIComponents = {
                 <i class="bi bi-geo-alt text-gold me-1"></i> Roseville Soho &amp; Suite, Sunburst CBD Lot I.8, Serpong, Tangerang Selatan
               </div>
               <div class="small text-footer-muted mb-2">
-                <i class="bi bi-envelope text-gold me-1"></i> kontak@montanaglobalinvestama.com
+                <i class="bi bi-envelope text-gold me-1"></i> contact@montanainvestama.com
               </div>
               <div class="small text-footer-muted">
                 <i class="bi bi-clock text-gold me-1"></i> Senin – Jumat (08.00 – 17.00 WIB)
@@ -191,7 +191,7 @@ const MGIComponents = {
             <div class="d-flex align-items-center gap-3">
               <span>Rahasia &amp; Terbatas</span>
               <span>•</span>
-              <a href="mailto:kontak@montanaglobalinvestama.com" class="text-gold text-decoration-none fw-semibold">kontak@montanaglobalinvestama.com</a>
+              <a href="mailto:contact@montanainvestama.com" class="text-gold text-decoration-none fw-semibold">contact@montanainvestama.com</a>
             </div>
           </div>
         </div>

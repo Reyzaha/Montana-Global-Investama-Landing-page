@@ -381,7 +381,7 @@ try {
             'Teks Pernyataan Keterbukaan Risiko (Risk Disclosure Statement)'
         ],
         'site_title' => ['PT Montana Global Investama', 'Nama Resmi Perusahaan'],
-        'official_email' => ['Montanaglobalinvestamaom@gmail.com', 'Alamat Email Resmi Korespondensi']
+        'official_email' => ['contact@montanainvestama.com', 'Alamat Email Resmi Korespondensi']
     ];
 
     $stmtSet = $db->prepare("

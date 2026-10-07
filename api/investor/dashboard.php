@@ -7,6 +7,8 @@
 require_once __DIR__ . '/../../backend/config/db.php';
 require_once __DIR__ . '/../../backend/helpers/response.php';
 require_once __DIR__ . '/../../backend/helpers/auth_helper.php';
+require_once __DIR__ . '/../../backend/helpers/mail_helper.php';
+require_once __DIR__ . '/../../backend/helpers/lead_helper.php';
 
 $action = $_GET['action'] ?? 'get';
 $method = $_SERVER['REQUEST_METHOD'];
@@ -324,6 +326,106 @@ try {
         $stmtUp->execute([$newHash, $investorId]);
 
         sendJsonResponse(null, 200, !empty($currentHash) ? 'Kata sandi berhasil diperbarui.' : 'Kata sandi akun berhasil dibuat.');
+    }
+
+    // 5. POST submit_interest: Kirim pengajuan minat penempatan modal dari portal investor
+    if ($action === 'submit_interest') {
+        if ($method !== 'POST') sendJsonError('Method harus POST.', 405);
+        $input = getJsonInput();
+
+        $projectId = trim($input['project_id'] ?? '');
+        $projectTitle = trim($input['project_title'] ?? 'Proyek Investasi MGI');
+        $packageLabel = trim($input['package_label'] ?? 'Paket Kemitraan');
+        $nominal = (float)($input['nominal'] ?? 0);
+        $notes = trim($input['notes'] ?? '');
+
+        if ($nominal <= 0) {
+            sendJsonError('Nominal alokasi modal tidak valid.');
+        }
+
+        // Ambil data profil investor terbaru
+        $stmtInv = $db->prepare("
+            SELECT i.*, c.business_name, c.legal_entity, c.company_address, c.pic_name, c.pic_position, c.company_phone, c.annual_turnover
+            FROM investors i
+            LEFT JOIN investor_companies c ON i.id = c.investor_id
+            WHERE i.id = ?
+        ");
+        $stmtInv->execute([$investorId]);
+        $inv = $stmtInv->fetch();
+
+        if (!$inv) {
+            sendJsonError('Data akun investor tidak ditemukan.', 404);
+        }
+
+        $isCorp = ($inv['account_type'] === 'perusahaan');
+        $formattedNominal = number_format($nominal, 0, ',', '.');
+        $rangeStr = 'Rp ' . $formattedNominal . ' (' . $packageLabel . ')';
+
+        $fullName = $isCorp ? ($inv['pic_name'] ?: $inv['full_name']) : ($inv['full_name'] ?: explode('@', $inv['email'])[0]);
+        $phone = $inv['phone'] ?: ($inv['company_phone'] ?? null);
+        $email = $inv['email'];
+        $businessName = $isCorp ? ($inv['business_name'] ?: $inv['full_name']) : null;
+        $legalEntity = $isCorp ? ($inv['legal_entity'] ?? 'Perseroan Terbatas (PT)') : null;
+        $picPosition = $isCorp ? ($inv['pic_position'] ?? 'Perwakilan Resmi') : null;
+        $city = $inv['company_address'] ? mb_substr($inv['company_address'], 0, 100) : 'Indonesia';
+
+        $adminNotes = sprintf(
+            "PENGAJUAN MINAT DARI PORTAL INVESTOR (ID #MGI-%04d)\nProyek: %s\nPaket: %s\nNominal: Rp %s\nAkun: %s\nCatatan Pemodal: %s",
+            $investorId,
+            $projectTitle,
+            $packageLabel,
+            $formattedNominal,
+            $isCorp ? ($inv['business_name'] ?: $inv['full_name']) : $inv['full_name'],
+            !empty($notes) ? $notes : '-'
+        );
+
+        // 1. Simpan ke tabel leads agar langsung masuk ke CRM Admin (leads.php)
+        $stmtLead = $db->prepare("
+            INSERT INTO leads (
+                account_type, full_name, phone, email, business_name, legal_entity, pic_position,
+                city, investment_range, status, admin_notes, utm_source, utm_campaign, landing_page, consent_at
+            ) VALUES (
+                ?, ?, ?, ?, ?, ?, ?,
+                ?, ?, 'new', ?, 'Portal Investor', ?, '/investor-dashboard.html', NOW()
+            )
+        ");
+        $stmtLead->execute([
+            $inv['account_type'],
+            $fullName,
+            $phone,
+            $email,
+            $businessName,
+            $legalEntity,
+            $picPosition,
+            $city,
+            $rangeStr,
+            $adminNotes,
+            $projectTitle
+        ]);
+        $leadId = (int)$db->lastInsertId();
+
+        // 2. Kirim notifikasi email resmi ke contact@montanainvestama.com & tim MGI
+        $leadData = [
+            'account_type'     => $inv['account_type'],
+            'full_name'        => $fullName,
+            'phone'            => $phone,
+            'email'            => $email,
+            'business_name'    => $businessName,
+            'legal_entity'     => $legalEntity,
+            'pic_position'     => $picPosition,
+            'city'             => $city,
+            'investment_range' => $rangeStr,
+            'utm_source'       => 'Portal Investor (ID #MGI-' . str_pad((string)$investorId, 4, '0', STR_PAD_LEFT) . ')',
+            'admin_notes'      => $adminNotes
+        ];
+        notifyNewLead($db, $leadData);
+
+        sendJsonResponse([
+            'lead_id' => $leadId,
+            'project_title' => $projectTitle,
+            'package_label' => $packageLabel,
+            'nominal' => $nominal
+        ], 201, 'Minat penempatan modal berhasil dicatat dan diteruskan ke Relationship Manager (RM) Prioritas MGI.');
     }
 
     sendJsonError('Aksi tidak dikenali.', 400);

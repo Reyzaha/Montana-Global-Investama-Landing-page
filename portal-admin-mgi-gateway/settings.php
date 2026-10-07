@@ -48,6 +48,64 @@ require_once __DIR__ . '/includes/header.php';
               <label class="form-label">Email Resmi Korespondensi</label>
               <input type="email" id="settingEmail" class="form-control" required>
             </div>
+            <div class="col-12">
+              <label class="form-label">Email Penerima Notifikasi Lead &amp; Minat Investor</label>
+              <input type="email" id="settingNotifyEmail" class="form-control" placeholder="contact@montanainvestama.com" required>
+              <small class="text-muted">Setiap lead konsultasi baru dan pengajuan minat proyek dari Portal Investor otomatis dikirimkan ke alamat email ini.</small>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <h6 class="fw-bold text-dark mb-3 d-flex align-items-center justify-content-between">
+            <span class="d-flex align-items-center gap-2">
+              <i class="bi bi-envelope-at-fill text-primary" style="color: #142563 !important;"></i>
+              <span>Konfigurasi Email Hostinger (SMTP)</span>
+            </span>
+            <span class="badge bg-light text-dark border small fw-normal">Rekomendasi Hostinger SSL</span>
+          </h6>
+          <p class="text-muted small mb-3">
+            Gunakan kredensial email corporate Hostinger Anda agar notifikasi terkirim dengan reputasi pengiriman tinggi (anti-spam).
+          </p>
+
+          <div class="row g-3 mb-3 p-3 bg-light rounded-3 border">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold small">Host Server SMTP</label>
+              <input type="text" id="settingSmtpHost" class="form-control font-monospace" placeholder="smtp.hostinger.com" value="smtp.hostinger.com">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-semibold small">Port SMTP</label>
+              <input type="number" id="settingSmtpPort" class="form-control font-monospace" placeholder="465" value="465">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-semibold small">Protokol Keamanan</label>
+              <select id="settingSmtpSecure" class="form-select">
+                <option value="ssl" selected>SSL (Port 465)</option>
+                <option value="tls">TLS (Port 587)</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold small">Username / Akun Email</label>
+              <input type="email" id="settingSmtpUser" class="form-control" placeholder="contact@montanainvestama.com" value="contact@montanainvestama.com">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold small">Password Akun Email Hostinger</label>
+              <div class="input-group">
+                <input type="password" id="settingSmtpPass" class="form-control font-monospace" placeholder="Masukkan password email Anda">
+                <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordInput('settingSmtpPass', this)">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+            </div>
+            <div class="col-12 mt-2 pt-2 border-top d-flex flex-wrap align-items-center justify-content-between gap-2">
+              <small class="text-muted">
+                <i class="bi bi-info-circle text-primary me-1"></i> Jika password dikosongkan, sistem mencoba pengiriman via MTA server lokal.
+              </small>
+              <button type="button" class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1" id="btnTestEmail" onclick="sendTestEmail()">
+                <i class="bi bi-send-fill"></i>
+                <span>Kirim Uji Coba Email</span>
+              </button>
+            </div>
           </div>
 
           <hr class="my-4">
@@ -160,12 +218,67 @@ require_once __DIR__ . '/includes/header.php';
       document.getElementById('toggleGatedContent').checked = (s.require_auth_for_details && s.require_auth_for_details.value === '1');
       document.getElementById('settingDisclaimer').value = s.disclaimer_text ? s.disclaimer_text.value : '';
       document.getElementById('settingSiteTitle').value = s.site_title ? s.site_title.value : 'PT Montana Global Investama';
-      document.getElementById('settingEmail').value = s.official_email ? s.official_email.value : 'kontak@montanaglobalinvestama.com';
+      document.getElementById('settingEmail').value = s.official_email ? s.official_email.value : 'contact@montanainvestama.com';
+      document.getElementById('settingNotifyEmail').value = s.lead_notify_email ? s.lead_notify_email.value : (s.official_email ? s.official_email.value : 'contact@montanainvestama.com');
       document.getElementById('settingGscToken').value = s.gsc_verification_token ? s.gsc_verification_token.value : '';
       document.getElementById('settingKeywords').value = s.meta_keywords ? s.meta_keywords.value : 'investasi per project, website investment per project, project based investment, investasi sektor riil, investasi alat berat, aset fisik produktif, montana global investama, manajer investasi proyek';
+
+      if (s.smtp_host && s.smtp_host.value) document.getElementById('settingSmtpHost').value = s.smtp_host.value;
+      if (s.smtp_port && s.smtp_port.value) document.getElementById('settingSmtpPort').value = s.smtp_port.value;
+      if (s.smtp_secure && s.smtp_secure.value) document.getElementById('settingSmtpSecure').value = s.smtp_secure.value;
+      if (s.smtp_user && s.smtp_user.value) document.getElementById('settingSmtpUser').value = s.smtp_user.value;
+      if (s.smtp_pass && s.smtp_pass.value) document.getElementById('settingSmtpPass').value = s.smtp_pass.value;
     } catch (e) {
       console.error(e);
       AdminApp.showToast('Gagal memuat pengaturan sistem.', 'danger');
+    }
+  }
+
+  function togglePasswordInput(id, btn) {
+    const input = document.getElementById(id);
+    if (!input) return;
+    const isPass = input.type === 'password';
+    input.type = isPass ? 'text' : 'password';
+    const icon = btn.querySelector('i');
+    if (icon) {
+      icon.className = isPass ? 'bi bi-eye-slash' : 'bi bi-eye';
+    }
+  }
+
+  async function sendTestEmail() {
+    const btn = document.getElementById('btnTestEmail');
+    const targetEmail = document.getElementById('settingNotifyEmail').value.trim() || 'contact@montanainvestama.com';
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Mengirim...';
+
+    try {
+      const payload = {
+        target_email: targetEmail,
+        smtp_host: document.getElementById('settingSmtpHost').value.trim(),
+        smtp_port: document.getElementById('settingSmtpPort').value.trim(),
+        smtp_secure: document.getElementById('settingSmtpSecure').value,
+        smtp_user: document.getElementById('settingSmtpUser').value.trim(),
+        smtp_pass: document.getElementById('settingSmtpPass').value
+      };
+
+      const res = await fetch('../api/admin/settings.php?action=test_email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const json = await res.json();
+      if (json && json.success) {
+        AdminApp.showToast(`Berhasil! ${json.message}`, 'success');
+      } else {
+        AdminApp.showToast((json && json.message) ? json.message : 'Uji coba pengiriman email gagal.', 'danger');
+      }
+    } catch (e) {
+      console.error(e);
+      AdminApp.showToast('Gangguan koneksi saat mengirim email uji coba.', 'danger');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = originalText;
     }
   }
 
@@ -196,8 +309,14 @@ require_once __DIR__ . '/includes/header.php';
       disclaimer_text: document.getElementById('settingDisclaimer').value.trim(),
       site_title: document.getElementById('settingSiteTitle').value.trim(),
       official_email: document.getElementById('settingEmail').value.trim(),
+      lead_notify_email: document.getElementById('settingNotifyEmail').value.trim(),
       gsc_verification_token: document.getElementById('settingGscToken').value.trim(),
-      meta_keywords: document.getElementById('settingKeywords').value.trim()
+      meta_keywords: document.getElementById('settingKeywords').value.trim(),
+      smtp_host: document.getElementById('settingSmtpHost').value.trim(),
+      smtp_port: document.getElementById('settingSmtpPort').value.trim(),
+      smtp_secure: document.getElementById('settingSmtpSecure').value,
+      smtp_user: document.getElementById('settingSmtpUser').value.trim(),
+      smtp_pass: document.getElementById('settingSmtpPass').value
     };
 
     const btn = document.getElementById('btnSaveSettings');
@@ -211,7 +330,7 @@ require_once __DIR__ . '/includes/header.php';
       });
       const json = await res.json();
       if (json.success) {
-        AdminApp.showToast('Pengaturan sistem berhasil disimpan.', 'success');
+        AdminApp.showToast('Pengaturan sistem & konfigurasi email berhasil disimpan.', 'success');
       } else {
         AdminApp.showToast(json.message, 'danger');
       }

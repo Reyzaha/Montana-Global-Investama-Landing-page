@@ -58,5 +58,5 @@ Prinsip tata kelola yang baik, transparan, akuntabel, dan terukur diterapkan sec
 ## Kontak
 *   **Kantor Pusat (Corporate):** Roseville Soho & Suite, Sunburst CBD Lot I.8, Jl. Kapten Soebijanto Djojohadikusumo, Lengkong Gudang, Serpong, Tangerang Selatan
 *   **Kantor Operasional:** Jl. Nasional III No.88, Pejuritan, Kec. Karanganyar, Kab. Kebumen, Jawa Tengah
-*   **Email:** kontak@montanaglobalinvestama.com
+*   **Email:** contact@montanainvestama.com
 *   **Jam Kerja:** Senin – Jumat: 08.00 – 17.00 WIB

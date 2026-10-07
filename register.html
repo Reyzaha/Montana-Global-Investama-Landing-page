@@ -815,9 +815,37 @@
             <div class="small fw-semibold text-dark">Mendaftarkan akun Anda melalui Google...</div>
           </div>
         `;
-        alertContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        // Kumpulkan data form perusahaan / perorangan jika pemodal sudah mengisinya di formulir
+        const extraData = {};
+        if (accountType === 'perusahaan') {
+          const bName = document.getElementById('businessName')?.value?.trim();
+          const bAct = document.getElementById('businessActivityPerusahaan')?.value?.trim();
+          const lEnt = document.getElementById('legalEntity')?.value;
+          const cAddr = document.getElementById('companyAddress')?.value?.trim();
+          const pName = document.getElementById('picName')?.value?.trim();
+          const pPos = document.getElementById('picPosition')?.value?.trim();
+          const cPhone = document.getElementById('phonePerusahaan')?.value?.trim();
+          const aTurn = document.getElementById('annualTurnover')?.value;
 
-        MGIAuth.loginWithGoogle(googleResponse.credential, accountType).then((res) => {
+          if (bName) extraData.business_name = bName;
+          if (bAct) extraData.business_activity = bAct;
+          if (lEnt) extraData.legal_entity = lEnt;
+          if (cAddr) extraData.company_address = cAddr;
+          if (pName) extraData.pic_name = pName;
+          if (pPos) extraData.pic_position = pPos;
+          if (cPhone) extraData.company_phone = cPhone;
+          if (aTurn) extraData.annual_turnover = aTurn;
+        } else {
+          const ph = document.getElementById('phonePerorangan')?.value?.trim();
+          const bAct = document.getElementById('businessActivityPerorangan')?.value?.trim();
+          const ctz = document.getElementById('citizenshipPerorangan')?.value;
+
+          if (ph) extraData.phone = ph;
+          if (bAct) extraData.business_activity = bAct;
+          if (ctz) extraData.citizenship = ctz;
+        }
+
+        MGIAuth.loginWithGoogle(googleResponse.credential, accountType, extraData).then((res) => {
           if (res.success) {
             alertContainer.innerHTML = `
               <div class="alert alert-success border-0 shadow-sm rounded-3 p-4 d-flex align-items-start gap-3 mb-4" role="alert">

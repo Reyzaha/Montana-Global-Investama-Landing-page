@@ -143,18 +143,20 @@ const MGIAuth = {
   },
 
   // Login investor using Google ID Token Credential
-  loginWithGoogle: async function (credential, accountType = 'perorangan') {
+  loginWithGoogle: async function (credential, accountType = 'perorangan', extraData = {}) {
     try {
+      const payload = Object.assign({
+        credential: credential,
+        account_type: accountType
+      }, extraData || {});
+
       const response = await fetch('api/auth.php?action=google_login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'X-CSRF-Token': MGIAuth.csrfToken || ''
         },
-        body: JSON.stringify({
-          credential: credential,
-          account_type: accountType
-        })
+        body: JSON.stringify(payload)
       });
 
       const res = await response.json();

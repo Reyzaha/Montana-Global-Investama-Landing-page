@@ -230,7 +230,7 @@ try {
 
         // Cari investor di database berdasarkan google_id atau email
         $stmt = $db->prepare("
-            SELECT i.*, c.business_name, c.legal_entity, c.pic_name, c.pic_position
+            SELECT i.*, c.business_name, c.legal_entity, c.company_address, c.pic_name, c.pic_position, c.company_phone, c.annual_turnover
             FROM investors i
             LEFT JOIN investor_companies c ON i.id = c.investor_id
             WHERE (i.google_id IS NOT NULL AND i.google_id = ?) OR LOWER(i.email) = ?
@@ -254,6 +254,22 @@ try {
             ");
             $upd->execute([$googleId, $avatarUrl, $fullName, $user['id']]);
 
+            // Jika akun adalah perusahaan tetapi belum ada record investor_companies, buatkan default profil perusahaan
+            if ($user['account_type'] === 'perusahaan') {
+                $checkComp = $db->prepare("SELECT id FROM investor_companies WHERE investor_id = ?");
+                $checkComp->execute([$user['id']]);
+                if (!$checkComp->fetch()) {
+                    $cName = !empty($user['full_name']) ? $user['full_name'] : $fullName;
+                    $stmtMakeComp = $db->prepare("
+                        INSERT INTO investor_companies (
+                            investor_id, business_name, business_activity, legal_entity,
+                            company_address, pic_name, pic_position, company_phone, annual_turnover
+                        ) VALUES (?, ?, 'Investasi Sektor Riil', 'Perseroan Terbatas (PT)', 'Alamat operasional belum dilengkapi', ?, 'Perwakilan Resmi', '-', 'Rp10 Miliar – Rp50 Miliar')
+                    ");
+                    $stmtMakeComp->execute([$user['id'], $cName, $cName]);
+                }
+            }
+
             // Ambil data terbaru setelah update
             $stmt->execute([$googleId, $email]);
             $user = $stmt->fetch();
@@ -262,26 +278,110 @@ try {
             $accountType = in_array($requestedType, ['perorangan', 'perusahaan']) ? $requestedType : 'perorangan';
             $db->beginTransaction();
 
-            $stmtIns = $db->prepare("
-                INSERT INTO investors (account_type, email, google_id, full_name, avatar_url, citizenship, status)
-                VALUES (?, ?, ?, ?, ?, 'Indonesia (WNI)', 'active')
-            ");
-            $stmtIns->execute([$accountType, $email, $googleId, $fullName, $avatarUrl]);
-            $investorId = (int)$db->lastInsertId();
-
             if ($accountType === 'perusahaan') {
-                $stmtComp = $db->prepare("
-                    INSERT INTO investor_companies (investor_id, business_name, legal_entity, pic_name, status)
-                    VALUES (?, ?, 'Perseroan Terbatas (PT)', ?, 'active')
+                $businessName = trim($input['business_name'] ?? ($input['businessName'] ?? ''));
+                if (empty($businessName)) {
+                    $businessName = $fullName;
+                }
+                $businessActivity = trim($input['business_activity'] ?? ($input['businessActivity'] ?? ($input['businessSector'] ?? 'Investasi Sektor Riil')));
+                if (empty($businessActivity)) {
+                    $businessActivity = 'Investasi Sektor Riil';
+                }
+                $legalEntity = $input['legal_entity'] ?? ($input['legalEntity'] ?? 'Perseroan Terbatas (PT)');
+                $validEntities = ['Perseroan Terbatas (PT)', 'Persekutuan Komanditer (CV)', 'PT Perorangan', 'Usaha Dagang (UD)', 'Tidak ada'];
+                if (!in_array($legalEntity, $validEntities, true)) {
+                    $legalEntity = 'Perseroan Terbatas (PT)';
+                }
+                $companyAddress = trim($input['company_address'] ?? ($input['companyAddress'] ?? 'Alamat operasional belum dilengkapi'));
+                if (empty($companyAddress)) {
+                    $companyAddress = 'Alamat operasional belum dilengkapi';
+                }
+                $picName = trim($input['pic_name'] ?? ($input['picName'] ?? $fullName));
+                if (empty($picName)) {
+                    $picName = $fullName;
+                }
+                $picPosition = trim($input['pic_position'] ?? ($input['picPosition'] ?? 'Perwakilan Resmi'));
+                if (empty($picPosition)) {
+                    $picPosition = 'Perwakilan Resmi';
+                }
+                $companyPhone = trim($input['company_phone'] ?? ($input['phone'] ?? '-'));
+                if (empty($companyPhone)) {
+                    $companyPhone = '-';
+                }
+                $annualTurnover = $input['annual_turnover'] ?? ($input['annualTurnover'] ?? 'Rp10 Miliar – Rp50 Miliar');
+                $validTurnover = [
+                    'Di bawah Rp500 Juta',
+                    'Rp500 Juta – Rp2,5 Miliar',
+                    'Rp2,5 Miliar – Rp10 Miliar',
+                    'Rp10 Miliar – Rp50 Miliar',
+                    'Rp50 Miliar – Rp250 Miliar',
+                    'Di atas Rp250 Miliar'
+                ];
+                if (!in_array($annualTurnover, $validTurnover, true)) {
+                    $annualTurnover = 'Rp10 Miliar – Rp50 Miliar';
+                }
+
+                $stmtIns = $db->prepare("
+                    INSERT INTO investors (account_type, email, google_id, full_name, avatar_url, phone, business_activity, citizenship, status)
+                    VALUES ('perusahaan', ?, ?, ?, ?, ?, ?, 'Indonesia (WNI)', 'active')
                 ");
-                $stmtComp->execute([$investorId, $fullName, $fullName]);
+                $stmtIns->execute([
+                    $email,
+                    $googleId,
+                    $businessName,
+                    $avatarUrl,
+                    $companyPhone !== '-' ? $companyPhone : null,
+                    $businessActivity
+                ]);
+                $investorId = (int)$db->lastInsertId();
+
+                $stmtComp = $db->prepare("
+                    INSERT INTO investor_companies (
+                        investor_id, business_name, business_activity, legal_entity, company_address,
+                        pic_name, pic_position, company_phone, annual_turnover
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ");
+                $stmtComp->execute([
+                    $investorId,
+                    $businessName,
+                    $businessActivity,
+                    $legalEntity,
+                    $companyAddress,
+                    $picName,
+                    $picPosition,
+                    $companyPhone,
+                    $annualTurnover
+                ]);
+            } else {
+                // Perorangan
+                $phone = trim($input['phone'] ?? '');
+                $businessActivity = trim($input['business_activity'] ?? ($input['businessActivity'] ?? ''));
+                $citizenship = $input['citizenship'] ?? 'Indonesia (WNI)';
+                if (!in_array($citizenship, ['Indonesia (WNI)', 'Warga Negara Asing (WNA)'], true)) {
+                    $citizenship = 'Indonesia (WNI)';
+                }
+
+                $stmtIns = $db->prepare("
+                    INSERT INTO investors (account_type, email, google_id, full_name, avatar_url, citizenship, phone, business_activity, status)
+                    VALUES ('perorangan', ?, ?, ?, ?, ?, ?, ?, 'active')
+                ");
+                $stmtIns->execute([
+                    $email,
+                    $googleId,
+                    $fullName,
+                    $avatarUrl,
+                    $citizenship,
+                    $phone ?: null,
+                    $businessActivity ?: null
+                ]);
+                $investorId = (int)$db->lastInsertId();
             }
 
             $db->commit();
 
             // Ambil record yang baru dibuat
             $stmt = $db->prepare("
-                SELECT i.*, c.business_name, c.legal_entity, c.pic_name, c.pic_position
+                SELECT i.*, c.business_name, c.legal_entity, c.company_address, c.pic_name, c.pic_position, c.company_phone, c.annual_turnover
                 FROM investors i
                 LEFT JOIN investor_companies c ON i.id = c.investor_id
                 WHERE i.id = ?
@@ -306,9 +406,11 @@ try {
             'avatarUrl' => $user['avatar_url'] ?? $avatarUrl,
             'businessName' => $user['business_name'] ?? '',
             'picName' => $user['pic_name'] ?? '',
-            'phone' => $user['phone'] ?? '',
+            'phone' => $user['phone'] ?? ($user['company_phone'] ?? ''),
             'businessActivity' => $user['business_activity'] ?? '',
             'legalEntity' => $user['legal_entity'] ?? '',
+            'companyAddress' => $user['company_address'] ?? '',
+            'annualTurnover' => $user['annual_turnover'] ?? '',
             'status' => $user['status'],
             'authProvider' => 'google'
         ];
