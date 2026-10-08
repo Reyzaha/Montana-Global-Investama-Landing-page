@@ -4539,6 +4539,7 @@
         const assetBadge = info.brand || info.asset_backed || 'Unit Alat Berat Siap Operasi';
         const returnText = info.return || '20,0% – 25,0% (p.a.)';
         const tenorText = info.tenor || '12 Bulan';
+        const minInvText = info.min_investment || p.min_investment || (tierOne?.nominal ? formatRupiahExact(tierOne.nominal) : (targetVal > 0 ? formatRupiahExact(targetVal) : 'Rp 15.000.000.000'));
         const catFundingRows = p.detail?.funding_target?.rows || p.funding_items || [];
         const catFirstRabQty = (catFundingRows && catFundingRows.length > 0 && catFundingRows[0]?.quantity) ? Number(catFundingRows[0].quantity) : null;
         const unitAllocText = catFirstRabQty ? `${catFirstRabQty} Unit Fisik CBU` : (tierOne ? `${tierOne.unit_qty} Unit Fisik CBU` : (rab?.spesifikasi?.estimasi_unit ? rab.spesifikasi.estimasi_unit.split(' ')[0] + ' Unit' : 'Unit CBU Grade A'));
