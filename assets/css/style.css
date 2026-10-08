@@ -1733,13 +1733,20 @@ p, .lead, blockquote, li {
   position: sticky;
   top: 70px;
   z-index: 1020;
-  padding: 0.75rem 0;
-  background: rgba(245, 245, 247, 0.88);
-  backdrop-filter: blur(18px) saturate(180%);
-  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  padding: 0.65rem 0;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid var(--apple-border);
   margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
   transition: all 0.25s ease;
+}
+
+.apple-subnav-sticky .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .apple-segmented-control {
@@ -1747,11 +1754,12 @@ p, .lead, blockquote, li {
   border-radius: var(--apple-radius-pill);
   padding: 5px;
   display: inline-flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   gap: 4px;
   border: 1px solid rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
+  max-width: 100%;
 }
 
 .apple-segment-item {
@@ -1769,6 +1777,7 @@ p, .lead, blockquote, li {
   border: none;
   cursor: pointer;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .apple-segment-item:hover {
@@ -1785,6 +1794,69 @@ p, .lead, blockquote, li {
 
 .apple-segment-item.active i {
   color: var(--apple-gold) !important;
+}
+
+/* Mobile & Tablet Responsive Subnav (Mencegah tampilan lonjong/rusak & mendukung swipe horizontal) */
+@media (max-width: 991.98px) {
+  .apple-subnav-sticky {
+    top: 56px;
+    padding: 0.45rem 0;
+    background: #FFFFFF !important;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.9) !important;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+    margin-bottom: 1.25rem;
+  }
+
+  .apple-subnav-sticky .container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+    justify-content: flex-start;
+  }
+
+  .apple-subnav-sticky .container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .apple-segmented-control {
+    flex-wrap: nowrap !important;
+    display: inline-flex !important;
+    white-space: nowrap !important;
+    padding: 4px;
+    gap: 4px;
+    width: max-content;
+    margin: 0;
+  }
+
+  .apple-segment-item {
+    padding: 7px 14px !important;
+    font-size: 0.8rem !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    gap: 5px !important;
+  }
+}
+
+/* Section Anchor Scroll Offsets (Mencegah sticky nav menutupi judul bagian saat diklik) */
+#profil,
+#transformasi,
+#persiapan-entitas,
+#tata-kelola,
+#sectionGrowthTrack {
+  scroll-margin-top: 130px;
+}
+
+@media (max-width: 991.98px) {
+  #profil,
+  #transformasi,
+  #persiapan-entitas,
+  #tata-kelola,
+  #sectionGrowthTrack {
+    scroll-margin-top: 110px;
+  }
 }
 
 /* Apple Squircle Cards Across Main Pages */
@@ -1912,6 +1984,32 @@ p, .lead, blockquote, li {
 }
 .growth-tab-btn[data-segment="compare"]:not(.active) i {
   color: #059669;
+}
+
+@media (max-width: 767.98px) {
+  .growth-tab-wrapper {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    max-width: 100%;
+    padding: 4px;
+    justify-content: flex-start;
+    border-radius: var(--apple-radius-pill);
+  }
+
+  .growth-tab-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .growth-tab-btn {
+    flex-shrink: 0 !important;
+    padding: 7px 14px !important;
+    font-size: 0.8rem !important;
+    white-space: nowrap !important;
+  }
 }
 
 /* ==========================================================================
