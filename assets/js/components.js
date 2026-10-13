@@ -735,15 +735,25 @@ const MGIComponents = {
                     </tr>
                     <tr>
                       <td class="ps-3 py-1">Budget Garansi (1% Harga Jual)</td>
-                      <td class="pe-3 py-1 text-end text-muted">${MGI.formatRupiah(sb.budget_garansi || 3460000)}</td>
+                      <td class="pe-3 py-1 text-end text-muted">${MGI.formatRupiah(sb.budget_garansi || 5320000)}</td>
                     </tr>
                     <tr>
                       <td class="ps-3 py-1">Budget Insentif (1% Harga Jual)</td>
-                      <td class="pe-3 py-1 text-end text-muted">${MGI.formatRupiah(sb.budget_insentif || 3460000)}</td>
+                      <td class="pe-3 py-1 text-end text-muted">${MGI.formatRupiah(sb.budget_insentif || 5320000)}</td>
                     </tr>
+                    ${sb.budget_marketing ? `
                     <tr>
-                      <td class="ps-3 py-1">Fee Successful Sale MIU (12%)</td>
-                      <td class="pe-3 py-1 text-end text-muted">${MGI.formatRupiah(sb.fee_miu || 41520000)}</td>
+                      <td class="ps-3 py-1">Budget Marketing (1% Harga Jual)</td>
+                      <td class="pe-3 py-1 text-end text-muted">${MGI.formatRupiah(sb.budget_marketing)}</td>
+                    </tr>` : ''}
+                    ${sb.budget_negosiasi ? `
+                    <tr>
+                      <td class="ps-3 py-1">Budget Negosiasi Unit</td>
+                      <td class="pe-3 py-1 text-end text-muted">${MGI.formatRupiah(sb.budget_negosiasi)}</td>
+                    </tr>` : ''}
+                    <tr>
+                      <td class="ps-3 py-1">Fee Successful Sale MIU (${sb.budget_marketing ? '10%' : '12%'})</td>
+                      <td class="pe-3 py-1 text-end text-muted">${MGI.formatRupiah(sb.fee_miu || (sb.budget_marketing ? 53200000 : 41520000))}</td>
                     </tr>
                   </tbody>
                 </table>

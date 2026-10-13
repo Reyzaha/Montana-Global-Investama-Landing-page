@@ -2338,7 +2338,7 @@
               Halo <strong class="text-slate-700">${userName}</strong>, akun investor Anda telah aktif dan terverifikasi. Saat ini Anda belum memiliki portofolio proyek yang sedang berjalan. Silakan tinjau katalog proyek terbuka di bawah ini untuk memilih penempatan modal pada unit alat berat CBU Jepang dengan proyeksi bagi hasil terukur.
             </p>
             <div class="flex flex-wrap items-center justify-center gap-3">
-              <button onclick="switchTab('katalog')" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-blue-900 hover:bg-blue-800 text-white font-bold text-xs sm:text-sm transition-all shadow-md hover:shadow-lg active:scale-95 cursor-pointer">
+              <button onclick="scrollToKatalog()" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-blue-900 hover:bg-blue-800 text-white font-bold text-xs sm:text-sm transition-all shadow-md hover:shadow-lg active:scale-95 cursor-pointer">
                 <i data-lucide="compass" class="w-4 h-4 text-amber-300"></i>
                 Jelajahi Katalog Proyek Terbuka
               </button>
@@ -3063,7 +3063,7 @@
     }
 
     // Tab Switching Logic
-    function switchTab(tabKey) {
+    function switchTab(tabKey, autoScroll = false) {
       document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
       
       document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -3080,8 +3080,37 @@
         activeBtn.classList.add('border-blue-600', 'text-blue-600');
       }
 
+      if (autoScroll) {
+        setTimeout(() => {
+          const target = document.getElementById('tabNavGroup') || targetPane;
+          if (target) {
+            const yOffset = -90;
+            const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+          }
+        }, 50);
+      }
+
       if (window.lucide) lucide.createIcons();
     }
+
+    // Scroll to and activate open project catalog
+    function scrollToKatalog() {
+      switchTab('katalog');
+      setTimeout(() => {
+        const target = document.getElementById('tabNavGroup') || document.getElementById('tabContent-katalog');
+        if (target) {
+          const yOffset = -90;
+          const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+        const searchInput = document.getElementById('catalogSearchInput');
+        if (searchInput) {
+          searchInput.focus({ preventScroll: true });
+        }
+      }, 50);
+    }
+    window.scrollToKatalog = scrollToKatalog;
 
     // Modal Control Functions
     function openModal(modalId) {
