@@ -82,7 +82,7 @@ try {
             $info['lokasi'] ?? '',
             $info['target'] ?? '',
             $info['tenor'] ?? '36 Bulan',
-            $info['return'] ?? '≥30% (p.a.)',
+            $info['return'] ?? '≥30%',
             'Menengah - Terukur',
             $info['min_investment'] ?? 'Rp 500.000.000',
             $info['payout'] ?? 'Bagi Hasil Kompetitif',
