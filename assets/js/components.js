@@ -66,6 +66,7 @@ const MGIComponents = {
                   <div class="badge bg-gold text-dark small mt-1" style="border-radius: var(--apple-radius-pill);">Investor ${typeLabel}</div>
                 </li>
                 <li><a class="dropdown-item py-2 fw-semibold text-white" href="investor-dashboard"><i class="bi bi-speedometer2 me-2 text-gold"></i>Dashboard Investor</a></li>
+                <li><a class="dropdown-item py-2 text-white" href="flow-kerja.html"><i class="bi bi-diagram-3 me-2 text-gold"></i>Flow Kerja &amp; Ekosistem</a></li>
                 <li><a class="dropdown-item py-2 text-white" href="investor-dashboard"><i class="bi bi-pie-chart-fill me-2 text-gold"></i>My Portofolio &amp; Dividen</a></li>
                 <li><a class="dropdown-item py-2 text-white" href="invest"><i class="bi bi-grid me-2 text-gold"></i>Katalog Project Terbuka</a></li>
                 <li><a class="dropdown-item py-2 text-white" href="contact"><i class="bi bi-geo-alt me-2 text-gold"></i>Lokasi & Layanan</a></li>
@@ -251,7 +252,7 @@ const MGIComponents = {
         <div class="row g-0 text-center align-items-stretch">
           <div class="col-4 border-end border-subtle px-1 d-flex flex-column justify-content-center">
             <div class="text-success fw-bold text-nowrap" style="font-size: 0.88rem; line-height: 1.2;">${rawRet}</div>
-            <div class="text-muted fw-semibold mt-1 text-truncate text-uppercase" style="font-size: 0.62rem; letter-spacing: 0.3px;">ROI (p.a.)</div>
+            <div class="text-muted fw-semibold mt-1 text-truncate text-uppercase" style="font-size: 0.62rem; letter-spacing: 0.3px;">ROI</div>
           </div>
           <div class="col-4 border-end border-subtle px-1 d-flex flex-column justify-content-center">
             <div class="text-dark fw-bold text-nowrap" style="font-size: 0.9rem; line-height: 1.2;">${cleanTenor}</div>
