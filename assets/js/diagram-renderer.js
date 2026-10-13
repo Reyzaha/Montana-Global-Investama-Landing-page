@@ -343,7 +343,7 @@ const MGIDiagrams = {
         ${partners.length > 0 ? `
           <div class="d-flex flex-column align-items-center my-3">
             <div style="width: 3px; height: 24px; background-color: #CBD5E1;"></div>
-            <div class="badge bg-secondary text-white px-3 py-1 rounded-pill small fw-bold">Dukungan Offtake & Kemitraan Strategis</div>
+            <div class="badge bg-secondary text-white px-3 py-1 rounded-pill small fw-bold">Dukungan Kemitraan Eksklusif Strategis</div>
             <div style="width: 3px; height: 24px; background-color: #CBD5E1;"></div>
           </div>
           <div class="row text-start justify-content-center">
