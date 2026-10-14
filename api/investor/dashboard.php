@@ -136,28 +136,34 @@ try {
             WHERE f.investor_id = ?
             ORDER BY f.transaction_date DESC, f.id DESC
         ");
-        $allFinRecords = $stmtFin->fetchAll();
+        $stmtFin->execute([$investorId]);
+        $allFinRecords = $stmtFin->fetchAll() ?: [];
 
-        if (empty($allFinRecords)) {
-            // Transparansi Pembukuan Riil: Muat catatan keuangan operasional proyek terbuka (MGI QQ Client)
-            $stmtFinPrev = $db->query("
-                SELECT f.*, pr.title as project_title, pr.category as project_category
-                FROM financial_records f
-                JOIN projects pr ON f.project_id = pr.id
-                WHERE f.project_id = 'proj-jkt-jabar' OR f.investor_id = 1
-                ORDER BY f.transaction_date DESC, f.id DESC
-                LIMIT 15
-            ");
-            $allFinRecords = $stmtFinPrev ? $stmtFinPrev->fetchAll() : [];
-        }
+        $billingsList = [];
         $totalPurchasesMIU = 0.0;
         foreach ($allFinRecords as $fr) {
-            if ($fr['is_billing']) {
+            if (!empty($fr['is_billing'])) {
                 $billingsList[] = $fr;
             }
             if ($fr['module'] === 'pembelian' && (strpos(strtolower($fr['vendor_client'] ?? ''), 'miu') !== false || strpos(strtolower($fr['category'] ?? ''), 'miu') !== false)) {
                 $totalPurchasesMIU += (float)$fr['amount'];
             }
+        }
+
+        // G. Real-time Notifications for Investor Notification Box
+        $stmtNotif = $db->prepare("
+            SELECT n.*, p.title as project_title
+            FROM notifications n
+            LEFT JOIN projects p ON n.project_id = p.id
+            WHERE n.investor_id = ?
+            ORDER BY n.created_at DESC, n.id DESC
+            LIMIT 30
+        ");
+        $stmtNotif->execute([$investorId]);
+        $notificationsList = $stmtNotif->fetchAll() ?: [];
+        $unreadNotifCount = 0;
+        foreach ($notificationsList as $n) {
+            if (empty($n['is_read'])) $unreadNotifCount++;
         }
 
         sendJsonResponse([
@@ -222,6 +228,8 @@ try {
                 'branch' => $bankAccount['branch'] ?? ''
             ] : null,
             'campaign_updates' => $campaignUpdates,
+            'notifications' => $notificationsList,
+            'unread_notifications_count' => $unreadNotifCount,
             'open_projects' => $openProjects,
             'catalog_projects' => $catalogProjects,
             'csrf_token' => getCsrfToken(),

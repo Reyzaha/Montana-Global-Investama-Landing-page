@@ -201,6 +201,28 @@ class Database {
         } catch (Throwable $e) {
             error_log("Schema update warning (leads): " . $e->getMessage());
         }
+
+        // Notifications table for real-time updates from Admin to Investor
+        try {
+            $db->exec("
+                CREATE TABLE IF NOT EXISTS `notifications` (
+                    `id` INT AUTO_INCREMENT PRIMARY KEY,
+                    `investor_id` INT NOT NULL,
+                    `project_id` VARCHAR(50) NULL,
+                    `type` VARCHAR(50) NOT NULL DEFAULT 'system',
+                    `title` VARCHAR(255) NOT NULL,
+                    `message` TEXT NOT NULL,
+                    `link_url` VARCHAR(255) NULL,
+                    `is_read` TINYINT(1) NOT NULL DEFAULT 0,
+                    `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    INDEX `idx_notif_investor` (`investor_id`),
+                    INDEX `idx_notif_read` (`is_read`),
+                    INDEX `idx_notif_created` (`created_at`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            ");
+        } catch (Throwable $e) {
+            error_log("Schema update warning (notifications): " . $e->getMessage());
+        }
     }
 
     public static function getConnectedPort(): ?int {

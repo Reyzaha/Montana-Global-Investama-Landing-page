@@ -114,78 +114,100 @@ try {
             $portfolio = $stmtPort->fetch();
         }
 
-        $isPreview = false;
-        if ($portfolio) {
+        $hasInvested = ($portfolio !== false && $portfolio !== null && (float)($portfolio['amount'] ?? 0) > 0);
+        $isPreview = !$hasInvested;
+
+        if ($hasInvested) {
             $totalCapital = (float)$portfolio['amount'];
-            $contractNumber = $portfolio['contract_number'] ?: ('MGI/INV/' . date('Y') . '/' . str_pad($investorId, 3, '0', STR_PAD_LEFT) . '-BP');
+            $contractNumber = !empty($portfolio['contract_number']) ? $portfolio['contract_number'] : ('MGI/INV/' . date('Y') . '/' . str_pad($investorId, 3, '0', STR_PAD_LEFT) . '-BP');
             $payoutReceived = isset($portfolio['payout_received']) ? (float)$portfolio['payout_received'] : 0.0;
+
+            // Inventory items allocated for this project
+            $stmtInv = $db->prepare("SELECT * FROM project_inventory WHERE project_id = ? ORDER BY id ASC");
+            $stmtInv->execute([$projectId]);
+            $inventoryList = $stmtInv->fetchAll();
+
+            // Financial records for this investor on this project
+            $stmtFin = $db->prepare("SELECT * FROM financial_records WHERE project_id = ? AND investor_id = ? ORDER BY transaction_date ASC, id ASC");
+            $stmtFin->execute([$projectId, $investorId]);
+            $allFin = $stmtFin->fetchAll();
+
+            $purchases = [];
+            $sales = [];
+            $costs = [];
+            $billings = [];
+
+            $totalPembelian = 0.0;
+            $totalPenjualan = 0.0;
+            $totalBiaya = 0.0;
+
+            foreach ($allFin as $f) {
+                $amt = (float)$f['amount'];
+                $m = strtolower($f['module']);
+                $cat = strtolower($f['category']);
+                $flow = strtolower($f['flow_type']);
+
+                if ($f['is_billing']) {
+                    $billings[] = $f;
+                }
+
+                if ($m === 'pembelian') {
+                    $purchases[] = $f;
+                    $totalPembelian += $amt;
+                } elseif ($m === 'penjualan') {
+                    $sales[] = $f;
+                    $totalPenjualan += $amt;
+                } elseif ($m === 'biaya' || ($m === 'labarugi' && $flow === 'out' && strpos($cat, 'dividen') === false && strpos($cat, 'profit') === false && strpos($cat, 'bagi hasil') === false)) {
+                    $costs[] = $f;
+                    $totalBiaya += $amt;
+                }
+            }
+
+            $totalTerpakai = $totalPembelian + $totalBiaya;
+            $sisaDana = max(0, $totalCapital - $totalTerpakai);
+            $labaBersih = $totalPenjualan - $totalBiaya;
+
+            // Documents for this investor & project
+            $stmtDocs = $db->prepare("SELECT * FROM project_documents WHERE project_id = ? AND (investor_id = ? OR investor_id IS NULL) AND status = 'published' ORDER BY published_at DESC, id DESC");
+            $stmtDocs->execute([$projectId, $investorId]);
+            $documents = $stmtDocs->fetchAll();
+
+            // Inventory summary stats
+            $totalUnits = count($inventoryList);
+            $activeUnits = 0;
+            $standbyUnits = 0;
+            $totalAssetValue = 0.0;
+            foreach ($inventoryList as $inv) {
+                if ($inv['operational_status'] === 'Aktif Beroperasi') $activeUnits++;
+                else $standbyUnits++;
+                $totalAssetValue += (float)$inv['total_value'];
+            }
         } else {
-            // Investor belum melakukan investasi / data real-time masih 0
+            // Investor baru yang belum menempatkan modal: seluruh modul pembukuan kosong / 0
             $totalCapital = 0.0;
             $contractNumber = '-';
             $payoutReceived = 0.0;
-        }
+            $inventoryList = [];
+            $allFin = [];
+            $purchases = [];
+            $sales = [];
+            $costs = [];
+            $billings = [];
+            $totalPembelian = 0.0;
+            $totalPenjualan = 0.0;
+            $totalBiaya = 0.0;
+            $totalTerpakai = 0.0;
+            $sisaDana = 0.0;
+            $labaBersih = 0.0;
+            $totalUnits = 0;
+            $activeUnits = 0;
+            $standbyUnits = 0;
+            $totalAssetValue = 0.0;
 
-        // Inventory items
-        $stmtInv = $db->prepare("SELECT * FROM project_inventory WHERE project_id = ? ORDER BY id ASC");
-        $stmtInv->execute([$projectId]);
-        $inventoryList = $stmtInv->fetchAll();
-
-        // Financial records
-        $stmtFin = $db->prepare("SELECT * FROM financial_records WHERE project_id = ? ORDER BY transaction_date ASC, id ASC");
-        $stmtFin->execute([$projectId]);
-        $allFin = $stmtFin->fetchAll();
-
-        $purchases = [];
-        $sales = [];
-        $costs = [];
-        $billings = [];
-
-        $totalPembelian = 0.0;
-        $totalPenjualan = 0.0;
-        $totalBiaya = 0.0;
-
-        foreach ($allFin as $f) {
-            $amt = (float)$f['amount'];
-            $m = strtolower($f['module']);
-            $cat = strtolower($f['category']);
-            $flow = strtolower($f['flow_type']);
-
-            if ($f['is_billing']) {
-                $billings[] = $f;
-            }
-
-            if ($m === 'pembelian') {
-                $purchases[] = $f;
-                $totalPembelian += $amt;
-            } elseif ($m === 'penjualan') {
-                $sales[] = $f;
-                $totalPenjualan += $amt;
-            } elseif ($m === 'biaya' || ($m === 'labarugi' && $flow === 'out' && strpos($cat, 'dividen') === false && strpos($cat, 'profit') === false && strpos($cat, 'bagi hasil') === false)) {
-                $costs[] = $f;
-                $totalBiaya += $amt;
-            }
-        }
-
-        // Real-time data murni dari database (tanpa seed multiplier)
-        $totalTerpakai = $totalPembelian + $totalBiaya;
-        $sisaDana = max(0, $totalCapital - $totalTerpakai);
-        $labaBersih = $totalPenjualan - $totalBiaya;
-
-        // Documents
-        $stmtDocs = $db->prepare("SELECT * FROM project_documents WHERE project_id = ? AND status = 'published' ORDER BY published_at DESC, id DESC");
-        $stmtDocs->execute([$projectId]);
-        $documents = $stmtDocs->fetchAll();
-
-        // Inventory summary stats
-        $totalUnits = count($inventoryList);
-        $activeUnits = 0;
-        $standbyUnits = 0;
-        $totalAssetValue = 0.0;
-        foreach ($inventoryList as $inv) {
-            if ($inv['operational_status'] === 'Aktif Beroperasi') $activeUnits++;
-            else $standbyUnits++;
-            $totalAssetValue += (float)$inv['total_value'];
+            // Dokumen proposal/RAB acuan saja (bukan faktur transaksi privat)
+            $stmtDocs = $db->prepare("SELECT * FROM project_documents WHERE project_id = ? AND investor_id IS NULL AND status = 'published' ORDER BY published_at DESC, id DESC");
+            $stmtDocs->execute([$projectId]);
+            $documents = $stmtDocs->fetchAll();
         }
 
         // Structured Balance Sheet (Neraca)
@@ -323,12 +345,13 @@ try {
             'neraca' => $neracaData,
             'laba_rugi' => $labaRugiData,
             'documents' => $documents,
+            'has_invested' => $hasInvested,
             'charts' => [
                 'labels' => ['Jan 2026', 'Feb 2026', 'Mar 2026', 'Apr 2026', 'Mei 2026', 'Jun 2026', 'Jul 2026', 'Agu 2026', 'Sep 2026'],
-                'pembelian' => [2800, 350, 0, 0, 0, 0, 0, 0, 0],
-                'penjualan' => [0, 0, 450, 0, 0, 520, 0, 0, 170],
-                'biaya' => [0, 0, 85, 0, 0, 0, 0, 0, 0],
-                'sisa_dana' => [5000, 1850, 2215, 2090, 2090, 2610, 2465, 2465, 2465]
+                'pembelian' => $hasInvested ? [$totalPembelian > 0 ? round($totalPembelian / 1000000) : 0, 0, 0, 0, 0, 0, 0, 0, 0] : [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                'penjualan' => $hasInvested ? [0, 0, $totalPenjualan > 0 ? round($totalPenjualan / 1000000) : 0, 0, 0, 0, 0, 0, 0] : [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                'biaya' => $hasInvested ? [0, 0, $totalBiaya > 0 ? round($totalBiaya / 1000000) : 0, 0, 0, 0, 0, 0, 0] : [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                'sisa_dana' => $hasInvested ? [round($totalCapital / 1000000), round($sisaDana / 1000000), round($sisaDana / 1000000), round($sisaDana / 1000000), round($sisaDana / 1000000), round($sisaDana / 1000000), round($sisaDana / 1000000), round($sisaDana / 1000000), round($sisaDana / 1000000)] : [0, 0, 0, 0, 0, 0, 0, 0, 0]
             ]
         ]);
     }

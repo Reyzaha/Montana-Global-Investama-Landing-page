@@ -203,10 +203,53 @@
 
         <!-- Right Quick Actions -->
         <div class="flex items-center gap-2 sm:gap-3">
+          <!-- Live Sync Status Indicator (8s Polling) -->
+          <div id="liveSyncStatusBadge" class="inline-flex items-center gap-1.5 px-3 py-1 text-[11px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200/90 rounded-full shadow-2xs transition-all" title="Terhubung Real-Time: Auto-refresh data setiap 8 detik">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span class="hidden sm:inline">Live Sync</span>
+            <span class="font-mono text-[10px] bg-emerald-200/60 text-emerald-900 px-1.5 py-0.2 rounded font-bold">8s</span>
+          </div>
+
+          <!-- Notification Bell & Floating Box -->
+          <div class="relative" id="notifDropdownContainer">
+            <button id="notifBellBtn" onclick="toggleNotificationBox()" class="relative p-2 rounded-full text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer border border-slate-200/60" title="Notifikasi Real-Time dari Admin">
+              <i data-lucide="bell" class="w-4 h-4 sm:w-4.5 sm:h-4.5"></i>
+              <span id="notifBadgeCounter" class="hidden absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 bg-rose-600 text-white rounded-full text-[9px] font-black flex items-center justify-center animate-bounce shadow-xs">0</span>
+            </button>
+
+            <!-- Notification Dropdown Menu -->
+            <div id="notificationDropdownMenu" class="hidden absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-3xl shadow-2xl border border-slate-200/90 py-3 z-50 overflow-hidden text-xs text-slate-700">
+              <div class="px-4 py-2 border-b border-slate-100 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <div class="w-7 h-7 rounded-xl bg-amber-50 text-amber-800 flex items-center justify-center font-bold">
+                    <i data-lucide="bell-ring" class="w-3.5 h-3.5 text-amber-600"></i>
+                  </div>
+                  <h5 class="font-bold text-slate-900 text-xs sm:text-sm mb-0">Pemberitahuan Admin</h5>
+                </div>
+                <button onclick="markAllNotificationsRead()" class="text-[11px] text-blue-600 hover:text-blue-800 font-semibold cursor-pointer">Tandai Dibaca</button>
+              </div>
+              <div id="notificationListBody" class="max-h-80 overflow-y-auto divide-y divide-slate-100 p-1">
+                <div class="py-8 text-center text-slate-400">
+                  <i data-lucide="bell-off" class="w-6 h-6 mx-auto mb-1 opacity-40"></i>
+                  <span class="text-xs">Belum ada notifikasi baru</span>
+                </div>
+              </div>
+              <div class="px-4 py-2 border-t border-slate-100 bg-slate-50 text-center flex items-center justify-between">
+                <span class="text-[10px] text-slate-400 font-medium">Auto-sync 8s via server</span>
+                <span class="text-[10px] text-emerald-700 font-bold flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Online
+                </span>
+              </div>
+            </div>
+          </div>
+
           <a href="flow-kerja.html"
-            class="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold text-amber-900 bg-amber-50 hover:bg-amber-100 border border-amber-200/90 rounded-full transition-all shadow-2xs hover:shadow-xs">
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-amber-900 bg-amber-50 hover:bg-amber-100 border border-amber-200/90 rounded-full transition-all shadow-2xs hover:shadow-xs">
             <i data-lucide="git-merge" class="w-3.5 h-3.5 text-amber-600"></i>
-            Flow Kerja
+            <span class="hidden sm:inline">Flow Kerja</span>
           </a>
           <a href="/" target="_blank"
             class="hidden md:inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 rounded-full transition-all">
@@ -2501,6 +2544,12 @@
         if (profileBtn && profileMenu && !profileBtn.contains(event.target) && !profileMenu.contains(event.target)) {
           profileMenu.classList.add('hidden');
         }
+
+        const notifContainer = document.getElementById('notifDropdownContainer');
+        const notifMenu = document.getElementById('notificationDropdownMenu');
+        if (notifContainer && notifMenu && !notifContainer.contains(event.target)) {
+          notifMenu.classList.add('hidden');
+        }
       });
 
       // 5. Check URL parameters to auto-open specific project or tab
@@ -2527,6 +2576,9 @@
           window.history.pushState(null, null, window.location.href);
         });
       } catch (e) { }
+
+      // 7. Start Real-Time Auto-Sync Polling Loop (Every 8 Seconds)
+      startRealtimePollingLoop();
     });
 
     // Toggle Profile Dropdown
@@ -2538,6 +2590,196 @@
           lucide.createIcons();
         }
       }
+    }
+
+    // Toggle Notification Box Dropdown
+    function toggleNotificationBox() {
+      const menu = document.getElementById('notificationDropdownMenu');
+      if (menu) {
+        menu.classList.toggle('hidden');
+        if (!menu.classList.contains('hidden') && window.lucide) {
+          lucide.createIcons();
+        }
+      }
+    }
+
+    // Render Notifications List & Unread Counter Badge
+    function renderNotifications(notifs, unreadCount) {
+      const badge = document.getElementById('notifBadgeCounter');
+      if (badge) {
+        if (unreadCount > 0) {
+          badge.textContent = unreadCount > 9 ? '9+' : unreadCount;
+          badge.classList.remove('hidden');
+        } else {
+          badge.classList.add('hidden');
+        }
+      }
+
+      const listBody = document.getElementById('notificationListBody');
+      if (!listBody) return;
+
+      if (!notifs || notifs.length === 0) {
+        listBody.innerHTML = `
+          <div class="py-8 text-center text-slate-400">
+            <i data-lucide="bell-off" class="w-6 h-6 mx-auto mb-1 opacity-40"></i>
+            <span class="text-xs">Belum ada riwayat notifikasi</span>
+          </div>
+        `;
+        if (window.lucide) lucide.createIcons();
+        return;
+      }
+
+      listBody.innerHTML = notifs.map(n => {
+        const isUnread = !n.is_read || n.is_read === '0' || n.is_read === 0;
+        const bgClass = isUnread ? 'bg-amber-50/70 font-semibold' : 'hover:bg-slate-50';
+        let iconName = 'bell';
+        let iconColor = 'text-amber-600 bg-amber-50';
+
+        if (n.type === 'billing') {
+          iconName = 'receipt';
+          iconColor = 'text-emerald-600 bg-emerald-50';
+        } else if (n.type === 'portfolio') {
+          iconName = 'shield-check';
+          iconColor = 'text-blue-600 bg-blue-50';
+        } else if (n.type === 'inventory') {
+          iconName = 'boxes';
+          iconColor = 'text-indigo-600 bg-indigo-50';
+        }
+
+        const timeAgo = formatTimeAgo(n.created_at);
+
+        return `
+          <div class="p-3 transition-colors ${bgClass} cursor-pointer flex items-start gap-3" onclick="handleNotificationClick(${n.id}, '${n.link_url || ''}')">
+            <div class="w-8 h-8 rounded-xl ${iconColor} flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+              <i data-lucide="${iconName}" class="w-4 h-4"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-1 mb-0.5">
+                <h6 class="text-xs font-bold text-slate-900 truncate mb-0">${n.title || 'Pemberitahuan'}</h6>
+                <span class="text-[10px] text-slate-400 whitespace-nowrap">${timeAgo}</span>
+              </div>
+              <p class="text-[11px] text-slate-600 leading-snug line-clamp-2">${n.message || ''}</p>
+            </div>
+            ${isUnread ? '<span class="w-2 h-2 rounded-full bg-amber-500 shrink-0 mt-1"></span>' : ''}
+          </div>
+        `;
+      }).join('');
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    async function handleNotificationClick(notifId, linkUrl) {
+      try {
+        await fetch(`api/investor/notifications.php?action=mark_read&id=${notifId}`, { method: 'POST' });
+      } catch (e) {}
+
+      const menu = document.getElementById('notificationDropdownMenu');
+      if (menu) menu.classList.add('hidden');
+
+      if (linkUrl) {
+        if (linkUrl.startsWith('http')) {
+          window.open(linkUrl, '_blank');
+        } else if (linkUrl.includes('tab=')) {
+          const tab = linkUrl.split('tab=')[1].split('&')[0];
+          switchTab(tab);
+        } else if (linkUrl.includes('project_id=')) {
+          const pId = linkUrl.split('project_id=')[1].split('&')[0];
+          openOperationalDashboard(pId);
+        } else {
+          window.location.href = linkUrl;
+        }
+      }
+    }
+
+    async function markAllNotificationsRead() {
+      try {
+        const res = await fetch('api/investor/notifications.php?action=mark_all_read', { method: 'POST' });
+        const json = await res.json();
+        if (json.success) {
+          const badge = document.getElementById('notifBadgeCounter');
+          if (badge) badge.classList.add('hidden');
+          const notifRes = await fetch('api/investor/notifications.php');
+          const notifJson = await notifRes.json();
+          if (notifJson.success && notifJson.data) {
+            renderNotifications(notifJson.data.notifications || [], 0);
+          }
+        }
+      } catch (e) {
+        console.error('Gagal menandai notifikasi dibaca:', e);
+      }
+    }
+
+    function formatTimeAgo(dateStr) {
+      if (!dateStr) return '';
+      const d = new Date(dateStr);
+      const now = new Date();
+      const diffSec = Math.floor((now - d) / 1000);
+      if (diffSec < 60) return 'Baru saja';
+      const diffMin = Math.floor(diffSec / 60);
+      if (diffMin < 60) return `${diffMin}m lalu`;
+      const diffHour = Math.floor(diffMin / 60);
+      if (diffHour < 24) return `${diffHour}j lalu`;
+      const diffDay = Math.floor(diffHour / 24);
+      return `${diffDay}h lalu`;
+    }
+
+    // Real-Time Polling Loop (Every 8 Seconds hit server for latest data)
+    let realtimeSyncInterval = null;
+    let isSyncingData = false;
+
+    function startRealtimePollingLoop() {
+      if (realtimeSyncInterval) clearInterval(realtimeSyncInterval);
+
+      realtimeSyncInterval = setInterval(async () => {
+        if (isSyncingData) return;
+        isSyncingData = true;
+
+        try {
+          // Hit server dashboard endpoint
+          const res = await fetch(`api/investor/dashboard.php?action=get&_t=${Date.now()}`, { 
+            cache: 'no-store', 
+            credentials: 'same-origin' 
+          });
+
+          if (res.ok) {
+            const json = await res.json();
+            if (json && json.success && json.data) {
+              // Pulse the Live Sync indicator badge
+              const liveBadge = document.getElementById('liveSyncStatusBadge');
+              if (liveBadge) {
+                liveBadge.classList.add('ring-2', 'ring-emerald-400');
+                setTimeout(() => liveBadge.classList.remove('ring-2', 'ring-emerald-400'), 1000);
+              }
+
+              // Update notifications
+              if (json.data.notifications) {
+                renderNotifications(json.data.notifications, json.data.unread_notifications_count || 0);
+              }
+
+              // Check if capital or portfolio count changed
+              const prevCap = dashboardState.summary ? Number(dashboardState.summary.total_investasi || 0) : 0;
+              const newCap = json.data.summary ? Number(json.data.summary.total_investasi || 0) : 0;
+              const prevPortCount = dashboardState.portfolios ? dashboardState.portfolios.length : 0;
+              const newPortCount = json.data.portfolios ? json.data.portfolios.length : 0;
+
+              if (prevCap !== newCap || prevPortCount !== newPortCount) {
+                Object.assign(dashboardState, json.data);
+                applyDataToUI(dashboardState);
+                initDashboardData();
+              }
+
+              // If operational dashboard modal is currently open, refresh project data silently
+              if (activeOperationalProjectId && document.getElementById('dashboardModal') && !document.getElementById('dashboardModal').classList.contains('hidden')) {
+                fetchProjectDashboardData(activeOperationalProjectId, true);
+              }
+            }
+          }
+        } catch (e) {
+          console.warn('Real-time 8s sync poll notice:', e);
+        } finally {
+          isSyncingData = false;
+        }
+      }, 8000); // exactly 8 seconds
     }
 
     // Enhanced Navigation from Profile Dropdown Menu
@@ -2996,6 +3238,11 @@
           if (json && json.success && json.data) {
             Object.assign(dashboardState, json.data);
             applyDataToUI(dashboardState);
+
+            // Render Notifications on load
+            if (json.data.notifications) {
+              renderNotifications(json.data.notifications, json.data.unread_notifications_count || 0);
+            }
 
             // If projects were not loaded yet, map portfolios from dashboard response or render them
             if (!projectsLoaded && json.data.portfolios && json.data.portfolios.length > 0) {
@@ -3630,7 +3877,7 @@
 
       // Badges
       const invActiveBadge = document.getElementById('opInvActiveBadge');
-      if (invActiveBadge) invActiveBadge.innerText = `${inv.active_units || 2} Unit Aktif`;
+      if (invActiveBadge) invActiveBadge.innerText = `${inv.active_units !== undefined ? inv.active_units : 0} Unit Aktif`;
       const pBadge = document.getElementById('opPembelianBadge');
       if (pBadge) pBadge.innerText = formatRupiahDisplay(f.total_pembelian || 0);
       const sBadge = document.getElementById('opPenjualanBadge');
@@ -3677,7 +3924,25 @@
       const invTbody = document.getElementById('opInvDetailedTableBody');
       if (invTbody) {
         if (invItems.length === 0) {
-          invTbody.innerHTML = `<tr><td colspan="8" class="py-6 text-center text-slate-400">Belum ada unit armada terdaftar dalam proyek ini.</td></tr>`;
+          invTbody.innerHTML = `
+            <tr>
+              <td colspan="8" class="py-12 px-4 text-center">
+                <div class="max-w-md mx-auto text-center">
+                  <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-2xs">
+                    <i data-lucide="boxes" class="w-7 h-7"></i>
+                  </div>
+                  <h5 class="text-sm font-bold text-slate-900 mb-1">Belum Ada Unit Alat Berat Teralokasi</h5>
+                  <p class="text-xs text-slate-500 leading-relaxed mb-4">
+                    Format modul pembukuan fisik unit (Stock/Inventory) siap digunakan. Data unit CBU lelang Jepang, nomor seri, jam kerja (SMH), dan sertifikat registrasi akan otomatis tercatat seketika Anda merealisasikan penempatan modal kemitraan.
+                  </p>
+                  <button type="button" onclick="switchOperationalModule('rab')" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white transition active:scale-95 shadow-2xs cursor-pointer">
+                    <i data-lucide="calculator" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <span>Tinjau Alokasi Unit di Modul RAB Acuan</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          `;
         } else {
           invTbody.innerHTML = invItems.map((item, idx) => {
             const isAktif = item.operational_status === 'Aktif Beroperasi';
@@ -3752,7 +4017,25 @@
       const buyTbody = document.getElementById('opBuyDetailedTableBody');
       if (buyTbody) {
         if (purchases.length === 0) {
-          buyTbody.innerHTML = `<tr><td colspan="8" class="py-6 text-center text-slate-400">Belum ada transaksi pembelian tercatat.</td></tr>`;
+          buyTbody.innerHTML = `
+            <tr>
+              <td colspan="8" class="py-12 px-4 text-center">
+                <div class="max-w-md mx-auto text-center">
+                  <div class="w-14 h-14 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-2xs">
+                    <i data-lucide="shopping-cart" class="w-7 h-7"></i>
+                  </div>
+                  <h5 class="text-sm font-bold text-slate-900 mb-1">Belum Ada Transaksi Pengadaan Unit</h5>
+                  <p class="text-xs text-slate-500 leading-relaxed mb-4">
+                    Mutasi invoice pembelian unit dari partner eksklusif (MSI &amp; MIU) beserta bukti faktur escrow akan otomatis tercatat dan dapat diverifikasi langsung di sini secara real-time.
+                  </p>
+                  <button type="button" onclick="switchOperationalModule('rab')" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white transition active:scale-95 shadow-2xs cursor-pointer">
+                    <i data-lucide="calculator" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <span>Cek HPP &amp; Biaya Logistik di RAB</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          `;
         } else {
           buyTbody.innerHTML = purchases.map(p => {
             const pJson = JSON.stringify({
@@ -3792,7 +4075,21 @@
       const saleTbody = document.getElementById('opSaleDetailedTableBody');
       if (saleTbody) {
         if (sales.length === 0) {
-          saleTbody.innerHTML = `<tr><td colspan="8" class="py-6 text-center text-slate-400">Belum ada transaksi penjualan armada tercatat.</td></tr>`;
+          saleTbody.innerHTML = `
+            <tr>
+              <td colspan="8" class="py-12 px-4 text-center">
+                <div class="max-w-md mx-auto text-center">
+                  <div class="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-2xs">
+                    <i data-lucide="trending-up" class="w-7 h-7"></i>
+                  </div>
+                  <h5 class="text-sm font-bold text-slate-900 mb-1">Belum Ada Realisasi Penjualan Unit</h5>
+                  <p class="text-xs text-slate-500 leading-relaxed mb-4">
+                    Penjualan unit CBU hasil rekondisi ke kontraktor rekanan akan dicatatkan langsung ke rekening escrow proyek, lengkap dengan nomor invoice penjualan dan bukti transfer.
+                  </p>
+                </div>
+              </td>
+            </tr>
+          `;
         } else {
           saleTbody.innerHTML = sales.map(s => {
             const sJson = JSON.stringify({
@@ -3832,7 +4129,21 @@
       const costTbody = document.getElementById('opCostDetailedTableBody');
       if (costTbody) {
         if (costs.length === 0) {
-          costTbody.innerHTML = `<tr><td colspan="7" class="py-6 text-center text-slate-400">Belum ada catatan biaya operasional.</td></tr>`;
+          costTbody.innerHTML = `
+            <tr>
+              <td colspan="7" class="py-12 px-4 text-center">
+                <div class="max-w-md mx-auto text-center">
+                  <div class="w-14 h-14 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-2xs">
+                    <i data-lucide="wallet" class="w-7 h-7"></i>
+                  </div>
+                  <h5 class="text-sm font-bold text-slate-900 mb-1">Belum Ada Pengeluaran Biaya Operasional</h5>
+                  <p class="text-xs text-slate-500 leading-relaxed mb-4">
+                    Seluruh biaya overhaul workshop, logistik pelabuhan, dan pemeliharaan lapangan akan terlampir dengan bukti bayar resmi yang terverifikasi tim tata kelola MGI.
+                  </p>
+                </div>
+              </td>
+            </tr>
+          `;
         } else {
           costTbody.innerHTML = costs.map(c => {
             const cJson = JSON.stringify({
@@ -3858,7 +4169,6 @@
               </tr>
             `;
           }).join('');
-        }
       }
 
       // -------------------------------------------------------------
@@ -4073,17 +4383,21 @@
     // Render 4 Operational Charts using Chart.js
     function renderOperationalCharts(data) {
       if (!window.Chart) return;
+      const f = data.financial_summary || {};
+      const hasCapital = (Number(f.total_dana_investor !== undefined ? f.total_dana_investor : 0) > 0);
       const inv = data.inventory || {};
       const items = inv.items || [];
       const charts = data.charts || {};
-      const labels = charts.labels || ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep'];
+      const labels = (hasCapital && charts.labels && charts.labels.length > 0) 
+        ? charts.labels 
+        : ['Bln 1', 'Bln 2', 'Bln 3', 'Bln 4', 'Bln 5', 'Bln 6'];
 
       // Chart A: Inventory / Stok & Status
       const ctxInv = document.getElementById('chartInventoryCanvas');
       if (ctxInv) {
         if (chartInventoryInstance) chartInventoryInstance.destroy();
-        const invLabels = items.length > 0 ? items.map(i => i.item_code) : ['KMTC-01', 'KMTC-02', 'BRK-01'];
-        const invSmh = items.length > 0 ? items.map(i => i.smh_hours || 1200) : [1240, 1178, 450];
+        const invLabels = (hasCapital && items.length > 0) ? items.map(i => i.item_code) : ['Belum Ada Unit'];
+        const invSmh = (hasCapital && items.length > 0) ? items.map(i => i.smh_hours || 0) : [0];
 
         chartInventoryInstance = new Chart(ctxInv, {
           type: 'bar',
@@ -4120,7 +4434,7 @@
       const ctxBuy = document.getElementById('chartPembelianCanvas');
       if (ctxBuy) {
         if (chartPembelianInstance) chartPembelianInstance.destroy();
-        const buyData = charts.pembelian || [2800, 350, 0, 0, 0, 0, 0, 0, 0];
+        const buyData = (hasCapital && charts.pembelian) ? charts.pembelian : [0, 0, 0, 0, 0, 0];
 
         chartPembelianInstance = new Chart(ctxBuy, {
           type: 'bar',
@@ -4156,7 +4470,7 @@
       const ctxSale = document.getElementById('chartPenjualanCanvas');
       if (ctxSale) {
         if (chartPenjualanInstance) chartPenjualanInstance.destroy();
-        const saleData = charts.penjualan || [0, 0, 450, 0, 0, 520, 0, 0, 170];
+        const saleData = (hasCapital && charts.penjualan) ? charts.penjualan : [0, 0, 0, 0, 0, 0];
 
         chartPenjualanInstance = new Chart(ctxSale, {
           type: 'line',
@@ -4196,7 +4510,7 @@
       const ctxCost = document.getElementById('chartBiayaCanvas');
       if (ctxCost) {
         if (chartBiayaInstance) chartBiayaInstance.destroy();
-        const costData = charts.biaya || [0, 0, 85, 0, 0, 0, 0, 0, 0];
+        const costData = (hasCapital && charts.biaya) ? charts.biaya : [0, 0, 0, 0, 0, 0];
 
         chartBiayaInstance = new Chart(ctxCost, {
           type: 'bar',
@@ -4224,7 +4538,6 @@
               y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.04)' } },
               x: { grid: { display: false } }
             }
-          }
         });
       }
     }

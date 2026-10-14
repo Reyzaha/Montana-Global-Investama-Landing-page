@@ -8,6 +8,7 @@
 require_once __DIR__ . '/../../backend/config/db.php';
 require_once __DIR__ . '/../../backend/helpers/response.php';
 require_once __DIR__ . '/../../backend/helpers/auth_helper.php';
+require_once __DIR__ . '/../../backend/helpers/notification_helper.php';
 
 $admin = requireAdminAuth();
 $method = $_SERVER['REQUEST_METHOD'];
@@ -302,6 +303,12 @@ try {
         }
         @file_put_contents($cacheDir . "/project_{$projectId}_stream.txt", time() . '|' . microtime(true));
 
+        // Kirim notifikasi real-time ke dashboard investor
+        $notifType = $isBilling ? 'billing' : 'financial';
+        $notifTitle = $isBilling ? "Billing Diterbitkan: {$title}" : "Mutasi Pembukuan: {$title}";
+        $notifMsg = "Admin telah mencatat " . ($isBilling ? "billing alokasi" : "transaksi") . " senilai Rp " . number_format($amount, 0, ',', '.') . " pada modul " . ucfirst($module) . " (No: {$recordNumber}).";
+        createNotification($db, $investorId, $projectId, $notifType, $notifTitle, $notifMsg, "investor-dashboard.html?tab=pembukuan");
+
         // Log aktivitas admin
         logAdminActivity(
             'create_financial_billing',
@@ -357,6 +364,12 @@ try {
             @mkdir($cacheDir, 0777, true);
         }
         @file_put_contents($cacheDir . "/project_{$existing['project_id']}_stream.txt", time() . '|' . microtime(true));
+
+        if ($billingStatus !== $existing['billing_status']) {
+            $notifTitle = "Status Billing Diperbarui: {$title}";
+            $notifMsg = "Status billing {$existing['record_number']} kini telah diubah menjadi " . strtoupper($billingStatus) . ".";
+            createNotification($db, (int)$existing['investor_id'], $existing['project_id'], 'billing', $notifTitle, $notifMsg, "investor-dashboard.html?tab=pembukuan");
+        }
 
         logAdminActivity(
             'update_financial_billing',
