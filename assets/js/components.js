@@ -329,7 +329,7 @@ const MGIComponents = {
     let optionsPillsHtml = '';
     let fundingBoxHtml = '';
     let operatorCalloutHtml = '';
-    let ctaText = 'Lihat Detail Proyek';
+    let ctaText = 'Rancangan Anggaran Modal';
 
     if (mode === '2' && options.length >= 2) {
       const opt1 = options[0];
@@ -342,10 +342,10 @@ const MGIComponents = {
       optionsPillsHtml = `
         <div class="project-options-pills">
           <span class="project-option-pill pill-opt1" title="${opt1.label || ''}">
-            <i class="bi bi-1-circle-fill"></i> Pilihan 1: ${nom1Disp} (${perk1})
+            <i class="bi bi-1-circle-fill"></i> Alokasi 1: ${nom1Disp} (${perk1})
           </span>
           <span class="project-option-pill pill-opt2" title="${opt2.label || ''}">
-            <i class="bi bi-2-circle-fill"></i> Pilihan 2: ${nom2Disp} (${perk2})
+            <i class="bi bi-2-circle-fill"></i> Alokasi 2: ${nom2Disp} (${perk2})
           </span>
         </div>
       `;
@@ -353,12 +353,12 @@ const MGIComponents = {
       fundingBoxHtml = `
         <div class="project-funding-range-box">
           <div class="funding-range-label">
-            <span>Pilihan Paket Investasi:</span>
-            <span class="badge bg-gold text-dark fw-bold px-2 py-0.5 rounded-pill" style="font-size: 0.65rem;">2 Pilihan Paket</span>
+            <span>Nilai Anggaran Kebutuhan Proyek:</span>
+            <span class="badge bg-gold text-dark fw-bold px-2 py-0.5 rounded-pill" style="font-size: 0.65rem;">2 Pilihan Anggaran</span>
           </div>
           <div class="funding-range-value">${nom1Disp} &amp; ${nom2Disp}</div>
           <div class="small text-muted mt-1 text-truncate" style="font-size: 0.75rem;" title="${stockArmada}">
-            <i class="bi bi-check2-circle me-1 text-primary"></i>Investor dapat memilih Paket 1 (${nom1Disp}) atau Paket 2 (${nom2Disp})
+            <i class="bi bi-check2-circle me-1 text-primary"></i>Investor dapat memilih Alokasi Kebutuhan (${nom1Disp}) atau (${nom2Disp})
           </div>
         </div>
       `;
@@ -368,12 +368,12 @@ const MGIComponents = {
           <i class="bi bi-person-badge-fill"></i>
           <div>
             <strong>Fasilitas Operator Profesional:</strong>
-            <div class="small text-muted">Paket 1 (${nom1Disp}) = 1 Operator • Paket 2 (${nom2Disp}) = 2 Operator</div>
+            <div class="small text-muted">Kebutuhan (${nom1Disp}) = 1 Operator • Kebutuhan (${nom2Disp}) = 2 Operator</div>
           </div>
         </div>
       `;
 
-      ctaText = 'Lihat Detail &amp; Pilih Paket';
+      ctaText = 'Rancangan Anggaran Modal';
     } else if (mode === '1' && options.length >= 1) {
       const opt = options[0];
       const nomDisp = opt.nominal_display || MGI.formatRupiah(opt.nominal);
@@ -382,7 +382,7 @@ const MGIComponents = {
       optionsPillsHtml = `
         <div class="project-options-pills">
           <span class="project-option-pill pill-single" title="${opt.label || ''}">
-            <i class="bi bi-check-circle-fill"></i> Paket Tunggal: ${nomDisp}
+            <i class="bi bi-check-circle-fill"></i> Anggaran: ${nomDisp}
           </span>
         </div>
       `;
@@ -393,8 +393,8 @@ const MGIComponents = {
       fundingBoxHtml = `
         <div class="project-funding-range-box">
           <div class="funding-range-label">
-            <span>Nilai Paket Kemitraan:</span>
-            <span class="badge bg-royal text-white fw-bold px-2 py-0.5 rounded-pill" style="font-size: 0.65rem;">1 Pilihan Paket</span>
+            <span>Nilai Anggaran Kebutuhan Proyek:</span>
+            <span class="badge bg-royal text-white fw-bold px-2 py-0.5 rounded-pill" style="font-size: 0.65rem;">Alokasi Penuh</span>
           </div>
           <div class="funding-range-value">${nomDisp}</div>
           <div class="small text-muted mt-1 text-truncate" style="font-size: 0.75rem;" title="${cardUnitCount} Unit Alat Berat Siap Jual &amp; Distribusi">
@@ -415,7 +415,7 @@ const MGIComponents = {
         `;
       }
 
-      ctaText = 'Lihat Detail Kemitraan';
+      ctaText = 'Rancangan Anggaran Modal';
     } else {
       // Mode 'none' (Tanpa Pilihan Paket)
       const targetVal = project.funding && project.funding.target ? MGI.formatRupiah(project.funding.target) : (info.target || 'Rp 10.000.000.000');
@@ -425,7 +425,7 @@ const MGIComponents = {
       fundingBoxHtml = `
         <div class="project-funding-range-box">
           <div class="funding-range-label">
-            <span>Target Pendanaan Proyek:</span>
+            <span>Nilai Anggaran Kebutuhan Proyek:</span>
             <span class="badge bg-secondary text-white fw-bold px-2 py-0.5 rounded-pill" style="font-size: 0.65rem;">Target Riil</span>
           </div>
           <div class="funding-range-value">${targetVal}</div>
@@ -435,7 +435,7 @@ const MGIComponents = {
         </div>
       `;
 
-      ctaText = 'Lihat Detail Proyek';
+      ctaText = 'Rancangan Anggaran Modal';
     }
 
     return `
@@ -804,7 +804,7 @@ const MGIComponents = {
               <div class="p-4 bg-light border-bottom d-flex justify-content-between align-items-center flex-wrap gap-2">
                 <div>
                   <span class="badge bg-royal text-white rounded-pill px-3 py-1 small fw-bold mb-1">
-                    <i class="bi bi-star-fill text-gold me-1"></i> Paket Kemitraan Tunggal
+                    <i class="bi bi-star-fill text-gold me-1"></i> Nilai Anggaran Kebutuhan Proyek
                   </span>
                   <h3 class="fw-bold text-dark mt-1 mb-0" style="font-family: 'Outfit', sans-serif;">${nomDisp}</h3>
                   <div class="text-royal small mt-1 fw-bold text-uppercase" style="letter-spacing: 0.5px;">${t.label}</div>
@@ -863,7 +863,7 @@ const MGIComponents = {
                   <div class="col-12 col-sm-6">
                     <button type="button" onclick="MGIComponents.selectTier(${t.nominal})" class="btn btn-outline-primary fw-semibold w-100 rounded-pill py-2.5 shadow-sm d-flex align-items-center justify-content-center gap-2">
                       <i class="bi bi-calculator-fill"></i>
-                      <span>Simulasikan Paket</span>
+                      <span>Simulasikan Anggaran Modal</span>
                     </button>
                   </div>
                   <div class="col-12 col-sm-6">

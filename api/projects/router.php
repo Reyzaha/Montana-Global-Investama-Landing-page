@@ -125,7 +125,7 @@ try {
             $payoutReceived = 0.0;
         } else {
             // Public / Admin preview fallback
-            $totalCapital = (float)($project['funding_target'] ?: 5000000000);
+            $totalCapital = (float)($project['funding_target'] ?? 0);
             $contractNumber = 'MGI/DEMO/' . date('Y') . '/001-BP';
             $payoutReceived = 0.0;
         }

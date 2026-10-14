@@ -96,7 +96,7 @@
         <!-- 0. EXECUTIVE RAB 3-CARD HIGHLIGHT (Matching Proposal Document) -->
         <div id="sectionRabExecutiveMount"></div>
 
-        <!-- 0.1 TIER PARTISIPASI PEMODAL: PAKET KEMITRAAN & FASILITAS OPERATOR -->
+        <!-- 0.1 TIER PARTISIPASI PEMODAL: NILAI ANGGARAN KEBUTUHAN PROYEK & FASILITAS OPERATOR -->
         <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionTiers"
           style="display: none; border-top: 5px solid #C5A059 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
           <div
@@ -104,11 +104,10 @@
             <div>
               <h2 class="h5 mb-1 fw-bold text-dark d-flex align-items-center gap-2">
                 <i class="bi bi-layers-fill text-gold fs-5"></i>
-                Pilihan Paket Kemitraan &amp; Fasilitas Operator Profesional
+                Nilai Anggaran Kebutuhan Proyek &amp; Fasilitas Operator Profesional
               </h2>
               <div class="text-muted small">
-                Penempatan modal Rp 5 Miliar (1 Operator Profesional) atau Rp 10 Miliar (2 Operator Profesional). Gaji,
-                asuransi, dan manajemen operasional operator dikelola penuh oleh PT Montana Indo Utama.
+                Penempatan modal proyek dengan alokasi unit fisik riil, serta operator profesional resmi bersertifikat BNSP yang dikelola penuh oleh PT Montana Indo Utama.
               </div>
             </div>
             <span class="badge bg-royal text-white rounded-pill px-3 py-2 small fw-semibold">
@@ -118,7 +117,7 @@
           <div class="card-body p-4">
             <p class="text-muted small mb-4">
               Setiap penempatan modal langsung terhubung dengan unit fisik riil yang diadakan, direkondisi, dan
-              dipasarkan lengkap dengan operator alat berat resmi. Pilih paket untuk mensimulasikan kepemilikan aset dan
+              dipasarkan lengkap dengan operator alat berat resmi. Pilih rancangan anggaran modal untuk mensimulasikan kepemilikan aset dan
               proyeksi imbal hasil:
             </p>
             <div id="tiersMount"></div>
@@ -419,7 +418,7 @@
         `;
 
         headerFundingTitle = `${nom1Compact} &amp; ${nom2Compact}`;
-        headerFundingSubtitle = `Tersedia 2 pilihan paket kemitraan: Pilihan 1 (${nom1Disp}) atau Pilihan 2 (${nom2Disp}).`;
+        headerFundingSubtitle = `Tersedia 2 pilihan nilai anggaran kebutuhan proyek: Alokasi 1 (${nom1Disp}) atau Alokasi 2 (${nom2Disp}).`;
         headerOperatorHtml = `
           <div class="operator-facility-callout mt-3 p-2.5 rounded-3 d-flex align-items-center gap-2.5" style="background: #F8FAFC; border: 1.5px solid #CBD5E1;">
             <div class="operator-icon-circle" style="width: 40px; height: 40px; min-width: 40px; background: #FEFCE8; border: 1.5px solid #C5A059; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
@@ -439,13 +438,13 @@
         headerOptionsPillHtml = `
           <div class="project-options-pills mb-2">
             <span class="project-option-pill pill-single">
-              <i class="bi bi-check-circle-fill"></i> 1 Pilihan Paket Kemitraan Tunggal
+              <i class="bi bi-check-circle-fill"></i> Nilai Anggaran Kebutuhan Proyek
             </span>
           </div>
         `;
 
         headerFundingTitle = nomDisp;
-        headerFundingSubtitle = `Paket Kemitraan Tunggal senilai ${nomDisp} dengan ${opt.unit_qty || '20'} Unit Alat Berat siap operasi.`;
+        headerFundingSubtitle = `Nilai Anggaran Kebutuhan Proyek senilai ${nomDisp} dengan ${opt.unit_qty || '20'} Unit Alat Berat siap operasi.`;
         if (perk) {
           headerOperatorHtml = `
             <div class="operator-facility-callout mt-3 p-2.5 rounded-3 d-flex align-items-center gap-2.5" style="background: #F8FAFC; border: 1.5px solid #CBD5E1;">

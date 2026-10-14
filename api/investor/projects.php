@@ -61,39 +61,9 @@ try {
     $stmt->execute([$investorId]);
     $rawProjects = $stmt->fetchAll();
 
-    // Hanya masukkan project preview jika secara eksplisit dalam mode demo tanpa sesi
-    if (empty($rawProjects) && $isDemoMode) {
-        $stmtDefault = $db->prepare("
-            SELECT pr.*, pr.title as project_title, pr.category as project_category,
-                   pr.image as project_image, pr.status as project_status, pr.lokasi as project_lokasi
-            FROM projects pr
-            WHERE pr.id = 'proj-jkt-jabar'
-            LIMIT 1
-        ");
-        $stmtDefault->execute();
-        $def = $stmtDefault->fetch();
-        if ($def) {
-            $rawProjects = [[
-                'id' => 1,
-                'investor_id' => $investorId,
-                'project_id' => $def['id'],
-                'contract_number' => 'MGI/INV/2026/001-BP',
-                'amount' => 5000000000,
-                'return_rate' => $def['return_rate'] ?: '≥32% (p.a.)',
-                'tenor' => $def['tenor'] ?: '36 Bulan',
-                'start_date' => '2026-01-15',
-                'end_date' => '2029-01-15',
-                'next_payout_date' => '2026-10-15',
-                'payout_received' => 270000000,
-                'allocated_units' => '2x Unit Alat Berat Siap Operasi',
-                'status' => 'active',
-                'project_title' => $def['title'],
-                'project_category' => $def['category'],
-                'project_image' => $def['image'],
-                'project_status' => $def['status'],
-                'project_lokasi' => $def['lokasi']
-            ]];
-        }
+    // Real data only from database
+    if (empty($rawProjects)) {
+        $rawProjects = [];
     }
 
     $projectsList = [];

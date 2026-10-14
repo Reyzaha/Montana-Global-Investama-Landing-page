@@ -1943,16 +1943,16 @@
               <div class="flex items-center justify-between">
                 <h4 class="text-xs uppercase tracking-wider font-extrabold text-slate-700 flex items-center gap-1.5">
                   <i data-lucide="layers" class="w-4 h-4 text-amber-600"></i>
-                  Pilihan Paket Partisipasi &amp; Alokasi Fisik Unit
+                  Nilai Anggaran Kebutuhan Proyek &amp; Alokasi Fisik Unit
                 </h4>
-                <span class="text-[11px] text-slate-500 font-medium">Highlight emas menandakan paket yang Anda miliki
+                <span class="text-[11px] text-slate-500 font-medium">Highlight emas menandakan alokasi anggaran yang Anda miliki
                   saat ini</span>
               </div>
               <div class="overflow-x-auto border border-slate-200 rounded-2xl">
                 <table class="w-full text-xs text-left">
                   <thead class="bg-slate-900 text-slate-200 font-bold uppercase text-[10px] tracking-wider">
                     <tr>
-                      <th class="py-3 px-4">Paket / Nominal</th>
+                      <th class="py-3 px-4">Alokasi / Nominal</th>
                       <th class="py-3 px-4 text-center">Unit Fisik</th>
                       <th class="py-3 px-4">Alokasi Kontainer</th>
                       <th class="py-3 px-4">Porsi Kuota</th>
@@ -2203,11 +2203,10 @@
         <!-- Pilihan Paket Investasi (Menggantikan input manual nominal bebas) -->
         <div>
           <div class="flex items-center justify-between mb-1.5">
-            <label class="text-xs font-bold uppercase tracking-wider text-slate-700 block">Pilihan Paket
-              Investasi</label>
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-700 block">Nilai Anggaran Kebutuhan Proyek</label>
             <span
               class="text-[11px] font-semibold text-blue-700 px-2 py-0.5 rounded-full bg-blue-50 border border-blue-200"
-              id="investPackageModeBadge">Pilih Salah Satu Paket</span>
+              id="investPackageModeBadge">Pilih Rancangan Anggaran Modal</span>
           </div>
 
           <!-- Hidden inputs for form processing & backward compatibility -->
@@ -5070,7 +5069,7 @@
                   class="flex-1 py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 transition text-center cursor-pointer"
                 >
                   <i data-lucide="file-text" class="w-3.5 h-3.5 text-blue-600"></i>
-                  <span>Detail &amp; Proposal Proyek</span>
+                  <span>Rancangan Anggaran Modal</span>
                 </button>
                 ${isFullyFunded
             ? `
@@ -5199,10 +5198,10 @@
           <div class="mt-2">
             <div class="p-3.5 rounded-2xl border border-slate-200/90 bg-white text-slate-900 font-bold text-xs flex items-center justify-between shadow-2xs">
               <div>
-                <span class="block text-[10px] text-slate-500 uppercase font-bold tracking-wider">Paket Kemitraan Tunggal (${modalOptions[0]?.operator_perk || '1 Operator Resmi'})</span>
+                <span class="block text-[10px] text-slate-500 uppercase font-bold tracking-wider">Nilai Anggaran Kebutuhan Proyek (${modalOptions[0]?.operator_perk || '1 Operator Resmi'})</span>
                 <span class="text-base font-bold text-slate-900">${nom1Disp}</span>
               </div>
-              <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-200/80 text-[10px] font-bold uppercase tracking-wider">Paket Penuh</span>
+              <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-200/80 text-[10px] font-bold uppercase tracking-wider">Alokasi Penuh</span>
             </div>
           </div>
         `;
@@ -5232,8 +5231,8 @@
         `;
         }).join('');
       } else {
-        const hppTot = unitQty * 500000000;
-        const kTot = unitQty * 52500000;
+        const hppTot = unitQty * 250000000;
+        const kTot = unitQty * 70000000;
         const rTot = unitQty * 25000000;
         const cTot = Math.max(0, targetVal - (hppTot + kTot + rTot));
         rabRowsHtml = `
@@ -5241,14 +5240,14 @@
             <td class="py-2.5 px-3 text-center font-bold text-slate-400">1</td>
             <td class="py-2.5 px-3 font-semibold text-slate-900">Harga Pokok Pembelian (HPP) Unit Alat Berat</td>
             <td class="py-2.5 px-3 text-center text-slate-700 font-medium">${unitQty} Unit</td>
-            <td class="py-2.5 px-3 text-right font-mono text-slate-600">Rp 500.000.000</td>
+            <td class="py-2.5 px-3 text-right font-mono text-slate-600">Rp 250.000.000</td>
             <td class="py-2.5 px-3 text-right font-mono font-bold text-blue-950">${formatRupiahExact(hppTot)}</td>
           </tr>
           <tr class="hover:bg-slate-50/80 transition border-b border-slate-100">
             <td class="py-2.5 px-3 text-center font-bold text-slate-400">2</td>
             <td class="py-2.5 px-3 font-semibold text-slate-900">Alokasi Kontainer 40FT HC Door-to-Door (PT MSI - Ekosistem)</td>
             <td class="py-2.5 px-3 text-center text-slate-700 font-medium">${unitQty} Unit</td>
-            <td class="py-2.5 px-3 text-right font-mono text-slate-600">Rp 52.500.000</td>
+            <td class="py-2.5 px-3 text-right font-mono text-slate-600">Rp 70.000.000</td>
             <td class="py-2.5 px-3 text-right font-mono font-bold text-blue-950">${formatRupiahExact(kTot)}</td>
           </tr>
           <tr class="hover:bg-slate-50/80 transition border-b border-slate-100">
@@ -5369,7 +5368,7 @@
               <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-1">
                 <div class="flex items-center justify-between">
                   <span class="text-[10px] font-bold text-blue-700 uppercase">1. Pengadaan Unit (PT MIU)</span>
-                  <span class="text-xs font-black text-slate-900">Rp 500.000.000 / Unit</span>
+                  <span class="text-xs font-black text-slate-900">Rp 250.000.000 / Unit</span>
                 </div>
                 <div class="text-base font-black text-slate-900">Alat Berat</div>
                 <p class="text-[11px] text-slate-500 leading-snug">Harga Pokok Pembelian (HPP) pengadaan alat berat dalam kondisi prima dan lulus uji kelayakan operasional.</p>
@@ -5378,10 +5377,10 @@
               <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-1">
                 <div class="flex items-center justify-between">
                   <span class="text-[10px] font-bold text-amber-700 uppercase">2. Workshop &amp; Logistik (PT MSI &amp; MIU)</span>
-                  <span class="text-xs font-black text-slate-900">Rp 77.500.000 / Unit</span>
+                  <span class="text-xs font-black text-slate-900">Rp 95.000.000 / Unit</span>
                 </div>
                 <div class="text-base font-black text-slate-900">Kontainer 40FT HC &amp; Rekondisi</div>
-                <p class="text-[11px] text-slate-500 leading-snug">Alokasi kontainer 40ft HC door-to-door (Rp 52,5 jt/unit) dan ongkos rekondisi workshop overhaul (Rp 25 jt/unit). Total modal operasional dasar: Rp 577,5 jt/unit.</p>
+                <p class="text-[11px] text-slate-500 leading-snug">Alokasi kontainer 40ft HC door-to-door (Rp 70 jt/unit) dan ongkos rekondisi workshop overhaul (Rp 25 jt/unit). Total modal operasional dasar: Rp 345 jt/unit.</p>
               </div>
             </div>
 
@@ -5433,7 +5432,7 @@
 
             <div>
               <div class="flex items-center justify-between text-xs mb-2">
-                <span class="text-slate-600 font-medium">Pilihan Paket Investasi Tersedia:</span>
+                <span class="text-slate-600 font-medium">Nilai Anggaran Kebutuhan Proyek:</span>
                 <span class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight" id="modalSimNominalDisplay">${formatRupiahExact(initialDetailNominal)}</span>
               </div>
               ${simPackageButtonsHtml}
@@ -5746,7 +5745,7 @@
       }
 
       if (!p) {
-        container.innerHTML = '<div class="text-xs text-slate-400 p-2">Pilih proyek untuk melihat paket investasi.</div>';
+        container.innerHTML = '<div class="text-xs text-slate-400 p-2">Pilih proyek untuk melihat rancangan anggaran modal.</div>';
         return;
       }
 
@@ -5789,7 +5788,7 @@
       // If mode 2: 2 distinct choices (e.g. Jabodetabek & Jabar or Bali: 7.5M and 10M)
       if (mode === '2' && options.length >= 2) {
         if (badge) {
-          badge.innerText = 'Tersedia 2 Pilihan Paket (Klik untuk Memilih)';
+          badge.innerText = 'Tersedia 2 Pilihan Nilai Anggaran Kebutuhan Proyek';
           badge.className = 'text-[11px] font-semibold text-amber-800 px-2.5 py-0.5 rounded-full bg-amber-50 border border-amber-300';
         }
 
@@ -5813,7 +5812,7 @@
               <div class="flex items-center justify-between gap-1 mb-1">
                 <span class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
                   <span class="w-5 h-5 rounded-full bg-blue-100 text-blue-700 text-[10px] font-black flex items-center justify-center">1</span>
-                  Pilihan 1
+                  Alokasi 1
                 </span>
                 <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 border border-amber-200 flex items-center gap-1">
                   <i data-lucide="award" class="w-3 h-3 text-amber-600"></i> ${opt1.badge || '1 Operator'}
@@ -5842,7 +5841,7 @@
               <div class="flex items-center justify-between gap-1 mb-1">
                 <span class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
                   <span class="w-5 h-5 rounded-full bg-blue-100 text-blue-700 text-[10px] font-black flex items-center justify-center">2</span>
-                  Pilihan 2
+                  Alokasi 2
                 </span>
                 <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 border border-amber-200 flex items-center gap-1">
                   <i data-lucide="award" class="w-3 h-3 text-amber-600"></i> ${opt2.badge || '2 Operator'}
@@ -5868,12 +5867,12 @@
       } else {
         // Mode 1: Single clean package (Surabaya, Makassar, Sumatra, NTT, etc.)
         if (badge) {
-          badge.innerText = '1 Pilihan Paket Tunggal';
+          badge.innerText = 'Nilai Anggaran Kebutuhan Proyek';
           badge.className = 'text-[11px] font-semibold text-blue-700 px-2 py-0.5 rounded-full bg-blue-50 border border-blue-200';
         }
 
         const opt = options.length > 0 ? options[0] : null;
-        const targetNom = opt ? (Number(opt.nominal) || 5000000000) : (Number(p.funding?.target || p.funding_target) || 5000000000);
+        const targetNom = opt ? (Number(opt.nominal) || 0) : (Number(p.funding?.target || p.funding_target) || 0);
         const targetDisp = opt?.nominal_display || formatRupiahDisplay(targetNom);
         const perk = opt?.operator_perk || 'Bonus 1 Operator Profesional Resmi MGI';
         const units = opt?.unit_qty ? `${opt.unit_qty} Unit Alat Berat CBU` : 'Armada Regional Siap Operasi';
@@ -5886,7 +5885,7 @@
             <div class="flex items-center justify-between gap-2 mb-1">
               <span class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
                 <i data-lucide="check-circle-2" class="w-4 h-4 text-blue-600"></i>
-                ${opt?.label || 'Paket Kemitraan Tunggal'}
+                ${opt?.label || 'Nilai Anggaran Kebutuhan Proyek'}
               </span>
               <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 border border-amber-200 flex items-center gap-1">
                 <i data-lucide="award" class="w-3 h-3 text-amber-600"></i> ${opt?.badge || 'Bonus 1 Operator'}
