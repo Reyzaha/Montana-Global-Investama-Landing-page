@@ -2611,25 +2611,23 @@
         }
       } catch (e) { }
 
-      // Cek apakah investor telah memiliki portofolio proyek aktif riil vs format pratinjau pembukuan
-      const hasRealProjects = Array.isArray(projects) && projects.length > 0 && !projects.every(p => p.is_preview);
+      // Cek apakah investor telah memiliki portofolio proyek aktif riil dengan dana > 0
+      const hasRealProjects = Array.isArray(projects) && projects.length > 0 && projects.some(p => Number(p.total_dana_investor || 0) > 0);
 
       let projectsToRender = [];
-      let isPreviewMode = false;
 
       if (hasRealProjects) {
-        projectsToRender = projects.filter(p => !p.is_preview);
+        projectsToRender = projects.filter(p => Number(p.total_dana_investor || 0) > 0);
         if (countBadge) {
           countBadge.innerText = `${projectsToRender.length} Proyek Sedang Berjalan Aktif`;
         }
       } else {
-        isPreviewMode = true;
         if (countBadge) {
-          countBadge.innerHTML = `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-50 text-amber-900 border border-amber-300"><span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>Mode Pratinjau Pembukuan Riil (0 Penempatan Aktif)</span>`;
+          countBadge.innerHTML = `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-700 border border-slate-300">0 Penempatan Modal Aktif</span>`;
         }
 
-        // Jika API sudah mengirimkan proyek pratinjau, gunakan itu. Jika belum, bangun objek percontohan 45M
-        if (Array.isArray(projects) && projects.length > 0 && projects[0].is_preview) {
+        // Tampilkan kartu proyek representatif dengan seluruh angka murni 0 (tanpa seed)
+        if (Array.isArray(projects) && projects.length > 0) {
           projectsToRender = [projects[0]];
         } else {
           projectsToRender = [{
@@ -2639,35 +2637,25 @@
             kategori: 'Pengadaan & Sewa Alat Berat CBU Jepang',
             lokasi: 'DKI Jakarta & Jawa Barat (Pool Narogong & Sentral Workshop MIU)',
             image: 'assets/img/city-jkt-jabar.png',
-            contract_number: 'MGI/PRATINJAU/2026/001-BP',
-            status: 'preview_format',
-            is_preview: true,
-            total_dana_investor: 45000000000,
-            tier_info: {
-              nominal: 45000000000,
-              nominal_display: 'Rp 45.000.000.000',
-              label: 'Nilai Anggaran Kebutuhan Proyek (Batch Regional)',
-              badge: 'Transparansi Real-Time MGI QQ Client',
-              unit_qty: '25 Unit Alat Berat CBU',
-              container_qty: '6.25 Kontainer 40FT HC (25 Unit)',
-              porsi_proyek: 'Kapasitas Operasional Penuh',
-              jaminan_aset: '25 Unit Fisik Siap Operasi (Hak Kepemilikan Fisik)',
-              profit_per_siklus: 6438600000
-            },
+            contract_number: '-',
+            status: 'Belum Ada Penempatan Modal',
+            is_preview: false,
+            total_dana_investor: 0,
+            tier_info: null,
             ringkasan: {
-              sisa_dana: 1687500000,
-              total_pembelian: 42187500000,
-              total_penjualan: 6438600000,
-              total_biaya: 560000000,
-              total_terpakai: 43312500000,
+              sisa_dana: 0,
+              total_pembelian: 0,
+              total_penjualan: 0,
+              total_biaya: 0,
+              total_terpakai: 0,
               payout_received: 0,
-              return_rate: '28,6% – 42,9% (p.a.)',
-              tenor: '12 Bulan',
-              next_payout_date: '15 Oktober 2026',
-              allocated_units: '25 Unit Alat Berat CBU Siap Operasi (Hak Kepemilikan Fisik)',
-              total_units: 25,
-              active_units: 24,
-              utilization_rate: '96.0% Efektif'
+              return_rate: '-',
+              tenor: '-',
+              next_payout_date: '-',
+              allocated_units: '0 Unit (Belum Ada Penempatan)',
+              total_units: 0,
+              active_units: 0,
+              utilization_rate: '-'
             }
           }];
         }
@@ -2675,63 +2663,23 @@
 
       let html = '';
 
-      // Tampilkan banner informatif transparansi pembukuan jika dalam mode preview (belum ada proyek aktif)
-      if (isPreviewMode) {
-        html += `
-          <div class="rounded-3xl bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white p-6 sm:p-7 border border-blue-900/60 shadow-xl relative overflow-hidden mb-6">
-            <div class="absolute -right-12 -top-12 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
-              <div class="space-y-2">
-                <div class="flex items-center gap-2 flex-wrap">
-                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-amber-400 text-slate-950 shadow-xs">
-                    <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
-                    Transparansi Pembukuan Riil (MGI QQ Client)
-                  </span>
-                  <span class="text-xs text-blue-200 font-medium">Akun Investor: <strong>${userName}</strong></span>
-                </div>
-                <h3 class="text-lg sm:text-xl font-black text-white tracking-tight">
-                  Format Pembukuan Proyek Riil (Hadir Otomatis Saat Penempatan Dana)
-                </h3>
-                <p class="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
-                  Saat ini Anda belum memiliki portofolio penempatan modal aktif. Di bawah ini kami tampilkan <strong>format riil sistem pembukuan, mutasi kas escrow Bank Mandiri, realisasi pembelian unit MIU (@ Rp 250 Jt &amp; kontainer 40FT HC), penjualan, biaya workshop, neraca, serta laba rugi</strong> yang akan <strong>langsung aktif dan hadir pada saat dana Anda ditempatkan</strong>.
-                </p>
-              </div>
-              <div class="shrink-0 flex flex-wrap items-center gap-2.5">
-                <button onclick="scrollToKatalog()" class="px-5 py-3 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-md active:scale-95 cursor-pointer flex items-center gap-2">
-                  <i data-lucide="compass" class="w-4 h-4"></i>
-                  <span>Pilih &amp; Danai Proyek</span>
-                </button>
-                <button onclick="openOperationalDashboard('${projectsToRender[0].project_id || 'proj-jkt-jabar'}')" class="px-4 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold text-xs sm:text-sm transition-all active:scale-95 cursor-pointer flex items-center gap-1.5">
-                  <i data-lucide="gauge" class="w-4 h-4 text-amber-400"></i>
-                  <span>Buka Pembukuan</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
       projectsToRender.forEach((p) => {
         const r = p.ringkasan || {};
-        const isPreview = Boolean(p.is_preview);
+        const isAllocated = Number(p.total_dana_investor || 0) > 0;
         const totalDana = formatRupiahExact(p.total_dana_investor || 0);
         const sisaDana = formatRupiahExact(r.sisa_dana || 0);
         const totalPembelian = formatRupiahExact(r.total_pembelian || 0);
         const totalPenjualan = formatRupiahExact(r.total_penjualan || 0);
-        const statusText = isPreview
-          ? 'Pratinjau Format Pembukuan Riil • Hadir Saat Dana Aktif'
-          : (p.status === 'active' ? 'Portofolio Aktif Anda' : 'Proyek Selesai');
-        const statusClass = isPreview
-          ? 'bg-amber-500 text-slate-950'
-          : (p.status === 'active' ? 'bg-emerald-600 text-white' : 'bg-slate-600 text-white');
-        const pId = p.project_id || p.id;
-        const imgUrl = p.image || 'https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=1600&q=80';
+        const statusText = isAllocated ? 'Portofolio Aktif Anda' : 'Belum Ada Penempatan Modal';
+        const statusClass = isAllocated ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-200 border border-slate-700';
+        const pId = p.project_id || p.id || 'proj-jkt-jabar';
+        const imgUrl = p.image || 'assets/img/city-jkt-jabar.png';
         const tier = p.tier_info || null;
 
         let tierCardHtml = '';
-        if (tier) {
+        if (tier && isAllocated) {
           tierCardHtml = `
-            <!-- Hak Alokasi Unit Fisik & Paket Portofolio (Executive Institutional Style) -->
+            <!-- Hak Alokasi Unit Fisik & Paket Portofolio -->
             <div class="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div class="flex items-start gap-3.5">
                 <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 flex items-center justify-center shrink-0 shadow-2xs">
@@ -2740,10 +2688,10 @@
                 <div>
                   <div class="flex items-center gap-2 flex-wrap">
                     <span class="text-[10px] uppercase tracking-wider font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80">Hak Kepemilikan Fisik Unit</span>
-                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${isPreview ? 'bg-amber-100 text-amber-900 border border-amber-300' : 'bg-slate-100 text-slate-800 border border-slate-200'}">${tier.badge || (isPreview ? 'Format Transparansi' : 'Portofolio Terdaftar')}</span>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-800 border border-slate-200">${tier.badge || 'Portofolio Terdaftar'}</span>
                     <span class="text-[11px] font-semibold text-slate-500">${tier.porsi_proyek || ''}</span>
                   </div>
-                  <h4 class="text-sm sm:text-base font-bold text-slate-900 mt-1">${tier.label || 'Paket Kepemilikan Armada'}</h4>
+                  <h4 class="text-sm sm:text-base font-bold text-slate-900 mt-1">${tier.label || 'Nilai Anggaran Kebutuhan Proyek'}</h4>
                   <div class="text-xs text-slate-600 mt-1 flex flex-wrap items-center gap-x-4 gap-y-1">
                     <span class="inline-flex items-center gap-1 font-semibold text-slate-800">
                       <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600"></i> ${tier.jaminan_aset || r.allocated_units}
@@ -2782,12 +2730,12 @@
               <!-- Badges on top of image -->
               <div class="absolute top-5 left-5 flex flex-wrap gap-2">
                 <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold ${statusClass} shadow-md backdrop-blur-md">
-                  <span class="w-2 h-2 rounded-full ${isPreview ? 'bg-slate-950' : 'bg-white'} animate-ping"></span>
+                  <span class="w-2 h-2 rounded-full ${isAllocated ? 'bg-white animate-ping' : 'bg-slate-400'}"></span>
                   ${statusText}
                 </span>
                 <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-slate-900/90 text-amber-300 border border-amber-400/30 backdrop-blur-md shadow-md">
                   <i data-lucide="shield" class="w-3.5 h-3.5"></i>
-                  ${(tier && tier.unit_qty) ? (tier.unit_qty + ' Unit Alat Berat') : (r.allocated_units || 'Unit Alat Berat')}
+                  ${isAllocated ? (tier && tier.unit_qty ? (tier.unit_qty + ' Unit Alat Berat') : (r.allocated_units || 'Unit Alat Berat')) : '0 Unit Alat Berat'}
                 </span>
               </div>
 
@@ -2802,7 +2750,7 @@
                 </div>
                 <div class="hidden sm:block text-right">
                   <span class="text-xs text-slate-300">Utilisasi Armada</span>
-                  <div class="text-lg font-extrabold text-emerald-400">${r.utilization_rate || '94.2% Efektif'}</div>
+                  <div class="text-lg font-extrabold text-emerald-400">${isAllocated ? (r.utilization_rate || '94.2% Efektif') : '-'}</div>
                 </div>
               </div>
             </div>
@@ -2820,25 +2768,26 @@
                     ${p.nama_project}
                   </h3>
                   <p class="text-xs sm:text-sm text-slate-500 mt-1 max-w-3xl leading-relaxed">
-                    ${isPreview ? 'Pemantauan modal terintegrasi MGI QQ Client. Inilah format akuntansi riil alokasi pengadaan unit via MSI &amp; MIU (HPP unit Rp 250 jt &amp; kontainer 40FT HC), arus kas escrow Bank Mandiri, penjualan unit infrastruktur, biaya workshop, dan laporan laba rugi yang otomatis hadir setelah dana Anda aktif.' : 'Pemantauan modal terintegrasi MGI QQ Client. Realisasi alokasi pengadaan unit via MSI &amp; MIU, pergerakan unit lapangan, penjualan unit infrastruktur, beban workshop berkala, dan transparansi bagi hasil profit.'}
+                    Pemantauan modal terintegrasi MGI QQ Client. Realisasi alokasi pengadaan unit via MSI &amp; MIU, pergerakan unit lapangan, penjualan unit infrastruktur, beban workshop berkala, dan transparansi bagi hasil profit.
                   </p>
                 </div>
                 <div class="sm:text-right shrink-0">
                   <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold block">Nomor Kontrak Kerja</span>
-                  <span class="text-xs font-mono font-bold ${isPreview ? 'text-amber-800 bg-amber-50 border-amber-300' : 'text-rose-600 bg-rose-50 border-rose-200/70'} px-2.5 py-1 rounded-full border inline-block mt-0.5">
-                    ${p.contract_number || 'MGI/INV/2026/001-BP'}${isPreview ? ' (Format Akuntansi)' : ''}
+                  <span class="text-xs font-mono font-bold ${isAllocated ? 'text-rose-600 bg-rose-50 border-rose-200/70' : 'text-slate-500 bg-slate-50 border-slate-200'} px-2.5 py-1 rounded-full border inline-block mt-0.5">
+                    ${isAllocated ? (p.contract_number || '-') : '-'}
                   </span>
                 </div>
               </div>
 
               <!-- Total Dana & Ringkasan Singkat (Sisa Dana, Pembelian, Penjualan) -->
               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <!-- Total Dana Investor / Nilai Anggaran Proyek -->
+                <!-- Total Dana Investor -->
                 <div class="bg-blue-50/60 hover:bg-blue-50/90 rounded-2xl p-4 border border-blue-200/70 transition-all">
-                  <span class="text-[11px] font-bold text-blue-900 block uppercase tracking-wider">${isPreview ? 'Nilai Anggaran Kebutuhan' : 'Total Dana Investor'}</span>
+                  <span class="text-[11px] font-bold text-blue-900 block uppercase tracking-wider">Total Dana Investor</span>
                   <span class="text-base sm:text-xl font-black text-blue-950 block mt-1">${totalDana}</span>
                   <span class="text-[11px] text-blue-700 font-medium mt-1 inline-flex items-center gap-1">
-                    <i data-lucide="${isPreview ? 'info' : 'check-circle'}" class="w-3 h-3 ${isPreview ? 'text-amber-600' : 'text-emerald-600'}"></i> ${isPreview ? 'Format Anggaran Proyek' : 'Modal Disetor Sah'}
+                    <i data-lucide="${isAllocated ? 'check-circle' : 'info'}" class="w-3 h-3 ${isAllocated ? 'text-emerald-600' : 'text-slate-500'}"></i>
+                    ${isAllocated ? 'Modal Disetor Sah' : 'Belum Ada Penempatan Modal'}
                   </span>
                 </div>
 
@@ -2846,7 +2795,7 @@
                 <div class="bg-emerald-50/60 hover:bg-emerald-50/90 rounded-2xl p-4 border border-emerald-200/70 transition-all">
                   <span class="text-[11px] font-bold text-emerald-900 block uppercase tracking-wider">Sisa Dana Kas</span>
                   <span class="text-base sm:text-xl font-black text-emerald-800 block mt-1">${sisaDana}</span>
-                  <span class="text-[11px] text-emerald-700 font-medium mt-1 block">Tersedia di Escrow Bank Mandiri</span>
+                  <span class="text-[11px] text-emerald-700 font-medium mt-1 block">Tersedia di Rekening Escrow</span>
                 </div>
 
                 <!-- Total Pembelian -->
@@ -2928,25 +2877,23 @@
                 </div>
               </div>
 
-              <!-- Main CTA Button -->
+              <!-- Main CTA Buttons -->
               <div class="pt-2 flex flex-col sm:flex-row gap-3">
                 <button 
                   onclick="openOperationalDashboard('${pId}')"
                   class="flex-1 gold-gradient-btn text-white py-3.5 px-6 rounded-2xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-98 transition-all cursor-pointer"
                 >
                   <i data-lucide="gauge" class="w-5 h-5"></i>
-                  <span>${isPreview ? 'Buka Dashboard Operasional &amp; Pembukuan Proyek (Pratinjau Riil)' : 'Open Dashboard Operasional Proyek'}</span>
+                  <span>Buka Dashboard Operasional &amp; Pembukuan Proyek</span>
                   <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
                 </button>
-                ${isPreview ? `
-                  <button 
-                    onclick="scrollToKatalog()"
-                    class="px-6 py-3.5 rounded-2xl font-bold text-sm bg-blue-900 hover:bg-blue-800 text-white flex items-center justify-center gap-2 shadow-sm transition active:scale-95 cursor-pointer shrink-0"
-                  >
-                    <i data-lucide="plus-circle" class="w-4 h-4 text-amber-300"></i>
-                    <span>Pilih Penempatan Modal</span>
-                  </button>
-                ` : ''}
+                <button 
+                  onclick="scrollToKatalog()"
+                  class="px-6 py-3.5 rounded-2xl font-bold text-sm bg-blue-900 hover:bg-blue-800 text-white flex items-center justify-center gap-2 shadow-sm transition active:scale-95 cursor-pointer shrink-0"
+                >
+                  <i data-lucide="plus-circle" class="w-4 h-4 text-amber-300"></i>
+                  <span>Pilih Penempatan Modal</span>
+                </button>
               </div>
 
               <!-- Footer Documents / Status Bar -->
@@ -3029,9 +2976,6 @@
             if (!projectsLoaded && json.data.portfolios && json.data.portfolios.length > 0) {
               const mappedProjects = json.data.portfolios.map(p => {
                 const amt = Number(p.amount || 0);
-                const pPenjualan = amt > 0 ? Math.round(amt * 0.194) : 0;
-                const pBiaya = amt > 0 ? Math.round(amt * 0.017) : 0;
-                const pTerpakai = amt > 0 ? Math.round(amt * 0.7) : 0;
                 return {
                   id: p.id,
                   project_id: p.project_id,
@@ -3043,19 +2987,19 @@
                   status: p.status,
                   total_dana_investor: amt,
                   ringkasan: {
-                    sisa_dana: Math.max(0, amt - pTerpakai),
-                    total_pembelian: Math.round(amt * 0.63),
-                    total_penjualan: pPenjualan,
-                    total_biaya: pBiaya,
-                    total_terpakai: pTerpakai,
+                    sisa_dana: amt,
+                    total_pembelian: 0,
+                    total_penjualan: 0,
+                    total_biaya: 0,
+                    total_terpakai: 0,
                     payout_received: Number(p.payout_received || 0),
                     return_rate: p.return_rate,
                     tenor: p.tenor,
                     next_payout_date: p.next_payout_date,
                     allocated_units: p.allocated_units || 'Unit Alat Berat Siap Operasi',
-                    total_units: 2,
-                    active_units: 2,
-                    utilization_rate: '94.2%'
+                    total_units: 0,
+                    active_units: 0,
+                    utilization_rate: '-'
                   }
                 };
               });
@@ -3703,7 +3647,7 @@
       const invKpiStb = document.getElementById('opInvKpiStandby');
       if (invKpiStb) invKpiStb.innerText = `${inv.standby_units || 0} Unit`;
       const invKpiVal = document.getElementById('opInvKpiValue');
-      if (invKpiVal) invKpiVal.innerText = formatRupiahExact(inv.total_asset_value || 4550000000);
+      if (invKpiVal) invKpiVal.innerText = formatRupiahExact(inv.total_asset_value || 0);
 
       const invTbody = document.getElementById('opInvDetailedTableBody');
       if (invTbody) {
@@ -3774,11 +3718,11 @@
       // MODUL 2: PEMBELIAN
       // -------------------------------------------------------------
       const buyKpiTot = document.getElementById('opBuyKpiTotal');
-      if (buyKpiTot) buyKpiTot.innerText = formatRupiahExact(f.total_pembelian || 3330000000);
+      if (buyKpiTot) buyKpiTot.innerText = formatRupiahExact(f.total_pembelian || 0);
       const buyKpiMsi = document.getElementById('opBuyKpiMsi');
-      if (buyKpiMsi) buyKpiMsi.innerText = formatRupiahExact(Math.round((f.total_pembelian || 3330000000) * 0.89));
+      if (buyKpiMsi) buyKpiMsi.innerText = formatRupiahExact(f.total_pembelian ? Math.round(f.total_pembelian * 0.89) : 0);
       const buyKpiMiu = document.getElementById('opBuyKpiMiu');
-      if (buyKpiMiu) buyKpiMiu.innerText = formatRupiahExact(Math.round((f.total_pembelian || 3330000000) * 0.11));
+      if (buyKpiMiu) buyKpiMiu.innerText = formatRupiahExact(f.total_pembelian ? Math.round(f.total_pembelian * 0.11) : 0);
 
       const buyTbody = document.getElementById('opBuyDetailedTableBody');
       if (buyTbody) {
@@ -3819,7 +3763,7 @@
       // MODUL 3: PENJUALAN
       // -------------------------------------------------------------
       const saleKpiTot = document.getElementById('opSaleKpiTotal');
-      if (saleKpiTot) saleKpiTot.innerText = formatRupiahExact(f.total_penjualan || 1058000000);
+      if (saleKpiTot) saleKpiTot.innerText = formatRupiahExact(f.total_penjualan || 0);
       const saleTbody = document.getElementById('opSaleDetailedTableBody');
       if (saleTbody) {
         if (sales.length === 0) {
@@ -3859,7 +3803,7 @@
       // MODUL 4: BIAYA
       // -------------------------------------------------------------
       const costKpiTot = document.getElementById('opCostKpiTotal');
-      if (costKpiTot) costKpiTot.innerText = formatRupiahExact(f.total_biaya || 123000000);
+      if (costKpiTot) costKpiTot.innerText = formatRupiahExact(f.total_biaya || 0);
       const costTbody = document.getElementById('opCostDetailedTableBody');
       if (costTbody) {
         if (costs.length === 0) {
@@ -3897,11 +3841,11 @@
       // -------------------------------------------------------------
       const nAktiva = neraca.aktiva || {};
       const nPasiva = neraca.pasiva || {};
-      const kasEscrowVal = nAktiva.kas_escrow !== undefined ? nAktiva.kas_escrow : (f.sisa_dana || 1547000000);
-      const asetBrutoVal = nAktiva.aset_tetap_bruto || 4550000000;
-      const penyusutanVal = nAktiva.akumulasi_penyusutan || 280000000;
-      const netAsetVal = nAktiva.nilai_buku_aset_tetap || (asetBrutoVal - penyusutanVal);
-      const totAktivaVal = nAktiva.total_aktiva || (kasEscrowVal + netAsetVal);
+      const kasEscrowVal = nAktiva.kas_escrow !== undefined ? nAktiva.kas_escrow : (f.sisa_dana || 0);
+      const asetBrutoVal = nAktiva.aset_tetap_bruto || 0;
+      const penyusutanVal = nAktiva.akumulasi_penyusutan || 0;
+      const netAsetVal = nAktiva.nilai_buku_aset_tetap !== undefined ? nAktiva.nilai_buku_aset_tetap : Math.max(0, asetBrutoVal - penyusutanVal);
+      const totAktivaVal = nAktiva.total_aktiva !== undefined ? nAktiva.total_aktiva : (kasEscrowVal + netAsetVal);
 
       const modalInvVal = nPasiva.modal_investor !== undefined ? nPasiva.modal_investor : (f.total_dana_investor !== undefined ? f.total_dana_investor : 0);
       const saldoLabaVal = nPasiva.saldo_laba_ditahan || Math.max(0, totAktivaVal - modalInvVal);
@@ -3989,7 +3933,7 @@
         // Unit Cost Grid
         const costGrid = document.getElementById('opRabUnitCostGrid');
         if (costGrid) {
-          const hppVal = unitCost.harga_pokok_beli || alloc.hpp_unit || 500000000;
+          const hppVal = unitCost.harga_pokok_beli || alloc.hpp_unit || 250000000;
           const kVal = unitCost.container_alokasi || alloc.kontainer_40ft || 52500000;
           const rVal = unitCost.ongkos_rekondisi || alloc.ongkos_rekondisi || 25000000;
           const totModalUnit = unitCost.total_biaya_unit || alloc.modal_dasar_per_unit || (hppVal + kVal + rVal);
@@ -4581,13 +4525,10 @@
         totalModal = Number(s.totalInvested ?? s.total_invested ?? 0);
         profitDiterima = Number(s.totalPayoutReceived ?? s.total_payout_received ?? 0);
         labaBersih = Number(s.totalNetProfit ?? s.total_net_profit ?? 0);
-        if (totalModal > 0) {
-          totalPenjualan = Math.round(totalModal * 0.194);
-          totalBiaya = Math.round(totalModal * 0.017);
-          labaBersih = totalPenjualan - totalBiaya;
-          totalTerpakai = Math.round(totalModal * 0.7);
-          sisaDana = Math.max(0, totalModal - totalTerpakai);
-        }
+        totalPenjualan = 0;
+        totalBiaya = 0;
+        totalTerpakai = 0;
+        sisaDana = totalModal;
       }
 
       if (!activeProjectData && dashboardState.projects && dashboardState.projects.length > 1) {

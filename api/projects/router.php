@@ -119,19 +119,11 @@ try {
             $totalCapital = (float)$portfolio['amount'];
             $contractNumber = $portfolio['contract_number'] ?: ('MGI/INV/' . date('Y') . '/' . str_pad($investorId, 3, '0', STR_PAD_LEFT) . '-BP');
             $payoutReceived = isset($portfolio['payout_received']) ? (float)$portfolio['payout_received'] : 0.0;
-        } elseif ($investor) {
-            // Investor is logged in but has no placement in this specific project
-            // Show real project bookkeeping in transparent preview mode
-            $totalCapital = (float)($project['funding_target'] ?: 45000000000);
-            $contractNumber = 'MGI/PRATINJAU/' . date('Y') . '/' . str_pad($investorId, 3, '0', STR_PAD_LEFT) . '-BP';
-            $payoutReceived = 0.0;
-            $isPreview = true;
         } else {
-            // Public / Admin preview fallback
-            $totalCapital = (float)($project['funding_target'] ?: 45000000000);
-            $contractNumber = 'MGI/DEMO/' . date('Y') . '/001-BP';
+            // Investor belum melakukan investasi / data real-time masih 0
+            $totalCapital = 0.0;
+            $contractNumber = '-';
             $payoutReceived = 0.0;
-            $isPreview = true;
         }
 
         // Inventory items
@@ -175,19 +167,7 @@ try {
             }
         }
 
-        // Realistic figures if investor is invested or transparent preview
-        if ($totalCapital > 0) {
-            if ($totalPembelian == 0) {
-                $totalPembelian = round($totalCapital * 0.63);
-            }
-            if ($totalPenjualan == 0) {
-                $totalPenjualan = round($totalCapital * 0.194);
-            }
-            if ($totalBiaya == 0) {
-                $totalBiaya = round($totalPenjualan * 0.087);
-            }
-        }
-
+        // Real-time data murni dari database (tanpa seed multiplier)
         $totalTerpakai = $totalPembelian + $totalBiaya;
         $sisaDana = max(0, $totalCapital - $totalTerpakai);
         $labaBersih = $totalPenjualan - $totalBiaya;
@@ -210,8 +190,8 @@ try {
 
         // Structured Balance Sheet (Neraca)
         $aktivaLancar = $sisaDana;
-        $asetTetapBruto = $totalAssetValue > 0 ? $totalAssetValue : 4550000000;
-        $akumulasiPenyusutan = 280000000;
+        $asetTetapBruto = $totalAssetValue;
+        $akumulasiPenyusutan = $asetTetapBruto > 0 ? round($asetTetapBruto * 0.05) : 0;
         $nilaiBukuAset = max(0, $asetTetapBruto - $akumulasiPenyusutan);
         $totalAktiva = $aktivaLancar + $nilaiBukuAset;
 
@@ -256,14 +236,14 @@ try {
             'margin_persen' => $totalPenjualan > 0 ? round(($labaBersih / $totalPenjualan) * 100, 1) : 0,
             'profit' => [
                 'realisasi_diterima' => $payoutReceived,
-                'estimasi_kuartal_berikutnya' => 95000000,
-                'jadwal_berikutnya' => '15 Oktober 2026',
+                'estimasi_kuartal_berikutnya' => $totalCapital > 0 ? round($totalCapital * 0.08) : 0,
+                'jadwal_berikutnya' => $totalCapital > 0 ? '15 Oktober 2026' : '-',
                 'target_roi_tahunan' => $project['return_rate'] ?: '≥32% (p.a.)'
             ],
             'dividen' => [
                 'realisasi_diterima' => $payoutReceived,
-                'estimasi_kuartal_berikutnya' => 95000000,
-                'jadwal_berikutnya' => '15 Oktober 2026',
+                'estimasi_kuartal_berikutnya' => $totalCapital > 0 ? round($totalCapital * 0.08) : 0,
+                'jadwal_berikutnya' => $totalCapital > 0 ? '15 Oktober 2026' : '-',
                 'target_roi_tahunan' => $project['return_rate'] ?: '≥32% (p.a.)'
             ]
         ];
