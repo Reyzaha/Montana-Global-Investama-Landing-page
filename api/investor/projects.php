@@ -126,9 +126,9 @@ try {
                 $totalPembelian += $amt;
             } elseif ($m === 'penjualan') {
                 $totalPenjualan += $amt;
-            } elseif ($m === 'biaya' || ($m === 'labarugi' && $flow === 'out' && strpos($cat, 'dividen') === false)) {
+            } elseif ($m === 'biaya' || ($m === 'labarugi' && $flow === 'out' && strpos($cat, 'dividen') === false && strpos($cat, 'profit') === false && strpos($cat, 'bagi hasil') === false)) {
                 $totalBiaya += $amt;
-            } elseif (strpos($cat, 'dividen') !== false || $m === 'dividen') {
+            } elseif (strpos($cat, 'dividen') !== false || strpos($cat, 'profit') !== false || strpos($cat, 'bagi hasil') !== false || $m === 'dividen' || $m === 'profit') {
                 $totalDividen += $amt;
             }
         }

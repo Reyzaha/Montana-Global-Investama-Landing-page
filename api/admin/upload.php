@@ -42,10 +42,10 @@ try {
         $folder = 'projects';
     }
 
-    // Maksimal ukuran file: 10 MB
-    $maxBytes = 10 * 1024 * 1024;
+    // Maksimal ukuran file: 25 MB
+    $maxBytes = 25 * 1024 * 1024;
     if ($file['size'] > $maxBytes) {
-        sendJsonError('Ukuran file terlalu besar. Maksimal 10 MB.');
+        sendJsonError('Ukuran file terlalu besar. Maksimal 25 MB.');
     }
 
     // Validasi tipe ekstensi yang diizinkan

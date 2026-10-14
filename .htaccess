@@ -1,6 +1,20 @@
 # PT MONTANA GLOBAL INVESTAMA — URL REWRITE & SECURITY SHIELD
 RewriteEngine On
 
+# 0. PHP Upload Limits (Maksimal 32MB)
+<IfModule mod_php.c>
+    php_value upload_max_filesize 32M
+    php_value post_max_size 32M
+</IfModule>
+<IfModule mod_php7.c>
+    php_value upload_max_filesize 32M
+    php_value post_max_size 32M
+</IfModule>
+<IfModule mod_php8.c>
+    php_value upload_max_filesize 32M
+    php_value post_max_size 32M
+</IfModule>
+
 # 1. BLOKIR AKSES KE /admin ATAU /admin/ APAPUN
 # Alihkan siapa saja yang mencoba mengakses /admin langsung ke homepage publik (301 Permanent Redirect)
 RewriteRule ^admin(/.*)?$ /index.html [R=301,L]

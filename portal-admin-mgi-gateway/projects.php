@@ -182,7 +182,7 @@ require_once __DIR__ . '/includes/header.php';
                             <i class="bi bi-cloud-arrow-up-fill"></i>
                             <span>Upload Attachment Gambar</span>
                           </button>
-                          <span class="small text-muted" id="uploadImageStatus" style="font-size: 0.75rem;">Maks. 10MB</span>
+                          <span class="small text-muted" id="uploadImageStatus" style="font-size: 0.75rem;"><i class="bi bi-magic text-warning me-1"></i>Auto-kompres aktif (Maks. 25MB)</span>
                         </div>
                         <div class="small text-muted font-monospace text-truncate" id="currentImagePathDisplay" style="font-size: 0.72rem;">
                           assets/img/project-jabodetabek.jpg
@@ -1358,7 +1358,7 @@ require_once __DIR__ . '/includes/header.php';
 
   async function handleProjectImageUpload(input) {
     if (!input.files || !input.files[0]) return;
-    const file = input.files[0];
+    const originalFile = input.files[0];
     
     const statusEl = document.getElementById('uploadImageStatus');
     const btnTrigger = document.getElementById('btnUploadImageTrigger');
@@ -1366,14 +1366,41 @@ require_once __DIR__ . '/includes/header.php';
     const previewImg = document.getElementById('projectImagePreview');
     const hiddenInput = document.getElementById('pImage');
 
-    statusEl.innerHTML = `<span class="spinner-border spinner-border-sm text-primary me-1"></span> Mengunggah ${file.name}...`;
     btnTrigger.disabled = true;
 
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('folder', 'projects');
+    let uploadFile = originalFile;
+    let compressInfo = null;
 
     try {
+      // 1. Otomatis kompresi gambar di browser jika bukan SVG
+      if (originalFile.type !== 'image/svg+xml') {
+        const origSizeText = AdminApp.formatFileSize(originalFile.size);
+        statusEl.innerHTML = `<span class="spinner-border spinner-border-sm text-warning me-1"></span> Mengompresi gambar (${origSizeText})...`;
+        
+        try {
+          const resCompress = await AdminApp.compressImage(originalFile, {
+            maxWidth: 1600,
+            maxHeight: 1200,
+            quality: 0.82,
+            preferWebp: true
+          });
+          if (resCompress.compressed) {
+            uploadFile = resCompress.file;
+            compressInfo = resCompress;
+          }
+        } catch (compErr) {
+          console.warn('Kompresi browser gagal, melanjutkan upload file asli:', compErr);
+        }
+      }
+
+      // 2. Kirim file hasil kompresi ke server
+      const uploadSizeText = AdminApp.formatFileSize(uploadFile.size);
+      statusEl.innerHTML = `<span class="spinner-border spinner-border-sm text-primary me-1"></span> Mengunggah (${uploadSizeText})...`;
+
+      const formData = new FormData();
+      formData.append('file', uploadFile);
+      formData.append('folder', 'projects');
+
       const res = await fetch('../api/admin/upload.php', {
         method: 'POST',
         body: formData
@@ -1392,9 +1419,17 @@ require_once __DIR__ . '/includes/header.php';
       if (json.success && json.data && json.data.file_path) {
         hiddenInput.value = json.data.file_path;
         pathDisplay.textContent = json.data.file_path;
-        previewImg.src = `../${json.data.file_path}`;
-        statusEl.innerHTML = `<span class="text-success fw-bold"><i class="bi bi-check-circle-fill me-1"></i> Terunggah</span>`;
-        AdminApp.showToast('Foto attachment proyek berhasil diunggah!', 'success');
+        previewImg.src = `../${json.data.file_path}?t=${Date.now()}`;
+        
+        if (compressInfo && compressInfo.compressed) {
+          const origFormatted = AdminApp.formatFileSize(compressInfo.originalSize);
+          const newFormatted = AdminApp.formatFileSize(compressInfo.newSize);
+          statusEl.innerHTML = `<span class="text-success fw-bold"><i class="bi bi-check-circle-fill me-1"></i> Terunggah (${origFormatted} ➔ ${newFormatted}, hemat ${compressInfo.savings}%)</span>`;
+          AdminApp.showToast(`Gambar otomatis dikompres (${origFormatted} ➔ ${newFormatted}) & berhasil diunggah!`, 'success');
+        } else {
+          statusEl.innerHTML = `<span class="text-success fw-bold"><i class="bi bi-check-circle-fill me-1"></i> Terunggah (${uploadSizeText})</span>`;
+          AdminApp.showToast('Foto attachment proyek berhasil diunggah!', 'success');
+        }
       } else {
         statusEl.innerHTML = `<span class="text-danger fw-bold"><i class="bi bi-exclamation-triangle-fill me-1"></i> ${json.message || 'Gagal upload'}</span>`;
         AdminApp.showToast(json.message || 'Gagal mengunggah gambar', 'danger');

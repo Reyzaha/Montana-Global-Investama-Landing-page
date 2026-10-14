@@ -150,7 +150,7 @@ try {
             } elseif ($m === 'penjualan') {
                 $sales[] = $f;
                 $totalPenjualan += $amt;
-            } elseif ($m === 'biaya' || ($m === 'labarugi' && $flow === 'out' && strpos($cat, 'dividen') === false)) {
+            } elseif ($m === 'biaya' || ($m === 'labarugi' && $flow === 'out' && strpos($cat, 'dividen') === false && strpos($cat, 'profit') === false && strpos($cat, 'bagi hasil') === false)) {
                 $costs[] = $f;
                 $totalBiaya += $amt;
             }
@@ -233,6 +233,12 @@ try {
             ],
             'laba_bersih_operasional' => $labaBersih,
             'margin_persen' => $totalPenjualan > 0 ? round(($labaBersih / $totalPenjualan) * 100, 1) : 0,
+            'profit' => [
+                'realisasi_diterima' => $payoutReceived,
+                'estimasi_kuartal_berikutnya' => 95000000,
+                'jadwal_berikutnya' => '15 Oktober 2026',
+                'target_roi_tahunan' => $project['return_rate'] ?: '≥32% (p.a.)'
+            ],
             'dividen' => [
                 'realisasi_diterima' => $payoutReceived,
                 'estimasi_kuartal_berikutnya' => 95000000,
@@ -291,6 +297,7 @@ try {
                 'sisa_dana' => $sisaDana,
                 'total_penjualan' => $totalPenjualan,
                 'laba_bersih' => $labaBersih,
+                'profit_diterima' => $payoutReceived,
                 'dividen_diterima' => $payoutReceived,
                 'efisiensi_opex' => $totalPenjualan > 0 ? round(($totalBiaya / $totalPenjualan) * 100, 1) . '%' : '0%'
             ],

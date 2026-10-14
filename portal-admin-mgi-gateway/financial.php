@@ -81,9 +81,9 @@ require_once __DIR__ . '/includes/header.php';
 
   <div class="col-12 col-sm-6 col-xl-2-4" style="flex: 0 0 20%; max-width: 20%;">
     <div class="admin-card p-3 h-100 bg-white border-start border-4 border-warning">
-      <div class="text-muted small text-uppercase fw-bold" style="font-size: 0.7rem; letter-spacing: 0.5px;">Laba Bersih &amp; Dividen</div>
+      <div class="text-muted small text-uppercase fw-bold" style="font-size: 0.7rem; letter-spacing: 0.5px;">Laba Bersih &amp; Profit</div>
       <div class="fs-5 fw-bold text-warning mt-1" id="kpiLabaBersih" style="color: #C5A059 !important;">Rp 0</div>
-      <small class="text-muted" style="font-size: 0.72rem;">Dividen: <span id="kpiTotalDividen">Rp 0</span></small>
+      <small class="text-muted" style="font-size: 0.72rem;">Bagi Hasil Profit: <span id="kpiTotalDividen">Rp 0</span></small>
     </div>
   </div>
 </div>
@@ -240,7 +240,7 @@ require_once __DIR__ . '/includes/header.php';
                   <option value="pembelian">Modul 3: Pembelian (Pengadaan Unit MSI/MIU / Belanja Modal)</option>
                   <option value="biaya">Modul Biaya: Biaya (Biaya Impor MIU / Workshop / Bea Cukai)</option>
                   <option value="penjualan">Modul 4: Penjualan (Revenue / Penjualan Unit CBU)</option>
-                  <option value="labarugi">Modul 2: Laba Rugi (Beban Operasional / Dividen Bagi Hasil)</option>
+                  <option value="labarugi">Modul 2: Laba Rugi (Beban Operasional / Bagi Hasil Profit)</option>
                   <option value="neraca">Modul 1: Neraca Keuangan (Kas Bank / Aset Tetap Unit / Modal)</option>
                 </select>
               </div>
@@ -255,6 +255,7 @@ require_once __DIR__ . '/includes/header.php';
                   <option value="Penjualan Unit Mining">
                   <option value="Penjualan Unit Infrastruktur">
                   <option value="Beban Pemeliharaan & Workshop">
+                  <option value="Distribusi Bagi Hasil Profit">
                   <option value="Distribusi Dividen Bagi Hasil">
                   <option value="Modal Disetor & Kas Awal">
                   <option value="Aset Tetap Unit Fisik (MIU)">

@@ -137,7 +137,7 @@ try {
             } elseif ($mod === 'penjualan') {
                 $totalPenjualan += $amt;
             } elseif ($mod === 'labarugi') {
-                if (strpos($cat, 'dividen') !== false || strpos($cat, 'bagi hasil') !== false) {
+                if (strpos($cat, 'dividen') !== false || strpos($cat, 'bagi hasil') !== false || strpos($cat, 'profit') !== false) {
                     $totalDividen += $amt;
                 } else {
                     $totalBebanOps += $amt;

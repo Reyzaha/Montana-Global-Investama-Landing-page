@@ -67,7 +67,7 @@ const MGIComponents = {
                 </li>
                 <li><a class="dropdown-item py-2 fw-semibold text-white" href="investor-dashboard"><i class="bi bi-speedometer2 me-2 text-gold"></i>Dashboard Investor</a></li>
                 <li><a class="dropdown-item py-2 text-white" href="flow-kerja.html"><i class="bi bi-diagram-3 me-2 text-gold"></i>Flow Kerja &amp; Ekosistem</a></li>
-                <li><a class="dropdown-item py-2 text-white" href="investor-dashboard"><i class="bi bi-pie-chart-fill me-2 text-gold"></i>My Portofolio &amp; Dividen</a></li>
+                <li><a class="dropdown-item py-2 text-white" href="investor-dashboard"><i class="bi bi-pie-chart-fill me-2 text-gold"></i>My Portofolio &amp; Profit</a></li>
                 <li><a class="dropdown-item py-2 text-white" href="invest"><i class="bi bi-grid me-2 text-gold"></i>Katalog Project Terbuka</a></li>
                 <li><a class="dropdown-item py-2 text-white" href="contact"><i class="bi bi-geo-alt me-2 text-gold"></i>Lokasi & Layanan</a></li>
                 <li><hr class="dropdown-divider border-secondary opacity-25"></li>

@@ -101,7 +101,7 @@ try {
             $totalPenjualan += $amt;
         } elseif ($m === 'labarugi') {
             $modLabaRugi[] = $r;
-            if (strpos($cat, 'dividen') !== false || strpos($cat, 'bagi hasil') !== false) {
+            if (strpos($cat, 'dividen') !== false || strpos($cat, 'bagi hasil') !== false || strpos($cat, 'profit') !== false) {
                 $totalDividen += $amt;
                 $modDividen[] = $r;
             } else {

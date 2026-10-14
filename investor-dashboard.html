@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal Investor - PT Montana Global Investama</title>
-  <meta name="description" content="Portal Investor resmi PT Montana Global Investama. Pemantauan modal terintegrasi, laporan operasional MGI QQ Client, unit alat berat CBU Jepang, dan dividen bagi hasil transparan.">
+  <meta name="description" content="Portal Investor resmi PT Montana Global Investama. Pemantauan modal terintegrasi, laporan operasional MGI QQ Client, unit alat berat CBU Jepang, dan bagi hasil profit transparan.">
 
   <!-- Anti-Stale Cache Control: Bebas Hard Refresh / Ctrl+Shift+R -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -225,7 +225,7 @@
               </button>
               <button type="button" onclick="navigateFromProfileMenu('rekening')" class="w-full text-left px-4 py-2.5 hover:bg-slate-50 flex items-center gap-2.5 transition-colors cursor-pointer">
                 <i data-lucide="credit-card" class="w-4 h-4 text-blue-500 shrink-0"></i> 
-                <span>Rekening Dividen</span>
+                <span>Rekening Profit</span>
               </button>
               <button type="button" onclick="navigateFromProfileMenu('profil')" class="w-full text-left px-4 py-2.5 hover:bg-slate-50 flex items-center gap-2.5 transition-colors cursor-pointer">
                 <i data-lucide="user-check" class="w-4 h-4 text-emerald-500 shrink-0"></i> 
@@ -326,11 +326,11 @@
                 <span class="font-bold text-emerald-400" id="heroNetProfit">Rp 0</span>
               </div>
               <div class="flex items-center justify-between">
-                <span class="text-slate-400">Dividen Diterima:</span>
+                <span class="text-slate-400">Profit Diterima:</span>
                 <span class="font-bold text-white" id="heroPayoutReceived">Rp 0</span>
               </div>
               <div class="flex items-center justify-between">
-                <span class="text-slate-400">Jadwal Dividen Berikutnya:</span>
+                <span class="text-slate-400">Jadwal Profit Berikutnya:</span>
                 <span class="font-semibold text-amber-400" id="heroNextPayout">Belum Ada Proyek Aktif</span>
               </div>
             </div>
@@ -385,7 +385,7 @@
           Menu Informasi &amp; Pengelolaan Investor
         </h3>
         <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
-          Eksplorasi penempatan baru, log pemeliharaan fisik unit, serta administrasi rekening penerima dividen.
+          Eksplorasi penempatan baru, log pemeliharaan fisik unit, serta administrasi rekening penerima profit.
         </p>
       </div>
 
@@ -401,7 +401,7 @@
         </button>
         <button onclick="switchTab('rekening')" id="tabBtn-rekening" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap transition-colors">
           <i data-lucide="credit-card" class="w-4 h-4"></i>
-          Rekening Bank Dividen
+          Rekening Bank Profit
         </button>
         <button onclick="switchTab('profil')" id="tabBtn-profil" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 whitespace-nowrap transition-colors">
           <i data-lucide="shield-alert" class="w-4 h-4"></i>
@@ -472,7 +472,7 @@
         </div>
       </div>
 
-      <!-- TAB 3: Rekening Bank Dividen -->
+      <!-- TAB 3: Rekening Bank Profit -->
       <div id="tabContent-rekening" class="tab-pane hidden space-y-6">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <!-- Visual Bank Card -->
@@ -504,14 +504,14 @@
 
             <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 text-xs text-slate-500 flex items-start gap-2.5">
               <i data-lucide="info" class="w-4 h-4 text-blue-600 shrink-0 mt-0.5"></i>
-              <span>Dividen bagi hasil akan ditransfer secara otomatis ke rekening aktif di atas sesuai jadwal kuartalan atau tutup buku tahunan.</span>
+              <span>Profit bagi hasil akan ditransfer secara otomatis ke rekening aktif di atas sesuai jadwal kuartalan atau tutup buku tahunan.</span>
             </div>
           </div>
 
           <!-- Edit Bank Account Form -->
           <div class="lg:col-span-7 bg-slate-50/70 p-5 sm:p-6 rounded-3xl border border-slate-200">
             <h5 class="text-sm font-bold text-slate-900 mb-4 pb-2 border-b border-slate-200">
-              Perbarui Informasi Rekening Dividen
+              Perbarui Informasi Rekening Profit
             </h5>
             <form onsubmit="handleBankUpdate(event)" class="space-y-3.5">
               <div>
@@ -542,24 +542,24 @@
               </div>
               <div class="pt-2">
                 <button type="submit" id="btnSaveBank" class="px-5 py-2.5 bg-slate-900 text-white rounded-full text-xs font-bold hover:bg-slate-800 transition active:scale-95 shadow-sm">
-                  Simpan Rekening Dividen
+                  Simpan Rekening Profit
                 </button>
               </div>
             </form>
           </div>
         </div>
 
-        <!-- Dividend History Table -->
+        <!-- Profit History Table -->
         <div class="pt-4 border-t border-slate-200">
           <div class="flex items-center justify-between mb-3">
-            <h5 class="text-xs font-bold uppercase tracking-wider text-slate-600">Riwayat Penyaluran Dividen Masuk</h5>
+            <h5 class="text-xs font-bold uppercase tracking-wider text-slate-600">Riwayat Penyaluran Profit Masuk</h5>
             <span class="text-[10px] text-slate-400 font-medium">Laporan Audit Kas Real-time</span>
           </div>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs text-slate-600 border border-slate-200 rounded-xl overflow-hidden">
               <thead class="bg-slate-100 text-slate-700 font-bold uppercase text-[10px]">
                 <tr>
-                  <th class="p-3">Periode Dividen</th>
+                  <th class="p-3">Periode Profit</th>
                   <th class="p-3">Tanggal Transfer</th>
                   <th class="p-3">Nominal Diterima</th>
                   <th class="p-3">Nomor Referensi Bank</th>
@@ -571,8 +571,8 @@
                   <td colspan="5" class="py-8 text-center text-slate-400 text-xs">
                     <div class="flex flex-col items-center justify-center gap-1.5 py-4">
                       <i data-lucide="inbox" class="w-8 h-8 text-slate-300"></i>
-                      <span class="font-semibold text-slate-600">Belum Ada Penyaluran Dividen</span>
-                      <p class="text-[11px] text-slate-400 max-w-sm">Riwayat pencairan dividen bagi hasil akan otomatis tercatat di sini setelah Anda memiliki portofolio aktif dan memasuki periode tutup buku tahunan/kuartalan.</p>
+                      <span class="font-semibold text-slate-600">Belum Ada Penyaluran Profit</span>
+                      <p class="text-[11px] text-slate-400 max-w-sm">Riwayat pencairan profit bagi hasil akan otomatis tercatat di sini setelah Anda memiliki portofolio aktif dan memasuki periode tutup buku tahunan/kuartalan.</p>
                     </div>
                   </td>
                 </tr>
@@ -1513,18 +1513,18 @@
               <div>
                 <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black bg-[#C5A059] text-slate-950 border border-amber-300 shadow-sm mb-2">
                   <i data-lucide="award" class="w-4 h-4 text-slate-950"></i>
-                  = MODUL UTAMA: LABA RUGI OPERASIONAL &amp; BAGI HASIL DIVIDEN
+                  = MODUL UTAMA: LABA RUGI OPERASIONAL &amp; BAGI HASIL PROFIT
                 </div>
                 <h3 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                   = Laporan Laba Rugi Bersih &amp; Skema Bagi Hasil
                 </h3>
                 <p class="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl leading-relaxed">
-                  Perhitungan transparan: <strong>Penjualan Unit</strong> dikurangi <strong>Beban Biaya &amp; Impor MIU</strong> menghasilkan <strong>Laba Bersih Operasional</strong> yang menjadi dasar pembagian dividen berkala bagi investor.
+                  Perhitungan transparan: <strong>Penjualan Unit</strong> dikurangi <strong>Beban Biaya &amp; Impor MIU</strong> menghasilkan <strong>Laba Bersih Operasional</strong> yang menjadi dasar pembagian profit berkala bagi mitra pemodal.
                 </p>
               </div>
 
               <div class="shrink-0 bg-white/90 p-3.5 rounded-2xl border border-amber-300 shadow-sm text-center sm:text-right">
-                <span class="text-[11px] font-bold uppercase tracking-wider text-amber-900 block">Jadwal Dividen Berikutnya</span>
+                <span class="text-[11px] font-bold uppercase tracking-wider text-amber-900 block">Jadwal Profit Berikutnya</span>
                 <div class="text-base sm:text-lg font-black text-amber-700 mt-0.5" id="opLrNextDate">15 Oktober 2026</div>
                 <span class="text-[11px] text-slate-500">Estimasi: <strong class="text-emerald-700" id="opLrNextEst">Rp 95.000.000</strong></span>
               </div>
@@ -1572,7 +1572,7 @@
                 <span class="text-[10px] text-emerald-700 font-bold block mt-0.5" id="opLrKpiMargin">Margin Laba: 88.4%</span>
               </div>
               <div class="p-4 rounded-2xl bg-[#C5A059]/20 border border-amber-300 shadow-2xs">
-                <span class="text-[11px] font-bold text-amber-900 uppercase tracking-wider block">Dividen Diterima Masuk</span>
+                <span class="text-[11px] font-bold text-amber-900 uppercase tracking-wider block">Profit Diterima Masuk</span>
                 <div class="text-xl sm:text-2xl font-black text-amber-950 mt-1" id="opLrKpiDividendPaid">Rp 270.000.000</div>
                 <span class="text-[10px] text-amber-800 font-bold block mt-0.5">Sudah Ditransfer ke BCA</span>
               </div>
@@ -1627,19 +1627,19 @@
                   <span class="font-mono text-lg text-emerald-800" id="opLrTableNetProfit">Rp 935.000.000</span>
                 </div>
 
-                <!-- Part 4: Bagi Hasil Dividen -->
+                <!-- Part 4: Bagi Hasil Profit -->
                 <div class="p-3.5 rounded-xl bg-blue-50/70 border border-blue-200 space-y-2">
                   <div class="font-bold text-blue-900 uppercase text-[11px] flex justify-between">
-                    <span>IV. SKEMA BAGI HASIL DIVIDEN UNTUK INVESTOR</span>
+                    <span>IV. SKEMA BAGI HASIL PROFIT UNTUK MITRA</span>
                     <span class="text-blue-700">Prinsip TARIF MGI</span>
                   </div>
                   <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-xs">
                     <div class="bg-white p-2 rounded-lg border border-blue-100">
-                      <span class="text-slate-500 block text-[10px]">Dividen Diterima Masuk:</span>
+                      <span class="text-slate-500 block text-[10px]">Profit Diterima Masuk:</span>
                       <strong class="text-blue-900 font-mono text-sm" id="opLrTableDivPaid">Rp 270.000.000</strong>
                     </div>
                     <div class="bg-white p-2 rounded-lg border border-blue-100">
-                      <span class="text-slate-500 block text-[10px]">Estimasi Dividen Q3:</span>
+                      <span class="text-slate-500 block text-[10px]">Estimasi Profit Q3:</span>
                       <strong class="text-amber-800 font-mono text-sm" id="opLrTableDivEst">Rp 95.000.000</strong>
                     </div>
                     <div class="bg-white p-2 rounded-lg border border-blue-100">
@@ -2106,7 +2106,7 @@
           </div>
           <div>
             <h3 class="font-bold text-slate-900 text-base" id="modalDetailTitle">Detail &amp; Proposal Proyek Proyek</h3>
-            <p class="text-xs text-slate-500" id="modalDetailSubtitle">Analisis kelayakan teknis, alokasi armada unit CBU, dan simulasi dividen</p>
+            <p class="text-xs text-slate-500" id="modalDetailSubtitle">Analisis kelayakan teknis, alokasi armada unit CBU, dan simulasi profit</p>
           </div>
         </div>
         <button onclick="closeModal('projectDetailModal')" class="p-1.5 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 transition cursor-pointer">
@@ -2462,7 +2462,7 @@
                     ${p.nama_project}
                   </h3>
                   <p class="text-xs sm:text-sm text-slate-500 mt-1 max-w-3xl leading-relaxed">
-                    Pemantauan modal terintegrasi MGI QQ Client. Realisasi alokasi pengadaan unit via MSI &amp; MIU, pergerakan unit lapangan, penjualan unit infrastruktur, beban workshop berkala, dan transparansi bagi hasil dividen.
+                    Pemantauan modal terintegrasi MGI QQ Client. Realisasi alokasi pengadaan unit via MSI &amp; MIU, pergerakan unit lapangan, penjualan unit infrastruktur, beban workshop berkala, dan transparansi bagi hasil profit.
                   </p>
                 </div>
                 <div class="sm:text-right shrink-0">
@@ -2871,7 +2871,7 @@
           bankBadge.innerText = 'REKENING TERVERIFIKASI';
           bankBadge.className = 'px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
         }
-        if (btnSaveBank) btnSaveBank.innerText = 'Perbarui Rekening Dividen';
+        if (btnSaveBank) btnSaveBank.innerText = 'Perbarui Rekening Profit';
 
         const elBankName = document.getElementById('dispBankName');
         if (elBankName) elBankName.innerText = b.bank_name || '-';
@@ -2896,7 +2896,7 @@
           bankBadge.innerText = 'BELUM DIATUR';
           bankBadge.className = 'px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30';
         }
-        if (btnSaveBank) btnSaveBank.innerText = 'Simpan Rekening Dividen';
+        if (btnSaveBank) btnSaveBank.innerText = 'Simpan Rekening Profit';
 
         const elBankName = document.getElementById('dispBankName');
         if (elBankName) elBankName.innerText = 'Belum Ada Rekening';
@@ -2918,20 +2918,20 @@
         if (editBranch) editBranch.value = '';
       }
 
-      // Render Riwayat Dividen Masuk Secara Dinamis
+      // Render Riwayat Profit Masuk Secara Dinamis
       const divTableBody = document.getElementById('dividendHistoryTableBody');
       if (divTableBody) {
         const finRecords = data.financial_records || [];
         const divRecords = finRecords.filter(r => 
-          (r.category && r.category.toLowerCase().includes('dividen')) || 
-          (r.title && r.title.toLowerCase().includes('dividen'))
+          (r.category && (r.category.toLowerCase().includes('dividen') || r.category.toLowerCase().includes('profit') || r.category.toLowerCase().includes('bagi hasil'))) || 
+          (r.title && (r.title.toLowerCase().includes('dividen') || r.title.toLowerCase().includes('profit') || r.title.toLowerCase().includes('bagi hasil')))
         );
         const portsWithPayout = (data.portfolios || []).filter(p => Number(p.payout_received || 0) > 0);
 
         if (divRecords.length > 0) {
           divTableBody.innerHTML = divRecords.map(r => `
             <tr class="hover:bg-slate-50/70 transition">
-              <td class="p-3 font-semibold text-slate-800">${r.title || 'Dividen Bagi Hasil'}</td>
+              <td class="p-3 font-semibold text-slate-800">${r.title || 'Bagi Hasil Profit'}</td>
               <td class="p-3 text-slate-500">${r.transaction_date || '-'}</td>
               <td class="p-3 font-bold text-emerald-600 font-mono">+${formatRupiahExact(r.amount || 0)}</td>
               <td class="p-3 font-mono text-[11px] text-slate-500">${r.record_number || '-'}</td>
@@ -2945,7 +2945,7 @@
         } else if (portsWithPayout.length > 0) {
           divTableBody.innerHTML = portsWithPayout.map(p => `
             <tr class="hover:bg-slate-50/70 transition">
-              <td class="p-3 font-semibold text-slate-800">${p.project_title || 'Dividen Proyek'}</td>
+              <td class="p-3 font-semibold text-slate-800">${p.project_title || 'Profit Proyek'}</td>
               <td class="p-3 text-slate-500">${p.start_date || '-'}</td>
               <td class="p-3 font-bold text-emerald-600 font-mono">+${formatRupiahExact(p.payout_received || 0)}</td>
               <td class="p-3 font-mono text-[11px] text-slate-500">${p.contract_number ? 'TRX-' + p.contract_number : '-'}</td>
@@ -2962,8 +2962,8 @@
               <td colspan="5" class="py-8 text-center text-slate-400 text-xs">
                 <div class="flex flex-col items-center justify-center gap-1.5 py-4">
                   <i data-lucide="inbox" class="w-8 h-8 text-slate-300"></i>
-                  <span class="font-semibold text-slate-600">Belum Ada Penyaluran Dividen</span>
-                  <p class="text-[11px] text-slate-400 max-w-sm">Riwayat pencairan dividen bagi hasil akan otomatis tercatat di sini setelah Anda memiliki portofolio aktif dan memasuki periode transfer bagi hasil.</p>
+                  <span class="font-semibold text-slate-600">Belum Ada Penyaluran Profit</span>
+                  <p class="text-[11px] text-slate-400 max-w-sm">Riwayat pencairan profit bagi hasil akan otomatis tercatat di sini setelah Anda memiliki portofolio aktif dan memasuki periode transfer bagi hasil.</p>
                 </div>
               </td>
             </tr>
@@ -3562,7 +3562,7 @@
       const totSale = f.total_penjualan || 1058000000;
       const totCost = f.total_biaya || 123000000;
       const netProfit = f.laba_bersih || (totSale - totCost);
-      const divPaid = f.dividen_diterima || 270000000;
+      const divPaid = f.profit_diterima || f.dividen_diterima || 270000000;
       const marginPct = totSale > 0 ? ((netProfit / totSale) * 100).toFixed(1) : 0;
 
       // Formula Bar
@@ -4082,7 +4082,7 @@
           const totPenjualan = activeProjectData && activeProjectData.financial_summary ? activeProjectData.financial_summary.total_penjualan : 970000000;
           const totBiaya = activeProjectData && activeProjectData.financial_summary ? activeProjectData.financial_summary.total_biaya : 85000000;
           const labaBersih = totPenjualan - totBiaya;
-          const divDiterima = activeProjectData && activeProjectData.financial_summary ? activeProjectData.financial_summary.dividen_diterima : 270000000;
+          const divDiterima = activeProjectData && activeProjectData.financial_summary ? (activeProjectData.financial_summary.profit_diterima || activeProjectData.financial_summary.dividen_diterima) : 270000000;
           tableBody.innerHTML = `
             <tr>
               <td class="py-3 px-4 font-semibold">Gross Sales Revenue (Penjualan Unit)</td>
@@ -4096,11 +4096,11 @@
             </tr>
             <tr>
               <td class="py-3 px-4 font-semibold">Laba Bersih Operasional Proyek (EBITDA)</td>
-              <td class="py-3 px-4 text-slate-500">Hasil bersih sebelum pembagian dividen berkala</td>
+              <td class="py-3 px-4 text-slate-500">Hasil bersih sebelum pembagian profit berkala</td>
               <td class="py-3 px-4 text-right font-mono font-bold text-slate-900">${formatRupiahExact(labaBersih)}</td>
             </tr>
             <tr class="bg-amber-50/70 font-bold border-t-2 border-amber-300">
-              <td class="py-3 px-4 text-slate-900" colspan="2">REALISASI DIVIDEN INVESTOR DITRANSFER (BCA)</td>
+              <td class="py-3 px-4 text-slate-900" colspan="2">REALISASI PROFIT MITRA DITRANSFER (BCA)</td>
               <td class="py-3 px-4 text-right font-mono text-amber-900">${formatRupiahExact(divDiterima)}</td>
             </tr>
           `;
@@ -4143,7 +4143,7 @@
         total_penjualan: 970000000,
         total_biaya: 85000000,
         laba_bersih: 885000000,
-        dividen_diterima: 270000000
+        profit_diterima: 270000000, dividen_diterima: 270000000
       };
 
       const docTitle = doc.doc_title || 'Laporan Operasional Resmi PT Montana Global Investama';
@@ -4244,7 +4244,7 @@
         `;
       } else {
         // Default: BUKU LAPORAN OPERASIONAL & KEUANGAN KUARTALAN
-        badgeText = 'BUKU LAPORAN OPERASIONAL & DIVIDEN';
+        badgeText = 'BUKU LAPORAN OPERASIONAL & PROFIT';
         badgeBg = '#0b1d3a';
         tableRows = `
           <tr>
@@ -4259,12 +4259,12 @@
           </tr>
           <tr>
             <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 600; color: #1e293b;">3. Laba Bersih Operasional Proyek (EBITDA)</td>
-            <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Hasil operasional bersih sebelum pembagian dividen berkala pemodal</td>
+            <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #475569;">Hasil operasional bersih sebelum pembagian profit berkala pemodal</td>
             <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; text-align: right; font-family: monospace; font-weight: bold; color: #0f172a;">Rp ${Number((f.total_penjualan || 970000000) - (f.total_biaya || 85000000)).toLocaleString('id-ID')}</td>
           </tr>
           <tr style="background: #fdf6e7; font-weight: bold;">
-            <td style="padding: 12px 14px; border-top: 2px solid #b45309; color: #78350f;" colspan="2">REALISASI DIVIDEN INVESTOR TELAH DISALURKAN (REK. BCA)</td>
-            <td style="padding: 12px 14px; border-top: 2px solid #b45309; text-align: right; font-family: monospace; color: #92400e; font-size: 13px;">Rp ${Number(f.dividen_diterima || 270000000).toLocaleString('id-ID')}</td>
+            <td style="padding: 12px 14px; border-top: 2px solid #b45309; color: #78350f;" colspan="2">REALISASI PROFIT MITRA TELAH DISALURKAN (REK. BCA)</td>
+            <td style="padding: 12px 14px; border-top: 2px solid #b45309; text-align: right; font-family: monospace; color: #92400e; font-size: 13px;">Rp ${Number(f.profit_diterima || f.dividen_diterima || 270000000).toLocaleString('id-ID')}</td>
           </tr>
         `;
       }
@@ -4331,8 +4331,8 @@
                 <div style="font-size: 7.5px; color: #2563eb;">EBITDA Margin 88.4%</div>
               </td>
               <td style="width: 25%; background: #fef3c7; border: 1px solid #fde68a; border-radius: 6px; padding: 7px 8px;">
-                <div style="font-size: 8.5px; font-weight: bold; color: #92400e; text-transform: uppercase;">Dividen Diterima</div>
-                <div style="font-size: 12px; font-weight: 900; color: #b45309; margin-top: 2px; font-family: monospace;">Rp ${Number(f.dividen_diterima || 270000000).toLocaleString('id-ID')}</div>
+                <div style="font-size: 8.5px; font-weight: bold; color: #92400e; text-transform: uppercase;">Profit Diterima</div>
+                <div style="font-size: 12px; font-weight: 900; color: #b45309; margin-top: 2px; font-family: monospace;">Rp ${Number(f.profit_diterima || f.dividen_diterima || 270000000).toLocaleString('id-ID')}</div>
                 <div style="font-size: 7.5px; color: #b45309;">Ditransfer ke Rek. BCA</div>
               </td>
             </tr>
@@ -5097,7 +5097,7 @@
               <div class="p-3 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100/60 border border-amber-300/80 shadow-2xs">
                 <span class="text-[10px] text-amber-900 block font-bold">Estimasi Total Diterima Pemodal:</span>
                 <span class="text-sm font-black text-amber-950 mt-0.5 block" id="modalSimSumGrand">Rp 18.000.000.000 – Rp 18.750.000.000</span>
-                <span class="text-[10px] text-amber-800/90">Pokok + dividen hasil perputaran modal</span>
+                <span class="text-[10px] text-amber-800/90">Pokok + profit hasil perputaran modal</span>
               </div>
             </div>
 
@@ -5106,7 +5106,7 @@
               <i data-lucide="info" class="w-4 h-4 text-amber-700 shrink-0 mt-0.5"></i>
               <div>
                 <strong class="font-bold text-amber-950">Penekanan Model Simulasi Bisnis:</strong>
-                Seluruh nilai imbal hasil dan bagi hasil yang ditampilkan di atas merupakan <strong>simulasi proyeksi indikatif</strong> berdasarkan pemodelan perputaran modal armada alat berat (2–3 kali putaran per tahun). Angka dividen aktual disesuaikan secara transparan berdasarkan realisasi perputaran unit operasional dan laporan audit tutup buku tahunan resmi.
+                Seluruh nilai imbal hasil dan bagi hasil yang ditampilkan di atas merupakan <strong>simulasi proyeksi indikatif</strong> berdasarkan pemodelan perputaran modal armada alat berat (2–3 kali putaran per tahun). Angka profit aktual disesuaikan secara transparan berdasarkan realisasi perputaran unit operasional dan laporan audit tutup buku tahunan resmi.
               </div>
             </div>
 
@@ -5759,7 +5759,7 @@
         bankBadge.className = 'px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
       }
       const btnSaveBank = document.getElementById('btnSaveBank');
-      if (btnSaveBank) btnSaveBank.innerText = 'Perbarui Rekening Dividen';
+      if (btnSaveBank) btnSaveBank.innerText = 'Perbarui Rekening Profit';
 
       if (!dashboardState.bank_account) dashboardState.bank_account = {};
       dashboardState.bank_account.bank_name = bankName;
