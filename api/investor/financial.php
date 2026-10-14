@@ -51,6 +51,21 @@ try {
     $stmt->execute($params);
     $allRecords = $stmt->fetchAll();
 
+    $isPreviewMode = false;
+    if (empty($allRecords)) {
+        // Fallback untuk transparansi format pembukuan riil: ambil financial records proyek aktif
+        $stmtProjRec = $db->prepare("
+            SELECT f.*, p.title as project_title, p.category as project_category
+            FROM financial_records f
+            JOIN projects p ON f.project_id = p.id
+            WHERE f.project_id = ?
+            ORDER BY f.transaction_date ASC, f.id ASC
+        ");
+        $stmtProjRec->execute([$activeProjectId]);
+        $allRecords = $stmtProjRec->fetchAll();
+        $isPreviewMode = true;
+    }
+
     // 3. Klasifikasikan ke dalam modul: Neraca, Laba Rugi, Pembelian, Penjualan, Biaya, Stock
     $modNeraca = [];
     $modLabaRugi = [];
@@ -117,6 +132,11 @@ try {
             if (!$projectId || $port['project_id'] === $projectId) {
                 $totalCapital += (float)$port['amount'];
             }
+        }
+        if ($totalCapital === 0.0 && $isPreviewMode) {
+            $stmtProjTarget = $db->prepare("SELECT funding_target FROM projects WHERE id = ? LIMIT 1");
+            $stmtProjTarget->execute([$activeProjectId]);
+            $totalCapital = (float)($stmtProjTarget->fetchColumn() ?: 45000000000);
         }
     }
 

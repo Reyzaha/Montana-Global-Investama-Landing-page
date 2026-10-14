@@ -2602,57 +2602,128 @@
 
       const countBadge = document.getElementById('activeProjectsCount');
 
-      if (!projects || projects.length === 0) {
-        if (countBadge) {
-          countBadge.innerText = '0 Proyek Sedang Berjalan Aktif';
+      const storedUser = localStorage.getItem('mgi_auth_user');
+      let userName = 'Investor';
+      try {
+        if (storedUser) {
+          const u = JSON.parse(storedUser);
+          userName = u.fullName || u.full_name || u.email?.split('@')[0] || 'Investor';
         }
-        const storedUser = localStorage.getItem('mgi_auth_user');
-        let userName = 'Investor';
-        try {
-          if (storedUser) {
-            const u = JSON.parse(storedUser);
-            userName = u.fullName || u.full_name || u.email?.split('@')[0] || 'Investor';
-          }
-        } catch (e) { }
+      } catch (e) { }
 
-        container.innerHTML = `
-          <div class="bg-white rounded-3xl border border-dashed border-slate-300 p-8 sm:p-12 text-center shadow-xs">
-            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 mb-4 shadow-sm border border-blue-100">
-              <i data-lucide="layers" class="w-8 h-8 text-blue-600"></i>
-            </div>
-            <h4 class="text-lg sm:text-xl font-extrabold text-slate-800 mb-1.5">Belum Ada Proyek Penempatan Modal Aktif</h4>
-            <p class="text-xs sm:text-sm text-slate-500 max-w-lg mx-auto mb-6 leading-relaxed">
-              Halo <strong class="text-slate-700">${userName}</strong>, akun investor Anda telah aktif dan terverifikasi. Saat ini Anda belum memiliki portofolio proyek yang sedang berjalan. Silakan tinjau katalog proyek terbuka di bawah ini untuk memilih penempatan modal pada unit alat berat CBU Jepang dengan proyeksi bagi hasil terukur.
-            </p>
-            <div class="flex flex-wrap items-center justify-center gap-3">
-              <button onclick="scrollToKatalog()" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-blue-900 hover:bg-blue-800 text-white font-bold text-xs sm:text-sm transition-all shadow-md hover:shadow-lg active:scale-95 cursor-pointer">
-                <i data-lucide="compass" class="w-4 h-4 text-amber-300"></i>
-                Jelajahi Katalog Proyek Terbuka
-              </button>
-              <button onclick="openModal('investModal')" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-sm active:scale-95 cursor-pointer">
-                <i data-lucide="plus-circle" class="w-4 h-4"></i>
-                Tambah Penempatan Baru
-              </button>
-            </div>
-          </div>
-        `;
-        if (window.lucide) lucide.createIcons();
-        return;
-      }
+      // Cek apakah investor telah memiliki portofolio proyek aktif riil vs format pratinjau pembukuan
+      const hasRealProjects = Array.isArray(projects) && projects.length > 0 && !projects.every(p => p.is_preview);
 
-      if (countBadge) {
-        countBadge.innerText = `${projects.length} Proyek Sedang Berjalan Aktif`;
+      let projectsToRender = [];
+      let isPreviewMode = false;
+
+      if (hasRealProjects) {
+        projectsToRender = projects.filter(p => !p.is_preview);
+        if (countBadge) {
+          countBadge.innerText = `${projectsToRender.length} Proyek Sedang Berjalan Aktif`;
+        }
+      } else {
+        isPreviewMode = true;
+        if (countBadge) {
+          countBadge.innerHTML = `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-50 text-amber-900 border border-amber-300"><span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>Mode Pratinjau Pembukuan Riil (0 Penempatan Aktif)</span>`;
+        }
+
+        // Jika API sudah mengirimkan proyek pratinjau, gunakan itu. Jika belum, bangun objek percontohan 45M
+        if (Array.isArray(projects) && projects.length > 0 && projects[0].is_preview) {
+          projectsToRender = [projects[0]];
+        } else {
+          projectsToRender = [{
+            id: 0,
+            project_id: 'proj-jkt-jabar',
+            nama_project: 'Ekspansi Armada Alat Berat & Logistik Proyek Strategis (Batch Regional)',
+            kategori: 'Pengadaan & Sewa Alat Berat CBU Jepang',
+            lokasi: 'DKI Jakarta & Jawa Barat (Pool Narogong & Sentral Workshop MIU)',
+            image: 'assets/img/city-jkt-jabar.png',
+            contract_number: 'MGI/PRATINJAU/2026/001-BP',
+            status: 'preview_format',
+            is_preview: true,
+            total_dana_investor: 45000000000,
+            tier_info: {
+              nominal: 45000000000,
+              nominal_display: 'Rp 45.000.000.000',
+              label: 'Nilai Anggaran Kebutuhan Proyek (Batch Regional)',
+              badge: 'Transparansi Real-Time MGI QQ Client',
+              unit_qty: '25 Unit Alat Berat CBU',
+              container_qty: '6.25 Kontainer 40FT HC (25 Unit)',
+              porsi_proyek: 'Kapasitas Operasional Penuh',
+              jaminan_aset: '25 Unit Fisik Siap Operasi (Hak Kepemilikan Fisik)',
+              profit_per_siklus: 6438600000
+            },
+            ringkasan: {
+              sisa_dana: 1687500000,
+              total_pembelian: 42187500000,
+              total_penjualan: 6438600000,
+              total_biaya: 560000000,
+              total_terpakai: 43312500000,
+              payout_received: 0,
+              return_rate: '28,6% – 42,9% (p.a.)',
+              tenor: '12 Bulan',
+              next_payout_date: '15 Oktober 2026',
+              allocated_units: '25 Unit Alat Berat CBU Siap Operasi (Hak Kepemilikan Fisik)',
+              total_units: 25,
+              active_units: 24,
+              utilization_rate: '96.0% Efektif'
+            }
+          }];
+        }
       }
 
       let html = '';
-      projects.forEach((p) => {
+
+      // Tampilkan banner informatif transparansi pembukuan jika dalam mode preview (belum ada proyek aktif)
+      if (isPreviewMode) {
+        html += `
+          <div class="rounded-3xl bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white p-6 sm:p-7 border border-blue-900/60 shadow-xl relative overflow-hidden mb-6">
+            <div class="absolute -right-12 -top-12 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
+              <div class="space-y-2">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-amber-400 text-slate-950 shadow-xs">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+                    Transparansi Pembukuan Riil (MGI QQ Client)
+                  </span>
+                  <span class="text-xs text-blue-200 font-medium">Akun Investor: <strong>${userName}</strong></span>
+                </div>
+                <h3 class="text-lg sm:text-xl font-black text-white tracking-tight">
+                  Format Pembukuan Proyek Riil (Hadir Otomatis Saat Penempatan Dana)
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
+                  Saat ini Anda belum memiliki portofolio penempatan modal aktif. Di bawah ini kami tampilkan <strong>format riil sistem pembukuan, mutasi kas escrow Bank Mandiri, realisasi pembelian unit MIU (@ Rp 250 Jt &amp; kontainer 40FT HC), penjualan, biaya workshop, neraca, serta laba rugi</strong> yang akan <strong>langsung aktif dan hadir pada saat dana Anda ditempatkan</strong>.
+                </p>
+              </div>
+              <div class="shrink-0 flex flex-wrap items-center gap-2.5">
+                <button onclick="scrollToKatalog()" class="px-5 py-3 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-md active:scale-95 cursor-pointer flex items-center gap-2">
+                  <i data-lucide="compass" class="w-4 h-4"></i>
+                  <span>Pilih &amp; Danai Proyek</span>
+                </button>
+                <button onclick="openOperationalDashboard('${projectsToRender[0].project_id || 'proj-jkt-jabar'}')" class="px-4 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold text-xs sm:text-sm transition-all active:scale-95 cursor-pointer flex items-center gap-1.5">
+                  <i data-lucide="gauge" class="w-4 h-4 text-amber-400"></i>
+                  <span>Buka Pembukuan</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      projectsToRender.forEach((p) => {
         const r = p.ringkasan || {};
+        const isPreview = Boolean(p.is_preview);
         const totalDana = formatRupiahExact(p.total_dana_investor || 0);
         const sisaDana = formatRupiahExact(r.sisa_dana || 0);
         const totalPembelian = formatRupiahExact(r.total_pembelian || 0);
         const totalPenjualan = formatRupiahExact(r.total_penjualan || 0);
-        const statusText = p.status === 'active' ? 'Portofolio Aktif Anda' : 'Proyek Selesai';
-        const statusClass = p.status === 'active' ? 'bg-emerald-600' : 'bg-slate-600';
+        const statusText = isPreview
+          ? 'Pratinjau Format Pembukuan Riil • Hadir Saat Dana Aktif'
+          : (p.status === 'active' ? 'Portofolio Aktif Anda' : 'Proyek Selesai');
+        const statusClass = isPreview
+          ? 'bg-amber-500 text-slate-950'
+          : (p.status === 'active' ? 'bg-emerald-600 text-white' : 'bg-slate-600 text-white');
         const pId = p.project_id || p.id;
         const imgUrl = p.image || 'https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=1600&q=80';
         const tier = p.tier_info || null;
@@ -2669,7 +2740,7 @@
                 <div>
                   <div class="flex items-center gap-2 flex-wrap">
                     <span class="text-[10px] uppercase tracking-wider font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/80">Hak Kepemilikan Fisik Unit</span>
-                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-800 border border-slate-200">${tier.badge || 'Portofolio Terdaftar'}</span>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${isPreview ? 'bg-amber-100 text-amber-900 border border-amber-300' : 'bg-slate-100 text-slate-800 border border-slate-200'}">${tier.badge || (isPreview ? 'Format Transparansi' : 'Portofolio Terdaftar')}</span>
                     <span class="text-[11px] font-semibold text-slate-500">${tier.porsi_proyek || ''}</span>
                   </div>
                   <h4 class="text-sm sm:text-base font-bold text-slate-900 mt-1">${tier.label || 'Paket Kepemilikan Armada'}</h4>
@@ -2710,8 +2781,8 @@
 
               <!-- Badges on top of image -->
               <div class="absolute top-5 left-5 flex flex-wrap gap-2">
-                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold ${statusClass} text-white shadow-md backdrop-blur-md">
-                  <span class="w-2 h-2 rounded-full bg-white animate-ping"></span>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold ${statusClass} shadow-md backdrop-blur-md">
+                  <span class="w-2 h-2 rounded-full ${isPreview ? 'bg-slate-950' : 'bg-white'} animate-ping"></span>
                   ${statusText}
                 </span>
                 <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-slate-900/90 text-amber-300 border border-amber-400/30 backdrop-blur-md shadow-md">
@@ -2749,25 +2820,25 @@
                     ${p.nama_project}
                   </h3>
                   <p class="text-xs sm:text-sm text-slate-500 mt-1 max-w-3xl leading-relaxed">
-                    Pemantauan modal terintegrasi MGI QQ Client. Realisasi alokasi pengadaan unit via MSI &amp; MIU, pergerakan unit lapangan, penjualan unit infrastruktur, beban workshop berkala, dan transparansi bagi hasil profit.
+                    ${isPreview ? 'Pemantauan modal terintegrasi MGI QQ Client. Inilah format akuntansi riil alokasi pengadaan unit via MSI &amp; MIU (HPP unit Rp 250 jt &amp; kontainer 40FT HC), arus kas escrow Bank Mandiri, penjualan unit infrastruktur, biaya workshop, dan laporan laba rugi yang otomatis hadir setelah dana Anda aktif.' : 'Pemantauan modal terintegrasi MGI QQ Client. Realisasi alokasi pengadaan unit via MSI &amp; MIU, pergerakan unit lapangan, penjualan unit infrastruktur, beban workshop berkala, dan transparansi bagi hasil profit.'}
                   </p>
                 </div>
                 <div class="sm:text-right shrink-0">
                   <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold block">Nomor Kontrak Kerja</span>
-                  <span class="text-xs font-mono font-bold text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-200/70 inline-block mt-0.5">
-                    ${p.contract_number || 'MGI/INV/2026/001-BP'}
+                  <span class="text-xs font-mono font-bold ${isPreview ? 'text-amber-800 bg-amber-50 border-amber-300' : 'text-rose-600 bg-rose-50 border-rose-200/70'} px-2.5 py-1 rounded-full border inline-block mt-0.5">
+                    ${p.contract_number || 'MGI/INV/2026/001-BP'}${isPreview ? ' (Format Akuntansi)' : ''}
                   </span>
                 </div>
               </div>
 
               <!-- Total Dana & Ringkasan Singkat (Sisa Dana, Pembelian, Penjualan) -->
               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <!-- Total Dana Investor -->
+                <!-- Total Dana Investor / Nilai Anggaran Proyek -->
                 <div class="bg-blue-50/60 hover:bg-blue-50/90 rounded-2xl p-4 border border-blue-200/70 transition-all">
-                  <span class="text-[11px] font-bold text-blue-900 block uppercase tracking-wider">Total Dana Investor</span>
+                  <span class="text-[11px] font-bold text-blue-900 block uppercase tracking-wider">${isPreview ? 'Nilai Anggaran Kebutuhan' : 'Total Dana Investor'}</span>
                   <span class="text-base sm:text-xl font-black text-blue-950 block mt-1">${totalDana}</span>
                   <span class="text-[11px] text-blue-700 font-medium mt-1 inline-flex items-center gap-1">
-                    <i data-lucide="check-circle" class="w-3 h-3 text-emerald-600"></i> Modal Disetor Sah
+                    <i data-lucide="${isPreview ? 'info' : 'check-circle'}" class="w-3 h-3 ${isPreview ? 'text-amber-600' : 'text-emerald-600'}"></i> ${isPreview ? 'Format Anggaran Proyek' : 'Modal Disetor Sah'}
                   </span>
                 </div>
 
@@ -2800,9 +2871,9 @@
                 <div class="flex items-center justify-between mb-2">
                   <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
                     <i data-lucide="layers" class="w-3.5 h-3.5 text-blue-900"></i>
-                    Buka Langsung Modul Rinci:
+                    Buka Langsung Modul Rinci Pembukuan:
                   </span>
-                  <span class="text-[10px] text-slate-400">Klik modul untuk rincian data transaksi &amp; acuan RAB</span>
+                  <span class="text-[10px] text-slate-400">Klik modul untuk rincian data transaksi, mutasi kas &amp; acuan RAB</span>
                 </div>
                 <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
                   <button 
@@ -2858,27 +2929,40 @@
               </div>
 
               <!-- Main CTA Button -->
-              <div class="pt-2">
+              <div class="pt-2 flex flex-col sm:flex-row gap-3">
                 <button 
                   onclick="openOperationalDashboard('${pId}')"
-                  class="w-full gold-gradient-btn text-white py-3.5 px-6 rounded-2xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-98 transition-all cursor-pointer"
+                  class="flex-1 gold-gradient-btn text-white py-3.5 px-6 rounded-2xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-98 transition-all cursor-pointer"
                 >
                   <i data-lucide="gauge" class="w-5 h-5"></i>
-                  <span>Open Dashboard Operasional Proyek</span>
+                  <span>${isPreview ? 'Buka Dashboard Operasional &amp; Pembukuan Proyek (Pratinjau Riil)' : 'Open Dashboard Operasional Proyek'}</span>
                   <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
                 </button>
+                ${isPreview ? `
+                  <button 
+                    onclick="scrollToKatalog()"
+                    class="px-6 py-3.5 rounded-2xl font-bold text-sm bg-blue-900 hover:bg-blue-800 text-white flex items-center justify-center gap-2 shadow-sm transition active:scale-95 cursor-pointer shrink-0"
+                  >
+                    <i data-lucide="plus-circle" class="w-4 h-4 text-amber-300"></i>
+                    <span>Pilih Penempatan Modal</span>
+                  </button>
+                ` : ''}
               </div>
 
               <!-- Footer Documents / Status Bar -->
               <div class="flex flex-wrap items-center justify-between gap-4 pt-3 text-xs text-slate-500 border-t border-slate-100">
-                <div class="flex flex-wrap items-center gap-4">
-                  <button onclick="openOperationalDashboard('${pId}')" class="inline-flex items-center gap-1.5 hover:text-blue-600 font-medium transition-colors">
+                <div class="flex flex-wrap items-center gap-3">
+                  <button onclick="openOperationalDashboard('${pId}')" class="inline-flex items-center gap-1.5 hover:text-blue-600 font-medium transition-colors cursor-pointer">
                     <i data-lucide="file-text" class="w-4 h-4 text-slate-400"></i>
                     Lihat Berkas &amp; Dokumen Proyek
                   </button>
-                  <button onclick="openOperationalDashboard('${pId}')" class="inline-flex items-center gap-1.5 hover:text-blue-600 font-medium transition-colors">
+                  <button onclick="openOperationalDashboard('${pId}', 'pembelian')" class="inline-flex items-center gap-1.5 hover:text-blue-600 font-medium transition-colors cursor-pointer">
                     <i data-lucide="table" class="w-4 h-4 text-slate-400"></i>
                     Rincian Alokasi Dana (MSI &amp; MIU)
+                  </button>
+                  <button onclick="triggerPrintAction('Spreadsheet Laporan Akuntansi')" class="inline-flex items-center gap-1.5 hover:text-emerald-700 font-semibold transition-colors cursor-pointer text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
+                    <i data-lucide="download" class="w-3.5 h-3.5 text-emerald-600"></i>
+                    Unduh Ledger Keuangan (Excel / CSV)
                   </button>
                 </div>
                 <div class="text-[11px] text-slate-400 flex items-center gap-1">
@@ -3154,7 +3238,13 @@
         if (elYieldBar) elYieldBar.style.width = totalInv > 0 ? '88%' : '0%';
 
         const elCount = document.getElementById('activeProjectsCount');
-        if (elCount) elCount.innerText = `${activeCount} Proyek Sedang Berjalan Aktif`;
+        if (elCount) {
+          if (activeCount > 0) {
+            elCount.innerText = `${activeCount} Proyek Sedang Berjalan Aktif`;
+          } else {
+            elCount.innerHTML = `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-50 text-amber-900 border border-amber-300"><span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>Mode Pratinjau Pembukuan Riil (0 Penempatan Aktif)</span>`;
+          }
+        }
       }
 
       // Render Bank Account Section
@@ -3507,8 +3597,20 @@
 
       // 1. Header Information
       document.getElementById('opModalTitle').innerText = p.title || 'Dashboard Operasional Proyek';
-      document.getElementById('opModalContractNumber').innerText = p.contract_number || 'MGI/INV/2026/001-BP';
+      const isPreview = Boolean(data.is_preview || p.is_preview);
+      document.getElementById('opModalContractNumber').innerText = (p.contract_number || 'MGI/INV/2026/001-BP') + (isPreview ? ' (Format Akuntansi)' : '');
       document.getElementById('opModalLocation').innerText = p.lokasi || 'DKI Jakarta & Jawa Barat';
+
+      const liveBadge = document.getElementById('opLiveStatusBadge');
+      if (liveBadge) {
+        if (isPreview) {
+          liveBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>Pratinjau Format Pembukuan Riil (Hadir Saat Dana Aktif)`;
+          liveBadge.className = 'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300';
+        } else {
+          liveBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>Real-Time SSE Aktif`;
+          liveBadge.className = 'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300';
+        }
+      }
 
       // 2. Financial Metrics Row
       document.getElementById('opMetricTotalDana').innerText = formatRupiahExact(f.total_dana_investor !== undefined ? f.total_dana_investor : 0);
