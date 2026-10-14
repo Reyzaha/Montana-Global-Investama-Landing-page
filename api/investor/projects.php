@@ -90,9 +90,9 @@ try {
             $projectsList[] = [
                 'id' => 0,
                 'project_id' => $prevPId,
-                'nama_project' => $prevProj['title'],
-                'kategori' => $prevProj['category'],
-                'lokasi' => $prevProj['lokasi'],
+                'nama_project' => 'Belum Memilih Proyek Penempatan Modal',
+                'kategori' => 'Status: Menunggu Penempatan Modal',
+                'lokasi' => 'Nasional (Silakan Pilih Proyek pada Katalog)',
                 'image' => $prevProj['image'] ?: 'assets/img/city-jkt-jabar.png',
                 'contract_number' => '-',
                 'status' => 'Belum Ada Penempatan Modal',

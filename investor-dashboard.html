@@ -2633,9 +2633,9 @@
           projectsToRender = [{
             id: 0,
             project_id: 'proj-jkt-jabar',
-            nama_project: 'Ekspansi Armada Alat Berat & Logistik Proyek Strategis (Batch Regional)',
-            kategori: 'Pengadaan & Sewa Alat Berat CBU Jepang',
-            lokasi: 'DKI Jakarta & Jawa Barat (Pool Narogong & Sentral Workshop MIU)',
+            nama_project: 'Belum Memilih Proyek Penempatan Modal',
+            kategori: 'Status: Belum Ada Dana Ditempatkan',
+            lokasi: 'Nasional (Silakan Pilih Proyek pada Katalog)',
             image: 'assets/img/city-jkt-jabar.png',
             contract_number: '-',
             status: 'Belum Ada Penempatan Modal',
@@ -2675,6 +2675,13 @@
         const pId = p.project_id || p.id || 'proj-jkt-jabar';
         const imgUrl = p.image || 'assets/img/city-jkt-jabar.png';
         const tier = p.tier_info || null;
+
+        const pNama = isAllocated ? p.nama_project : 'Belum Memilih Proyek Penempatan Modal';
+        const pKategori = isAllocated ? (p.kategori || 'Ekspansi Armada Alat Berat') : 'Status: Belum Ada Dana Ditempatkan';
+        const pLokasi = isAllocated ? (p.lokasi || 'DKI Jakarta & Jawa Barat') : 'Nasional (Silakan Pilih Proyek pada Katalog)';
+        const pDesc = isAllocated
+          ? 'Pemantauan modal terintegrasi MGI QQ Client. Realisasi alokasi pengadaan unit via MSI &amp; MIU, pergerakan unit lapangan, penjualan unit infrastruktur, beban workshop berkala, dan transparansi bagi hasil profit.'
+          : 'Akun investor Anda saat ini belum memiliki penempatan dana aktif pada proyek manapun. Di bawah ini format modul pembukuan riil (Stock/Inventory, Pembelian, Penjualan, Biaya, Laba Rugi, Neraca, RAB) siap digunakan dan otomatis tersinkronisasi saat Anda mendanai proyek.';
 
         let tierCardHtml = '';
         if (tier && isAllocated) {
@@ -2721,7 +2728,7 @@
             <div class="relative h-64 sm:h-80 md:h-96 w-full overflow-hidden bg-slate-900">
               <img 
                 src="${imgUrl}" 
-                alt="${p.nama_project}" 
+                alt="${pNama}" 
                 class="w-full h-full object-cover object-center filter brightness-95 transform hover:scale-105 transition-transform duration-700"
                 onerror="this.src='https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=1600&q=80'"
               />
@@ -2745,7 +2752,7 @@
                   <span class="text-xs uppercase tracking-wider text-slate-300 font-bold block mb-1">Lokasi Pool &amp; Operasional</span>
                   <div class="flex items-center gap-1.5 text-sm font-semibold">
                     <i data-lucide="map-pin" class="w-4 h-4 text-amber-400"></i>
-                    ${p.lokasi || 'DKI Jakarta & Jawa Barat'}
+                    ${pLokasi}
                   </div>
                 </div>
                 <div class="hidden sm:block text-right">
@@ -2760,15 +2767,15 @@
               <!-- Title and Contract Header -->
               <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
                 <div>
-                  <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200/80 mb-2">
-                    <i data-lucide="truck" class="w-3.5 h-3.5 text-amber-600"></i>
-                    ${p.kategori || 'Ekspansi Armada Alat Berat'}
+                  <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold ${isAllocated ? 'bg-amber-50 text-amber-800 border border-amber-200/80' : 'bg-slate-100 text-slate-700 border border-slate-200'} mb-2">
+                    <i data-lucide="${isAllocated ? 'truck' : 'info'}" class="w-3.5 h-3.5 ${isAllocated ? 'text-amber-600' : 'text-blue-600'}"></i>
+                    ${pKategori}
                   </div>
                   <h3 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
-                    ${p.nama_project}
+                    ${pNama}
                   </h3>
                   <p class="text-xs sm:text-sm text-slate-500 mt-1 max-w-3xl leading-relaxed">
-                    Pemantauan modal terintegrasi MGI QQ Client. Realisasi alokasi pengadaan unit via MSI &amp; MIU, pergerakan unit lapangan, penjualan unit infrastruktur, beban workshop berkala, dan transparansi bagi hasil profit.
+                    ${pDesc}
                   </p>
                 </div>
                 <div class="sm:text-right shrink-0">
@@ -2879,21 +2886,39 @@
 
               <!-- Main CTA Buttons -->
               <div class="pt-2 flex flex-col sm:flex-row gap-3">
-                <button 
-                  onclick="openOperationalDashboard('${pId}')"
-                  class="flex-1 gold-gradient-btn text-white py-3.5 px-6 rounded-2xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-98 transition-all cursor-pointer"
-                >
-                  <i data-lucide="gauge" class="w-5 h-5"></i>
-                  <span>Buka Dashboard Operasional &amp; Pembukuan Proyek</span>
-                  <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
-                </button>
-                <button 
-                  onclick="scrollToKatalog()"
-                  class="px-6 py-3.5 rounded-2xl font-bold text-sm bg-blue-900 hover:bg-blue-800 text-white flex items-center justify-center gap-2 shadow-sm transition active:scale-95 cursor-pointer shrink-0"
-                >
-                  <i data-lucide="plus-circle" class="w-4 h-4 text-amber-300"></i>
-                  <span>Pilih Penempatan Modal</span>
-                </button>
+                ${isAllocated ? `
+                  <button 
+                    onclick="openOperationalDashboard('${pId}')"
+                    class="flex-1 gold-gradient-btn text-white py-3.5 px-6 rounded-2xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-98 transition-all cursor-pointer"
+                  >
+                    <i data-lucide="gauge" class="w-5 h-5"></i>
+                    <span>Buka Dashboard Operasional &amp; Pembukuan Proyek</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                  </button>
+                  <button 
+                    onclick="scrollToKatalog()"
+                    class="px-6 py-3.5 rounded-2xl font-bold text-sm bg-blue-900 hover:bg-blue-800 text-white flex items-center justify-center gap-2 shadow-sm transition active:scale-95 cursor-pointer shrink-0"
+                  >
+                    <i data-lucide="plus-circle" class="w-4 h-4 text-amber-300"></i>
+                    <span>Pilih Penempatan Modal Lainnya</span>
+                  </button>
+                ` : `
+                  <button 
+                    onclick="scrollToKatalog()"
+                    class="flex-1 gold-gradient-btn text-white py-3.5 px-6 rounded-2xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-98 transition-all cursor-pointer"
+                  >
+                    <i data-lucide="compass" class="w-5 h-5 text-amber-300"></i>
+                    <span>Pilih &amp; Danai Proyek Penempatan Modal</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                  </button>
+                  <button 
+                    onclick="openOperationalDashboard('${pId}')"
+                    class="px-6 py-3.5 rounded-2xl font-bold text-sm bg-slate-900 hover:bg-slate-800 text-white flex items-center justify-center gap-2 shadow-sm transition active:scale-95 cursor-pointer shrink-0"
+                  >
+                    <i data-lucide="gauge" class="w-4 h-4 text-amber-400"></i>
+                    <span>Buka Format Pembukuan Proyek</span>
+                  </button>
+                `}
               </div>
 
               <!-- Footer Documents / Status Bar -->
