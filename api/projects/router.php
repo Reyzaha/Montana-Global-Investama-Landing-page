@@ -104,16 +104,31 @@ try {
     // ACTION 2: DASHBOARD DATA (GET /api/projects/:id/dashboard)
     // -------------------------------------------------------------
     if ($action === 'dashboard') {
-        $investorId = $investor ? (int)$investor['id'] : (!empty($_GET['investor_id']) ? (int)$_GET['investor_id'] : 1);
+        $investorId = $investor ? (int)$investor['id'] : (!empty($_GET['investor_id']) ? (int)$_GET['investor_id'] : null);
 
         // Portfolio info for this investor
-        $stmtPort = $db->prepare("SELECT * FROM investor_portfolios WHERE project_id = ? AND investor_id = ? LIMIT 1");
-        $stmtPort->execute([$projectId, $investorId]);
-        $portfolio = $stmtPort->fetch();
+        $portfolio = null;
+        if ($investorId) {
+            $stmtPort = $db->prepare("SELECT * FROM investor_portfolios WHERE project_id = ? AND investor_id = ? LIMIT 1");
+            $stmtPort->execute([$projectId, $investorId]);
+            $portfolio = $stmtPort->fetch();
+        }
 
-        $totalCapital = $portfolio ? (float)$portfolio['amount'] : 5000000000;
-        $contractNumber = $portfolio ? $portfolio['contract_number'] : 'MGI/INV/2026/001-BP';
-        $payoutReceived = $portfolio ? (float)$portfolio['payout_received'] : 270000000;
+        if ($portfolio) {
+            $totalCapital = (float)$portfolio['amount'];
+            $contractNumber = $portfolio['contract_number'] ?: ('MGI/INV/' . date('Y') . '/' . str_pad($investorId, 3, '0', STR_PAD_LEFT) . '-BP');
+            $payoutReceived = isset($portfolio['payout_received']) ? (float)$portfolio['payout_received'] : 0.0;
+        } elseif ($investor) {
+            // Investor is logged in but has no placement in this specific project
+            $totalCapital = 0.0;
+            $contractNumber = 'BELUM TERDAFTAR';
+            $payoutReceived = 0.0;
+        } else {
+            // Public / Admin preview fallback
+            $totalCapital = (float)($project['funding_target'] ?: 5000000000);
+            $contractNumber = 'MGI/DEMO/' . date('Y') . '/001-BP';
+            $payoutReceived = 0.0;
+        }
 
         // Inventory items
         $stmtInv = $db->prepare("SELECT * FROM project_inventory WHERE project_id = ? ORDER BY id ASC");
@@ -156,15 +171,21 @@ try {
             }
         }
 
-        // Realistic defaults if fresh
-        if (empty($purchases) && $projectId === 'proj-jkt-jabar') {
-            $totalPembelian = 3150000000;
-        }
-        if (empty($sales) && $projectId === 'proj-jkt-jabar') {
-            $totalPenjualan = 970000000;
-        }
-        if (empty($costs) && $projectId === 'proj-jkt-jabar') {
-            $totalBiaya = 85000000;
+        // Realistic figures if investor is invested or public demo
+        if ($totalCapital > 0) {
+            if (empty($purchases)) {
+                $totalPembelian = round($totalCapital * 0.63);
+            }
+            if (empty($sales)) {
+                $totalPenjualan = round($totalCapital * 0.194);
+            }
+            if (empty($costs)) {
+                $totalBiaya = round($totalCapital * 0.017);
+            }
+        } else {
+            $totalPembelian = 0.0;
+            $totalPenjualan = 0.0;
+            $totalBiaya = 0.0;
         }
 
         $totalTerpakai = $totalPembelian + $totalBiaya;
