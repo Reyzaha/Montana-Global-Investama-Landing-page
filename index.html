@@ -239,6 +239,30 @@
       </div>
     </section>
 
+    <!-- TESTIMONIALS SECTION (Dynamic from database via api/testimonials.php) -->
+    <section class="py-5 bg-white border-bottom" id="testimonialsSection">
+      <div class="container py-lg-4">
+        <div class="text-center mb-5">
+          <div class="corporate-kicker mb-2">
+            <span>Kredibilitas &amp; Rekam Jejak</span>
+          </div>
+          <h2 class="fw-bold text-mgi-dark mb-2">
+            Kepercayaan Mitra Pemodal &amp; Rekanan Lapangan
+          </h2>
+          <p class="text-mgi-muted mx-auto mb-0" style="max-width: 720px;">
+            Pengalaman nyata mitra investor dan kontraktor rekanan yang merasakan transparansi tata kelola modal, kesiapan unit fisik alat berat, serta ketepatan siklus imbal hasil.
+          </p>
+        </div>
+
+        <div class="row g-4 justify-content-center" id="testimonialsDynamicMount">
+          <div class="col-12 py-5 text-center">
+            <div class="spinner-border text-gold mb-2" role="status"></div>
+            <div class="text-muted small">Memuat testimoni mitra...</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- SECTION CALL TO ACTION: KATALOG PROYEK INVESTASI (Menggantikan duplikasi portofolio di home) -->
     <section class="py-5 bg-white border-bottom" id="homeInvestCtaSection">
       <div class="container py-lg-3">
@@ -561,13 +585,79 @@
       }
     }
 
+    async function loadTestimonials() {
+      const mount = document.getElementById('testimonialsDynamicMount');
+      if (!mount) return;
+
+      try {
+        const res = await fetch('api/testimonials.php', { cache: 'no-store' });
+        const json = await res.json();
+        const items = (json && Array.isArray(json.data)) ? json.data : [];
+
+        if (items.length === 0) {
+          mount.innerHTML = `
+            <div class="col-12 text-center py-4">
+              <div class="p-4 bg-light rounded border text-muted small">
+                <i class="bi bi-chat-square-quote text-gold fs-4 d-block mb-2"></i>
+                Ulasan testimoni sedang dalam proses verifikasi oleh tim kepatuhan MGI.
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        mount.innerHTML = items.map(item => {
+          const stars = '★'.repeat(item.rating || 5) + '☆'.repeat(5 - (item.rating || 5));
+          const avatarHtml = item.avatar_url
+            ? `<img src="${MGIComponents.escapeHtml(item.avatar_url)}" class="rounded-circle border" style="width: 48px; height: 48px; object-fit: cover;" onerror="this.onerror=null;this.replaceWith(document.createTextNode('👤'))">`
+            : `<div class="rounded-circle bg-light border d-inline-flex align-items-center justify-content-center fw-bold text-primary" style="width: 48px; height: 48px; font-size: 1.1rem; color: #142563 !important;">${MGIComponents.escapeHtml(item.name.charAt(0))}</div>`;
+
+          return `
+            <div class="col-lg-4 col-md-6">
+              <div class="card h-100 p-4 border rounded-2 shadow-sm bg-white d-flex flex-column justify-content-between" style="border-top: 3.5px solid #C5A059 !important;">
+                <div>
+                  <div class="d-flex align-items-center justify-content-between mb-3">
+                    <span class="text-warning fs-6" style="color: #C5A059 !important; letter-spacing: 2px;">${stars}</span>
+                    <span class="badge bg-light text-dark border small">${MGIComponents.escapeHtml(item.project_name || 'Proyek Riil')}</span>
+                  </div>
+                  <p class="text-secondary small mb-4 lh-base" style="font-style: italic;">
+                    "${MGIComponents.escapeHtml(item.content)}"
+                  </p>
+                </div>
+                <div class="d-flex align-items-center gap-3 pt-3 border-top">
+                  ${avatarHtml}
+                  <div class="overflow-hidden">
+                    <h6 class="fw-bold text-dark mb-0 text-truncate">${MGIComponents.escapeHtml(item.name)}</h6>
+                    <div class="text-muted small text-truncate" style="font-size: 0.78rem;">${MGIComponents.escapeHtml(item.role_title)}</div>
+                    ${item.company_name ? `<div class="text-gold fw-semibold" style="font-size: 0.72rem;">${MGIComponents.escapeHtml(item.company_name)}</div>` : ''}
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+      } catch (err) {
+        mount.innerHTML = `
+          <div class="col-12 text-center py-4">
+            <div class="p-3 bg-light rounded border text-danger small">
+              <i class="bi bi-exclamation-triangle fs-4 d-block mb-2"></i>
+              Gagal memuat testimoni dari server.
+              <div class="mt-2"><button type="button" class="btn btn-sm btn-outline-dark" onclick="loadTestimonials()">Coba Lagi</button></div>
+            </div>
+          </div>
+        `;
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', async () => {
       MGIComponents.renderNavbar('home');
       MGIComponents.renderFooter();
 
-      // Load Hero Section & Features dynamically from database
+      // Load Hero Section, Features, and Testimonials dynamically from database
       await loadHeroSection();
       await loadFeatures();
+      await loadTestimonials();
 
       // Load Projects Data: Dynamically show or hide sections based on active projects
       try {
