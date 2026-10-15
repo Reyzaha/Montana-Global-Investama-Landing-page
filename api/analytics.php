@@ -34,11 +34,67 @@ $userAgent = mb_substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 255);
 try {
     $db = getDB();
 
-    $stmt = $db->prepare("
-        INSERT INTO analytics_events (event_type, page_url, element_id, ip_address, user_agent, metadata_json, created_at)
-        VALUES (?, ?, ?, ?, ?, ?, NOW())
-    ");
-    $stmt->execute([$eventType, $pageUrl, $elementId, $ipAddress, $userAgent, $metadata]);
+    $cols = [];
+    try {
+        $cols = $db->query("SHOW COLUMNS FROM analytics_events")->fetchAll(PDO::FETCH_COLUMN);
+        if (!in_array('page_url', $cols)) {
+            $db->exec("ALTER TABLE analytics_events ADD COLUMN page_url VARCHAR(255) NULL AFTER event_type");
+            if (in_array('page_path', $cols)) {
+                $db->exec("UPDATE analytics_events SET page_url = page_path WHERE page_url IS NULL");
+            }
+            $cols[] = 'page_url';
+        }
+        if (!in_array('metadata_json', $cols)) {
+            $db->exec("ALTER TABLE analytics_events ADD COLUMN metadata_json TEXT NULL AFTER user_agent");
+            $cols[] = 'metadata_json';
+        }
+    } catch (Throwable $ignore) {}
+
+    $fields = ['event_type'];
+    $placeholders = ['?'];
+    $params = [$eventType];
+
+    if (in_array('event_name', $cols)) {
+        $fields[] = 'event_name';
+        $placeholders[] = '?';
+        $params[] = $eventType;
+    }
+    if (in_array('page_path', $cols)) {
+        $fields[] = 'page_path';
+        $placeholders[] = '?';
+        $params[] = $pageUrl;
+    }
+    if (in_array('page_url', $cols)) {
+        $fields[] = 'page_url';
+        $placeholders[] = '?';
+        $params[] = $pageUrl;
+    }
+    if (in_array('element_id', $cols)) {
+        $fields[] = 'element_id';
+        $placeholders[] = '?';
+        $params[] = $elementId;
+    }
+    if (in_array('ip_address', $cols)) {
+        $fields[] = 'ip_address';
+        $placeholders[] = '?';
+        $params[] = $ipAddress;
+    }
+    if (in_array('user_agent', $cols)) {
+        $fields[] = 'user_agent';
+        $placeholders[] = '?';
+        $params[] = $userAgent;
+    }
+    if (in_array('metadata_json', $cols)) {
+        $fields[] = 'metadata_json';
+        $placeholders[] = '?';
+        $params[] = $metadata;
+    }
+
+    $fieldsStr = implode(', ', $fields) . ', created_at';
+    $placeholdersStr = implode(', ', $placeholders) . ', NOW()';
+
+    $stmt = $db->prepare("INSERT INTO analytics_events ($fieldsStr) VALUES ($placeholdersStr)");
+    $stmt->execute($params);
 
     if ($eventType === 'cta_click' || $eventType === 'conversion') {
         triggerRealtimeEvent('analytics_ping', 'analytics', 'record', [

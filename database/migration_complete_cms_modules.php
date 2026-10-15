@@ -220,17 +220,39 @@ try {
         CREATE TABLE IF NOT EXISTS `analytics_events` (
             `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
             `event_type` ENUM('page_view', 'cta_click', 'form_submit', 'conversion') NOT NULL DEFAULT 'page_view',
-            `event_name` VARCHAR(100) NOT NULL,
-            `page_path` VARCHAR(255) NOT NULL,
+            `event_name` VARCHAR(100) NULL DEFAULT 'event',
+            `page_path` VARCHAR(255) NULL,
+            `page_url` VARCHAR(255) NULL,
             `element_id` VARCHAR(100) NULL,
             `session_id` VARCHAR(100) NULL,
             `ip_address` VARCHAR(50) NULL,
             `referrer` VARCHAR(255) NULL,
             `user_agent` TEXT NULL,
+            `metadata_json` TEXT NULL,
             `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            INDEX `idx_analytics_event` (`event_type`, `event_name`, `created_at`)
+            INDEX `idx_analytics_event` (`event_type`, `created_at`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     ");
+
+    // Pastikan kolom page_url dan metadata_json tersedia pada instalasi lama
+    try {
+        $cols = $db->query("SHOW COLUMNS FROM analytics_events")->fetchAll(PDO::FETCH_COLUMN);
+        if (!in_array('page_url', $cols)) {
+            $db->exec("ALTER TABLE analytics_events ADD COLUMN page_url VARCHAR(255) NULL AFTER event_type");
+            if (in_array('page_path', $cols)) {
+                $db->exec("UPDATE analytics_events SET page_url = page_path WHERE page_url IS NULL");
+            }
+        }
+        if (!in_array('metadata_json', $cols)) {
+            $db->exec("ALTER TABLE analytics_events ADD COLUMN metadata_json TEXT NULL AFTER user_agent");
+        }
+        if (in_array('event_name', $cols)) {
+            $db->exec("ALTER TABLE analytics_events MODIFY COLUMN event_name VARCHAR(100) NULL DEFAULT 'event'");
+        }
+        if (in_array('page_path', $cols)) {
+            $db->exec("ALTER TABLE analytics_events MODIFY COLUMN page_path VARCHAR(255) NULL");
+        }
+    } catch (Throwable $e) {}
     echo "[✓] Tabel 'analytics_events' siap.\n";
 
     // 12. Ensure default site settings in system_settings

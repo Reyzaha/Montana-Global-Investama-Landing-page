@@ -14,6 +14,38 @@ $admin = requireAdminAuth();
 try {
     $db = getDB();
 
+    // Self-healing schema migration for analytics_events
+    $cols = [];
+    try {
+        $cols = $db->query("SHOW COLUMNS FROM analytics_events")->fetchAll(PDO::FETCH_COLUMN);
+        if (!in_array('page_url', $cols)) {
+            $db->exec("ALTER TABLE analytics_events ADD COLUMN page_url VARCHAR(255) NULL AFTER event_type");
+            if (in_array('page_path', $cols)) {
+                $db->exec("UPDATE analytics_events SET page_url = page_path WHERE page_url IS NULL");
+            }
+            $cols[] = 'page_url';
+        }
+        if (!in_array('metadata_json', $cols)) {
+            $db->exec("ALTER TABLE analytics_events ADD COLUMN metadata_json TEXT NULL AFTER user_agent");
+            $cols[] = 'metadata_json';
+        }
+        if (in_array('event_name', $cols)) {
+            $db->exec("ALTER TABLE analytics_events MODIFY COLUMN event_name VARCHAR(100) NULL DEFAULT 'event'");
+        }
+        if (in_array('page_path', $cols)) {
+            $db->exec("ALTER TABLE analytics_events MODIFY COLUMN page_path VARCHAR(255) NULL");
+        }
+    } catch (Throwable $ignore) {
+        // Fallback gracefully if ALTER TABLE is restricted
+    }
+
+    $colUrlSelect = in_array('page_url', $cols) 
+        ? "COALESCE(NULLIF(page_url, ''), page_path, '/') AS page_url"
+        : (in_array('page_path', $cols) ? "COALESCE(page_path, '/') AS page_url" : "'/' AS page_url");
+    $colUrlGroup = in_array('page_url', $cols)
+        ? "COALESCE(NULLIF(page_url, ''), page_path, '/')"
+        : (in_array('page_path', $cols) ? "COALESCE(page_path, '/')" : "'/'");
+
     // 1. Overall KPI Totals & Today
     $kpiStmt = $db->query("
         SELECT
@@ -53,10 +85,10 @@ try {
 
     // 3. Top Visited Pages
     $pagesStmt = $db->query("
-        SELECT page_url, COUNT(*) AS view_count
+        SELECT {$colUrlSelect}, COUNT(*) AS view_count
         FROM analytics_events
         WHERE event_type = 'page_view'
-        GROUP BY page_url
+        GROUP BY {$colUrlGroup}
         ORDER BY view_count DESC
         LIMIT 6
     ");
@@ -75,7 +107,7 @@ try {
 
     // 5. Recent 15 Live Telemetry Events
     $recentStmt = $db->query("
-        SELECT id, event_type, page_url, element_id, ip_address, created_at
+        SELECT id, event_type, {$colUrlSelect}, element_id, ip_address, created_at
         FROM analytics_events
         ORDER BY created_at DESC
         LIMIT 15
