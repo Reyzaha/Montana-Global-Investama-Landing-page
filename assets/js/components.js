@@ -4,6 +4,17 @@
  */
 
 const MGIComponents = {
+  // Utility: Escape HTML string to prevent XSS
+  escapeHtml: function (str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  },
+
   // 1. Render Global Navigation Bar (Bootstrap 5)
   renderNavbar: function (activePage = '') {
     const navContainer = document.getElementById('global-navbar');

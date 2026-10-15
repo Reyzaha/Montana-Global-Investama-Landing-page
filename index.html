@@ -125,30 +125,13 @@
       <div class="container py-lg-4">
         <div class="row align-items-center g-5 justify-content-center" id="heroRow">
           <div class="col-lg-10 col-xl-9 text-center" id="heroTextCol">
-            <div class="corporate-kicker mb-3">
-              <span>Grup &amp; Manajer Investasi Proyek Sektor Riil</span>
-            </div>
-            <h1 class="display-5 fw-bold text-mgi-dark lh-tight mb-3">
-              Tata Kelola Modal Strategis &amp; <br>
-              <span class="text-mgi-blue">Investasi Proyek Sektor Riil</span> <span
-                class="text-mgi-gold">Terpercaya</span>
-            </h1>
-            <p class="lead text-mgi-muted mb-4 mx-auto"
-              style="font-size: 1.15rem; line-height: 1.75; max-width: 820px;">
-              PT Montana Global Investama mengalokasikan permodalan strategis berbasis aset fisik produktif unit alat
-              berat dan ekosistem industri terpadu, berlandaskan kepatuhan tata kelola TARIF
-              transparan dan akuntabel.
-            </p>
-            <div class="d-flex flex-wrap justify-content-center align-items-center gap-3 mb-4" id="heroCtaBtns">
-              <a href="invest"
-                class="btn btn-corporate-gold btn-lg px-4 py-3 d-inline-flex align-items-center justify-content-center gap-2"
-                style="min-width: 220px;">
-                <span>Katalog Proyek Terbuka</span>
-                <i class="bi bi-arrow-right"></i>
-              </a>
-              <a href="about" class="btn btn-corporate-outline btn-lg px-4 py-3" style="min-width: 200px;">
-                Profil &amp; Tata Kelola
-              </a>
+            <!-- Dynamic Hero Mount (Rendered via API /api/hero.php) -->
+            <div id="heroDynamicMount">
+              <!-- Loading State -->
+              <div class="py-5 text-center" id="heroLoadingState">
+                <div class="spinner-border text-gold mb-3" style="width: 2.5rem; height: 2.5rem;" role="status"></div>
+                <div class="text-muted small fw-semibold">Memuat informasi tata kelola & portofolio...</div>
+              </div>
             </div>
 
             <!-- Stats Bar Dynamic (Bootstrap Row) -->
@@ -540,9 +523,75 @@
   <script src="assets/js/auth.js"></script>
   <script src="assets/js/components.js"></script>
   <script>
+    async function loadHeroSection() {
+      const mount = document.getElementById('heroDynamicMount');
+      if (!mount) return;
+
+      try {
+        const res = await fetch('api/hero.php', { cache: 'no-store' });
+        const json = await res.json();
+        const hero = (json && json.data) ? json.data : null;
+
+        if (!hero) {
+          // Empty State
+          mount.innerHTML = `
+            <div class="py-4 px-3 bg-light rounded-3 border text-center my-3">
+              <i class="bi bi-info-circle text-gold fs-3 d-block mb-2"></i>
+              <h5 class="fw-bold text-dark mb-1">Informasi Sedang Dipersiapkan</h5>
+              <p class="text-muted small mb-0">Konten hero section sedang dalam proses konfigurasi oleh tim manajemen MGI.</p>
+            </div>
+          `;
+          return;
+        }
+
+        mount.innerHTML = `
+          <div class="corporate-kicker mb-3">
+            <span>${MGIComponents.escapeHtml(hero.kicker || 'Grup & Manajer Investasi Proyek Sektor Riil')}</span>
+          </div>
+          <h1 class="display-5 fw-bold text-mgi-dark lh-tight mb-3">
+            ${MGIComponents.escapeHtml(hero.title)} <br>
+            ${hero.title_highlight ? `<span class="text-mgi-blue">${MGIComponents.escapeHtml(hero.title_highlight)}</span>` : ''}
+          </h1>
+          <p class="lead text-mgi-muted mb-4 mx-auto" style="font-size: 1.15rem; line-height: 1.75; max-width: 820px;">
+            ${MGIComponents.escapeHtml(hero.subtitle)}
+          </p>
+          <div class="d-flex flex-wrap justify-content-center align-items-center gap-3 mb-4" id="heroCtaBtns">
+            ${hero.cta_primary_text ? `
+              <a href="${MGIComponents.escapeHtml(hero.cta_primary_url || 'invest')}"
+                class="btn btn-corporate-gold btn-lg px-4 py-3 d-inline-flex align-items-center justify-content-center gap-2"
+                style="min-width: 220px;">
+                <span>${MGIComponents.escapeHtml(hero.cta_primary_text)}</span>
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            ` : ''}
+            ${hero.cta_secondary_text ? `
+              <a href="${MGIComponents.escapeHtml(hero.cta_secondary_url || 'about')}" class="btn btn-corporate-outline btn-lg px-4 py-3" style="min-width: 200px;">
+                ${MGIComponents.escapeHtml(hero.cta_secondary_text)}
+              </a>
+            ` : ''}
+          </div>
+        `;
+      } catch (err) {
+        // Error State
+        mount.innerHTML = `
+          <div class="py-4 px-3 bg-light rounded-3 border text-center my-3">
+            <i class="bi bi-exclamation-triangle text-danger fs-3 d-block mb-2"></i>
+            <h5 class="fw-bold text-dark mb-1">Gagal Memuat Konten Hero</h5>
+            <p class="text-muted small mb-3">Terjadi kendala jaringan saat mengambil data dari server.</p>
+            <button type="button" class="btn btn-sm btn-outline-dark px-3" onclick="loadHeroSection()">
+              <i class="bi bi-arrow-clockwise me-1"></i> Coba Lagi
+            </button>
+          </div>
+        `;
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', async () => {
       MGIComponents.renderNavbar('home');
       MGIComponents.renderFooter();
+
+      // Load Hero Section dynamically from database
+      await loadHeroSection();
 
       // Load Projects Data: Dynamically show or hide sections based on active projects
       try {
