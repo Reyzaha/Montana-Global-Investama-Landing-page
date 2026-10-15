@@ -1,10 +1,7 @@
 # PT MONTANA GLOBAL INVESTAMA — URL REWRITE & SECURITY SHIELD
 RewriteEngine On
 
-# Enforce HTTPS on Production Domain
-RewriteCond %{HTTPS} off
-RewriteCond %{HTTP_HOST} ^(www\.)?montanainvestama\.com$ [NC]
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
 
 # Disable GZIP and Buffering for Realtime SSE Streams
 <FilesMatch "stream\.php$">
