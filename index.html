@@ -426,6 +426,60 @@
         </div>
       </div>
     </section>
+
+    <!-- SECTION ARTIKEL & WAWASAN PASAR (Dynamic from database via api/articles.php) -->
+    <section class="py-5 bg-light border-bottom" id="articlesSection">
+      <div class="container py-lg-4">
+        <div class="d-flex flex-wrap align-items-end justify-content-between gap-3 mb-4">
+          <div>
+            <div class="corporate-kicker mb-2">
+              <span>Wawasan &amp; Analisis Industri</span>
+            </div>
+            <h2 class="fw-bold text-mgi-dark mb-1">
+              Publikasi &amp; Berita Terkini
+            </h2>
+            <p class="text-mgi-muted mb-0" style="max-width: 650px;">
+              Informasi terkini mengenai dinamika pasar alat berat sektor riil, edukasi tata kelola investasi, dan kabar korporasi Montana Group.
+            </p>
+          </div>
+        </div>
+
+        <div id="articlesDynamicMount">
+          <div class="py-5 text-center">
+            <div class="spinner-border text-gold mb-2" role="status"></div>
+            <div class="text-muted small">Memuat wawasan &amp; artikel terkini...</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal Reader Artikel -->
+    <div class="modal fade" id="articleReaderModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content border-0 shadow-lg">
+          <div class="modal-header border-bottom py-3 px-4 bg-light">
+            <span class="badge bg-royal text-white me-2" id="readerCategory">Wawasan</span>
+            <small class="text-muted" id="readerDate"></small>
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body p-4" id="readerBody">
+            <h3 class="fw-bold text-dark mb-3" id="readerTitle">Judul Artikel</h3>
+            <div class="d-flex align-items-center gap-2 mb-4 text-muted small border-bottom pb-3">
+              <i class="bi bi-person-circle text-gold fs-5"></i>
+              <span id="readerAuthor">Penulis</span>
+              <span class="mx-2">•</span>
+              <i class="bi bi-eye"></i> <span id="readerViews">0</span> pembaca
+            </div>
+            <div id="readerContent" class="lh-lg text-secondary">
+              <!-- Content -->
+            </div>
+          </div>
+          <div class="modal-footer bg-light border-top py-2 px-4">
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <!-- Global Footer (Rendered by components.js) -->
@@ -749,15 +803,103 @@
       }
     }
 
+    async function loadArticles() {
+      const mount = document.getElementById('articlesDynamicMount');
+      if (!mount) return;
+
+      try {
+        const res = await fetch('api/articles.php', { cache: 'no-store' });
+        const json = await res.json();
+        const articles = (json && Array.isArray(json.data)) ? json.data : [];
+
+        if (articles.length === 0) {
+          mount.innerHTML = `
+            <div class="p-4 bg-white rounded border text-center text-muted small shadow-sm">
+              <i class="bi bi-newspaper text-gold fs-3 d-block mb-2"></i>
+              Belum ada artikel publikasi yang diterbitkan.
+            </div>
+          `;
+          return;
+        }
+
+        mount.innerHTML = `
+          <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            ${articles.map(art => {
+              const coverImg = art.cover_image 
+                ? `<img src="${art.cover_image}" alt="${art.title}" class="card-img-top object-fit-cover" style="height: 190px;" onerror="this.src='assets/img/hero-alat-berat.png'">`
+                : `<div class="bg-light d-flex align-items-center justify-content-center text-muted border-bottom" style="height: 190px;"><i class="bi bi-card-image fs-1"></i></div>`;
+
+              return `
+                <div class="col">
+                  <div class="card h-100 shadow-sm border rounded-2 overflow-hidden bg-white d-flex flex-column" style="border-top: 4px solid #142563 !important;">
+                    ${coverImg}
+                    <div class="card-body p-4 d-flex flex-column">
+                      <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="badge px-2.5 py-1 rounded small fw-bold" style="background-color: #142563; color: #fff;">${art.category}</span>
+                        <small class="text-muted"><i class="bi bi-calendar3 me-1"></i>${(art.published_at || '').substring(0, 10)}</small>
+                      </div>
+                      <h5 class="fw-bold text-dark mb-2 lh-base" style="font-size: 1.05rem;">${art.title}</h5>
+                      <p class="text-secondary small lh-base mb-3" style="font-size: 0.85rem;">${art.excerpt}</p>
+                      <div class="mt-auto pt-3 border-top d-flex align-items-center justify-content-between">
+                        <small class="text-muted"><i class="bi bi-eye me-1"></i>${art.views_count || 0} views</small>
+                        <button type="button" class="btn btn-sm btn-outline-primary fw-bold rounded-pill px-3 py-1" onclick="readArticle('${art.slug}')" style="color: #142563; border-color: #142563;">
+                          <span>Baca</span> <i class="bi bi-arrow-right"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      } catch (err) {
+        mount.innerHTML = `
+          <div class="p-4 bg-white rounded border text-center text-danger small shadow-sm">
+            <i class="bi bi-exclamation-triangle fs-4 d-block mb-2"></i>
+            Gagal memuat wawasan &amp; artikel dari server.
+            <div class="mt-2"><button type="button" class="btn btn-sm btn-outline-dark" onclick="loadArticles()">Coba Lagi</button></div>
+          </div>
+        `;
+      }
+    }
+
+    async function readArticle(slug) {
+      try {
+        const res = await fetch(`api/articles.php?slug=${encodeURIComponent(slug)}`);
+        const json = await res.json();
+        if (!res.ok || !json.success || !json.data) {
+          throw new Error(json.message || 'Gagal memuat artikel');
+        }
+
+        const art = json.data;
+        document.getElementById('readerCategory').textContent = art.category;
+        document.getElementById('readerDate').textContent = (art.published_at || '').substring(0, 10);
+        document.getElementById('readerTitle').textContent = art.title;
+        document.getElementById('readerAuthor').textContent = art.author_name;
+        document.getElementById('readerViews').textContent = art.views_count;
+        document.getElementById('readerContent').innerHTML = art.content;
+
+        const modalEl = document.getElementById('articleReaderModal');
+        if (modalEl) {
+          const bsModal = new bootstrap.Modal(modalEl);
+          bsModal.show();
+        }
+      } catch (e) {
+        alert('Gagal memuat konten artikel: ' + e.message);
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', async () => {
       MGIComponents.renderNavbar('home');
       MGIComponents.renderFooter();
 
-      // Load Hero Section, Features, Testimonials, and FAQs dynamically from database
+      // Load Hero Section, Features, Testimonials, FAQs, and Articles dynamically from database
       await loadHeroSection();
       await loadFeatures();
       await loadTestimonials();
       await loadFaqs();
+      await loadArticles();
 
       // Load Projects Data: Dynamically show or hide sections based on active projects
         const res = await fetch('api/projects.php', { cache: 'no-store' });
