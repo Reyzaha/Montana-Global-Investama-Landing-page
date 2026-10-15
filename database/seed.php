@@ -61,75 +61,8 @@ try {
         echo "[✓] Akun {$acc['role']} dibuat: username '{$acc['username']}', password '{$acc['password']}' (MFA di-reset, siap scan baru)\n";
     }
 
-    // 3. Seed Demo Investor Accounts
-    $demoInvestors = [
-        [
-            'account_type' => 'perorangan',
-            'email' => 'investor@gmail.com',
-            'password' => 'password123',
-            'full_name' => 'Budi Pratama',
-            'citizenship' => 'Indonesia (WNI)',
-            'phone' => '081234567890'
-        ],
-        [
-            'account_type' => 'perusahaan',
-            'email' => 'corporate@holding.com',
-            'password' => 'password123',
-            'full_name' => 'Hendra Wijaya, S.E., M.B.A.',
-            'citizenship' => 'Indonesia (WNI)',
-            'phone' => '081198765432',
-            'company' => [
-                'business_name' => 'PT Nusantara Capital Group',
-                'legal_entity' => 'Perseroan Terbatas (PT)',
-                'company_address' => 'Equity Tower Lt. 28, SCBD, Jakarta Selatan',
-                'pic_name' => 'Hendra Wijaya, S.E., M.B.A.',
-                'pic_position' => 'Managing Director',
-                'company_phone' => '081198765432',
-                'annual_turnover' => 'Rp10 Miliar – Rp50 Miliar'
-            ]
-        ]
-    ];
-
-    foreach ($demoInvestors as $inv) {
-        $stmt = $db->prepare("SELECT id FROM investors WHERE email = ?");
-        $stmt->execute([$inv['email']]);
-        $existing = $stmt->fetch();
-        
-        if (!$existing) {
-            $stmtInsert = $db->prepare("
-                INSERT INTO investors (account_type, email, password_hash, full_name, citizenship, phone, status)
-                VALUES (?, ?, ?, ?, ?, ?, 'active')
-            ");
-            $stmtInsert->execute([
-                $inv['account_type'],
-                $inv['email'],
-                hashPassword($inv['password']),
-                $inv['full_name'],
-                $inv['citizenship'],
-                $inv['phone']
-            ]);
-            $investorId = $db->lastInsertId();
-
-            if (!empty($inv['company'])) {
-                $c = $inv['company'];
-                $stmtComp = $db->prepare("
-                    INSERT INTO investor_companies (investor_id, business_name, legal_entity, company_address, pic_name, pic_position, company_phone, annual_turnover)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                ");
-                $stmtComp->execute([
-                    $investorId,
-                    $c['business_name'],
-                    $c['legal_entity'],
-                    $c['company_address'],
-                    $c['pic_name'],
-                    $c['pic_position'],
-                    $c['company_phone'],
-                    $c['annual_turnover']
-                ]);
-            }
-            echo "[✓] Demo investor ditambahkan: {$inv['email']} ({$inv['account_type']})\n";
-        }
-    }
+    // 3. Status Investor Riil (Tanpa Data Dummy)
+    echo "[✓] Database siap untuk pendaftaran investor riil (tidak ada akun investor dummy).\n";
 
     // 4. Seed Projects Data (from data/projects.json)
     $projectsJsonFile = __DIR__ . '/../data/projects.json';
