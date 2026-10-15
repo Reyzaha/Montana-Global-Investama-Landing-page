@@ -41,17 +41,80 @@ require_once __DIR__ . '/includes/header.php';
 
           <div class="row g-3 mb-4">
             <div class="col-md-6">
-              <label class="form-label">Nama Resmi Perusahaan</label>
+              <label class="form-label fw-bold small text-dark">Nama Resmi Perusahaan <span class="text-danger">*</span></label>
               <input type="text" id="settingSiteTitle" class="form-control" required>
             </div>
             <div class="col-md-6">
-              <label class="form-label">Email Resmi Korespondensi</label>
+              <label class="form-label fw-bold small text-dark">Tagline Korporat</label>
+              <input type="text" id="settingSiteTagline" class="form-control" placeholder="Tumbuh Bersama Melalui Investasi Terpercaya">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold small text-dark">URL / Path Logo Situs</label>
+              <input type="text" id="settingSiteLogo" class="form-control" placeholder="assets/img/mgi-official-logo.png">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold small text-dark">URL / Path Favicon</label>
+              <input type="text" id="settingSiteFavicon" class="form-control" placeholder="favicon.ico">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold small text-dark">Email Resmi Korespondensi <span class="text-danger">*</span></label>
               <input type="email" id="settingEmail" class="form-control" required>
             </div>
-            <div class="col-12">
-              <label class="form-label">Email Penerima Notifikasi Lead &amp; Minat Investor</label>
+            <div class="col-md-6">
+              <label class="form-label fw-bold small text-dark">Email Notifikasi Lead &amp; Investor <span class="text-danger">*</span></label>
               <input type="email" id="settingNotifyEmail" class="form-control" placeholder="contact@montanainvestama.com" required>
-              <small class="text-muted">Setiap lead konsultasi baru dan pengajuan minat proyek dari Portal Investor otomatis dikirimkan ke alamat email ini.</small>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <h6 class="fw-bold text-dark mb-3 d-flex align-items-center gap-2">
+            <i class="bi bi-geo-alt-fill text-gold" style="color: #C5A059 !important;"></i>
+            <span>Kontak Resmi &amp; Lokasi Kantor</span>
+          </h6>
+
+          <div class="row g-3 mb-4">
+            <div class="col-md-4">
+              <label class="form-label fw-bold small text-dark">Nomor Telepon Kantor</label>
+              <input type="text" id="settingPhone" class="form-control" placeholder="+62 21 5315 8899">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-bold small text-dark">Nomor WhatsApp Resmi</label>
+              <input type="text" id="settingWhatsapp" class="form-control" placeholder="6281198765432">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-bold small text-dark">Jam Operasional Layanan</label>
+              <input type="text" id="settingHours" class="form-control" placeholder="Senin – Jumat (08.00 – 17.00 WIB)">
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-bold small text-dark">Alamat Kantor Pusat</label>
+              <textarea id="settingAddress" class="form-control" rows="2" placeholder="Roseville Soho & Suite, Sunburst CBD Lot I.8, Serpong, Tangerang Selatan"></textarea>
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-bold small text-dark">Alamat Pool &amp; Workshop Sentral</label>
+              <textarea id="settingWorkshopAddress" class="form-control" rows="2" placeholder="Jl. Nasional III No.88, Pejuritan, Kec. Karanganyar, Kab. Kebumen, Jawa Tengah"></textarea>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <h6 class="fw-bold text-dark mb-3 d-flex align-items-center gap-2">
+            <i class="bi bi-share-fill text-primary" style="color: #142563 !important;"></i>
+            <span>Akun Media Sosial Resmi</span>
+          </h6>
+
+          <div class="row g-3 mb-4">
+            <div class="col-md-4">
+              <label class="form-label fw-bold small text-dark"><i class="bi bi-instagram me-1 text-danger"></i> Instagram</label>
+              <input type="url" id="settingInstagram" class="form-control" placeholder="https://instagram.com/montanainvestama">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-bold small text-dark"><i class="bi bi-linkedin me-1 text-primary"></i> LinkedIn</label>
+              <input type="url" id="settingLinkedin" class="form-control" placeholder="https://linkedin.com/company/montana-global-investama">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-bold small text-dark"><i class="bi bi-youtube me-1 text-danger"></i> YouTube</label>
+              <input type="url" id="settingYoutube" class="form-control" placeholder="https://youtube.com/@montanainvestama">
             </div>
           </div>
 
@@ -136,6 +199,11 @@ require_once __DIR__ . '/includes/header.php';
             <small class="text-muted">Submit URL ini pada menu <strong>Peta Situs (Sitemaps)</strong> Google Search Console Anda.</small>
           </div>
 
+          <div class="mb-3">
+            <label class="form-label fw-semibold small">Deskripsi Meta Halaman (SEO Meta Description)</label>
+            <textarea id="settingMetaDesc" class="form-control small" rows="2" placeholder="Deskripsi ringkas situs untuk cuplikan pencarian Google..."></textarea>
+          </div>
+
           <div class="mb-4">
             <label class="form-label fw-semibold small">Kata Kunci Utama Website (SEO Meta Keywords)</label>
             <textarea id="settingKeywords" class="form-control small" rows="2" placeholder="investasi per project, project based investment, investasi sektor riil, investasi alat berat..."></textarea>
@@ -218,10 +286,22 @@ require_once __DIR__ . '/includes/header.php';
       document.getElementById('toggleGatedContent').checked = (s.require_auth_for_details && s.require_auth_for_details.value === '1');
       document.getElementById('settingDisclaimer').value = s.disclaimer_text ? s.disclaimer_text.value : '';
       document.getElementById('settingSiteTitle').value = s.site_title ? s.site_title.value : 'PT Montana Global Investama';
-      document.getElementById('settingEmail').value = s.official_email ? s.official_email.value : 'contact@montanainvestama.com';
-      document.getElementById('settingNotifyEmail').value = s.lead_notify_email ? s.lead_notify_email.value : (s.official_email ? s.official_email.value : 'contact@montanainvestama.com');
+      document.getElementById('settingSiteTagline').value = s.site_tagline ? s.site_tagline.value : '';
+      document.getElementById('settingSiteLogo').value = s.site_logo ? s.site_logo.value : 'assets/img/mgi-official-logo.png';
+      document.getElementById('settingSiteFavicon').value = s.site_favicon ? s.site_favicon.value : 'favicon.ico';
+      document.getElementById('settingEmail').value = s.official_email ? s.official_email.value : (s.contact_email ? s.contact_email.value : 'contact@montanainvestama.com');
+      document.getElementById('settingNotifyEmail').value = s.lead_notify_email ? s.lead_notify_email.value : 'contact@montanainvestama.com';
+      document.getElementById('settingPhone').value = s.contact_phone ? s.contact_phone.value : '';
+      document.getElementById('settingWhatsapp').value = s.whatsapp_number ? s.whatsapp_number.value : '';
+      document.getElementById('settingHours').value = s.operating_hours ? s.operating_hours.value : '';
+      document.getElementById('settingAddress').value = s.contact_address ? s.contact_address.value : '';
+      document.getElementById('settingWorkshopAddress').value = s.workshop_address ? s.workshop_address.value : '';
+      document.getElementById('settingInstagram').value = s.social_instagram ? s.social_instagram.value : '';
+      document.getElementById('settingLinkedin').value = s.social_linkedin ? s.social_linkedin.value : '';
+      document.getElementById('settingYoutube').value = s.social_youtube ? s.social_youtube.value : '';
       document.getElementById('settingGscToken').value = s.gsc_verification_token ? s.gsc_verification_token.value : '';
-      document.getElementById('settingKeywords').value = s.meta_keywords ? s.meta_keywords.value : 'investasi per project, website investment per project, project based investment, investasi sektor riil, investasi alat berat, aset fisik produktif, montana global investama, manajer investasi proyek';
+      document.getElementById('settingMetaDesc').value = s.meta_description ? s.meta_description.value : '';
+      document.getElementById('settingKeywords').value = s.meta_keywords ? s.meta_keywords.value : '';
 
       if (s.smtp_host && s.smtp_host.value) document.getElementById('settingSmtpHost').value = s.smtp_host.value;
       if (s.smtp_port && s.smtp_port.value) document.getElementById('settingSmtpPort').value = s.smtp_port.value;
@@ -308,9 +388,22 @@ require_once __DIR__ . '/includes/header.php';
     const payload = {
       disclaimer_text: document.getElementById('settingDisclaimer').value.trim(),
       site_title: document.getElementById('settingSiteTitle').value.trim(),
+      site_tagline: document.getElementById('settingSiteTagline').value.trim(),
+      site_logo: document.getElementById('settingSiteLogo').value.trim(),
+      site_favicon: document.getElementById('settingSiteFavicon').value.trim(),
       official_email: document.getElementById('settingEmail').value.trim(),
+      contact_email: document.getElementById('settingEmail').value.trim(),
       lead_notify_email: document.getElementById('settingNotifyEmail').value.trim(),
+      contact_phone: document.getElementById('settingPhone').value.trim(),
+      whatsapp_number: document.getElementById('settingWhatsapp').value.trim(),
+      operating_hours: document.getElementById('settingHours').value.trim(),
+      contact_address: document.getElementById('settingAddress').value.trim(),
+      workshop_address: document.getElementById('settingWorkshopAddress').value.trim(),
+      social_instagram: document.getElementById('settingInstagram').value.trim(),
+      social_linkedin: document.getElementById('settingLinkedin').value.trim(),
+      social_youtube: document.getElementById('settingYoutube').value.trim(),
       gsc_verification_token: document.getElementById('settingGscToken').value.trim(),
+      meta_description: document.getElementById('settingMetaDesc').value.trim(),
       meta_keywords: document.getElementById('settingKeywords').value.trim(),
       smtp_host: document.getElementById('settingSmtpHost').value.trim(),
       smtp_port: document.getElementById('settingSmtpPort').value.trim(),

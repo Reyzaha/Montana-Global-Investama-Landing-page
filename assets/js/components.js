@@ -106,7 +106,7 @@ const MGIComponents = {
         <div class="container">
           <a class="navbar-brand d-flex align-items-center gap-2" href="/">
             <div class="navbar-logo-badge">
-              <img src="assets/img/mgi-official-logo.png" alt="PT Montana Global Investama Logo" height="34" class="d-inline-block">
+              <img src="assets/img/mgi-official-logo.png" id="navbarLogoImg" alt="PT Montana Global Investama Logo" height="34" class="d-inline-block">
             </div>
           </a>
           <button class="navbar-toggler border-0 text-white shadow-none px-2 py-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -150,10 +150,10 @@ const MGIComponents = {
             <div class="col-lg-4 col-md-6">
               <a href="/" class="d-inline-block mb-3">
                 <div class="bg-white p-2 rounded-2 d-inline-block shadow-sm">
-                  <img src="assets/img/mgi-official-logo.png" alt="MGI Logo" height="48">
+                  <img src="assets/img/mgi-official-logo.png" id="footerLogoImg" alt="MGI Logo" height="48">
                 </div>
               </a>
-              <p class="text-footer-muted small mb-3 lh-base">
+              <p class="text-footer-muted small mb-3 lh-base" id="footerTagline">
                 <strong>PT Montana Global Investama</strong> adalah entitas manajer investasi project dan pemegang kendali strategis (grup) sektor riil berbasis aset fisik produktif, menghadirkan pertumbuhan nilai per project terukur melalui kepatuhan tata kelola terpercaya dan integrasi ekosistem terpadu.
               </p>
               <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-1 bg-footer-card border border-secondary small fw-bold text-gold">
@@ -185,30 +185,88 @@ const MGIComponents = {
             <div class="col-lg-3 col-md-6">
               <h6 class="fw-bold text-white text-uppercase mb-3 small tracking-wide pb-1 d-inline-block" style="border-bottom: 2px solid var(--mgi-gold);">Hubungi Kami</h6>
               <div class="small text-footer-muted mb-2">
-                <i class="bi bi-geo-alt text-gold me-1"></i> Roseville Soho &amp; Suite, Sunburst CBD Lot I.8, Serpong, Tangerang Selatan
+                <i class="bi bi-geo-alt text-gold me-1"></i> <span id="footerAddress">Roseville Soho &amp; Suite, Sunburst CBD Lot I.8, Serpong, Tangerang Selatan</span>
               </div>
               <div class="small text-footer-muted mb-2">
-                <i class="bi bi-envelope text-gold me-1"></i> contact@montanainvestama.com
+                <i class="bi bi-envelope text-gold me-1"></i> <a href="mailto:contact@montanainvestama.com" id="footerEmail" class="text-footer-muted text-decoration-none">contact@montanainvestama.com</a>
+              </div>
+              <div class="small text-footer-muted mb-2">
+                <i class="bi bi-telephone text-gold me-1"></i> <a href="tel:+622153158899" id="footerPhone" class="text-footer-muted text-decoration-none">+62 21 5315 8899</a>
               </div>
               <div class="small text-footer-muted">
-                <i class="bi bi-clock text-gold me-1"></i> Senin – Jumat (08.00 – 17.00 WIB)
+                <i class="bi bi-clock text-gold me-1"></i> <span id="footerHours">Senin – Jumat (08.00 – 17.00 WIB)</span>
               </div>
             </div>
           </div>
 
           <div class="d-flex flex-column flex-md-row justify-content-between align-items-center pt-3 border-top border-secondary small text-footer-muted">
-            <div class="mb-2 mb-md-0">
+            <div class="mb-2 mb-md-0" id="footerCopyright">
               &copy; ${new Date().getFullYear()} PT Montana Global Investama. Seluruh Hak Cipta Dilindungi Undang-Undang.
             </div>
             <div class="d-flex align-items-center gap-3">
               <span>Rahasia &amp; Terbatas</span>
               <span>•</span>
-              <a href="mailto:contact@montanainvestama.com" class="text-gold text-decoration-none fw-semibold">contact@montanainvestama.com</a>
+              <a href="mailto:contact@montanainvestama.com" id="footerOfficialMailLink" class="text-gold text-decoration-none fw-semibold">contact@montanainvestama.com</a>
             </div>
           </div>
         </div>
       </footer>
     `;
+
+    MGIComponents.syncPublicSettings();
+  },
+
+  // Asynchronously hydrate site settings from database API
+  syncPublicSettings: async function () {
+    try {
+      let cached = null;
+      try {
+        const raw = sessionStorage.getItem('mgi_public_settings');
+        if (raw) cached = JSON.parse(raw);
+      } catch (e) {}
+
+      if (!cached) {
+        const res = await fetch('api/settings.php');
+        const json = await res.json();
+        if (json && json.success && json.data) {
+          cached = json.data;
+          try {
+            sessionStorage.setItem('mgi_public_settings', JSON.stringify(cached));
+          } catch (e) {}
+        }
+      }
+
+      if (!cached) return;
+
+      const addrEl = document.getElementById('footerAddress');
+      if (addrEl && cached.contact_address) addrEl.textContent = cached.contact_address;
+
+      const emailEl = document.getElementById('footerEmail');
+      const offEmailEl = document.getElementById('footerOfficialMailLink');
+      const em = cached.official_email || cached.contact_email;
+      if (em) {
+        if (emailEl) { emailEl.textContent = em; emailEl.href = 'mailto:' + em; }
+        if (offEmailEl) { offEmailEl.textContent = em; offEmailEl.href = 'mailto:' + em; }
+      }
+
+      const phoneEl = document.getElementById('footerPhone');
+      if (phoneEl && cached.contact_phone) {
+        phoneEl.textContent = cached.contact_phone;
+        phoneEl.href = 'tel:' + cached.contact_phone.replace(/[^\d+]/g, '');
+      }
+
+      const hoursEl = document.getElementById('footerHours');
+      if (hoursEl && cached.operating_hours) hoursEl.textContent = cached.operating_hours;
+
+      if (cached.site_logo) {
+        const navLogo = document.getElementById('navbarLogoImg');
+        const footLogo = document.getElementById('footerLogoImg');
+        if (navLogo) navLogo.src = cached.site_logo;
+        if (footLogo) footLogo.src = cached.site_logo;
+      }
+    } catch (e) {
+      // Graceful fallback to static HTML defaults
+    }
   },
 
   // 3. Render Status Badge (Eksklusif Model)
