@@ -398,6 +398,34 @@
         </div>
       </div>
     </section>
+
+    <!-- SECTION FAQ (TANYA JAWAB TERVERIFIKASI - Dynamic from database via api/faqs.php) -->
+    <section class="py-5 bg-white border-bottom" id="faqSection">
+      <div class="container py-lg-4">
+        <div class="text-center mb-5">
+          <div class="corporate-kicker mb-2">
+            <span>Pusat Informasi &amp; Edukasi</span>
+          </div>
+          <h2 class="fw-bold text-mgi-dark mb-2">
+            Pertanyaan Umum Mengenai Investasi Proyek MGI
+          </h2>
+          <p class="text-mgi-muted mx-auto mb-0" style="max-width: 740px;">
+            Jawaban transparan seputar tata kelola dana, underlying aset alat berat, simulasi pembagian hasil, dan monitoring proyek.
+          </p>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-lg-10 col-xl-9">
+            <div id="faqDynamicMount">
+              <div class="py-5 text-center">
+                <div class="spinner-border text-gold mb-2" role="status"></div>
+                <div class="text-muted small">Memuat pertanyaan umum...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- Global Footer (Rendered by components.js) -->
@@ -650,14 +678,86 @@
       }
     }
 
+    async function loadFaqs() {
+      const mount = document.getElementById('faqDynamicMount');
+      if (!mount) return;
+
+      try {
+        const res = await fetch('api/faqs.php', { cache: 'no-store' });
+        const json = await res.json();
+        const items = (json && Array.isArray(json.data)) ? json.data : [];
+
+        if (items.length === 0) {
+          mount.innerHTML = `
+            <div class="p-4 bg-light rounded border text-center text-muted small">
+              <i class="bi bi-info-circle text-gold fs-4 d-block mb-2"></i>
+              Pertanyaan umum sedang dipersiapkan oleh tim kepatuhan MGI.
+            </div>
+          `;
+          return;
+        }
+
+        mount.innerHTML = `
+          <div class="accordion accordion-flush rounded-3 border shadow-sm overflow-hidden" id="faqAccordion">
+            ${items.map((item, idx) => `
+              <div class="accordion-item">
+                <h3 class="accordion-header" id="faqHeading${item.id}">
+                  <button class="accordion-button ${idx !== 0 ? 'collapsed' : ''} fw-bold text-dark py-3 px-4" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse${item.id}">
+                    <span class="badge bg-light text-primary border me-2 small fw-normal">${MGIComponents.escapeHtml(item.category)}</span>
+                    <span>${MGIComponents.escapeHtml(item.question)}</span>
+                  </button>
+                </h3>
+                <div id="faqCollapse${item.id}" class="accordion-collapse collapse ${idx === 0 ? 'show' : ''}" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body px-4 py-3 text-secondary lh-base" style="font-size: 0.95rem;">
+                    ${MGIComponents.escapeHtml(item.answer)}
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+
+        try {
+          const faqSchema = {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": items.map(item => ({
+              "@type": "Question",
+              "name": item.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": item.answer
+              }
+            }))
+          };
+          const scriptTag = document.createElement('script');
+          scriptTag.type = 'application/ld+json';
+          scriptTag.text = JSON.stringify(faqSchema);
+          document.head.appendChild(scriptTag);
+        } catch (e) {
+          // Schema ignored
+        }
+
+      } catch (err) {
+        mount.innerHTML = `
+          <div class="p-4 bg-light rounded border text-center text-danger small">
+            <i class="bi bi-exclamation-triangle fs-4 d-block mb-2"></i>
+            Gagal memuat pertanyaan FAQ dari server.
+            <div class="mt-2"><button type="button" class="btn btn-sm btn-outline-dark" onclick="loadFaqs()">Coba Lagi</button></div>
+          </div>
+        `;
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', async () => {
       MGIComponents.renderNavbar('home');
       MGIComponents.renderFooter();
 
-      // Load Hero Section, Features, and Testimonials dynamically from database
+      // Load Hero Section, Features, Testimonials, and FAQs dynamically from database
       await loadHeroSection();
       await loadFeatures();
       await loadTestimonials();
+      await loadFaqs();
 
       // Load Projects Data: Dynamically show or hide sections based on active projects
       try {
