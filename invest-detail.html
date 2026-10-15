@@ -544,11 +544,40 @@
         const tiersSec = document.getElementById('sectionTiers');
         const tiersMount = document.getElementById('tiersMount');
         if (tiersSec && tiersMount) {
-          if (mode === 'none' || !options || !options.length) {
-            tiersSec.style.display = 'none';
-          } else {
+          if (options && options.length && mode !== 'none') {
             tiersMount.innerHTML = MGIComponents.renderInvestmentTiers(options, mode, project);
             tiersSec.style.display = 'block';
+          } else {
+            // Fetch dynamically from API pricing
+            tiersSec.style.display = 'block';
+            tiersMount.innerHTML = `
+              <div class="text-center py-4 text-muted">
+                <span class="spinner-border spinner-border-sm text-gold me-2"></span>Memuat paket kemitraan dari database...
+              </div>
+            `;
+            (async () => {
+              try {
+                const pRes = await fetch(`api/pricing.php?project_id=${encodeURIComponent(project.id)}`, { cache: 'no-store' });
+                const pJson = await pRes.json();
+                const pTiers = (pJson && pJson.data) ? pJson.data : [];
+                if (pTiers.length > 0) {
+                  tiersMount.innerHTML = MGIComponents.renderInvestmentTiers(pTiers, pTiers.length > 1 ? '2' : '1', project);
+                } else {
+                  tiersMount.innerHTML = `
+                    <div class="p-4 bg-light rounded text-center text-muted small">
+                      <i class="bi bi-info-circle text-gold fs-5 d-block mb-1"></i>
+                      Paket kemitraan investasi sedang dalam proses finalisasi oleh tim komite MGI.
+                    </div>
+                  `;
+                }
+              } catch (pErr) {
+                tiersMount.innerHTML = `
+                  <div class="p-3 bg-light rounded text-center text-danger small">
+                    <i class="bi bi-exclamation-triangle me-1"></i> Gagal memuat paket kemitraan dari server.
+                  </div>
+                `;
+              }
+            })();
           }
         }
 
