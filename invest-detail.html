@@ -244,11 +244,7 @@
           data = (apiJson && apiJson.data) ? apiJson.data : apiJson;
         }
       } catch (err) {
-        console.warn('[MGI Detail] Dynamic API unreachable, using static fallback:', err);
-      }
-
-      if (!data) {
-        data = await MGI.fetchData('data/projects.json');
+        console.error('[MGI Detail] Error memuat API proyek:', err);
       }
       if (!data || (!data.projects && !data.project)) return;
 

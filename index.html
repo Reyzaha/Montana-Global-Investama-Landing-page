@@ -760,8 +760,9 @@
       await loadFaqs();
 
       // Load Projects Data: Dynamically show or hide sections based on active projects
-      try {
-        const data = await MGI.fetchData('data/projects.json');
+        const res = await fetch('api/projects.php', { cache: 'no-store' });
+        const json = await res.json();
+        const data = (json && json.data) ? json.data : json;
         const projectsList = (data && Array.isArray(data.projects)) ? data.projects : [];
         const hasActiveProjects = projectsList.length > 0;
 

@@ -154,11 +154,7 @@
           data = (apiJson && apiJson.data) ? apiJson.data : apiJson;
         }
       } catch (e) {
-        console.warn('[Invest] API fetch fallback to static json');
-      }
-
-      if (!data || !data.projects) {
-        data = await MGI.fetchData('data/projects.json');
+        console.error('[Invest] Gagal memuat API proyek:', e);
       }
 
       if (typeof MGI !== 'undefined') {
