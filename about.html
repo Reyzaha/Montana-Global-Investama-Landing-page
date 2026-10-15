@@ -113,6 +113,9 @@
         <a href="#tata-kelola" class="apple-segment-item" data-target="tata-kelola">
           <i class="bi bi-shield-check"></i> Tata Kelola TARIF
         </a>
+        <a href="#dewan-direksi" class="apple-segment-item" data-target="dewan-direksi">
+          <i class="bi bi-people-fill"></i> Dewan &amp; Tim
+        </a>
       </div>
     </div>
   </div>
@@ -538,6 +541,30 @@
       </div>
     </section>
 
+    <!-- 6.5. Dewan Direksi & Manajemen Section (Dynamic from Database via API) -->
+    <section class="card mgi-card shadow-sm border-0 bg-white p-4 p-md-5 mb-5" id="dewan-direksi"
+      style="border-top: 5px solid #142563 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+        <div>
+          <span class="badge-tag mb-2 d-inline-block">
+            <i class="bi bi-people-fill me-1"></i> Kepemimpinan &amp; Pengawas
+          </span>
+          <h2 class="fw-bold text-dark mb-1">Dewan Direksi &amp; Manajemen Eksekutif</h2>
+          <p class="text-secondary small mb-0">Dipimpin oleh profesional berpengalaman di bidang manajemen investasi riil, operasional alat berat, dan tata kelola korporat.</p>
+        </div>
+      </div>
+
+      <!-- Container Mount dengan Loading State -->
+      <div id="teamDynamicMount">
+        <div class="text-center py-5">
+          <div class="spinner-border text-primary" role="status" style="width: 2.2rem; height: 2.2rem; color: #142563 !important;">
+            <span class="visually-hidden">Memuat data tim...</span>
+          </div>
+          <p class="text-secondary small mt-2">Memuat dewan direksi &amp; tim manajemen dari database...</p>
+        </div>
+      </div>
+    </section>
+
     <!-- 7. Lokasi Kantor & Kontak Resmi -->
     <section class="card mgi-card shadow-sm border-0 bg-white p-4 p-md-5"
       style="border-top: 6px solid #C5A059 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
@@ -635,7 +662,7 @@
       });
 
       // Intersection Observer for Apple Subnav
-      const observedSections = ['profil', 'transformasi', 'persiapan-entitas', 'tata-kelola'];
+      const observedSections = ['profil', 'transformasi', 'persiapan-entitas', 'tata-kelola', 'dewan-direksi'];
       const sectionElements = observedSections.map(id => document.getElementById(id)).filter(Boolean);
 
       const observer = new IntersectionObserver((entries) => {
@@ -824,7 +851,80 @@
           `;
         }).join('');
       }
+
+      // 5. Fetch and Render Dewan Direksi & Tim Manajemen from API
+      await loadTeamMembers();
     });
+
+    async function loadTeamMembers() {
+      const container = document.getElementById('teamDynamicMount');
+      if (!container) return;
+
+      try {
+        const res = await fetch('api/team.php');
+        const json = await res.json();
+
+        if (!res.ok || !json.success) {
+          throw new Error(json.message || 'Gagal memuat data dewan & tim');
+        }
+
+        const members = json.data || [];
+
+        if (members.length === 0) {
+          container.innerHTML = `
+            <div class="text-center py-5 border rounded-3 bg-light">
+              <i class="bi bi-people text-secondary fs-1 d-block mb-2"></i>
+              <h5 class="fw-bold text-dark">Data Tim Sedang Diperbarui</h5>
+              <p class="text-secondary small mb-0">Profil dewan direksi dan manajemen eksekutif akan segera ditampilkan.</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = `
+          <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            ${members.map(m => {
+              const photo = m.photo_url
+                ? `<img src="${m.photo_url}" alt="${m.name}" class="rounded-circle shadow-sm object-fit-cover mb-3" style="width: 90px; height: 90px;" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(m.name)}&background=142563&color=fff&size=180'">`
+                : `<div class="rounded-circle shadow-sm text-white d-flex align-items-center justify-content-center fw-bold mx-auto mb-3" style="width: 90px; height: 90px; font-size: 2rem; background-color: #142563;">${(m.name || 'M').charAt(0)}</div>`;
+
+              const linkedin = m.linkedin_url
+                ? `<a href="${m.linkedin_url}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 mt-2 small d-inline-flex align-items-center gap-1" style="color: #142563; border-color: #142563;"><i class="bi bi-linkedin"></i> Profil LinkedIn</a>`
+                : '';
+
+              return `
+                <div class="col">
+                  <div class="card h-100 p-4 border rounded-3 shadow-sm text-center d-flex flex-column align-items-center bg-white" style="border-top: 4px solid #C5A059 !important;">
+                    ${photo}
+                    <h5 class="fw-bold text-dark mb-1">${m.name}</h5>
+                    <div class="badge px-3 py-1 rounded-pill small fw-bold mb-2" style="background-color: #142563; color: #fff;">${m.role_title}</div>
+                    <div class="text-muted small fw-semibold mb-3">${m.department || 'Direksi'}</div>
+                    <p class="text-secondary small lh-base mb-3" style="font-size: 0.85rem;">${m.bio || ''}</p>
+                    <div class="mt-auto">
+                      ${linkedin}
+                    </div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      } catch (err) {
+        container.innerHTML = `
+          <div class="alert alert-warning d-flex align-items-center justify-content-between p-3 rounded-3" role="alert">
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-exclamation-triangle-fill fs-5 text-warning"></i>
+              <div>
+                <strong>Gagal memuat profil dewan direksi:</strong> ${err.message}
+              </div>
+            </div>
+            <button class="btn btn-sm btn-outline-dark fw-bold" onclick="loadTeamMembers()">
+              <i class="bi bi-arrow-clockwise me-1"></i> Coba Lagi
+            </button>
+          </div>
+        `;
+      }
+    }
   </script>
 </body>
 
