@@ -39,11 +39,28 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     </div>
 
     <div class="py-3 flex-grow-1">
-      <div class="px-3 mb-2 text-uppercase text-white-50" style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px;">Menu Utama</div>
+      <div class="px-3 mb-2 text-uppercase text-white-50" style="font-size: 0.68rem; font-weight: 700; letter-spacing: 0.6px;">Utama</div>
       
       <a href="index.php" class="nav-link <?= $currentPage === 'index.php' ? 'active' : '' ?>">
         <i class="bi bi-grid-1x2-fill"></i>
         <span>Dashboard Overview</span>
+      </a>
+
+      <div class="px-3 mt-3 mb-2 text-uppercase text-white-50" style="font-size: 0.68rem; font-weight: 700; letter-spacing: 0.6px;">CMS Landing Page</div>
+
+      <a href="hero.php" class="nav-link <?= $currentPage === 'hero.php' ? 'active' : '' ?>">
+        <i class="bi bi-window-fullscreen text-gold" style="color: #C5A059 !important;"></i>
+        <span>Hero Section</span>
+      </a>
+
+      <a href="features.php" class="nav-link <?= $currentPage === 'features.php' ? 'active' : '' ?>">
+        <i class="bi bi-shield-check"></i>
+        <span>Fitur &amp; Keunggulan</span>
+      </a>
+
+      <a href="pricing.php" class="nav-link <?= $currentPage === 'pricing.php' ? 'active' : '' ?>">
+        <i class="bi bi-tags-fill"></i>
+        <span>Paket &amp; Tier Investasi</span>
       </a>
 
       <a href="projects.php" class="nav-link <?= $currentPage === 'projects.php' ? 'active' : '' ?>">
@@ -51,10 +68,54 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         <span>Kelola Proyek Investasi</span>
       </a>
 
+      <a href="testimonials.php" class="nav-link <?= $currentPage === 'testimonials.php' ? 'active' : '' ?>">
+        <i class="bi bi-chat-quote-fill"></i>
+        <span>Testimoni Mitra</span>
+      </a>
+
+      <a href="faqs.php" class="nav-link <?= $currentPage === 'faqs.php' ? 'active' : '' ?>">
+        <i class="bi bi-question-circle-fill"></i>
+        <span>FAQ Pertanyaan</span>
+      </a>
+
+      <a href="team.php" class="nav-link <?= $currentPage === 'team.php' ? 'active' : '' ?>">
+        <i class="bi bi-person-badge-fill"></i>
+        <span>Dewan &amp; Tim</span>
+      </a>
+
+      <a href="articles.php" class="nav-link <?= $currentPage === 'articles.php' ? 'active' : '' ?>">
+        <i class="bi bi-newspaper"></i>
+        <span>Wawasan &amp; Artikel</span>
+      </a>
+
+      <a href="media.php" class="nav-link <?= $currentPage === 'media.php' ? 'active' : '' ?>">
+        <i class="bi bi-images"></i>
+        <span>Galeri Media</span>
+      </a>
+
+      <a href="content.php" class="nav-link <?= $currentPage === 'content.php' ? 'active' : '' ?>">
+        <i class="bi bi-diagram-3-fill"></i>
+        <span>Konten Grup &amp; KPI</span>
+      </a>
+
+      <div class="px-3 mt-3 mb-2 text-uppercase text-white-50" style="font-size: 0.68rem; font-weight: 700; letter-spacing: 0.6px;">Interaksi &amp; Leads</div>
+
       <a href="leads.php" class="nav-link <?= $currentPage === 'leads.php' ? 'active' : '' ?>">
         <i class="bi bi-person-lines-fill"></i>
-        <span>Calon Investor (Konsultasi)</span>
+        <span>Calon Investor (Leads)</span>
       </a>
+
+      <a href="newsletter.php" class="nav-link <?= $currentPage === 'newsletter.php' ? 'active' : '' ?>">
+        <i class="bi bi-envelope-paper-fill"></i>
+        <span>Subscriber Newsletter</span>
+      </a>
+
+      <a href="analytics.php" class="nav-link <?= $currentPage === 'analytics.php' ? 'active' : '' ?>">
+        <i class="bi bi-graph-up"></i>
+        <span>Analytics Ringkas</span>
+      </a>
+
+      <div class="px-3 mt-3 mb-2 text-uppercase text-white-50" style="font-size: 0.68rem; font-weight: 700; letter-spacing: 0.6px;">Portal &amp; Keuangan</div>
 
       <a href="investors.php" class="nav-link <?= $currentPage === 'investors.php' ? 'active' : '' ?>">
         <i class="bi bi-people-fill"></i>
@@ -63,15 +124,15 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
       <a href="financial.php" class="nav-link <?= $currentPage === 'financial.php' ? 'active' : '' ?>">
         <i class="bi bi-wallet2"></i>
-        <span>Keuangan &amp; Billing (Odoo)</span>
+        <span>Keuangan &amp; Odoo</span>
       </a>
 
-      <a href="content.php" class="nav-link <?= $currentPage === 'content.php' ? 'active' : '' ?>">
-        <i class="bi bi-file-earmark-text-fill"></i>
-        <span>CMS Konten Grup</span>
-      </a>
+      <div class="px-3 mt-3 mb-2 text-uppercase text-white-50" style="font-size: 0.68rem; font-weight: 700; letter-spacing: 0.6px;">Sistem &amp; Tautan</div>
 
-      <div class="px-3 mt-4 mb-2 text-uppercase text-white-50" style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px;">Sistem &amp; Tautan</div>
+      <a href="onboarding.php" class="nav-link <?= $currentPage === 'onboarding.php' ? 'active' : '' ?>">
+        <i class="bi bi-magic text-warning" style="color: #C5A059 !important;"></i>
+        <span>Setup Onboarding</span>
+      </a>
 
       <?php if (($adminUser['role'] ?? '') === 'superadmin'): ?>
       <a href="admins.php" class="nav-link <?= $currentPage === 'admins.php' ? 'active' : '' ?>">
@@ -82,7 +143,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
       <a href="settings.php" class="nav-link <?= $currentPage === 'settings.php' ? 'active' : '' ?>">
         <i class="bi bi-sliders"></i>
-        <span>Pengaturan Sistem</span>
+        <span>Pengaturan Situs</span>
       </a>
 
       <a href="../index" target="_blank" class="nav-link">

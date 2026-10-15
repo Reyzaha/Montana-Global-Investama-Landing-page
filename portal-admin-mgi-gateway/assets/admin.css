@@ -26,6 +26,8 @@ body {
   background: var(--admin-navy-dark);
   color: #FFFFFF;
   min-height: 100vh;
+  max-height: 100vh;
+  overflow-y: auto;
   position: fixed;
   top: 0;
   left: 0;
@@ -34,6 +36,14 @@ body {
   flex-direction: column;
   transition: all 0.3s ease;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+.admin-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
 }
 
 .admin-sidebar .brand-box {
