@@ -21,7 +21,7 @@
             "info": {
                 "lokasi": "DKI Jakarta & Koridor Industri Jabodetabek - Jawa Barat",
                 "target": "Rp 45.000.000.000",
-                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "tenor": "12 Bulan",
                 "return": "30,9% – 46,3%",
                 "min_investment": "Rp 45.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
@@ -273,7 +273,7 @@
             "info": {
                 "lokasi": "Denpasar & Bali",
                 "target": "Rp 5.000.000.000",
-                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "tenor": "12 Bulan",
                 "return": "30,9% – 46,3%",
                 "min_investment": "Rp 5.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
@@ -525,7 +525,7 @@
             "info": {
                 "lokasi": "Jawa Tengah & Koridor Industri",
                 "target": "Rp 15.000.000.000",
-                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "tenor": "12 Bulan",
                 "return": "31,6% – 47,4%",
                 "min_investment": "Rp 15.000.000.000 (Terdanai Penuh)",
                 "payout": "Tutup Buku Laporan Tahunan",
@@ -777,7 +777,7 @@
             "info": {
                 "lokasi": "Medan & Koridor Industri Sumatra",
                 "target": "Rp 7.000.000.000",
-                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "tenor": "12 Bulan",
                 "return": "31,5% – 47,2%",
                 "min_investment": "Rp 7.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
@@ -1029,7 +1029,7 @@
             "info": {
                 "lokasi": "Pontianak & Kalimantan Barat",
                 "target": "Rp 2.000.000.000",
-                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "tenor": "12 Bulan",
                 "return": "27,6% – 41,3%",
                 "min_investment": "Rp 2.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
@@ -1281,7 +1281,7 @@
             "info": {
                 "lokasi": "Banjarmasin & Kalimantan Selatan",
                 "target": "Rp 3.000.000.000",
-                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "tenor": "12 Bulan",
                 "return": "29,4% – 44,1%",
                 "min_investment": "Rp 3.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
@@ -1533,7 +1533,7 @@
             "info": {
                 "lokasi": "Banda Aceh & Wilayah Aceh",
                 "target": "Rp 7.500.000.000",
-                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "tenor": "12 Bulan",
                 "return": "30,9% – 46,3%",
                 "min_investment": "Rp 7.500.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
@@ -1785,7 +1785,7 @@
             "info": {
                 "lokasi": "Makassar & Sulawesi Selatan",
                 "target": "Rp 3.000.000.000",
-                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "tenor": "12 Bulan",
                 "return": "29,4% – 44,1%",
                 "min_investment": "Rp 3.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
@@ -2037,7 +2037,7 @@
             "info": {
                 "lokasi": "Palu & Sulawesi Tengah",
                 "target": "Rp 2.000.000.000",
-                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "tenor": "12 Bulan",
                 "return": "27,6% – 41,3%",
                 "min_investment": "Rp 2.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
@@ -2289,7 +2289,7 @@
             "info": {
                 "lokasi": "Surabaya & Jawa Timur",
                 "target": "Rp 15.000.000.000",
-                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "tenor": "12 Bulan",
                 "return": "30,9% – 46,3%",
                 "min_investment": "Rp 15.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
@@ -2541,7 +2541,7 @@
             "info": {
                 "lokasi": "Kupang & Wilayah Nusa Tenggara Timur",
                 "target": "Rp 5.000.000.000",
-                "tenor": "12 Bulan (Target 2–3x Putaran/Tahun)",
+                "tenor": "12 Bulan",
                 "return": "30,9% – 46,3%",
                 "min_investment": "Rp 5.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",

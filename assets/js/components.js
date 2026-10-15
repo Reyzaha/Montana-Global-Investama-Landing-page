@@ -423,13 +423,10 @@ const MGIComponents = {
     // 1. Clean ROI Return
     let rawRet = (info.return || '28,6% – 42,9%').replace(/\s*\(p\.a\.\)/i, '').trim();
 
-    // 2. Clean Tenor & Cycle Target
+    // 2. Clean Tenor
     let rawTenor = info.tenor || '12 Bulan';
-    let cleanTenor = rawTenor.split('(')[0].trim();
+    let cleanTenor = rawTenor.replace(/\s*\(Target\s*2[–\-]3x\s*Putaran\/Tahun\)/gi, '').split('(')[0].trim();
     let tenorSub = 'TENOR PROYEK';
-    if (rawTenor.toLowerCase().includes('2–3x') || rawTenor.toLowerCase().includes('2-3x') || rawTenor.toLowerCase().includes('putaran')) {
-      tenorSub = '2–3X PUTARAN/THN';
-    }
 
     return `
       <div class="project-metrics-box p-2.5 px-1 rounded-3 mb-3 bg-light border border-subtle">

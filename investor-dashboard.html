@@ -5359,7 +5359,7 @@
 
         const assetBadge = info.brand || info.asset_backed || 'Unit Alat Berat Siap Operasi';
         const returnText = info.return || '20,0% – 25,0%';
-        const tenorText = info.tenor || '12 Bulan';
+        const tenorText = (info.tenor || '12 Bulan').replace(/\s*\(Target\s*2[–\-]3x\s*Putaran\/Tahun\)/gi, '').trim();
         const minInvText = info.min_investment || p.min_investment || (tierOne?.nominal ? formatRupiahExact(tierOne.nominal) : (targetVal > 0 ? formatRupiahExact(targetVal) : 'Rp 15.000.000.000'));
         const catFundingRows = p.detail?.funding_target?.rows || p.funding_items || [];
         const catFirstRabQty = (catFundingRows && catFundingRows.length > 0 && catFundingRows[0]?.quantity) ? Number(catFundingRows[0].quantity) : null;
@@ -5505,7 +5505,7 @@
       const tier1 = rab?.tiers?.[0] || null;
       const imgUrl = p.image || 'assets/img/project-jabodetabek.jpg';
       const locText = info.lokasi || p.lokasi || p.city || 'Indonesia';
-      const tenorText = info.tenor || p.tenor || '12 Bulan';
+      const tenorText = (info.tenor || p.tenor || '12 Bulan').replace(/\s*\(Target\s*2[–\-]3x\s*Putaran\/Tahun\)/gi, '').trim();
       const returnText = info.return || p.return_rate || '20,0% – 25,0%';
 
       const modalOptions = p.package_options || (rab && (rab.package_options || rab.tiers)) || p.tiers || [];
@@ -5709,7 +5709,7 @@
             <div class="p-3.5 rounded-2xl bg-blue-50/70 border border-blue-200">
               <span class="text-[10px] font-bold text-blue-800 uppercase block">Tenor Penempatan</span>
               <span class="text-sm font-bold text-blue-950 mt-0.5 block">${tenorText}</span>
-              <span class="text-[10px] text-blue-700 font-semibold mt-0.5 block">Target 2-3x Putaran/Thn</span>
+              <span class="text-[10px] text-blue-700 font-semibold mt-0.5 block">Periode Kontrak</span>
             </div>
             <div class="p-3.5 rounded-2xl bg-amber-50/70 border border-amber-200">
               <span class="text-[10px] font-bold text-amber-800 uppercase block">Alokasi Unit Fisik</span>

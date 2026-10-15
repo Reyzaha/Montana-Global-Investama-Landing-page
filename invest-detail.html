@@ -388,7 +388,7 @@
       const options = project.package_options || (rab && (rab.package_options || rab.tiers)) || project.tiers || [];
 
       const rawReturn = (project.info && project.info.return) ? project.info.return.replace(/\s*\(p\.a\.\)/i, '').trim() : '28,6% – 42,9%';
-      const rawTenor = (project.info && project.info.tenor) ? project.info.tenor : '12 Bulan';
+      const rawTenor = (project.info && project.info.tenor) ? project.info.tenor.replace(/\s*\(Target\s*2[–\-]3x\s*Putaran\/Tahun\)/gi, '').trim() : '12 Bulan';
 
       let headerOptionsPillHtml = '';
       let headerFundingTitle = '';
