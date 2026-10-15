@@ -41,9 +41,9 @@ echo "data: " . json_encode(['status' => 'online', 'server_time' => date('c'), '
 @flush();
 
 $startTime = time();
-$maxExecutionSeconds = 25; // 25s loop ensures PHP workers don't lock up; browser auto-reconnects seamlessly
+$maxExecutionSeconds = 15; // 15s loop ensures PHP workers cycle quickly and don't block web concurrency
 $lastPing = time();
-$pingInterval = (int)(getenv('REALTIME_PING_INTERVAL') ?: 10);
+$pingInterval = (int)(getenv('REALTIME_PING_INTERVAL') ?: 8);
 
 // If client was disconnected and missed recent events, send backlog first
 if ($lastEventId > 0) {
@@ -89,8 +89,8 @@ while ((time() - $startTime) < $maxExecutionSeconds) {
         $lastPing = time();
     }
 
-    // Sleep 400ms between checks
-    usleep(400000);
+    // Sleep 1 second between checks to keep CPU and MySQL load minimal
+    usleep(1000000);
 }
 
 // Clean termination: tell browser to reconnect immediately

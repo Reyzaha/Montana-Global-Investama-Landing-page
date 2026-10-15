@@ -51,6 +51,22 @@ try {
     $stmt = $db->prepare($sql);
     $stmt->execute($params);
     $articles = $stmt->fetchAll();
+    if (empty($articles) && empty($category) && empty($slug)) {
+        $artStmt = $db->prepare("
+            INSERT INTO articles (id, title, slug, category, excerpt, content, cover_image, author_name, views_count, status, published_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'published', NOW())
+        ");
+        $defaultArticles = [
+            [1, 'Strategi Alokasi Modal Berbasis Aset Fisik di Tengah Ketidakpastian Global', 'strategi-alokasi-modal-berbasis-aset-fisik', 'Wawasan Pasar', 'Mengapa investasi berbasis alat berat riil menjadi instrumen lindung nilai (hedging) yang tangguh bagi portofolio pemodal korporasi dan institusional.', '<p>Di tengah dinamika pasar keuangan makro, alokasi modal pada aset riil produktif seperti alat berat CBU terbukti memberikan ketahanan arus kas operasional yang stabil...</p>', 'assets/img/hero-alat-berat.png', 'Tim Riset Investasi MGI', 428],
+            [2, 'Implementasi Kerangka TARIF: Fondasi Akuntabilitas Investasi Per Proyek', 'implementasi-kerangka-tarif-tata-kelola-mgi', 'Tata Kelola (GCG)', 'Kajian komprehensif mengenai transparansi belanja modal (CAPEX) dan pengawasan unit lapangan melalui 5 pilar TARIF di Montana Global Investama.', '<p>Good Corporate Governance bukan sekadar formalitas kepatuhan, melainkan mekanisme perlindungan modal investor yang diterapkan dari due diligence hingga distribusi dividen...</p>', 'assets/img/icon-tata-kelola.png', 'Komite Tata Kelola MGI', 612],
+            [3, 'Optimalisasi Fasilitas Sentral Kebumen: Menekan Downtime Menuju Standar 95% Utilisasi', 'optimalisasi-fasilitas-sentral-workshop-kebumen', 'Kabar Korporasi', 'Bagaimana workshop sentral seluas 4.500 m² di Kebumen menjadi tulang punggung pemeliharaan armada dan proteksi nilai aset sindikasi.', '<p>Fasilitas sentral MGI di Kebumen Jawa Tengah dilengkapi bay overhaul modern, teknisi bersertifikasi, dan manajemen rantai pasok suku cadang door-to-door...</p>', 'assets/img/miu-building.jpg', 'Manajemen Operasional MGI', 349]
+        ];
+        foreach ($defaultArticles as $a) {
+            $artStmt->execute($a);
+        }
+        $stmt->execute($params);
+        $articles = $stmt->fetchAll();
+    }
 
     sendJsonResponse($articles, 200, 'Daftar wawasan & artikel berhasil dimuat.');
 

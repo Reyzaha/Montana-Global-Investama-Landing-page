@@ -263,8 +263,12 @@ try {
         }
     }
     echo "[✓] Pengaturan situs 'system_settings' diperbarui.\n";
+    echo "=== SEMUA TABEL MODUL CMS BERHASIL DIMIGRASIKAN ===\n\n";
 
-    echo "=== SEMUA TABEL MODUL CMS BERHASIL DIMIGRASIKAN ===\n";
+    // Auto-seed default production content
+    if (file_exists(__DIR__ . '/seed_cms_production.php')) {
+        require_once __DIR__ . '/seed_cms_production.php';
+    }
 
 } catch (Throwable $e) {
     echo "ERROR MIGRASI: " . $e->getMessage() . "\n";

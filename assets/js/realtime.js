@@ -395,17 +395,37 @@
         });
     }
 
-    // Start Realtime on DOM Ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initSSE);
-    } else {
-        initSSE();
+    // Intelligent start: Admin gets full SSE; Public landing page uses lightweight non-blocking polling
+    const isAdmin = window.location.pathname.includes('/portal-admin-mgi-gateway/');
+
+    function startRealtime() {
+        if (isAdmin) {
+            // Admin portal: SSE for instant notification chimes
+            initSSE();
+        } else {
+            // Public landing page: start polling after 3.5s idle window to ensure 0ms render latency
+            initFallbackPolling();
+            pollServer();
+        }
     }
 
-    // Handle Page Visibility Change (pause/resume cleanly on tab backgrounding)
+    // Defer start until after page load so initial critical rendering is 100% unimpeded
+    if (document.readyState === 'complete') {
+        setTimeout(startRealtime, isAdmin ? 1500 : 3500);
+    } else {
+        window.addEventListener('load', function () {
+            setTimeout(startRealtime, isAdmin ? 1500 : 3500);
+        });
+    }
+
+    // Handle Page Visibility Change (check on tab refocus)
     document.addEventListener('visibilitychange', function () {
-        if (!document.hidden && !isConnected) {
-            initSSE();
+        if (!document.hidden) {
+            if (isAdmin && !isConnected) {
+                initSSE();
+            } else if (!isAdmin) {
+                pollServer();
+            }
         }
     });
 

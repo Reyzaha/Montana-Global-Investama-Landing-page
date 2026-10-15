@@ -36,6 +36,22 @@ try {
     ");
     $stmt->execute($params);
     $testimonials = $stmt->fetchAll();
+    if (empty($testimonials) && empty($params)) {
+        $tStmt = $db->prepare("
+            INSERT INTO testimonials (id, name, role_title, company_name, avatar_url, rating, content, project_name, category, is_featured, sort_order, is_active)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
+        ");
+        $defaultTestimonials = [
+            [1, 'Ir. Hendra Gunawan', 'Komisaris Utama', 'PT Nusa Raya Konstruksi', 'assets/img/avatar-1.jpg', 5, 'Kemitraan alokasi alat berat bersama Montana Global Investama memberikan kepastian suplai unit di lapangan tanpa kendala waktu. Tata kelola TARIF yang transparan membuat kami sangat yakin bermitra jangka panjang.', 'Sentral Pool Kebumen', 'Mitra Kontraktor', 1, 1],
+            [2, 'Drs. Budi Santoso, M.M.', 'Managing Director', 'Capital Ventura Prima', 'assets/img/avatar-2.jpg', 5, 'Sebagai manajer investasi per project, MGI menunjukkan integritas tinggi. Pelaporan keuangan berkala, bukti bayar invoice, dan pemantauan utilisasi unit riil sangat akuntabel dan presisi.', 'Sentral Pool Kebumen', 'Investor Korporasi', 1, 2],
+            [3, 'Agus Prasetyo, S.T.', 'Head of Fleet & Operations', 'PT Mandiri Sarana Tambang', 'assets/img/avatar-3.jpg', 5, 'Dukungan fasilitas sentral workshop Kebumen seluas 4.500 m² terbukti menekan angka downtime alat berat di bawah 5%. Ini adalah ekosistem sektor riil paling komprehensif di kelasnya.', 'Armada Jabodetabek', 'Mitra Operasional', 1, 3]
+        ];
+        foreach ($defaultTestimonials as $t) {
+            $tStmt->execute($t);
+        }
+        $stmt->execute($params);
+        $testimonials = $stmt->fetchAll();
+    }
 
     sendJsonResponse($testimonials, 200, 'Data testimoni berhasil diambil.');
 

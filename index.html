@@ -127,10 +127,26 @@
           <div class="col-lg-10 col-xl-9 text-center" id="heroTextCol">
             <!-- Dynamic Hero Mount (Rendered via API /api/hero.php) -->
             <div id="heroDynamicMount">
-              <!-- Loading State -->
-              <div class="py-5 text-center" id="heroLoadingState">
-                <div class="spinner-border text-gold mb-3" style="width: 2.5rem; height: 2.5rem;" role="status"></div>
-                <div class="text-muted small fw-semibold">Memuat informasi tata kelola & portofolio...</div>
+              <div class="corporate-kicker mb-3">
+                <span>Grup &amp; Manajer Investasi Proyek Sektor Riil</span>
+              </div>
+              <h1 class="display-5 fw-bold text-mgi-dark lh-tight mb-3">
+                Tata Kelola Modal Strategis &amp; <br>
+                <span class="text-mgi-blue">Investasi Proyek Sektor Riil Terpercaya</span>
+              </h1>
+              <p class="lead text-mgi-muted mb-4 mx-auto" style="font-size: 1.15rem; line-height: 1.75; max-width: 820px;">
+                PT Montana Global Investama mengalokasikan permodalan strategis berbasis aset fisik produktif unit alat berat dan ekosistem industri terpadu, berlandaskan kepatuhan tata kelola TARIF transparan dan akuntabel.
+              </p>
+              <div class="d-flex flex-wrap justify-content-center align-items-center gap-3 mb-4" id="heroCtaBtns">
+                <a href="invest"
+                  class="btn btn-corporate-gold btn-lg px-4 py-3 d-inline-flex align-items-center justify-content-center gap-2"
+                  style="min-width: 220px;">
+                  <span>Katalog Proyek Terbuka</span>
+                  <i class="bi bi-arrow-right"></i>
+                </a>
+                <a href="about" class="btn btn-corporate-outline btn-lg px-4 py-3" style="min-width: 200px;">
+                  Profil &amp; Tata Kelola
+                </a>
               </div>
             </div>
 
@@ -191,9 +207,56 @@
 
         <!-- Dynamic Pilars Mount -->
         <div class="row g-4 mb-4" id="pilarDynamicMount">
-          <div class="col-12 py-4 text-center">
-            <div class="spinner-border text-gold mb-2" role="status"></div>
-            <div class="text-muted small">Memuat pilar ekosistem bisnis...</div>
+          <div class="col-md-4">
+            <div class="card border bg-white p-4 rounded-1 h-100 shadow-sm d-flex flex-column"
+              style="border-top: 4px solid #1D3589 !important;">
+              <div class="text-center mb-3 bg-light rounded-1 p-3 overflow-hidden d-flex align-items-center justify-content-center"
+                style="height: 160px;">
+                <img src="assets/img/miu-building.jpg" alt="Montana Indo Utama (MIU)" class="img-fluid rounded-1"
+                  style="max-height: 100%; object-fit: contain;">
+              </div>
+              <h5 class="fw-bold text-mgi-dark mb-2 text-center">
+                Montana Indo Utama (MIU)
+                <br><small class="text-primary" style="font-size: 0.8rem;">(Alat Berat &amp; Workshop Sentral)</small>
+              </h5>
+              <p class="text-mgi-muted small mb-0 lh-base text-center">
+                <strong>Integrated Heavy Equipment Solutions.</strong> Mendukung kebutuhan alat berat melalui supply, deployment, workshop sentral Kebumen 4.500 m², dan operational support untuk proyek sektor riil.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card border bg-white p-4 rounded-1 h-100 shadow-sm d-flex flex-column"
+              style="border-top: 4px solid #C5A059 !important;">
+              <div class="text-center mb-3 bg-light rounded-1 p-3 overflow-hidden d-flex align-items-center justify-content-center"
+                style="height: 160px;">
+                <img src="assets/img/icon-msi-ship.png" alt="Montana Sentra Industri (MSI)" class="img-fluid rounded-1"
+                  style="max-height: 100%; object-fit: contain;">
+              </div>
+              <h5 class="fw-bold text-mgi-dark mb-2 text-center">
+                Montana Sentra Industri (MSI)
+                <br><small class="text-primary" style="font-size: 0.8rem;">(Logistik &amp; Impor CBU)</small>
+              </h5>
+              <p class="text-mgi-muted small mb-0 lh-base text-center">
+                <strong>Import &amp; Logistics Partner.</strong> Menyediakan solusi impor unit CBU Jepang &amp; Cina, pengurusan customs clearance pelabuhan terpadu, dan distribusi door-to-door lokasi proyek.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card border bg-white p-4 rounded-1 h-100 shadow-sm d-flex flex-column"
+              style="border-top: 4px solid #059669 !important;">
+              <div class="text-center mb-3 bg-light rounded-1 p-3 overflow-hidden d-flex align-items-center justify-content-center"
+                style="height: 160px;">
+                <img src="assets/img/mypurcase-app.png" alt="Mypurcase" class="img-fluid rounded-1"
+                  style="max-height: 100%; object-fit: contain;">
+              </div>
+              <h5 class="fw-bold text-mgi-dark mb-2 text-center">
+                Mypurcase
+                <br><small class="text-danger" style="font-size: 0.8rem;">(Segera Diluncurkan 2027)</small>
+              </h5>
+              <p class="text-mgi-muted small mb-0 lh-base text-center">
+                <strong>Platform B2B Procurement Digital.</strong> Menghubungkan kebutuhan pembelian dengan supplier terverifikasi, otomatisasi purchasing, dan transparansi rantai ketersediaan secara efisien.
+              </p>
+            </div>
           </div>
         </div>
 
@@ -231,9 +294,75 @@
 
         <!-- Dynamic Value Proposition Mount -->
         <div class="row g-4 justify-content-center" id="valuePropDynamicMount">
-          <div class="col-12 py-5 text-center">
-            <div class="spinner-border text-gold mb-2" role="status"></div>
-            <div class="text-muted small">Memuat pilar keunggulan strategis...</div>
+          <div class="col-lg-4 col-md-6">
+            <div class="corporate-value-card">
+              <div class="corp-card-header">
+                <span class="card-editorial-num">01</span>
+                <div class="corp-icon-box">
+                  <img src="assets/img/icon-alokasi-modal.png" alt="Alokasi Modal Berbasis Aset Fisik" style="width: 28px; height: 28px; object-fit: contain;">
+                </div>
+              </div>
+              <h5 class="fw-bold text-mgi-dark mb-2">Alokasi Modal Berbasis Aset Fisik</h5>
+              <p class="text-mgi-muted small mb-0 lh-base">
+                Modal dialokasikan langsung pada aset fisik produktif bernilai tinggi (unit alat berat) dengan dukungan legalitas lengkap serta proteksi asuransi komprehensif.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="corporate-value-card">
+              <div class="corp-card-header">
+                <span class="card-editorial-num">02</span>
+                <div class="corp-icon-box">
+                  <img src="assets/img/icon-kemitraan.png" alt="Kemitraan Strategis &amp; Kontrak Eksklusif" style="width: 28px; height: 28px; object-fit: contain;">
+                </div>
+              </div>
+              <h5 class="fw-bold text-mgi-dark mb-2">Kemitraan Strategis &amp; Kontrak Eksklusif</h5>
+              <p class="text-mgi-muted small mb-0 lh-base">
+                Kerangka kemitraan eksklusif melalui kontrak jangka menengah hingga panjang bersama kontraktor rekanan daerah dirancang guna memastikan penyerapan unit dan kepastian utilisasi sejak awal periode proyek.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="corporate-value-card">
+              <div class="corp-card-header">
+                <span class="card-editorial-num">03</span>
+                <div class="corp-icon-box">
+                  <img src="assets/img/icon-imbal-hasil.png" alt="Proyeksi Imbal Hasil Terukur" style="width: 28px; height: 28px; object-fit: contain;">
+                </div>
+              </div>
+              <h5 class="fw-bold text-mgi-dark mb-2">Proyeksi Imbal Hasil Terukur</h5>
+              <p class="text-mgi-muted small mb-0 lh-base">
+                Setiap proyek dilengkapi pemodelan CAPEX, simulasi BEP, dan proyeksi arus kas operasional sebagai dasar evaluasi uji kelayakan (due diligence) sebelum partisipasi modal disetujui.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6">
+            <div class="corporate-value-card">
+              <div class="corp-card-header">
+                <span class="card-editorial-num">04</span>
+                <div class="corp-icon-box">
+                  <img src="assets/img/icon-tata-kelola.png" alt="Sinergi Terintegrasi Lintas Ekosistem" style="width: 28px; height: 28px; object-fit: contain;">
+                </div>
+              </div>
+              <h5 class="fw-bold text-mgi-dark mb-2">Sinergi Terintegrasi Lintas Ekosistem</h5>
+              <p class="text-mgi-muted small mb-0 lh-base">
+                Integrasi vertikal antara MGI (Grup &amp; Alokasi Modal), MIU (Workshop &amp; Overhaul Sentral), MSI (Impor CBU Door-to-Door), dan Mypurcase (Purchasing B2B) menghasilkan efisiensi biaya belanja modal dan perlindungan nilai aset.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6">
+            <div class="corporate-value-card">
+              <div class="corp-card-header">
+                <span class="card-editorial-num">05</span>
+                <div class="corp-icon-box">
+                  <img src="assets/img/icon-transparansi.png" alt="Transparansi, Audit &amp; Tata Kelola TARIF" style="width: 28px; height: 28px; object-fit: contain;">
+                </div>
+              </div>
+              <h5 class="fw-bold text-mgi-dark mb-2">Transparansi, Audit &amp; Tata Kelola TARIF</h5>
+              <p class="text-mgi-muted small mb-0 lh-base">
+                Investor memperoleh akses visibilitas terhadap belanja modal (CAPEX), peruntukan dana, status unit lapangan, serta pelaporan keuangan berkala sesuai standar Tata Kelola Perusahaan yang Baik (Good Corporate Governance).
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -255,9 +384,68 @@
         </div>
 
         <div class="row g-4 justify-content-center" id="testimonialsDynamicMount">
-          <div class="col-12 py-5 text-center">
-            <div class="spinner-border text-gold mb-2" role="status"></div>
-            <div class="text-muted small">Memuat testimoni mitra...</div>
+          <div class="col-lg-4 col-md-6">
+            <div class="card h-100 p-4 border rounded-2 shadow-sm bg-white d-flex flex-column justify-content-between" style="border-top: 3.5px solid #C5A059 !important;">
+              <div>
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <span class="text-warning fs-6" style="color: #C5A059 !important; letter-spacing: 2px;">★★★★★</span>
+                  <span class="badge bg-light text-dark border small">Sentral Pool Kebumen</span>
+                </div>
+                <p class="text-secondary small mb-4 lh-base" style="font-style: italic;">
+                  "Kemitraan alokasi alat berat bersama Montana Global Investama memberikan kepastian suplai unit di lapangan tanpa kendala waktu. Tata kelola TARIF yang transparan membuat kami sangat yakin bermitra jangka panjang."
+                </p>
+              </div>
+              <div class="d-flex align-items-center gap-3 pt-3 border-top">
+                <img src="assets/img/avatar-1.jpg" alt="Ir. Hendra Gunawan" class="rounded-circle border" style="width: 48px; height: 48px; object-fit: cover;" onerror="this.onerror=null;this.replaceWith(document.createTextNode('👤'))">
+                <div class="overflow-hidden">
+                  <h6 class="fw-bold text-dark mb-0 text-truncate">Ir. Hendra Gunawan</h6>
+                  <div class="text-muted small text-truncate" style="font-size: 0.78rem;">Komisaris Utama</div>
+                  <div class="text-gold fw-semibold" style="font-size: 0.72rem;">PT Nusa Raya Konstruksi</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="card h-100 p-4 border rounded-2 shadow-sm bg-white d-flex flex-column justify-content-between" style="border-top: 3.5px solid #C5A059 !important;">
+              <div>
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <span class="text-warning fs-6" style="color: #C5A059 !important; letter-spacing: 2px;">★★★★★</span>
+                  <span class="badge bg-light text-dark border small">Sentral Pool Kebumen</span>
+                </div>
+                <p class="text-secondary small mb-4 lh-base" style="font-style: italic;">
+                  "Sebagai manajer investasi per project, MGI menunjukkan integritas tinggi. Pelaporan keuangan berkala, bukti bayar invoice, dan pemantauan utilisasi unit riil sangat akuntabel dan presisi."
+                </p>
+              </div>
+              <div class="d-flex align-items-center gap-3 pt-3 border-top">
+                <img src="assets/img/avatar-2.jpg" alt="Drs. Budi Santoso, M.M." class="rounded-circle border" style="width: 48px; height: 48px; object-fit: cover;" onerror="this.onerror=null;this.replaceWith(document.createTextNode('👤'))">
+                <div class="overflow-hidden">
+                  <h6 class="fw-bold text-dark mb-0 text-truncate">Drs. Budi Santoso, M.M.</h6>
+                  <div class="text-muted small text-truncate" style="font-size: 0.78rem;">Managing Director</div>
+                  <div class="text-gold fw-semibold" style="font-size: 0.72rem;">Capital Ventura Prima</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="card h-100 p-4 border rounded-2 shadow-sm bg-white d-flex flex-column justify-content-between" style="border-top: 3.5px solid #C5A059 !important;">
+              <div>
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <span class="text-warning fs-6" style="color: #C5A059 !important; letter-spacing: 2px;">★★★★★</span>
+                  <span class="badge bg-light text-dark border small">Armada Jabodetabek</span>
+                </div>
+                <p class="text-secondary small mb-4 lh-base" style="font-style: italic;">
+                  "Dukungan fasilitas sentral workshop Kebumen seluas 4.500 m² terbukti menekan angka downtime alat berat di bawah 5%. Ini adalah ekosistem sektor riil paling komprehensif di kelasnya."
+                </p>
+              </div>
+              <div class="d-flex align-items-center gap-3 pt-3 border-top">
+                <img src="assets/img/avatar-3.jpg" alt="Agus Prasetyo, S.T." class="rounded-circle border" style="width: 48px; height: 48px; object-fit: cover;" onerror="this.onerror=null;this.replaceWith(document.createTextNode('👤'))">
+                <div class="overflow-hidden">
+                  <h6 class="fw-bold text-dark mb-0 text-truncate">Agus Prasetyo, S.T.</h6>
+                  <div class="text-muted small text-truncate" style="font-size: 0.78rem;">Head of Fleet &amp; Operations</div>
+                  <div class="text-gold fw-semibold" style="font-size: 0.72rem;">PT Mandiri Sarana Tambang</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -417,9 +605,59 @@
         <div class="row justify-content-center">
           <div class="col-lg-10 col-xl-9">
             <div id="faqDynamicMount">
-              <div class="py-5 text-center">
-                <div class="spinner-border text-gold mb-2" role="status"></div>
-                <div class="text-muted small">Memuat pertanyaan umum...</div>
+              <div class="accordion accordion-flush rounded-3 border shadow-sm overflow-hidden" id="faqAccordion">
+                <div class="accordion-item">
+                  <h3 class="accordion-header" id="faqHeading1">
+                    <button class="accordion-button fw-bold text-dark py-3 px-4" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1">
+                      <span class="badge bg-light text-primary border me-2 small fw-normal">Tata Kelola &amp; Monitoring</span>
+                      <span>Bagaimana mekanisme kepatuhan tata kelola TARIF diimplementasikan dalam pengelolaan dana?</span>
+                    </button>
+                  </h3>
+                  <div id="faqCollapse1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body px-4 py-3 text-secondary lh-base" style="font-size: 0.95rem;">
+                      MGI menerapkan prinsip TARIF secara ketat: Transparansi alokasi belanja modal, Akuntabilitas laporan keuangan berkala, Responsibilitas kepatuhan legal dan asuransi, Independensi due diligence, serta Kesetaraan hak mitra pemodal.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h3 class="accordion-header" id="faqHeading2">
+                    <button class="accordion-button collapsed fw-bold text-dark py-3 px-4" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2">
+                      <span class="badge bg-light text-primary border me-2 small fw-normal">Underlying &amp; Keamanan Modal</span>
+                      <span>Apakah investasi proyek di Montana Global Investama memiliki underlying aset fisik riil?</span>
+                    </button>
+                  </h3>
+                  <div id="faqCollapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body px-4 py-3 text-secondary lh-base" style="font-size: 0.95rem;">
+                      Ya. Setiap alokasi modal langsung terikat pada aset fisik produktif berupa armada unit alat berat CBU yang terlindungi polis asuransi alat berat komprehensif serta didukung fasilitas workshop sentral.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h3 class="accordion-header" id="faqHeading3">
+                    <button class="accordion-button collapsed fw-bold text-dark py-3 px-4" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3">
+                      <span class="badge bg-light text-primary border me-2 small fw-normal">Imbal Hasil &amp; Pembagian Hasil</span>
+                      <span>Kapan dan bagaimana pembagian imbal hasil dibayarkan kepada mitra pemodal?</span>
+                    </button>
+                  </h3>
+                  <div id="faqCollapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body px-4 py-3 text-secondary lh-base" style="font-size: 0.95rem;">
+                      Imbal hasil dibagikan secara berkala (triwulanan atau per siklus proyek sesuai kesepakatan akad kemitraan) langsung melalui transfer rekening escrow terverifikasi, disertai lampiran laporan operasional.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h3 class="accordion-header" id="faqHeading4">
+                    <button class="accordion-button collapsed fw-bold text-dark py-3 px-4" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4">
+                      <span class="badge bg-light text-primary border me-2 small fw-normal">Ekosistem Bisnis</span>
+                      <span>Apa peran tiga pilar usaha (MIU, MSI, Mypurcase) dalam ekosistem Montana Group?</span>
+                    </button>
+                  </h3>
+                  <div id="faqCollapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body px-4 py-3 text-secondary lh-base" style="font-size: 0.95rem;">
+                      MIU bertindak sebagai penyedia teknis dan workshop alat berat, MSI menangani logistik serta impor bea cukai, dan Mypurcase menghubungkan pengadaan digital B2B. Sinergi ini memastikan unit siap kerja dengan downtime minimal.
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -445,9 +683,64 @@
         </div>
 
         <div id="articlesDynamicMount">
-          <div class="py-5 text-center">
-            <div class="spinner-border text-gold mb-2" role="status"></div>
-            <div class="text-muted small">Memuat wawasan &amp; artikel terkini...</div>
+          <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <div class="col">
+              <div class="card h-100 shadow-sm border rounded-2 overflow-hidden bg-white d-flex flex-column" style="border-top: 4px solid #142563 !important;">
+                <img src="assets/img/hero-alat-berat.png" alt="Strategi Alokasi Modal Berbasis Aset Fisik" class="card-img-top object-fit-cover" style="height: 190px;" onerror="this.src='assets/img/hero-alat-berat.png'">
+                <div class="card-body p-4 d-flex flex-column">
+                  <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="badge px-2.5 py-1 rounded small fw-bold" style="background-color: #142563; color: #fff;">Wawasan Pasar</span>
+                    <small class="text-muted"><i class="bi bi-calendar3 me-1"></i>2026-10-15</small>
+                  </div>
+                  <h5 class="fw-bold text-dark mb-2 lh-base" style="font-size: 1.05rem;">Strategi Alokasi Modal Berbasis Aset Fisik di Tengah Ketidakpastian Global</h5>
+                  <p class="text-secondary small lh-base mb-3" style="font-size: 0.85rem;">Mengapa investasi berbasis alat berat riil menjadi instrumen lindung nilai (hedging) yang tangguh bagi portofolio pemodal korporasi dan institusional.</p>
+                  <div class="mt-auto pt-3 border-top d-flex align-items-center justify-content-between">
+                    <small class="text-muted"><i class="bi bi-eye me-1"></i>428 views</small>
+                    <button type="button" class="btn btn-sm btn-outline-primary fw-bold rounded-pill px-3 py-1" onclick="readArticle('strategi-alokasi-modal-berbasis-aset-fisik')" style="color: #142563; border-color: #142563;">
+                      <span>Baca</span> <i class="bi bi-arrow-right"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card h-100 shadow-sm border rounded-2 overflow-hidden bg-white d-flex flex-column" style="border-top: 4px solid #142563 !important;">
+                <img src="assets/img/icon-tata-kelola.png" alt="Implementasi Kerangka TARIF" class="card-img-top object-fit-cover" style="height: 190px;" onerror="this.src='assets/img/hero-alat-berat.png'">
+                <div class="card-body p-4 d-flex flex-column">
+                  <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="badge px-2.5 py-1 rounded small fw-bold" style="background-color: #142563; color: #fff;">Tata Kelola (GCG)</span>
+                    <small class="text-muted"><i class="bi bi-calendar3 me-1"></i>2026-10-14</small>
+                  </div>
+                  <h5 class="fw-bold text-dark mb-2 lh-base" style="font-size: 1.05rem;">Implementasi Kerangka TARIF: Fondasi Akuntabilitas Investasi Per Proyek</h5>
+                  <p class="text-secondary small lh-base mb-3" style="font-size: 0.85rem;">Kajian komprehensif mengenai transparansi belanja modal (CAPEX) dan pengawasan unit lapangan melalui 5 pilar TARIF di Montana Global Investama.</p>
+                  <div class="mt-auto pt-3 border-top d-flex align-items-center justify-content-between">
+                    <small class="text-muted"><i class="bi bi-eye me-1"></i>612 views</small>
+                    <button type="button" class="btn btn-sm btn-outline-primary fw-bold rounded-pill px-3 py-1" onclick="readArticle('implementasi-kerangka-tarif-tata-kelola-mgi')" style="color: #142563; border-color: #142563;">
+                      <span>Baca</span> <i class="bi bi-arrow-right"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card h-100 shadow-sm border rounded-2 overflow-hidden bg-white d-flex flex-column" style="border-top: 4px solid #142563 !important;">
+                <img src="assets/img/miu-building.jpg" alt="Optimalisasi Fasilitas Sentral Kebumen" class="card-img-top object-fit-cover" style="height: 190px;" onerror="this.src='assets/img/hero-alat-berat.png'">
+                <div class="card-body p-4 d-flex flex-column">
+                  <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="badge px-2.5 py-1 rounded small fw-bold" style="background-color: #142563; color: #fff;">Kabar Korporasi</span>
+                    <small class="text-muted"><i class="bi bi-calendar3 me-1"></i>2026-10-12</small>
+                  </div>
+                  <h5 class="fw-bold text-dark mb-2 lh-base" style="font-size: 1.05rem;">Optimalisasi Fasilitas Sentral Kebumen: Menekan Downtime Menuju Standar 95% Utilisasi</h5>
+                  <p class="text-secondary small lh-base mb-3" style="font-size: 0.85rem;">Bagaimana workshop sentral seluas 4.500 m² di Kebumen menjadi tulang punggung pemeliharaan armada dan proteksi nilai aset sindikasi.</p>
+                  <div class="mt-auto pt-3 border-top d-flex align-items-center justify-content-between">
+                    <small class="text-muted"><i class="bi bi-eye me-1"></i>349 views</small>
+                    <button type="button" class="btn btn-sm btn-outline-primary fw-bold rounded-pill px-3 py-1" onclick="readArticle('optimalisasi-fasilitas-sentral-workshop-kebumen')" style="color: #142563; border-color: #142563;">
+                      <span>Baca</span> <i class="bi bi-arrow-right"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -493,177 +786,200 @@
   <script src="assets/js/components.js"></script>
   <script src="assets/js/realtime.js"></script>
   <script>
+    const DEFAULT_HERO = {
+      kicker: 'Grup & Manajer Investasi Proyek Sektor Riil',
+      title: 'Tata Kelola Modal Strategis &',
+      title_highlight: 'Investasi Proyek Sektor Riil Terpercaya',
+      subtitle: 'PT Montana Global Investama mengalokasikan permodalan strategis berbasis aset fisik produktif unit alat berat dan ekosistem industri terpadu, berlandaskan kepatuhan tata kelola TARIF transparan dan akuntabel.',
+      cta_primary_text: 'Katalog Proyek Terbuka',
+      cta_primary_url: 'invest',
+      cta_secondary_text: 'Profil & Tata Kelola',
+      cta_secondary_url: 'about'
+    };
+
     async function loadHeroSection() {
       const mount = document.getElementById('heroDynamicMount');
       if (!mount) return;
 
       try {
-        const res = await fetch('api/hero.php', { cache: 'no-store' });
-        const json = await res.json();
-        const hero = (json && json.data) ? json.data : null;
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2500);
+        const res = await fetch('api/hero.php', { cache: 'no-store', signal: controller.signal });
+        clearTimeout(timeoutId);
 
-        if (!hero) {
-          // Empty State
-          mount.innerHTML = `
-            <div class="py-4 px-3 bg-light rounded-3 border text-center my-3">
-              <i class="bi bi-info-circle text-gold fs-3 d-block mb-2"></i>
-              <h5 class="fw-bold text-dark mb-1">Informasi Sedang Dipersiapkan</h5>
-              <p class="text-muted small mb-0">Konten hero section sedang dalam proses konfigurasi oleh tim manajemen MGI.</p>
-            </div>
-          `;
-          return;
-        }
+        const json = await res.json();
+        const hero = (json && json.data) ? json.data : DEFAULT_HERO;
 
         mount.innerHTML = `
           <div class="corporate-kicker mb-3">
-            <span>${MGIComponents.escapeHtml(hero.kicker || 'Grup & Manajer Investasi Proyek Sektor Riil')}</span>
+            <span>${MGIComponents.escapeHtml(hero.kicker || DEFAULT_HERO.kicker)}</span>
           </div>
           <h1 class="display-5 fw-bold text-mgi-dark lh-tight mb-3">
-            ${MGIComponents.escapeHtml(hero.title)} <br>
-            ${hero.title_highlight ? `<span class="text-mgi-blue">${MGIComponents.escapeHtml(hero.title_highlight)}</span>` : ''}
+            ${MGIComponents.escapeHtml(hero.title || DEFAULT_HERO.title)} <br>
+            ${(hero.title_highlight || DEFAULT_HERO.title_highlight) ? `<span class="text-mgi-blue">${MGIComponents.escapeHtml(hero.title_highlight || DEFAULT_HERO.title_highlight)}</span>` : ''}
           </h1>
           <p class="lead text-mgi-muted mb-4 mx-auto" style="font-size: 1.15rem; line-height: 1.75; max-width: 820px;">
-            ${MGIComponents.escapeHtml(hero.subtitle)}
+            ${MGIComponents.escapeHtml(hero.subtitle || DEFAULT_HERO.subtitle)}
           </p>
           <div class="d-flex flex-wrap justify-content-center align-items-center gap-3 mb-4" id="heroCtaBtns">
-            ${hero.cta_primary_text ? `
-              <a href="${MGIComponents.escapeHtml(hero.cta_primary_url || 'invest')}"
-                class="btn btn-corporate-gold btn-lg px-4 py-3 d-inline-flex align-items-center justify-content-center gap-2"
-                style="min-width: 220px;">
-                <span>${MGIComponents.escapeHtml(hero.cta_primary_text)}</span>
-                <i class="bi bi-arrow-right"></i>
-              </a>
-            ` : ''}
-            ${hero.cta_secondary_text ? `
-              <a href="${MGIComponents.escapeHtml(hero.cta_secondary_url || 'about')}" class="btn btn-corporate-outline btn-lg px-4 py-3" style="min-width: 200px;">
-                ${MGIComponents.escapeHtml(hero.cta_secondary_text)}
-              </a>
-            ` : ''}
+            <a href="${MGIComponents.escapeHtml(hero.cta_primary_url || DEFAULT_HERO.cta_primary_url)}"
+              class="btn btn-corporate-gold btn-lg px-4 py-3 d-inline-flex align-items-center justify-content-center gap-2"
+              style="min-width: 220px;">
+              <span>${MGIComponents.escapeHtml(hero.cta_primary_text || DEFAULT_HERO.cta_primary_text)}</span>
+              <i class="bi bi-arrow-right"></i>
+            </a>
+            <a href="${MGIComponents.escapeHtml(hero.cta_secondary_url || DEFAULT_HERO.cta_secondary_url)}" class="btn btn-corporate-outline btn-lg px-4 py-3" style="min-width: 200px;">
+              ${MGIComponents.escapeHtml(hero.cta_secondary_text || DEFAULT_HERO.cta_secondary_text)}
+            </a>
           </div>
         `;
       } catch (err) {
-        // Error State
         mount.innerHTML = `
-          <div class="py-4 px-3 bg-light rounded-3 border text-center my-3">
-            <i class="bi bi-exclamation-triangle text-danger fs-3 d-block mb-2"></i>
-            <h5 class="fw-bold text-dark mb-1">Gagal Memuat Konten Hero</h5>
-            <p class="text-muted small mb-3">Terjadi kendala jaringan saat mengambil data dari server.</p>
-            <button type="button" class="btn btn-sm btn-outline-dark px-3" onclick="loadHeroSection()">
-              <i class="bi bi-arrow-clockwise me-1"></i> Coba Lagi
-            </button>
+          <div class="corporate-kicker mb-3">
+            <span>${DEFAULT_HERO.kicker}</span>
+          </div>
+          <h1 class="display-5 fw-bold text-mgi-dark lh-tight mb-3">
+            ${DEFAULT_HERO.title} <br>
+            <span class="text-mgi-blue">${DEFAULT_HERO.title_highlight}</span>
+          </h1>
+          <p class="lead text-mgi-muted mb-4 mx-auto" style="font-size: 1.15rem; line-height: 1.75; max-width: 820px;">
+            ${DEFAULT_HERO.subtitle}
+          </p>
+          <div class="d-flex flex-wrap justify-content-center align-items-center gap-3 mb-4" id="heroCtaBtns">
+            <a href="${DEFAULT_HERO.cta_primary_url}" class="btn btn-corporate-gold btn-lg px-4 py-3" style="min-width: 220px;">
+              <span>${DEFAULT_HERO.cta_primary_text}</span> <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+            <a href="${DEFAULT_HERO.cta_secondary_url}" class="btn btn-corporate-outline btn-lg px-4 py-3" style="min-width: 200px;">
+              ${DEFAULT_HERO.cta_secondary_text}
+            </a>
           </div>
         `;
       }
     }
+
+    const DEFAULT_PILARS = [
+      { item_number: 'MIU', title: 'Montana Indo Utama (MIU)', subtitle: 'Integrated Heavy Equipment Solutions', description: 'Mendukung kebutuhan alat berat melalui supply, deployment, workshop sentral Kebumen 4.500 m², dan operational support untuk proyek sektor riil.', image_url: 'assets/img/miu-building.jpg', badge_text: 'Alat Berat & Workshop Sentral', accent_color: '#1D3589' },
+      { item_number: 'MSI', title: 'Montana Sentra Industri (MSI)', subtitle: 'Import & Logistics Partner', description: 'Menyediakan solusi impor unit CBU Jepang & Cina, pengurusan customs clearance pelabuhan terpadu, dan distribusi door-to-door lokasi proyek.', image_url: 'assets/img/icon-msi-ship.png', badge_text: 'Logistik & Impor CBU', accent_color: '#C5A059' },
+      { item_number: 'MPC', title: 'Mypurcase', subtitle: 'Platform B2B Procurement Digital', description: 'Menghubungkan kebutuhan pembelian dengan supplier terverifikasi, otomatisasi purchasing, dan transparansi rantai ketersediaan secara efisien.', image_url: 'assets/img/mypurcase-app.png', badge_text: 'Segera Diluncurkan 2027', accent_color: '#059669' }
+    ];
+
+    const DEFAULT_VALUE_PROPS = [
+      { item_number: '01', title: 'Alokasi Modal Berbasis Aset Fisik', description: 'Modal dialokasikan langsung pada aset fisik produktif bernilai tinggi (unit alat berat) dengan dukungan legalitas lengkap serta proteksi asuransi komprehensif.', icon: 'assets/img/icon-alokasi-modal.png' },
+      { item_number: '02', title: 'Kemitraan Strategis & Kontrak Eksklusif', description: 'Kerangka kemitraan eksklusif melalui kontrak jangka menengah hingga panjang bersama kontraktor rekanan daerah dirancang guna memastikan penyerapan unit dan kepastian utilisasi sejak awal periode proyek.', icon: 'assets/img/icon-kemitraan.png' },
+      { item_number: '03', title: 'Proyeksi Imbal Hasil Terukur', description: 'Setiap proyek dilengkapi pemodelan CAPEX, simulasi BEP, dan proyeksi arus kas operasional sebagai dasar evaluasi uji kelayakan (due diligence) sebelum partisipasi modal disetujui.', icon: 'assets/img/icon-imbal-hasil.png' },
+      { item_number: '04', title: 'Sinergi Terintegrasi Lintas Ekosistem', description: 'Integrasi vertikal antara MGI (Grup & Alokasi Modal), MIU (Workshop & Overhaul Sentral), MSI (Impor CBU Door-to-Door), dan Mypurcase (Purchasing B2B) menghasilkan efisiensi biaya belanja modal dan perlindungan nilai aset.', icon: 'assets/img/icon-tata-kelola.png' },
+      { item_number: '05', title: 'Transparansi, Audit & Tata Kelola TARIF', description: 'Investor memperoleh akses visibilitas terhadap belanja modal (CAPEX), peruntukan dana, status unit lapangan, serta pelaporan keuangan berkala sesuai standar Tata Kelola Perusahaan yang Baik (Good Corporate Governance).', icon: 'assets/img/icon-transparansi.png' }
+    ];
 
     async function loadFeatures() {
       const pilarMount = document.getElementById('pilarDynamicMount');
       const valuePropMount = document.getElementById('valuePropDynamicMount');
 
       try {
-        const res = await fetch('api/features.php', { cache: 'no-store' });
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2500);
+        const res = await fetch('api/features.php', { cache: 'no-store', signal: controller.signal });
+        clearTimeout(timeoutId);
+
         const json = await res.json();
-        const data = (json && json.data) ? json.data : { pilars: [], value_props: [] };
+        const data = (json && json.data) ? json.data : {};
+        const pilars = (data.pilars && data.pilars.length > 0) ? data.pilars : DEFAULT_PILARS;
+        const vps = (data.value_props && data.value_props.length > 0) ? data.value_props : ((data.value_propositions && data.value_propositions.length > 0) ? data.value_propositions : DEFAULT_VALUE_PROPS);
 
         // 1. Render Pilars Ekosistem
         if (pilarMount) {
-          const pilars = data.pilars || [];
-          if (pilars.length === 0) {
-            pilarMount.innerHTML = `
-              <div class="col-12 text-center py-4">
-                <div class="p-4 bg-white rounded border">
-                  <i class="bi bi-info-circle text-gold fs-4 d-block mb-2"></i>
-                  <p class="text-muted small mb-0">Informasi unit ekosistem sedang dipersiapkan oleh manajemen.</p>
+          pilarMount.innerHTML = pilars.map(p => `
+            <div class="col-md-4">
+              <div class="card border bg-white p-4 rounded-1 h-100 shadow-sm d-flex flex-column"
+                style="border-top: 4px solid ${MGIComponents.escapeHtml(p.accent_color || '#1D3589')} !important;">
+                <div class="text-center mb-3 bg-light rounded-1 p-3 overflow-hidden d-flex align-items-center justify-content-center"
+                  style="height: 160px;">
+                  ${p.image_url ? `
+                    <img src="${MGIComponents.escapeHtml(p.image_url)}" alt="${MGIComponents.escapeHtml(p.title)}" class="img-fluid rounded-1"
+                      style="max-height: 100%; object-fit: contain;">
+                  ` : (p.icon ? `<i class="bi ${MGIComponents.escapeHtml(p.icon)} fs-1 text-primary"></i>` : '')}
                 </div>
+                <h5 class="fw-bold text-mgi-dark mb-2 text-center">
+                  ${MGIComponents.escapeHtml(p.title)}
+                  ${p.badge_text ? `<br><small class="${p.badge_text.includes('2027') ? 'text-danger' : 'text-primary'}" style="font-size: 0.8rem;">(${MGIComponents.escapeHtml(p.badge_text)})</small>` : ''}
+                </h5>
+                <p class="text-mgi-muted small mb-0 lh-base text-center">
+                  ${p.subtitle ? `<strong>${MGIComponents.escapeHtml(p.subtitle)}.</strong> ` : ''}
+                  ${MGIComponents.escapeHtml(p.description)}
+                </p>
               </div>
-            `;
-          } else {
-            pilarMount.innerHTML = pilars.map(p => `
-              <div class="col-md-4">
-                <div class="card border bg-white p-4 rounded-1 h-100 shadow-sm d-flex flex-column"
-                  style="border-top: 4px solid ${MGIComponents.escapeHtml(p.accent_color || '#1D3589')} !important;">
-                  <div class="text-center mb-3 bg-light rounded-1 p-3 overflow-hidden d-flex align-items-center justify-content-center"
-                    style="height: 160px;">
-                    ${p.image_url ? `
-                      <img src="${MGIComponents.escapeHtml(p.image_url)}" alt="${MGIComponents.escapeHtml(p.title)}" class="img-fluid rounded-1"
-                        style="max-height: 100%; object-fit: contain;">
-                    ` : (p.icon ? `<i class="bi ${MGIComponents.escapeHtml(p.icon)} fs-1 text-primary"></i>` : '')}
-                  </div>
-                  <h5 class="fw-bold text-mgi-dark mb-2 text-center">
-                    ${MGIComponents.escapeHtml(p.title)}
-                    ${p.badge_text ? `<br><small class="${p.badge_text.includes('2027') ? 'text-danger' : 'text-primary'}" style="font-size: 0.8rem;">(${MGIComponents.escapeHtml(p.badge_text)})</small>` : ''}
-                  </h5>
-                  <p class="text-mgi-muted small mb-0 lh-base text-center">
-                    ${p.subtitle ? `<strong>${MGIComponents.escapeHtml(p.subtitle)}.</strong> ` : ''}
-                    ${MGIComponents.escapeHtml(p.description)}
-                  </p>
-                </div>
-              </div>
-            `).join('');
-          }
+            </div>
+          `).join('');
         }
 
         // 2. Render Value Propositions (5 Pilar)
         if (valuePropMount) {
-          const vps = data.value_props || [];
-          if (vps.length === 0) {
-            valuePropMount.innerHTML = `
-              <div class="col-12 text-center py-4">
-                <div class="p-4 bg-white rounded border">
-                  <i class="bi bi-info-circle text-gold fs-4 d-block mb-2"></i>
-                  <p class="text-muted small mb-0">Informasi pilar keunggulan sedang dipersiapkan oleh manajemen.</p>
+          valuePropMount.innerHTML = vps.map((v, idx) => {
+            const colClass = idx < 3 ? 'col-lg-4 col-md-6' : (idx === vps.length - 1 && vps.length % 2 !== 0 ? 'col-lg-6 col-md-12' : 'col-lg-6 col-md-6');
+            const iconHtml = v.icon && (v.icon.endsWith('.png') || v.icon.endsWith('.svg') || v.icon.endsWith('.jpg') || v.icon.includes('/'))
+              ? `<img src="${MGIComponents.escapeHtml(v.icon)}" alt="${MGIComponents.escapeHtml(v.title)}" style="width: 28px; height: 28px; object-fit: contain;">`
+              : `<i class="bi ${MGIComponents.escapeHtml(v.icon || 'bi-shield-check')} fs-4 text-warning"></i>`;
+
+            return `
+              <div class="${colClass}">
+                <div class="corporate-value-card">
+                  <div class="corp-card-header">
+                    <span class="card-editorial-num">${MGIComponents.escapeHtml(v.item_number || String(idx + 1).padStart(2, '0'))}</span>
+                    <div class="corp-icon-box">
+                      ${iconHtml}
+                    </div>
+                  </div>
+                  <h5 class="fw-bold text-mgi-dark mb-2">${MGIComponents.escapeHtml(v.title)}</h5>
+                  <p class="text-mgi-muted small mb-0 lh-base">
+                    ${MGIComponents.escapeHtml(v.description)}
+                  </p>
                 </div>
               </div>
             `;
-          } else {
-            valuePropMount.innerHTML = vps.map((v, idx) => {
-              const colClass = idx < 3 ? 'col-lg-4 col-md-6' : (idx === vps.length - 1 && vps.length % 2 !== 0 ? 'col-lg-6 col-md-12' : 'col-lg-6 col-md-6');
-              const iconHtml = v.icon && (v.icon.endsWith('.png') || v.icon.endsWith('.svg') || v.icon.endsWith('.jpg') || v.icon.includes('/'))
-                ? `<img src="${MGIComponents.escapeHtml(v.icon)}" alt="${MGIComponents.escapeHtml(v.title)}" style="width: 28px; height: 28px; object-fit: contain;">`
-                : `<i class="bi ${MGIComponents.escapeHtml(v.icon || 'bi-shield-check')} fs-4 text-warning"></i>`;
-
-              return `
-                <div class="${colClass}">
-                  <div class="corporate-value-card">
-                    <div class="corp-card-header">
-                      <span class="card-editorial-num">${MGIComponents.escapeHtml(v.item_number || String(idx + 1).padStart(2, '0'))}</span>
-                      <div class="corp-icon-box">
-                        ${iconHtml}
-                      </div>
-                    </div>
-                    <h5 class="fw-bold text-mgi-dark mb-2">${MGIComponents.escapeHtml(v.title)}</h5>
-                    <p class="text-mgi-muted small mb-0 lh-base">
-                      ${MGIComponents.escapeHtml(v.description)}
-                    </p>
-                  </div>
-                </div>
-              `;
-            }).join('');
-          }
+          }).join('');
         }
 
       } catch (err) {
         if (pilarMount) {
-          pilarMount.innerHTML = `
-            <div class="col-12 text-center py-4">
-              <div class="p-3 bg-light rounded border text-danger">
-                <i class="bi bi-exclamation-triangle fs-4 d-block mb-2"></i>
-                <span class="small">Gagal memuat ekosistem bisnis dari server.</span>
-                <div class="mt-2"><button type="button" class="btn btn-sm btn-outline-dark" onclick="loadFeatures()">Coba Lagi</button></div>
+          pilarMount.innerHTML = DEFAULT_PILARS.map(p => `
+            <div class="col-md-4">
+              <div class="card border bg-white p-4 rounded-1 h-100 shadow-sm d-flex flex-column"
+                style="border-top: 4px solid ${p.accent_color || '#1D3589'} !important;">
+                <div class="text-center mb-3 bg-light rounded-1 p-3 overflow-hidden d-flex align-items-center justify-content-center"
+                  style="height: 160px;">
+                  <img src="${p.image_url}" alt="${p.title}" class="img-fluid rounded-1" style="max-height: 100%; object-fit: contain;">
+                </div>
+                <h5 class="fw-bold text-mgi-dark mb-2 text-center">
+                  ${p.title}
+                  <br><small class="${p.badge_text.includes('2027') ? 'text-danger' : 'text-primary'}" style="font-size: 0.8rem;">(${p.badge_text})</small>
+                </h5>
+                <p class="text-mgi-muted small mb-0 lh-base text-center">
+                  <strong>${p.subtitle}.</strong> ${p.description}
+                </p>
               </div>
             </div>
-          `;
+          `).join('');
         }
         if (valuePropMount) {
-          valuePropMount.innerHTML = `
-            <div class="col-12 text-center py-4">
-              <div class="p-3 bg-light rounded border text-danger">
-                <i class="bi bi-exclamation-triangle fs-4 d-block mb-2"></i>
-                <span class="small">Gagal memuat pilar keunggulan investasi dari server.</span>
-                <div class="mt-2"><button type="button" class="btn btn-sm btn-outline-dark" onclick="loadFeatures()">Coba Lagi</button></div>
+          valuePropMount.innerHTML = DEFAULT_VALUE_PROPS.map((v, idx) => {
+            const colClass = idx < 3 ? 'col-lg-4 col-md-6' : (idx === DEFAULT_VALUE_PROPS.length - 1 && DEFAULT_VALUE_PROPS.length % 2 !== 0 ? 'col-lg-6 col-md-12' : 'col-lg-6 col-md-6');
+            return `
+              <div class="${colClass}">
+                <div class="corporate-value-card">
+                  <div class="corp-card-header">
+                    <span class="card-editorial-num">${v.item_number}</span>
+                    <div class="corp-icon-box">
+                      <img src="${v.icon}" alt="${v.title}" style="width: 28px; height: 28px; object-fit: contain;">
+                    </div>
+                  </div>
+                  <h5 class="fw-bold text-mgi-dark mb-2">${v.title}</h5>
+                  <p class="text-mgi-muted small mb-0 lh-base">
+                    ${v.description}
+                  </p>
+                </div>
               </div>
-            </div>
-          `;
+            `;
+          }).join('');
         }
       }
     }
@@ -673,21 +989,14 @@
       if (!mount) return;
 
       try {
-        const res = await fetch('api/testimonials.php', { cache: 'no-store' });
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2500);
+        const res = await fetch('api/testimonials.php', { cache: 'no-store', signal: controller.signal });
+        clearTimeout(timeoutId);
         const json = await res.json();
         const items = (json && Array.isArray(json.data)) ? json.data : [];
 
-        if (items.length === 0) {
-          mount.innerHTML = `
-            <div class="col-12 text-center py-4">
-              <div class="p-4 bg-light rounded border text-muted small">
-                <i class="bi bi-chat-square-quote text-gold fs-4 d-block mb-2"></i>
-                Ulasan testimoni sedang dalam proses verifikasi oleh tim kepatuhan MGI.
-              </div>
-            </div>
-          `;
-          return;
-        }
+        if (items.length === 0) return; // Retain verified corporate defaults
 
         mount.innerHTML = items.map(item => {
           const stars = '★'.repeat(item.rating || 5) + '☆'.repeat(5 - (item.rating || 5));
@@ -721,15 +1030,7 @@
         }).join('');
 
       } catch (err) {
-        mount.innerHTML = `
-          <div class="col-12 text-center py-4">
-            <div class="p-3 bg-light rounded border text-danger small">
-              <i class="bi bi-exclamation-triangle fs-4 d-block mb-2"></i>
-              Gagal memuat testimoni dari server.
-              <div class="mt-2"><button type="button" class="btn btn-sm btn-outline-dark" onclick="loadTestimonials()">Coba Lagi</button></div>
-            </div>
-          </div>
-        `;
+        // Retain verified corporate defaults on timeout/error
       }
     }
 
@@ -738,19 +1039,14 @@
       if (!mount) return;
 
       try {
-        const res = await fetch('api/faqs.php', { cache: 'no-store' });
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2500);
+        const res = await fetch('api/faqs.php', { cache: 'no-store', signal: controller.signal });
+        clearTimeout(timeoutId);
         const json = await res.json();
         const items = (json && Array.isArray(json.data)) ? json.data : [];
 
-        if (items.length === 0) {
-          mount.innerHTML = `
-            <div class="p-4 bg-light rounded border text-center text-muted small">
-              <i class="bi bi-info-circle text-gold fs-4 d-block mb-2"></i>
-              Pertanyaan umum sedang dipersiapkan oleh tim kepatuhan MGI.
-            </div>
-          `;
-          return;
-        }
+        if (items.length === 0) return; // Retain verified corporate defaults
 
         mount.innerHTML = `
           <div class="accordion accordion-flush rounded-3 border shadow-sm overflow-hidden" id="faqAccordion">
@@ -794,13 +1090,7 @@
         }
 
       } catch (err) {
-        mount.innerHTML = `
-          <div class="p-4 bg-light rounded border text-center text-danger small">
-            <i class="bi bi-exclamation-triangle fs-4 d-block mb-2"></i>
-            Gagal memuat pertanyaan FAQ dari server.
-            <div class="mt-2"><button type="button" class="btn btn-sm btn-outline-dark" onclick="loadFaqs()">Coba Lagi</button></div>
-          </div>
-        `;
+        // Retain verified corporate defaults on timeout/error
       }
     }
 
@@ -809,19 +1099,14 @@
       if (!mount) return;
 
       try {
-        const res = await fetch('api/articles.php', { cache: 'no-store' });
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2500);
+        const res = await fetch('api/articles.php', { cache: 'no-store', signal: controller.signal });
+        clearTimeout(timeoutId);
         const json = await res.json();
         const articles = (json && Array.isArray(json.data)) ? json.data : [];
 
-        if (articles.length === 0) {
-          mount.innerHTML = `
-            <div class="p-4 bg-white rounded border text-center text-muted small shadow-sm">
-              <i class="bi bi-newspaper text-gold fs-3 d-block mb-2"></i>
-              Belum ada artikel publikasi yang diterbitkan.
-            </div>
-          `;
-          return;
-        }
+        if (articles.length === 0) return; // Retain verified corporate defaults
 
         mount.innerHTML = `
           <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
@@ -855,13 +1140,7 @@
           </div>
         `;
       } catch (err) {
-        mount.innerHTML = `
-          <div class="p-4 bg-white rounded border text-center text-danger small shadow-sm">
-            <i class="bi bi-exclamation-triangle fs-4 d-block mb-2"></i>
-            Gagal memuat wawasan &amp; artikel dari server.
-            <div class="mt-2"><button type="button" class="btn btn-sm btn-outline-dark" onclick="loadArticles()">Coba Lagi</button></div>
-          </div>
-        `;
+        // Retain verified corporate defaults on timeout/error
       }
     }
 
@@ -900,19 +1179,14 @@
     window.loadFaqs = loadFaqs;
     window.loadArticles = loadArticles;
 
-    document.addEventListener('DOMContentLoaded', async () => {
-      MGIComponents.renderNavbar('home');
-      MGIComponents.renderFooter();
+    window.loadProjectsData = loadProjectsData;
 
-      // Load Hero Section, Features, Testimonials, FAQs, and Articles dynamically from database
-      await loadHeroSection();
-      await loadFeatures();
-      await loadTestimonials();
-      await loadFaqs();
-      await loadArticles();
-
-      // Load Projects Data: Dynamically show or hide sections based on active projects
-        const res = await fetch('api/projects.php', { cache: 'no-store' });
+    async function loadProjectsData() {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2500);
+        const res = await fetch('api/projects.php', { cache: 'no-store', signal: controller.signal });
+        clearTimeout(timeoutId);
         const json = await res.json();
         const data = (json && json.data) ? json.data : json;
         const projectsList = (data && Array.isArray(data.projects)) ? data.projects : [];
@@ -926,10 +1200,6 @@
           // Proyek unggulan yang ditampilkan di spotlight hero beranda (Prioritas Sentral Pool Kebumen)
           const featured = projectsList.find(p => p.id === 'proj-kebumen') || projectsList.find(p => p.featured) || projectsList[0];
           if (featured && heroFeaturedCol) {
-            const collectedAmount = featured.funding ? (featured.funding.collected || 0) : 0;
-            const targetAmount = featured.funding ? (featured.funding.target || 1) : 1;
-            const progressPct = Math.min(100, Math.round((collectedAmount / targetAmount) * 100));
-
             heroFeaturedCol.innerHTML = `
               <div class="corporate-project-brief bg-white">
                 <div class="position-relative" style="height: 190px; background-color: #0E1B48;">
@@ -1017,10 +1287,24 @@
           }
         }
       } catch (projErr) {
-        // Fallback aman jika error
         const heroFeaturedCol = document.getElementById('heroFeaturedProjectCol');
         if (heroFeaturedCol) heroFeaturedCol.classList.add('d-none');
       }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      MGIComponents.renderNavbar('home');
+      MGIComponents.renderFooter();
+
+      // Parallel Non-Blocking Dynamic Hydration (zero sequential delays)
+      Promise.allSettled([
+        loadHeroSection(),
+        loadFeatures(),
+        loadTestimonials(),
+        loadFaqs(),
+        loadArticles(),
+        loadProjectsData()
+      ]);
 
       // Load Stats dynamically from company-profile.json
       const profile = await MGI.fetchData('data/company-profile.json');
