@@ -105,6 +105,11 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         <span>Calon Investor (Leads)</span>
       </a>
 
+      <a href="inquiries.php" class="nav-link <?= $currentPage === 'inquiries.php' ? 'active' : '' ?>">
+        <i class="bi bi-chat-left-text-fill"></i>
+        <span>Pesan Masuk (Kontak)</span>
+      </a>
+
       <a href="newsletter.php" class="nav-link <?= $currentPage === 'newsletter.php' ? 'active' : '' ?>">
         <i class="bi bi-envelope-paper-fill"></i>
         <span>Subscriber Newsletter</span>
