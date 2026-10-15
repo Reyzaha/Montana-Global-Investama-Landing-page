@@ -692,7 +692,7 @@
         mount.innerHTML = items.map(item => {
           const stars = '★'.repeat(item.rating || 5) + '☆'.repeat(5 - (item.rating || 5));
           const avatarHtml = item.avatar_url
-            ? `<img src="${MGIComponents.escapeHtml(item.avatar_url)}" class="rounded-circle border" style="width: 48px; height: 48px; object-fit: cover;" onerror="this.onerror=null;this.replaceWith(document.createTextNode('👤'))">`
+            ? `<img src="${MGIComponents.escapeHtml(item.avatar_url)}" alt="${MGIComponents.escapeHtml(item.name)}" class="rounded-circle border" style="width: 48px; height: 48px; object-fit: cover;" onerror="this.onerror=null;this.replaceWith(document.createTextNode('👤'))">`
             : `<div class="rounded-circle bg-light border d-inline-flex align-items-center justify-content-center fw-bold text-primary" style="width: 48px; height: 48px; font-size: 1.1rem; color: #142563 !important;">${MGIComponents.escapeHtml(item.name.charAt(0))}</div>`;
 
           return `

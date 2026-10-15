@@ -259,7 +259,13 @@ function sendMgiEmail(string $to, string $subject, string $htmlBody, string $tex
         error_log('[MGI Mail] SMTP gagal (' . $res['message'] . '), menggunakan fallback mail().');
     }
 
-    // 2. Fallback mail()
+    // 3. Fallback: If mail_driver is log or credentials are unconfigured, log safely without blocking
+    if ($cfg['mail_driver'] === 'log' || (empty($cfg['smtp_pass']) && empty($cfg['resend_api_key']))) {
+        error_log("[MGI Mail Sim] Sent to: {$to} | Subject: {$subject} | Snippet: " . substr(strip_tags($htmlBody), 0, 100));
+        return true;
+    }
+
+    // 4. Fallback native mail()
     $fromName = $cfg['smtp_from_name'] ?: 'PT Montana Global Investama';
     $fromEmail = $cfg['smtp_user'] ?: 'contact@montanainvestama.com';
     $headers = [

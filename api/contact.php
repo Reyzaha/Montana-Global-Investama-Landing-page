@@ -68,7 +68,7 @@ try {
     // Insert into database
     $stmt = $db->prepare("
         INSERT INTO contact_inquiries (full_name, email, phone, subject, message, status, ip_address, created_at)
-        VALUES (?, ?, ?, ?, ?, 'unread', ?, NOW())
+        VALUES (?, ?, ?, ?, ?, 'new', ?, NOW())
     ");
     $stmt->execute([$fullName, $email, $phone, $subject, $message, $ipAddress]);
     $inquiryId = (int)$db->lastInsertId();
