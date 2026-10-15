@@ -136,6 +136,8 @@ const MGIComponents = {
         if (header) header.classList.remove('scrolled');
       }
     });
+
+    MGIComponents.initTelemetry();
   },
 
   // 2. Render Global Footer (Bootstrap 5)
@@ -325,6 +327,61 @@ const MGIComponents = {
     } catch (e) {
       // Graceful fallback to static HTML defaults
     }
+  },
+
+  // Telemetry & Conversion Tracking
+  trackEvent: function (eventType, elementId = '', meta = null) {
+    try {
+      const payload = {
+        event_type: eventType,
+        page_url: window.location.pathname + window.location.search,
+        element_id: elementId,
+        metadata: meta
+      };
+
+      const endpoint = 'api/analytics.php';
+      if (navigator.sendBeacon) {
+        const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+        navigator.sendBeacon(endpoint, blob);
+      } else {
+        fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          keepalive: true
+        }).catch(() => {});
+      }
+    } catch (e) {}
+  },
+
+  initTelemetry: function () {
+    if (window._mgiTelemetryInitialized) return;
+    window._mgiTelemetryInitialized = true;
+
+    // Record page view
+    setTimeout(() => {
+      MGIComponents.trackEvent('page_view', window.location.pathname);
+    }, 500);
+
+    // Track CTA clicks
+    document.addEventListener('click', (e) => {
+      const target = e.target.closest('a, button, [data-track-cta]');
+      if (!target) return;
+
+      const isCta = target.classList.contains('btn-corporate-gold') ||
+                    target.classList.contains('btn-gold') ||
+                    target.classList.contains('btn-navbar-cta') ||
+                    target.classList.contains('btn-apple-cta') ||
+                    target.hasAttribute('data-track-cta') ||
+                    (target.getAttribute('href') && ['invest', 'register', 'contact'].some(h => target.getAttribute('href').includes(h)));
+
+      if (isCta) {
+        const ctaLabel = target.getAttribute('data-track-cta') ||
+                         target.innerText.trim().replace(/\s+/g, ' ').substring(0, 50) ||
+                         target.id || 'CTA Button';
+        MGIComponents.trackEvent('cta_click', ctaLabel);
+      }
+    });
   },
 
   // 3. Render Status Badge (Eksklusif Model)
