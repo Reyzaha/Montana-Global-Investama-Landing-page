@@ -199,6 +199,28 @@ const MGIComponents = {
             </div>
           </div>
 
+          <!-- Newsletter Banner Row -->
+          <div class="row align-items-center justify-content-between p-3 p-md-4 mb-4 rounded-2 bg-footer-card border border-secondary border-opacity-50">
+            <div class="col-lg-6 mb-3 mb-lg-0">
+              <h6 class="fw-bold text-white mb-1 d-flex align-items-center gap-2">
+                <i class="bi bi-envelope-paper-fill text-gold"></i>
+                <span>Langganan Buletin &amp; Wawasan Pasar MGI</span>
+              </h6>
+              <p class="text-footer-muted small mb-0">Dapatkan rilis portofolio proyek baru, analisis sektor riil, dan kabar dividen langsung di email Anda.</p>
+            </div>
+            <div class="col-lg-5">
+              <form id="footerNewsletterForm" onsubmit="MGIComponents.subscribeNewsletter(event)" class="d-flex flex-column gap-1">
+                <div class="input-group">
+                  <input type="email" class="form-control form-control-sm" id="footerNewsletterEmail" placeholder="Masukkan alamat email Anda..." required>
+                  <button class="btn btn-sm btn-corporate-gold fw-bold px-3" type="submit" id="btnFooterNewsletter">
+                    Langganan
+                  </button>
+                </div>
+                <div id="footerNewsletterFeedback" class="small mt-1"></div>
+              </form>
+            </div>
+          </div>
+
           <div class="d-flex flex-column flex-md-row justify-content-between align-items-center pt-3 border-top border-secondary small text-footer-muted">
             <div class="mb-2 mb-md-0" id="footerCopyright">
               &copy; ${new Date().getFullYear()} PT Montana Global Investama. Seluruh Hak Cipta Dilindungi Undang-Undang.
@@ -214,6 +236,42 @@ const MGIComponents = {
     `;
 
     MGIComponents.syncPublicSettings();
+  },
+
+  // Newsletter Subscription Form Handler
+  subscribeNewsletter: async function (e) {
+    e.preventDefault();
+    const input = document.getElementById('footerNewsletterEmail');
+    const feedback = document.getElementById('footerNewsletterFeedback');
+    const btn = document.getElementById('btnFooterNewsletter');
+    if (!input || !feedback) return;
+
+    const email = input.value.trim();
+    if (!email) return;
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+    feedback.innerHTML = '';
+
+    try {
+      const res = await fetch('api/newsletter.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, source_page: window.location.pathname })
+      });
+      const json = await res.json();
+      if (!res.ok || !json.success) {
+        throw new Error(json.message || 'Gagal mendaftar buletin');
+      }
+
+      input.value = '';
+      feedback.innerHTML = `<span class="text-success"><i class="bi bi-check-circle-fill me-1"></i> ${json.message}</span>`;
+    } catch (err) {
+      feedback.innerHTML = `<span class="text-danger"><i class="bi bi-exclamation-triangle-fill me-1"></i> ${err.message}</span>`;
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = 'Langganan';
+    }
   },
 
   // Asynchronously hydrate site settings from database API
