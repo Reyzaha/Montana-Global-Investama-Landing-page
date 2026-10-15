@@ -7,6 +7,7 @@
 require_once __DIR__ . '/../../backend/config/db.php';
 require_once __DIR__ . '/../../backend/helpers/response.php';
 require_once __DIR__ . '/../../backend/helpers/auth_helper.php';
+require_once __DIR__ . '/../../backend/helpers/realtime_helper.php';
 
 $admin = requireAdminAuth();
 $method = $_SERVER['REQUEST_METHOD'];
@@ -95,6 +96,7 @@ try {
         $id = (int)$db->lastInsertId();
 
         logAdminActivity('create', 'articles', (string)$id, "Admin membuat artikel baru: {$title}");
+        triggerRealtimeEvent('content_updated', 'articles', 'create', ['id' => $id, 'slug' => $slug]);
         sendJsonResponse(['id' => $id, 'slug' => $slug], 201, 'Artikel berhasil dipublikasikan.');
     }
 
@@ -115,6 +117,7 @@ try {
             $stmt = $db->prepare("UPDATE articles SET status = ? WHERE id = ?");
             $stmt->execute([$newStatus, $id]);
             logAdminActivity('update', 'articles', (string)$id, "Admin mengubah status artikel #{$id} menjadi {$newStatus}");
+            triggerRealtimeEvent('content_updated', 'articles', 'update', ['id' => $id, 'status' => $newStatus]);
             sendJsonResponse(['status' => $newStatus], 200, "Status artikel berhasil diubah menjadi {$newStatus}.");
         }
 
@@ -157,6 +160,7 @@ try {
         $stmt->execute([$title, $slug, $category, $excerpt, $content, $coverImage, $authorName, $status, $id]);
 
         logAdminActivity('update', 'articles', (string)$id, "Admin memperbarui artikel #{$id}: {$title}");
+        triggerRealtimeEvent('content_updated', 'articles', 'update', ['id' => $id, 'slug' => $slug]);
         sendJsonResponse(['id' => $id, 'slug' => $slug], 200, 'Artikel berhasil diperbarui.');
     }
 
@@ -171,6 +175,7 @@ try {
         $stmt->execute([$id]);
 
         logAdminActivity('delete', 'articles', (string)$id, "Admin menghapus artikel #{$id}");
+        triggerRealtimeEvent('content_updated', 'articles', 'delete', ['id' => $id]);
         sendJsonResponse(null, 200, 'Artikel berhasil dihapus.');
     }
 

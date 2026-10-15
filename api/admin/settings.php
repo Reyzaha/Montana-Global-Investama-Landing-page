@@ -7,6 +7,7 @@
 require_once __DIR__ . '/../../backend/config/db.php';
 require_once __DIR__ . '/../../backend/helpers/response.php';
 require_once __DIR__ . '/../../backend/helpers/auth_helper.php';
+require_once __DIR__ . '/../../backend/helpers/realtime_helper.php';
 
 $admin = requireAdminAuth();
 $method = $_SERVER['REQUEST_METHOD'];
@@ -107,6 +108,7 @@ try {
         }
 
         logAdminActivity('update_settings', 'system_settings', null, 'Admin updated system settings');
+        triggerRealtimeEvent('content_updated', 'settings', 'update');
 
         sendJsonResponse(null, 200, 'Pengaturan sistem berhasil diperbarui.');
     }

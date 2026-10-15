@@ -7,6 +7,7 @@
 require_once __DIR__ . '/../../backend/config/db.php';
 require_once __DIR__ . '/../../backend/helpers/response.php';
 require_once __DIR__ . '/../../backend/helpers/auth_helper.php';
+require_once __DIR__ . '/../../backend/helpers/realtime_helper.php';
 
 $admin = requireAdminAuth();
 $method = $_SERVER['REQUEST_METHOD'];
@@ -252,7 +253,7 @@ try {
         }
 
         logAdminActivity('create', 'projects', $id, "Admin created project '{$title}'");
-
+        triggerRealtimeEvent('content_updated', 'projects', 'create', ['id' => $id]);
         sendJsonResponse(['id' => $id], 201, "Proyek '{$title}' berhasil ditambahkan.");
     }
 
@@ -428,7 +429,7 @@ try {
         }
 
         logAdminActivity('update', 'projects', $id, "Admin updated project '{$id}'");
-
+        triggerRealtimeEvent('content_updated', 'projects', 'update', ['id' => $id]);
         sendJsonResponse(['id' => $id], 200, "Proyek '{$id}' berhasil diperbarui.");
     }
 
@@ -456,7 +457,7 @@ try {
         }
 
         logAdminActivity('delete', 'projects', $id, "Admin deleted project '{$proj['title']}' ({$id})");
-
+        triggerRealtimeEvent('content_updated', 'projects', 'delete', ['id' => $id]);
         sendJsonResponse(['id' => $id], 200, "Proyek '{$proj['title']}' berhasil dihapus.");
     }
 

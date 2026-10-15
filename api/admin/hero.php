@@ -7,6 +7,7 @@
 require_once __DIR__ . '/../../backend/config/db.php';
 require_once __DIR__ . '/../../backend/helpers/response.php';
 require_once __DIR__ . '/../../backend/helpers/auth_helper.php';
+require_once __DIR__ . '/../../backend/helpers/realtime_helper.php';
 
 $admin = requireAdminAuth();
 $method = $_SERVER['REQUEST_METHOD'];
@@ -79,6 +80,7 @@ try {
         $id = (int)$db->lastInsertId();
 
         logAdminActivity('create', 'hero_sections', (string)$id, "Admin membuat hero section: {$title}");
+        triggerRealtimeEvent('content_updated', 'hero', 'create', ['id' => $id]);
         sendJsonResponse(['id' => $id], 201, 'Hero section berhasil dibuat.');
     }
 
@@ -125,6 +127,7 @@ try {
         ]);
 
         logAdminActivity('update', 'hero_sections', (string)$id, "Admin memperbarui hero section ID {$id}");
+        triggerRealtimeEvent('content_updated', 'hero', 'update', ['id' => $id]);
         sendJsonResponse(['id' => $id], 200, 'Hero section berhasil diperbarui.');
     }
 
@@ -139,6 +142,7 @@ try {
         $stmt->execute([$id]);
 
         logAdminActivity('delete', 'hero_sections', (string)$id, "Admin menghapus hero section ID {$id}");
+        triggerRealtimeEvent('content_updated', 'hero', 'delete', ['id' => $id]);
         sendJsonResponse(['id' => $id], 200, 'Hero section berhasil dihapus.');
     }
 

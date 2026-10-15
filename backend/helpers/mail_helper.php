@@ -11,24 +11,27 @@ function getMailSettings(?PDO $db = null): array {
         $db = getDB();
     }
     $defaults = [
-        'lead_notify_email' => 'contact@montanainvestama.com',
-        'official_email'    => 'contact@montanainvestama.com',
-        'smtp_host'         => 'smtp.hostinger.com',
-        'smtp_port'         => '465',
-        'smtp_secure'       => 'ssl',
-        'smtp_user'         => 'contact@montanainvestama.com',
-        'smtp_pass'         => '',
-        'smtp_from_name'    => 'PT Montana Global Investama'
+        'lead_notify_email' => getenv('LEAD_NOTIFY_EMAIL') ?: 'contact@montanainvestama.com',
+        'official_email'    => getenv('OFFICIAL_EMAIL') ?: 'contact@montanainvestama.com',
+        'smtp_host'         => getenv('SMTP_HOST') ?: 'smtp.hostinger.com',
+        'smtp_port'         => getenv('SMTP_PORT') ?: '465',
+        'smtp_secure'       => getenv('SMTP_SECURE') ?: 'ssl',
+        'smtp_user'         => getenv('SMTP_USER') ?: 'contact@montanainvestama.com',
+        'smtp_pass'         => getenv('SMTP_PASS') ?: '',
+        'smtp_from_name'    => getenv('SMTP_FROM_NAME') ?: 'PT Montana Global Investama',
+        'resend_api_key'    => getenv('RESEND_API_KEY') ?: '',
+        'mail_driver'       => getenv('MAIL_DRIVER') ?: 'smtp'
     ];
 
     try {
         $stmt = $db->query("
             SELECT setting_key, setting_value 
             FROM system_settings 
-            WHERE setting_key IN ('lead_notify_email', 'official_email', 'smtp_host', 'smtp_port', 'smtp_secure', 'smtp_user', 'smtp_pass', 'smtp_from_name')
+            WHERE setting_key IN ('lead_notify_email', 'official_email', 'smtp_host', 'smtp_port', 'smtp_secure', 'smtp_user', 'smtp_pass', 'smtp_from_name', 'resend_api_key', 'mail_driver')
         ");
         while ($row = $stmt->fetch()) {
             if ($row['setting_value'] !== null && $row['setting_value'] !== '') {
+                // Only override if env was empty or defaults
                 $defaults[$row['setting_key']] = (string)$row['setting_value'];
             }
         }
@@ -40,6 +43,49 @@ function getMailSettings(?PDO $db = null): array {
         $defaults['lead_notify_email'] = $defaults['official_email'] ?: 'contact@montanainvestama.com';
     }
     return $defaults;
+}
+
+/**
+ * Send email via Resend API (HTTP POST /emails)
+ */
+function sendResendEmail(string $apiKey, string $from, string $to, string $subject, string $htmlBody): array {
+    if (empty($apiKey)) {
+        return ['success' => false, 'message' => 'Resend API key belum diset.'];
+    }
+
+    $ch = curl_init('https://api.resend.com/emails');
+    $payload = json_encode([
+        'from'    => $from,
+        'to'      => [$to],
+        'subject' => $subject,
+        'html'    => $htmlBody
+    ]);
+
+    curl_setopt_array($ch, [
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => $payload,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT        => 10,
+        CURLOPT_HTTPHEADER     => [
+            'Authorization: Bearer ' . $apiKey,
+            'Content-Type: application/json'
+        ]
+    ]);
+
+    $resp = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $err = curl_error($ch);
+    curl_close($ch);
+
+    if ($err) {
+        return ['success' => false, 'message' => 'Resend cURL error: ' . $err];
+    }
+
+    if ($httpCode >= 200 && $httpCode < 300) {
+        return ['success' => true, 'message' => 'Email berhasil dikirim via Resend API.'];
+    }
+
+    return ['success' => false, 'message' => "Resend API error (HTTP {$httpCode}): {$resp}"];
 }
 
 /**
@@ -194,7 +240,17 @@ function sendSmtpMail(array $cfg, string $to, string $subject, string $htmlBody,
 function sendMgiEmail(string $to, string $subject, string $htmlBody, string $textBody = '', ?string $replyTo = null): bool {
     $cfg = getMailSettings();
 
-    // 1. Coba via SMTP jika password terkonfigurasi
+    // 1. Coba via Resend API jika driver di-set ke resend atau resend_api_key terisi dan smtp_pass kosong
+    if (($cfg['mail_driver'] === 'resend' || (!empty($cfg['resend_api_key']) && empty($cfg['smtp_pass']))) && !empty($cfg['resend_api_key'])) {
+        $from = "{$cfg['smtp_from_name']} <{$cfg['smtp_user']}>";
+        $res = sendResendEmail($cfg['resend_api_key'], $from, $to, $subject, $htmlBody);
+        if ($res['success']) {
+            return true;
+        }
+        error_log('[MGI Mail] Resend gagal (' . $res['message'] . '), mencoba driver alternatif.');
+    }
+
+    // 2. Coba via SMTP jika password terkonfigurasi
     if (!empty($cfg['smtp_pass'])) {
         $res = sendSmtpMail($cfg, $to, $subject, $htmlBody, $textBody, $replyTo);
         if ($res['success']) {

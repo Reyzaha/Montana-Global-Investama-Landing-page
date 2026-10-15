@@ -7,6 +7,7 @@
 require_once __DIR__ . '/../../backend/config/db.php';
 require_once __DIR__ . '/../../backend/helpers/response.php';
 require_once __DIR__ . '/../../backend/helpers/auth_helper.php';
+require_once __DIR__ . '/../../backend/helpers/realtime_helper.php';
 
 $admin = requireAdminAuth();
 $method = $_SERVER['REQUEST_METHOD'];
@@ -76,6 +77,7 @@ try {
         $id = (int)$db->lastInsertId();
 
         logAdminActivity('create', 'testimonials', (string)$id, "Admin menambah testimoni dari: {$name}");
+        triggerRealtimeEvent('content_updated', 'testimonials', 'create', ['id' => $id]);
         sendJsonResponse(['id' => $id], 201, 'Testimoni berhasil ditambahkan.');
     }
 
@@ -91,6 +93,7 @@ try {
             $stmt = $db->prepare("UPDATE testimonials SET is_active = NOT is_active WHERE id = ?");
             $stmt->execute([$id]);
             logAdminActivity('update', 'testimonials', (string)$id, "Admin toggle status testimoni #{$id}");
+            triggerRealtimeEvent('content_updated', 'testimonials', 'update', ['id' => $id]);
             sendJsonResponse(null, 200, 'Status testimoni berhasil diubah.');
         }
 
@@ -99,6 +102,7 @@ try {
             $stmt = $db->prepare("UPDATE testimonials SET is_featured = NOT is_featured WHERE id = ?");
             $stmt->execute([$id]);
             logAdminActivity('update', 'testimonials', (string)$id, "Admin toggle featured testimoni #{$id}");
+            triggerRealtimeEvent('content_updated', 'testimonials', 'update', ['id' => $id]);
             sendJsonResponse(null, 200, 'Status unggulan testimoni berhasil diubah.');
         }
 
@@ -132,6 +136,7 @@ try {
         ]);
 
         logAdminActivity('update', 'testimonials', (string)$id, "Admin memperbarui testimoni: {$name}");
+        triggerRealtimeEvent('content_updated', 'testimonials', 'update', ['id' => $id]);
         sendJsonResponse(['id' => $id], 200, 'Testimoni berhasil diperbarui.');
     }
 
@@ -146,6 +151,7 @@ try {
         $stmt->execute([$id]);
 
         logAdminActivity('delete', 'testimonials', (string)$id, "Admin menghapus testimoni #{$id}");
+        triggerRealtimeEvent('content_updated', 'testimonials', 'delete', ['id' => $id]);
         sendJsonResponse(null, 200, 'Testimoni berhasil dihapus.');
     }
 

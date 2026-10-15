@@ -7,6 +7,7 @@
 require_once __DIR__ . '/../../backend/config/db.php';
 require_once __DIR__ . '/../../backend/helpers/response.php';
 require_once __DIR__ . '/../../backend/helpers/auth_helper.php';
+require_once __DIR__ . '/../../backend/helpers/realtime_helper.php';
 
 $admin = requireAdminAuth();
 $method = $_SERVER['REQUEST_METHOD'];
@@ -65,6 +66,7 @@ try {
         $id = (int)$db->lastInsertId();
 
         logAdminActivity('create', 'faqs', (string)$id, "Admin menambah FAQ: {$question}");
+        triggerRealtimeEvent('content_updated', 'faqs', 'create', ['id' => $id]);
         sendJsonResponse(['id' => $id], 201, 'FAQ berhasil ditambahkan.');
     }
 
@@ -80,6 +82,7 @@ try {
             $stmt = $db->prepare("UPDATE faqs SET is_active = NOT is_active WHERE id = ?");
             $stmt->execute([$id]);
             logAdminActivity('update', 'faqs', (string)$id, "Admin toggle status FAQ #{$id}");
+            triggerRealtimeEvent('content_updated', 'faqs', 'update', ['id' => $id]);
             sendJsonResponse(null, 200, 'Status FAQ berhasil diubah.');
         }
 
@@ -102,6 +105,7 @@ try {
         $stmt->execute([$category, $question, $answer, $sortOrder, $isActive, $id]);
 
         logAdminActivity('update', 'faqs', (string)$id, "Admin memperbarui FAQ: {$question}");
+        triggerRealtimeEvent('content_updated', 'faqs', 'update', ['id' => $id]);
         sendJsonResponse(['id' => $id], 200, 'FAQ berhasil diperbarui.');
     }
 
@@ -116,6 +120,7 @@ try {
         $stmt->execute([$id]);
 
         logAdminActivity('delete', 'faqs', (string)$id, "Admin menghapus FAQ #{$id}");
+        triggerRealtimeEvent('content_updated', 'faqs', 'delete', ['id' => $id]);
         sendJsonResponse(null, 200, 'FAQ berhasil dihapus.');
     }
 

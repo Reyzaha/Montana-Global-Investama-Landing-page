@@ -7,6 +7,7 @@
 require_once __DIR__ . '/../../backend/config/db.php';
 require_once __DIR__ . '/../../backend/helpers/response.php';
 require_once __DIR__ . '/../../backend/helpers/auth_helper.php';
+require_once __DIR__ . '/../../backend/helpers/realtime_helper.php';
 
 $admin = requireAdminAuth();
 $method = $_SERVER['REQUEST_METHOD'];
@@ -68,6 +69,7 @@ try {
         $id = (int)$db->lastInsertId();
 
         logAdminActivity('create', 'team_members', (string)$id, "Admin menambah anggota tim: {$name}");
+        triggerRealtimeEvent('content_updated', 'team', 'create', ['id' => $id]);
         sendJsonResponse(['id' => $id], 201, 'Anggota tim berhasil ditambahkan.');
     }
 
@@ -83,6 +85,7 @@ try {
             $stmt = $db->prepare("UPDATE team_members SET is_active = NOT is_active WHERE id = ?");
             $stmt->execute([$id]);
             logAdminActivity('update', 'team_members', (string)$id, "Admin toggle status anggota tim #{$id}");
+            triggerRealtimeEvent('content_updated', 'team', 'update', ['id' => $id]);
             sendJsonResponse(null, 200, 'Status anggota tim berhasil diubah.');
         }
 
@@ -108,6 +111,7 @@ try {
         $stmt->execute([$name, $roleTitle, $department, $photoUrl, $bio, $linkedinUrl, $sortOrder, $isActive, $id]);
 
         logAdminActivity('update', 'team_members', (string)$id, "Admin memperbarui anggota tim: {$name}");
+        triggerRealtimeEvent('content_updated', 'team', 'update', ['id' => $id]);
         sendJsonResponse(['id' => $id], 200, 'Data anggota tim berhasil diperbarui.');
     }
 
@@ -122,6 +126,7 @@ try {
         $stmt->execute([$id]);
 
         logAdminActivity('delete', 'team_members', (string)$id, "Admin menghapus anggota tim #{$id}");
+        triggerRealtimeEvent('content_updated', 'team', 'delete', ['id' => $id]);
         sendJsonResponse(null, 200, 'Anggota tim berhasil dihapus.');
     }
 

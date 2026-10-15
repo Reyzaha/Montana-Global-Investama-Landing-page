@@ -299,3 +299,23 @@ CREATE TABLE IF NOT EXISTS `campaign_updates` (
     REFERENCES `projects`(`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- 18. Tabel Realtime Synchronization Events (Server-Sent Events & Polling)
+CREATE TABLE IF NOT EXISTS `realtime_events` (
+  `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `event_type` VARCHAR(64) NOT NULL,
+  `section` VARCHAR(64) NOT NULL,
+  `action` VARCHAR(32) NOT NULL DEFAULT 'update',
+  `payload` LONGTEXT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX `idx_created_id` (`created_at`, `id`),
+  INDEX `idx_section` (`section`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 19. Tabel Content Revisions (ETag & Invalidation Tracker)
+CREATE TABLE IF NOT EXISTS `content_revisions` (
+  `section` VARCHAR(64) NOT NULL PRIMARY KEY,
+  `revision_id` BIGINT UNSIGNED NOT NULL DEFAULT 1,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+

@@ -9,6 +9,7 @@
 require_once __DIR__ . '/../backend/config/db.php';
 require_once __DIR__ . '/../backend/helpers/response.php';
 require_once __DIR__ . '/../backend/helpers/mail_helper.php';
+require_once __DIR__ . '/../backend/helpers/realtime_helper.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     sendJsonError('Metode HTTP tidak didukung. Gunakan POST.', 405);
@@ -72,7 +73,15 @@ try {
     $stmt->execute([$fullName, $email, $phone, $subject, $message, $ipAddress]);
     $inquiryId = (int)$db->lastInsertId();
 
-    // Notify Admin via Email if configured
+    // Trigger Realtime Event for Admin Dashboard immediately!
+    triggerRealtimeEvent('new_inquiry', 'inquiries', 'create', [
+        'id'        => $inquiryId,
+        'full_name' => $fullName,
+        'email'     => $email,
+        'subject'   => $subject
+    ]);
+
+    // Notify Admin & User via Email
     try {
         $settingStmt = $db->query("SELECT setting_value FROM system_settings WHERE setting_key = 'lead_notify_email' LIMIT 1");
         $notifyEmail = $settingStmt->fetchColumn() ?: 'contact@montanainvestama.com';
@@ -91,14 +100,32 @@ try {
             </div>
         ";
 
-        $mailCfg = getMailSettings($db);
-        if (!empty($mailCfg['smtp_pass'])) {
-            sendSmtpMail($mailCfg, $notifyEmail, $mailSubject, $mailHtml, strip_tags($mailHtml));
-        } else {
-            sendMgiEmail($notifyEmail, $mailSubject, $mailHtml, strip_tags($mailHtml));
-        }
+        sendMgiEmail($notifyEmail, $mailSubject, $mailHtml, strip_tags($mailHtml));
+
+        // Send Corporate Auto-reply Confirmation to User
+        $userSubject = "Konfirmasi Penerimaan Pesan — PT Montana Global Investama";
+        $userHtml = "
+            <div style='font-family: Arial, sans-serif; padding: 24px; border: 1px solid #E2E8F0; border-radius: 8px; max-width: 600px; margin: auto;'>
+                <div style='border-bottom: 2px solid #C5A059; padding-bottom: 12px; margin-bottom: 16px;'>
+                    <h2 style='color: #142563; margin: 0; font-size: 1.25rem;'>PT Montana Global Investama</h2>
+                    <p style='color: #C5A059; margin: 4px 0 0 0; font-size: 0.85rem; font-weight: bold;'>Manajer Investasi Proyek Sektor Riil</p>
+                </div>
+                <p>Kepada Yth. <strong>" . htmlspecialchars($fullName) . "</strong>,</p>
+                <p>Terima kasih telah menghubungi PT Montana Global Investama. Pesan dan permohonan informasi Anda telah kami terima dengan rincian sebagai berikut:</p>
+                <div style='background: #F8FAFC; padding: 14px; border-left: 4px solid #142563; margin: 16px 0; font-size: 0.9rem;'>
+                    <p style='margin: 4px 0;'><strong>Perihal:</strong> " . htmlspecialchars($subject) . "</p>
+                    <p style='margin: 4px 0;'><strong>Waktu Pengiriman:</strong> " . date('d F Y H:i:s T') . "</p>
+                </div>
+                <p>Tim Investor Relations dan Kemitraan kami sedang meninjau pertanyaan Anda dan akan menghubungi Anda sesegera mungkin.</p>
+                <br>
+                <p style='margin: 0; color: #142563; font-weight: bold;'>Divisi Komunikasi Korporat & Investor Relations</p>
+                <p style='margin: 4px 0; color: #64748B; font-size: 0.85rem;'>PT Montana Global Investama</p>
+            </div>
+        ";
+        sendMgiEmail($email, $userSubject, $userHtml, strip_tags($userHtml));
+
     } catch (Throwable $mailEx) {
-        // Mail failure should not block successful inquiry submission
+        error_log('[MGI Mail] Failed to send contact emails: ' . $mailEx->getMessage());
     }
 
     sendJsonResponse([

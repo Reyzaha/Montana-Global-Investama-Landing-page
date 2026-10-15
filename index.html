@@ -491,6 +491,7 @@
   <script src="assets/js/renderer.js"></script>
   <script src="assets/js/auth.js"></script>
   <script src="assets/js/components.js"></script>
+  <script src="assets/js/realtime.js"></script>
   <script>
     async function loadHeroSection() {
       const mount = document.getElementById('heroDynamicMount');
@@ -889,6 +890,15 @@
         alert('Gagal memuat konten artikel: ' + e.message);
       }
     }
+
+    // Expose loaders to window for MGI_REALTIME automatic event updates
+    window.loadHeroSection = loadHeroSection;
+    window.loadFeatures = loadFeatures;
+    window.loadPilars = loadFeatures;
+    window.loadValueProps = loadFeatures;
+    window.loadTestimonials = loadTestimonials;
+    window.loadFaqs = loadFaqs;
+    window.loadArticles = loadArticles;
 
     document.addEventListener('DOMContentLoaded', async () => {
       MGIComponents.renderNavbar('home');

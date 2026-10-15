@@ -4,6 +4,7 @@
  * Supports adaptive port detection (XAMPP 3307 vs Standard 3306)
  * and PDO singleton pattern.
  */
+require_once __DIR__ . '/env.php';
 
 class Database {
     private static ?PDO $instance = null;

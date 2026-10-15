@@ -7,6 +7,7 @@
 
 require_once __DIR__ . '/../backend/config/db.php';
 require_once __DIR__ . '/../backend/helpers/response.php';
+require_once __DIR__ . '/../backend/helpers/realtime_helper.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     sendJsonError('Metode HTTP tidak didukung. Gunakan POST.', 405);
@@ -38,6 +39,14 @@ try {
         VALUES (?, ?, ?, ?, ?, ?, NOW())
     ");
     $stmt->execute([$eventType, $pageUrl, $elementId, $ipAddress, $userAgent, $metadata]);
+
+    if ($eventType === 'cta_click' || $eventType === 'conversion') {
+        triggerRealtimeEvent('analytics_ping', 'analytics', 'record', [
+            'event_type' => $eventType,
+            'page_url'   => $pageUrl,
+            'element_id' => $elementId
+        ]);
+    }
 
     sendJsonResponse(['recorded' => true], 200, 'Event tercatat.');
 

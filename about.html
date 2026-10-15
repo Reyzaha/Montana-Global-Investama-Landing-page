@@ -646,6 +646,7 @@
   <script src="assets/js/auth.js"></script>
   <script src="assets/js/components.js"></script>
   <script src="assets/js/diagram-renderer.js"></script>
+  <script src="assets/js/realtime.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
       MGIComponents.renderNavbar('about');
@@ -925,6 +926,8 @@
         `;
       }
     }
+
+    window.loadTeamMembers = loadTeamMembers;
   </script>
 </body>
 

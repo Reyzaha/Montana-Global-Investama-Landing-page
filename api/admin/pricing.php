@@ -7,6 +7,7 @@
 require_once __DIR__ . '/../../backend/config/db.php';
 require_once __DIR__ . '/../../backend/helpers/response.php';
 require_once __DIR__ . '/../../backend/helpers/auth_helper.php';
+require_once __DIR__ . '/../../backend/helpers/realtime_helper.php';
 
 $admin = requireAdminAuth();
 $method = $_SERVER['REQUEST_METHOD'];
@@ -89,6 +90,7 @@ try {
         $id = (int)$db->lastInsertId();
 
         logAdminActivity('create', 'pricing_tiers', (string)$id, "Admin menambah paket investasi: {$name}");
+        triggerRealtimeEvent('content_updated', 'pricing', 'create', ['id' => $id]);
         sendJsonResponse(['id' => $id], 201, 'Paket investasi berhasil ditambahkan.');
     }
 
@@ -104,6 +106,7 @@ try {
             $stmt = $db->prepare("UPDATE pricing_tiers SET is_active = NOT is_active WHERE id = ?");
             $stmt->execute([$id]);
             logAdminActivity('update', 'pricing_tiers', (string)$id, "Admin toggle status paket #{$id}");
+            triggerRealtimeEvent('content_updated', 'pricing', 'update', ['id' => $id]);
             sendJsonResponse(null, 200, 'Status paket berhasil diubah.');
         }
 
@@ -112,6 +115,7 @@ try {
             $stmt = $db->prepare("UPDATE pricing_tiers SET is_featured = NOT is_featured WHERE id = ?");
             $stmt->execute([$id]);
             logAdminActivity('update', 'pricing_tiers', (string)$id, "Admin toggle featured paket #{$id}");
+            triggerRealtimeEvent('content_updated', 'pricing', 'update', ['id' => $id]);
             sendJsonResponse(null, 200, 'Status unggulan berhasil diubah.');
         }
 
@@ -158,6 +162,7 @@ try {
         ]);
 
         logAdminActivity('update', 'pricing_tiers', (string)$id, "Admin memperbarui paket investasi: {$name}");
+        triggerRealtimeEvent('content_updated', 'pricing', 'update', ['id' => $id]);
         sendJsonResponse(['id' => $id], 200, 'Paket investasi berhasil diperbarui.');
     }
 
@@ -172,6 +177,7 @@ try {
         $stmt->execute([$id]);
 
         logAdminActivity('delete', 'pricing_tiers', (string)$id, "Admin menghapus paket investasi #{$id}");
+        triggerRealtimeEvent('content_updated', 'pricing', 'delete', ['id' => $id]);
         sendJsonResponse(null, 200, 'Paket investasi berhasil dihapus.');
     }
 

@@ -7,6 +7,7 @@
 require_once __DIR__ . '/../../backend/config/db.php';
 require_once __DIR__ . '/../../backend/helpers/response.php';
 require_once __DIR__ . '/../../backend/helpers/auth_helper.php';
+require_once __DIR__ . '/../../backend/helpers/realtime_helper.php';
 
 $admin = requireAdminAuth();
 $method = $_SERVER['REQUEST_METHOD'];
@@ -81,6 +82,7 @@ try {
         $id = (int)$db->lastInsertId();
 
         logAdminActivity('create', 'features', (string)$id, "Admin menambah fitur ({$category}): {$title}");
+        triggerRealtimeEvent('content_updated', 'features', 'create', ['id' => $id, 'category' => $category]);
         sendJsonResponse(['id' => $id], 201, 'Fitur berhasil ditambahkan.');
     }
 
@@ -96,6 +98,7 @@ try {
             $stmt = $db->prepare("UPDATE features SET is_active = NOT is_active WHERE id = ?");
             $stmt->execute([$id]);
             logAdminActivity('update', 'features', (string)$id, "Admin mengubah status aktif fitur #{$id}");
+            triggerRealtimeEvent('content_updated', 'features', 'update', ['id' => $id]);
             sendJsonResponse(null, 200, 'Status publikasi fitur berhasil diperbarui.');
         }
 
@@ -129,6 +132,7 @@ try {
         ]);
 
         logAdminActivity('update', 'features', (string)$id, "Admin memperbarui fitur: {$title}");
+        triggerRealtimeEvent('content_updated', 'features', 'update', ['id' => $id, 'category' => $category]);
         sendJsonResponse(['id' => $id], 200, 'Fitur berhasil diperbarui.');
     }
 
@@ -143,6 +147,7 @@ try {
         $stmt->execute([$id]);
 
         logAdminActivity('delete', 'features', (string)$id, "Admin menghapus fitur #{$id}");
+        triggerRealtimeEvent('content_updated', 'features', 'delete', ['id' => $id]);
         sendJsonResponse(null, 200, 'Fitur berhasil dihapus.');
     }
 

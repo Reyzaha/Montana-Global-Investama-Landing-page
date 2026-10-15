@@ -8,6 +8,7 @@
 require_once __DIR__ . '/../backend/helpers/response.php';
 require_once __DIR__ . '/../backend/helpers/auth_helper.php';
 require_once __DIR__ . '/../backend/helpers/lead_helper.php';
+require_once __DIR__ . '/../backend/helpers/realtime_helper.php';
 
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
@@ -131,6 +132,13 @@ if ($method === 'POST') {
 
         recordFailedAttempt('lead_submit', 3600); // hitung kuota pengiriman
         notifyNewLead($db, $lead);
+
+        // Realtime notification for Admin Dashboard
+        triggerRealtimeEvent('new_lead', 'leads', 'create', [
+            'id'    => $leadId,
+            'name'  => $fullName,
+            'email' => $email
+        ]);
 
         sendJsonResponse(['lead_id' => $leadId], 201, 'Terima kasih! Permintaan konsultasi Anda telah kami terima dan tim kami akan menghubungi via email.');
 
