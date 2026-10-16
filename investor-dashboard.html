@@ -3254,7 +3254,7 @@
                   nama_project: p.project_title,
                   kategori: p.project_category,
                   lokasi: p.project_lokasi || 'DKI Jakarta & Jawa Barat',
-                  image: p.project_image || 'assets/img/project-jabodetabek.jpg',
+                  image: p.project_image || 'assets/img/1.png',
                   contract_number: p.contract_number,
                   status: p.status,
                   total_dana_investor: amt,
@@ -5348,7 +5348,7 @@
         const collectedVal = Number(f.collected || 0);
         const pct = targetVal > 0 ? Math.min(100, Math.round((collectedVal / targetVal) * 100)) : 0;
         const isFullyFunded = p.status === 'Fully Funded' || pct >= 100;
-        const imgUrl = p.image || 'assets/img/project-jabodetabek.jpg';
+        const imgUrl = p.image || 'assets/img/1.png';
         const info = p.info || {};
         const rab = p.detail?.rab_executive || null;
         const tierOne = rab?.tiers?.[0] || null;
@@ -5503,7 +5503,7 @@
       const info = p.info || {};
       const rab = p.detail?.rab_executive || null;
       const tier1 = rab?.tiers?.[0] || null;
-      const imgUrl = p.image || 'assets/img/project-jabodetabek.jpg';
+      const imgUrl = p.image || 'assets/img/1.png';
       const locText = info.lokasi || p.lokasi || p.city || 'Indonesia';
       const tenorText = (info.tenor || p.tenor || '12 Bulan').replace(/\s*\(Target\s*2[–\-]3x\s*Putaran\/Tahun\)/gi, '').trim();
       const returnText = info.return || p.return_rate || '20,0% – 25,0%';
@@ -5676,7 +5676,7 @@
         bodyEl.innerHTML = `
           <!-- 1. Hero Cover & Badges -->
           <div class="relative rounded-2xl overflow-hidden bg-slate-900 shadow-md">
-            <img src="${imgUrl}" alt="${p.title}" class="w-full h-52 sm:h-64 object-cover filter brightness-90" onerror="this.src='assets/img/project-jabodetabek.jpg'"/>
+            <img src="${imgUrl}" alt="${p.title}" class="w-full h-52 sm:h-64 object-cover filter brightness-90" onerror="this.src='assets/img/1.png'"/>
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent"></div>
             
             <div class="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">

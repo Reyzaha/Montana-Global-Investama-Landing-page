@@ -169,12 +169,12 @@ require_once __DIR__ . '/includes/header.php';
                     <div class="d-flex align-items-center gap-3 p-2 bg-light rounded border">
                       <!-- Thumbnail Preview -->
                       <div class="position-relative border rounded p-1 bg-white flex-shrink-0" style="width: 72px; height: 52px; overflow: hidden;">
-                        <img id="projectImagePreview" src="../assets/img/project-jabodetabek.jpg" alt="Preview" class="w-100 h-100 rounded" style="object-fit: cover;" onerror="this.onerror=null;this.src='../assets/img/project-jabodetabek.jpg'">
+                        <img id="projectImagePreview" src="../assets/img/1.png" alt="Preview" class="w-100 h-100 rounded" style="object-fit: cover;" onerror="this.onerror=null;this.src='../assets/img/1.png'">
                       </div>
                       
                       <!-- Upload Controller -->
                       <div class="flex-grow-1 overflow-hidden">
-                        <input type="hidden" id="pImage" value="assets/img/project-jabodetabek.jpg">
+                        <input type="hidden" id="pImage" value="assets/img/1.png">
                         <input type="file" id="pImageUpload" class="d-none" accept="image/png, image/jpeg, image/webp, image/gif, image/svg+xml" onchange="handleProjectImageUpload(this)">
                         
                         <div class="d-flex align-items-center gap-2 mb-1">
@@ -185,7 +185,7 @@ require_once __DIR__ . '/includes/header.php';
                           <span class="small text-muted" id="uploadImageStatus" style="font-size: 0.75rem;"><i class="bi bi-magic text-warning me-1"></i>Auto-kompres aktif (Maks. 25MB)</span>
                         </div>
                         <div class="small text-muted font-monospace text-truncate" id="currentImagePathDisplay" style="font-size: 0.72rem;">
-                          assets/img/project-jabodetabek.jpg
+                          assets/img/1.png
                         </div>
                       </div>
                     </div>
@@ -700,7 +700,7 @@ require_once __DIR__ . '/includes/header.php';
       return `
         <tr>
           <td>
-            <img src="../${p.image}" alt="" class="rounded" style="width: 44px; height: 44px; object-fit: cover;" onerror="this.onerror=null;this.src='../assets/img/project-jabodetabek.jpg'">
+            <img src="../${p.image}" alt="" class="rounded" style="width: 44px; height: 44px; object-fit: cover;" onerror="this.onerror=null;this.src='../assets/img/1.png'">
           </td>
           <td>
             <div class="fw-bold text-dark">${p.title}</div>
@@ -1003,9 +1003,9 @@ require_once __DIR__ . '/includes/header.php';
     document.getElementById('pTitle').value = '';
     document.getElementById('pCategory').value = 'Alat Berat & Infrastruktur';
     document.getElementById('pStatus').value = 'Open';
-    document.getElementById('pImage').value = 'assets/img/project-jabodetabek.jpg';
-    document.getElementById('projectImagePreview').src = '../assets/img/project-jabodetabek.jpg';
-    document.getElementById('currentImagePathDisplay').textContent = 'assets/img/project-jabodetabek.jpg';
+    document.getElementById('pImage').value = 'assets/img/1.png';
+    document.getElementById('projectImagePreview').src = '../assets/img/1.png';
+    document.getElementById('currentImagePathDisplay').textContent = 'assets/img/1.png';
     document.getElementById('uploadImageStatus').innerHTML = 'Maks. 10MB';
     document.getElementById('pFeatured').checked = false;
     document.getElementById('pFundingTarget').value = '10000000000';
@@ -1077,7 +1077,7 @@ require_once __DIR__ . '/includes/header.php';
       document.getElementById('pTitle').value = p.title;
       document.getElementById('pCategory').value = p.category;
       document.getElementById('pStatus').value = p.status;
-      const imgPath = p.image || 'assets/img/project-jabodetabek.jpg';
+      const imgPath = p.image || 'assets/img/1.png';
       document.getElementById('pImage').value = imgPath;
       document.getElementById('projectImagePreview').src = `../${imgPath}`;
       document.getElementById('currentImagePathDisplay').textContent = imgPath;

@@ -106,7 +106,7 @@ try {
                 $pId,
                 $p['title'] ?? 'Proyek Investasi',
                 $p['category'] ?? 'Alat Berat & Infrastruktur',
-                $p['image'] ?? 'assets/img/project-jabodetabek.jpg',
+                $p['image'] ?? 'assets/img/1.png',
                 $fundingCollected,
                 $fundingTarget,
                 $p['funding']['currency'] ?? 'IDR',
@@ -390,7 +390,7 @@ try {
             'Logistik & Impor CBU',
             '2024-08-20',
             'Alhamdulillah, unit Alat Berat CBU Grade A asal Jepang telah tiba dengan selamat di Pusat Workshop & Pool Jabodetabek & Jawa Barat. Tim mekanik telah menyelesaikan tahap PDI (Pre-Delivery Inspection), pengujian hidrolik, pemasangan sistem GPS tracking terpadu, dan penerbitan sertifikat kelaikan fungsi operasional.',
-            'assets/img/project-jabodetabek.jpg',
+            'assets/img/1.png',
             1
         ],
         [
@@ -399,7 +399,7 @@ try {
             'Operasional Lapangan',
             '2024-09-02',
             'Unit telah diberangkatkan menuju lokasi proyek kawasan industri dengan pengawalan armada Montana Towing. Seluruh unit mencatatkan utilitas kerja rata-rata 8,5 jam per hari tanpa kendala mekanis.',
-            'assets/img/project-jabodetabek.jpg',
+            'assets/img/1.png',
             2
         ],
         [
@@ -408,7 +408,7 @@ try {
             'Laporan Keuangan & Dividen',
             '2024-07-15',
             'Manajemen PT Montana Global Investama telah menuntaskan distribusi bagi hasil kompetitif periode Q2 kepada seluruh investor mitra perorangan dan korporasi terdaftar secara tepat waktu. Laporan keuangan proyek telah diverifikasi oleh tim kepatuhan internal.',
-            'assets/img/project-jabodetabek.jpg',
+            'assets/img/1.png',
             3
         ],
         [

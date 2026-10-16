@@ -74,7 +74,7 @@ try {
             $p['city'] ?? '',
             $p['title'],
             $p['category'] ?? 'Alat Berat & Infrastruktur',
-            $p['image'] ?? 'assets/img/project-jabodetabek.jpg',
+            $p['image'] ?? 'assets/img/1.png',
             (int)($fnd['collected'] ?? 0),
             (int)($fnd['target'] ?? 0),
             $p['status'] ?? 'Open',
