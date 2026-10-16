@@ -168,13 +168,14 @@ require_once __DIR__ . '/includes/header.php';
                     <label class="form-label fw-semibold">Attachment / Foto Sampul Proyek <span class="text-danger">*</span></label>
                     <div class="d-flex align-items-center gap-3 p-2 bg-light rounded border">
                       <!-- Thumbnail Preview -->
-                      <div class="position-relative border rounded p-1 bg-white flex-shrink-0" style="width: 72px; height: 52px; overflow: hidden;">
-                        <img id="projectImagePreview" src="../assets/img/1.png" alt="Preview" class="w-100 h-100 rounded" style="object-fit: cover;" onerror="this.onerror=null;this.src='../assets/img/1.png'">
+                      <div class="position-relative border rounded p-1 bg-white flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 72px; height: 52px; overflow: hidden;" id="previewContainer">
+                        <img id="projectImagePreview" src="" alt="Preview" class="w-100 h-100 rounded d-none" style="object-fit: cover;">
+                        <i id="projectImagePlaceholder" class="bi bi-card-image text-muted fs-3"></i>
                       </div>
                       
                       <!-- Upload Controller -->
                       <div class="flex-grow-1 overflow-hidden">
-                        <input type="hidden" id="pImage" value="assets/img/1.png">
+                        <input type="hidden" id="pImage" value="">
                         <input type="file" id="pImageUpload" class="d-none" accept="image/png, image/jpeg, image/webp, image/gif, image/svg+xml" onchange="handleProjectImageUpload(this)">
                         
                         <div class="d-flex align-items-center gap-2 mb-1">
@@ -185,7 +186,7 @@ require_once __DIR__ . '/includes/header.php';
                           <span class="small text-muted" id="uploadImageStatus" style="font-size: 0.75rem;"><i class="bi bi-magic text-warning me-1"></i>Auto-kompres aktif (Maks. 25MB)</span>
                         </div>
                         <div class="small text-muted font-monospace text-truncate" id="currentImagePathDisplay" style="font-size: 0.72rem;">
-                          assets/img/1.png
+                          Belum ada foto terpilih (Silakan upload)
                         </div>
                       </div>
                     </div>
@@ -1003,10 +1004,14 @@ require_once __DIR__ . '/includes/header.php';
     document.getElementById('pTitle').value = '';
     document.getElementById('pCategory').value = 'Alat Berat & Infrastruktur';
     document.getElementById('pStatus').value = 'Open';
-    document.getElementById('pImage').value = 'assets/img/1.png';
-    document.getElementById('projectImagePreview').src = '../assets/img/1.png';
-    document.getElementById('currentImagePathDisplay').textContent = 'assets/img/1.png';
-    document.getElementById('uploadImageStatus').innerHTML = 'Maks. 10MB';
+    document.getElementById('pImage').value = '';
+    const createImgPreview = document.getElementById('projectImagePreview');
+    const createImgPlaceholder = document.getElementById('projectImagePlaceholder');
+    createImgPreview.src = '';
+    createImgPreview.classList.add('d-none');
+    if (createImgPlaceholder) createImgPlaceholder.classList.remove('d-none');
+    document.getElementById('currentImagePathDisplay').textContent = 'Belum ada foto terpilih (Silakan upload)';
+    document.getElementById('uploadImageStatus').innerHTML = 'Maks. 25MB (Auto-kompres)';
     document.getElementById('pFeatured').checked = false;
     document.getElementById('pFundingTarget').value = '10000000000';
     document.getElementById('pFundingCollected').value = '0';
@@ -1077,11 +1082,22 @@ require_once __DIR__ . '/includes/header.php';
       document.getElementById('pTitle').value = p.title;
       document.getElementById('pCategory').value = p.category;
       document.getElementById('pStatus').value = p.status;
-      const imgPath = p.image || 'assets/img/1.png';
+      const imgPath = p.image || '';
       document.getElementById('pImage').value = imgPath;
-      document.getElementById('projectImagePreview').src = `../${imgPath}`;
-      document.getElementById('currentImagePathDisplay').textContent = imgPath;
-      document.getElementById('uploadImageStatus').innerHTML = 'Maks. 10MB';
+      const editImgPreview = document.getElementById('projectImagePreview');
+      const editImgPlaceholder = document.getElementById('projectImagePlaceholder');
+      if (imgPath) {
+        editImgPreview.src = `../${imgPath}`;
+        editImgPreview.classList.remove('d-none');
+        if (editImgPlaceholder) editImgPlaceholder.classList.add('d-none');
+        document.getElementById('currentImagePathDisplay').textContent = imgPath;
+      } else {
+        editImgPreview.src = '';
+        editImgPreview.classList.add('d-none');
+        if (editImgPlaceholder) editImgPlaceholder.classList.remove('d-none');
+        document.getElementById('currentImagePathDisplay').textContent = 'Belum ada foto proyek';
+      }
+      document.getElementById('uploadImageStatus').innerHTML = 'Maks. 25MB (Auto-kompres)';
       document.getElementById('pFeatured').checked = p.featured == 1;
       document.getElementById('pFundingTarget').value = p.funding_target;
       document.getElementById('pFundingCollected').value = p.funding_collected;
@@ -1200,8 +1216,15 @@ require_once __DIR__ . '/includes/header.php';
     const title = document.getElementById('pTitle').value.trim();
     const fundingTarget = document.getElementById('pFundingTarget').value;
 
+    const imageVal = document.getElementById('pImage').value.trim();
+
     if (!id || !title || !fundingTarget) {
       AdminApp.showToast('ID Proyek, Judul, dan Target Pendanaan wajib diisi.', 'danger');
+      return;
+    }
+
+    if (!imageVal) {
+      AdminApp.showToast('Harap unggah attachment / foto sampul proyek terlebih dahulu.', 'danger');
       return;
     }
 
@@ -1420,6 +1443,9 @@ require_once __DIR__ . '/includes/header.php';
         hiddenInput.value = json.data.file_path;
         pathDisplay.textContent = json.data.file_path;
         previewImg.src = `../${json.data.file_path}?t=${Date.now()}`;
+        previewImg.classList.remove('d-none');
+        const ph = document.getElementById('projectImagePlaceholder');
+        if (ph) ph.classList.add('d-none');
         
         if (compressInfo && compressInfo.compressed) {
           const origFormatted = AdminApp.formatFileSize(compressInfo.originalSize);
