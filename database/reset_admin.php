@@ -30,14 +30,17 @@ try {
         // Abaikan jika tabel belum dibuat
     }
 
-    // 2. Data Kredensial Baru Superadmin
-    $username = 'admin';
-    $email    = 'admin@montanaglobalinvestama.com';
+    // 2. Data Kredensial Baru Superadmin & Admin
     $password = 'Montana@2026!Secure';
     $hash     = hashPassword($password);
 
-    // 3. Upsert admin_users: password di-update, MFA dimatikan (mfa_enabled = 0 & mfa_secret = NULL)
+    // 3. Upsert kedua akun (superadmin & admin): password di-update ke Montana@2026!Secure, MFA dimatikan (mfa_enabled = 0 & mfa_secret = NULL)
     // Dengan mfa_enabled = 0, sistem otomatis menampilkan QR Code baru saat login berikutnya.
+    $accounts = [
+        ['username' => 'superadmin', 'email' => 'superadmin@montanaglobalinvestama.com'],
+        ['username' => 'admin',      'email' => 'admin@montanaglobalinvestama.com']
+    ];
+
     $stmt = $db->prepare("
         INSERT INTO admin_users (username, email, password_hash, full_name, role, is_active, mfa_secret, mfa_enabled)
         VALUES (?, ?, ?, 'Super Administrator MGI', 'superadmin', 1, NULL, 0)
@@ -49,15 +52,19 @@ try {
             mfa_secret = NULL,
             mfa_enabled = 0
     ");
-    $stmt->execute([$username, $email, $hash]);
 
-    echo "[✓] Akun Administrator berhasil diperbarui & MFA berhasil di-reset!\n\n";
+    foreach ($accounts as $acc) {
+        $stmt->execute([$acc['username'], $acc['email'], $hash]);
+    }
+
+    echo "[✓] Akun 'superadmin' dan 'admin' berhasil diperbarui & MFA berhasil di-reset!\n\n";
     echo "=================================================================\n";
-    echo " KREDENSIAL LOGIN SUPERADMIN MGI:\n";
+    echo " KREDENSIAL LOGIN ADMINISTRATOR MGI:\n";
     echo "  - URL Login  : http://<IP_ATAU_DOMAIN>/portal-admin-mgi-gateway/login.php\n";
-    echo "  - Username   : {$username}\n";
+    echo "  - Username   : superadmin (atau admin)\n";
     echo "  - Password   : {$password}\n";
     echo "  - Status MFA : RESET (Siap scan QR Code Google Authenticator baru)\n";
+    echo "  - Rate Limit : BERSIH (Blokir 15 menit telah dibuka langsung)\n";
     echo "=================================================================\n\n";
     echo "Langkah selanjutnya:\n";
     echo "1. Buka halaman login di browser Anda.\n";
