@@ -108,7 +108,7 @@ try {
                     'total_terpakai' => 0.0,
                     'payout_received' => 0.0,
                     'return_rate' => $prevProj['return_rate'] ?: '-',
-                    'tenor' => $prevProj['tenor'] ?: '-',
+                    'tenor' => trim(preg_replace('/\s*\(Target\s*2[–\-]3x\s*Putaran\/Tahun\)/iu', '', $prevProj['tenor'] ?: '-')),
                     'next_payout_date' => '-',
                     'allocated_units' => '0 Unit (Belum Ada Penempatan)',
                     'total_units' => 0,
@@ -214,7 +214,7 @@ try {
                 'total_terpakai' => $totalTerpakai,
                 'payout_received' => isset($p['payout_received']) ? (float)$p['payout_received'] : 0.0,
                 'return_rate' => $p['return_rate'],
-                'tenor' => $p['tenor'],
+                'tenor' => trim(preg_replace('/\s*\(Target\s*2[–\-]3x\s*Putaran\/Tahun\)/iu', '', $p['tenor'] ?: '12 Bulan')),
                 'next_payout_date' => $p['next_payout_date'] ?: '2026-10-15',
                 'allocated_units' => ($matchedTier && !empty($matchedTier['unit_qty'])) 
                     ? ($matchedTier['unit_qty'] . ' Unit Alat Berat Siap Operasi') 

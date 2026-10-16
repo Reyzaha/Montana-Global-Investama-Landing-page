@@ -541,7 +541,7 @@ require_once __DIR__ . '/includes/header.php';
                     </div>
                     <div class="col-md-3">
                       <label class="form-label small text-muted">Target Perputaran</label>
-                      <input type="text" id="execTargetPerputaran" class="form-control form-control-sm fw-bold text-success" value="2 – 3 Kali per Tahun">
+                      <input type="text" id="execTargetPerputaran" class="form-control form-control-sm fw-bold text-success" value="12 Bulan">
                     </div>
                   </div>
                 </details>
@@ -719,7 +719,7 @@ require_once __DIR__ . '/includes/header.php';
             </div>
           </td>
           <td>
-            <div class="text-dark small fw-semibold">${p.tenor}</div>
+            <div class="text-dark small fw-semibold">${(p.tenor || '12 Bulan').replace(/\s*\(Target\s*2[–\-]3x\s*Putaran\/Tahun\)/gi, '')}</div>
             <div class="text-success small fw-bold">${p.return_rate}</div>
           </td>
           <td><span class="badge-status ${badgeClass}">${p.status}</span></td>
@@ -963,7 +963,7 @@ require_once __DIR__ . '/includes/header.php';
     const model = document.getElementById('execModel').value || 'Unit Alat Berat';
     const units = Number(document.getElementById('execTotalUnits').value) || Math.max(1, Math.round(target / 250000000));
     const containers = Number(document.getElementById('execTotalContainers').value) || Math.max(1, Math.round(units / 4));
-    const targetPerputaran = document.getElementById('execTargetPerputaran').value || '2 – 3 Kali per Tahun';
+    const targetPerputaran = document.getElementById('execTargetPerputaran').value || '12 Bulan';
 
     const packageOptions = buildPackageOptionsFromForm();
 
@@ -1087,7 +1087,7 @@ require_once __DIR__ . '/includes/header.php';
       document.getElementById('pFundingCollected').value = p.funding_collected;
       document.getElementById('pCityId').value = p.city_id || '';
       document.getElementById('pLokasi').value = p.lokasi;
-      document.getElementById('pTenor').value = p.tenor;
+      document.getElementById('pTenor').value = (p.tenor || '12 Bulan').replace(/\s*\(Target\s*2[–\-]3x\s*Putaran\/Tahun\)/gi, '');
       document.getElementById('pReturnRate').value = p.return_rate;
       document.getElementById('pRiskLevel').value = p.risk_level;
       document.getElementById('pMinInvest').value = p.min_investment;
@@ -1139,7 +1139,7 @@ require_once __DIR__ . '/includes/header.php';
         document.getElementById('execModel').value = currentRabExecutive.unit_model || sp.barang || 'Unit Alat Berat';
         document.getElementById('execTotalUnits').value = currentRabExecutive.total_units || 40;
         document.getElementById('execTotalContainers').value = currentRabExecutive.total_containers || 10;
-        document.getElementById('execTargetPerputaran').value = currentRabExecutive.target_perputaran || sp.target_perputaran || '2 – 3 Kali per Tahun';
+        document.getElementById('execTargetPerputaran').value = currentRabExecutive.target_perputaran || sp.target_perputaran || '12 Bulan';
 
         // Deteksi mode paket
         let detectedMode = currentRabExecutive.package_options_mode;

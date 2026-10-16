@@ -124,7 +124,7 @@ try {
             'minimum_investasi' => $simRow ? (float)$simRow['minimum_investasi'] : 500000000,
             'maximum_investasi' => $simRow ? (float)$simRow['maximum_investasi'] : 10000000000,
             'default_investasi' => $simRow ? (float)$simRow['default_investasi'] : 1000000000,
-            'notes' => $simRow['notes'] ?? 'Target perputaran 2–3 kali per tahun merupakan proyeksi berbasis kinerja riil penjualan unit.'
+            'notes' => (!empty($simRow['notes']) && strpos($simRow['notes'], '2–3') === false) ? $simRow['notes'] : 'Proyeksi imbal hasil berbasis kinerja riil penjualan unit armada alat berat.'
         ];
 
         // Persiapkan watermarking & server-side gating data
@@ -235,7 +235,7 @@ try {
             'investor_slot' => $extra['info']['investor_slot'] ?? ($p['status'] === 'Open' ? '1 Slot Kemitraan Terbuka' : 'Mitra Terkunci'),
             'operator_perk' => $opPerk,
             'model' => $model,
-            'tenor' => $p['tenor'],
+            'tenor' => trim(preg_replace('/\s*\(Target\s*2[–\-]3x\s*Putaran\/Tahun\)/iu', '', $p['tenor'] ?: '12 Bulan')),
             'return' => $p['return_rate'],
             'risk' => $p['risk_level'],
             'min_investment' => $extra['info']['min_investment'] ?? ($p['min_investment'] ?: ($packageOptionsMode === '2' ? 'Rp 5.000.000.000 (Paket 1 atau Paket 2)' : $fRange)),
