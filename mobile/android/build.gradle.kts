@@ -18,6 +18,10 @@ subprojects {
 subprojects {
     project.evaluationDependsOn(":app")
 
+    pluginManager.withPlugin("com.android.library") {
+        project.dependencies.add("implementation", "androidx.concurrent:concurrent-futures:1.2.0")
+    }
+
     if (project.name != "app") {
         afterEvaluate {
             project.extensions.findByName("android")?.let { android ->

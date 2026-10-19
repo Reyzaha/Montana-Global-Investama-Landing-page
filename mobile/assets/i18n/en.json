@@ -277,6 +277,10 @@
   "project_catalog": "Project Catalog",
   "city_filter": "City Filter",
   "all_cities": "All Cities",
+  "filter_all": "All Projects",
+  "filter_open": "Open Slots",
+  "filter_secured": "Secured",
+  "filter_coming_soon": "Coming Soon",
   "consultation": "Consultation",
   "contact_us": "Contact Us",
   "send_inquiry": "Send Consultation Inquiry",
@@ -354,5 +358,16 @@
   "business_field": "Business Field",
   "dark_mode": "Dark Mode",
   "light_mode": "Light Mode",
-  "system_mode": "System Default"
+  "system_mode": "System Default",
+  "try_again": "Try Again",
+  "status_open": "Open for Funding",
+  "status_secured": "Secured",
+  "status_coming_soon": "Coming Soon",
+  "view_details": "View Details",
+  "tenor_label": "Tenor",
+  "roi_label": "ROI / Yr",
+  "empty_projects_title": "No Projects Found",
+  "empty_projects_desc": "There are currently no projects in the selected category.",
+  "no_data_title": "No Data Available",
+  "no_data_desc": "Data is currently unavailable."
 }

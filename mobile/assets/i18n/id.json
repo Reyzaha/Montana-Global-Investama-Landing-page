@@ -277,6 +277,10 @@
   "project_catalog": "Katalog Proyek",
   "city_filter": "Filter Kota",
   "all_cities": "Semua Kota",
+  "filter_all": "Semua Proyek",
+  "filter_open": "Slot Terbuka (Open)",
+  "filter_secured": "Mitra Terkunci (Secured)",
+  "filter_coming_soon": "Segera Hadir",
   "consultation": "Konsultasi",
   "contact_us": "Hubungi Kami",
   "send_inquiry": "Kirim Formulir Konsultasi",
@@ -354,6 +358,17 @@
   "business_field": "Bidang Usaha",
   "dark_mode": "Mode Gelap",
   "light_mode": "Mode Terang",
-  "system_mode": "Sesuai Sistem"
+  "system_mode": "Sesuai Sistem",
+  "try_again": "Coba Lagi",
+  "status_open": "Buka Pendanaan",
+  "status_secured": "Terkunci",
+  "status_coming_soon": "Segera Hadir",
+  "view_details": "Lihat Detail",
+  "tenor_label": "Tenor",
+  "roi_label": "ROI / Thn",
+  "empty_projects_title": "Belum Ada Proyek",
+  "empty_projects_desc": "Saat ini belum ada proyek dalam kategori yang dipilih.",
+  "no_data_title": "Tidak Ada Data",
+  "no_data_desc": "Data belum tersedia saat ini."
 }
 

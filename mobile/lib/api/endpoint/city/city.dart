@@ -31,9 +31,14 @@ class CityListResponse {
   List<City> cities = [];
 
   CityListResponse parse(Map<String, dynamic> json) {
-    cities = json["cities"] != null
+    final Map<String, dynamic> target =
+        json["data"] is Map<String, dynamic>
+            ? json["data"] as Map<String, dynamic>
+            : json;
+
+    cities = target["cities"] != null
         ? List<City>.from(
-            (json["cities"] as List).map(
+            (target["cities"] as List).map(
               (x) => City().parse(x as Map<String, dynamic>),
             ),
           )

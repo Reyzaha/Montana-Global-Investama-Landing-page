@@ -138,48 +138,53 @@ class CompanyProfile {
   CompanyContact? contact;
 
   CompanyProfile parse(Map<String, dynamic> json) {
-    companyName = json["company_name"];
-    shortName = json["short_name"];
-    groupName = json["group_name"];
-    taglineId = json["tagline_id"];
-    taglineEn = json["tagline_en"];
-    foundedYear = json["founded_year"];
-    kantorOperasional = json["kantor_operasional"];
-    headquarters = json["headquarters"];
+    final Map<String, dynamic> target =
+        json["data"] is Map<String, dynamic>
+            ? json["data"] as Map<String, dynamic>
+            : json;
 
-    stats = json["stats"] != null
+    companyName = target["company_name"];
+    shortName = target["short_name"];
+    groupName = target["group_name"];
+    taglineId = target["tagline_id"];
+    taglineEn = target["tagline_en"];
+    foundedYear = target["founded_year"];
+    kantorOperasional = target["kantor_operasional"];
+    headquarters = target["headquarters"];
+
+    stats = target["stats"] != null
         ? List<CompanyStat>.from(
-            (json["stats"] as List).map(
+            (target["stats"] as List).map(
               (x) => CompanyStat().parse(x as Map<String, dynamic>),
             ),
           )
         : [];
 
-    if (json["about_group"] != null) {
+    if (target["about_group"] != null) {
       aboutGroup = AboutGroup().parse(
-        json["about_group"] as Map<String, dynamic>,
+        target["about_group"] as Map<String, dynamic>,
       );
     }
 
-    entities = json["entities"] != null
+    entities = target["entities"] != null
         ? List<EcosystemEntity>.from(
-            (json["entities"] as List).map(
+            (target["entities"] as List).map(
               (x) => EcosystemEntity().parse(x as Map<String, dynamic>),
             ),
           )
         : [];
 
-    sections = json["sections"] != null
+    sections = target["sections"] != null
         ? List<ProfileSection>.from(
-            (json["sections"] as List).map(
+            (target["sections"] as List).map(
               (x) => ProfileSection().parse(x as Map<String, dynamic>),
             ),
           )
         : [];
 
-    if (json["contact"] != null) {
+    if (target["contact"] != null) {
       contact = CompanyContact().parse(
-        json["contact"] as Map<String, dynamic>,
+        target["contact"] as Map<String, dynamic>,
       );
     }
 

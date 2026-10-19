@@ -6,7 +6,7 @@ import "package:mgi_investor/helper/preferences.dart";
 String get MAIN_BASE {
   final String? customUrl = Preferences.getString(PreferenceKey.SERVER_URL);
 
-  return _validateUrl(customUrl) ?? "http://localhost/Montana-Global-Investama-Landing-page/api/";
+  return _validateUrl(customUrl) ?? "https://montanainvestama.com/api/";
 }
 
 String? _validateUrl(String? url) {

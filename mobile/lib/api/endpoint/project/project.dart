@@ -83,11 +83,11 @@ class PackageOption {
   String? operatorPerk;
 
   PackageOption parse(Map<String, dynamic> json) {
-    title = json["title"];
+    title = json["title"] ?? json["label"];
     nominal = Formats.tryParseNumber(json["nominal"]).toDouble();
     nominalDisplay = json["nominal_display"];
     unitQty = Formats.tryParseNumber(json["unit_qty"]).toInt();
-    operatorPerk = json["operator_perk"];
+    operatorPerk = json["operator_perk"] ?? json["badge"];
     return this;
   }
 }
@@ -242,15 +242,20 @@ class ProjectListResponse {
   List<Project> projects = [];
 
   ProjectListResponse parse(Map<String, dynamic> json) {
-    currency = json["currency"];
-    isAuthenticated = Formats.tryParseBool(json["is_authenticated"]);
+    final Map<String, dynamic> target =
+        json["data"] is Map<String, dynamic>
+            ? json["data"] as Map<String, dynamic>
+            : json;
+
+    currency = target["currency"];
+    isAuthenticated = Formats.tryParseBool(target["is_authenticated"]);
     requireAuthForDetails = Formats.tryParseBool(
-      json["require_auth_for_details"],
+      target["require_auth_for_details"],
     );
-    disclaimerText = json["disclaimer_text"];
-    projects = json["projects"] != null
+    disclaimerText = target["disclaimer_text"];
+    projects = target["projects"] != null
         ? List<Project>.from(
-            (json["projects"] as List).map(
+            (target["projects"] as List).map(
               (x) => Project().parse(x as Map<String, dynamic>),
             ),
           )

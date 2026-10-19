@@ -21,8 +21,12 @@ class ProjectDetailBloc
 
         if (response.statusCode == 200 && response.data is Map<String, dynamic>) {
           Project? single;
-          final Map<String, dynamic> data =
+          final Map<String, dynamic> raw =
               response.data as Map<String, dynamic>;
+          final Map<String, dynamic> data =
+              raw["data"] is Map<String, dynamic>
+                  ? raw["data"] as Map<String, dynamic>
+                  : raw;
 
           if (data["project"] != null && data["project"] is Map<String, dynamic>) {
             single = Project().parse(data["project"] as Map<String, dynamic>);

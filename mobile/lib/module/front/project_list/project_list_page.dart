@@ -28,7 +28,7 @@ class ProjectListPageState extends State<ProjectListPage>
   bool loading = false;
   List<Project>? projects;
   List<City> cities = [];
-  String selectedCity = "all";
+  String selectedStatus = "all";
 
   @override
   void initState() {
@@ -49,9 +49,9 @@ class ProjectListPageState extends State<ProjectListPage>
     setState(() {});
   }
 
-  void refresh({String? city}) {
+  void refresh() {
     context.read<ProjectListBloc>().add(
-      ProjectListLoad(city: city ?? selectedCity),
+      ProjectListLoad(city: "all"),
     );
   }
 
@@ -62,24 +62,83 @@ class ProjectListPageState extends State<ProjectListPage>
     );
   }
 
-  Widget _buildCityFilters() {
+  bool _matchesStatusFilter(Project project, String filter) {
+    if (filter == "all") {
+      return true;
+    }
+
+    final String s = (project.status ?? "").toLowerCase().trim();
+
+    if (filter == "open") {
+      return s.contains("open") || s.contains("buka");
+    }
+
+    if (filter == "secured" || filter == "funded") {
+      return s.contains("funded") ||
+          s.contains("fund") ||
+          s.contains("didanai") ||
+          s.contains("secured") ||
+          s.contains("terkunci") ||
+          s.contains("closed") ||
+          s.contains("tutup");
+    }
+
+    if (filter == "comingsoon" || filter == "coming") {
+      return s.contains("soon") ||
+          s.contains("coming") ||
+          s.contains("segera");
+    }
+
+    return true;
+  }
+
+  Color _statusColor(String? status) {
+    final String s = (status ?? "").toLowerCase();
+    if (s.contains("fully") ||
+        s.contains("fund") ||
+        s.contains("secured") ||
+        s.contains("terkunci")) {
+      return const Color(0xFFC5A059);
+    }
+    if (s.contains("coming") || s.contains("soon") || s.contains("segera")) {
+      return Colors.blueGrey;
+    }
+    return Colors.green.shade700;
+  }
+
+  String _statusLabel(String? status) {
+    final String s = (status ?? "").toLowerCase();
+    if (s.contains("fully") ||
+        s.contains("fund") ||
+        s.contains("secured") ||
+        s.contains("terkunci")) {
+      return "MITRA TERKUNCI (SECURED)";
+    }
+    if (s.contains("coming") || s.contains("soon") || s.contains("segera")) {
+      return "SEGERA HADIR";
+    }
+    return (status ?? "Open").toUpperCase();
+  }
+
+  Widget _buildStatusFilters() {
+    final List<Map<String, String>> filters = [
+      {"id": "all", "label": "filter_all".tr()},
+      {"id": "open", "label": "filter_open".tr()},
+      {"id": "secured", "label": "filter_secured".tr()},
+      {"id": "comingsoon", "label": "filter_coming_soon".tr()},
+    ];
+
     return SizedBox(
       height: Dimensions.size40,
       child: ListView(
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.symmetric(horizontal: Dimensions.size15),
-        children: [
-          _buildFilterChip(
-            label: "all_cities".tr(),
-            slug: "all",
-          ),
-          ...cities.map(
-            (c) => _buildFilterChip(
-              label: c.name ?? "-",
-              slug: c.slug ?? "all",
-            ),
-          ),
-        ],
+        children: filters.map((f) {
+          return _buildFilterChip(
+            label: f["label"]!,
+            slug: f["id"]!,
+          );
+        }).toList(),
       ),
     );
   }
@@ -88,16 +147,15 @@ class ProjectListPageState extends State<ProjectListPage>
     required String label,
     required String slug,
   }) {
-    final bool isSelected = selectedCity.toLowerCase() == slug.toLowerCase();
+    final bool isSelected = selectedStatus.toLowerCase() == slug.toLowerCase();
 
     return Padding(
       padding: EdgeInsets.only(right: Dimensions.size10),
       child: InkWell(
         onTap: () {
           setState(() {
-            selectedCity = slug;
+            selectedStatus = slug;
           });
-          refresh(city: slug);
         },
         customBorder: SmoothRectangleBorder(
           borderRadius: BorderRadius.circular(Dimensions.size20),
@@ -201,12 +259,10 @@ class ProjectListPageState extends State<ProjectListPage>
                       borderRadius: BorderRadius.circular(Dimensions.size20),
                       smoothness: 1,
                     ),
-                    color: project.status == "Open"
-                        ? Colors.green.shade700
-                        : Colors.grey.shade600,
+                    color: _statusColor(project.status),
                   ),
                   child: Text(
-                    (project.status ?? "Open").toUpperCase(),
+                    _statusLabel(project.status),
                     style: TextStyle(
                       fontSize: Dimensions.text10,
                       fontWeight: FontWeight.bold,
@@ -329,14 +385,16 @@ class ProjectListPageState extends State<ProjectListPage>
   }
 
   Widget body() {
-    final List<Project> list = projects ?? [];
+    final List<Project> all = projects ?? [];
+    final List<Project> list =
+        all.where((p) => _matchesStatusFilter(p, selectedStatus)).toList();
 
     return RefreshIndicator(
       onRefresh: () async => refresh(),
       child: Column(
         children: [
           SizedBox(height: Dimensions.size10),
-          _buildCityFilters(),
+          _buildStatusFilters(),
           SizedBox(height: Dimensions.size10),
           Expanded(
             child: list.isEmpty
@@ -376,7 +434,6 @@ class ProjectListPageState extends State<ProjectListPage>
           setState(() {
             projects = state.projects;
             cities = state.cities;
-            selectedCity = state.selectedCity;
           });
         } else if (state is ProjectListLoadFinished) {
           setState(() {
