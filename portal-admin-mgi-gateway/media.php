@@ -171,7 +171,7 @@ function renderMediaGrid() {
   container.innerHTML = allMediaFiles.map(f => {
     const isImage = (f.file_type || '').includes('image');
     const preview = isImage
-      ? `<img src="../${f.file_path}" alt="${f.original_name}" class="card-img-top object-fit-cover" style="height: 150px;" onerror="this.src='../assets/img/hero-alat-berat.png'">`
+      ? `<img src="../${f.file_path}" alt="${f.original_name}" class="card-img-top object-fit-cover" style="height: 150px;" onerror="this.onerror=null;this.src='../assets/img/hero-alat-berat.png';">`
       : `<div class="bg-light d-flex flex-column align-items-center justify-content-center text-danger border-bottom" style="height: 150px;">
            <i class="bi bi-file-earmark-pdf fs-1"></i>
            <small class="fw-bold mt-1 text-uppercase">${f.file_type.split('/')[1] || 'DOC'}</small>

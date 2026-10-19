@@ -734,17 +734,25 @@ linter:
 
 Isi bagian ini di setiap aplikasi baru; agent wajib membacanya sebelum bekerja.
 
-- Nama package (`<app>`): 
-- Nama tampilan aplikasi: 
-- Base URL dev / prod (sumber konfigurasi): 
-- Failover server primer/sekunder? (ya/tidak): 
-- Seed color tema: 
-- Peran/tipe pengguna dan hak aksesnya: 
-- Mata uang & format tanggal: 
-- Fitur Firebase yang dipakai (FCM, Analytics, ...): 
-- Path sumber salinan helper referensi: 
-- Proyek memakai `base`? (ya/tidak): 
-- Memakai Realm? Daftar skema: 
-- Nama channel notifikasi & ikon: 
-- Nama aset logo (`<app>_black.png` / `<app>_white.png`): 
+- Nama package (`<app>`): mgi_investor
+- Nama tampilan aplikasi: Montana Global Investama
+- Base URL dev / prod (sumber konfigurasi): Dev: http://localhost/Montana-Global-Investama-Landing-page/api (atau IP LAN Host http://192.168.x.x/...); Prod: https://montanainvestama.com/api; Sumber konfigurasi wajib dibaca via preferensi `PreferenceKey.SERVER_URL` dengan fallback otomatis ke alamat dev.
+- Failover server primer/sekunder? (ya/tidak): Tidak (Single endpoint production/dev dengan mekanisme fallback internal ke cache statis lokal).
+- Seed color tema: Hex #0F2C59 (Deep Royal Blue) dengan warna pendukung #C5A059 (Champagne Gold) dan #F8FAFC (Surface Container Lowest); Alasan: Palet identitas resmi korporat PT Montana Global Investama yang memancarkan ketegasan, kredibilitas, dan kemewahan manajer investasi sektor riil.
+- Peran/tipe pengguna dan hak aksesnya: 3 Tipe Pengguna Halaman Front:
+  1. Pengunjung Publik / Calon Investor (Unauthenticated/Guest): Akses profil MGI, 3 pilar ekosistem (MIU, MSI, Mypurcase), tata kelola TARIF, katalog proyek ringkas, filter kota (Jabodetabek, Surabaya, Makassar, Denpasar), dan form konsultasi/leads.
+  2. Calon Investor Perorangan (Authenticated): Membuka gated content (CAPEX breakdown, dokumen legalitas), simulasi komitmen pendanaan, profil WNI/WNA, dan watermarked view.
+  3. Calon Investor Perusahaan / Institusi (Authenticated): Akses dokumen proposal sindikasi, simulasi tiket investasi besar (Rp 5M – Rp 10M), profil badan hukum (PT/CV), PIC, dan omzet tahunan.
+- Mata uang & format tanggal: Mata uang: Rupiah ("Rp ${Formats.spell(amount)}" / "Rp ${num.currency()}"), format desimal `#,###.##` locale `id`; Format tanggal API: "yyyy-MM-dd" dan "yyyy-MM-dd HH:mm"; Format tanggal UI: "d MMM 'yy", "d MMM 'yy HH:mm", "dd-MM-yyyy".
+- Fitur Firebase yang dipakai (FCM, Analytics, ...): FCM (Push notifikasi rilis proyek kemitraan baru, kuota slot investor tersisa, dan berita dividen) serta Firebase Analytics (pelacakan eksplorasi katalog & kalkulator ROI).
+- Path sumber salinan helper referensi: `C:\Users\Admin MGI\resident\resident` (proyek Flutter aktif standar tim berbasis `package:base` 2.0.6); rujukan pola umum dokumen: `dea`.
+- Proyek memakai `base`? (ya/tidak): Ya (wajib menggunakan `package:base` git https://github.com/sisappmobile/base.git ref 2.0.6 sesuai stack standar Bagian 1 & 11).
+- Memakai Realm? Daftar skema: Tidak (Data katalog & profil perusahaan di-cache via SharedPreferences dan state BLoC in-memory; tidak memerlukan database Realm).
+- Nama channel notifikasi & ikon: Channel ID: "mgi_investor_updates", Channel Name: "Investor Updates", Description: "Pemberitahuan proyek baru & peluang investasi riil"; Ikon: `@drawable/notification_icon`.
+- Nama aset logo (`<app>_black.png` / `<app>_white.png`): `mgi_investor_black.png` (mode terang) dan `mgi_investor_white.png` (mode gelap) di folder `assets/image/`, diturunkan dari aset resmi `mgi-official-logo.png`.
 - Catatan khusus domain:
+  1. Gated Content & Disclaimer Finansial: Data rinci RAB, spesifikasi teknis unit alat berat, dan simulator ROI terkunci (`is_gated: true`) bagi pengunjung non-login jika setting `require_auth_for_details` aktif; seluruh halaman wajib menampilkan *disclaimer* risiko investasi sektor riil.
+  2. Watermarking Dinamis: Setiap tampilan proposal proyek pada investor terautentikasi diberi teks watermark: "DOKUMEN RAHASIA PT MONTANA GLOBAL INVESTAMA — DIAKSES OLEH: [NAMA] ([EMAIL])".
+  3. Mode Paket Investasi (Package Options Mode): Proyek mendukung multi-tier (Mode 1 paket atau Mode 2 paket, misal Paket 1 Rp 5 Miliar & Paket 2 Rp 10 Miliar) dengan fasilitas 1–2 Operator Alat Berat Profesional.
+  4. Dual-Registration Flow: Pendaftaran membedakan alur Perorangan (Nama, NIK/Paspor, Kewarganegaraan, No HP) dan Badan Usaha (Nama PT/CV, Entitas Hukum, PIC & Jabatan, Alamat, Kisaran Omzet Tahunan).
+  5. Multi-Auth Provider: Mendukung otentikasi kata sandi (minimal 8 karakter) dan Google OAuth One-Tap (`api/auth.php?action=google_login`).

@@ -253,7 +253,7 @@ function renderTable() {
       : '<span class="badge bg-secondary bg-opacity-10 text-muted border border-secondary border-opacity-25 py-1 px-2">Draft</span>';
 
     const mediaPreview = item.image_url 
-      ? `<img src="../${escapeHtml(item.image_url)}" class="rounded border" style="width: 38px; height: 38px; object-fit: cover;" onerror="this.src='../assets/img/mgi-official-logo.png'">`
+      ? `<img src="../${escapeHtml(item.image_url)}" class="rounded border" style="width: 38px; height: 38px; object-fit: cover;" onerror="this.onerror=null;this.src='../assets/img/mgi-official-logo.png'">`
       : (item.icon ? `<img src="../${escapeHtml(item.icon)}" style="width: 28px; height: 28px; object-fit: contain;" onerror="this.replaceWith(document.createTextNode('📦'))">` : '-');
 
     return `

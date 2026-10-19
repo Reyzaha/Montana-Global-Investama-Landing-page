@@ -622,7 +622,7 @@ const MGIComponents = {
     return `
       <div class="card mgi-card h-100 shadow-sm border-0 d-flex flex-column">
         <div class="project-card-cover position-relative">
-          <img src="${project.image || 'assets/img/1.png'}" alt="${project.title}" onerror="this.src='assets/img/1.png'">
+          <img src="${project.image || 'assets/img/1.png'}" alt="${project.title}" onerror="this.onerror=null;this.src='assets/img/1.png'">
           
           <!-- Pojok Kiri Atas: Lokasi -->
           <div class="position-absolute top-0 start-0 m-3 d-flex flex-column gap-1" style="z-index: 3;">

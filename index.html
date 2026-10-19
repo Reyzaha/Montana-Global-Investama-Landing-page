@@ -726,7 +726,7 @@
           <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             <div class="col">
               <div class="card h-100 shadow-sm border rounded-2 overflow-hidden bg-white d-flex flex-column" style="border-top: 4px solid #142563 !important;">
-                <img src="assets/img/hero-alat-berat.png" alt="Strategi Alokasi Modal Berbasis Aset Fisik" class="card-img-top object-fit-cover" style="height: 190px;" onerror="this.src='assets/img/hero-alat-berat.png'">
+                <img src="assets/img/hero-alat-berat.png" alt="Strategi Alokasi Modal Berbasis Aset Fisik" class="card-img-top object-fit-cover" style="height: 190px;" onerror="this.onerror=null;this.src='assets/img/hero-alat-berat.png';">
                 <div class="card-body p-4 d-flex flex-column">
                   <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="badge px-2.5 py-1 rounded small fw-bold" style="background-color: #142563; color: #fff;">Wawasan Pasar</span>
@@ -745,7 +745,7 @@
             </div>
             <div class="col">
               <div class="card h-100 shadow-sm border rounded-2 overflow-hidden bg-white d-flex flex-column" style="border-top: 4px solid #142563 !important;">
-                <img src="assets/img/icon-tata-kelola.png" alt="Implementasi Kerangka TARIF" class="card-img-top object-fit-cover" style="height: 190px;" onerror="this.src='assets/img/hero-alat-berat.png'">
+                <img src="assets/img/icon-tata-kelola.png" alt="Implementasi Kerangka TARIF" class="card-img-top object-fit-cover" style="height: 190px;" onerror="this.onerror=null;this.src='assets/img/hero-alat-berat.png';">
                 <div class="card-body p-4 d-flex flex-column">
                   <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="badge px-2.5 py-1 rounded small fw-bold" style="background-color: #142563; color: #fff;">Tata Kelola (GCG)</span>
@@ -764,7 +764,7 @@
             </div>
             <div class="col">
               <div class="card h-100 shadow-sm border rounded-2 overflow-hidden bg-white d-flex flex-column" style="border-top: 4px solid #142563 !important;">
-                <img src="assets/img/miu-building.jpg" alt="Optimalisasi Fasilitas Sentral Kebumen" class="card-img-top object-fit-cover" style="height: 190px;" onerror="this.src='assets/img/hero-alat-berat.png'">
+                <img src="assets/img/miu-building.jpg" alt="Optimalisasi Fasilitas Sentral Kebumen" class="card-img-top object-fit-cover" style="height: 190px;" onerror="this.onerror=null;this.src='assets/img/hero-alat-berat.png';">
                 <div class="card-body p-4 d-flex flex-column">
                   <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="badge px-2.5 py-1 rounded small fw-bold" style="background-color: #142563; color: #fff;">Kabar Korporasi</span>
@@ -1242,7 +1242,7 @@
           <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             ${articles.map(art => {
               const coverImg = art.cover_image 
-                ? `<img src="${art.cover_image}" alt="${art.title}" class="card-img-top object-fit-cover" style="height: 190px;" onerror="this.src='assets/img/hero-alat-berat.png'">`
+                ? `<img src="${art.cover_image}" alt="${art.title}" class="card-img-top object-fit-cover" style="height: 190px;" onerror="this.onerror=null;this.src='assets/img/hero-alat-berat.png';">`
                 : `<div class="bg-light d-flex align-items-center justify-content-center text-muted border-bottom" style="height: 190px;"><i class="bi bi-card-image fs-1"></i></div>`;
 
               return `

@@ -886,7 +886,7 @@
           <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             ${members.map(m => {
               const photo = m.photo_url
-                ? `<img src="${m.photo_url}" alt="${m.name}" class="rounded-circle shadow-sm object-fit-cover mb-3" style="width: 90px; height: 90px;" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(m.name)}&background=142563&color=fff&size=180'">`
+                ? `<img src="${m.photo_url}" alt="${m.name}" class="rounded-circle shadow-sm object-fit-cover mb-3" style="width: 90px; height: 90px;" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(m.name)}&background=142563&color=fff&size=180'">`
                 : `<div class="rounded-circle shadow-sm text-white d-flex align-items-center justify-content-center fw-bold mx-auto mb-3" style="width: 90px; height: 90px; font-size: 2rem; background-color: #142563;">${(m.name || 'M').charAt(0)}</div>`;
 
               const linkedin = m.linkedin_url

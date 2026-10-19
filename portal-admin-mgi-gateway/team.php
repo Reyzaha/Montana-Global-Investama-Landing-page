@@ -241,7 +241,7 @@ function renderTeamTable() {
   tbody.innerHTML = filtered.map(m => {
     const isActive = parseInt(m.is_active) === 1;
     const photoImg = m.photo_url 
-      ? `<img src="../${m.photo_url}" alt="${m.name}" class="rounded-circle object-fit-cover shadow-sm" style="width: 44px; height: 44px;" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(m.name)}&background=142563&color=fff'">`
+      ? `<img src="../${m.photo_url}" alt="${m.name}" class="rounded-circle object-fit-cover shadow-sm" style="width: 44px; height: 44px;" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(m.name)}&background=142563&color=fff';">`
       : `<div class="rounded-circle bg-royal text-white d-flex align-items-center justify-content-center fw-bold shadow-sm" style="width: 44px; height: 44px; font-size: 1rem; background-color: #142563;">${(m.name || 'M').charAt(0)}</div>`;
 
     const linkedinBadge = m.linkedin_url 

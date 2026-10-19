@@ -24,3 +24,12 @@ backups/
 # Environment secrets
 .env
 !.env.example
+
+# Flutter mobile cache and build
+mobile/.dart_tool/
+mobile/build/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.pub-cache/
+mobile/.pub/
+
