@@ -14,7 +14,7 @@ class Background extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         Image.asset(
-          "assets/image/background.png",
+          "assets/image/background3.png",
           fit: BoxFit.cover,
         ),
         child,

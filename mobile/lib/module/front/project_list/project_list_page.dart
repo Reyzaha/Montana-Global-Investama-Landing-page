@@ -12,7 +12,6 @@ import "package:mgi_investor/module/front/project_list/project_list_event.dart";
 import "package:mgi_investor/module/front/project_list/project_list_state.dart";
 import "package:mgi_investor/widget/empty_state.dart";
 import "package:mgi_investor/widget/project_card.dart";
-import "package:smooth_corner/smooth_corner.dart";
 
 class ProjectListPage extends StatefulWidget {
   const ProjectListPage({
@@ -100,64 +99,76 @@ class ProjectListPageState extends State<ProjectListPage>
       {"id": "comingsoon", "label": "filter_coming_soon".tr()},
     ];
 
-    return SizedBox(
-      height: Dimensions.size40,
-      child: ListView(
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: AppColors.surfaceContainerLowest(),
+        border: Border(
+          bottom: BorderSide(
+            color: AppColors.outline().withValues(alpha: 0.5),
+            width: 1.0,
+          ),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(horizontal: Dimensions.size15),
-        children: filters.map((f) {
-          return _buildFilterChip(
-            label: f["label"]!,
-            slug: f["id"]!,
-          );
-        }).toList(),
+        padding: EdgeInsets.symmetric(horizontal: Dimensions.size5),
+        child: Row(
+          children: filters.map((f) {
+            return _buildFilterTab(
+              label: f["label"]!,
+              slug: f["id"]!,
+            );
+          }).toList(),
+        ),
       ),
     );
   }
 
-  Widget _buildFilterChip({
+  Widget _buildFilterTab({
     required String label,
     required String slug,
   }) {
     final bool isSelected = selectedStatus.toLowerCase() == slug.toLowerCase();
 
-    return Padding(
-      padding: EdgeInsets.only(right: Dimensions.size10),
-      child: InkWell(
-        onTap: () {
-          setState(() {
-            selectedStatus = slug;
-          });
-        },
-        customBorder: SmoothRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimensions.size20),
-          smoothness: 1,
+    return InkWell(
+      onTap: () {
+        setState(() {
+          selectedStatus = slug;
+        });
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: Dimensions.size15,
+          vertical: Dimensions.size10,
         ),
-        child: Ink(
-          padding: EdgeInsets.symmetric(
-            horizontal: Dimensions.size15,
-            vertical: Dimensions.size5,
-          ),
-          decoration: ShapeDecoration(
-            shape: SmoothRectangleBorder(
-              borderRadius: BorderRadius.circular(Dimensions.size20),
-              smoothness: 1,
-              side: BorderSide(
-                color: isSelected
-                    ? const Color(0xFFC5A059)
-                    : AppColors.outline(),
-              ),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? const Color(0xFFC5A059).withValues(alpha: 0.12)
+              : Colors.transparent,
+          border: Border(
+            bottom: BorderSide(
+              color: isSelected ? const Color(0xFFC5A059) : Colors.transparent,
+              width: 2.5,
             ),
-            color: isSelected
-                ? const Color(0xFF0F2C59)
-                : AppColors.surfaceContainerLowest(),
           ),
+        ),
+        child: Center(
           child: Text(
             label,
             style: TextStyle(
-              fontSize: Dimensions.text11,
+              fontSize: Dimensions.text12,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-              color: isSelected ? Colors.white : AppColors.onSurface(),
+              color: isSelected
+                  ? AppColors.primary()
+                  : AppColors.onSurfaceVariant(),
             ),
           ),
         ),
@@ -173,10 +184,9 @@ class ProjectListPageState extends State<ProjectListPage>
     return RefreshIndicator(
       onRefresh: () async => refresh(),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SizedBox(height: Dimensions.size10),
           _buildStatusFilters(),
-          SizedBox(height: Dimensions.size10),
           Expanded(
             child: list.isEmpty
                 ? EmptyState(

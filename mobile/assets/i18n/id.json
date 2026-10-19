@@ -391,6 +391,7 @@
   "login_now": "Masuk Sekarang",
   "start_investing_with_mgi": "Mulai Investasi Bersama MGI",
   "login_banner_desc": "Daftar atau masuk untuk mengakses rincian proyek, prospektus, dan simulasi return investasi riil.",
-  "article_details": "Detail Artikel"
+  "article_details": "Detail Artikel",
+  "google_sign_in_config_error": "Konfigurasi Google Sign In belum selesai. Pastikan SHA-1 terdaftar di Google Cloud Console."
 }
 

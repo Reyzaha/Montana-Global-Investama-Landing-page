@@ -443,17 +443,16 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   Widget _buildTarifTeaser() {
     return Container(
+
       margin: EdgeInsets.only(top: Dimensions.size25),
       padding: EdgeInsets.all(Dimensions.size15),
       decoration: ShapeDecoration(
         shape: SmoothRectangleBorder(
           borderRadius: BorderRadius.circular(Dimensions.size10),
           smoothness: 1,
-          side: BorderSide(
-            color: const Color(0xFF0F2C59).withValues(alpha: 0.2),
-          ),
+          side: BorderSide(color: AppColors.outline()),
         ),
-        color: const Color(0xFF0F2C59).withValues(alpha: 0.04),
+        color: Colors.white,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

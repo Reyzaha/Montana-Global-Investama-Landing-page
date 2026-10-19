@@ -67,6 +67,8 @@ class SignInPageState extends State<SignInPage> with WidgetsBindingObserver {
   Future<void> signInWithGoogle() async {
     try {
       final GoogleSignIn googleSignIn = GoogleSignIn(
+        serverClientId:
+            "674380740237-cuia5ftfji23ulm3htn1veb0eed3p7g9.apps.googleusercontent.com",
         scopes: ["email", "profile"],
       );
       final GoogleSignInAccount? account = await googleSignIn.signIn();
@@ -86,7 +88,14 @@ class SignInPageState extends State<SignInPage> with WidgetsBindingObserver {
       if (kDebugMode) {
         print("Google Sign In Error: $e");
       }
-      BaseOverlays.error(message: "something_wrong_please_try_again".tr());
+      final String err = e.toString();
+      if (err.contains("10:") || err.contains("ApiException: 10")) {
+        BaseOverlays.error(
+          message: "google_sign_in_config_error".tr(),
+        );
+      } else {
+        BaseOverlays.error(message: "something_wrong_please_try_again".tr());
+      }
     }
   }
 

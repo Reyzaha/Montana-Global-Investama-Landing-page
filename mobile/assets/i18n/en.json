@@ -391,5 +391,6 @@
   "login_now": "Sign In Now",
   "start_investing_with_mgi": "Start Investing with MGI",
   "login_banner_desc": "Sign in or register to access project details, prospectuses, and real investment return simulations.",
-  "article_details": "Article Details"
+  "article_details": "Article Details",
+  "google_sign_in_config_error": "Google Sign In configuration is incomplete. Ensure SHA-1 is registered in Google Cloud Console."
 }
