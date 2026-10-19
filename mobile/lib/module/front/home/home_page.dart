@@ -63,67 +63,54 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
   }
 
   BaseAppBar appBar() {
+    final String currentLang = context.locale.languageCode;
+    final String langLabel = currentLang == "id" ? "IDN" : "EN";
+
     return BaseAppBar(
       context: context,
       name: "mgi_app_title".tr(),
       trailings: [
-        IconButton(
-          icon: Icon(
-            Icons.language,
-            size: Dimensions.size20,
-            color: AppColors.onSurface(),
-          ),
-          onPressed: () async {
-            final String nextLang =
-                context.locale.languageCode == "id" ? "en" : "id";
-            await Generals.changeLanguage(context, nextLang);
-          },
-        ),
-        if (Shared.ACCOUNT == null)
-          Padding(
-            padding: EdgeInsets.only(
-              right: Dimensions.size10,
-              top: Dimensions.size5,
-              bottom: Dimensions.size5,
-            ),
-            child: FilledButton.icon(
-              style: FilledButton.styleFrom(
-                backgroundColor: const Color(0xFF0F2C59),
-                foregroundColor: Colors.white,
+        Center(
+          child: Padding(
+            padding: EdgeInsets.only(right: Dimensions.size10),
+            child: InkWell(
+              onTap: () async {
+                final String nextLang = currentLang == "id" ? "en" : "id";
+                await Generals.changeLanguage(context, nextLang);
+              },
+              customBorder: SmoothRectangleBorder(
+                borderRadius: BorderRadius.circular(Dimensions.size20),
+                smoothness: 1,
+              ),
+              child: Ink(
                 padding: EdgeInsets.symmetric(
                   horizontal: Dimensions.size10,
+                  vertical: Dimensions.size5,
                 ),
-                shape: SmoothRectangleBorder(
-                  borderRadius: BorderRadius.circular(Dimensions.size20),
-                  smoothness: 1,
+                decoration: ShapeDecoration(
+                  shape: SmoothRectangleBorder(
+                    borderRadius: BorderRadius.circular(Dimensions.size20),
+                    smoothness: 1,
+                    side: BorderSide(
+                      color: const Color(0xFFC5A059).withValues(alpha: 0.6),
+                      width: 1.2,
+                    ),
+                  ),
+                  color: AppColors.surfaceContainerLowest(),
                 ),
-                elevation: 0,
-              ),
-              icon: Icon(
-                Icons.login,
-                size: Dimensions.size15,
-                color: Colors.white,
-              ),
-              label: Text(
-                "sign_in_or_register".tr(),
-                style: TextStyle(
-                  fontSize: Dimensions.text10,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                child: Text(
+                  langLabel,
+                  style: TextStyle(
+                    fontSize: Dimensions.text11,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xFF0F2C59),
+                    letterSpacing: 0.5,
+                  ),
                 ),
               ),
-              onPressed: () => context.push("/sign-in"),
             ),
-          )
-        else
-          IconButton(
-            icon: Icon(
-              Icons.account_circle,
-              size: Dimensions.size25,
-              color: const Color(0xFF0F2C59),
-            ),
-            onPressed: () => context.push("/portal"),
           ),
+        ),
       ],
     );
   }
@@ -214,95 +201,70 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               ),
             ),
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildGuestLoginBanner() {
-    return Container(
-      margin: EdgeInsets.only(top: Dimensions.size15),
-      padding: EdgeInsets.all(Dimensions.size15),
-      decoration: ShapeDecoration(
-        shape: SmoothRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimensions.size10),
-          smoothness: 1,
-          side: BorderSide(
-            color: const Color(0xFFC5A059).withValues(alpha: 0.35),
-            width: 1.2,
-          ),
-        ),
-        color: const Color(0xFFC5A059).withValues(alpha: 0.08),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            padding: EdgeInsets.all(Dimensions.size10),
-            decoration: ShapeDecoration(
-              shape: SmoothRectangleBorder(
-                borderRadius: BorderRadius.circular(Dimensions.size10),
-                smoothness: 1,
-              ),
-              color: const Color(0xFF0F2C59),
-            ),
-            child: Icon(
-              Icons.lock_open_rounded,
-              color: const Color(0xFFC5A059),
-              size: Dimensions.size20,
-            ),
-          ),
-          SizedBox(width: Dimensions.size10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          if (Shared.ACCOUNT == null) ...[
+            SizedBox(height: Dimensions.size10),
+            Row(
               children: [
-                Text(
-                  "start_investing_with_mgi".tr(),
-                  style: TextStyle(
-                    fontSize: Dimensions.text13,
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0xFF0F2C59),
+                Expanded(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(minHeight: 44),
+                    child: FilledButton.icon(
+                      style: FilledButton.styleFrom(
+                        backgroundColor: const Color(0xFF0F2C59),
+                        foregroundColor: Colors.white,
+                        shape: SmoothRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.size10),
+                          smoothness: 1,
+                        ),
+                      ),
+                      onPressed: () => context.push("/sign-in"),
+                      icon: Icon(Icons.login, size: Dimensions.size15),
+                      label: Text(
+                        "sign_in".tr(),
+                        style: TextStyle(
+                          fontSize: Dimensions.text12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-                SizedBox(height: Dimensions.size2),
-                Text(
-                  "login_banner_desc".tr(),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: Dimensions.text10,
-                    color: AppColors.onSurfaceVariant(),
-                    height: 1.3,
+                SizedBox(width: Dimensions.size10),
+                Expanded(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(minHeight: 44),
+                    child: OutlinedButton.icon(
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: const Color(0xFF0F2C59),
+                        side: const BorderSide(
+                          color: Color(0xFF0F2C59),
+                          width: 1.2,
+                        ),
+                        shape: SmoothRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.size10),
+                          smoothness: 1,
+                        ),
+                      ),
+                      onPressed: () => context.push("/register"),
+                      icon: Icon(
+                        Icons.person_add_outlined,
+                        size: Dimensions.size15,
+                      ),
+                      label: Text(
+                        "sign_up".tr(),
+                        style: TextStyle(
+                          fontSize: Dimensions.text12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
-          ),
-          SizedBox(width: Dimensions.size10),
-          FilledButton(
-            style: FilledButton.styleFrom(
-              backgroundColor: const Color(0xFF0F2C59),
-              foregroundColor: Colors.white,
-              padding: EdgeInsets.symmetric(
-                horizontal: Dimensions.size10,
-                vertical: 0,
-              ),
-              minimumSize: Size(0, Dimensions.size35),
-              shape: SmoothRectangleBorder(
-                borderRadius: BorderRadius.circular(Dimensions.size5),
-                smoothness: 1,
-              ),
-            ),
-            onPressed: () => context.push("/sign-in"),
-            child: Text(
-              "login_now".tr(),
-              style: TextStyle(
-                fontSize: Dimensions.text10,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+          ],
         ],
       ),
     );
@@ -675,7 +637,6 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
         padding: EdgeInsets.all(Dimensions.size15),
         children: [
           _buildHero(),
-          if (Shared.ACCOUNT == null) _buildGuestLoginBanner(),
           _buildStats(),
           _buildPillars(),
           _buildTarifTeaser(),

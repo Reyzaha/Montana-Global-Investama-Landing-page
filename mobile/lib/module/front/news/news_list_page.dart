@@ -28,14 +28,6 @@ class NewsListPageState extends State<NewsListPage>
   bool loading = false;
   bool isError = false;
   List<Article>? articles;
-  String selectedCategory = "all";
-
-  final List<Map<String, String>> categories = [
-    {"id": "all", "label": "all_categories"},
-    {"id": "Wawasan Pasar", "label": "market_insights"},
-    {"id": "Tata Kelola (GCG)", "label": "tarif_gcg_governance"},
-    {"id": "Kabar Korporasi", "label": "news"},
-  ];
 
   @override
   void initState() {
@@ -60,11 +52,7 @@ class NewsListPageState extends State<NewsListPage>
     setState(() {
       isError = false;
     });
-    context.read<NewsBloc>().add(
-      NewsLoad(
-        category: selectedCategory == "all" ? null : selectedCategory,
-      ),
-    );
+    context.read<NewsBloc>().add(NewsLoad());
   }
 
   BaseAppBar appBar() {
@@ -278,66 +266,6 @@ class NewsListPageState extends State<NewsListPage>
     );
   }
 
-  Widget _buildCategoryFilters() {
-    return SizedBox(
-      height: Dimensions.size40,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(horizontal: Dimensions.size15),
-        itemCount: categories.length,
-        separatorBuilder: (_, __) => SizedBox(width: Dimensions.size10),
-        itemBuilder: (BuildContext context, int index) {
-          final Map<String, String> cat = categories[index];
-          final String catId = cat["id"]!;
-          final bool isSelected = selectedCategory == catId;
-
-          return InkWell(
-            onTap: () {
-              setState(() {
-                selectedCategory = catId;
-              });
-              refresh();
-            },
-            customBorder: SmoothRectangleBorder(
-              borderRadius: BorderRadius.circular(Dimensions.size20),
-              smoothness: 1,
-            ),
-            child: Ink(
-              padding: EdgeInsets.symmetric(
-                horizontal: Dimensions.size15,
-                vertical: Dimensions.size5,
-              ),
-              decoration: ShapeDecoration(
-                shape: SmoothRectangleBorder(
-                  borderRadius: BorderRadius.circular(Dimensions.size20),
-                  smoothness: 1,
-                  side: BorderSide(
-                    color: isSelected
-                        ? const Color(0xFFC5A059)
-                        : AppColors.outline(),
-                  ),
-                ),
-                color: isSelected
-                    ? const Color(0xFF0F2C59)
-                    : AppColors.surfaceContainerLowest(),
-              ),
-              child: Center(
-                child: Text(
-                  cat["label"]!.tr(),
-                  style: TextStyle(
-                    fontSize: Dimensions.text11,
-                    fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-                    color: isSelected ? Colors.white : AppColors.onSurface(),
-                  ),
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
   Widget _buildArticleCard(Article article) {
     final String? imageUrl = _resolveImageUrl(article.coverImage);
     final String dateStr = article.publishedAt != null
@@ -520,30 +448,21 @@ class NewsListPageState extends State<NewsListPage>
 
     return RefreshIndicator(
       onRefresh: () async => refresh(),
-      child: Column(
-        children: [
-          SizedBox(height: Dimensions.size10),
-          _buildCategoryFilters(),
-          SizedBox(height: Dimensions.size10),
-          Expanded(
-            child: list.isEmpty
-                ? EmptyState(
-                    title: "no_data_title".tr(),
-                    message: "no_data_desc".tr(),
-                    icon: Icons.article_outlined,
-                  )
-                : ListView.separated(
-                    padding: EdgeInsets.all(Dimensions.size15),
-                    itemCount: list.length,
-                    separatorBuilder: (_, __) =>
-                        SizedBox(height: Dimensions.size15),
-                    itemBuilder: (BuildContext context, int index) {
-                      return _buildArticleCard(list[index]);
-                    },
-                  ),
-          ),
-        ],
-      ),
+      child: list.isEmpty
+          ? EmptyState(
+              title: "no_data_title".tr(),
+              message: "no_data_desc".tr(),
+              icon: Icons.article_outlined,
+            )
+          : ListView.separated(
+              padding: EdgeInsets.all(Dimensions.size15),
+              itemCount: list.length,
+              separatorBuilder: (_, __) =>
+                  SizedBox(height: Dimensions.size15),
+              itemBuilder: (BuildContext context, int index) {
+                return _buildArticleCard(list[index]);
+              },
+            ),
     );
   }
 
