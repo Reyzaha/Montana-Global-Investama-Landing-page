@@ -177,13 +177,16 @@ try {
             sendJsonError('Kredensial Google (ID Token) wajib disertakan.');
         }
 
-        // Ambil Client ID dari system_settings atau gunakan default terdaftar
-        $clientId = '674380740237-cuia5ftfji23ulm3htn1veb0eed3p7g9.apps.googleusercontent.com';
+        // Ambil Client ID yang diizinkan (Web dan Android Client ID)
+        $allowedClientIds = [
+            '674380740237-cuia5ftfji23ulm3htn1veb0eed3p7g9.apps.googleusercontent.com',
+            '674380740237-bn16cjisgjt1re65r66tmpk87jgdhbid.apps.googleusercontent.com',
+        ];
         try {
             $stmtSet = $db->query("SELECT setting_value FROM system_settings WHERE setting_key = 'google_client_id'");
             $confId = $stmtSet->fetchColumn();
             if (!empty($confId)) {
-                $clientId = trim($confId);
+                $allowedClientIds[] = trim($confId);
             }
         } catch (Throwable $t) {}
 
@@ -200,7 +203,7 @@ try {
         $payload = null;
         if ($httpCode === 200 && !empty($verifyRes)) {
             $parsed = json_decode($verifyRes, true);
-            if (is_array($parsed) && isset($parsed['aud']) && $parsed['aud'] === $clientId) {
+            if (is_array($parsed) && isset($parsed['aud']) && in_array($parsed['aud'], $allowedClientIds, true)) {
                 $payload = $parsed;
             }
         }
@@ -210,7 +213,7 @@ try {
             $jwtParts = explode('.', $credential);
             if (count($jwtParts) === 3) {
                 $claims = json_decode(base64_decode(str_replace(['-', '_'], ['+', '/'], $jwtParts[1])), true);
-                if (is_array($claims) && isset($claims['aud']) && $claims['aud'] === $clientId && !empty($claims['email'])) {
+                if (is_array($claims) && isset($claims['aud']) && in_array($claims['aud'], $allowedClientIds, true) && !empty($claims['email'])) {
                     // Validasi masa aktif token (toleransi clock skew 5 menit)
                     if (isset($claims['exp']) && $claims['exp'] > (time() - 300)) {
                         $payload = $claims;
