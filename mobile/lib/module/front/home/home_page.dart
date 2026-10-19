@@ -164,42 +164,24 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
             ),
           ),
           SizedBox(height: Dimensions.size20),
-          Row(
-            children: [
-              Expanded(
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(minHeight: 48),
-                  child: FilledButton.icon(
-                    style: FilledButton.styleFrom(
-                      backgroundColor: const Color(0xFF0F2C59),
-                      foregroundColor: Colors.white,
-                    ),
-                    onPressed: () => context.push("/projects"),
-                    icon: Icon(Icons.explore, size: Dimensions.size15),
-                    label: Text(
-                      "explore_projects".tr(),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
+          SizedBox(
+            width: double.infinity,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 48),
+              child: FilledButton.icon(
+                style: FilledButton.styleFrom(
+                  backgroundColor: const Color(0xFF0F2C59),
+                  foregroundColor: Colors.white,
+                ),
+                onPressed: () => context.push("/projects"),
+                icon: Icon(Icons.explore, size: Dimensions.size15),
+                label: Text(
+                  "explore_projects".tr(),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
-              SizedBox(width: Dimensions.size10),
-              Expanded(
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(minHeight: 48),
-                  child: OutlinedButton.icon(
-                    onPressed: () => context.push("/roi-calculator"),
-                    icon: Icon(Icons.calculate, size: Dimensions.size15),
-                    label: Text(
-                      "roi_calculator".tr(),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ],
       ),

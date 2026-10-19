@@ -73,19 +73,7 @@ class SkeletonLoader extends StatefulWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              SkeletonLoader.line(
-                width: Dimensions.size80,
-                height: Dimensions.size20,
-              ),
-              const Spacer(),
-              SkeletonLoader.line(
-                width: Dimensions.size50,
-                height: Dimensions.size20,
-              ),
-            ],
-          ),
+          SkeletonLoader.card(height: Dimensions.size100 + Dimensions.size40),
           SizedBox(height: Dimensions.size10),
           SkeletonLoader.line(
             width: double.infinity,

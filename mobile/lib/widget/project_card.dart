@@ -17,6 +17,149 @@ class ProjectCard extends StatelessWidget {
     super.key,
   });
 
+  String? get _resolvedImageUrl {
+    final String? rawImg = project.image?.trim();
+    if (rawImg == null || rawImg.isEmpty) {
+      return null;
+    }
+    if (rawImg.startsWith("http://") || rawImg.startsWith("https://")) {
+      return rawImg;
+    }
+    final String clean = rawImg.startsWith("/") ? rawImg.substring(1) : rawImg;
+    return "https://montanainvestama.com/$clean";
+  }
+
+  Widget _buildImagePlaceholder() {
+    return Container(
+      color: const Color(0xFF0F2C59).withValues(alpha: 0.08),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.precision_manufacturing_outlined,
+              size: Dimensions.size35,
+              color: const Color(0xFF0F2C59).withValues(alpha: 0.4),
+            ),
+            SizedBox(height: Dimensions.size5),
+            Text(
+              project.category ?? "Alat Berat",
+              style: TextStyle(
+                fontSize: Dimensions.text10,
+                color: AppColors.onSurfaceVariant(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildImageHeader() {
+    final String? imageUrl = _resolvedImageUrl;
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(Dimensions.size10),
+      child: Container(
+        height: Dimensions.size100 + Dimensions.size40,
+        width: double.infinity,
+        color: const Color(0xFF0F2C59).withValues(alpha: 0.06),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            if (imageUrl != null)
+              Image.network(
+                imageUrl,
+                fit: BoxFit.cover,
+                errorBuilder: (
+                  BuildContext context,
+                  Object error,
+                  StackTrace? stackTrace,
+                ) {
+                  return _buildImagePlaceholder();
+                },
+                loadingBuilder: (
+                  BuildContext context,
+                  Widget child,
+                  ImageChunkEvent? loadingProgress,
+                ) {
+                  if (loadingProgress == null) {
+                    return child;
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                          : null,
+                      strokeWidth: 2,
+                      color: const Color(0xFFC5A059),
+                    ),
+                  );
+                },
+              )
+            else
+              _buildImagePlaceholder(),
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.black.withValues(alpha: 0.45),
+                    Colors.transparent,
+                    Colors.black.withValues(alpha: 0.25),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              top: Dimensions.size10,
+              left: Dimensions.size10,
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: Dimensions.size5 + Dimensions.size3,
+                  vertical: Dimensions.size4,
+                ),
+                decoration: ShapeDecoration(
+                  shape: SmoothRectangleBorder(
+                    borderRadius: BorderRadius.circular(Dimensions.size5),
+                    smoothness: 1,
+                  ),
+                  color: Colors.black.withValues(alpha: 0.6),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.location_on,
+                      size: Dimensions.size10,
+                      color: Colors.white,
+                    ),
+                    SizedBox(width: Dimensions.size3),
+                    Text(
+                      project.city ?? "Indonesia",
+                      style: TextStyle(
+                        fontSize: Dimensions.text10,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              top: Dimensions.size10,
+              right: Dimensions.size10,
+              child: StatusBadge(status: project.status),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final double percent = project.fundingTarget > 0
@@ -52,56 +195,18 @@ class ProjectCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: Dimensions.size5 + Dimensions.size3,
-                    vertical: Dimensions.size4,
-                  ),
-                  decoration: ShapeDecoration(
-                    shape: SmoothRectangleBorder(
-                      borderRadius: BorderRadius.circular(Dimensions.size5),
-                      smoothness: 1,
-                    ),
-                    color: const Color(0xFF0F2C59).withValues(alpha: 0.08),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        size: Dimensions.size10,
-                        color: const Color(0xFF0F2C59),
-                      ),
-                      SizedBox(width: Dimensions.size3),
-                      Text(
-                        project.city ?? "Indonesia",
-                        style: TextStyle(
-                          fontSize: Dimensions.text10,
-                          fontWeight: FontWeight.bold,
-                          color: const Color(0xFF0F2C59),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(width: Dimensions.size10),
-                Expanded(
-                  child: Text(
-                    project.category ?? "Alat Berat",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: Dimensions.text11,
-                      color: AppColors.onSurfaceVariant(),
-                    ),
-                  ),
-                ),
-                StatusBadge(status: project.status),
-              ],
-            ),
+            _buildImageHeader(),
             SizedBox(height: Dimensions.size10),
+            Text(
+              project.category ?? "Alat Berat",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: Dimensions.text11,
+                color: AppColors.onSurfaceVariant(),
+              ),
+            ),
+            SizedBox(height: Dimensions.size4),
             Text(
               project.title ?? "-",
               maxLines: 2,
