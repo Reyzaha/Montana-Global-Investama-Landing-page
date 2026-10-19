@@ -369,5 +369,10 @@
   "empty_projects_title": "No Projects Found",
   "empty_projects_desc": "There are currently no projects in the selected category.",
   "no_data_title": "No Data Available",
-  "no_data_desc": "Data is currently unavailable."
+  "no_data_desc": "Data is currently unavailable.",
+  "learn_more": "Learn More",
+  "reload": "Reload",
+  "connection_error_desc": "Connection to the server was lost. Please check your network and try again.",
+  "empty_projects_html_desc": "New funding projects will appear here. Reload to check for latest updates.",
+  "view_full_profile": "View Full Profile"
 }

@@ -369,6 +369,11 @@
   "empty_projects_title": "Belum Ada Proyek",
   "empty_projects_desc": "Saat ini belum ada proyek dalam kategori yang dipilih.",
   "no_data_title": "Tidak Ada Data",
-  "no_data_desc": "Data belum tersedia saat ini."
+  "no_data_desc": "Data belum tersedia saat ini.",
+  "learn_more": "Pelajari Selengkapnya",
+  "reload": "Muat Ulang",
+  "connection_error_desc": "Koneksi ke server terputus. Periksa jaringan Anda, lalu coba lagi.",
+  "empty_projects_html_desc": "Proyek pendanaan baru akan tampil di sini. Muat ulang untuk memeriksa pembaruan terbaru.",
+  "view_full_profile": "Lihat Profil Lengkap"
 }
 

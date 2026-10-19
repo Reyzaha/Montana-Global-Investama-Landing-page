@@ -258,7 +258,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
             ),
             TextButton(
               onPressed: () => context.push("/company-profile"),
-              child: Text("view_all_projects".tr()),
+              child: Text("view_full_profile".tr()),
             ),
           ],
         ),
@@ -431,11 +431,18 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
             ),
           ),
           SizedBox(height: Dimensions.size15),
-          ConstrainedBox(
-            constraints: const BoxConstraints(minHeight: 44),
-            child: OutlinedButton(
-              onPressed: () => context.push("/tarif-governance"),
-              child: Text("governance_tarif".tr()),
+          SizedBox(
+            width: double.infinity,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 44),
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(color: Color(0xFF0F2C59)),
+                  foregroundColor: const Color(0xFF0F2C59),
+                ),
+                onPressed: () => context.push("/tarif-governance"),
+                child: Text("learn_more".tr()),
+              ),
             ),
           ),
         ],
@@ -471,7 +478,9 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
         if (list.isEmpty)
           EmptyState(
             title: "empty_projects_title".tr(),
-            message: "empty_projects_desc".tr(),
+            message: "empty_projects_html_desc".tr(),
+            actionLabel: "reload".tr(),
+            onAction: refresh,
           )
         else
           ListView.separated(
@@ -552,6 +561,8 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
     if (isError && projects == null && companyProfile == null) {
       return ErrorState(
+        title: "no_data_title".tr(),
+        message: "connection_error_desc".tr(),
         onRetry: refresh,
       );
     }
