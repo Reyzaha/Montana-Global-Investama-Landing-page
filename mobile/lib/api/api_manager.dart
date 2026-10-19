@@ -113,6 +113,31 @@ class ApiManager {
     return response;
   }
 
+  static Future<Response> articles({
+    String? category,
+    String? slug,
+    int limit = 10,
+  }) async {
+    Dio dio = await getDio();
+
+    Map<String, dynamic> query = {
+      "limit": limit,
+    };
+    if (category != null && category.isNotEmpty && category != "all") {
+      query["category"] = category;
+    }
+    if (slug != null && slug.isNotEmpty) {
+      query["slug"] = slug;
+    }
+
+    Response response = await dio.get(
+      ApiUrl.ARTICLES.path,
+      queryParameters: query,
+    );
+
+    return response;
+  }
+
   static Future<Response> signIn({
     required SignInRequest request,
   }) async {

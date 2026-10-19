@@ -30,7 +30,8 @@ enum ApiUrl {
   AUTH("auth.php"),
   CONTACT("contact.php"),
   CITIES("cities.php"),
-  EKOSISTEM("ekosistem.php");
+  EKOSISTEM("ekosistem.php"),
+  ARTICLES("articles.php");
 
   final String path;
 

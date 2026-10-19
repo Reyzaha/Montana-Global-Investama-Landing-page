@@ -79,20 +79,51 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
             await Generals.changeLanguage(context, nextLang);
           },
         ),
-        IconButton(
-          icon: Icon(
-            Shared.ACCOUNT != null ? Icons.account_circle : Icons.login,
-            size: Dimensions.size20,
-            color: const Color(0xFF0F2C59),
+        if (Shared.ACCOUNT == null)
+          Padding(
+            padding: EdgeInsets.only(
+              right: Dimensions.size10,
+              top: Dimensions.size5,
+              bottom: Dimensions.size5,
+            ),
+            child: FilledButton.icon(
+              style: FilledButton.styleFrom(
+                backgroundColor: const Color(0xFF0F2C59),
+                foregroundColor: Colors.white,
+                padding: EdgeInsets.symmetric(
+                  horizontal: Dimensions.size10,
+                ),
+                shape: SmoothRectangleBorder(
+                  borderRadius: BorderRadius.circular(Dimensions.size20),
+                  smoothness: 1,
+                ),
+                elevation: 0,
+              ),
+              icon: Icon(
+                Icons.login,
+                size: Dimensions.size15,
+                color: Colors.white,
+              ),
+              label: Text(
+                "sign_in_or_register".tr(),
+                style: TextStyle(
+                  fontSize: Dimensions.text10,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () => context.push("/sign-in"),
+            ),
+          )
+        else
+          IconButton(
+            icon: Icon(
+              Icons.account_circle,
+              size: Dimensions.size25,
+              color: const Color(0xFF0F2C59),
+            ),
+            onPressed: () => context.push("/portal"),
           ),
-          onPressed: () {
-            if (Shared.ACCOUNT != null) {
-              context.push("/portal");
-            } else {
-              context.push("/sign-in");
-            }
-          },
-        ),
       ],
     );
   }
@@ -180,6 +211,95 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGuestLoginBanner() {
+    return Container(
+      margin: EdgeInsets.only(top: Dimensions.size15),
+      padding: EdgeInsets.all(Dimensions.size15),
+      decoration: ShapeDecoration(
+        shape: SmoothRectangleBorder(
+          borderRadius: BorderRadius.circular(Dimensions.size10),
+          smoothness: 1,
+          side: BorderSide(
+            color: const Color(0xFFC5A059).withValues(alpha: 0.35),
+            width: 1.2,
+          ),
+        ),
+        color: const Color(0xFFC5A059).withValues(alpha: 0.08),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            padding: EdgeInsets.all(Dimensions.size10),
+            decoration: ShapeDecoration(
+              shape: SmoothRectangleBorder(
+                borderRadius: BorderRadius.circular(Dimensions.size10),
+                smoothness: 1,
+              ),
+              color: const Color(0xFF0F2C59),
+            ),
+            child: Icon(
+              Icons.lock_open_rounded,
+              color: const Color(0xFFC5A059),
+              size: Dimensions.size20,
+            ),
+          ),
+          SizedBox(width: Dimensions.size10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "start_investing_with_mgi".tr(),
+                  style: TextStyle(
+                    fontSize: Dimensions.text13,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xFF0F2C59),
+                  ),
+                ),
+                SizedBox(height: Dimensions.size2),
+                Text(
+                  "login_banner_desc".tr(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: Dimensions.text10,
+                    color: AppColors.onSurfaceVariant(),
+                    height: 1.3,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(width: Dimensions.size10),
+          FilledButton(
+            style: FilledButton.styleFrom(
+              backgroundColor: const Color(0xFF0F2C59),
+              foregroundColor: Colors.white,
+              padding: EdgeInsets.symmetric(
+                horizontal: Dimensions.size10,
+                vertical: 0,
+              ),
+              minimumSize: Size(0, Dimensions.size35),
+              shape: SmoothRectangleBorder(
+                borderRadius: BorderRadius.circular(Dimensions.size5),
+                smoothness: 1,
+              ),
+            ),
+            onPressed: () => context.push("/sign-in"),
+            child: Text(
+              "login_now".tr(),
+              style: TextStyle(
+                fontSize: Dimensions.text10,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
@@ -555,6 +675,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
         padding: EdgeInsets.all(Dimensions.size15),
         children: [
           _buildHero(),
+          if (Shared.ACCOUNT == null) _buildGuestLoginBanner(),
           _buildStats(),
           _buildPillars(),
           _buildTarifTeaser(),

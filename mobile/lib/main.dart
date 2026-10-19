@@ -22,6 +22,7 @@ import "package:mgi_investor/main_state.dart";
 import "package:mgi_investor/module/front/company_profile/company_profile_bloc.dart";
 import "package:mgi_investor/module/front/consultation/consultation_bloc.dart";
 import "package:mgi_investor/module/front/home/home_bloc.dart";
+import "package:mgi_investor/module/front/news/news_bloc.dart";
 import "package:mgi_investor/module/front/project_detail/project_detail_bloc.dart";
 import "package:mgi_investor/module/front/project_list/project_list_bloc.dart";
 import "package:mgi_investor/module/front/register/register_bloc.dart";
@@ -99,6 +100,7 @@ class AppState extends State<App> {
         BlocProvider(create: (BuildContext context) => CompanyProfileBloc()),
         BlocProvider(create: (BuildContext context) => ProjectListBloc()),
         BlocProvider(create: (BuildContext context) => ProjectDetailBloc()),
+        BlocProvider(create: (BuildContext context) => NewsBloc()),
         BlocProvider(create: (BuildContext context) => ConsultationBloc()),
         BlocProvider(create: (BuildContext context) => SignInBloc()),
         BlocProvider(create: (BuildContext context) => RegisterBloc()),

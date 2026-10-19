@@ -374,6 +374,23 @@
   "reload": "Muat Ulang",
   "connection_error_desc": "Koneksi ke server terputus. Periksa jaringan Anda, lalu coba lagi.",
   "empty_projects_html_desc": "Proyek pendanaan baru akan tampil di sini. Muat ulang untuk memeriksa pembaruan terbaru.",
-  "view_full_profile": "Lihat Profil Lengkap"
+  "view_full_profile": "Lihat Profil Lengkap",
+  "home": "Beranda",
+  "projects": "Proyek",
+  "company_profile": "Profil",
+  "news": "Berita",
+  "sign_in_or_register": "Masuk / Daftar",
+  "investor": "Investor",
+  "news_insights": "Berita & Wawasan",
+  "market_insights": "Wawasan Pasar Sektor Riil",
+  "login_required_detail_notice": "Masuk ke akun investor untuk melihat dokumen finansial, RAB, dan proposal lengkap.",
+  "read_more": "Baca Selengkapnya",
+  "all_categories": "Semua Kategori",
+  "access_restricted": "Akses Terbatas",
+  "login_to_view_details_desc": "Detail unit, struktur RAB, dan dokumen finansial hanya dapat diakses oleh pemodal terdaftar. Silakan masuk atau buat akun baru.",
+  "login_now": "Masuk Sekarang",
+  "start_investing_with_mgi": "Mulai Investasi Bersama MGI",
+  "login_banner_desc": "Daftar atau masuk untuk mengakses rincian proyek, prospektus, dan simulasi return investasi riil.",
+  "article_details": "Detail Artikel"
 }
 

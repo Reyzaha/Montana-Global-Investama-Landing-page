@@ -374,5 +374,22 @@
   "reload": "Reload",
   "connection_error_desc": "Connection to the server was lost. Please check your network and try again.",
   "empty_projects_html_desc": "New funding projects will appear here. Reload to check for latest updates.",
-  "view_full_profile": "View Full Profile"
+  "view_full_profile": "View Full Profile",
+  "home": "Home",
+  "projects": "Projects",
+  "company_profile": "Profile",
+  "news": "News",
+  "sign_in_or_register": "Sign In / Register",
+  "investor": "Investor",
+  "news_insights": "News & Insights",
+  "market_insights": "Real Sector Market Insights",
+  "login_required_detail_notice": "Sign in to your investor account to view complete financial documents, budget, and proposals.",
+  "read_more": "Read More",
+  "all_categories": "All Categories",
+  "access_restricted": "Restricted Access",
+  "login_to_view_details_desc": "Unit specifications, budget details, and financial proposals are reserved for registered investors. Please sign in or create an account.",
+  "login_now": "Sign In Now",
+  "start_investing_with_mgi": "Start Investing with MGI",
+  "login_banner_desc": "Sign in or register to access project details, prospectuses, and real investment return simulations.",
+  "article_details": "Article Details"
 }

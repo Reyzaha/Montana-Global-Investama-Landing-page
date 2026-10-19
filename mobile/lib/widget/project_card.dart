@@ -3,7 +3,9 @@ import "package:easy_localization/easy_localization.dart";
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:mgi_investor/api/endpoint/project/project.dart";
+import "package:mgi_investor/helper/auth_guard.dart";
 import "package:mgi_investor/helper/formats.dart";
+import "package:mgi_investor/shared.dart";
 import "package:mgi_investor/widget/status_badge.dart";
 import "package:smooth_corner/smooth_corner.dart";
 
@@ -177,7 +179,17 @@ class ProjectCard extends StatelessWidget {
             : "24-36 bln";
 
     return InkWell(
-      onTap: onTap ?? () => context.push("/projects/${project.id}"),
+      onTap: onTap ??
+          () {
+            if (Shared.ACCOUNT == null) {
+              AuthGuard.promptLogin(
+                context,
+                onContinueGuest: () => context.push("/projects/${project.id}"),
+              );
+            } else {
+              context.push("/projects/${project.id}");
+            }
+          },
       customBorder: SmoothRectangleBorder(
         borderRadius: BorderRadius.circular(Dimensions.size10),
         smoothness: 1,

@@ -2,11 +2,9 @@ import "package:base/base.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:go_router/go_router.dart";
-import "package:mgi_investor/module/front/company_profile/company_profile_page.dart";
 import "package:mgi_investor/module/front/consultation/consultation_page.dart";
-import "package:mgi_investor/module/front/home/home_page.dart";
+import "package:mgi_investor/module/front/main_navigation/main_navigation_page.dart";
 import "package:mgi_investor/module/front/project_detail/project_detail_page.dart";
-import "package:mgi_investor/module/front/project_list/project_list_page.dart";
 import "package:mgi_investor/module/front/register/register_page.dart";
 import "package:mgi_investor/module/front/roi_calculator/roi_calculator_page.dart";
 import "package:mgi_investor/module/front/sign_in/sign_in_page.dart";
@@ -31,13 +29,19 @@ final GoRouter goRouter = GoRouter(
     GoRoute(
       path: "/",
       builder: (context, state) {
-        return const HomePage();
+        return const MainNavigationPage(initialIndex: 0);
       },
     ),
     GoRoute(
       path: "/company-profile",
       builder: (context, state) {
-        return const CompanyProfilePage();
+        return const MainNavigationPage(initialIndex: 2);
+      },
+    ),
+    GoRoute(
+      path: "/news",
+      builder: (context, state) {
+        return const MainNavigationPage(initialIndex: 3);
       },
     ),
     GoRoute(
@@ -73,7 +77,7 @@ final GoRouter goRouter = GoRouter(
     GoRoute(
       path: "/projects",
       builder: (context, state) {
-        return const ProjectListPage();
+        return const MainNavigationPage(initialIndex: 1);
       },
       routes: [
         GoRoute(
