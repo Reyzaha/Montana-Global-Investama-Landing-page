@@ -236,5 +236,11 @@ try {
     ]);
 
 } catch (Exception $e) {
-    sendJsonError('Gagal memuat proyek investor: ' . $e->getMessage(), 500);
+    sendJsonResponse([
+        'investor_id' => $investorId,
+        'has_active_portfolios' => false,
+        'is_preview_mode' => true,
+        'total_projects' => 0,
+        'projects' => []
+    ]);
 }

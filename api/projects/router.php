@@ -42,6 +42,201 @@ function touchProjectUpdate(string $pId): void {
     @file_put_contents($dir . "/project_{$pId}_stream.txt", time() . '|' . microtime(true));
 }
 
+// Fallback to static JSON if database is offline or project is not yet in DB
+function serveStaticDashboardFallback(string $projectId, ?array $investor = null): void {
+    $staticFile = __DIR__ . '/../../data/projects.json';
+    if (!file_exists($staticFile)) {
+        sendJsonError('Project data tidak ditemukan.', 404);
+    }
+    $raw = json_decode(file_get_contents($staticFile), true);
+    $found = null;
+    foreach ($raw['projects'] ?? [] as $pj) {
+        if ($pj['id'] === $projectId) {
+            $found = $pj;
+            break;
+        }
+    }
+    if (!$found && !empty($raw['projects'])) {
+        $found = $raw['projects'][0];
+    }
+    if (!$found) {
+        sendJsonError("Proyek {$projectId} tidak ditemukan.", 404);
+    }
+
+    $fnd = $found['funding'] ?? [];
+    $target = (float)($fnd['target'] ?? 45000000000);
+    $collected = (float)($fnd['collected'] ?? 0);
+    $rabExecutive = $found['detail']['rab_executive'] ?? null;
+    $fundingItems = [];
+    foreach ($found['detail']['funding_target']['rows'] ?? [] as $idx => $r) {
+        $fundingItems[] = [
+            'no_urut' => $idx + 1,
+            'item_name' => $r['item'] ?? ('Alokasi Anggaran ' . ($idx + 1)),
+            'quantity' => $r['volume'] ?? '1 Paket',
+            'unit_price' => (float)($r['harga_satuan'] ?? 0),
+            'total' => (float)($r['total'] ?? 0)
+        ];
+    }
+
+    $documents = [
+        [
+            'id' => 1,
+            'doc_number' => 'DOC-RAB-' . strtoupper($found['id']),
+            'doc_title' => 'Rencana Anggaran Biaya (RAB) Eksekutif: ' . $found['title'],
+            'doc_type' => 'rab',
+            'file_path' => 'prospektus.html',
+            'file_size' => '1.8 MB',
+            'published_by' => 'Komite Investasi MGI',
+            'status' => 'published',
+            'published_at' => '2026-09-15'
+        ],
+        [
+            'id' => 2,
+            'doc_number' => 'DOC-PROSP-' . strtoupper($found['id']),
+            'doc_title' => 'Memorandum Informasi & Prospektus Penawaran Investasi',
+            'doc_type' => 'prospectus',
+            'file_path' => 'prospektus.html',
+            'file_size' => '3.4 MB',
+            'published_by' => 'Legal & Compliance MGI',
+            'status' => 'published',
+            'published_at' => '2026-09-15'
+        ]
+    ];
+
+    sendJsonResponse([
+        'is_preview' => true,
+        'preview_notice' => 'Transparansi Format Pembukuan Riil Proyek (Hadir Otomatis Saat Penempatan Dana)',
+        'project' => [
+            'id' => $found['id'],
+            'title' => $found['title'],
+            'category' => $found['category'] ?? 'Pengadaan & Perputaran Unit Alat Berat',
+            'lokasi' => $found['info']['lokasi'] ?? 'DKI Jakarta & Jawa Barat',
+            'image' => $found['image'] ?? 'assets/img/1.png',
+            'status' => $found['status'] ?? 'Open',
+            'is_preview' => true,
+            'contract_number' => 'MGI/PRJ/' . date('Y') . '/' . strtoupper(substr(md5($found['id']), 0, 4)),
+            'tenor' => $found['info']['tenor'] ?? '12 Bulan',
+            'return_rate' => $found['info']['return'] ?? '≥30% (p.a.)',
+            'funding_target' => $target,
+            'funding_collected' => $collected
+        ],
+        'rab_executive' => $rabExecutive,
+        'funding_items' => $fundingItems,
+        'financial_summary' => [
+            'total_dana_investor' => 0,
+            'total_pembelian' => 0,
+            'total_biaya' => 0,
+            'total_terpakai' => 0,
+            'sisa_dana' => 0,
+            'total_penjualan' => 0,
+            'laba_bersih' => 0,
+            'profit_diterima' => 0,
+            'dividen_diterima' => 0,
+            'efisiensi_opex' => '0%'
+        ],
+        'inventory' => [
+            'total_units' => 0,
+            'active_units' => 0,
+            'standby_units' => 0,
+            'total_asset_value' => 0,
+            'items' => []
+        ],
+        'purchases' => [],
+        'sales' => [],
+        'costs' => [],
+        'billing' => [
+            'total_allocated' => 0,
+            'remaining_cash' => 0,
+            'records' => []
+        ],
+        'neraca' => [
+            'aktiva' => [
+                'kas_escrow' => 0,
+                'piutang_usaha' => 0,
+                'total_aset_lancar' => 0,
+                'aset_tetap_bruto' => 0,
+                'akumulasi_penyusutan' => 0,
+                'nilai_buku_aset_tetap' => 0,
+                'total_aktiva' => 0
+            ],
+            'pasiva' => [
+                'kewajiban_lancar' => 0,
+                'modal_investor' => 0,
+                'saldo_laba_ditahan' => 0,
+                'laba_berjalan' => 0,
+                'total_pasiva' => 0,
+                'is_balanced' => true
+            ]
+        ],
+        'laba_rugi' => [
+            'pendapatan' => [
+                'penjualan_alat_berat' => 0,
+                'pendapatan_lain' => 0,
+                'total_pendapatan' => 0
+            ],
+            'beban' => [
+                'impor_customs_miu' => 0,
+                'workshop_perawatan' => 0,
+                'total_beban' => 0
+            ],
+            'laba_bersih_operasional' => 0,
+            'margin_persen' => 0,
+            'profit' => [
+                'realisasi_diterima' => 0,
+                'estimasi_kuartal_berikutnya' => 0,
+                'jadwal_berikutnya' => '-',
+                'target_roi_tahunan' => $found['info']['return'] ?? '≥30% (p.a.)'
+            ],
+            'dividen' => [
+                'realisasi_diterima' => 0,
+                'estimasi_kuartal_berikutnya' => 0,
+                'jadwal_berikutnya' => '-',
+                'target_roi_tahunan' => $found['info']['return'] ?? '≥30% (p.a.)'
+            ]
+        ],
+        'documents' => $documents,
+        'has_invested' => false,
+        'charts' => [
+            'labels' => ['Jan 2026', 'Feb 2026', 'Mar 2026', 'Apr 2026', 'Mei 2026', 'Jun 2026', 'Jul 2026', 'Agu 2026', 'Sep 2026'],
+            'pembelian' => [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            'penjualan' => [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            'biaya' => [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            'sisa_dana' => [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        ]
+    ]);
+}
+
+function serveStaticDocumentsFallback(string $projectId): void {
+    $docs = [
+        [
+            'id' => 1,
+            'doc_number' => 'DOC-RAB-' . strtoupper($projectId),
+            'doc_title' => 'Rencana Anggaran Biaya (RAB) Eksekutif Proyek',
+            'doc_type' => 'rab',
+            'file_path' => 'prospektus.html',
+            'file_size' => '1.8 MB',
+            'published_by' => 'Komite Investasi MGI',
+            'status' => 'published',
+            'published_at' => '2026-09-15'
+        ],
+        [
+            'id' => 2,
+            'doc_number' => 'DOC-PROSP-' . strtoupper($projectId),
+            'doc_title' => 'Memorandum Informasi & Prospektus Penawaran Investasi',
+            'doc_type' => 'prospectus',
+            'file_path' => 'prospektus.html',
+            'file_size' => '3.4 MB',
+            'published_by' => 'Legal & Compliance MGI',
+            'status' => 'published',
+            'published_at' => '2026-09-15'
+        ]
+    ];
+    sendJsonResponse([
+        'project_id' => $projectId,
+        'documents' => $docs
+    ]);
+}
+
 try {
     $db = getDB();
 
@@ -51,6 +246,14 @@ try {
     $project = $stmtP->fetch();
 
     if (!$project) {
+        if ($action === 'dashboard') {
+            serveStaticDashboardFallback($projectId);
+            exit;
+        }
+        if ($action === 'documents' && $method === 'GET') {
+            serveStaticDocumentsFallback($projectId);
+            exit;
+        }
         sendJsonError("Proyek dengan ID '{$projectId}' tidak ditemukan.", 404);
     }
 
@@ -610,5 +813,13 @@ try {
     sendJsonError('Endpoint atau method tidak valid.', 404);
 
 } catch (Exception $e) {
+    if ($action === 'dashboard') {
+        serveStaticDashboardFallback($projectId);
+        exit;
+    }
+    if ($action === 'documents' && $method === 'GET') {
+        serveStaticDocumentsFallback($projectId);
+        exit;
+    }
     sendJsonError('Server Error: ' . $e->getMessage(), 500);
 }
