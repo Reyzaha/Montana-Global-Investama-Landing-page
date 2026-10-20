@@ -222,4 +222,14 @@ class ApiManager {
 
     return response;
   }
+
+  static Future<Response> investorDashboard() async {
+    Dio dio = await getDio();
+
+    Response response = await dio.get(
+      "${ApiUrl.INVESTOR_DASHBOARD.path}?action=get",
+    );
+
+    return response;
+  }
 }

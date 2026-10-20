@@ -28,9 +28,6 @@ try {
     $stmtPort->execute([$investorId]);
     $userPortfolios = $stmtPort->fetchAll();
 
-    // Default ke proyek pertama jika filter kosong dan ada portfolio
-    $activeProjectId = $projectId ?: (!empty($userPortfolios) ? $userPortfolios[0]['project_id'] : 'proj-jkt-jabar');
-
     // 2. Ambil seluruh transaksi finansial untuk investor ini
     $sql = "
         SELECT f.*, p.title as project_title, p.category as project_category
@@ -50,21 +47,6 @@ try {
     $stmt = $db->prepare($sql);
     $stmt->execute($params);
     $allRecords = $stmt->fetchAll();
-
-    $isPreviewMode = false;
-    if (empty($allRecords)) {
-        // Fallback untuk transparansi format pembukuan riil: ambil financial records proyek aktif
-        $stmtProjRec = $db->prepare("
-            SELECT f.*, p.title as project_title, p.category as project_category
-            FROM financial_records f
-            JOIN projects p ON f.project_id = p.id
-            WHERE f.project_id = ?
-            ORDER BY f.transaction_date ASC, f.id ASC
-        ");
-        $stmtProjRec->execute([$activeProjectId]);
-        $allRecords = $stmtProjRec->fetchAll();
-        $isPreviewMode = true;
-    }
 
     // 3. Klasifikasikan ke dalam modul: Neraca, Laba Rugi, Pembelian, Penjualan, Biaya, Stock
     $modNeraca = [];
@@ -133,11 +115,6 @@ try {
                 $totalCapital += (float)$port['amount'];
             }
         }
-        if ($totalCapital === 0.0 && $isPreviewMode) {
-            $stmtProjTarget = $db->prepare("SELECT funding_target FROM projects WHERE id = ? LIMIT 1");
-            $stmtProjTarget->execute([$activeProjectId]);
-            $totalCapital = (float)($stmtProjTarget->fetchColumn() ?: 45000000000);
-        }
     }
 
     // Sisa Kas = Modal + Penjualan - Seluruh Pembelian Unit - Beban Operasional - Dividen
@@ -147,70 +124,68 @@ try {
     $ekuitas = $totalCapital + ($labaBersih - $totalDividen);
 
     // 4. Siapkan format Chart.js real-time (Odoo Style)
-    // Label bulan realistis Jan s.d. Jul 2026
     $chartLabels = ['Jan 2026', 'Feb 2026', 'Mar 2026', 'Apr 2026', 'Mei 2026', 'Jun 2026', 'Jul 2026'];
     
-    // Dataset Cashflow & Alokasi Modal (Uang 5M kemana)
-    $chartDataKas = [5000, 1850, 2215, 2090, 2090, 2610, 2465]; // dalam Juta Rupiah
-    $chartDataPembelianMIU = [0, 3150, 0, 0, 0, 0, 0];
-    $chartDataPenjualan = [0, 0, 450, 0, 0, 520, 0];
-    $chartDataLabaRugi = [0, 0, 365, -125, 0, 520, -145];
-
-    // Jika ada data riil dinamis yang diinput admin, sesuaikan proporsinya
-    if ($totalPembelianAll > 0) {
-        $pembelianJuta = round($totalPembelianAll / 1000000, 2);
-        $chartDataPembelianMIU[1] = $pembelianJuta;
-    }
-    if ($totalCapital > 0) {
+    // Dataset Cashflow & Alokasi Modal (angka murni 0 jika belum ada aktivitas)
+    if ($totalCapital > 0 || $totalPenjualan > 0 || $totalPembelianAll > 0) {
         $modalJuta = round($totalCapital / 1000000, 2);
-        $chartDataKas[0] = $modalJuta;
+        $pembelianJuta = round($totalPembelianAll / 1000000, 2);
+        $penjualanJuta = round($totalPenjualan / 1000000, 2);
+        $labaRugiJuta = round($labaBersih / 1000000, 2);
+        $sisaKasJuta = round($sisaKas / 1000000, 2);
+
+        $chartDataKas = [$modalJuta, $sisaKasJuta, $sisaKasJuta, $sisaKasJuta, $sisaKasJuta, $sisaKasJuta, $sisaKasJuta];
+        $chartDataPembelianMIU = [0, $pembelianJuta, 0, 0, 0, 0, 0];
+        $chartDataPenjualan = [0, 0, $penjualanJuta, 0, 0, 0, 0];
+        $chartDataLabaRugi = [0, 0, $labaRugiJuta, 0, 0, 0, 0];
+    } else {
+        $chartDataKas = [0, 0, 0, 0, 0, 0, 0];
+        $chartDataPembelianMIU = [0, 0, 0, 0, 0, 0, 0];
+        $chartDataPenjualan = [0, 0, 0, 0, 0, 0, 0];
+        $chartDataLabaRugi = [0, 0, 0, 0, 0, 0, 0];
     }
 
-    // Data Fisik Stock / Inventory Alat Berat Proyek
-    $stockInventory = [
-        [
-            'unit_code' => 'EXC-KMT-01',
-            'model' => 'Unit Alat Berat Siap Operasi',
-            'serial_number' => 'KM-9481',
-            'year' => 2021,
-            'specification' => 'Short Tail Swing, Bucket 0.53 m³, Engine SAA4D95LE-5 (97 HP)',
-            'hour_meter' => '680 Jam',
-            'location' => 'Koridor Timur Jabodetabek (Proyek Cut & Fill)',
-            'current_status' => 'Operasional Lapangan (Siap Jual & Operasi)',
-            'gps_status' => 'Online 100% (Signal Strong)',
-            'last_service' => '2026-03-28 (Service 500 Jam Rutin)',
-            'procured_via' => 'PT Montana Indo Utama (MIU)',
-            'insurance' => 'All Risk Marine & Heavy Equipment Covered'
-        ],
-        [
-            'unit_code' => 'EXC-KMT-02',
-            'model' => 'Unit Alat Berat Siap Operasi',
-            'serial_number' => 'KM-9482',
-            'year' => 2021,
-            'specification' => 'Short Tail Swing, Bucket 0.53 m³, Engine SAA4D95LE-5 (97 HP)',
-            'hour_meter' => '620 Jam',
-            'location' => 'Sentral Pool & Workshop Montana Kebumen 4.500 m²',
-            'current_status' => 'Siaga Operasi / Standby di Pool Kebumen',
-            'gps_status' => 'Online 100% (Signal Strong)',
-            'last_service' => '2026-03-28 (Inspeksi & Ganti Oli Rutin)',
-            'procured_via' => 'PT Montana Indo Utama (MIU)',
-            'insurance' => 'All Risk Marine & Heavy Equipment Covered'
-        ],
-        [
-            'unit_code' => 'ATT-BRK-01',
-            'model' => 'Hydraulic Breaker HD Kit (2 Set)',
-            'serial_number' => 'HB-2026-A1 & A2',
-            'year' => 2024,
-            'specification' => 'Operating Pressure 140-170 bar, Chisel Diameter 100 mm',
-            'hour_meter' => '120 Jam',
-            'location' => 'Sentral Workshop Montana Kebumen',
-            'current_status' => 'Siaga di Workshop Pool (Siap Pasang)',
-            'gps_status' => 'Tergabung pada Aset Armada MIU',
-            'last_service' => '2026-02-15 (Kalibrasi Tekanan Hidrolik)',
-            'procured_via' => 'PT Montana Indo Utama (MIU)',
-            'insurance' => 'Covered by Fleet Policy'
-        ]
-    ];
+    // Data Fisik Stock / Inventory Alat Berat Proyek (murni riil dari project_inventory)
+    $stockInventory = [];
+    if (!empty($userPortfolios)) {
+        $projectIds = array_values(array_unique(array_filter(array_column($userPortfolios, 'project_id'))));
+        if ($projectId && in_array($projectId, $projectIds)) {
+            $filterIds = [$projectId];
+        } else {
+            $filterIds = $projectIds;
+        }
+
+        if (!empty($filterIds)) {
+            $placeholders = implode(',', array_fill(0, count($filterIds), '?'));
+            $stmtInv = $db->prepare("
+                SELECT * FROM project_inventory
+                WHERE project_id IN ($placeholders)
+                ORDER BY id ASC
+            ");
+            $stmtInv->execute($filterIds);
+            $rowsInv = $stmtInv->fetchAll();
+            foreach ($rowsInv as $inv) {
+                $stockInventory[] = [
+                    'unit_code' => $inv['item_code'] ?? ('UNIT-' . $inv['id']),
+                    'model' => $inv['item_name'] ?? 'Unit Alat Berat',
+                    'serial_number' => $inv['serial_number'] ?? '-',
+                    'year' => !empty($inv['created_at']) ? (int)date('Y', strtotime($inv['created_at'])) : 2026,
+                    'specification' => $inv['category'] ?? 'Alat Berat',
+                    'hour_meter' => ($inv['smh_hours'] ?? 0) . ' Jam',
+                    'location' => $inv['location'] ?? 'Sentral Pool MGI',
+                    'current_status' => $inv['operational_status'] ?? 'Siap Operasi',
+                    'gps_status' => 'Online',
+                    'last_service' => $inv['last_inspection_date'] ?? '-',
+                    'procured_via' => 'PT Montana Indo Utama (MIU)',
+                    'insurance' => 'Tercakup Polis Asuransi'
+                ];
+            }
+        }
+    }
+
+    $activeClientsList = count($modPenjualan) > 0 
+        ? implode(', ', array_unique(array_filter(array_column($modPenjualan, 'vendor_client')))) 
+        : '-';
 
     sendJsonResponse([
         'selected_project_id' => $projectId,
@@ -228,23 +203,23 @@ try {
             'total_dividen' => $totalDividen,
             'laba_ditahan' => max(0.0, $labaBersih - $totalDividen),
             'ekuitas' => $ekuitas,
-            'margin_laba' => $totalPenjualan > 0 ? round(($labaBersih / $totalPenjualan) * 100, 1) . '%' : '91.2%',
-            'roi_rate' => $totalCapital > 0 ? round((($labaBersih / $totalCapital) * 100), 1) . '%' : '32%'
+            'margin_laba' => $totalPenjualan > 0 ? round(($labaBersih / $totalPenjualan) * 100, 1) . '%' : '0%',
+            'roi_rate' => $totalCapital > 0 ? round((($labaBersih / $totalCapital) * 100), 1) . '%' : '0%'
         ],
         'modules' => [
             'stock_inventory' => $stockInventory,
             'pembelian' => [
                 'total_pembelian_miu' => $totalPembelianMIU,
                 'total_pembelian_all' => $totalPembelianAll,
-                'vendor_utama' => 'PT Montana Indo Utama (MIU)',
-                'unit_terbeli' => '2 Unit Alat Berat Siap Operasi + Breaker Kit',
-                'status_pengadaan' => 'Unit Lengkap di Pool Workshop',
+                'vendor_utama' => $totalPembelianMIU > 0 ? 'PT Montana Indo Utama (MIU)' : '-',
+                'unit_terbeli' => count($stockInventory) > 0 ? count($stockInventory) . ' Unit Alat Berat' : '-',
+                'status_pengadaan' => count($stockInventory) > 0 ? 'Unit Lengkap di Pool Workshop' : 'Belum Ada Pengadaan',
                 'records' => $modPembelian
             ],
             'penjualan' => [
                 'total_penjualan' => $totalPenjualan,
                 'total_kontrak' => count($modPenjualan),
-                'klien_aktif' => 'PT Surya Semesta Mandiri, PT Citra Konstruksi',
+                'klien_aktif' => $activeClientsList,
                 'records' => $modPenjualan
             ],
             'biaya' => [
@@ -258,7 +233,7 @@ try {
                 'laba_bersih' => $labaBersih,
                 'dividen_dibagikan' => $totalDividen,
                 'laba_ditahan' => max(0.0, $labaBersih - $totalDividen),
-                'margin_laba' => $totalPenjualan > 0 ? round(($labaBersih / $totalPenjualan) * 100, 1) . '%' : '91.2%',
+                'margin_laba' => $totalPenjualan > 0 ? round(($labaBersih / $totalPenjualan) * 100, 1) . '%' : '0%',
                 'records' => $modLabaRugi
             ],
             'neraca' => [

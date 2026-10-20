@@ -353,6 +353,18 @@ require_once __DIR__ . '/includes/header.php';
                 <i class="bi bi-shield-check me-1"></i> Transparansi Audit Resmi
               </span>
             </div>
+
+            <div class="d-flex align-items-center justify-content-between p-3 rounded-3 border bg-light mt-2">
+              <div class="d-flex align-items-center gap-2">
+                <input class="form-check-input mt-0" type="checkbox" id="formSendEmailPdf" style="width: 20px; height: 20px;">
+                <label class="form-check-label fw-bold text-dark small" for="formSendEmailPdf">
+                  Kirimkan Lampiran PDF Resmi ke Email Investor Terkait
+                </label>
+              </div>
+              <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1.5 rounded-pill small fw-semibold">
+                <i class="bi bi-envelope-paper me-1"></i> Email &amp; PDF Dispatch
+              </span>
+            </div>
           </div>
         </div>
 
@@ -901,7 +913,8 @@ require_once __DIR__ . '/includes/header.php';
       flow_type: document.getElementById('formFlowType').value,
       billing_status: document.getElementById('formBillingStatus').value,
       description: document.getElementById('formDescription').value,
-      is_billing: document.getElementById('formIsBilling').checked ? 1 : 0
+      is_billing: document.getElementById('formIsBilling').checked ? 1 : 0,
+      send_email_pdf: document.getElementById('formSendEmailPdf') ? (document.getElementById('formSendEmailPdf').checked ? 1 : 0) : 0
     };
 
     try {

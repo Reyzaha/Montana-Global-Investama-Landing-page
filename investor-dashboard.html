@@ -1092,7 +1092,7 @@
                   Rincian Transparansi Penggunaan Dana Investor
                 </h4>
                 <p class="text-xs text-slate-600 mt-0.5">
-                  Dana investor <strong class="text-slate-900" id="opBillingSummaryCap">Rp 5.000.000.000</strong>
+                  Dana investor <strong class="text-slate-900" id="opBillingSummaryCap">Rp 0</strong>
                   dialokasikan oleh operator untuk pengadaan unit alat berat melalui <strong>PT Montana Sentra Industri
                     (MSI)</strong> ditambah biaya logistik impor, customs clearance via <strong>PT Montana Indo Utama
                     (MIU)</strong>.
@@ -1102,10 +1102,10 @@
               <!-- Mini Progress Visualizer -->
               <div class="sm:text-right shrink-0 bg-white p-3 rounded-2xl border border-slate-200">
                 <div class="text-[11px] font-semibold text-slate-500">Rasio Penyerapan Modal</div>
-                <div class="text-lg font-black text-slate-900 mt-0.5" id="opBillingProgressPercent">64.7%</div>
+                <div class="text-lg font-black text-slate-900 mt-0.5" id="opBillingProgressPercent">0%</div>
                 <div class="w-36 bg-slate-100 h-2 rounded-full overflow-hidden mt-1.5">
                   <div id="opBillingProgressBar" class="h-2 rounded-full bg-gradient-to-r from-amber-500 to-emerald-500"
-                    style="width: 64.7%"></div>
+                    style="width: 0%"></div>
                 </div>
               </div>
             </div>
@@ -1164,7 +1164,7 @@
                   </div>
                 </div>
                 <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full"
-                  id="opInvActiveBadge">2 Unit Aktif</span>
+                  id="opInvActiveBadge">0 Unit</span>
               </div>
               <div class="h-60 relative">
                 <canvas id="chartInventoryCanvas"></canvas>
@@ -1184,7 +1184,7 @@
                   </div>
                 </div>
                 <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full"
-                  id="opPembelianBadge">Rp 3,15 M</span>
+                  id="opPembelianBadge">Rp 0</span>
               </div>
               <div class="h-60 relative">
                 <canvas id="chartPembelianCanvas"></canvas>
@@ -1205,7 +1205,7 @@
                   </div>
                 </div>
                 <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full"
-                  id="opPenjualanBadge">Rp 970 Jt</span>
+                  id="opPenjualanBadge">Rp 0</span>
               </div>
               <div class="h-60 relative">
                 <canvas id="chartPenjualanCanvas"></canvas>
@@ -1224,8 +1224,7 @@
                     <span class="text-[10px] text-slate-400">Customs Clearance, Maintenance, OPEX</span>
                   </div>
                 </div>
-                <span class="text-xs font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-full" id="opBiayaBadge">Rp
-                  85 Jt</span>
+                <span class="text-xs font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-full" id="opBiayaBadge">Rp 0</span>
               </div>
               <div class="h-60 relative">
                 <canvas id="chartBiayaCanvas"></canvas>
@@ -2083,6 +2082,10 @@
           </div>
         </div>
         <div class="flex items-center gap-2">
+          <button onclick="downloadActivePdf()"
+            class="px-3.5 py-1.5 bg-blue-900 hover:bg-blue-800 text-white rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-sm transition">
+            <i data-lucide="download" class="w-3.5 h-3.5"></i> Unduh PDF
+          </button>
           <button onclick="printActiveDocument()"
             class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full text-xs font-semibold flex items-center gap-1.5">
             <i data-lucide="printer" class="w-3.5 h-3.5"></i> Cetak Dokumen
@@ -2867,40 +2870,25 @@
         if (countBadge) {
           countBadge.innerHTML = `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-700 border border-slate-300">0 Penempatan Modal Aktif</span>`;
         }
+        projectsToRender = [];
+      }
 
-        // Tampilkan kartu proyek representatif dengan seluruh angka murni 0 (tanpa seed)
-        if (Array.isArray(projects) && projects.length > 0) {
-          projectsToRender = [projects[0]];
-        } else {
-          projectsToRender = [{
-            id: 0,
-            project_id: 'proj-jkt-jabar',
-            nama_project: 'Belum Memilih Proyek Penempatan Modal',
-            kategori: 'Status: Belum Ada Dana Ditempatkan',
-            lokasi: 'Nasional (Silakan Pilih Proyek pada Katalog)',
-            image: 'assets/img/city-jkt-jabar.png',
-            contract_number: '-',
-            status: 'Belum Ada Penempatan Modal',
-            is_preview: false,
-            total_dana_investor: 0,
-            tier_info: null,
-            ringkasan: {
-              sisa_dana: 0,
-              total_pembelian: 0,
-              total_penjualan: 0,
-              total_biaya: 0,
-              total_terpakai: 0,
-              payout_received: 0,
-              return_rate: '-',
-              tenor: '-',
-              next_payout_date: '-',
-              allocated_units: '0 Unit (Belum Ada Penempatan)',
-              total_units: 0,
-              active_units: 0,
-              utilization_rate: '-'
-            }
-          }];
-        }
+      if (projectsToRender.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full bg-white rounded-2xl border border-slate-200/80 p-8 sm:p-12 text-center shadow-sm">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-400">
+              <i data-lucide="folder-open" class="w-8 h-8 text-slate-400"></i>
+            </div>
+            <h4 class="text-lg font-bold text-slate-900 mb-1">Belum Ada Penempatan Modal</h4>
+            <p class="text-sm text-slate-500 max-w-md mx-auto mb-6">Akun investor Anda saat ini belum memiliki portofolio proyek aktif. Jelajahi katalog proyek investasi infrastruktur dan alat berat yang tersedia untuk mulai berinvestasi.</p>
+            <button type="button" onclick="switchTab('katalog')" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-blue-900 text-white text-sm font-semibold hover:bg-blue-800 transition shadow-sm cursor-pointer">
+              <i data-lucide="layout-grid" class="w-4 h-4"></i>
+              <span>Lihat Katalog Proyek</span>
+            </button>
+          </div>
+        `;
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+        return;
       }
 
       let html = '';
@@ -3824,8 +3812,8 @@
       const cap = isAllocated ? Number(port.amount) : 0;
 
       const fnd = pObj.funding || {};
-      const targetFunding = Number(fnd.target || 45000000000);
-      const collectedFunding = Number(fnd.collected || 0);
+      const targetFunding = Number(fnd.target || pObj.funding_target || 0);
+      const collectedFunding = Number(fnd.collected || pObj.funding_collected || 0);
 
       const rab = (pObj.detail && pObj.detail.rab_executive) ? pObj.detail.rab_executive : null;
       const fundingItems = (pObj.detail && pObj.detail.funding_target && pObj.detail.funding_target.rows)
@@ -4824,20 +4812,19 @@
       const tableBody = document.getElementById('docViewerTableBody');
       if (tableBody) {
         if (doc.doc_type === 'billing' || doc.is_billing) {
+          const amt = Number(doc.amount || 0);
+          const amtFormatted = formatRupiahExact(amt);
+          const detail = doc.unit_detail || doc.description || 'Alokasi Realisasi Pengadaan & Operasional Proyek';
+          const vendor = doc.vendor_client || 'PT Montana Sentra Industri / MIU';
           tableBody.innerHTML = `
             <tr>
-              <td class="py-3 px-4 font-semibold">Alokasi Pengadaan Unit Alat Berat</td>
-              <td class="py-3 px-4 text-slate-500">2x Unit Alat Berat Siap Operasi via PT MSI</td>
-              <td class="py-3 px-4 text-right font-mono font-bold">Rp 2.800.000.000</td>
+              <td class="py-3 px-4 font-semibold">${doc.doc_title || 'Tagihan Alokasi Dana Proyek'}</td>
+              <td class="py-3 px-4 text-slate-500">${detail} via ${vendor}</td>
+              <td class="py-3 px-4 text-right font-mono font-bold">${amtFormatted}</td>
             </tr>
-            <tr>
-              <td class="py-3 px-4 font-semibold">Biaya Logistik & Customs Clearance</td>
-              <td class="py-3 px-4 text-slate-500">Handling Pelabuhan Tanjung Priok via PT MIU</td>
-              <td class="py-3 px-4 text-right font-mono font-bold">Rp 85.000.000</td>
-            </tr>
-            <tr class="bg-slate-50 font-bold">
-              <td class="py-3 px-4 text-slate-900" colspan="2">TOTAL ALOKASI DANA TEREALISASI</td>
-              <td class="py-3 px-4 text-right font-mono text-emerald-700">Rp 2.885.000.000</td>
+            <tr class="bg-slate-50 font-bold border-t border-slate-200">
+              <td class="py-3 px-4 text-slate-900" colspan="2">TOTAL TAGIHAN ALOKASI DANA</td>
+              <td class="py-3 px-4 text-right font-mono text-emerald-700">${amtFormatted}</td>
             </tr>
           `;
         } else if (doc.doc_type === 'inventory') {
@@ -4930,16 +4917,25 @@
 
     function viewProjectPdfDocumentFromRecord(r) {
       const docObj = {
-        doc_title: `Faktur Alokasi: ${r.title}`,
+        doc_title: `Faktur Tagihan: ${r.title}`,
         doc_number: r.record_number || 'BILL-MGI-001',
         doc_type: 'billing',
-        published_by: 'Operator MGI',
-        published_at: r.transaction_date || '2026-09-28'
+        is_billing: true,
+        amount: Number(r.amount || 0),
+        description: r.description || '',
+        vendor_client: r.vendor_client || '',
+        unit_detail: r.unit_detail || '',
+        published_by: r.created_by || 'Divisi Keuangan MGI',
+        published_at: r.transaction_date || ''
       };
       viewProjectPdfDocument(docObj);
     }
 
     function printActiveDocument() {
+      window.print();
+    }
+
+    function downloadActivePdf() {
       window.print();
     }
 

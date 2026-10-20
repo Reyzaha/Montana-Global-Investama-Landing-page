@@ -9,6 +9,7 @@ require_once __DIR__ . '/../../backend/config/db.php';
 require_once __DIR__ . '/../../backend/helpers/response.php';
 require_once __DIR__ . '/../../backend/helpers/auth_helper.php';
 require_once __DIR__ . '/../../backend/helpers/notification_helper.php';
+require_once __DIR__ . '/../../backend/helpers/mail_helper.php';
 
 $admin = requireAdminAuth();
 $method = $_SERVER['REQUEST_METHOD'];
@@ -317,9 +318,48 @@ try {
             "Admin created {$module} record/billing '{$title}' ({$recordNumber}) nominal Rp " . number_format($amount, 0, ',', '.') . " for investor ID {$investorId}"
         );
 
+        // Kirim email notifikasi & dokumen PDF tagihan jika dipilih oleh admin
+        $emailSent = false;
+        if ($isBilling && !empty($input['send_email_pdf'])) {
+            $stmtInv = $db->prepare("SELECT full_name, email FROM investors WHERE id = ?");
+            $stmtInv->execute([$investorId]);
+            $invData = $stmtInv->fetch();
+            if ($invData && !empty($invData['email'])) {
+                $invEmail = $invData['email'];
+                $invName = $invData['full_name'] ?: 'Investor MGI';
+                $fmtNominal = 'Rp ' . number_format($amount, 0, ',', '.');
+                $subject = "Pemberitahuan Tagihan Resmi: {$title} ({$recordNumber})";
+                $emailHtml = "
+                    <div style='font-family: Arial, sans-serif; color: #1e293b; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px;'>
+                        <div style='text-align: center; margin-bottom: 24px;'>
+                            <h2 style='color: #1e3a8a; margin: 0;'>PT Montana Global Investama</h2>
+                            <p style='color: #64748b; font-size: 13px; margin: 4px 0;'>Pemberitahuan Tagihan Digital Resmi &amp; Dokumen Proyek</p>
+                        </div>
+                        <p>Yth. Bapak/Ibu <strong>" . htmlspecialchars($invName) . "</strong>,</p>
+                        <p>Berikut rincian tagihan digital resmi / dokumen alokasi dana proyek yang telah diterbitkan:</p>
+                        <table style='width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px;'>
+                            <tr style='border-bottom: 1px solid #e2e8f0;'><td style='padding: 8px 0; color: #64748b;'>Nomor Tagihan:</td><td style='padding: 8px 0; font-weight: bold;'>" . htmlspecialchars($recordNumber) . "</td></tr>
+                            <tr style='border-bottom: 1px solid #e2e8f0;'><td style='padding: 8px 0; color: #64748b;'>Perihal / Judul:</td><td style='padding: 8px 0; font-weight: bold;'>" . htmlspecialchars($title) . "</td></tr>
+                            <tr style='border-bottom: 1px solid #e2e8f0;'><td style='padding: 8px 0; color: #64748b;'>Nominal:</td><td style='padding: 8px 0; font-weight: bold; color: #047857; font-size: 16px;'>" . $fmtNominal . "</td></tr>
+                            <tr style='border-bottom: 1px solid #e2e8f0;'><td style='padding: 8px 0; color: #64748b;'>Tanggal Terbit:</td><td style='padding: 8px 0;'>" . htmlspecialchars($transactionDate) . "</td></tr>
+                            " . ($dueDate ? "<tr style='border-bottom: 1px solid #e2e8f0;'><td style='padding: 8px 0; color: #64748b;'>Jatuh Tempo:</td><td style='padding: 8px 0; color: #b91c1c;'>" . htmlspecialchars($dueDate) . "</td></tr>" : "") . "
+                        </table>
+                        <p style='font-size: 13px; color: #475569;'>Dokumen resmi tagihan berformat PDF dapat Anda pratinjau (preview) atau unduh langsung di Portal Investor MGI.</p>
+                        <div style='text-align: center; margin: 24px 0;'>
+                            <a href='https://montanainvestama.com/investor-dashboard.html?tab=billing' style='background-color: #1e3a8a; color: #ffffff; padding: 12px 24px; text-decoration: none; font-weight: bold; border-radius: 8px; display: inline-block;'>Buka Portal Investor &amp; Unduh Tagihan</a>
+                        </div>
+                        <hr style='border: 0; border-top: 1px solid #e2e8f0; margin: 24px 0;'/>
+                        <p style='font-size: 11px; color: #94a3b8; text-align: center;'>Email ini diterbitkan otomatis oleh Sistem PT Montana Global Investama.</p>
+                    </div>
+                ";
+                $emailSent = @sendMgiEmail($invEmail, $subject, $emailHtml);
+            }
+        }
+
         sendJsonResponse([
             'id' => $newId,
-            'record_number' => $recordNumber
+            'record_number' => $recordNumber,
+            'email_sent' => $emailSent
         ], 201, "Data transaksi & billing '{$title}' berhasil dicatat dan dikirimkan ke investor.");
     }
 

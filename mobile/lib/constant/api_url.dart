@@ -31,7 +31,8 @@ enum ApiUrl {
   CONTACT("contact.php"),
   CITIES("cities.php"),
   EKOSISTEM("ekosistem.php"),
-  ARTICLES("articles.php");
+  ARTICLES("articles.php"),
+  INVESTOR_DASHBOARD("investor/dashboard.php");
 
   final String path;
 

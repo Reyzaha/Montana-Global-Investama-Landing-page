@@ -64,72 +64,19 @@ try {
     $projectsList = [];
     $hasActivePortfolios = !empty($rawProjects);
 
-    if (!$hasActivePortfolios) {
-        // Investor belum memiliki portofolio aktif riil: Tampilkan proyek representatif dengan metrik murni 0
-        $stmtPrev = $db->query("
-            SELECT pr.*, 
-                   pr.title as project_title, 
-                   pr.category as project_category,
-                   pr.image as project_image, 
-                   pr.status as project_status, 
-                   pr.lokasi as project_lokasi,
-                   pr.return_rate as project_return_rate,
-                   pr.tenor as project_tenor,
-                   pd.rab_executive_json
-            FROM projects pr
-            LEFT JOIN project_details pd ON pr.id = pd.project_id
-            WHERE pr.id = 'proj-jkt-jabar' OR pr.status = 'Open'
-            ORDER BY pr.sort_order ASC
-            LIMIT 1
-        ");
-        $prevProj = $stmtPrev->fetch();
-        if ($prevProj) {
-            $prevPId = $prevProj['id'];
-            $rabData = !empty($prevProj['rab_executive_json']) ? json_decode($prevProj['rab_executive_json'], true) : ($extraProjectData[$prevPId] ?? null);
-
-            $projectsList[] = [
-                'id' => 0,
-                'project_id' => $prevPId,
-                'nama_project' => 'Belum Memilih Proyek Penempatan Modal',
-                'kategori' => 'Status: Menunggu Penempatan Modal',
-                'lokasi' => 'Nasional (Silakan Pilih Proyek pada Katalog)',
-                'image' => $prevProj['image'] ?: 'assets/img/city-jkt-jabar.png',
-                'contract_number' => '-',
-                'status' => 'Belum Ada Penempatan Modal',
-                'is_preview' => false,
-                'total_dana_investor' => 0.0,
-                'tier_info' => null,
-                'rab_executive' => $rabData,
-                'ringkasan' => [
-                    'sisa_dana' => 0.0,
-                    'total_pembelian' => 0.0,
-                    'total_penjualan' => 0.0,
-                    'total_biaya' => 0.0,
-                    'total_terpakai' => 0.0,
-                    'payout_received' => 0.0,
-                    'return_rate' => $prevProj['return_rate'] ?: '-',
-                    'tenor' => trim(preg_replace('/\s*\(Target\s*2[–\-]3x\s*Putaran\/Tahun\)/iu', '', $prevProj['tenor'] ?: '-')),
-                    'next_payout_date' => '-',
-                    'allocated_units' => '0 Unit (Belum Ada Penempatan)',
-                    'total_units' => 0,
-                    'active_units' => 0,
-                    'utilization_rate' => '-'
-                ]
-            ];
-        }
-    } else {
+    if ($hasActivePortfolios) {
         foreach ($rawProjects as $p) {
             $pId = $p['project_id'];
             $investorCapital = (float)$p['amount'];
 
-        // 2. Calculate financial summary for this project directly from DB records
-        $stmtFin = $db->prepare("
-            SELECT module, flow_type, amount, is_billing, category, vendor_client
-            FROM financial_records
-            WHERE project_id = ? AND (investor_id = ? OR investor_id IS NULL)
-        ");
-        $stmtFin->execute([$pId, $investorId]);
-        $finances = $stmtFin->fetchAll();
+            // 2. Calculate financial summary for this project directly from DB records
+            $stmtFin = $db->prepare("
+                SELECT module, flow_type, amount, is_billing, category, vendor_client
+                FROM financial_records
+                WHERE project_id = ? AND investor_id = ?
+            ");
+            $stmtFin->execute([$pId, $investorId]);
+            $finances = $stmtFin->fetchAll();
 
         $totalPembelian = 0.0;
         $totalPenjualan = 0.0;
@@ -215,13 +162,15 @@ try {
                 'payout_received' => isset($p['payout_received']) ? (float)$p['payout_received'] : 0.0,
                 'return_rate' => $p['return_rate'],
                 'tenor' => trim(preg_replace('/\s*\(Target\s*2[–\-]3x\s*Putaran\/Tahun\)/iu', '', $p['tenor'] ?: '12 Bulan')),
-                'next_payout_date' => $p['next_payout_date'] ?: '2026-10-15',
+                'next_payout_date' => $p['next_payout_date'] ?: '-',
                 'allocated_units' => ($matchedTier && !empty($matchedTier['unit_qty'])) 
                     ? ($matchedTier['unit_qty'] . ' Unit Alat Berat Siap Operasi') 
                     : ($p['allocated_units'] ?: 'Unit Alat Berat Siap Operasi'),
                 'total_units' => (int)($invStats['total_units'] ?? 0),
                 'active_units' => (int)($invStats['active_units'] ?? 0),
-                'utilization_rate' => '94.2%'
+                'utilization_rate' => (!empty($invStats['total_units']) && $invStats['total_units'] > 0)
+                    ? round(((int)$invStats['active_units'] / (int)$invStats['total_units']) * 100, 1) . '%'
+                    : '0%'
             ]
         ];
         }

@@ -1,9 +1,13 @@
+import "dart:convert";
+
 import "package:base/base.dart";
+import "package:dio/dio.dart";
 import "package:easy_localization/easy_localization.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:mgi_investor/api/api_manager.dart";
+import "package:mgi_investor/api/endpoint/investor/investor_dashboard.dart";
 import "package:mgi_investor/api/endpoint/project/project.dart";
 import "package:mgi_investor/helper/background.dart";
 import "package:mgi_investor/helper/formats.dart";
@@ -24,12 +28,13 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
     with WidgetsBindingObserver {
   bool loading = false;
   List<Project> activeProjects = [];
+  InvestorDashboardResponse? dashboardData;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    loadProjects();
+    loadData();
   }
 
   @override
@@ -44,21 +49,42 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
     setState(() {});
   }
 
-  Future<void> loadProjects() async {
+  Future<void> loadData() async {
     try {
       setState(() {
         loading = true;
       });
 
-      final response = await ApiManager.projects();
-      if (response.statusCode == 200 && response.data is List) {
-        activeProjects = (response.data as List)
-            .map((e) => Project().parse(e as Map<String, dynamic>))
-            .toList();
+      final Response dashResponse = await ApiManager.investorDashboard();
+      if (dashResponse.statusCode == 200) {
+        dynamic data = dashResponse.data;
+        if (data is String) {
+          try {
+            data = jsonDecode(data);
+          } catch (_) {}
+        }
+        if (data is Map<String, dynamic>) {
+          dashboardData = InvestorDashboardResponse().parse(data);
+        }
+      }
+
+      final Response projResponse = await ApiManager.projects();
+      if (projResponse.statusCode == 200) {
+        dynamic pData = projResponse.data;
+        if (pData is String) {
+          try {
+            pData = jsonDecode(pData);
+          } catch (_) {}
+        }
+        if (pData is List) {
+          activeProjects = pData
+              .map((e) => Project().parse(e as Map<String, dynamic>))
+              .toList();
+        }
       }
     } catch (e) {
       if (kDebugMode) {
-        print("Portal load projects: $e");
+        print("Portal load data: $e");
       }
     } finally {
       if (mounted) {
@@ -204,6 +230,22 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
   }
 
   Widget _buildPortfolioStats() {
+    final InvestorMetrics? metrics = dashboardData?.metrics;
+    final double totalInvested = metrics?.totalInvested ?? 0.0;
+    final double totalPayout = metrics?.totalPayoutReceived ?? 0.0;
+    final int activeCount = metrics?.activeProjectsCount ?? 0;
+    final String estRoi = metrics?.estRoiRate ?? "0%";
+
+    final String commitValue = "Rp ${Formats.spell(totalInvested)}";
+    final String commitSubtitle = activeCount > 0
+        ? "$activeCount Portofolio Aktif"
+        : "0 Portofolio Aktif";
+
+    final String payoutValue = "Rp ${Formats.spell(totalPayout)}";
+    final String payoutSubtitle = activeCount > 0
+        ? "Est. ROI / Yield: $estRoi"
+        : "Yield: 0%";
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -221,18 +263,18 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
             Expanded(
               child: _buildStatTile(
                 title: "Total Komitmen",
-                value: "Rp 1.500.000.000",
-                subtitle: "Kemitraan 3 Unit",
-                color: const Color(0xFF0F2C59),
+                value: commitValue,
+                subtitle: commitSubtitle,
+                color: AppColors.primary(),
               ),
             ),
             SizedBox(width: Dimensions.size10),
             Expanded(
               child: _buildStatTile(
-                title: "Dividen / Bulan",
-                value: "Rp 35.775.000",
-                subtitle: "Yield 28.62%/thn",
-                color: const Color(0xFFC5A059),
+                title: "Realisasi Dividen",
+                value: payoutValue,
+                subtitle: payoutSubtitle,
+                color: AppColors.secondary(),
               ),
             ),
           ],
@@ -290,26 +332,8 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
   }
 
   Widget _buildDividendSchedule() {
-    final List<Map<String, String>> schedules = [
-      {
-        "period": "1 Nov 2026",
-        "amount": "Rp 35.775.000",
-        "status": "Menunggu Siklus",
-        "unit": "Excavator PC200 (MSI-BALIKPAPAN-01)",
-      },
-      {
-        "period": "1 Des 2026",
-        "amount": "Rp 35.775.000",
-        "status": "Terjadwal",
-        "unit": "Excavator PC200 (MSI-BALIKPAPAN-01)",
-      },
-      {
-        "period": "1 Jan 2027",
-        "amount": "Rp 35.775.000",
-        "status": "Terjadwal",
-        "unit": "Excavator PC200 (MSI-BALIKPAPAN-01)",
-      },
-    ];
+    final List<InvestorPortfolioItem> portfolios =
+        dashboardData?.portfolios ?? [];
 
     return Container(
       margin: EdgeInsets.only(top: Dimensions.size20),
@@ -330,7 +354,7 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
               Icon(
                 Icons.calendar_month,
                 size: Dimensions.size20,
-                color: const Color(0xFF0F2C59),
+                color: AppColors.primary(),
               ),
               SizedBox(width: Dimensions.size10),
               Text(
@@ -344,67 +368,95 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
             ],
           ),
           SizedBox(height: Dimensions.size15),
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: schedules.length,
-            separatorBuilder: (_, __) => Divider(
-              color: AppColors.outline(),
-              height: Dimensions.size15,
-            ),
-            itemBuilder: (context, index) {
-              final item = schedules[index];
-              return Row(
+          if (portfolios.isEmpty)
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: Dimensions.size10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  Text(
+                    "Belum ada jadwal dividen aktif.",
+                    style: TextStyle(
+                      fontSize: Dimensions.text12,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.onSurface(),
+                    ),
+                  ),
+                  SizedBox(height: Dimensions.size4),
+                  Text(
+                    "Jadwal bagi hasil dan dividen bulanan akan tampil otomatis setelah Anda memiliki penempatan modal pada proyek.",
+                    style: TextStyle(
+                      fontSize: Dimensions.text11,
+                      color: AppColors.onSurfaceVariant(),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          else
+            ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: portfolios.length,
+              separatorBuilder: (_, __) => Divider(
+                color: AppColors.outline(),
+                height: Dimensions.size15,
+              ),
+              itemBuilder: (context, index) {
+                final InvestorPortfolioItem item = portfolios[index];
+                return Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            item.nextPayoutDate ?? item.endDate ?? "-",
+                            style: TextStyle(
+                              fontSize: Dimensions.text12,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.onSurface(),
+                            ),
+                          ),
+                          SizedBox(height: Dimensions.size2),
+                          Text(
+                            item.projectTitle ??
+                                item.allocatedUnits ??
+                                "Proyek Investasi MGI",
+                            style: TextStyle(
+                              fontSize: Dimensions.text10,
+                              color: AppColors.onSurfaceVariant(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          item["period"]!,
+                          "Rp ${Formats.spell(item.payoutReceived)}",
                           style: TextStyle(
-                            fontSize: Dimensions.text12,
+                            fontSize: Dimensions.text13,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.onSurface(),
+                            color: AppColors.secondary(),
                           ),
                         ),
                         SizedBox(height: Dimensions.size2),
                         Text(
-                          item["unit"]!,
+                          item.status ?? "Aktif",
                           style: TextStyle(
                             fontSize: Dimensions.text10,
-                            color: AppColors.onSurfaceVariant(),
+                            fontWeight: FontWeight.w600,
+                            color: Colors.green.shade700,
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        item["amount"]!,
-                        style: TextStyle(
-                          fontSize: Dimensions.text13,
-                          fontWeight: FontWeight.bold,
-                          color: const Color(0xFFC5A059),
-                        ),
-                      ),
-                      SizedBox(height: Dimensions.size2),
-                      Text(
-                        item["status"]!,
-                        style: TextStyle(
-                          fontSize: Dimensions.text10,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.green.shade700,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              );
-            },
-          ),
+                  ],
+                );
+              },
+            ),
         ],
       ),
     );
@@ -547,7 +599,7 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
 
   Widget body() {
     return RefreshIndicator(
-      onRefresh: loadProjects,
+      onRefresh: loadData,
       child: ListView(
         padding: EdgeInsets.all(Dimensions.size15),
         children: [
