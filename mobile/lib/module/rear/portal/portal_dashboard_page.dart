@@ -471,12 +471,14 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "Dokumen & Proposal Terlindungi",
-                style: TextStyle(
-                  fontSize: Dimensions.text16,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.onSurface(),
+              Expanded(
+                child: Text(
+                  "Dokumen & Proposal Terlindungi",
+                  style: TextStyle(
+                    fontSize: Dimensions.text16,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.onSurface(),
+                  ),
                 ),
               ),
               TextButton(

@@ -70,6 +70,12 @@ function getCsrfToken(): string {
 }
 
 function validateCsrfToken(?string $token = null): bool {
+    // Permintaan mobile/API yang diautentikasi dengan Bearer token valid tidak rentan CSRF berbasis cookie
+    $bearer = getBearerToken();
+    if ($bearer && validateInvestorAuthToken($bearer)) {
+        return true;
+    }
+
     $sessionToken = $_SESSION['mgi_csrf_token'] ?? '';
     if (empty($sessionToken)) {
         return false;
@@ -481,6 +487,98 @@ function setInvestorSession(array $investor): void {
     $_SESSION['mgi_investor_ip'] = getClientIp();
 }
 
+function generateInvestorAuthToken(array $investor): string {
+    $payload = [
+        'sub' => (int)$investor['id'],
+        'email' => strtolower(trim($investor['email'] ?? '')),
+        'type' => $investor['account_type'] ?? 'perorangan',
+        'name' => $investor['full_name'] ?? ($investor['business_name'] ?? ''),
+        'iat' => time(),
+        'exp' => time() + (30 * 86400) // 30 hari untuk mobile app
+    ];
+    $json = json_encode($payload, JSON_UNESCAPED_SLASHES);
+    $encoded = rtrim(strtr(base64_encode($json), '+/', '-_'), '=');
+    $sig = hash_hmac('sha256', $encoded, getRateLimitSecret());
+    return $encoded . '.' . $sig;
+}
+
+function getBearerToken(): ?string {
+    $headers = function_exists('getallheaders') ? getallheaders() : [];
+
+    // Check Authorization header in all variations
+    $authHeader = $headers['Authorization'] 
+        ?? ($headers['authorization'] 
+        ?? ($_SERVER['HTTP_AUTHORIZATION'] 
+        ?? ($_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ?? null)));
+
+    if ($authHeader && preg_match('/Bearer\s+(\S+)/i', $authHeader, $matches)) {
+        return $matches[1];
+    }
+
+    // Fallback: X-Auth-Token, X-Session-ID, atau query parameter token
+    return $headers['X-Auth-Token'] 
+        ?? ($headers['x-auth-token'] 
+        ?? ($headers['X-Session-ID']
+        ?? ($headers['x-session-id']
+        ?? ($_SERVER['HTTP_X_AUTH_TOKEN'] 
+        ?? ($_SERVER['HTTP_X_SESSION_ID'] 
+        ?? ($_GET['auth_token'] ?? null))))));
+}
+
+function validateInvestorAuthToken(string $token): ?array {
+    $token = trim($token);
+    $parts = explode('.', $token);
+    if (count($parts) !== 2) {
+        return null;
+    }
+    [$encoded, $sig] = $parts;
+    $expectedSig = hash_hmac('sha256', $encoded, getRateLimitSecret());
+    if (!hash_equals($expectedSig, $sig)) {
+        return null;
+    }
+
+    $json = base64_decode(strtr($encoded, '-_', '+/'));
+    if (!$json) {
+        return null;
+    }
+    $payload = json_decode($json, true);
+    if (!is_array($payload) || empty($payload['sub']) || empty($payload['exp'])) {
+        return null;
+    }
+
+    if ($payload['exp'] < time()) {
+        return null;
+    }
+
+    try {
+        $db = getDB();
+        $stmt = $db->prepare("SELECT id, account_type, email, full_name, status FROM investors WHERE id = ? LIMIT 1");
+        $stmt->execute([(int)$payload['sub']]);
+        $inv = $stmt->fetch();
+        if (!$inv || ($inv['status'] ?? '') === 'suspended') {
+            return null;
+        }
+
+        return [
+            'id' => (int)$inv['id'],
+            'type' => $inv['account_type'],
+            'email' => $inv['email'],
+            'name' => $inv['full_name'] ?? '',
+            'login_time' => date('c', $payload['iat'] ?? time()),
+            'ip' => getClientIp()
+        ];
+    } catch (Throwable $e) {
+        return [
+            'id' => (int)$payload['sub'],
+            'type' => $payload['type'] ?? 'perorangan',
+            'email' => $payload['email'] ?? '',
+            'name' => $payload['name'] ?? '',
+            'login_time' => date('c', $payload['iat'] ?? time()),
+            'ip' => getClientIp()
+        ];
+    }
+}
+
 function getInvestorSession(): ?array {
     if (!empty($_SESSION['mgi_investor_logged_in']) && !empty($_SESSION['mgi_investor_id'])) {
         return [
@@ -492,6 +590,16 @@ function getInvestorSession(): ?array {
             'ip' => $_SESSION['mgi_investor_ip'] ?? null
         ];
     }
+
+    // Support token-based auth for mobile apps and API clients
+    $token = getBearerToken();
+    if ($token) {
+        $investor = validateInvestorAuthToken($token);
+        if ($investor) {
+            return $investor;
+        }
+    }
+
     return null;
 }
 

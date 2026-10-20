@@ -1,5 +1,8 @@
 # PT MONTANA GLOBAL INVESTAMA — URL REWRITE & SECURITY SHIELD
 RewriteEngine On
+# Preserve HTTP Authorization Header across Apache/mod_php/mod_proxy
+SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
 
 

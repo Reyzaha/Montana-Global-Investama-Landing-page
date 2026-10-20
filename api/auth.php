@@ -41,9 +41,11 @@ try {
         $user = $stmt->fetch();
 
         if ($user) {
+            $token = generateInvestorAuthToken($user);
             sendJsonResponse([
                 'logged_in' => true,
-                'csrf_token' => getCsrfToken(),
+                'token' => $token,
+                'csrf_token' => $token,
                 'user' => [
                     'id' => (int)$user['id'],
                     'type' => $user['account_type'],
@@ -140,6 +142,7 @@ try {
 
         // Set session with session regeneration
         setInvestorSession($user);
+        $authToken = generateInvestorAuthToken($user);
 
         $userData = [
             'id' => (int)$user['id'],
@@ -159,7 +162,8 @@ try {
 
         sendJsonResponse([
             'user' => $userData,
-            'csrf_token' => getCsrfToken(),
+            'token' => $authToken,
+            'csrf_token' => $authToken,
             'message' => 'Autentikasi berhasil! Mengalihkan ke portal investasi...'
         ], 200, 'Login berhasil.');
     }
@@ -399,6 +403,7 @@ try {
 
         // Set session
         setInvestorSession($user);
+        $authToken = generateInvestorAuthToken($user);
 
         $userData = [
             'id' => (int)$user['id'],
@@ -421,7 +426,8 @@ try {
 
         sendJsonResponse([
             'user' => $userData,
-            'csrf_token' => getCsrfToken(),
+            'token' => $authToken,
+            'csrf_token' => $authToken,
             'message' => 'Autentikasi Google berhasil! Mengalihkan ke portal...'
         ], 200, 'Login Google berhasil.');
     }
@@ -530,6 +536,7 @@ try {
         ];
 
         setInvestorSession($newUser);
+        $authToken = generateInvestorAuthToken($newUser);
 
         sendJsonResponse([
             'user' => [
@@ -545,7 +552,8 @@ try {
                 'business_activity' => $businessActivity ?? '',
                 'status' => 'active'
             ],
-            'csrf_token' => getCsrfToken(),
+            'token' => $authToken,
+            'csrf_token' => $authToken,
             'message' => 'Registrasi berhasil! Selamat datang di Portal Investor PT Montana Global Investama.'
         ], 201, 'Registrasi berhasil.');
     }

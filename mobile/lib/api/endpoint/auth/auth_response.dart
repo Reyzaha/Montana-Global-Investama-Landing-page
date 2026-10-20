@@ -4,6 +4,7 @@ class AuthResponse {
   Account? user;
   String? message;
   String? csrfToken;
+  String? token;
 
   AuthResponse parse(Map<String, dynamic> json) {
     final Map<String, dynamic> target =
@@ -15,7 +16,8 @@ class AuthResponse {
       user = Account().parse(target["user"] as Map<String, dynamic>);
     }
     message = target["message"] ?? json["message"];
-    csrfToken = target["csrf_token"] ?? json["csrf_token"];
+    token = target["token"] ?? json["token"];
+    csrfToken = target["csrf_token"] ?? json["csrf_token"] ?? token;
     return this;
   }
 }
