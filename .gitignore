@@ -16,6 +16,10 @@ Desktop.ini
 
 # Temporary and log files
 *.log
+*.sql
+!database/schema.sql
+*.bak
+*.backup
 scratch/
 backend/cache/
 backend/logs/
@@ -31,5 +35,7 @@ mobile/build/
 mobile/.flutter-plugins
 mobile/.flutter-plugins-dependencies
 mobile/.pub-cache/
-mobile/.pub/
+# User and investor uploads
+uploads/*
+!uploads/.htaccess
 

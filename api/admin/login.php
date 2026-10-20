@@ -28,14 +28,15 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // 1. TAHAP 1: LOGIN KREDENSIAL (USERNAME / EMAIL & PASSWORD)
 if ($action === 'login') {
-    // Rate Limiting untuk Admin Login (Maksimal 5x gagal per 15 menit)
-    if (!checkRateLimit('admin_login', 5, 900)) {
-        sendJsonError('Terlalu banyak percobaan masuk administrator yang gagal. Akses diblokir sementara selama 15 menit demi keamanan sistem.', 429);
-    }
-
     $input = getJsonInput();
     $username = trim($input['username'] ?? '');
     $password = (string)($input['password'] ?? '');
+
+    // Rate Limiting Atomik Admin Login (Pre-Reservation Slot untuk Menutup Celah TOCTOU)
+    $slot = consumeRateLimitSlot('admin_login', 5, 900, $username);
+    if (!$slot['allowed']) {
+        sendJsonError('Terlalu banyak percobaan masuk administrator yang gagal. Akses dibatasi sementara demi keamanan sistem. Silakan coba lagi nanti.', 429);
+    }
 
     if (empty($username) || empty($password)) {
         sendJsonError('Username dan password wajib diisi.');
@@ -48,8 +49,7 @@ if ($action === 'login') {
         $admin = $stmt->fetch();
 
         if (!$admin || !verifyPassword($password, $admin['password_hash'])) {
-            $attempts = recordFailedAttempt('admin_login', 900);
-            $remaining = max(0, 5 - $attempts);
+            $remaining = max(0, 5 - $slot['attempts']);
             logAdminActivity('login_failed', 'admin_users', null, "Failed login attempt for '{$username}' from IP " . getClientIp());
             sendJsonError("Kredensial administrator tidak valid. Sisa percobaan: {$remaining}.", 401);
         }
@@ -59,7 +59,7 @@ if ($action === 'login') {
         }
 
         // Reset rate limit counter on success
-        clearRateLimit('admin_login');
+        clearRateLimit('admin_login', $username);
 
         // Cek status MFA Google Authenticator
         $mfaSecret = $admin['mfa_secret'] ?? null;
@@ -103,14 +103,17 @@ if ($action === 'login') {
 
 // 2. TAHAP 2: VERIFIKASI KODE 2FA / MFA (GOOGLE AUTHENTICATOR)
 if ($action === 'verify_mfa') {
-    // Rate limit percobaan OTP MFA (Maksimal 6x per 10 menit)
-    if (!checkRateLimit('admin_mfa', 6, 600)) {
-        sendJsonError('Terlalu banyak percobaan kode MFA yang salah. Silakan coba lagi 10 menit kemudian.', 429);
-    }
-
     $pendingAdmin = $_SESSION['mgi_admin_mfa_pending'] ?? null;
     if (!$pendingAdmin) {
         sendJsonError('Sesi verifikasi telah kedaluwarsa. Silakan login kembali.', 401);
+    }
+
+    $adminAccountId = 'admin_acc_' . (int)$pendingAdmin['id'];
+
+    // Rate limit percobaan OTP MFA (Pre-Reservation Slot untuk Menutup Celah TOCTOU)
+    $slot = consumeRateLimitSlot('admin_mfa', 5, 600, $adminAccountId);
+    if (!$slot['allowed']) {
+        sendJsonError('Terlalu banyak percobaan kode MFA yang salah untuk akun ini. Verifikasi ditangguhkan sementara demi keamanan.', 429);
     }
 
     $input = getJsonInput();
@@ -121,9 +124,8 @@ if ($action === 'verify_mfa') {
     }
 
     $secret = $pendingAdmin['mfa_secret'];
-    if (!GoogleAuthenticator::verifyCode($secret, $totpCode, 1) && $totpCode !== '123456') {
-        $attempts = recordFailedAttempt('admin_mfa', 600);
-        $remaining = max(0, 6 - $attempts);
+    if (!GoogleAuthenticator::verifyCode($secret, $totpCode, 1)) {
+        $remaining = max(0, 5 - $slot['attempts']);
         logAdminActivity('mfa_failed', 'admin_users', (string)$pendingAdmin['id'], 'Invalid MFA OTP attempt from IP ' . getClientIp());
         sendJsonError("Kode autentikasi salah atau sudah kedaluwarsa. Sisa percobaan: {$remaining}.", 401);
     }
@@ -141,7 +143,8 @@ if ($action === 'verify_mfa') {
         }
 
         // Hapus rate limit MFA
-        clearRateLimit('admin_mfa');
+        clearRateLimit('admin_mfa', $adminAccountId);
+
 
         // Bangun sesi admin resmi
         $adminData = [

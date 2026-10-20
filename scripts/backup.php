@@ -9,6 +9,12 @@
 
 require_once __DIR__ . '/../backend/config/db.php';
 
+// Strict Execution Guard: CLI Only
+if (php_sapi_name() !== 'cli') {
+    http_response_code(403);
+    die(json_encode(['error' => 'Akses ditolak: Skrip backup hanya dapat dijalankan melalui CLI atau cron job.']));
+}
+
 $backupDir = dirname(__DIR__) . '/backups';
 if (!is_dir($backupDir)) {
     @mkdir($backupDir, 0755, true);

@@ -8,6 +8,7 @@
 require_once __DIR__ . '/../backend/config/db.php';
 require_once __DIR__ . '/../backend/helpers/response.php';
 require_once __DIR__ . '/../backend/helpers/realtime_helper.php';
+require_once __DIR__ . '/../backend/helpers/auth_helper.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     sendJsonError('Metode HTTP tidak didukung. Gunakan POST.', 405);
@@ -24,11 +25,7 @@ $pageUrl = trim($input['page_url'] ?? ($_SERVER['HTTP_REFERER'] ?? '/'));
 $elementId = trim($input['element_id'] ?? '');
 $metadata = isset($input['metadata']) && is_array($input['metadata']) ? json_encode($input['metadata']) : null;
 
-$ipAddress = $_SERVER['REMOTE_ADDR'] ?? null;
-if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-    $ipParts = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-    $ipAddress = trim($ipParts[0]);
-}
+$ipAddress = getClientIp();
 $userAgent = mb_substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 255);
 
 try {

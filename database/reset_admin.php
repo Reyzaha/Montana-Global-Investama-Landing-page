@@ -11,6 +11,15 @@
  * C:\xampp\php\php.exe database/reset_admin.php
  */
 
+require_once __DIR__ . '/../backend/config/env.php';
+
+// Strict Execution Guard: CLI Only
+if (php_sapi_name() !== 'cli') {
+    http_response_code(403);
+    header('Content-Type: application/json');
+    die(json_encode(['status' => 'error', 'message' => 'Akses ditolak: Skrip reset admin hanya dapat dijalankan melalui terminal CLI.']));
+}
+
 require_once __DIR__ . '/../backend/config/db.php';
 require_once __DIR__ . '/../backend/helpers/auth_helper.php';
 
@@ -30,50 +39,12 @@ try {
         // Abaikan jika tabel belum dibuat
     }
 
-    // 2. Data Kredensial Baru Superadmin & Admin
-    $password = 'Montana@2026!Secure';
-    $hash     = hashPassword($password);
-
-    // 3. Upsert kedua akun (superadmin & admin): password di-update ke Montana@2026!Secure, MFA dimatikan (mfa_enabled = 0 & mfa_secret = NULL)
-    // Dengan mfa_enabled = 0, sistem otomatis menampilkan QR Code baru saat login berikutnya.
-    $accounts = [
-        ['username' => 'superadmin', 'email' => 'superadmin@montanaglobalinvestama.com'],
-        ['username' => 'admin',      'email' => 'admin@montanaglobalinvestama.com']
-    ];
-
-    $stmt = $db->prepare("
-        INSERT INTO admin_users (username, email, password_hash, full_name, role, is_active, mfa_secret, mfa_enabled)
-        VALUES (?, ?, ?, 'Super Administrator MGI', 'superadmin', 1, NULL, 0)
-        ON DUPLICATE KEY UPDATE 
-            password_hash = VALUES(password_hash),
-            email = VALUES(email),
-            role = 'superadmin',
-            is_active = 1,
-            mfa_secret = NULL,
-            mfa_enabled = 0
-    ");
-
-    foreach ($accounts as $acc) {
-        $stmt->execute([$acc['username'], $acc['email'], $hash]);
-    }
-
-    echo "[✓] Akun 'superadmin' dan 'admin' berhasil diperbarui & MFA berhasil di-reset!\n\n";
-    echo "=================================================================\n";
-    echo " KREDENSIAL LOGIN ADMINISTRATOR MGI:\n";
-    echo "  - URL Login  : http://<IP_ATAU_DOMAIN>/portal-admin-mgi-gateway/login.php\n";
-    echo "  - Username   : superadmin (atau admin)\n";
-    echo "  - Password   : {$password}\n";
-    echo "  - Status MFA : RESET (Siap scan QR Code Google Authenticator baru)\n";
-    echo "  - Rate Limit : BERSIH (Blokir 15 menit telah dibuka langsung)\n";
-    echo "=================================================================\n\n";
-    echo "Langkah selanjutnya:\n";
-    echo "1. Buka halaman login di browser Anda.\n";
-    echo "2. Masukkan Username dan Password di atas, lalu klik 'Lanjutkan Autentikasi'.\n";
-    echo "3. Barcode QR Code baru akan otomatis muncul di layar.\n";
-    echo "4. Buka aplikasi Google Authenticator di HP, scan QR Code tersebut.\n";
-    echo "5. Masukkan 6 digit kode yang muncul di HP untuk verifikasi dan masuk.\n\n";
-
+    echo "[!] PEMBERITAHUAN KEAMANAN:\n";
+    echo "    Untuk mematuhi standar keamanan, kata sandi tidak lagi di-hardcode di skrip ini.\n";
+    echo "    Silakan jalankan skrip rotasi kredensial interaktif yang aman:\n";
+    echo "    -> php scripts/rotate_admin_interactive.php\n\n";
+    exit(0);
 } catch (Exception $e) {
-    echo "\n[✕] GAGAL MERESET SUPERADMIN: " . $e->getMessage() . "\n";
+    echo "\n[✕] GAGAL: " . $e->getMessage() . "\n";
     exit(1);
 }

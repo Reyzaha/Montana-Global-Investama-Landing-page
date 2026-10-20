@@ -3,6 +3,13 @@
  * Migration: Setup tables for Project Inventory and Project Documents
  * Also update financial_records module enum to include 'biaya'
  */
+// Strict Execution Guard: CLI Only
+if (php_sapi_name() !== 'cli') {
+    http_response_code(403);
+    header('Content-Type: application/json');
+    die(json_encode(['status' => 'error', 'message' => 'Akses ditolak: Skrip migrasi database hanya dapat dijalankan melalui terminal CLI.']));
+}
+
 require_once __DIR__ . '/../backend/config/db.php';
 
 try {

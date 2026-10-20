@@ -9,15 +9,15 @@ services:
     container_name: mgi_web_app
     restart: always
     ports:
-      - "8085:80"
+      - "127.0.0.1:8085:80"
     volumes:
       - ./:/var/www/html
     environment:
       - DB_HOST=mgi-db
       - DB_PORT=3306
-      - DB_NAME=mgi_landing
-      - DB_USER=mgi_user
-      - DB_PASS=MGI_Secret_Pass_2026!
+      - DB_NAME=${DB_NAME:-mgi_landing}
+      - DB_USER=${DB_USER:-mgi_user}
+      - DB_PASS=${DB_PASS}
     depends_on:
       mgi-db:
         condition: service_healthy
@@ -31,15 +31,15 @@ services:
     restart: always
     command: --default-authentication-plugin=mysql_native_password
     environment:
-      - MYSQL_DATABASE=mgi_landing
-      - MYSQL_USER=mgi_user
-      - MYSQL_PASSWORD=MGI_Secret_Pass_2026!
-      - MYSQL_ROOT_PASSWORD=Root_Secret_Pass_2026!
+      - MYSQL_DATABASE=${DB_NAME:-mgi_landing}
+      - MYSQL_USER=${DB_USER:-mgi_user}
+      - MYSQL_PASSWORD=${DB_PASS}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
       - mgi_db_data:/var/lib/mysql
-      - ./database/mgi_landing_production_complete.sql:/docker-entrypoint-initdb.d/01_schema.sql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pRoot_Secret_Pass_2026!"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$${MYSQL_ROOT_PASSWORD}"]
       timeout: 10s
       retries: 10
       interval: 5s

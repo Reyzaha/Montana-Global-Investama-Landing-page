@@ -1,4 +1,11 @@
 <?php
+// Strict Execution Guard: CLI Only
+if (php_sapi_name() !== 'cli') {
+    http_response_code(403);
+    header('Content-Type: application/json');
+    die(json_encode(['status' => 'error', 'message' => 'Akses ditolak: Skrip database migration hanya dapat dijalankan melalui terminal CLI.']));
+}
+
 require_once __DIR__ . '/../backend/config/db.php';
 
 try {

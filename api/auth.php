@@ -90,21 +90,21 @@ try {
     // Database is strictly required for registration and login
     $db = getDB();
 
-    // 4. INVESTOR LOGIN (Dengan Rate Limiting & Anti-Brute Force)
+    // 4. INVESTOR LOGIN (Dengan Rate Limiting & Anti-Brute Force Persisten)
     if ($action === 'login') {
         if ($method !== 'POST') {
             sendJsonError('Method harus POST.', 405);
-        }
-
-        // Cek Rate Limit (Maksimal 5x gagal per 15 menit)
-        if (!checkRateLimit('investor_login', 5, 900)) {
-            sendJsonError('Terlalu banyak percobaan masuk yang gagal. Akses diblokir sementara selama 15 menit demi keamanan akun.', 429);
         }
 
         $input = getJsonInput();
         $email = trim(strtolower($input['email'] ?? ''));
         $password = (string)($input['password'] ?? '');
         $type = $input['type'] ?? null;
+
+        // Cek Rate Limit: Terikat ke IP + Email (Maksimal 5x gagal per 15 menit dengan progressive delay)
+        if (!checkRateLimit('investor_login', 5, 900, $email)) {
+            sendJsonError('Terlalu banyak percobaan masuk yang gagal. Akses dibatasi sementara demi keamanan akun. Silakan coba lagi nanti.', 429);
+        }
 
         if (empty($email) || empty($password)) {
             sendJsonError('Email dan kata sandi wajib diisi.');
@@ -120,7 +120,7 @@ try {
         $user = $stmt->fetch();
 
         if (!$user || !verifyPassword($password, $user['password_hash'])) {
-            $attempts = recordFailedAttempt('investor_login', 900);
+            $attempts = recordFailedAttempt('investor_login', 900, $email, 5);
             $remaining = max(0, 5 - $attempts);
             sendJsonError("Email atau kata sandi tidak valid. Sisa percobaan: {$remaining}.", 401);
         }
@@ -135,7 +135,8 @@ try {
         }
 
         // Reset rate limit counter on success
-        clearRateLimit('investor_login');
+        clearRateLimit('investor_login', $email);
+
 
         // Set session with session regeneration
         setInvestorSession($user);
@@ -431,6 +432,11 @@ try {
             sendJsonError('Method harus POST.', 405);
         }
 
+        // Rate limit pendaftaran akun investor: Maksimal 5 pendaftaran per jam per IP
+        if (!checkRateLimit('investor_register', 5, 3600)) {
+            sendJsonError('Batas percobaan pendaftaran akun tercapai dari IP Anda. Demi keamanan, silakan coba lagi dalam 1 jam.', 429);
+        }
+
         $input = getJsonInput();
         $accountType = $input['type'] ?? ($input['account_type'] ?? 'perorangan');
         $email = trim(strtolower($input['email'] ?? ''));
@@ -439,6 +445,7 @@ try {
         if (empty($email) || empty($password)) {
             sendJsonError('Email dan kata sandi wajib diisi.');
         }
+
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             sendJsonError('Format alamat email tidak valid.');

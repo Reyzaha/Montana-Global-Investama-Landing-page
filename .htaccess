@@ -26,7 +26,18 @@ RewriteEngine On
 # Alihkan siapa saja yang mencoba mengakses /admin langsung ke homepage publik (301 Permanent Redirect)
 RewriteRule ^admin(/.*)?$ /index.html [R=301,L]
 
-# 2. Block direct access to hidden files/folders (.git, .env, etc.)
+# 2. BLOKIR TOTAL FOLDER SENSITIF & BACKUP (403 Forbidden)
+RewriteRule ^(database|backups|deploy|nginx|scratch|scripts)(\/.*)?$ - [F,NC,L]
+
+# 3. BLOKIR SKRIP UTILITAS DATABASE & SEEDER
+RewriteRule ^(sync_db\.php|seed\.php|clean_dummy\.php|reset_admin\.php|export_full_database\.php|database\/.*\.php)$ - [F,NC,L]
+
+# 4. BLOKIR FILE DENGAN EKSTENSI SENSITIF (.sql, .env, .ini, .log, .bak, .backup, dll.)
+<FilesMatch "\.(sql|env|env\..*|ini|log|bak|backup|sh|md|yml|yaml)$">
+    Require all denied
+</FilesMatch>
+
+# 5. Block direct access to hidden files/folders (.git, .env, etc.)
 RewriteRule (^\.|/\.) - [F]
 
 # 3. Security Headers

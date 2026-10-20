@@ -120,7 +120,7 @@ Untuk menjamin keamanan tingkat tinggi setara perbankan/fintech, portal administ
 * **URL Login**: `http://localhost/Montana-Global-Investama-Landing-page/admin/login.php` (atau URL VPS domain Anda)
 * **Username**: `admin`
 * **Email**: `admin@montanaglobalinvestama.com`
-* **Password**: `Montana@2026!Secure`
+* **Password**: *(Dibuat mandiri via `php scripts/rotate_admin_interactive.php`)*
 * **MFA Status**: **Wajib Scan QR Code** saat login pertama kali.
 
 ### B. Mekanisme Kerja Google Authenticator MFA

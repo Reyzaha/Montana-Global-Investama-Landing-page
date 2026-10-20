@@ -12,8 +12,11 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install gd pdo pdo_mysql opcache \
     && rm -rf /var/lib/apt/lists/*
 
-# Enable Apache Rewrite & Headers Module
-RUN a2enmod rewrite headers
+# Enable Apache Rewrite, Headers & RemoteIP Module (for real client IP behind Nginx)
+RUN a2enmod rewrite headers remoteip \
+    && echo 'RemoteIPHeader X-Forwarded-For' > /etc/apache2/conf-available/remoteip.conf \
+    && echo 'RemoteIPInternalProxy 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 127.0.0.1' >> /etc/apache2/conf-available/remoteip.conf \
+    && a2enconf remoteip
 
 # Configure Apache DocumentRoot and Permissions
 WORKDIR /var/www/html

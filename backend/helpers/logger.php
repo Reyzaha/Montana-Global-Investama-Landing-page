@@ -22,7 +22,7 @@ function logMessage(string $level, string $message, array $context = [], ?Throwa
     $logFile = getLogDir() . "/app-{$date}.log";
 
     $timestamp = date('Y-m-d H:i:s T');
-    $ip = $_SERVER['REMOTE_ADDR'] ?? 'CLI';
+    $ip = function_exists('getClientIp') ? getClientIp() : ($_SERVER['REMOTE_ADDR'] ?? 'CLI');
     $method = $_SERVER['REQUEST_METHOD'] ?? 'CLI';
     $uri = $_SERVER['REQUEST_URI'] ?? '-';
 

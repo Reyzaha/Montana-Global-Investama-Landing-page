@@ -9,6 +9,18 @@
  * C:\xampp\php\php.exe database/clean_dummy.php
  */
 
+require_once __DIR__ . '/../backend/config/env.php';
+
+// Strict Execution Guard: CLI Only & Blocked in Production
+if (php_sapi_name() !== 'cli') {
+    http_response_code(403);
+    header('Content-Type: application/json');
+    die(json_encode(['status' => 'error', 'message' => 'Akses ditolak: Skrip database purge utility hanya dapat dijalankan melalui terminal CLI.']));
+}
+if (getenv('APP_ENV') === 'production' && !in_array('--force-production-clean', $argv ?? [])) {
+    die("\n[FATAL ERROR] Dilarang menjalankan skrip pembersihan di lingkungan produksi (APP_ENV=production)!\nUntuk memaksa, jalankan dengan flag --force-production-clean\n\n");
+}
+
 require_once __DIR__ . '/../backend/config/db.php';
 require_once __DIR__ . '/../backend/helpers/auth_helper.php';
 require_once __DIR__ . '/../backend/helpers/totp_helper.php';
@@ -80,35 +92,9 @@ try {
     // Aktifkan kembali FOREIGN_KEY_CHECKS
     $db->exec("SET FOREIGN_KEY_CHECKS = 1;");
 
-    // 5. Setup / Reset Bersih Akun Super Administrator Siap MFA
-    // Admin default disiapkan tanpa demo password bawaan lama atau reset mfa_enabled = 0
-    // sehingga saat login pertama kali, sistem langsung mewajibkan SCAN QR CODE GOOGLE AUTHENTICATOR.
-    $adminUser = 'admin';
-    $adminEmail = 'admin@montanaglobalinvestama.com';
-    $adminPass = 'Montana@2026!Secure'; // Kata sandi kuat production
-    $adminHash = hashPassword($adminPass);
-
-    // Hapus akun admin lama dan buat akun fresh
-    $db->exec("DELETE FROM admin_users");
-    
-    // Generate fresh MFA Secret untuk admin
-    $adminMfaSecret = GoogleAuthenticator::generateSecret(16);
-
-    $stmtAdmin = $db->prepare("
-        INSERT INTO admin_users (username, email, password_hash, full_name, role, is_active, mfa_secret, mfa_enabled)
-        VALUES (?, ?, ?, 'Super Administrator MGI', 'superadmin', 1, ?, 0)
-    ");
-    $stmtAdmin->execute([$adminUser, $adminEmail, $adminHash, $adminMfaSecret]);
-
+    // Selesai pembersihan dummy tanpa menyentuh akun admin_users
     echo "\n=================================================================\n";
-    echo " [✓] SELURUH DATA DUMMY & AKUN DEMO TELAH BERHASIL DIBERSIHKAN!  \n";
-    echo "=================================================================\n";
-    echo "Kredensial Superadmin Fresh Siap MFA:\n";
-    echo "  - Username     : {$adminUser}\n";
-    echo "  - Email        : {$adminEmail}\n";
-    echo "  - Password     : {$adminPass}\n";
-    echo "  - MFA Secret   : {$adminMfaSecret}\n";
-    echo "  - Status MFA   : WAJIB SCAN QR CODE (Google Authenticator) pada Login Pertama\n";
+    echo " [✓] PROSES PEMBERSIHAN DUMMY SELESAI DENGAN AMAN.               \n";
     echo "=================================================================\n\n";
 
 } catch (Exception $e) {

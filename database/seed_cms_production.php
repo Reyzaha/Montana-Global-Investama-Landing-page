@@ -5,6 +5,13 @@
  * FAQs, Team, Articles, System Settings) with verified corporate data.
  */
 
+// Strict Execution Guard: CLI Only
+if (php_sapi_name() !== 'cli') {
+    http_response_code(403);
+    header('Content-Type: application/json');
+    die(json_encode(['status' => 'error', 'message' => 'Akses ditolak: Skrip seeder CMS hanya dapat dijalankan melalui terminal CLI.']));
+}
+
 require_once __DIR__ . '/../backend/config/db.php';
 require_once __DIR__ . '/../backend/helpers/realtime_helper.php';
 

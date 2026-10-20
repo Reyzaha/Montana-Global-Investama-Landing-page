@@ -1,0 +1,4 @@
+# Strict Access Denial for Database Directory
+Order Deny,Allow
+Deny from all
+Require all denied

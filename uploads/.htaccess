@@ -1,0 +1,27 @@
+# PT MONTANA GLOBAL INVESTAMA — UPLOADS DIRECTORY SECURITY POLICY
+# Cegah seluruh eksekusi skrip PHP atau file executable di dalam direktori uploads/
+
+# 1. Nonaktifkan PHP Engine jika mod_php aktif
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+    php_flag engine off
+</IfModule>
+
+# 2. Blokir akses langsung ke ekstensi skrip executable
+<FilesMatch "(?i)\.(php|php[0-9]*|phtml|phar|sh|bash|pl|cgi|py|exe|dll)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order Deny,Allow
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# 3. Nonaktifkan Directory Browsing
+Options -Indexes -ExecCGI

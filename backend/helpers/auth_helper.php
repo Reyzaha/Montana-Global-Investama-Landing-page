@@ -4,8 +4,39 @@
  * Session management, password verification, CSRF, rate-limiting, and audit logging.
  */
 
+// TRUSTED PROXY VALIDATOR (Hanya percaya X-Forwarded-For/X-Real-IP jika request berasal dari Nginx/Docker)
+function isTrustedProxy(string $ip): bool {
+    if ($ip === '127.0.0.1' || $ip === '::1' || $ip === 'localhost') {
+        return true;
+    }
+    $long = ip2long($ip);
+    if ($long === false) {
+        return false;
+    }
+    // 127.0.0.0/8 (Loopback)
+    if (($long & 0xFF000000) === 0x7F000000) return true;
+    // 10.0.0.0/8 (Private Network / Docker)
+    if (($long & 0xFF000000) === 0x0A000000) return true;
+    // 172.16.0.0/12 (Docker Default Bridge Subnet: 172.16.0.0 s/d 172.31.255.255)
+    if (($long & 0xFFF00000) === 0xAC100000) return true;
+    // 192.168.0.0/16 (Private LAN)
+    if (($long & 0xFFFF0000) === 0xC0A80000) return true;
+
+    return false;
+}
+
 if (session_status() === PHP_SESSION_NONE) {
-    $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443);
+    // Sinkronkan batas garbage collection dengan lifetime cookie
+    ini_set('session.gc_maxlifetime', 86400);
+
+    // Deteksi HTTPS melalui proxy tepercaya (Docker / Nginx)
+    $remote = $_SERVER['REMOTE_ADDR'] ?? '';
+    $isProxy = isTrustedProxy($remote);
+    $proto = $_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '';
+    
+    $isSecure = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
+        || (isset($_SERVER['SERVER_PORT']) && (int)$_SERVER['SERVER_PORT'] === 443)
+        || ($isProxy && strtolower($proto) === 'https');
     
     // Hardened Session Cookie Configuration
     session_set_cookie_params([
@@ -45,7 +76,6 @@ function validateCsrfToken(?string $token = null): bool {
     }
 
     if ($token === null) {
-        // Read from header X-CSRF-Token or request body
         $headers = function_exists('getallheaders') ? getallheaders() : [];
         $headerToken = $headers['X-CSRF-Token'] ?? ($headers['x-csrf-token'] ?? ($_SERVER['HTTP_X_CSRF_TOKEN'] ?? null));
         if ($headerToken) {
@@ -60,55 +90,336 @@ function validateCsrfToken(?string $token = null): bool {
     return !empty($token) && hash_equals($sessionToken, (string)$token);
 }
 
-// RATE LIMITING HELPERS (Brute Force Protection)
 function getClientIp(): string {
-    if (!empty($_SERVER['HTTP_CF_CONNECTING_IP'])) return $_SERVER['HTTP_CF_CONNECTING_IP'];
-    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        $ips = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-        return trim($ips[0]);
-    }
-    return $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
-}
+    $remoteAddr = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
 
-function checkRateLimit(string $actionKey, int $maxAttempts = 5, int $decaySeconds = 900): bool {
-    $ip = getClientIp();
-    $storageKey = 'rl_' . md5($actionKey . '_' . $ip);
-    
-    if (isset($_SESSION[$storageKey])) {
-        $record = $_SESSION[$storageKey];
-        if (time() < $record['reset_at']) {
-            if ($record['attempts'] >= $maxAttempts) {
-                return false; // Rate limit terlampaui
+    // Header X-Real-IP / X-Forwarded-For HANYA dipercaya jika request dikirim oleh reverse proxy terpercaya (Nginx/Docker)
+    if (isTrustedProxy($remoteAddr)) {
+        // 1. Utamakan X-Real-IP jika di-set oleh Nginx (paling bersih dan terisolasi)
+        if (!empty($_SERVER['HTTP_X_REAL_IP']) && filter_var($_SERVER['HTTP_X_REAL_IP'], FILTER_VALIDATE_IP)) {
+            return $_SERVER['HTTP_X_REAL_IP'];
+        }
+
+        // 2. Jika X-Forwarded-For ada, telusuri dari KANAN ke KIRI (ambil IP pertama yang bukan proxy tepercaya)
+        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ips = array_map('trim', explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
+            for ($i = count($ips) - 1; $i >= 0; $i--) {
+                $candidate = $ips[$i];
+                if (filter_var($candidate, FILTER_VALIDATE_IP)) {
+                    if (!isTrustedProxy($candidate)) {
+                        return $candidate; // IP klien pertama dari kanan di luar proxy
+                    }
+                }
             }
-        } else {
-            // Waktu blokir telah habis, reset counter
-            unset($_SESSION[$storageKey]);
         }
     }
-    return true;
+
+    return filter_var($remoteAddr, FILTER_VALIDATE_IP) ? $remoteAddr : '127.0.0.1';
 }
 
-function recordFailedAttempt(string $actionKey, int $decaySeconds = 900): int {
-    $ip = getClientIp();
-    $storageKey = 'rl_' . md5($actionKey . '_' . $ip);
-    
-    if (!isset($_SESSION[$storageKey]) || time() >= $_SESSION[$storageKey]['reset_at']) {
-        $_SESSION[$storageKey] = [
-            'attempts' => 1,
-            'reset_at' => time() + $decaySeconds
-        ];
-    } else {
-        $_SESSION[$storageKey]['attempts']++;
+function normalizeIpSubnet(string $ip): string {
+    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+        $packed = inet_pton($ip);
+        if ($packed !== false && strlen($packed) === 16) {
+            // Masking 64-bit terakhir untuk subnet /64 IPv6
+            return inet_ntop(substr($packed, 0, 8) . str_repeat("\0", 8)) . '/64';
+        }
     }
-    
-    return $_SESSION[$storageKey]['attempts'];
+    return $ip;
 }
 
-function clearRateLimit(string $actionKey): void {
-    $ip = getClientIp();
-    $storageKey = 'rl_' . md5($actionKey . '_' . $ip);
-    unset($_SESSION[$storageKey]);
+function getRateLimitSecret(): string {
+    static $secret = null;
+    if ($secret === null) {
+        $secret = $_ENV['RATE_LIMIT_SECRET'] ?? ($_ENV['DB_PASS'] ?? 'mgi_sec_rate_limit_salt_2026');
+    }
+    return $secret;
 }
+
+function getRateLimitKey(string $actionKey, string $scope, string $identifier): string {
+    return hash_hmac('sha256', $actionKey . '|' . $scope . '|' . strtolower(trim($identifier)), getRateLimitSecret());
+}
+
+/**
+ * Mengonsumsi kuota percobaan secara ATOMIK SEBELUM verifikasi password (Menutup Celah TOCTOU).
+ * Mengembalikan array ['allowed' => bool, 'attempts' => int, 'locked_until' => int]
+ */
+function consumeRateLimitSlot(string $actionKey, int $maxAttempts = 5, int $decaySeconds = 900, ?string $identifier = null): array {
+    $rawIp = getClientIp();
+    $normIp = normalizeIpSubnet($rawIp);
+    $isAdminAction = str_starts_with($actionKey, 'admin_');
+    $ipKey = getRateLimitKey($actionKey, 'ip', $normIp);
+
+    try {
+        $db = getDB();
+
+        // 1. Eksekusi Reservasi Slot per-IP secara Atomik di MySQL
+        $delay30 = 30;
+        $delay60 = 60;
+        $delay300 = 300;
+        $delay900 = min($decaySeconds, 900);
+
+        $sql = "
+            INSERT INTO security_rate_limits (
+                rate_key, action_type, identifier, ip_address, attempts, first_attempt_at, last_attempt_at, locked_until
+            ) VALUES (
+                :rate_key, :action_type, :norm_ip, :ip_address, 1, UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), 0
+            ) ON DUPLICATE KEY UPDATE
+                locked_until = IF(
+                    (UNIX_TIMESTAMP() - last_attempt_at) > :decay_seconds,
+                    0,
+                    IF(
+                        locked_until > UNIX_TIMESTAMP(),
+                        locked_until,
+                        CASE
+                            WHEN (attempts + 1) >= 9 THEN UNIX_TIMESTAMP() + :delay_900
+                            WHEN (attempts + 1) = 8 THEN UNIX_TIMESTAMP() + :delay_300
+                            WHEN (attempts + 1) = 7 THEN UNIX_TIMESTAMP() + :delay_60
+                            WHEN (attempts + 1) = 6 THEN UNIX_TIMESTAMP() + :delay_30
+                            ELSE 0
+                        END
+                    )
+                ),
+                attempts = IF((UNIX_TIMESTAMP() - last_attempt_at) > :decay_seconds_2, 1, attempts + 1),
+                last_attempt_at = UNIX_TIMESTAMP();
+        ";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([
+            ':rate_key' => $ipKey,
+            ':action_type' => substr($actionKey, 0, 32),
+            ':norm_ip' => substr($normIp, 0, 128),
+            ':ip_address' => substr($rawIp, 0, 45),
+            ':decay_seconds' => $decaySeconds,
+            ':decay_seconds_2' => $decaySeconds,
+            ':delay_30' => $delay30,
+            ':delay_60' => $delay60,
+            ':delay_300' => $delay300,
+            ':delay_900' => $delay900
+        ]);
+
+        // Ambil status baris setelah reservasi atomik
+        $stmtStatus = $db->prepare("SELECT attempts, locked_until, UNIX_TIMESTAMP() AS server_now FROM security_rate_limits WHERE rate_key = ?");
+        $stmtStatus->execute([$ipKey]);
+        $row = $stmtStatus->fetch(PDO::FETCH_ASSOC);
+
+        $attempts = (int)($row['attempts'] ?? 1);
+        $lockedUntil = (int)($row['locked_until'] ?? 0);
+        $now = (int)($row['server_now'] ?? time());
+
+        // Jika locked_until aktif atau attempts melampaui batas -> DITOLAK
+        if ($lockedUntil > $now || $attempts > $maxAttempts) {
+            return ['allowed' => false, 'attempts' => $attempts, 'locked_until' => $lockedUntil];
+        }
+
+        // 2. Jika ada identifier (username), cek juga batas per-username lintas IP
+        if (!empty($identifier)) {
+            $userKey = getRateLimitKey($actionKey, 'user', $identifier);
+            $userMax = $maxAttempts * 2;
+            $stmtUser = $db->prepare("SELECT attempts, locked_until, last_attempt_at FROM security_rate_limits WHERE rate_key = ? LIMIT 1");
+            $stmtUser->execute([$userKey]);
+            $rowUser = $stmtUser->fetch(PDO::FETCH_ASSOC);
+
+            if ($rowUser) {
+                if ($now < (int)$rowUser['locked_until']) {
+                    return ['allowed' => false, 'attempts' => $attempts, 'locked_until' => (int)$rowUser['locked_until']];
+                }
+                if ((int)$rowUser['attempts'] >= $userMax && ($now - (int)$rowUser['last_attempt_at']) <= $decaySeconds) {
+                    return ['allowed' => false, 'attempts' => $attempts, 'locked_until' => $now + $delay900];
+                }
+            }
+        }
+
+        // Purge probabilistik
+        if (random_int(1, 100) === 1) {
+            $db->exec("DELETE FROM security_rate_limits WHERE last_attempt_at < (UNIX_TIMESTAMP() - 86400) AND locked_until < UNIX_TIMESTAMP()");
+        }
+
+        return ['allowed' => true, 'attempts' => $attempts, 'locked_until' => 0];
+
+    } catch (Throwable $t) {
+        if ($isAdminAction) {
+            error_log("[SECURITY CRITICAL] consumeRateLimitSlot DB error for admin action '{$actionKey}': " . $t->getMessage());
+            return ['allowed' => false, 'attempts' => 999, 'locked_until' => time() + 300];
+        } else {
+            error_log("[WARNING] consumeRateLimitSlot DB error for public action '{$actionKey}': " . $t->getMessage());
+            return ['allowed' => true, 'attempts' => 1, 'locked_until' => 0];
+        }
+    }
+}
+
+/**
+ * Wrapper pengecekan read-only untuk form yang tidak melakukan reservasi slot
+ */
+function checkRateLimit(string $actionKey, int $maxAttempts = 5, int $decaySeconds = 900, ?string $identifier = null): bool {
+    $rawIp = getClientIp();
+    $normIp = normalizeIpSubnet($rawIp);
+    $isAdminAction = str_starts_with($actionKey, 'admin_');
+    $now = time();
+
+    try {
+        $db = getDB();
+        $ipKey = getRateLimitKey($actionKey, 'ip', $normIp);
+        $stmt = $db->prepare("SELECT attempts, locked_until, last_attempt_at FROM security_rate_limits WHERE rate_key = ? LIMIT 1");
+        $stmt->execute([$ipKey]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($row) {
+            if ($now < (int)$row['locked_until']) return false;
+            if ((int)$row['attempts'] >= $maxAttempts && ($now - (int)$row['last_attempt_at']) <= $decaySeconds) return false;
+        }
+
+        if (!empty($identifier)) {
+            $userKey = getRateLimitKey($actionKey, 'user', $identifier);
+            $stmtUser = $db->prepare("SELECT attempts, locked_until, last_attempt_at FROM security_rate_limits WHERE rate_key = ? LIMIT 1");
+            $stmtUser->execute([$userKey]);
+            $rowUser = $stmtUser->fetch(PDO::FETCH_ASSOC);
+            if ($rowUser) {
+                if ($now < (int)$rowUser['locked_until']) return false;
+                if ((int)$rowUser['attempts'] >= ($maxAttempts * 2) && ($now - (int)$rowUser['last_attempt_at']) <= $decaySeconds) return false;
+            }
+        }
+        return true;
+    } catch (Throwable $t) {
+        return !$isAdminAction;
+    }
+}
+
+/**
+ * Mencatat percobaan gagal secara ATOMIK menggunakan INSERT ... ON DUPLICATE KEY UPDATE
+ */
+function recordFailedAttempt(string $actionKey, int $decaySeconds = 900, ?string $identifier = null, int $maxAttempts = 5): int {
+    $rawIp = getClientIp();
+    $normIp = normalizeIpSubnet($rawIp);
+    $now = time();
+
+    try {
+        $db = getDB();
+
+        // 1. Pencatatan Atomik per-IP
+        $ipKey = getRateLimitKey($actionKey, 'ip', $normIp);
+        $delay30 = 30;
+        $delay60 = 60;
+        $delay300 = 300;
+        $delay900 = min($decaySeconds, 900);
+
+        $sql = "
+            INSERT INTO security_rate_limits (
+                rate_key, action_type, identifier, ip_address, attempts, first_attempt_at, last_attempt_at, locked_until
+            ) VALUES (
+                :rate_key, :action_type, :norm_ip, :ip_address, 1, UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), 0
+            ) ON DUPLICATE KEY UPDATE
+                locked_until = IF(
+                    (UNIX_TIMESTAMP() - last_attempt_at) > :decay_seconds,
+                    0,
+                    CASE
+                        WHEN (attempts + 1) >= 9 THEN UNIX_TIMESTAMP() + :delay_900
+                        WHEN (attempts + 1) = 8 THEN UNIX_TIMESTAMP() + :delay_300
+                        WHEN (attempts + 1) = 7 THEN UNIX_TIMESTAMP() + :delay_60
+                        WHEN (attempts + 1) = 6 THEN UNIX_TIMESTAMP() + :delay_30
+                        ELSE 0
+                    END
+                ),
+                attempts = IF((UNIX_TIMESTAMP() - last_attempt_at) > :decay_seconds_2, 1, attempts + 1),
+                last_attempt_at = UNIX_TIMESTAMP();
+        ";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([
+            ':rate_key' => $ipKey,
+            ':action_type' => substr($actionKey, 0, 32),
+            ':norm_ip' => substr($normIp, 0, 128),
+            ':ip_address' => substr($rawIp, 0, 45),
+            ':decay_seconds' => $decaySeconds,
+            ':decay_seconds_2' => $decaySeconds,
+            ':delay_30' => $delay30,
+            ':delay_60' => $delay60,
+            ':delay_300' => $delay300,
+            ':delay_900' => $delay900
+        ]);
+
+        // 2. Pencatatan Atomik per-Username (Lintas IP) jika ada identifier
+        if (!empty($identifier)) {
+            $userKey = getRateLimitKey($actionKey, 'user', $identifier);
+            $userMax = $maxAttempts * 2;
+            $stmtUser = $db->prepare("
+                INSERT INTO security_rate_limits (
+                    rate_key, action_type, identifier, ip_address, attempts, first_attempt_at, last_attempt_at, locked_until
+                ) VALUES (
+                    :rate_key, :action_type, :identifier, 'CROSS_IP', 1, UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), 0
+                ) ON DUPLICATE KEY UPDATE
+                    locked_until = IF(
+                        (UNIX_TIMESTAMP() - last_attempt_at) > :decay_seconds,
+                        0,
+                        CASE
+                            WHEN (attempts + 1) >= :user_max THEN UNIX_TIMESTAMP() + :delay_900
+                            ELSE 0
+                        END
+                    ),
+                    attempts = IF((UNIX_TIMESTAMP() - last_attempt_at) > :decay_seconds_2, 1, attempts + 1),
+                    last_attempt_at = UNIX_TIMESTAMP();
+            ");
+            $stmtUser->execute([
+                ':rate_key' => $userKey,
+                ':action_type' => substr($actionKey, 0, 32),
+                ':identifier' => 'sha256:' . substr(hash('sha256', strtolower(trim($identifier))), 0, 32),
+                ':decay_seconds' => $decaySeconds,
+                ':decay_seconds_2' => $decaySeconds,
+                ':user_max' => $userMax,
+                ':delay_900' => $delay900
+            ]);
+        }
+
+        // Ambil hitungan terkini untuk respons
+        $stmtGet = $db->prepare("SELECT attempts FROM security_rate_limits WHERE rate_key = ?");
+        $stmtGet->execute([$ipKey]);
+        return (int)$stmtGet->fetchColumn() ?: 1;
+
+    } catch (Throwable $t) {
+        error_log("[WARNING] recordFailedAttempt DB error: " . $t->getMessage());
+        return 1;
+    }
+}
+
+function clearRateLimit(string $actionKey, ?string $identifier = null, ?string $specificIp = null): void {
+    try {
+        $db = getDB();
+
+        // 1. Bersihkan rate limit per-IP (bisa IP spesifik via CLI atau IP klien aktif)
+        $targetIp = !empty($specificIp) ? $specificIp : getClientIp();
+        $normIp = normalizeIpSubnet($targetIp);
+        $ipKey = getRateLimitKey($actionKey, 'ip', $normIp);
+
+        $stmt = $db->prepare("DELETE FROM security_rate_limits WHERE rate_key = ?");
+        $stmt->execute([$ipKey]);
+
+        // 2. Bersihkan rate limit per-Username jika identifier diberikan
+        if (!empty($identifier)) {
+            $userKey = getRateLimitKey($actionKey, 'user', $identifier);
+            $stmtUser = $db->prepare("DELETE FROM security_rate_limits WHERE rate_key = ?");
+            $stmtUser->execute([$userKey]);
+        }
+    } catch (Throwable $t) {
+        error_log("[MGI clearRateLimit Error] " . $t->getMessage());
+    }
+}
+
+function checkSessionTimeout(int $maxIdleSeconds = 3600): void {
+    if (session_status() === PHP_SESSION_ACTIVE && !empty($_SESSION['mgi_last_activity'])) {
+        if ((time() - (int)$_SESSION['mgi_last_activity']) > $maxIdleSeconds) {
+            clearAdminSession();
+            clearInvestorSession();
+            if (str_contains($_SERVER['REQUEST_URI'] ?? '', '/api/')) {
+                require_once __DIR__ . '/response.php';
+                sendJsonError('Sesi telah kedaluwarsa karena tidak ada aktivitas (idle timeout). Silakan login kembali.', 401);
+            } else {
+                header('Location: login.php?error=idle_timeout');
+                exit;
+            }
+        }
+    }
+    $_SESSION['mgi_last_activity'] = time();
+}
+
+
 
 // ADMIN SESSION FUNCTIONS
 function setAdminSession(array $admin): void {

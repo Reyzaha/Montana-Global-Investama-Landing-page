@@ -5,6 +5,18 @@
  * Run via CLI: php database/seed.php
  */
 
+require_once __DIR__ . '/../backend/config/env.php';
+
+// Strict Execution Guard: CLI Only & Blocked in Production
+if (php_sapi_name() !== 'cli') {
+    http_response_code(403);
+    header('Content-Type: application/json');
+    die(json_encode(['status' => 'error', 'message' => 'Akses ditolak: Skrip database migration/seeder hanya dapat dijalankan melalui terminal CLI.']));
+}
+if (getenv('APP_ENV') === 'production' && !in_array('--force-production-seed', $argv ?? [])) {
+    die("\n[FATAL ERROR] Dilarang menjalankan seeding di lingkungan produksi (APP_ENV=production)!\nUntuk memaksa, jalankan dengan flag --force-production-seed\n\n");
+}
+
 require_once __DIR__ . '/../backend/config/db.php';
 require_once __DIR__ . '/../backend/helpers/auth_helper.php';
 
