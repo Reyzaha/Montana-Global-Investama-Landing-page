@@ -12,9 +12,11 @@ class AuthorizationInterceptor extends InterceptorsWrapper {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     if (Preferences.contain(PreferenceKey.SESSION_ID)) {
       final String? token = Preferences.getString(PreferenceKey.SESSION_ID);
-      options.headers["Authorization"] = "Bearer $token";
-      options.headers["X-Auth-Token"] = token;
-      options.headers["X-Session-ID"] = token;
+      if (token != null && token.isNotEmpty) {
+        options.headers["Authorization"] = "Bearer $token";
+        options.headers["X-Auth-Token"] = token;
+        options.headers["X-Session-ID"] = token;
+      }
     }
 
     if (_sessionCookie != null && _sessionCookie!.isNotEmpty) {

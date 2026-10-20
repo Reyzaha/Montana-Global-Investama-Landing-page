@@ -56,15 +56,12 @@ function serveStaticDashboardFallback(string $projectId, ?array $investor = null
             break;
         }
     }
-    if (!$found && !empty($raw['projects'])) {
-        $found = $raw['projects'][0];
-    }
     if (!$found) {
         sendJsonError("Proyek {$projectId} tidak ditemukan.", 404);
     }
 
     $fnd = $found['funding'] ?? [];
-    $target = (float)($fnd['target'] ?? 45000000000);
+    $target = (float)($fnd['target'] ?? 0);
     $collected = (float)($fnd['collected'] ?? 0);
     $rabExecutive = $found['detail']['rab_executive'] ?? null;
     $fundingItems = [];
