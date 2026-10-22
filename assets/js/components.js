@@ -433,7 +433,7 @@ const MGIComponents = {
         <div class="row g-0 text-center align-items-stretch">
           <div class="col-4 border-end border-subtle px-1 d-flex flex-column justify-content-center">
             <div class="text-success fw-bold text-nowrap" style="font-size: 0.88rem; line-height: 1.2;">${rawRet}</div>
-            <div class="text-muted fw-semibold mt-1 text-truncate text-uppercase" style="font-size: 0.62rem; letter-spacing: 0.3px;">ROI</div>
+            <div class="text-muted fw-semibold mt-1 text-truncate text-uppercase" style="font-size: 0.62rem; letter-spacing: 0.3px;">Estimasi ROI</div>
           </div>
           <div class="col-4 border-end border-subtle px-1 d-flex flex-column justify-content-center">
             <div class="text-dark fw-bold text-nowrap" style="font-size: 0.9rem; line-height: 1.2;">${cleanTenor}</div>
