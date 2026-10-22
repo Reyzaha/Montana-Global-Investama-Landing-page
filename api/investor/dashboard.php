@@ -13,6 +13,37 @@ require_once __DIR__ . '/../../backend/helpers/lead_helper.php';
 $action = $_GET['action'] ?? 'get';
 $method = $_SERVER['REQUEST_METHOD'];
 
+const CURRENT_PRIVACY_POLICY_VERSION = '1.0';
+
+function isInvestorBiodataComplete(?array $user): bool {
+    if (!$user) return false;
+    $type = $user['account_type'] ?? 'perorangan';
+    if ($type === 'perusahaan') {
+        $bName = trim($user['business_name'] ?? '');
+        $picName = trim($user['pic_name'] ?? '');
+        $phone = trim($user['company_phone'] ?? ($user['phone'] ?? ''));
+        $address = trim($user['company_address'] ?? '');
+        $bAct = trim($user['business_activity'] ?? '');
+        return !empty($bName) && !empty($picName) && !empty($phone) && $phone !== '-'
+            && !empty($address) && $address !== 'Alamat operasional belum dilengkapi'
+            && !empty($bAct);
+    } else {
+        $fullName = trim($user['full_name'] ?? '');
+        $phone = trim($user['phone'] ?? '');
+        $bAct = trim($user['business_activity'] ?? '');
+        $citizenship = trim($user['citizenship'] ?? '');
+        return !empty($fullName) && !empty($phone) && $phone !== '-'
+            && !empty($bAct) && !empty($citizenship);
+    }
+}
+
+function isInvestorPrivacyAccepted(?array $user): bool {
+    if (!$user) return false;
+    $accepted = !empty($user['privacy_policy_accepted']);
+    $version = trim((string)($user['privacy_policy_version'] ?? ''));
+    return $accepted && ($version === CURRENT_PRIVACY_POLICY_VERSION);
+}
+
 $session = getInvestorSession();
 if (!$session) {
     sendJsonError('Sesi investor belum aktif atau telah kedaluwarsa. Silakan masuk terlebih dahulu.', 401);
@@ -87,6 +118,7 @@ try {
         // A. Profile
         $stmtP = $db->prepare("
             SELECT i.id, i.account_type, i.email, i.password_hash, i.google_id, i.avatar_url, i.full_name, i.citizenship, i.phone, i.business_activity, i.nik_paspor, i.npwp, i.status, i.created_at,
+                   i.privacy_policy_accepted, i.privacy_policy_accepted_at, i.privacy_policy_version,
                    c.business_name, c.legal_entity, c.company_address, c.pic_name, c.pic_position, c.company_phone, c.annual_turnover
             FROM investors i
             LEFT JOIN investor_companies c ON i.id = c.investor_id
@@ -219,7 +251,14 @@ try {
             if (empty($n['is_read'])) $unreadNotifCount++;
         }
 
+        $needsBio = !isInvestorBiodataComplete($profile);
+        $needsPriv = !isInvestorPrivacyAccepted($profile);
+
         sendJsonResponse([
+            'needs_biodata' => $needsBio,
+            'needs_privacy_consent' => $needsPriv,
+            'privacy_policy_accepted' => (bool)($profile['privacy_policy_accepted'] ?? false),
+            'privacy_policy_version' => $profile['privacy_policy_version'] ?? null,
             'profile' => [
                 'id' => (int)$profile['id'],
                 'type' => $profile['account_type'],
@@ -238,6 +277,11 @@ try {
                 'has_password' => !empty($profile['password_hash']),
                 'status' => $profile['status'],
                 'registered_at' => $profile['created_at'],
+                'privacy_policy_accepted' => (bool)($profile['privacy_policy_accepted'] ?? false),
+                'privacy_policy_accepted_at' => $profile['privacy_policy_accepted_at'] ?? null,
+                'privacy_policy_version' => $profile['privacy_policy_version'] ?? null,
+                'needs_biodata' => $needsBio,
+                'needs_privacy_consent' => $needsPriv,
                 // Corporate fields
                 'business_name' => $profile['business_name'] ?? '',
                 'legal_entity' => $profile['legal_entity'] ?? '',

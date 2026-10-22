@@ -416,5 +416,20 @@
   "productive_heavy_equipment_badge": "Productive Heavy Equipment",
   "capital_budget_plan_cta": "Capital Budget Plan",
   "heavy_equipment_units": "{} Heavy Equipment Units",
-  "batch_heavy_equipment_ready": "Batch Heavy Equipment Ready for Operations"
+  "batch_heavy_equipment_ready": "Batch Heavy Equipment Ready for Operations",
+  "mark_all_read": "Mark All as Read",
+  "billings_and_receipts": "Billings & Dividend Receipts",
+  "campaign_updates_title": "Project Operational Updates",
+  "bank_account_info": "Payout Bank Account",
+  "save_bank_account": "Save Bank Account",
+  "bank_name": "Bank Name",
+  "account_number": "Account Number",
+  "account_holder": "Account Holder Name",
+  "branch": "Branch Office",
+  "bank_saved_success": "Payout bank account saved successfully",
+  "privacy_policy": "Privacy Policy",
+  "privacy_policy_dialog_title": "PT Montana Global Investama Privacy Policy",
+  "i_have_read_and_agree": "I have read and agree to",
+  "please_accept_privacy_policy": "You must agree to the Privacy Policy before registering.",
+  "privacy_policy_agree": "I Agree"
 }

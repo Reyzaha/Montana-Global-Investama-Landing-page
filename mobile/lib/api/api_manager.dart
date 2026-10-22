@@ -232,4 +232,97 @@ class ApiManager {
 
     return response;
   }
+
+  static Future<Response> notifications({
+    int limit = 30,
+  }) async {
+    Dio dio = await getDio();
+
+    Response response = await dio.get(
+      ApiUrl.NOTIFICATIONS.path,
+      queryParameters: {
+        "limit": limit,
+      },
+    );
+
+    return response;
+  }
+
+  static Future<Response> markNotificationRead({
+    required int id,
+  }) async {
+    Dio dio = await getDio();
+
+    Response response = await dio.post(
+      "${ApiUrl.NOTIFICATIONS.path}?action=mark_read",
+      data: Formats.convert({
+        "id": id,
+      }),
+    );
+
+    return response;
+  }
+
+  static Future<Response> markAllNotificationsRead() async {
+    Dio dio = await getDio();
+
+    Response response = await dio.post(
+      "${ApiUrl.NOTIFICATIONS.path}?action=mark_all_read",
+    );
+
+    return response;
+  }
+
+  static Future<Response> registerDeviceToken({
+    required String token,
+    String deviceType = "android",
+  }) async {
+    Dio dio = await getDio();
+
+    Response response = await dio.post(
+      ApiUrl.DEVICE_TOKEN.path,
+      data: Formats.convert({
+        "fcm_token": token,
+        "device_type": deviceType,
+      }),
+    );
+
+    return response;
+  }
+
+  static Future<Response> deleteDeviceToken({
+    required String token,
+  }) async {
+    Dio dio = await getDio();
+
+    Response response = await dio.post(
+      "${ApiUrl.DEVICE_TOKEN.path}?action=delete",
+      data: Formats.convert({
+        "fcm_token": token,
+      }),
+    );
+
+    return response;
+  }
+
+  static Future<Response> saveBankAccount({
+    required String bankName,
+    required String accountNumber,
+    required String accountHolder,
+    String branch = "",
+  }) async {
+    Dio dio = await getDio();
+
+    Response response = await dio.post(
+      "${ApiUrl.INVESTOR_DASHBOARD.path}?action=save_bank",
+      data: Formats.convert({
+        "bank_name": bankName,
+        "account_number": accountNumber,
+        "account_holder": accountHolder,
+        "branch": branch,
+      }),
+    );
+
+    return response;
+  }
 }

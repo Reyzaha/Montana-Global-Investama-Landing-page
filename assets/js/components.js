@@ -188,7 +188,8 @@ const MGIComponents = {
         { label: 'Struktur Alur Kerja Entitas', url: 'preparation' },
         { label: 'Ekosistem Terpadu', url: 'ekosistem' },
         { label: 'Simulasi Titik Impas & Bagi Hasil', url: 'javascript:void(0)" onclick="MGIAuth.handleProtectedDetail(\'proj-jkt-jabar\')' },
-        { label: 'Tata Kelola Perusahaan (TARIF)', url: 'about.html#tata-kelola' }
+        { label: 'Tata Kelola Perusahaan (TARIF)', url: 'about.html#tata-kelola' },
+        { label: 'Kebijakan Privasi (UU PDP)', url: 'kebijakan-privasi' }
       ];
     }
     const col3Html = col3Links.map(l => `<li><a href="${l.url}" class="footer-link">${MGIComponents.escapeHtml(l.label)}</a></li>`).join('');
@@ -322,7 +323,11 @@ const MGIComponents = {
             <div class="mb-2 mb-md-0" id="footerCopyright">
               &copy; ${new Date().getFullYear()} ${MGIComponents.escapeHtml(copyright)}
             </div>
-            <div class="d-flex align-items-center gap-3">
+            <div class="d-flex flex-wrap align-items-center gap-3">
+              <a href="kebijakan-privasi" class="text-gold text-decoration-none fw-semibold">
+                <i class="bi bi-shield-check me-1"></i>Kebijakan Privasi
+              </a>
+              <span>•</span>
               <span id="footerStatusText">${MGIComponents.escapeHtml(statusText)}</span>
               <span>•</span>
               <a href="mailto:${MGIComponents.escapeHtml(email)}" id="footerOfficialMailLink" class="text-gold text-decoration-none fw-semibold">${MGIComponents.escapeHtml(email)}</a>

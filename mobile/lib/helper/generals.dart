@@ -30,6 +30,13 @@ class Generals {
           Shared.ACCOUNT = Account().parse(
             response.data is Map<String, dynamic> ? response.data : {},
           );
+
+          try {
+            final String? fcmToken = await FirebaseMessaging.instance.getToken();
+            if (fcmToken != null && fcmToken.isNotEmpty) {
+              await ApiManager.registerDeviceToken(token: fcmToken);
+            }
+          } catch (_) {}
         }
       } catch (e) {
         if (kDebugMode) {
@@ -41,6 +48,10 @@ class Generals {
 
   static Future<void> signOut(BuildContext context) async {
     try {
+      final String? fcmToken = await FirebaseMessaging.instance.getToken();
+      if (fcmToken != null && fcmToken.isNotEmpty) {
+        await ApiManager.deleteDeviceToken(token: fcmToken);
+      }
       await ApiManager.signOut();
       await FirebaseMessaging.instance.deleteToken();
     } catch (e) {

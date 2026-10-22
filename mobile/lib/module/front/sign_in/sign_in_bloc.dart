@@ -1,6 +1,7 @@
 import "package:base/base.dart";
 import "package:dio/dio.dart";
 import "package:easy_localization/easy_localization.dart";
+import "package:firebase_messaging/firebase_messaging.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:mgi_investor/api/api_manager.dart";
@@ -40,6 +41,13 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
               PreferenceKey.USER_ID,
               authResponse.user?.id?.toString() ?? "",
             );
+
+            try {
+              final String? fcmToken = await FirebaseMessaging.instance.getToken();
+              if (fcmToken != null && fcmToken.isNotEmpty) {
+                await ApiManager.registerDeviceToken(token: fcmToken);
+              }
+            } catch (_) {}
 
             emit(
               SignInSubmitSuccess(
@@ -87,6 +95,13 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
               PreferenceKey.USER_ID,
               authResponse.user?.id?.toString() ?? "",
             );
+
+            try {
+              final String? fcmToken = await FirebaseMessaging.instance.getToken();
+              if (fcmToken != null && fcmToken.isNotEmpty) {
+                await ApiManager.registerDeviceToken(token: fcmToken);
+              }
+            } catch (_) {}
 
             emit(
               SignInSubmitSuccess(

@@ -1,9 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
 import "package:base/base.dart";
+import "package:dio/dio.dart";
 import "package:easy_localization/easy_localization.dart";
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:mgi_investor/api/api_manager.dart";
+import "package:mgi_investor/api/endpoint/investor/investor_dashboard.dart";
 import "package:mgi_investor/helper/background.dart";
 import "package:mgi_investor/helper/generals.dart";
 import "package:mgi_investor/main_bloc.dart";
@@ -23,10 +26,33 @@ class ProfilePage extends StatefulWidget {
 }
 
 class ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
+  InvestorBankAccount? bankAccount;
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    loadBankInfo();
+  }
+
+  Future<void> loadBankInfo() async {
+    try {
+      final Response response = await ApiManager.investorDashboard();
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data =
+            response.data is Map<String, dynamic>
+                ? response.data as Map<String, dynamic>
+                : {};
+        final InvestorDashboardResponse parsed =
+            InvestorDashboardResponse().parse(data);
+
+        if (mounted) {
+          setState(() {
+            bankAccount = parsed.bankAccount;
+          });
+        }
+      }
+    } catch (_) {}
   }
 
   @override
@@ -214,6 +240,235 @@ class ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
     );
   }
 
+  Widget _buildBankAccountSection() {
+    return Container(
+      margin: EdgeInsets.only(top: Dimensions.size15),
+      padding: EdgeInsets.all(Dimensions.size15),
+      decoration: ShapeDecoration(
+        shape: SmoothRectangleBorder(
+          borderRadius: BorderRadius.circular(Dimensions.size10),
+          smoothness: 1,
+          side: BorderSide(color: AppColors.outline()),
+        ),
+        color: AppColors.surfaceContainerLowest(),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.account_balance_outlined,
+                    size: Dimensions.size20,
+                    color: const Color(0xFFC5A059),
+                  ),
+                  SizedBox(width: Dimensions.size10),
+                  Text(
+                    "bank_account_info".tr(),
+                    style: TextStyle(
+                      fontSize: Dimensions.text14,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.onSurface(),
+                    ),
+                  ),
+                ],
+              ),
+              TextButton(
+                onPressed: showEditBankBottomSheet,
+                child: Text(
+                  bankAccount != null ? "edit".tr() : "add".tr(),
+                  style: TextStyle(
+                    fontSize: Dimensions.text12,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xFFC5A059),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: Dimensions.size10),
+          if (bankAccount != null) ...[
+            _buildInfoRow(
+              "bank_name".tr(),
+              bankAccount?.bankName ?? "-",
+            ),
+            _buildInfoRow(
+              "account_number".tr(),
+              bankAccount?.accountNumber ?? "-",
+            ),
+            _buildInfoRow(
+              "account_holder".tr(),
+              bankAccount?.accountHolder ?? "-",
+            ),
+            if (bankAccount?.branch != null &&
+                bankAccount!.branch!.isNotEmpty)
+              _buildInfoRow(
+                "branch".tr(),
+                bankAccount!.branch!,
+              ),
+          ] else
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: Dimensions.size10),
+              child: Text(
+                "Rekening bank pencairan dividen belum diatur. Silakan tambahkan rekening bank Anda.",
+                style: TextStyle(
+                  fontSize: Dimensions.text11,
+                  color: AppColors.onSurfaceVariant(),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  void showEditBankBottomSheet() {
+    final TextEditingController tecBank = TextEditingController(
+      text: bankAccount?.bankName ?? "",
+    );
+    final TextEditingController tecNumber = TextEditingController(
+      text: bankAccount?.accountNumber ?? "",
+    );
+    final TextEditingController tecHolder = TextEditingController(
+      text: bankAccount?.accountHolder ??
+          Shared.ACCOUNT?.displayName() ??
+          "",
+    );
+    final TextEditingController tecBranch = TextEditingController(
+      text: bankAccount?.branch ?? "",
+    );
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: AppColors.surface(),
+      shape: SmoothRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(Dimensions.size20),
+        ),
+        smoothness: 1,
+      ),
+      builder: (bottomSheetContext) {
+        return Padding(
+          padding: EdgeInsets.only(
+            left: Dimensions.size20,
+            right: Dimensions.size20,
+            top: Dimensions.size20,
+            bottom: MediaQuery.of(bottomSheetContext).viewInsets.bottom +
+                Dimensions.size20,
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "save_bank_account".tr(),
+                      style: TextStyle(
+                        fontSize: Dimensions.text16,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.onSurface(),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () => Navigator.pop(bottomSheetContext),
+                      icon: const Icon(Icons.close),
+                    ),
+                  ],
+                ),
+                SizedBox(height: Dimensions.size15),
+                BaseWidgets.text(
+                  controller: tecBank,
+                  label: "bank_name".tr(),
+                  mandatory: true,
+                  readonly: false,
+                ),
+                SizedBox(height: Dimensions.size15),
+                BaseWidgets.text(
+                  controller: tecNumber,
+                  label: "account_number".tr(),
+                  mandatory: true,
+                  readonly: false,
+                  textInputType: TextInputType.number,
+                ),
+                SizedBox(height: Dimensions.size15),
+                BaseWidgets.text(
+                  controller: tecHolder,
+                  label: "account_holder".tr(),
+                  mandatory: true,
+                  readonly: false,
+                ),
+                SizedBox(height: Dimensions.size15),
+                BaseWidgets.text(
+                  controller: tecBranch,
+                  label: "branch".tr(),
+                  mandatory: false,
+                  readonly: false,
+                ),
+                SizedBox(height: Dimensions.size25),
+                SizedBox(
+                  width: double.infinity,
+                  child: FilledButton(
+                    style: FilledButton.styleFrom(
+                      backgroundColor: const Color(0xFFC5A059),
+                      padding: EdgeInsets.symmetric(
+                        vertical: Dimensions.size15,
+                      ),
+                    ),
+                    onPressed: () async {
+                      if (tecBank.text.trim().isEmpty ||
+                          tecNumber.text.trim().isEmpty ||
+                          tecHolder.text.trim().isEmpty) {
+                        BaseOverlays.error(
+                          message: "this_field_is_required".tr(),
+                        );
+                        return;
+                      }
+
+                      try {
+                        final Response res = await ApiManager.saveBankAccount(
+                          bankName: tecBank.text.trim(),
+                          accountNumber: tecNumber.text.trim(),
+                          accountHolder: tecHolder.text.trim(),
+                          branch: tecBranch.text.trim(),
+                        );
+
+                        if (res.statusCode == 200) {
+                          Navigator.pop(bottomSheetContext);
+                          BaseOverlays.success(
+                            message: "bank_saved_success".tr(),
+                          );
+                          loadBankInfo();
+                        }
+                      } catch (_) {
+                        BaseOverlays.error(
+                          message: "something_wrong_please_try_again".tr(),
+                        );
+                      }
+                    },
+                    child: Text(
+                      "save".tr(),
+                      style: TextStyle(
+                        fontSize: Dimensions.text13,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   Widget _buildPreferencesSection() {
     return BlocBuilder<MainBloc, MainState>(
       builder: (context, state) {
@@ -351,6 +606,7 @@ class ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
       children: [
         _buildAccountCard(),
         _buildAccountDetails(),
+        _buildBankAccountSection(),
         _buildPreferencesSection(),
         _buildSignOutButton(),
         SizedBox(height: Dimensions.size30),

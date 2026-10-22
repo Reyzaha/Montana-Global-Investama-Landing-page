@@ -416,11 +416,9 @@
             </div>
 
             <div class="form-check mb-3">
-              <input class="form-check-input" type="checkbox" id="termsPdp" required checked>
+              <input class="form-check-input" type="checkbox" id="termsPdp" required>
               <label class="form-check-label small text-secondary lh-base" for="termsPdp">
-                <strong>Persetujuan Pelindungan Data Pribadi (UU No. 27 Tahun 2022):</strong> Saya menyetujui pemrosesan
-                data identitas saya oleh PT Montana Global Investama untuk tujuan verifikasi nasabah (KYC), administrasi
-                kepemilikan aset, dan pelaporan perpajakan sesuai perundang-undangan.
+                Saya telah membaca dan menyetujui <a href="javascript:void(0)" id="openPrivacyPolicyLink" class="text-royal fw-bold text-decoration-underline">Kebijakan Privasi</a> PT Montana Global Investama (UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi).
               </label>
             </div>
 
@@ -446,9 +444,12 @@
           <!-- Tombol Submit -->
           <div class="mt-4">
             <button type="submit" class="btn btn-gold w-100 py-3 rounded-3 fw-bold fs-5 shadow-sm text-white"
-              id="submitRegisterBtn">
+              id="submitRegisterBtn" disabled>
               <i class="bi bi-person-check-fill me-2"></i> Daftar Sebagai Investor Terverifikasi
             </button>
+            <div class="text-center text-muted small mt-2" id="submitHelpText">
+              <i class="bi bi-info-circle me-1"></i> Centang persetujuan Kebijakan Privasi di atas untuk mengaktifkan tombol pendaftaran.
+            </div>
           </div>
 
         </form>
@@ -482,6 +483,34 @@
     </div>
   </main>
 
+  <!-- Modal Kebijakan Privasi (UU PDP) -->
+  <div class="modal fade" id="privacyPolicyModal" tabindex="-1" aria-labelledby="privacyPolicyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-header border-bottom bg-light py-3">
+          <h5 class="modal-title fw-bold text-dark d-flex align-items-center gap-2" id="privacyPolicyModalLabel">
+            <i class="bi bi-shield-lock-fill text-royal"></i> Kebijakan Privasi PT Montana Global Investama
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body p-4" id="privacyPolicyModalBody" style="max-height: 65vh; overflow-y: auto;">
+          <!-- Konten diisi oleh MGIPrivacyPolicy.getHtml({ isModal: true }) -->
+        </div>
+        <div class="modal-footer border-top bg-light py-2 d-flex justify-content-between align-items-center">
+          <div class="small text-muted">
+            <i class="bi bi-calendar3 me-1"></i> Versi 1.0 &bull; Terakhir diperbarui: 22 Oktober 2026
+          </div>
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-secondary px-4 rounded-3" data-bs-dismiss="modal">Tutup</button>
+            <button type="button" class="btn btn-primary px-4 rounded-3" id="btnModalAcceptPrivacy">
+              <i class="bi bi-check2-circle me-1"></i> Saya Setuju
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Global Footer -->
   <div id="global-footer"></div>
 
@@ -491,6 +520,7 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <!-- App Core JS -->
   <script src="assets/js/renderer.js"></script>
+  <script src="assets/js/privacy-policy-content.js"></script>
   <script src="assets/js/auth.js"></script>
   <script src="assets/js/components.js"></script>
 
@@ -681,6 +711,60 @@
       const form = document.getElementById('registerForm');
       const alertContainer = document.getElementById('registerAlert');
       const submitBtn = document.getElementById('submitRegisterBtn');
+      const submitHelpText = document.getElementById('submitHelpText');
+      const termsPdp = document.getElementById('termsPdp');
+
+      // Sync tombol submit dengan checkbox persetujuan kebijakan privasi
+      function syncSubmitButtonState() {
+        const isChecked = termsPdp && termsPdp.checked;
+        submitBtn.disabled = !isChecked;
+        if (submitHelpText) {
+          submitHelpText.style.display = isChecked ? 'none' : 'block';
+        }
+      }
+
+      if (termsPdp) {
+        termsPdp.addEventListener('change', syncSubmitButtonState);
+        syncSubmitButtonState();
+      }
+
+      // Modal Kebijakan Privasi
+      const privacyModalEl = document.getElementById('privacyPolicyModal');
+      let privacyModalInstance = null;
+      if (privacyModalEl && window.bootstrap) {
+        privacyModalInstance = new bootstrap.Modal(privacyModalEl);
+      }
+
+      function openPrivacyModal() {
+        const modalBody = document.getElementById('privacyPolicyModalBody');
+        if (modalBody && window.MGIPrivacyPolicy) {
+          modalBody.innerHTML = window.MGIPrivacyPolicy.getHtml({ isModal: true });
+        }
+        if (privacyModalInstance) {
+          privacyModalInstance.show();
+        }
+      }
+
+      const openLink = document.getElementById('openPrivacyPolicyLink');
+      if (openLink) {
+        openLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          openPrivacyModal();
+        });
+      }
+
+      const btnModalAccept = document.getElementById('btnModalAcceptPrivacy');
+      if (btnModalAccept) {
+        btnModalAccept.addEventListener('click', () => {
+          if (termsPdp) {
+            termsPdp.checked = true;
+            syncSubmitButtonState();
+          }
+          if (privacyModalInstance) {
+            privacyModalInstance.hide();
+          }
+        });
+      }
 
       form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -711,10 +795,20 @@
         }
 
         // Compliance validation
-        const termsPdp = document.getElementById('termsPdp');
         const termsApuPpt = document.getElementById('termsApuPpt');
         const termsNda = document.getElementById('termsNda');
-        if ((termsPdp && !termsPdp.checked) || (termsApuPpt && !termsApuPpt.checked) || (termsNda && !termsNda.checked)) {
+        if (!termsPdp || !termsPdp.checked) {
+          alertContainer.innerHTML = `
+            <div class="alert alert-warning border-0 shadow-sm rounded-3 p-3 mb-3 d-flex align-items-center gap-2">
+              <i class="bi bi-exclamation-triangle-fill fs-4 text-warning"></i>
+              <div>Anda wajib mencentang persetujuan Kebijakan Privasi PT Montana Global Investama sebelum mendaftar.</div>
+            </div>
+          `;
+          alertContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          return;
+        }
+
+        if ((termsApuPpt && !termsApuPpt.checked) || (termsNda && !termsNda.checked)) {
           alertContainer.innerHTML = `
             <div class="alert alert-warning border-0 shadow-sm rounded-3 p-3 mb-3 d-flex align-items-center gap-2">
               <i class="bi bi-exclamation-triangle-fill fs-4 text-warning"></i>
@@ -736,7 +830,9 @@
         let userData = {
           type: accountType,
           password: pass,
-          registeredAt: new Date().toISOString()
+          registeredAt: new Date().toISOString(),
+          privacy_policy_accepted: 1,
+          privacy_policy_version: (window.MGIPrivacyPolicy && window.MGIPrivacyPolicy.VERSION) ? window.MGIPrivacyPolicy.VERSION : '1.0'
         };
 
         if (accountType === 'perorangan') {
@@ -847,6 +943,31 @@
 
         MGIAuth.loginWithGoogle(googleResponse.credential, accountType, extraData).then((res) => {
           if (res.success) {
+            // Cek jika akun Google memerlukan pengisian biodata atau persetujuan kebijakan privasi
+            if (res.data && (res.data.needs_biodata || res.data.needs_privacy_consent)) {
+              MGIAuth.showOnboardingModal({
+                data: res.data,
+                onComplete: () => {
+                  alertContainer.innerHTML = `
+                    <div class="alert alert-success border-0 shadow-sm rounded-3 p-4 d-flex align-items-start gap-3 mb-4" role="alert">
+                      <i class="bi bi-check-circle-fill fs-3 text-success flex-shrink-0"></i>
+                      <div>
+                        <h5 class="alert-heading fw-bold mb-1">Pendaftaran Google Berhasil!</h5>
+                        <p class="small mb-0 lh-base">
+                          Biodata dan persetujuan Kebijakan Privasi Anda telah tersimpan. Mengalihkan ke Dashboard...
+                        </p>
+                      </div>
+                    </div>
+                  `;
+                  const targetUrl = MGIAuth.getRedirectUrl() || 'investor-dashboard.html';
+                  setTimeout(() => {
+                    window.location.href = targetUrl;
+                  }, 800);
+                }
+              });
+              return;
+            }
+
             alertContainer.innerHTML = `
               <div class="alert alert-success border-0 shadow-sm rounded-3 p-4 d-flex align-items-start gap-3 mb-4" role="alert">
                 <i class="bi bi-check-circle-fill fs-3 text-success flex-shrink-0"></i>

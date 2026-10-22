@@ -96,9 +96,52 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
   }
 
   BaseAppBar appBar() {
+    final int unreadCount = dashboardData?.unreadNotificationsCount ?? 0;
+
     return BaseAppBar(
       context: context,
       name: "investor_portal".tr(),
+      trailings: [
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            IconButton(
+              onPressed: () async {
+                await context.push("/portal/notifications");
+                loadData();
+              },
+              icon: const Icon(
+                Icons.notifications_outlined,
+                color: Color(0xFFC5A059),
+              ),
+              tooltip: "notifications".tr(),
+            ),
+            if (unreadCount > 0)
+              Positioned(
+                top: Dimensions.size5,
+                right: Dimensions.size5,
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: Dimensions.size5,
+                    vertical: Dimensions.size2,
+                  ),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.redAccent,
+                  ),
+                  child: Text(
+                    unreadCount > 9 ? "9+" : "$unreadCount",
+                    style: TextStyle(
+                      fontSize: Dimensions.text10,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -599,6 +642,248 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
     );
   }
 
+  Widget _buildBillingsSection() {
+    final List<InvestorBillingItem> billings = dashboardData?.billings ?? [];
+    if (billings.isEmpty) {
+      return const SizedBox();
+    }
+
+    return Container(
+      margin: EdgeInsets.only(top: Dimensions.size20),
+      padding: EdgeInsets.all(Dimensions.size15),
+      decoration: ShapeDecoration(
+        shape: SmoothRectangleBorder(
+          borderRadius: BorderRadius.circular(Dimensions.size10),
+          smoothness: 1,
+          side: BorderSide(color: AppColors.outline()),
+        ),
+        color: AppColors.surfaceContainerLowest(),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.receipt_long_outlined,
+                size: Dimensions.size20,
+                color: const Color(0xFFC5A059),
+              ),
+              SizedBox(width: Dimensions.size10),
+              Text(
+                "billings_and_receipts".tr(),
+                style: TextStyle(
+                  fontSize: Dimensions.text14,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.onSurface(),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: Dimensions.size15),
+          ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: billings.take(3).length,
+            separatorBuilder: (_, __) => Divider(
+              color: AppColors.outline(),
+              height: Dimensions.size15,
+            ),
+            itemBuilder: (context, index) {
+              final InvestorBillingItem item = billings[index];
+              final bool isPositive = item.flowType?.toLowerCase() == "in";
+
+              return Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          item.invoiceNumber ?? "INV-MGI",
+                          style: TextStyle(
+                            fontSize: Dimensions.text12,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.onSurface(),
+                          ),
+                        ),
+                        SizedBox(height: Dimensions.size2),
+                        Text(
+                          "${item.projectTitle ?? 'Montana Global Investama'} • ${item.transactionDate ?? '-'}",
+                          style: TextStyle(
+                            fontSize: Dimensions.text10,
+                            color: AppColors.onSurfaceVariant(),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        "${isPositive ? '+' : ''}Rp ${Formats.spell(item.amount)}",
+                        style: TextStyle(
+                          fontSize: Dimensions.text12,
+                          fontWeight: FontWeight.bold,
+                          color: isPositive
+                              ? Colors.green.shade700
+                              : AppColors.onSurface(),
+                        ),
+                      ),
+                      SizedBox(height: Dimensions.size2),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: Dimensions.size5,
+                          vertical: Dimensions.size2,
+                        ),
+                        decoration: ShapeDecoration(
+                          shape: SmoothRectangleBorder(
+                            borderRadius: BorderRadius.circular(Dimensions.size20),
+                            smoothness: 1,
+                          ),
+                          color: Colors.green.shade50,
+                        ),
+                        child: Text(
+                          item.status ?? "Verified",
+                          style: TextStyle(
+                            fontSize: Dimensions.text10,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.green.shade800,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCampaignUpdates() {
+    final List<CampaignUpdateItem> updates = dashboardData?.campaignUpdates ?? [];
+    if (updates.isEmpty) {
+      return const SizedBox();
+    }
+
+    return Container(
+      margin: EdgeInsets.only(top: Dimensions.size20),
+      padding: EdgeInsets.all(Dimensions.size15),
+      decoration: ShapeDecoration(
+        shape: SmoothRectangleBorder(
+          borderRadius: BorderRadius.circular(Dimensions.size10),
+          smoothness: 1,
+          side: BorderSide(color: AppColors.outline()),
+        ),
+        color: AppColors.surfaceContainerLowest(),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.analytics_outlined,
+                size: Dimensions.size20,
+                color: AppColors.primary(),
+              ),
+              SizedBox(width: Dimensions.size10),
+              Text(
+                "campaign_updates_title".tr(),
+                style: TextStyle(
+                  fontSize: Dimensions.text14,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.onSurface(),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: Dimensions.size15),
+          ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: updates.take(2).length,
+            separatorBuilder: (_, __) => Divider(
+              color: AppColors.outline(),
+              height: Dimensions.size15,
+            ),
+            itemBuilder: (context, index) {
+              final CampaignUpdateItem update = updates[index];
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          update.title ?? "Pembaruan Operasional",
+                          style: TextStyle(
+                            fontSize: Dimensions.text12,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.onSurface(),
+                          ),
+                        ),
+                      ),
+                      Text(
+                        update.updateDate ?? "",
+                        style: TextStyle(
+                          fontSize: Dimensions.text10,
+                          color: AppColors.onSurfaceVariant(),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: Dimensions.size4),
+                  Text(
+                    update.description ?? "",
+                    style: TextStyle(
+                      fontSize: Dimensions.text11,
+                      color: AppColors.onSurfaceVariant(),
+                    ),
+                  ),
+                  if (update.progressPercentage > 0) ...[
+                    SizedBox(height: Dimensions.size10),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(Dimensions.size5),
+                            child: LinearProgressIndicator(
+                              value: update.progressPercentage / 100.0,
+                              backgroundColor: AppColors.outline(),
+                              valueColor: const AlwaysStoppedAnimation<Color>(
+                                Color(0xFFC5A059),
+                              ),
+                              minHeight: Dimensions.size5,
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: Dimensions.size10),
+                        Text(
+                          "${update.progressPercentage}%",
+                          style: TextStyle(
+                            fontSize: Dimensions.text10,
+                            fontWeight: FontWeight.bold,
+                            color: const Color(0xFFC5A059),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ],
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget body() {
     return RefreshIndicator(
       onRefresh: loadData,
@@ -609,6 +894,8 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
           SizedBox(height: Dimensions.size20),
           _buildPortfolioStats(),
           _buildDividendSchedule(),
+          _buildBillingsSection(),
+          _buildCampaignUpdates(),
           _buildProtectedDocuments(),
           SizedBox(height: Dimensions.size30),
         ],

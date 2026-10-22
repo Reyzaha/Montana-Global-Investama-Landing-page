@@ -23,6 +23,8 @@ class RegisterIndividualRequest {
   final String citizenship;
   final String phone;
   final String businessActivity;
+  final int privacyPolicyAccepted;
+  final String privacyPolicyVersion;
 
   RegisterIndividualRequest({
     required this.email,
@@ -31,6 +33,8 @@ class RegisterIndividualRequest {
     this.citizenship = "Indonesia (WNI)",
     this.phone = "",
     this.businessActivity = "",
+    this.privacyPolicyAccepted = 1,
+    this.privacyPolicyVersion = "1.0",
   });
 
   Map<String, dynamic> toJson() => {
@@ -42,6 +46,8 @@ class RegisterIndividualRequest {
     "citizenship": citizenship,
     "phone": phone,
     "business_activity": businessActivity,
+    "privacy_policy_accepted": privacyPolicyAccepted,
+    "privacy_policy_version": privacyPolicyVersion,
   };
 }
 
@@ -56,6 +62,8 @@ class RegisterInstitutionRequest {
   final String companyPhone;
   final String annualTurnover;
   final String businessActivity;
+  final int privacyPolicyAccepted;
+  final String privacyPolicyVersion;
 
   RegisterInstitutionRequest({
     required this.email,
@@ -68,6 +76,8 @@ class RegisterInstitutionRequest {
     this.companyPhone = "",
     this.annualTurnover = "Rp10 Miliar – Rp50 Miliar",
     this.businessActivity = "Investasi Sektor Riil",
+    this.privacyPolicyAccepted = 1,
+    this.privacyPolicyVersion = "1.0",
   });
 
   Map<String, dynamic> toJson() => {
@@ -83,6 +93,8 @@ class RegisterInstitutionRequest {
     "company_phone": companyPhone,
     "annual_turnover": annualTurnover,
     "business_activity": businessActivity,
+    "privacy_policy_accepted": privacyPolicyAccepted,
+    "privacy_policy_version": privacyPolicyVersion,
   };
 }
 

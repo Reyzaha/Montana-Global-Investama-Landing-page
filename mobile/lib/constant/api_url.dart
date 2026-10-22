@@ -32,7 +32,9 @@ enum ApiUrl {
   CITIES("cities.php"),
   EKOSISTEM("ekosistem.php"),
   ARTICLES("articles.php"),
-  INVESTOR_DASHBOARD("investor/dashboard.php");
+  INVESTOR_DASHBOARD("investor/dashboard.php"),
+  NOTIFICATIONS("investor/notifications.php"),
+  DEVICE_TOKEN("investor/device_token.php");
 
   final String path;
 

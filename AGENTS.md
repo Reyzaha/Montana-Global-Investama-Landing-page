@@ -18,6 +18,7 @@ Placeholder: `<app>` = nama package aplikasi (field `name` di `pubspec.yaml`), `
 6. Selesai menulis, jalankan `flutter analyze` dan pastikan tidak ada warning baru dari kode Anda.
 7. Balas pengguna dalam Bahasa Indonesia. Identifier kode dalam Bahasa Inggris. Komentar kode minimal; hanya untuk logika yang tidak jelas.
 8. Jika ada pola yang tidak konsisten di kode lama, **ikuti pola dominan di dokumen ini**, jangan menyalin ketidakkonsistenan.
+9. **Lingkungan Server & Non-Localhost**: Pengguna **TIDAK MENGGUNAKAN localhost**. Dilarang memberikan tautan, instruksi pengujian, atau contoh URL dengan `localhost` / `127.0.0.1`. Selalu gunakan domain resmi **`https://montanainvestama.com`** atau IP VPS **`http://187.53.140.188`**. Setiap perubahan kode di direktori lokal wajib di-push ke GitHub (`origin main`) dan di-pull pada server VPS produksi (`187.53.140.188`) agar aktif.
 
 ---
 

@@ -2570,6 +2570,7 @@
 
   <!-- Client-side Logic & API Integrations -->
   <script src="assets/js/renderer.js"></script>
+  <script src="assets/js/privacy-policy-content.js"></script>
   <script src="assets/js/auth.js"></script>
   <script>
     // State Store
@@ -3293,6 +3294,24 @@
         if (res.ok) {
           const json = await res.json();
           if (json && json.success && json.data) {
+            // Route/Page Guard: Pastikan biodata lengkap dan kebijakan privasi telah disetujui
+            const prof = json.data.profile || {};
+            if (prof.needs_biodata || prof.needs_privacy_consent) {
+              if (window.MGIAuth && typeof MGIAuth.showOnboardingModal === 'function') {
+                MGIAuth.showOnboardingModal({
+                  data: {
+                    user: prof,
+                    needs_biodata: prof.needs_biodata,
+                    needs_privacy_consent: prof.needs_privacy_consent,
+                    missing_fields: prof.missing_fields || []
+                  },
+                  onComplete: () => {
+                    initDashboardData();
+                  }
+                });
+              }
+            }
+
             Object.assign(dashboardState, json.data);
             applyDataToUI(dashboardState);
 

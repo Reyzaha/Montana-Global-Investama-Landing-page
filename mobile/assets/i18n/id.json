@@ -416,6 +416,21 @@
   "productive_heavy_equipment_badge": "Alat Berat Produktif",
   "capital_budget_plan_cta": "Rancangan Anggaran Modal",
   "heavy_equipment_units": "{} Unit Alat Berat",
-  "batch_heavy_equipment_ready": "Batch Armada Alat Berat Siap Operasi"
+  "batch_heavy_equipment_ready": "Batch Armada Alat Berat Siap Operasi",
+  "mark_all_read": "Tandai Semua Dibaca",
+  "billings_and_receipts": "Faktur & Riwayat Dividen",
+  "campaign_updates_title": "Pembaruan Operasional Proyek",
+  "bank_account_info": "Rekening Bank Pencairan",
+  "save_bank_account": "Simpan Rekening Bank",
+  "bank_name": "Nama Bank",
+  "account_number": "Nomor Rekening",
+  "account_holder": "Nama Pemilik Rekening",
+  "branch": "Kantor Cabang",
+  "bank_saved_success": "Rekening pencairan bagi hasil berhasil disimpan",
+  "privacy_policy": "Kebijakan Privasi",
+  "privacy_policy_dialog_title": "Kebijakan Privasi PT Montana Global Investama",
+  "i_have_read_and_agree": "Saya telah membaca dan menyetujui",
+  "please_accept_privacy_policy": "Anda wajib menyetujui Kebijakan Privasi sebelum mendaftar.",
+  "privacy_policy_agree": "Saya Setuju"
 }
 

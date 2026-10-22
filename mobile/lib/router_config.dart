@@ -10,6 +10,7 @@ import "package:mgi_investor/module/front/roi_calculator/roi_calculator_page.dar
 import "package:mgi_investor/module/front/sign_in/sign_in_page.dart";
 import "package:mgi_investor/module/front/splash/splash_page.dart";
 import "package:mgi_investor/module/front/tarif_governance/tarif_governance_page.dart";
+import "package:mgi_investor/module/rear/notification/notification_page.dart";
 import "package:mgi_investor/module/rear/portal/portal_dashboard_page.dart";
 import "package:mgi_investor/module/rear/profile/profile_page.dart";
 import "package:mgi_investor/module/rear/proposal_watermark/proposal_watermark_page.dart";
@@ -111,6 +112,18 @@ final GoRouter goRouter = GoRouter(
               path: "profile",
               builder: (context, state) {
                 return const ProfilePage();
+              },
+              redirect: (context, state) {
+                if (Shared.ACCOUNT == null) {
+                  return "/sign-in";
+                }
+                return null;
+              },
+            ),
+            GoRoute(
+              path: "notifications",
+              builder: (context, state) {
+                return const NotificationPage();
               },
               redirect: (context, state) {
                 if (Shared.ACCOUNT == null) {

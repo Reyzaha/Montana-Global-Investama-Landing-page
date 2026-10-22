@@ -257,6 +257,21 @@ class Database {
                     }
                 }
             } catch (Throwable $_) {}
+
+            // Ensure Privacy Policy consent tracking columns on investors (UU PDP No. 27/2022)
+            try {
+                $invPrivacyCols = [
+                    'privacy_policy_accepted'    => "TINYINT(1) NOT NULL DEFAULT 0 AFTER `status`",
+                    'privacy_policy_accepted_at' => "DATETIME NULL AFTER `privacy_policy_accepted`",
+                    'privacy_policy_version'     => "VARCHAR(20) NULL AFTER `privacy_policy_accepted_at`",
+                ];
+                foreach ($invPrivacyCols as $col => $def) {
+                    $exists = $db->query("SHOW COLUMNS FROM `investors` LIKE '{$col}'")->fetchAll();
+                    if (empty($exists)) {
+                        $db->exec("ALTER TABLE `investors` ADD COLUMN `{$col}` {$def}");
+                    }
+                }
+            } catch (Throwable $_) {}
         } catch (Throwable $e) {
             error_log("Schema update warning (leads): " . $e->getMessage());
         }
@@ -326,6 +341,24 @@ class Database {
             ");
         } catch (Throwable $e) {
             error_log("Schema update warning (security_rate_limits): " . $e->getMessage());
+        }
+
+        // Investor device tokens table for Firebase Cloud Messaging (Push Notifications)
+        try {
+            $db->exec("
+                CREATE TABLE IF NOT EXISTS `investor_device_tokens` (
+                    `id` INT AUTO_INCREMENT PRIMARY KEY,
+                    `investor_id` INT NOT NULL,
+                    `fcm_token` VARCHAR(255) NOT NULL,
+                    `device_type` VARCHAR(30) DEFAULT 'android',
+                    `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                    UNIQUE KEY `uq_investor_fcm` (`fcm_token`),
+                    INDEX `idx_token_investor` (`investor_id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            ");
+        } catch (Throwable $e) {
+            error_log("Schema update warning (investor_device_tokens): " . $e->getMessage());
         }
 
         // Ensure admin_users has MFA columns

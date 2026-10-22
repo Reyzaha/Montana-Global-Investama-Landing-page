@@ -27,6 +27,7 @@ import "package:mgi_investor/module/front/project_detail/project_detail_bloc.dar
 import "package:mgi_investor/module/front/project_list/project_list_bloc.dart";
 import "package:mgi_investor/module/front/register/register_bloc.dart";
 import "package:mgi_investor/module/front/sign_in/sign_in_bloc.dart";
+import "package:mgi_investor/module/rear/notification/notification_bloc.dart";
 import "package:mgi_investor/router_config.dart";
 import "package:provider/provider.dart";
 import "package:smooth_corner/smooth_corner.dart";
@@ -104,6 +105,7 @@ class AppState extends State<App> {
         BlocProvider(create: (BuildContext context) => ConsultationBloc()),
         BlocProvider(create: (BuildContext context) => SignInBloc()),
         BlocProvider(create: (BuildContext context) => RegisterBloc()),
+        BlocProvider(create: (BuildContext context) => NotificationBloc()),
       ],
       child: MultiProvider(
         providers: [

@@ -244,6 +244,7 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <!-- App Core JS -->
   <script src="assets/js/renderer.js"></script>
+  <script src="assets/js/privacy-policy-content.js"></script>
   <script src="assets/js/auth.js"></script>
   <script src="assets/js/components.js"></script>
 
@@ -331,6 +332,20 @@
           submitBtn.innerHTML = `<i class="bi bi-box-arrow-in-right me-2"></i> Masuk ke Akun`;
 
           if (result.success) {
+            if (result.data && result.data.needs_privacy_consent) {
+              alertContainer.innerHTML = '';
+              MGIAuth.showOnboardingModal({
+                user: result.user,
+                needsBiodata: false,
+                needsPrivacyConsent: true,
+                onComplete: () => {
+                  const targetUrl = MGIAuth.getRedirectUrl() || 'investor-dashboard.html';
+                  window.location.href = targetUrl;
+                }
+              });
+              return;
+            }
+
             alertContainer.innerHTML = `
               <div class="alert alert-success border-0 shadow-sm rounded-3 p-4 d-flex align-items-start gap-3 mb-4" role="alert">
                 <i class="bi bi-check-circle-fill fs-3 text-success flex-shrink-0"></i>
@@ -379,6 +394,23 @@
 
         MGIAuth.loginWithGoogle(googleResponse.credential, loginType).then((res) => {
           if (res.success) {
+            const needsBio = res.data ? !!res.data.needs_biodata : false;
+            const needsPriv = res.data ? !!res.data.needs_privacy_consent : false;
+
+            if (needsBio || needsPriv) {
+              alertContainer.innerHTML = '';
+              MGIAuth.showOnboardingModal({
+                user: res.user,
+                needsBiodata: needsBio,
+                needsPrivacyConsent: needsPriv,
+                onComplete: () => {
+                  const targetUrl = MGIAuth.getRedirectUrl() || 'investor-dashboard.html';
+                  window.location.href = targetUrl;
+                }
+              });
+              return;
+            }
+
             alertContainer.innerHTML = `
               <div class="alert alert-success border-0 shadow-sm rounded-3 p-4 d-flex align-items-start gap-3 mb-4" role="alert">
                 <i class="bi bi-check-circle-fill fs-3 text-success flex-shrink-0"></i>

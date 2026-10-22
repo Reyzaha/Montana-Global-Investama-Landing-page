@@ -26,6 +26,7 @@ class RegisterPageState extends State<RegisterPage> with WidgetsBindingObserver 
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
 
   String investorType = "perorangan";
+  bool privacyPolicyAccepted = false;
 
   // Individual controllers
   final TextEditingController tecFullName = TextEditingController();
@@ -73,6 +74,11 @@ class RegisterPageState extends State<RegisterPage> with WidgetsBindingObserver 
 
   void submit() {
     if (formState.currentState?.validate() ?? false) {
+      if (!privacyPolicyAccepted) {
+        BaseOverlays.error(message: "please_accept_privacy_policy".tr());
+        return;
+      }
+
       if (tecPassword.text != tecConfirmPassword.text) {
         BaseOverlays.error(message: "password_not_match".tr());
         return;
@@ -87,6 +93,8 @@ class RegisterPageState extends State<RegisterPage> with WidgetsBindingObserver 
                   fullName: tecFullName.text.trim(),
                   phone: tecPhone.text.trim(),
                   businessActivity: tecBusinessActivity.text.trim(),
+                  privacyPolicyAccepted: 1,
+                  privacyPolicyVersion: "1.0",
                 ),
               ),
             );
@@ -101,11 +109,113 @@ class RegisterPageState extends State<RegisterPage> with WidgetsBindingObserver 
                   picPosition: tecPicPosition.text.trim(),
                   companyAddress: tecCompanyAddress.text.trim(),
                   companyPhone: tecCompanyPhone.text.trim(),
+                  privacyPolicyAccepted: 1,
+                  privacyPolicyVersion: "1.0",
                 ),
               ),
             );
       }
     }
+  }
+
+  void _showPrivacyPolicySheet() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext ctx) {
+        return Container(
+          height: MediaQuery.of(ctx).size.height * 0.85,
+          decoration: BoxDecoration(
+            color: AppColors.surface(),
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(Dimensions.size20),
+            ),
+          ),
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.all(Dimensions.size15),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: AppColors.outline()),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        "privacy_policy_dialog_title".tr(),
+                        style: TextStyle(
+                          fontSize: Dimensions.text14,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.onSurface(),
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () => Navigator.of(ctx).pop(),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.all(Dimensions.size15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Kebijakan Privasi PT Montana Global Investama\nVersi 1.0 • Terakhir diperbarui: 22 Oktober 2026\n",
+                        style: TextStyle(
+                          fontSize: Dimensions.text12,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.primary(),
+                        ),
+                      ),
+                      Text(
+                        "1. Pendahuluan\nPT Montana Global Investama ('Perusahaan', 'Kami') menghargai dan melindungi data pribadi Anda berdasarkan UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi ('UU PDP') dan UU ITE.\n\n"
+                        "2. Identitas Pengendali Data\nPT Montana Global Investama\nRoseville Soho & Suite, Serpong, Banten 15321\nEmail: contact@montanainvestama.com | Telp: 0858-2050-0786\n\n"
+                        "3. Data Pribadi yang Kami Kumpulkan\nData identitas (nama, NIK, foto KTP), data kontak (email, nomor telepon), data keuangan (nomor rekening), dan data teknis akses.\n\n"
+                        "4. Tujuan Pemrosesan\nVerifikasi kepatuhan investor (KYC), administrasi kepemilikan aset, bagi hasil, dan kepatuhan hukum.\n\n"
+                        "5. Keamanan & Retensi\nData disimpan secara aman terenkripsi dan tidak diperjualbelikan kepada pihak mana pun.\n\n"
+                        "6. Hak Pemilik Data\nAnda berhak mengakses, memperbaiki, dan meminta penghapusan data Anda sesuai ketentuan perundang-undangan.",
+                        style: TextStyle(
+                          fontSize: Dimensions.text12,
+                          color: AppColors.onSurface(),
+                          height: 1.5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(Dimensions.size15),
+                decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(color: AppColors.outline()),
+                  ),
+                ),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: FilledButton(
+                    onPressed: () {
+                      setState(() {
+                        privacyPolicyAccepted = true;
+                      });
+                      Navigator.of(ctx).pop();
+                    },
+                    child: Text("privacy_policy_agree".tr()),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   BaseAppBar appBar() {
@@ -364,11 +474,57 @@ class RegisterPageState extends State<RegisterPage> with WidgetsBindingObserver 
                 return null;
               },
             ),
+            SizedBox(height: Dimensions.size15),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: Dimensions.size25,
+                  height: Dimensions.size25,
+                  child: Checkbox(
+                    value: privacyPolicyAccepted,
+                    activeColor: AppColors.primary(),
+                    onChanged: (bool? val) {
+                      setState(() {
+                        privacyPolicyAccepted = val ?? false;
+                      });
+                    },
+                  ),
+                ),
+                SizedBox(width: Dimensions.size10),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: _showPrivacyPolicySheet,
+                    child: Text.rich(
+                      TextSpan(
+                        style: TextStyle(
+                          fontSize: Dimensions.text12,
+                          color: AppColors.onSurface(),
+                        ),
+                        children: [
+                          TextSpan(text: "i_have_read_and_agree".tr()),
+                          const TextSpan(text: " "),
+                          TextSpan(
+                            text: "privacy_policy".tr(),
+                            style: TextStyle(
+                              color: AppColors.primary(),
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                          const TextSpan(text: " PT Montana Global Investama."),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             SizedBox(height: Dimensions.size25),
             SizedBox(
               width: double.infinity,
               child: FilledButton(
-                onPressed: submit,
+                onPressed: privacyPolicyAccepted ? submit : null,
                 child: Text("register_now".tr()),
               ),
             ),

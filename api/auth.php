@@ -8,6 +8,37 @@ require_once __DIR__ . '/../backend/config/db.php';
 require_once __DIR__ . '/../backend/helpers/response.php';
 require_once __DIR__ . '/../backend/helpers/auth_helper.php';
 
+const CURRENT_PRIVACY_POLICY_VERSION = '1.0';
+
+function isInvestorBiodataComplete(?array $user): bool {
+    if (!$user) return false;
+    $type = $user['account_type'] ?? 'perorangan';
+    if ($type === 'perusahaan') {
+        $bName = trim($user['business_name'] ?? '');
+        $picName = trim($user['pic_name'] ?? '');
+        $phone = trim($user['company_phone'] ?? ($user['phone'] ?? ''));
+        $address = trim($user['company_address'] ?? '');
+        $bAct = trim($user['business_activity'] ?? '');
+        return !empty($bName) && !empty($picName) && !empty($phone) && $phone !== '-'
+            && !empty($address) && $address !== 'Alamat operasional belum dilengkapi'
+            && !empty($bAct);
+    } else {
+        $fullName = trim($user['full_name'] ?? '');
+        $phone = trim($user['phone'] ?? '');
+        $bAct = trim($user['business_activity'] ?? '');
+        $citizenship = trim($user['citizenship'] ?? '');
+        return !empty($fullName) && !empty($phone) && $phone !== '-'
+            && !empty($bAct) && !empty($citizenship);
+    }
+}
+
+function isInvestorPrivacyAccepted(?array $user): bool {
+    if (!$user) return false;
+    $accepted = !empty($user['privacy_policy_accepted']);
+    $version = trim((string)($user['privacy_policy_version'] ?? ''));
+    return $accepted && ($version === CURRENT_PRIVACY_POLICY_VERSION);
+}
+
 $action = $_GET['action'] ?? ($_POST['action'] ?? 'me');
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -32,7 +63,8 @@ try {
         $db = getDB();
         $stmt = $db->prepare("
             SELECT i.id, i.account_type, i.email, i.full_name, i.citizenship, i.phone, i.business_activity, i.status, i.google_id, i.avatar_url,
-                   c.business_name, c.legal_entity, c.company_address, c.pic_name, c.pic_position, c.annual_turnover
+                   i.privacy_policy_accepted, i.privacy_policy_accepted_at, i.privacy_policy_version,
+                   c.business_name, c.legal_entity, c.company_address, c.pic_name, c.pic_position, c.company_phone, c.annual_turnover
             FROM investors i
             LEFT JOIN investor_companies c ON i.id = c.investor_id
             WHERE i.id = ?
@@ -42,22 +74,40 @@ try {
 
         if ($user) {
             $token = generateInvestorAuthToken($user);
+            $needsBio = !isInvestorBiodataComplete($user);
+            $needsPriv = !isInvestorPrivacyAccepted($user);
+
             sendJsonResponse([
                 'logged_in' => true,
                 'token' => $token,
                 'csrf_token' => $token,
+                'needs_biodata' => $needsBio,
+                'needs_privacy_consent' => $needsPriv,
+                'privacy_policy_accepted' => (bool)($user['privacy_policy_accepted'] ?? false),
+                'privacy_policy_version' => $user['privacy_policy_version'] ?? null,
                 'user' => [
                     'id' => (int)$user['id'],
                     'type' => $user['account_type'],
+                    'account_type' => $user['account_type'],
                     'email' => $user['email'],
                     'fullName' => $user['account_type'] === 'perusahaan' ? $user['business_name'] : ($user['full_name'] ?: explode('@', $user['email'])[0]),
+                    'full_name' => $user['account_type'] === 'perusahaan' ? $user['business_name'] : ($user['full_name'] ?: explode('@', $user['email'])[0]),
                     'avatarUrl' => $user['avatar_url'] ?? '',
                     'authProvider' => !empty($user['google_id']) ? 'google' : 'email',
                     'picName' => $user['pic_name'] ?? '',
-                    'phone' => $user['phone'] ?? '',
+                    'phone' => $user['phone'] ?? ($user['company_phone'] ?? ''),
+                    'citizenship' => $user['citizenship'] ?? 'Indonesia (WNI)',
                     'businessActivity' => $user['business_activity'] ?? '',
+                    'business_activity' => $user['business_activity'] ?? '',
                     'legalEntity' => $user['legal_entity'] ?? '',
-                    'status' => $user['status']
+                    'companyAddress' => $user['company_address'] ?? '',
+                    'annualTurnover' => $user['annual_turnover'] ?? '',
+                    'status' => $user['status'],
+                    'privacyPolicyAccepted' => (bool)($user['privacy_policy_accepted'] ?? false),
+                    'privacyPolicyAcceptedAt' => $user['privacy_policy_accepted_at'] ?? null,
+                    'privacyPolicyVersion' => $user['privacy_policy_version'] ?? null,
+                    'needsBiodata' => $needsBio,
+                    'needsPrivacyConsent' => $needsPriv
                 ]
             ]);
         } else {
@@ -113,7 +163,7 @@ try {
         }
 
         $stmt = $db->prepare("
-            SELECT i.*, c.business_name, c.legal_entity, c.pic_name, c.pic_position
+            SELECT i.*, c.business_name, c.legal_entity, c.company_address, c.pic_name, c.pic_position, c.company_phone, c.annual_turnover
             FROM investors i
             LEFT JOIN investor_companies c ON i.id = c.investor_id
             WHERE LOWER(i.email) = ?
@@ -139,10 +189,11 @@ try {
         // Reset rate limit counter on success
         clearRateLimit('investor_login', $email);
 
-
         // Set session with session regeneration
         setInvestorSession($user);
         $authToken = generateInvestorAuthToken($user);
+        $needsBio = !isInvestorBiodataComplete($user);
+        $needsPriv = !isInvestorPrivacyAccepted($user);
 
         $userData = [
             'id' => (int)$user['id'],
@@ -153,17 +204,29 @@ try {
             'full_name' => $user['account_type'] === 'perusahaan' ? $user['business_name'] : ($user['full_name'] ?: explode('@', $user['email'])[0]),
             'businessName' => $user['business_name'] ?? '',
             'picName' => $user['pic_name'] ?? '',
-            'phone' => $user['phone'] ?? '',
+            'phone' => $user['phone'] ?? ($user['company_phone'] ?? ''),
+            'citizenship' => $user['citizenship'] ?? 'Indonesia (WNI)',
             'businessActivity' => $user['business_activity'] ?? '',
             'business_activity' => $user['business_activity'] ?? '',
             'legalEntity' => $user['legal_entity'] ?? '',
-            'status' => $user['status']
+            'companyAddress' => $user['company_address'] ?? '',
+            'annualTurnover' => $user['annual_turnover'] ?? '',
+            'status' => $user['status'],
+            'privacyPolicyAccepted' => (bool)($user['privacy_policy_accepted'] ?? false),
+            'privacyPolicyAcceptedAt' => $user['privacy_policy_accepted_at'] ?? null,
+            'privacyPolicyVersion' => $user['privacy_policy_version'] ?? null,
+            'needsBiodata' => $needsBio,
+            'needsPrivacyConsent' => $needsPriv
         ];
 
         sendJsonResponse([
             'user' => $userData,
             'token' => $authToken,
             'csrf_token' => $authToken,
+            'needs_biodata' => $needsBio,
+            'needs_privacy_consent' => $needsPriv,
+            'privacy_policy_accepted' => (bool)($user['privacy_policy_accepted'] ?? false),
+            'privacy_policy_version' => $user['privacy_policy_version'] ?? null,
             'message' => 'Autentikasi berhasil! Mengalihkan ke portal investasi...'
         ], 200, 'Login berhasil.');
     }
@@ -404,6 +467,8 @@ try {
         // Set session
         setInvestorSession($user);
         $authToken = generateInvestorAuthToken($user);
+        $needsBio = !isInvestorBiodataComplete($user);
+        $needsPriv = !isInvestorPrivacyAccepted($user);
 
         $userData = [
             'id' => (int)$user['id'],
@@ -416,11 +481,17 @@ try {
             'businessName' => $user['business_name'] ?? '',
             'picName' => $user['pic_name'] ?? '',
             'phone' => $user['phone'] ?? ($user['company_phone'] ?? ''),
+            'citizenship' => $user['citizenship'] ?? 'Indonesia (WNI)',
             'businessActivity' => $user['business_activity'] ?? '',
             'legalEntity' => $user['legal_entity'] ?? '',
             'companyAddress' => $user['company_address'] ?? '',
             'annualTurnover' => $user['annual_turnover'] ?? '',
             'status' => $user['status'],
+            'privacyPolicyAccepted' => (bool)($user['privacy_policy_accepted'] ?? false),
+            'privacyPolicyAcceptedAt' => $user['privacy_policy_accepted_at'] ?? null,
+            'privacyPolicyVersion' => $user['privacy_policy_version'] ?? null,
+            'needsBiodata' => $needsBio,
+            'needsPrivacyConsent' => $needsPriv,
             'authProvider' => 'google'
         ];
 
@@ -428,11 +499,188 @@ try {
             'user' => $userData,
             'token' => $authToken,
             'csrf_token' => $authToken,
+            'needs_biodata' => $needsBio,
+            'needs_privacy_consent' => $needsPriv,
+            'privacy_policy_accepted' => (bool)($user['privacy_policy_accepted'] ?? false),
+            'privacy_policy_version' => $user['privacy_policy_version'] ?? null,
             'message' => 'Autentikasi Google berhasil! Mengalihkan ke portal...'
         ], 200, 'Login Google berhasil.');
     }
 
-    // 4C. INVESTOR REGISTER
+    // 4D. COMPLETE GOOGLE SIGNUP / UPDATE BIODATA & PRIVACY CONSENT
+    if ($action === 'complete_google_signup' || $action === 'complete_profile') {
+        if ($method !== 'POST') {
+            sendJsonError('Method harus POST.', 405);
+        }
+        $session = getInvestorSession();
+        if (!$session) {
+            sendJsonError('Sesi autentikasi investor telah berakhir. Silakan masuk kembali.', 401);
+        }
+        $investorId = (int)$session['id'];
+        $input = getJsonInput();
+
+        // Validasi wajib persetujuan kebijakan privasi (UU PDP No. 27/2022)
+        $privacyAccepted = !empty($input['privacy_policy_accepted']) || !empty($input['terms_pdp']) || !empty($input['termsPdp']);
+        if (!$privacyAccepted) {
+            sendJsonError('Anda wajib membaca dan menyetujui Kebijakan Privasi PT Montana Global Investama untuk melanjutkan.', 422);
+        }
+
+        $accountType = $input['account_type'] ?? ($input['type'] ?? ($session['type'] ?? 'perorangan'));
+        $db->beginTransaction();
+
+        if ($accountType === 'perusahaan') {
+            $businessName = trim($input['business_name'] ?? ($input['businessName'] ?? ''));
+            $picName = trim($input['pic_name'] ?? ($input['picName'] ?? ''));
+            $picPosition = trim($input['pic_position'] ?? ($input['picPosition'] ?? 'Direktur Utama'));
+            $companyPhone = trim($input['company_phone'] ?? ($input['phone'] ?? ''));
+            $companyAddress = trim($input['company_address'] ?? ($input['companyAddress'] ?? ''));
+            $businessActivity = trim($input['business_activity'] ?? ($input['businessActivity'] ?? 'Investasi Sektor Riil'));
+            $legalEntity = trim($input['legal_entity'] ?? ($input['legalEntity'] ?? 'Perseroan Terbatas (PT)'));
+            $annualTurnover = trim($input['annual_turnover'] ?? ($input['annualTurnover'] ?? 'Rp10 Miliar – Rp50 Miliar'));
+
+            if (empty($businessName) || empty($picName) || empty($companyPhone) || empty($companyAddress) || empty($businessActivity)) {
+                sendJsonError('Seluruh data institusi/perusahaan (Nama PT, PIC, Telepon, Bidang Usaha, Alamat) wajib diisi lengkap.', 422);
+            }
+
+            $stmtUpd = $db->prepare("
+                UPDATE investors 
+                SET account_type = 'perusahaan',
+                    full_name = ?,
+                    phone = ?,
+                    business_activity = ?,
+                    privacy_policy_accepted = 1,
+                    privacy_policy_accepted_at = NOW(),
+                    privacy_policy_version = ?
+                WHERE id = ?
+            ");
+            $stmtUpd->execute([$businessName, $companyPhone, $businessActivity, CURRENT_PRIVACY_POLICY_VERSION, $investorId]);
+
+            $checkC = $db->prepare("SELECT id FROM investor_companies WHERE investor_id = ?");
+            $checkC->execute([$investorId]);
+            if ($checkC->fetch()) {
+                $stmtC = $db->prepare("
+                    UPDATE investor_companies
+                    SET business_name = ?, business_activity = ?, legal_entity = ?,
+                        company_address = ?, pic_name = ?, pic_position = ?, company_phone = ?, annual_turnover = ?
+                    WHERE investor_id = ?
+                ");
+                $stmtC->execute([$businessName, $businessActivity, $legalEntity, $companyAddress, $picName, $picPosition, $companyPhone, $annualTurnover, $investorId]);
+            } else {
+                $stmtC = $db->prepare("
+                    INSERT INTO investor_companies (investor_id, business_name, business_activity, legal_entity, company_address, pic_name, pic_position, company_phone, annual_turnover)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ");
+                $stmtC->execute([$investorId, $businessName, $businessActivity, $legalEntity, $companyAddress, $picName, $picPosition, $companyPhone, $annualTurnover]);
+            }
+        } else {
+            // Perorangan
+            $fullName = trim($input['full_name'] ?? ($input['fullName'] ?? ''));
+            $phone = trim($input['phone'] ?? '');
+            $citizenship = trim($input['citizenship'] ?? 'Indonesia (WNI)');
+            $businessActivity = trim($input['business_activity'] ?? ($input['businessActivity'] ?? ''));
+
+            if (empty($fullName) || empty($phone) || empty($businessActivity)) {
+                sendJsonError('Nama lengkap, nomor telepon / WhatsApp, dan bidang usaha wajib diisi lengkap.', 422);
+            }
+
+            $stmtUpd = $db->prepare("
+                UPDATE investors 
+                SET account_type = 'perorangan',
+                    full_name = ?,
+                    phone = ?,
+                    citizenship = ?,
+                    business_activity = ?,
+                    privacy_policy_accepted = 1,
+                    privacy_policy_accepted_at = NOW(),
+                    privacy_policy_version = ?
+                WHERE id = ?
+            ");
+            $stmtUpd->execute([$fullName, $phone, $citizenship, $businessActivity, CURRENT_PRIVACY_POLICY_VERSION, $investorId]);
+        }
+
+        $db->commit();
+
+        $stmtRef = $db->prepare("
+            SELECT i.*, c.business_name, c.legal_entity, c.company_address, c.pic_name, c.pic_position, c.company_phone, c.annual_turnover
+            FROM investors i
+            LEFT JOIN investor_companies c ON i.id = c.investor_id
+            WHERE i.id = ?
+        ");
+        $stmtRef->execute([$investorId]);
+        $refUser = $stmtRef->fetch();
+        setInvestorSession($refUser);
+        $token = generateInvestorAuthToken($refUser);
+
+        sendJsonResponse([
+            'user' => [
+                'id' => (int)$refUser['id'],
+                'type' => $refUser['account_type'],
+                'accountType' => $refUser['account_type'],
+                'email' => $refUser['email'],
+                'fullName' => $refUser['account_type'] === 'perusahaan' ? $refUser['business_name'] : ($refUser['full_name'] ?: explode('@', $refUser['email'])[0]),
+                'full_name' => $refUser['account_type'] === 'perusahaan' ? $refUser['business_name'] : ($refUser['full_name'] ?: explode('@', $refUser['email'])[0]),
+                'avatarUrl' => $refUser['avatar_url'] ?? '',
+                'businessName' => $refUser['business_name'] ?? '',
+                'picName' => $refUser['pic_name'] ?? '',
+                'phone' => $refUser['phone'] ?? ($refUser['company_phone'] ?? ''),
+                'citizenship' => $refUser['citizenship'] ?? 'Indonesia (WNI)',
+                'businessActivity' => $refUser['business_activity'] ?? '',
+                'business_activity' => $refUser['business_activity'] ?? '',
+                'status' => $refUser['status'],
+                'privacyPolicyAccepted' => true,
+                'privacyPolicyVersion' => CURRENT_PRIVACY_POLICY_VERSION,
+                'needsBiodata' => false,
+                'needsPrivacyConsent' => false
+            ],
+            'token' => $token,
+            'csrf_token' => $token,
+            'needs_biodata' => false,
+            'needs_privacy_consent' => false,
+            'message' => 'Biodata dan persetujuan Kebijakan Privasi berhasil disimpan.'
+        ], 200, 'Biodata dan persetujuan berhasil disimpan.');
+    }
+
+    // 4E. ACCEPT PRIVACY POLICY (Untuk akun lama/baru yang biodatanya sudah lengkap tetapi belum menyetujui versi aktif)
+    if ($action === 'accept_privacy_policy') {
+        if ($method !== 'POST') {
+            sendJsonError('Method harus POST.', 405);
+        }
+        $session = getInvestorSession();
+        if (!$session) {
+            sendJsonError('Sesi autentikasi telah berakhir. Silakan masuk kembali.', 401);
+        }
+        $investorId = (int)$session['id'];
+        $input = getJsonInput();
+        $version = trim($input['version'] ?? CURRENT_PRIVACY_POLICY_VERSION);
+
+        $stmtUpd = $db->prepare("
+            UPDATE investors 
+            SET privacy_policy_accepted = 1,
+                privacy_policy_accepted_at = NOW(),
+                privacy_policy_version = ?
+            WHERE id = ?
+        ");
+        $stmtUpd->execute([$version, $investorId]);
+
+        $stmtRef = $db->prepare("SELECT * FROM investors WHERE id = ?");
+        $stmtRef->execute([$investorId]);
+        $refUser = $stmtRef->fetch();
+        if ($refUser) {
+            setInvestorSession($refUser);
+        }
+        $token = generateInvestorAuthToken($refUser ?: $session);
+
+        sendJsonResponse([
+            'privacy_policy_accepted' => true,
+            'privacy_policy_version' => $version,
+            'needs_privacy_consent' => false,
+            'token' => $token,
+            'csrf_token' => $token,
+            'message' => 'Persetujuan Kebijakan Privasi berhasil dicatat.'
+        ], 200, 'Persetujuan Kebijakan Privasi berhasil dicatat.');
+    }
+
+    // 4F. INVESTOR REGISTER
     if ($action === 'register') {
         if ($method !== 'POST') {
             sendJsonError('Method harus POST.', 405);
@@ -448,10 +696,15 @@ try {
         $email = trim(strtolower($input['email'] ?? ''));
         $password = (string)($input['password'] ?? '');
 
+        // Validasi wajib Persetujuan Kebijakan Privasi (UU PDP No. 27/2022)
+        $privacyAccepted = !empty($input['privacy_policy_accepted']) || !empty($input['terms_pdp']) || !empty($input['termsPdp']);
+        if (!$privacyAccepted) {
+            sendJsonError('Anda wajib membaca dan menyetujui Kebijakan Privasi PT Montana Global Investama sebelum mendaftar.', 422);
+        }
+
         if (empty($email) || empty($password)) {
             sendJsonError('Email dan kata sandi wajib diisi.');
         }
-
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             sendJsonError('Format alamat email tidak valid.');
@@ -487,10 +740,10 @@ try {
             }
 
             $stmtIns = $db->prepare("
-                INSERT INTO investors (account_type, email, password_hash, full_name, phone, business_activity, status)
-                VALUES ('perusahaan', ?, ?, ?, ?, ?, 'active')
+                INSERT INTO investors (account_type, email, password_hash, full_name, phone, business_activity, privacy_policy_accepted, privacy_policy_accepted_at, privacy_policy_version, status)
+                VALUES ('perusahaan', ?, ?, ?, ?, ?, 1, NOW(), ?, 'active')
             ");
-            $stmtIns->execute([$email, $hash, $businessName, $companyPhone, $businessActivity]);
+            $stmtIns->execute([$email, $hash, $businessName, $companyPhone, $businessActivity, CURRENT_PRIVACY_POLICY_VERSION]);
             $investorId = (int)$db->lastInsertId();
 
             $stmtComp = $db->prepare("
@@ -518,10 +771,10 @@ try {
             }
 
             $stmtIns = $db->prepare("
-                INSERT INTO investors (account_type, email, password_hash, full_name, citizenship, phone, business_activity, status)
-                VALUES ('perorangan', ?, ?, ?, ?, ?, ?, 'active')
+                INSERT INTO investors (account_type, email, password_hash, full_name, citizenship, phone, business_activity, privacy_policy_accepted, privacy_policy_accepted_at, privacy_policy_version, status)
+                VALUES ('perorangan', ?, ?, ?, ?, ?, ?, 1, NOW(), ?, 'active')
             ");
-            $stmtIns->execute([$email, $hash, $fullName, $citizenship, $phone, $businessActivity]);
+            $stmtIns->execute([$email, $hash, $fullName, $citizenship, $phone, $businessActivity, CURRENT_PRIVACY_POLICY_VERSION]);
             $investorId = (int)$db->lastInsertId();
         }
 
@@ -532,7 +785,9 @@ try {
             'account_type' => $accountType,
             'email' => $email,
             'full_name' => $fullName,
-            'status' => 'active'
+            'status' => 'active',
+            'privacy_policy_accepted' => 1,
+            'privacy_policy_version' => CURRENT_PRIVACY_POLICY_VERSION
         ];
 
         setInvestorSession($newUser);
@@ -548,12 +803,19 @@ try {
                 'full_name' => $fullName,
                 'businessName' => $businessName ?? '',
                 'phone' => $phone ?? ($companyPhone ?? ''),
+                'citizenship' => $citizenship ?? 'Indonesia (WNI)',
                 'businessActivity' => $businessActivity ?? '',
                 'business_activity' => $businessActivity ?? '',
-                'status' => 'active'
+                'status' => 'active',
+                'privacyPolicyAccepted' => true,
+                'privacyPolicyVersion' => CURRENT_PRIVACY_POLICY_VERSION,
+                'needsBiodata' => false,
+                'needsPrivacyConsent' => false
             ],
             'token' => $authToken,
             'csrf_token' => $authToken,
+            'needs_biodata' => false,
+            'needs_privacy_consent' => false,
             'message' => 'Registrasi berhasil! Selamat datang di Portal Investor PT Montana Global Investama.'
         ], 201, 'Registrasi berhasil.');
     }
