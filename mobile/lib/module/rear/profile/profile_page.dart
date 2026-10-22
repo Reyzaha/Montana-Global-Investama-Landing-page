@@ -5,6 +5,7 @@ import "package:dio/dio.dart";
 import "package:easy_localization/easy_localization.dart";
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:go_router/go_router.dart";
 import "package:mgi_investor/api/api_manager.dart";
 import "package:mgi_investor/api/endpoint/investor/investor_dashboard.dart";
 import "package:mgi_investor/helper/background.dart";
@@ -14,6 +15,7 @@ import "package:mgi_investor/main_event.dart";
 import "package:mgi_investor/main_state.dart";
 import "package:mgi_investor/model/account.dart";
 import "package:mgi_investor/shared.dart";
+import "package:mgi_investor/widget/portal_widgets.dart";
 import "package:smooth_corner/smooth_corner.dart";
 
 class ProfilePage extends StatefulWidget {
@@ -27,6 +29,7 @@ class ProfilePage extends StatefulWidget {
 
 class ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
   InvestorBankAccount? bankAccount;
+  bool biometricEnabled = false;
 
   @override
   void initState() {
@@ -70,144 +73,179 @@ class ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
   BaseAppBar appBar() {
     return BaseAppBar(
       context: context,
-      name: "profile".tr(),
+      name: "investor_profile".tr(),
     );
   }
 
-  Widget _buildAccountCard() {
+  Widget _buildHeader() {
     final Account? user = Shared.ACCOUNT;
+    final String name = user?.displayName() ?? "Investor MGI";
 
-    return Container(
-      padding: EdgeInsets.all(Dimensions.size20),
-      decoration: ShapeDecoration(
-        shape: SmoothRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimensions.size10),
-          smoothness: 1,
-          side: BorderSide(color: AppColors.outline()),
-        ),
-        color: AppColors.surfaceContainerLowest(),
-      ),
-      child: Column(
-        children: [
-          CircleAvatar(
-            radius: Dimensions.size35,
-            backgroundColor: const Color(0xFF0F2C59),
+    return Row(
+      children: [
+        Container(
+          width: Dimensions.size80,
+          height: Dimensions.size80,
+          padding: EdgeInsets.all(Dimensions.size5),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: portalGold),
+          ),
+          child: CircleAvatar(
+            backgroundColor: portalNavy,
             child: Text(
-              (user?.displayName().isNotEmpty ?? false)
-                  ? user!.displayName().substring(0, 1).toUpperCase()
-                  : "M",
+              name.isNotEmpty ? name.substring(0, 1).toUpperCase() : "M",
               style: TextStyle(
                 fontSize: Dimensions.text28,
                 fontWeight: FontWeight.bold,
-                color: const Color(0xFFC5A059),
+                color: portalGold,
               ),
             ),
           ),
-          SizedBox(height: Dimensions.size15),
-          Text(
-            user?.displayName() ?? "Investor MGI",
-            style: TextStyle(
-              fontSize: Dimensions.text16,
-              fontWeight: FontWeight.bold,
-              color: AppColors.onSurface(),
-            ),
-          ),
-          SizedBox(height: Dimensions.size4),
-          Text(
-            user?.email ?? "-",
-            style: TextStyle(
-              fontSize: Dimensions.text12,
-              color: AppColors.onSurfaceVariant(),
-            ),
-          ),
-          SizedBox(height: Dimensions.size10),
-          Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: Dimensions.size10,
-              vertical: Dimensions.size5,
-            ),
-            decoration: ShapeDecoration(
-              shape: SmoothRectangleBorder(
-                borderRadius: BorderRadius.circular(Dimensions.size20),
-                smoothness: 1,
+        ),
+        SizedBox(width: Dimensions.size15),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                (user?.type == AccountType.institution
+                        ? "investor_institution"
+                        : "private_investor")
+                    .tr()
+                    .toUpperCase(),
+                style: TextStyle(
+                  fontSize: Dimensions.text10,
+                  fontWeight: FontWeight.bold,
+                  color: portalGold,
+                  letterSpacing: 1.2,
+                ),
               ),
-              color: const Color(0xFF0F2C59),
-            ),
-            child: Text(
-              user?.type == AccountType.institution
-                  ? "investor_institution".tr()
-                  : "investor_individual".tr(),
-              style: TextStyle(
-                fontSize: Dimensions.text10,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+              SizedBox(height: Dimensions.size4),
+              Row(
+                children: [
+                  Flexible(
+                    child: Text(
+                      name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: Dimensions.text20,
+                        fontWeight: FontWeight.w800,
+                        color: portalNavy,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: Dimensions.size5),
+                  Icon(
+                    Icons.verified,
+                    size: Dimensions.size20,
+                    color: portalGold,
+                  ),
+                ],
               ),
+              SizedBox(height: Dimensions.size4),
+              Text(
+                user?.email ?? "-",
+                style: TextStyle(
+                  fontSize: Dimensions.text11,
+                  color: AppColors.onSurfaceVariant(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildKycCard() {
+    return Container(
+      margin: EdgeInsets.only(top: Dimensions.size20),
+      padding: EdgeInsets.all(Dimensions.size15),
+      decoration: ShapeDecoration(
+        shape: SmoothRectangleBorder(
+          borderRadius: BorderRadius.circular(Dimensions.size20),
+          smoothness: 1,
+        ),
+        color: Colors.green.shade50,
+      ),
+      child: Row(
+        children: [
+          Icon(
+            Icons.shield_outlined,
+            color: Colors.green.shade700,
+            size: Dimensions.size25,
+          ),
+          SizedBox(width: Dimensions.size15),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "kyc_status".tr().toUpperCase(),
+                  style: TextStyle(
+                    fontSize: Dimensions.text10,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green.shade700,
+                    letterSpacing: 1.0,
+                  ),
+                ),
+                SizedBox(height: Dimensions.size4),
+                Text(
+                  "identity_verified".tr(),
+                  style: TextStyle(
+                    fontSize: Dimensions.text14,
+                    fontWeight: FontWeight.w800,
+                    color: portalNavy,
+                  ),
+                ),
+              ],
             ),
           ),
+          Icon(Icons.check, color: Colors.green.shade700),
         ],
       ),
     );
   }
 
-  Widget _buildAccountDetails() {
-    final Account? user = Shared.ACCOUNT;
-
-    return Container(
-      margin: EdgeInsets.only(top: Dimensions.size15),
-      padding: EdgeInsets.all(Dimensions.size15),
-      decoration: ShapeDecoration(
-        shape: SmoothRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimensions.size10),
-          smoothness: 1,
-          side: BorderSide(color: AppColors.outline()),
+  Widget _buildBankSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        PortalSectionHeaderSmall(title: "dividend_account".tr()),
+        if (bankAccount != null)
+          InkWell(
+            onTap: showEditBankBottomSheet,
+            customBorder: SmoothRectangleBorder(
+              borderRadius: BorderRadius.circular(Dimensions.size25),
+              smoothness: 1,
+            ),
+            child: BankCard(
+              bankName: bankAccount?.bankName ?? "-",
+              accountNumber: bankAccount?.accountNumber ?? "",
+              holder: bankAccount?.accountHolder ?? "-",
+            ),
+          ),
+        SizedBox(height: Dimensions.size10),
+        SizedBox(
+          width: double.infinity,
+          child: OutlinedButton.icon(
+            style: OutlinedButton.styleFrom(
+              foregroundColor: portalGold,
+              side: BorderSide(color: AppColors.outline()),
+              padding: EdgeInsets.symmetric(vertical: Dimensions.size15),
+              shape: SmoothRectangleBorder(
+                borderRadius: BorderRadius.circular(Dimensions.size15),
+                smoothness: 1,
+              ),
+            ),
+            onPressed: showEditBankBottomSheet,
+            icon: const Icon(Icons.add),
+            label: Text("add_own_account".tr()),
+          ),
         ),
-        color: AppColors.surfaceContainerLowest(),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Informasi Kemitraan",
-            style: TextStyle(
-              fontSize: Dimensions.text14,
-              fontWeight: FontWeight.bold,
-              color: AppColors.onSurface(),
-            ),
-          ),
-          SizedBox(height: Dimensions.size10),
-          _buildInfoRow(
-            "phone_number".tr(),
-            user?.phone ?? "-",
-          ),
-          _buildInfoRow(
-            "Kewarganegaraan",
-            user?.citizenship ?? "Indonesia (WNI)",
-          ),
-          if (user?.type == AccountType.institution) ...[
-            _buildInfoRow(
-              "company_name".tr(),
-              user?.businessName ?? "-",
-            ),
-            _buildInfoRow(
-              "pic_name".tr(),
-              user?.picName ?? "-",
-            ),
-            _buildInfoRow(
-              "pic_position".tr(),
-              user?.picPosition ?? "-",
-            ),
-            _buildInfoRow(
-              "company_address".tr(),
-              user?.companyAddress ?? "-",
-            ),
-          ] else ...[
-            _buildInfoRow(
-              "business_field".tr(),
-              user?.businessActivity ?? "Wiraswasta",
-            ),
-          ],
-        ],
-      ),
+      ],
     );
   }
 
@@ -224,6 +262,7 @@ class ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
               color: AppColors.onSurfaceVariant(),
             ),
           ),
+          SizedBox(width: Dimensions.size10),
           Expanded(
             child: Text(
               value,
@@ -240,86 +279,41 @@ class ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
     );
   }
 
-  Widget _buildBankAccountSection() {
+  Widget _buildAccountDetails() {
+    final Account? user = Shared.ACCOUNT;
+
     return Container(
-      margin: EdgeInsets.only(top: Dimensions.size15),
+      margin: EdgeInsets.only(top: Dimensions.size25),
       padding: EdgeInsets.all(Dimensions.size15),
-      decoration: ShapeDecoration(
-        shape: SmoothRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimensions.size10),
-          smoothness: 1,
-          side: BorderSide(color: AppColors.outline()),
-        ),
-        color: AppColors.surfaceContainerLowest(),
-      ),
+      decoration: portalCardDecoration(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.account_balance_outlined,
-                    size: Dimensions.size20,
-                    color: const Color(0xFFC5A059),
-                  ),
-                  SizedBox(width: Dimensions.size10),
-                  Text(
-                    "bank_account_info".tr(),
-                    style: TextStyle(
-                      fontSize: Dimensions.text14,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.onSurface(),
-                    ),
-                  ),
-                ],
-              ),
-              TextButton(
-                onPressed: showEditBankBottomSheet,
-                child: Text(
-                  bankAccount != null ? "edit".tr() : "add".tr(),
-                  style: TextStyle(
-                    fontSize: Dimensions.text12,
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0xFFC5A059),
-                  ),
-                ),
-              ),
-            ],
+          Text(
+            "partnership_info".tr(),
+            style: TextStyle(
+              fontSize: Dimensions.text14,
+              fontWeight: FontWeight.w800,
+              color: portalNavy,
+            ),
           ),
           SizedBox(height: Dimensions.size10),
-          if (bankAccount != null) ...[
+          _buildInfoRow("phone_number".tr(), user?.phone ?? "-"),
+          _buildInfoRow(
+            "Kewarganegaraan",
+            user?.citizenship ?? "Indonesia (WNI)",
+          ),
+          if (user?.type == AccountType.institution) ...[
+            _buildInfoRow("company_name".tr(), user?.businessName ?? "-"),
+            _buildInfoRow("pic_name".tr(), user?.picName ?? "-"),
+            _buildInfoRow("pic_position".tr(), user?.picPosition ?? "-"),
+            _buildInfoRow("company_address".tr(), user?.companyAddress ?? "-"),
+          ] else ...[
             _buildInfoRow(
-              "bank_name".tr(),
-              bankAccount?.bankName ?? "-",
+              "business_field".tr(),
+              user?.businessActivity ?? "Wiraswasta",
             ),
-            _buildInfoRow(
-              "account_number".tr(),
-              bankAccount?.accountNumber ?? "-",
-            ),
-            _buildInfoRow(
-              "account_holder".tr(),
-              bankAccount?.accountHolder ?? "-",
-            ),
-            if (bankAccount?.branch != null &&
-                bankAccount!.branch!.isNotEmpty)
-              _buildInfoRow(
-                "branch".tr(),
-                bankAccount!.branch!,
-              ),
-          ] else
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: Dimensions.size10),
-              child: Text(
-                "Rekening bank pencairan dividen belum diatur. Silakan tambahkan rekening bank Anda.",
-                style: TextStyle(
-                  fontSize: Dimensions.text11,
-                  color: AppColors.onSurfaceVariant(),
-                ),
-              ),
-            ),
+          ],
         ],
       ),
     );
@@ -473,103 +467,113 @@ class ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
     return BlocBuilder<MainBloc, MainState>(
       builder: (context, state) {
         final ThemeMode currentMode = state.themeMode;
-
         final String currentLang = context.locale.languageCode;
+        final Widget divider = Divider(
+          height: 1,
+          color: AppColors.outline(),
+        );
 
-        return Container(
-          margin: EdgeInsets.only(top: Dimensions.size15),
-          padding: EdgeInsets.all(Dimensions.size15),
-          decoration: ShapeDecoration(
-            shape: SmoothRectangleBorder(
-              borderRadius: BorderRadius.circular(Dimensions.size10),
-              smoothness: 1,
-              side: BorderSide(color: AppColors.outline()),
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            PortalSectionHeaderSmall(title: "security_preferences".tr()),
+            Container(
+              clipBehavior: Clip.antiAlias,
+              decoration: portalCardDecoration(),
+              child: Column(
+                children: [
+                  SettingsTile(
+                    icon: Icons.lock_outline,
+                    title: "account_security".tr(),
+                    subtitle: "account_security_desc".tr(),
+                  ),
+                  divider,
+                  SettingsTile(
+                    icon: Icons.face_outlined,
+                    title: "biometric".tr(),
+                    subtitle: "biometric_desc".tr(),
+                    trailing: Switch(
+                      value: biometricEnabled,
+                      activeTrackColor: portalGold,
+                      onChanged: (bool value) {
+                        setState(() {
+                          biometricEnabled = value;
+                        });
+                      },
+                    ),
+                  ),
+                  divider,
+                  SettingsTile(
+                    icon: Icons.language,
+                    title: "language".tr(),
+                    subtitle: "language_desc".tr(),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          currentLang == "id" ? "Indonesia" : "English",
+                          style: TextStyle(
+                            fontSize: Dimensions.text11,
+                            fontWeight: FontWeight.bold,
+                            color: portalGold,
+                          ),
+                        ),
+                        Icon(
+                          Icons.chevron_right,
+                          color: portalNavy,
+                          size: Dimensions.size20,
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      Generals.changeLanguage(
+                        context,
+                        currentLang == "id" ? "en" : "id",
+                      );
+                    },
+                  ),
+                  divider,
+                  SettingsTile(
+                    icon: Icons.brightness_6_outlined,
+                    title: "theme_settings".tr(),
+                    subtitle: "theme_settings".tr(),
+                    trailing: DropdownButton<ThemeMode>(
+                      value: currentMode,
+                      underline: const SizedBox(),
+                      items: [
+                        DropdownMenuItem(
+                          value: ThemeMode.system,
+                          child: Text("system_mode".tr()),
+                        ),
+                        DropdownMenuItem(
+                          value: ThemeMode.light,
+                          child: Text("light_mode".tr()),
+                        ),
+                        DropdownMenuItem(
+                          value: ThemeMode.dark,
+                          child: Text("dark_mode".tr()),
+                        ),
+                      ],
+                      onChanged: (ThemeMode? mode) {
+                        if (mode != null) {
+                          context.read<MainBloc>().add(
+                                MainThemeChanged(value: mode.index),
+                              );
+                        }
+                      },
+                    ),
+                  ),
+                  divider,
+                  SettingsTile(
+                    icon: Icons.notifications_none,
+                    title: "notifications".tr(),
+                    subtitle: "notifications_desc".tr(),
+                    onTap: () => context.push("/portal/notifications"),
+                  ),
+                ],
+              ),
             ),
-            color: AppColors.surfaceContainerLowest(),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Pengaturan Aplikasi",
-                style: TextStyle(
-                  fontSize: Dimensions.text14,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.onSurface(),
-                ),
-              ),
-              SizedBox(height: Dimensions.size15),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "theme_settings".tr(),
-                    style: TextStyle(
-                      fontSize: Dimensions.text12,
-                      color: AppColors.onSurface(),
-                    ),
-                  ),
-                  DropdownButton<ThemeMode>(
-                    value: currentMode,
-                    underline: const SizedBox(),
-                    items: [
-                      DropdownMenuItem(
-                        value: ThemeMode.system,
-                        child: Text("system_mode".tr()),
-                      ),
-                      DropdownMenuItem(
-                        value: ThemeMode.light,
-                        child: Text("light_mode".tr()),
-                      ),
-                      DropdownMenuItem(
-                        value: ThemeMode.dark,
-                        child: Text("dark_mode".tr()),
-                      ),
-                    ],
-                    onChanged: (ThemeMode? mode) {
-                      if (mode != null) {
-                        context.read<MainBloc>().add(
-                              MainThemeChanged(value: mode.index),
-                            );
-                      }
-                    },
-                  ),
-                ],
-              ),
-              Divider(color: AppColors.outline()),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "language_settings".tr(),
-                    style: TextStyle(
-                      fontSize: Dimensions.text12,
-                      color: AppColors.onSurface(),
-                    ),
-                  ),
-                  DropdownButton<String>(
-                    value: currentLang,
-                    underline: const SizedBox(),
-                    items: const [
-                      DropdownMenuItem(
-                        value: "id",
-                        child: Text("Bahasa Indonesia"),
-                      ),
-                      DropdownMenuItem(
-                        value: "en",
-                        child: Text("English"),
-                      ),
-                    ],
-                    onChanged: (String? lang) {
-                      if (lang != null) {
-                        Generals.changeLanguage(context, lang);
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
+          ],
         );
       },
     );
@@ -579,15 +583,19 @@ class ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
     return Container(
       margin: EdgeInsets.only(top: Dimensions.size25),
       width: double.infinity,
-      child: OutlinedButton.icon(
-        style: OutlinedButton.styleFrom(
+      child: TextButton.icon(
+        style: TextButton.styleFrom(
           foregroundColor: Colors.red.shade700,
-          side: BorderSide(color: Colors.red.shade700),
+          backgroundColor: Colors.red.shade50,
           padding: EdgeInsets.symmetric(vertical: Dimensions.size15),
+          shape: SmoothRectangleBorder(
+            borderRadius: BorderRadius.circular(Dimensions.size15),
+            smoothness: 1,
+          ),
         ),
         onPressed: () {
           BaseDialogs.confirmation(
-            title: "Keluar Akun",
+            title: "sign_out".tr(),
             message: "sign_out_confirm".tr(),
             positiveCallback: () async {
               await Generals.signOut(context);
@@ -595,7 +603,10 @@ class ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
           );
         },
         icon: const Icon(Icons.logout),
-        label: Text("sign_out".tr()),
+        label: Text(
+          "sign_out_portal".tr(),
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }
@@ -604,10 +615,11 @@ class ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
     return ListView(
       padding: EdgeInsets.all(Dimensions.size15),
       children: [
-        _buildAccountCard(),
-        _buildAccountDetails(),
-        _buildBankAccountSection(),
+        _buildHeader(),
+        _buildKycCard(),
+        _buildBankSection(),
         _buildPreferencesSection(),
+        _buildAccountDetails(),
         _buildSignOutButton(),
         SizedBox(height: Dimensions.size30),
       ],

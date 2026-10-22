@@ -13,6 +13,7 @@ import "package:mgi_investor/helper/background.dart";
 import "package:mgi_investor/helper/formats.dart";
 import "package:mgi_investor/model/account.dart";
 import "package:mgi_investor/shared.dart";
+import "package:mgi_investor/widget/portal_widgets.dart";
 import "package:smooth_corner/smooth_corner.dart";
 
 class PortalDashboardPage extends StatefulWidget {
@@ -27,6 +28,7 @@ class PortalDashboardPage extends StatefulWidget {
 class PortalDashboardPageState extends State<PortalDashboardPage>
     with WidgetsBindingObserver {
   bool loading = false;
+  int updateIndex = 0;
   List<Project> activeProjects = [];
   InvestorDashboardResponse? dashboardData;
 
@@ -95,6 +97,23 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
     }
   }
 
+  String? resolveImage(String? raw) {
+    final String? value = raw?.trim();
+    if (value == null || value.isEmpty) {
+      return null;
+    }
+    if (value.startsWith("http://") || value.startsWith("https://")) {
+      return value;
+    }
+    final String clean = value.startsWith("/") ? value.substring(1) : value;
+    return "https://montanainvestama.com/$clean";
+  }
+
+  String initialOf(Account? user) {
+    final String name = user?.displayName() ?? "";
+    return name.isNotEmpty ? name.substring(0, 1).toUpperCase() : "M";
+  }
+
   BaseAppBar appBar() {
     final int unreadCount = dashboardData?.unreadNotificationsCount ?? 0;
 
@@ -112,7 +131,7 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
               },
               icon: const Icon(
                 Icons.notifications_outlined,
-                color: Color(0xFFC5A059),
+                color: portalGold,
               ),
               tooltip: "notifications".tr(),
             ),
@@ -141,504 +160,169 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
               ),
           ],
         ),
+        InkWell(
+          onTap: () => context.push("/portal/profile"),
+          customBorder: const CircleBorder(),
+          child: Container(
+            width: Dimensions.size35,
+            height: Dimensions.size35,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: portalGoldSoft,
+              border: Border.all(color: portalGold),
+            ),
+            child: Text(
+              initialOf(Shared.ACCOUNT),
+              style: TextStyle(
+                fontSize: Dimensions.text12,
+                fontWeight: FontWeight.bold,
+                color: portalNavy,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: Dimensions.size10),
       ],
     );
   }
 
-  Widget _buildInvestorCard() {
+  Widget _buildHero() {
     final Account? user = Shared.ACCOUNT;
+    final InvestorMetrics metrics =
+        dashboardData?.metrics ?? InvestorMetrics();
 
-    return Container(
-      padding: EdgeInsets.all(Dimensions.size20),
-      decoration: ShapeDecoration(
-        shape: SmoothRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimensions.size10),
-          smoothness: 1,
-          side: const BorderSide(color: Color(0xFFC5A059)),
-        ),
-        color: const Color(0xFF0F2C59),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              CircleAvatar(
-                radius: Dimensions.size25,
-                backgroundColor: const Color(0xFFC5A059),
-                child: Text(
-                  (user?.displayName().isNotEmpty ?? false)
-                      ? user!.displayName().substring(0, 1).toUpperCase()
-                      : "M",
-                  style: TextStyle(
-                    fontSize: Dimensions.text20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              SizedBox(width: Dimensions.size15),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      user?.displayName() ?? "Investor Terdaftar",
-                      style: TextStyle(
-                        fontSize: Dimensions.text16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: Dimensions.size4),
-                    Text(
-                      user?.email ?? "-",
-                      style: TextStyle(
-                        fontSize: Dimensions.text11,
-                        color: Colors.white70,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              IconButton(
-                onPressed: () => context.push("/portal/profile"),
-                icon: const Icon(
-                  Icons.settings_outlined,
-                  color: Color(0xFFC5A059),
-                ),
-                tooltip: "Profil Investor",
-              ),
-            ],
-          ),
-          SizedBox(height: Dimensions.size15),
-          Row(
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: Dimensions.size10,
-                  vertical: Dimensions.size4,
-                ),
-                decoration: ShapeDecoration(
-                  shape: SmoothRectangleBorder(
-                    borderRadius: BorderRadius.circular(Dimensions.size20),
-                    smoothness: 1,
-                  ),
-                  color: Colors.green.shade700,
-                ),
-                child: Row(
-                  children: [
-                    const Icon(Icons.check_circle, size: 14, color: Colors.white),
-                    SizedBox(width: Dimensions.size5),
-                    Text(
-                      "account_verified".tr(),
-                      style: TextStyle(
-                        fontSize: Dimensions.text10,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(width: Dimensions.size10),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: Dimensions.size10,
-                  vertical: Dimensions.size4,
-                ),
-                decoration: ShapeDecoration(
-                  shape: SmoothRectangleBorder(
-                    borderRadius: BorderRadius.circular(Dimensions.size20),
-                    smoothness: 1,
-                  ),
-                  color: Colors.white24,
-                ),
-                child: Text(
-                  user?.type == AccountType.institution
-                      ? "investor_institution".tr()
-                      : "investor_individual".tr(),
-                  style: TextStyle(
-                    fontSize: Dimensions.text10,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
+    return PortfolioHeroCard(
+      name: user?.displayName() ?? "Investor MGI",
+      initial: initialOf(user),
+      totalCommitted: "Rp ${Formats.spell(metrics.totalInvested)}",
+      dividendsReceived: "Rp ${Formats.spell(metrics.totalPayoutReceived)}",
+      activeCount: metrics.activeProjectsCount,
     );
   }
 
-  Widget _buildPortfolioStats() {
-    final InvestorMetrics? metrics = dashboardData?.metrics;
-    final double totalInvested = metrics?.totalInvested ?? 0.0;
-    final double totalPayout = metrics?.totalPayoutReceived ?? 0.0;
-    final int activeCount = metrics?.activeProjectsCount ?? 0;
-    final String estRoi = metrics?.estRoiRate ?? "0%";
+  Widget _buildDividendCalendar() {
+    final List<InvestorPortfolioItem> portfolios =
+        dashboardData?.portfolios ?? [];
+    final InvestorPortfolioItem? next = portfolios.isNotEmpty
+        ? portfolios.firstWhere(
+            (InvestorPortfolioItem e) => e.nextPayoutDate != null,
+            orElse: () => portfolios.first,
+          )
+        : null;
+    final String rawDate = next?.nextPayoutDate ??
+        dashboardData?.metrics.nextPayoutDate ??
+        next?.endDate ??
+        "-";
+    final DateTime? date = DateTime.tryParse(rawDate);
 
-    final String commitValue = "Rp ${Formats.spell(totalInvested)}";
-    final String commitSubtitle = activeCount > 0
-        ? "$activeCount Portofolio Aktif"
-        : "0 Portofolio Aktif";
-
-    final String payoutValue = "Rp ${Formats.spell(totalPayout)}";
-    final String payoutSubtitle = activeCount > 0
-        ? "Est. ROI / Yield: $estRoi"
-        : "Yield: 0%";
+    final List<String> labels = [];
+    if (date != null) {
+      for (int i = 0; i < 4; i++) {
+        labels.add(
+          DateFormat("MMM", context.locale.languageCode).format(
+            DateTime(date.year, date.month + (i * 3)),
+          ),
+        );
+      }
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "portfolio_overview".tr(),
-          style: TextStyle(
-            fontSize: Dimensions.text16,
-            fontWeight: FontWeight.bold,
-            color: AppColors.onSurface(),
+        PortalSectionHeader(
+          eyebrow: "next_distribution".tr(),
+          title: "dividend_calendar".tr(),
+          trailing: const Icon(
+            Icons.event_note_outlined,
+            color: portalGold,
           ),
         ),
-        SizedBox(height: Dimensions.size10),
-        Row(
-          children: [
-            Expanded(
-              child: _buildStatTile(
-                title: "Total Komitmen",
-                value: commitValue,
-                subtitle: commitSubtitle,
-                color: AppColors.primary(),
+        if (next == null)
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.all(Dimensions.size15),
+            decoration: portalCardDecoration(),
+            child: Text(
+              "no_dividend_schedule".tr(),
+              style: TextStyle(
+                fontSize: Dimensions.text12,
+                color: AppColors.onSurfaceVariant(),
               ),
             ),
-            SizedBox(width: Dimensions.size10),
-            Expanded(
-              child: _buildStatTile(
-                title: "Realisasi Dividen",
-                value: payoutValue,
-                subtitle: payoutSubtitle,
-                color: AppColors.secondary(),
-              ),
-            ),
-          ],
-        ),
+          )
+        else ...[
+          DividendDateCard(
+            date: date,
+            rawDate: rawDate,
+            title: next.projectTitle ??
+                next.allocatedUnits ??
+                "Proyek Investasi MGI",
+            amount: "Rp ${Formats.spell(next.payoutReceived)}",
+            status: "${"scheduled".tr()} • ${next.status ?? "-"}",
+          ),
+          if (labels.isNotEmpty) TimelineDots(labels: labels),
+        ],
       ],
     );
   }
 
-  Widget _buildStatTile({
-    required String title,
-    required String value,
-    required String subtitle,
-    required Color color,
-  }) {
-    return Container(
-      padding: EdgeInsets.all(Dimensions.size15),
-      decoration: ShapeDecoration(
-        shape: SmoothRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimensions.size10),
-          smoothness: 1,
-          side: BorderSide(color: AppColors.outline()),
-        ),
-        color: AppColors.surfaceContainerLowest(),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: Dimensions.text11,
-              color: AppColors.onSurfaceVariant(),
-            ),
-          ),
-          SizedBox(height: Dimensions.size5),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: Dimensions.text14,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
-          SizedBox(height: Dimensions.size2),
-          Text(
-            subtitle,
-            style: TextStyle(
-              fontSize: Dimensions.text10,
-              color: AppColors.onSurfaceVariant(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDividendSchedule() {
-    final List<InvestorPortfolioItem> portfolios =
-        dashboardData?.portfolios ?? [];
-
-    return Container(
-      margin: EdgeInsets.only(top: Dimensions.size20),
-      padding: EdgeInsets.all(Dimensions.size15),
-      decoration: ShapeDecoration(
-        shape: SmoothRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimensions.size10),
-          smoothness: 1,
-          side: BorderSide(color: AppColors.outline()),
-        ),
-        color: AppColors.surfaceContainerLowest(),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+  Widget _buildDocuments() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        PortalSectionHeader(
+          eyebrow: "confidential_center".tr(),
+          title: "investor_documents".tr(),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Icon(
-                Icons.calendar_month,
-                size: Dimensions.size20,
-                color: AppColors.primary(),
+                Icons.lock_outline,
+                size: Dimensions.size15,
+                color: portalGold,
               ),
-              SizedBox(width: Dimensions.size10),
+              SizedBox(width: Dimensions.size4),
               Text(
-                "dividend_schedule".tr(),
+                "secure".tr(),
                 style: TextStyle(
-                  fontSize: Dimensions.text14,
+                  fontSize: Dimensions.text11,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.onSurface(),
+                  color: portalGold,
                 ),
               ),
             ],
           ),
-          SizedBox(height: Dimensions.size15),
-          if (portfolios.isEmpty)
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: Dimensions.size10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Belum ada jadwal dividen aktif.",
-                    style: TextStyle(
-                      fontSize: Dimensions.text12,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.onSurface(),
-                    ),
-                  ),
-                  SizedBox(height: Dimensions.size4),
-                  Text(
-                    "Jadwal bagi hasil dan dividen bulanan akan tampil otomatis setelah Anda memiliki penempatan modal pada proyek.",
-                    style: TextStyle(
-                      fontSize: Dimensions.text11,
-                      color: AppColors.onSurfaceVariant(),
-                    ),
-                  ),
-                ],
+        ),
+        if (activeProjects.isEmpty)
+          Padding(
+            padding: EdgeInsets.all(Dimensions.size15),
+            child: Text(
+              "loading".tr(),
+              style: TextStyle(
+                fontSize: Dimensions.text12,
+                color: AppColors.onSurfaceVariant(),
               ),
-            )
-          else
-            ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: portfolios.length,
-              separatorBuilder: (_, __) => Divider(
-                color: AppColors.outline(),
-                height: Dimensions.size15,
-              ),
-              itemBuilder: (context, index) {
-                final InvestorPortfolioItem item = portfolios[index];
-                return Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            item.nextPayoutDate ?? item.endDate ?? "-",
-                            style: TextStyle(
-                              fontSize: Dimensions.text12,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.onSurface(),
-                            ),
-                          ),
-                          SizedBox(height: Dimensions.size2),
-                          Text(
-                            item.projectTitle ??
-                                item.allocatedUnits ??
-                                "Proyek Investasi MGI",
-                            style: TextStyle(
-                              fontSize: Dimensions.text10,
-                              color: AppColors.onSurfaceVariant(),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          "Rp ${Formats.spell(item.payoutReceived)}",
-                          style: TextStyle(
-                            fontSize: Dimensions.text13,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.secondary(),
-                          ),
-                        ),
-                        SizedBox(height: Dimensions.size2),
-                        Text(
-                          item.status ?? "Aktif",
-                          style: TextStyle(
-                            fontSize: Dimensions.text10,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.green.shade700,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                );
-              },
             ),
-        ],
-      ),
-    );
-  }
+          )
+        else
+          ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: activeProjects.take(2).length,
+            separatorBuilder: (_, __) => SizedBox(height: Dimensions.size10),
+            itemBuilder: (BuildContext context, int index) {
+              final Project project = activeProjects[index];
 
-  Widget _buildProtectedDocuments() {
-    return Container(
-      margin: EdgeInsets.only(top: Dimensions.size20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Text(
-                  "Dokumen & Proposal Terlindungi",
-                  style: TextStyle(
-                    fontSize: Dimensions.text16,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.onSurface(),
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () => context.push("/projects"),
-                child: Text(
-                  "Lihat Semua",
-                  style: TextStyle(
-                    fontSize: Dimensions.text12,
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0xFFC5A059),
-                  ),
-                ),
-              ),
-            ],
+              return DocumentTile(
+                title: project.title ?? "-",
+                meta:
+                    "PDF • ${project.city ?? "Indonesia"} • ${"watermarked".tr()}",
+                onTap: () => context.push("/portal/projects/${project.id}"),
+              );
+            },
           ),
-          SizedBox(height: Dimensions.size10),
-          if (activeProjects.isEmpty)
-            Center(
-              child: Padding(
-                padding: EdgeInsets.all(Dimensions.size20),
-                child: Text(
-                  "Memuat proposal proyek...",
-                  style: TextStyle(
-                    fontSize: Dimensions.text12,
-                    color: AppColors.onSurfaceVariant(),
-                  ),
-                ),
-              ),
-            )
-          else
-            ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: activeProjects.take(2).length,
-              separatorBuilder: (_, __) =>
-                  SizedBox(height: Dimensions.size10),
-              itemBuilder: (context, index) {
-                final project = activeProjects[index];
-                return Container(
-                  padding: EdgeInsets.all(Dimensions.size15),
-                  decoration: ShapeDecoration(
-                    shape: SmoothRectangleBorder(
-                      borderRadius: BorderRadius.circular(Dimensions.size10),
-                      smoothness: 1,
-                      side: BorderSide(color: AppColors.outline()),
-                    ),
-                    color: AppColors.surfaceContainerLowest(),
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(Dimensions.size10),
-                        decoration: ShapeDecoration(
-                          shape: SmoothRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                              Dimensions.size10,
-                            ),
-                            smoothness: 1,
-                          ),
-                          color: const Color(0xFF0F2C59),
-                        ),
-                        child: const Icon(
-                          Icons.picture_as_pdf,
-                          color: Color(0xFFC5A059),
-                        ),
-                      ),
-                      SizedBox(width: Dimensions.size10),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              project.title ?? "-",
-                              style: TextStyle(
-                                fontSize: Dimensions.text13,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.onSurface(),
-                              ),
-                            ),
-                            SizedBox(height: Dimensions.size2),
-                            Text(
-                              "Target: Rp ${Formats.spell(project.fundingTarget)} • ${project.city ?? 'Indonesia'}",
-                              style: TextStyle(
-                                fontSize: Dimensions.text10,
-                                color: AppColors.onSurfaceVariant(),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: Dimensions.size10),
-                      FilledButton(
-                        style: FilledButton.styleFrom(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: Dimensions.size10,
-                            vertical: Dimensions.size5,
-                          ),
-                          backgroundColor: const Color(0xFFC5A059),
-                        ),
-                        onPressed: () => context.push(
-                          "/portal/projects/${project.id}",
-                        ),
-                        child: Text(
-                          "Buka",
-                          style: TextStyle(
-                            fontSize: Dimensions.text11,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-        ],
-      ),
+      ],
     );
   }
 
@@ -649,16 +333,9 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
     }
 
     return Container(
-      margin: EdgeInsets.only(top: Dimensions.size20),
+      margin: EdgeInsets.only(top: Dimensions.size25),
       padding: EdgeInsets.all(Dimensions.size15),
-      decoration: ShapeDecoration(
-        shape: SmoothRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimensions.size10),
-          smoothness: 1,
-          side: BorderSide(color: AppColors.outline()),
-        ),
-        color: AppColors.surfaceContainerLowest(),
-      ),
+      decoration: portalCardDecoration(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -667,7 +344,7 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
               Icon(
                 Icons.receipt_long_outlined,
                 size: Dimensions.size20,
-                color: const Color(0xFFC5A059),
+                color: portalGold,
               ),
               SizedBox(width: Dimensions.size10),
               Text(
@@ -739,7 +416,8 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
                         ),
                         decoration: ShapeDecoration(
                           shape: SmoothRectangleBorder(
-                            borderRadius: BorderRadius.circular(Dimensions.size20),
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.size20),
                             smoothness: 1,
                           ),
                           color: Colors.green.shade50,
@@ -764,123 +442,57 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
     );
   }
 
-  Widget _buildCampaignUpdates() {
-    final List<CampaignUpdateItem> updates = dashboardData?.campaignUpdates ?? [];
+  Widget _buildFieldUpdates() {
+    final List<CampaignUpdateItem> updates =
+        dashboardData?.campaignUpdates ?? [];
     if (updates.isEmpty) {
       return const SizedBox();
     }
 
-    return Container(
-      margin: EdgeInsets.only(top: Dimensions.size20),
-      padding: EdgeInsets.all(Dimensions.size15),
-      decoration: ShapeDecoration(
-        shape: SmoothRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimensions.size10),
-          smoothness: 1,
-          side: BorderSide(color: AppColors.outline()),
-        ),
-        color: AppColors.surfaceContainerLowest(),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(
-                Icons.analytics_outlined,
-                size: Dimensions.size20,
-                color: AppColors.primary(),
-              ),
-              SizedBox(width: Dimensions.size10),
-              Text(
-                "campaign_updates_title".tr(),
-                style: TextStyle(
-                  fontSize: Dimensions.text14,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.onSurface(),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: Dimensions.size15),
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: updates.take(2).length,
-            separatorBuilder: (_, __) => Divider(
-              color: AppColors.outline(),
-              height: Dimensions.size15,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        PortalSectionHeader(
+          eyebrow: "field_intelligence".tr(),
+          title: "operational_updates".tr(),
+          trailing: Text(
+            "${updateIndex + 1} / ${updates.length}",
+            style: TextStyle(
+              fontSize: Dimensions.text11,
+              fontWeight: FontWeight.bold,
+              color: AppColors.onSurfaceVariant(),
             ),
-            itemBuilder: (context, index) {
+          ),
+        ),
+        SizedBox(
+          height: Dimensions.size100 * 3 + Dimensions.size80,
+          child: PageView.builder(
+            padEnds: false,
+            controller: PageController(viewportFraction: 0.92),
+            itemCount: updates.length,
+            onPageChanged: (int i) {
+              setState(() {
+                updateIndex = i;
+              });
+            },
+            itemBuilder: (BuildContext context, int index) {
               final CampaignUpdateItem update = updates[index];
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          update.title ?? "Pembaruan Operasional",
-                          style: TextStyle(
-                            fontSize: Dimensions.text12,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.onSurface(),
-                          ),
-                        ),
-                      ),
-                      Text(
-                        update.updateDate ?? "",
-                        style: TextStyle(
-                          fontSize: Dimensions.text10,
-                          color: AppColors.onSurfaceVariant(),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: Dimensions.size4),
-                  Text(
-                    update.description ?? "",
-                    style: TextStyle(
-                      fontSize: Dimensions.text11,
-                      color: AppColors.onSurfaceVariant(),
-                    ),
-                  ),
-                  if (update.progressPercentage > 0) ...[
-                    SizedBox(height: Dimensions.size10),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(Dimensions.size5),
-                            child: LinearProgressIndicator(
-                              value: update.progressPercentage / 100.0,
-                              backgroundColor: AppColors.outline(),
-                              valueColor: const AlwaysStoppedAnimation<Color>(
-                                Color(0xFFC5A059),
-                              ),
-                              minHeight: Dimensions.size5,
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: Dimensions.size10),
-                        Text(
-                          "${update.progressPercentage}%",
-                          style: TextStyle(
-                            fontSize: Dimensions.text10,
-                            fontWeight: FontWeight.bold,
-                            color: const Color(0xFFC5A059),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ],
+
+              return Padding(
+                padding: EdgeInsets.only(right: Dimensions.size10),
+                child: FieldUpdateCard(
+                  imageUrl: resolveImage(update.imageUrl),
+                  dateLabel: update.updateDate ?? "",
+                  location: update.projectTitle ?? "-",
+                  title: update.title ?? "Pembaruan Operasional",
+                  description: update.description ?? "",
+                  progress: update.progressPercentage,
+                ),
               );
             },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -890,13 +502,11 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
       child: ListView(
         padding: EdgeInsets.all(Dimensions.size15),
         children: [
-          _buildInvestorCard(),
-          SizedBox(height: Dimensions.size20),
-          _buildPortfolioStats(),
-          _buildDividendSchedule(),
+          _buildHero(),
+          _buildDividendCalendar(),
+          _buildDocuments(),
+          _buildFieldUpdates(),
           _buildBillingsSection(),
-          _buildCampaignUpdates(),
-          _buildProtectedDocuments(),
           SizedBox(height: Dimensions.size30),
         ],
       ),
