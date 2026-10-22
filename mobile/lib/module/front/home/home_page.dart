@@ -415,43 +415,39 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    InkWell(
-                      onTap: () => context.push("/projects"),
-                      customBorder: SmoothRectangleBorder(
+                    Material(
+                      color: const Color(0xFFC5A059),
+                      borderRadius: BorderRadius.circular(Dimensions.size20),
+                      elevation: 3,
+                      shadowColor:
+                          const Color(0xFFC5A059).withValues(alpha: 0.4),
+                      child: InkWell(
+                        onTap: () => context.push("/projects"),
                         borderRadius: BorderRadius.circular(Dimensions.size20),
-                        smoothness: 1,
-                      ),
-                      child: Ink(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: Dimensions.size20,
-                          vertical: Dimensions.size10,
-                        ),
-                        decoration: ShapeDecoration(
-                          shape: SmoothRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.size20),
-                            smoothness: 1,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: Dimensions.size20,
+                            vertical: Dimensions.size10,
                           ),
-                          color: const Color(0xFFC5A059),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              "explore_projects".tr(),
-                              style: TextStyle(
-                                fontSize: Dimensions.text12,
-                                fontWeight: FontWeight.bold,
-                                color: const Color(0xFF0F2C59),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                "explore_projects".tr(),
+                                style: TextStyle(
+                                  fontSize: Dimensions.text12,
+                                  fontWeight: FontWeight.w800,
+                                  color: const Color(0xFF0F2C59),
+                                ),
                               ),
-                            ),
-                            SizedBox(width: Dimensions.size5),
-                            const Icon(
-                              Icons.chevron_right,
-                              size: 16,
-                              color: Color(0xFF0F2C59),
-                            ),
-                          ],
+                              SizedBox(width: Dimensions.size5),
+                              const Icon(
+                                Icons.chevron_right,
+                                size: 16,
+                                color: Color(0xFF0F2C59),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -460,7 +456,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       style: TextStyle(
                         fontSize: Dimensions.text11,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white54,
+                        color: Colors.white70,
                         letterSpacing: 1.5,
                       ),
                     ),
