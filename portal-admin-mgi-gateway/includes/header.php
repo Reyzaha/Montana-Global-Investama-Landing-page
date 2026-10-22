@@ -152,6 +152,11 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         <span>Pengaturan Situs</span>
       </a>
 
+      <a href="footer.php" class="nav-link <?= $currentPage === 'footer.php' ? 'active' : '' ?>">
+        <i class="bi bi-layout-text-window-reverse"></i>
+        <span>Kelola Footer</span>
+      </a>
+
       <a href="../index" target="_blank" class="nav-link">
         <i class="bi bi-box-arrow-up-right"></i>
         <span>Lihat Website Publik</span>

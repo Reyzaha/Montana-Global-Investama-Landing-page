@@ -30,7 +30,29 @@ try {
         'meta_keywords',
         'disclaimer_text',
         'require_auth_for_details',
-        'gsc_verification_token'
+        'gsc_verification_token',
+        // Footer specific settings & toggles
+        'footer_logo',
+        'footer_tagline',
+        'footer_badge_text',
+        'footer_badge_show',
+        'contact_phone_show',
+        'whatsapp_show',
+        'official_email_show',
+        'contact_address_show',
+        'operating_hours_show',
+        'social_instagram_show',
+        'social_linkedin_show',
+        'social_youtube_show',
+        'footer_col2_title',
+        'footer_col2_links',
+        'footer_col3_title',
+        'footer_col3_links',
+        'footer_newsletter_show',
+        'footer_newsletter_title',
+        'footer_newsletter_desc',
+        'footer_copyright',
+        'footer_status_text'
     ];
 
     $inPlaceholders = implode(',', array_fill(0, count($allowedKeys), '?'));

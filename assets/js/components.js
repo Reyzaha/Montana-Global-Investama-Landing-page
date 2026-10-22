@@ -141,102 +141,210 @@ const MGIComponents = {
   },
 
   // 2. Render Global Footer (Bootstrap 5)
-  renderFooter: function () {
-    const footerContainer = document.getElementById('global-footer');
-    if (!footerContainer) return;
+  // Helper to build complete footer HTML from settings data
+  buildFooterHtml: function (d = {}) {
+    const logoSrc = d.footer_logo || d.site_logo || 'assets/img/mgi-official-logo.png';
+    const tagline = d.footer_tagline || '<strong>PT Montana Global Investama</strong> adalah entitas manajer investasi project dan pemegang kendali strategis (grup) sektor riil berbasis aset fisik produktif, menghadirkan pertumbuhan nilai per project terukur melalui kepatuhan tata kelola terpercaya dan integrasi ekosistem terpadu.';
+    const badgeText = d.footer_badge_text || 'Standar Tata Kelola Perusahaan & Kepatuhan Regulasi';
+    const showBadge = d.footer_badge_show !== '0';
 
-    footerContainer.innerHTML = `
+    // Social Media
+    const showInsta = d.social_instagram_show !== '0' && (d.social_instagram || 'https://instagram.com/montanainvestama');
+    const showLinkedin = d.social_linkedin_show !== '0' && (d.social_linkedin || 'https://linkedin.com/company/montana-global-investama');
+    const showYoutube = d.social_youtube_show !== '0' && (d.social_youtube || 'https://youtube.com/@montanainvestama');
+
+    let socialHtml = '';
+    if (showInsta) socialHtml += `<a href="${MGIComponents.escapeHtml(d.social_instagram || 'https://instagram.com/montanainvestama')}" target="_blank" class="footer-social-btn" title="Instagram"><i class="bi bi-instagram"></i></a>`;
+    if (showLinkedin) socialHtml += `<a href="${MGIComponents.escapeHtml(d.social_linkedin || 'https://linkedin.com/company/montana-global-investama')}" target="_blank" class="footer-social-btn" title="LinkedIn"><i class="bi bi-linkedin"></i></a>`;
+    if (showYoutube) socialHtml += `<a href="${MGIComponents.escapeHtml(d.social_youtube || 'https://youtube.com/@montanainvestama')}" target="_blank" class="footer-social-btn" title="YouTube"><i class="bi bi-youtube"></i></a>`;
+
+    // Column 2 Links
+    const col2Title = d.footer_col2_title || 'Navigasi Utama';
+    let col2Links = [];
+    try {
+      if (typeof d.footer_col2_links === 'string') col2Links = JSON.parse(d.footer_col2_links);
+      else if (Array.isArray(d.footer_col2_links)) col2Links = d.footer_col2_links;
+    } catch (e) {}
+    if (!col2Links || !col2Links.length) {
+      col2Links = [
+        { label: 'Beranda', url: '/' },
+        { label: 'Profil Perusahaan', url: 'about' },
+        { label: 'Portofolio Proyek Investasi', url: 'invest' },
+        { label: 'Transformasi Perusahaan', url: 'transformasi' },
+        { label: 'Kontak Kami', url: 'contact' }
+      ];
+    }
+    const col2Html = col2Links.map(l => `<li><a href="${MGIComponents.escapeHtml(l.url)}" class="footer-link">${MGIComponents.escapeHtml(l.label)}</a></li>`).join('');
+
+    // Column 3 Links
+    const col3Title = d.footer_col3_title || 'Struktur & Sinergi';
+    let col3Links = [];
+    try {
+      if (typeof d.footer_col3_links === 'string') col3Links = JSON.parse(d.footer_col3_links);
+      else if (Array.isArray(d.footer_col3_links)) col3Links = d.footer_col3_links;
+    } catch (e) {}
+    if (!col3Links || !col3Links.length) {
+      col3Links = [
+        { label: 'Struktur Alur Kerja Entitas', url: 'preparation' },
+        { label: 'Ekosistem Terpadu', url: 'ekosistem' },
+        { label: 'Simulasi Titik Impas & Bagi Hasil', url: 'javascript:void(0)" onclick="MGIAuth.handleProtectedDetail(\'proj-jkt-jabar\')' },
+        { label: 'Tata Kelola Perusahaan (TARIF)', url: 'about.html#tata-kelola' }
+      ];
+    }
+    const col3Html = col3Links.map(l => `<li><a href="${l.url}" class="footer-link">${MGIComponents.escapeHtml(l.label)}</a></li>`).join('');
+
+    // Contact Information
+    const showAddress = d.contact_address_show !== '0';
+    const address = d.contact_address || 'Roseville Soho & Suite, Sunburst CBD Lot I.8, Serpong, Tangerang Selatan';
+
+    const showEmail = d.official_email_show !== '0';
+    const email = d.official_email || d.contact_email || 'contact@montanainvestama.com';
+
+    const showPhone = d.contact_phone_show !== '0';
+    const phone = d.contact_phone || '+62 21 5315 8899';
+    const cleanPhone = phone.replace(/[^\d+]/g, '');
+
+    const showWa = d.whatsapp_show !== '0' && d.whatsapp_number;
+    const wa = d.whatsapp_number || '6281198765432';
+
+    const showHours = d.operating_hours_show !== '0';
+    const hours = d.operating_hours || 'Senin – Jumat (08.00 – 17.00 WIB)';
+
+    let contactItemsHtml = '';
+    if (showAddress && address) {
+      contactItemsHtml += `
+        <div class="small text-footer-muted mb-2">
+          <i class="bi bi-geo-alt text-gold me-1"></i> <span id="footerAddress">${MGIComponents.escapeHtml(address)}</span>
+        </div>`;
+    }
+    if (showEmail && email) {
+      contactItemsHtml += `
+        <div class="small text-footer-muted mb-2">
+          <i class="bi bi-envelope text-gold me-1"></i> <a href="mailto:${MGIComponents.escapeHtml(email)}" id="footerEmail" class="text-footer-muted text-decoration-none">${MGIComponents.escapeHtml(email)}</a>
+        </div>`;
+    }
+    if (showPhone && phone) {
+      contactItemsHtml += `
+        <div class="small text-footer-muted mb-2">
+          <i class="bi bi-telephone text-gold me-1"></i> <a href="tel:${cleanPhone}" id="footerPhone" class="text-footer-muted text-decoration-none">${MGIComponents.escapeHtml(phone)}</a>
+        </div>`;
+    }
+    if (showWa && wa) {
+      contactItemsHtml += `
+        <div class="small text-footer-muted mb-2">
+          <i class="bi bi-whatsapp text-gold me-1"></i> <a href="https://wa.me/${wa.replace(/[^\d]/g, '')}" target="_blank" id="footerWhatsapp" class="text-footer-muted text-decoration-none">+${wa}</a>
+        </div>`;
+    }
+    if (showHours && hours) {
+      contactItemsHtml += `
+        <div class="small text-footer-muted">
+          <i class="bi bi-clock text-gold me-1"></i> <span id="footerHours">${MGIComponents.escapeHtml(hours)}</span>
+        </div>`;
+    }
+
+    // Newsletter Section
+    const showNewsletter = d.footer_newsletter_show !== '0';
+    const newsTitle = d.footer_newsletter_title || 'Langganan Buletin & Wawasan Pasar MGI';
+    const newsDesc = d.footer_newsletter_desc || 'Dapatkan rilis portofolio proyek baru, analisis sektor riil, dan kabar dividen langsung di email Anda.';
+
+    let newsletterHtml = '';
+    if (showNewsletter) {
+      newsletterHtml = `
+        <div class="row align-items-center justify-content-between p-3 p-md-4 mb-4 rounded-2 bg-footer-card border border-secondary border-opacity-50">
+          <div class="col-lg-6 mb-3 mb-lg-0">
+            <h6 class="fw-bold text-white mb-1 d-flex align-items-center gap-2">
+              <i class="bi bi-envelope-paper-fill text-gold"></i>
+              <span>${MGIComponents.escapeHtml(newsTitle)}</span>
+            </h6>
+            <p class="text-footer-muted small mb-0">${MGIComponents.escapeHtml(newsDesc)}</p>
+          </div>
+          <div class="col-lg-5">
+            <form id="footerNewsletterForm" onsubmit="MGIComponents.subscribeNewsletter(event)" class="d-flex flex-column gap-1">
+              <div class="input-group">
+                <input type="email" class="form-control form-control-sm" id="footerNewsletterEmail" placeholder="Masukkan alamat email Anda..." required>
+                <button class="btn btn-sm btn-corporate-gold fw-bold px-3" type="submit" id="btnFooterNewsletter">
+                  Langganan
+                </button>
+              </div>
+              <div id="footerNewsletterFeedback" class="small mt-1"></div>
+            </form>
+          </div>
+        </div>`;
+    }
+
+    // Bottom Bar
+    const copyright = d.footer_copyright || 'PT Montana Global Investama. Seluruh Hak Cipta Dilindungi Undang-Undang.';
+    const statusText = d.footer_status_text || 'Rahasia & Terbatas';
+
+    return `
       <footer class="site-footer">
         <div class="container">
           <div class="row g-4 mb-5">
             <div class="col-lg-4 col-md-6">
               <a href="/" class="d-inline-block mb-3">
                 <div class="bg-white p-2 rounded-2 d-inline-block shadow-sm">
-                  <img src="assets/img/mgi-official-logo.png" id="footerLogoImg" alt="MGI Logo" height="48">
+                  <img src="${MGIComponents.escapeHtml(logoSrc)}" id="footerLogoImg" alt="MGI Logo" height="48">
                 </div>
               </a>
               <p class="text-footer-muted small mb-3 lh-base" id="footerTagline">
-                <strong>PT Montana Global Investama</strong> adalah entitas manajer investasi project dan pemegang kendali strategis (grup) sektor riil berbasis aset fisik produktif, menghadirkan pertumbuhan nilai per project terukur melalui kepatuhan tata kelola terpercaya dan integrasi ekosistem terpadu.
+                ${tagline}
               </p>
-              <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-1 bg-footer-card border border-secondary small fw-bold text-gold">
-                <i class="bi bi-shield-check text-white"></i> Standar Tata Kelola Perusahaan &amp; Kepatuhan Regulasi
-              </div>
+              ${showBadge ? `
+              <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-1 bg-footer-card border border-secondary small fw-bold text-gold" id="footerBadgeWrapper">
+                <i class="bi bi-shield-check text-white"></i> <span>${MGIComponents.escapeHtml(badgeText)}</span>
+              </div>` : ''}
+              ${socialHtml ? `<div class="d-flex gap-2 mt-3" id="footerSocialWrapper">${socialHtml}</div>` : ''}
             </div>
 
             <div class="col-lg-2 col-md-6">
-              <h6 class="fw-bold text-white text-uppercase mb-3 small tracking-wide pb-1 d-inline-block" style="border-bottom: 2px solid var(--mgi-gold);">Navigasi Utama</h6>
+              <h6 class="fw-bold text-white text-uppercase mb-3 small tracking-wide pb-1 d-inline-block" style="border-bottom: 2px solid var(--mgi-gold);">${MGIComponents.escapeHtml(col2Title)}</h6>
               <ul class="list-unstyled mb-0">
-                <li><a href="/" class="footer-link">Beranda</a></li>
-                <li><a href="about" class="footer-link">Profil Perusahaan</a></li>
-                <li><a href="invest" class="footer-link">Portofolio Proyek Investasi</a></li>
-                <li><a href="transformasi" class="footer-link">Transformasi Perusahaan</a></li>
-                <li><a href="contact" class="footer-link">Kontak Kami</a></li>
+                ${col2Html}
               </ul>
             </div>
 
             <div class="col-lg-3 col-md-6">
-              <h6 class="fw-bold text-white text-uppercase mb-3 small tracking-wide pb-1 d-inline-block" style="border-bottom: 2px solid var(--mgi-gold);">Struktur &amp; Sinergi</h6>
+              <h6 class="fw-bold text-white text-uppercase mb-3 small tracking-wide pb-1 d-inline-block" style="border-bottom: 2px solid var(--mgi-gold);">${MGIComponents.escapeHtml(col3Title)}</h6>
               <ul class="list-unstyled mb-0">
-                <li><a href="preparation" class="footer-link">Struktur Alur Kerja Entitas</a></li>
-                <li><a href="ekosistem" class="footer-link">Ekosistem Terpadu</a></li>
-                <li><a href="javascript:void(0)" onclick="MGIAuth.handleProtectedDetail('proj-jkt-jabar')" class="footer-link">Simulasi Titik Impas &amp; Bagi Hasil</a></li>
-                <li><a href="about.html#tata-kelola" class="footer-link">Tata Kelola Perusahaan (TARIF)</a></li>
+                ${col3Html}
               </ul>
             </div>
 
             <div class="col-lg-3 col-md-6">
               <h6 class="fw-bold text-white text-uppercase mb-3 small tracking-wide pb-1 d-inline-block" style="border-bottom: 2px solid var(--mgi-gold);">Hubungi Kami</h6>
-              <div class="small text-footer-muted mb-2">
-                <i class="bi bi-geo-alt text-gold me-1"></i> <span id="footerAddress">Roseville Soho &amp; Suite, Sunburst CBD Lot I.8, Serpong, Tangerang Selatan</span>
-              </div>
-              <div class="small text-footer-muted mb-2">
-                <i class="bi bi-envelope text-gold me-1"></i> <a href="mailto:contact@montanainvestama.com" id="footerEmail" class="text-footer-muted text-decoration-none">contact@montanainvestama.com</a>
-              </div>
-              <div class="small text-footer-muted mb-2">
-                <i class="bi bi-telephone text-gold me-1"></i> <a href="tel:+622153158899" id="footerPhone" class="text-footer-muted text-decoration-none">+62 21 5315 8899</a>
-              </div>
-              <div class="small text-footer-muted">
-                <i class="bi bi-clock text-gold me-1"></i> <span id="footerHours">Senin – Jumat (08.00 – 17.00 WIB)</span>
-              </div>
+              ${contactItemsHtml}
             </div>
           </div>
 
-          <!-- Newsletter Banner Row -->
-          <div class="row align-items-center justify-content-between p-3 p-md-4 mb-4 rounded-2 bg-footer-card border border-secondary border-opacity-50">
-            <div class="col-lg-6 mb-3 mb-lg-0">
-              <h6 class="fw-bold text-white mb-1 d-flex align-items-center gap-2">
-                <i class="bi bi-envelope-paper-fill text-gold"></i>
-                <span>Langganan Buletin &amp; Wawasan Pasar MGI</span>
-              </h6>
-              <p class="text-footer-muted small mb-0">Dapatkan rilis portofolio proyek baru, analisis sektor riil, dan kabar dividen langsung di email Anda.</p>
-            </div>
-            <div class="col-lg-5">
-              <form id="footerNewsletterForm" onsubmit="MGIComponents.subscribeNewsletter(event)" class="d-flex flex-column gap-1">
-                <div class="input-group">
-                  <input type="email" class="form-control form-control-sm" id="footerNewsletterEmail" placeholder="Masukkan alamat email Anda..." required>
-                  <button class="btn btn-sm btn-corporate-gold fw-bold px-3" type="submit" id="btnFooterNewsletter">
-                    Langganan
-                  </button>
-                </div>
-                <div id="footerNewsletterFeedback" class="small mt-1"></div>
-              </form>
-            </div>
-          </div>
+          ${newsletterHtml}
 
           <div class="d-flex flex-column flex-md-row justify-content-between align-items-center pt-3 border-top border-secondary small text-footer-muted">
             <div class="mb-2 mb-md-0" id="footerCopyright">
-              &copy; ${new Date().getFullYear()} PT Montana Global Investama. Seluruh Hak Cipta Dilindungi Undang-Undang.
+              &copy; ${new Date().getFullYear()} ${MGIComponents.escapeHtml(copyright)}
             </div>
             <div class="d-flex align-items-center gap-3">
-              <span>Rahasia &amp; Terbatas</span>
+              <span id="footerStatusText">${MGIComponents.escapeHtml(statusText)}</span>
               <span>•</span>
-              <a href="mailto:contact@montanainvestama.com" id="footerOfficialMailLink" class="text-gold text-decoration-none fw-semibold">contact@montanainvestama.com</a>
+              <a href="mailto:${MGIComponents.escapeHtml(email)}" id="footerOfficialMailLink" class="text-gold text-decoration-none fw-semibold">${MGIComponents.escapeHtml(email)}</a>
             </div>
           </div>
         </div>
       </footer>
     `;
+  },
 
+  // 2. Render Global Footer (Bootstrap 5)
+  renderFooter: function () {
+    const footerContainer = document.getElementById('global-footer');
+    if (!footerContainer) return;
+
+    let cached = null;
+    try {
+      const raw = sessionStorage.getItem('mgi_public_settings');
+      if (raw) cached = JSON.parse(raw);
+    } catch (e) {}
+
+    footerContainer.innerHTML = MGIComponents.buildFooterHtml(cached || {});
     MGIComponents.syncPublicSettings();
   },
 
@@ -277,16 +385,19 @@ const MGIComponents = {
   },
 
   // Asynchronously hydrate site settings from database API
-  syncPublicSettings: async function () {
+  syncPublicSettings: async function (forceRefresh = false) {
     try {
       let cached = null;
-      try {
-        const raw = sessionStorage.getItem('mgi_public_settings');
-        if (raw) cached = JSON.parse(raw);
-      } catch (e) {}
+      if (!forceRefresh) {
+        try {
+          const raw = sessionStorage.getItem('mgi_public_settings');
+          if (raw) cached = JSON.parse(raw);
+        } catch (e) {}
+      }
 
-      if (!cached) {
-        const res = await fetch('api/settings.php');
+      if (!cached || forceRefresh) {
+        const apiUrl = window.location.pathname.includes('/portal-admin-') ? '../api/settings.php' : 'api/settings.php';
+        const res = await fetch(apiUrl);
         const json = await res.json();
         if (json && json.success && json.data) {
           cached = json.data;
@@ -298,31 +409,14 @@ const MGIComponents = {
 
       if (!cached) return;
 
-      const addrEl = document.getElementById('footerAddress');
-      if (addrEl && cached.contact_address) addrEl.textContent = cached.contact_address;
-
-      const emailEl = document.getElementById('footerEmail');
-      const offEmailEl = document.getElementById('footerOfficialMailLink');
-      const em = cached.official_email || cached.contact_email;
-      if (em) {
-        if (emailEl) { emailEl.textContent = em; emailEl.href = 'mailto:' + em; }
-        if (offEmailEl) { offEmailEl.textContent = em; offEmailEl.href = 'mailto:' + em; }
+      const footerContainer = document.getElementById('global-footer');
+      if (footerContainer) {
+        footerContainer.innerHTML = MGIComponents.buildFooterHtml(cached);
       }
-
-      const phoneEl = document.getElementById('footerPhone');
-      if (phoneEl && cached.contact_phone) {
-        phoneEl.textContent = cached.contact_phone;
-        phoneEl.href = 'tel:' + cached.contact_phone.replace(/[^\d+]/g, '');
-      }
-
-      const hoursEl = document.getElementById('footerHours');
-      if (hoursEl && cached.operating_hours) hoursEl.textContent = cached.operating_hours;
 
       if (cached.site_logo) {
         const navLogo = document.getElementById('navbarLogoImg');
-        const footLogo = document.getElementById('footerLogoImg');
         if (navLogo) navLogo.src = cached.site_logo;
-        if (footLogo) footLogo.src = cached.site_logo;
       }
     } catch (e) {
       // Graceful fallback to static HTML defaults
@@ -1439,3 +1533,6 @@ const MGIComponents = {
 };
 
 window.MGIComponents = MGIComponents;
+window.syncPublicSettings = function (force = true) {
+  return MGIComponents.syncPublicSettings(force);
+};
