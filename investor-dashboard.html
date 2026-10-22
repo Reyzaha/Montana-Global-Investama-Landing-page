@@ -204,24 +204,32 @@
         <!-- Right Quick Actions -->
         <div class="flex items-center gap-2 sm:gap-3">
           <!-- Live Sync Status Indicator (8s Polling) -->
-          <div id="liveSyncStatusBadge" class="inline-flex items-center gap-1.5 px-3 py-1 text-[11px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200/90 rounded-full shadow-2xs transition-all" title="Terhubung Real-Time: Auto-refresh data setiap 8 detik">
+          <div id="liveSyncStatusBadge"
+            class="inline-flex items-center gap-1.5 px-3 py-1 text-[11px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200/90 rounded-full shadow-2xs transition-all"
+            title="Terhubung Real-Time: Auto-refresh data setiap 8 detik">
             <span class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span
+                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
             <span class="hidden sm:inline">Live Sync</span>
-            <span class="font-mono text-[10px] bg-emerald-200/60 text-emerald-900 px-1.5 py-0.2 rounded font-bold">8s</span>
+            <span
+              class="font-mono text-[10px] bg-emerald-200/60 text-emerald-900 px-1.5 py-0.2 rounded font-bold">8s</span>
           </div>
 
           <!-- Notification Bell & Floating Box -->
           <div class="relative" id="notifDropdownContainer">
-            <button id="notifBellBtn" onclick="toggleNotificationBox()" class="relative p-2 rounded-full text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer border border-slate-200/60" title="Notifikasi Real-Time dari Admin">
+            <button id="notifBellBtn" onclick="toggleNotificationBox()"
+              class="relative p-2 rounded-full text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer border border-slate-200/60"
+              title="Notifikasi Real-Time dari Admin">
               <i data-lucide="bell" class="w-4 h-4 sm:w-4.5 sm:h-4.5"></i>
-              <span id="notifBadgeCounter" class="hidden absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 bg-rose-600 text-white rounded-full text-[9px] font-black flex items-center justify-center animate-bounce shadow-xs">0</span>
+              <span id="notifBadgeCounter"
+                class="hidden absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 bg-rose-600 text-white rounded-full text-[9px] font-black flex items-center justify-center animate-bounce shadow-xs">0</span>
             </button>
 
             <!-- Notification Dropdown Menu -->
-            <div id="notificationDropdownMenu" class="hidden absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-3xl shadow-2xl border border-slate-200/90 py-3 z-50 overflow-hidden text-xs text-slate-700">
+            <div id="notificationDropdownMenu"
+              class="hidden absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-3xl shadow-2xl border border-slate-200/90 py-3 z-50 overflow-hidden text-xs text-slate-700">
               <div class="px-4 py-2 border-b border-slate-100 flex items-center justify-between">
                 <div class="flex items-center gap-2">
                   <div class="w-7 h-7 rounded-xl bg-amber-50 text-amber-800 flex items-center justify-center font-bold">
@@ -229,7 +237,9 @@
                   </div>
                   <h5 class="font-bold text-slate-900 text-xs sm:text-sm mb-0">Pemberitahuan Admin</h5>
                 </div>
-                <button onclick="markAllNotificationsRead()" class="text-[11px] text-blue-600 hover:text-blue-800 font-semibold cursor-pointer">Tandai Dibaca</button>
+                <button onclick="markAllNotificationsRead()"
+                  class="text-[11px] text-blue-600 hover:text-blue-800 font-semibold cursor-pointer">Tandai
+                  Dibaca</button>
               </div>
               <div id="notificationListBody" class="max-h-80 overflow-y-auto divide-y divide-slate-100 p-1">
                 <div class="py-8 text-center text-slate-400">
@@ -237,7 +247,8 @@
                   <span class="text-xs">Belum ada notifikasi baru</span>
                 </div>
               </div>
-              <div class="px-4 py-2 border-t border-slate-100 bg-slate-50 text-center flex items-center justify-between">
+              <div
+                class="px-4 py-2 border-t border-slate-100 bg-slate-50 text-center flex items-center justify-between">
                 <span class="text-[10px] text-slate-400 font-medium">Auto-sync 8s via server</span>
                 <span class="text-[10px] text-emerald-700 font-bold flex items-center gap-1">
                   <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Online
@@ -375,9 +386,7 @@
             <i data-lucide="award" class="w-3.5 h-3.5 text-amber-600"></i>
             PORTAL INVESTOR MGI • KEPATUHAN TATA KELOLA (TARIF)
           </div>
-          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 leading-snug">
-            Selamat Datang di Portofolio <span id="heroPortfolioOwnerName" class="text-amber-600">Investor</span>
-          </h2>
+
           <p class="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-xl">
             Silakan pilih salah satu proyek penempatan modal Anda di bawah ini untuk membuka <strong
               class="text-slate-900 font-semibold">Dashboard Operasional (MGI QQ Client)</strong>. Laporan pergerakan
@@ -1224,7 +1233,8 @@
                     <span class="text-[10px] text-slate-400">Customs Clearance, Maintenance, OPEX</span>
                   </div>
                 </div>
-                <span class="text-xs font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-full" id="opBiayaBadge">Rp 0</span>
+                <span class="text-xs font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-full" id="opBiayaBadge">Rp
+                  0</span>
               </div>
               <div class="h-60 relative">
                 <canvas id="chartBiayaCanvas"></canvas>
@@ -1790,7 +1800,8 @@
                   Berikutnya</span>
                 <div class="text-base sm:text-lg font-black text-amber-700 mt-0.5" id="opLrNextDate">-
                 </div>
-                <span class="text-[11px] text-slate-500">Estimasi: <strong class="text-emerald-700" id="opLrNextEst">Rp 0</strong></span>
+                <span class="text-[11px] text-slate-500">Estimasi: <strong class="text-emerald-700" id="opLrNextEst">Rp
+                    0</strong></span>
               </div>
             </div>
 
@@ -1840,7 +1851,8 @@
                 <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">Laba Bersih
                   Operasional</span>
                 <div class="text-xl sm:text-2xl font-black text-emerald-700 mt-1" id="opLrKpiNetProfit">Rp 0</div>
-                <span class="text-[10px] text-emerald-700 font-bold block mt-0.5" id="opLrKpiMargin">Margin Laba: 0%</span>
+                <span class="text-[10px] text-emerald-700 font-bold block mt-0.5" id="opLrKpiMargin">Margin Laba:
+                  0%</span>
               </div>
               <div class="p-4 rounded-2xl bg-[#C5A059]/20 border border-amber-300 shadow-2xs">
                 <span class="text-[11px] font-bold text-amber-900 uppercase tracking-wider block">Profit Diterima
@@ -1975,7 +1987,8 @@
                   <i data-lucide="layers" class="w-4 h-4 text-amber-600"></i>
                   Nilai Anggaran Kebutuhan Proyek &amp; Alokasi Fisik Unit
                 </h4>
-                <span class="text-[11px] text-slate-500 font-medium">Highlight emas menandakan alokasi anggaran yang Anda miliki
+                <span class="text-[11px] text-slate-500 font-medium">Highlight emas menandakan alokasi anggaran yang
+                  Anda miliki
                   saat ini</span>
               </div>
               <div class="overflow-x-auto border border-slate-200 rounded-2xl">
@@ -2230,7 +2243,8 @@
         <!-- Pilihan Paket Investasi (Menggantikan input manual nominal bebas) -->
         <div>
           <div class="flex items-center justify-between mb-1.5">
-            <label class="text-xs font-bold uppercase tracking-wider text-slate-700 block">Nilai Anggaran Kebutuhan Proyek</label>
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-700 block">Nilai Anggaran Kebutuhan
+              Proyek</label>
             <span
               class="text-[11px] font-semibold text-blue-700 px-2 py-0.5 rounded-full bg-blue-50 border border-blue-200"
               id="investPackageModeBadge">Pilih Rancangan Anggaran Modal</span>
@@ -2476,7 +2490,8 @@
   <!-- 4. MODAL: Upload Bukti Pembayaran / Pelunasan Modal -->
   <div id="uploadPaymentModal"
     class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 transition-all">
-    <div class="bg-white rounded-3xl max-w-lg w-full max-h-[92vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
+    <div
+      class="bg-white rounded-3xl max-w-lg w-full max-h-[92vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
       <!-- Modal Header -->
       <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50 shrink-0">
         <div class="flex items-center gap-2.5">
@@ -2495,7 +2510,8 @@
       </div>
 
       <!-- Modal Body -->
-      <form id="uploadPaymentForm" onsubmit="submitPaymentProof(event)" class="p-6 overflow-y-auto space-y-4 flex-1 text-slate-800">
+      <form id="uploadPaymentForm" onsubmit="submitPaymentProof(event)"
+        class="p-6 overflow-y-auto space-y-4 flex-1 text-slate-800">
         <input type="hidden" id="upPayBillingId">
 
         <!-- Target Rekening Escrow MGI -->
@@ -2532,11 +2548,16 @@
 
         <!-- File Upload Input -->
         <div class="space-y-1.5">
-          <label class="text-xs font-bold text-slate-700 block">Berkas Bukti Transfer (JPG, PNG, WebP, PDF) <span class="text-rose-500">*</span></label>
-          <div class="border-2 border-dashed border-slate-300 hover:border-blue-500 rounded-2xl p-4 text-center cursor-pointer transition bg-white" onclick="document.getElementById('upPayFileInput').click()">
-            <input type="file" id="upPayFileInput" accept="image/*,application/pdf" class="hidden" onchange="handleProofFileSelect(this)" required>
+          <label class="text-xs font-bold text-slate-700 block">Berkas Bukti Transfer (JPG, PNG, WebP, PDF) <span
+              class="text-rose-500">*</span></label>
+          <div
+            class="border-2 border-dashed border-slate-300 hover:border-blue-500 rounded-2xl p-4 text-center cursor-pointer transition bg-white"
+            onclick="document.getElementById('upPayFileInput').click()">
+            <input type="file" id="upPayFileInput" accept="image/*,application/pdf" class="hidden"
+              onchange="handleProofFileSelect(this)" required>
             <i data-lucide="file-up" class="w-8 h-8 text-slate-400 mx-auto mb-1.5"></i>
-            <span class="text-xs font-bold text-blue-900 block" id="upPayFileNameText">Pilih foto atau dokumen bukti transfer</span>
+            <span class="text-xs font-bold text-blue-900 block" id="upPayFileNameText">Pilih foto atau dokumen bukti
+              transfer</span>
             <span class="text-[10px] text-slate-400 block mt-0.5">Maksimal ukuran file: 15 MB</span>
           </div>
         </div>
@@ -2544,15 +2565,19 @@
         <!-- Notes Input -->
         <div class="space-y-1.5">
           <label class="text-xs font-bold text-slate-700 block">Catatan Pemodal / Rekening Pengirim (Opsional)</label>
-          <input type="text" id="upPayNotes" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Contoh: Transfer via BCA a.n. Budi Santoso">
+          <input type="text" id="upPayNotes"
+            class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Contoh: Transfer via BCA a.n. Budi Santoso">
         </div>
 
         <!-- Modal Footer Buttons -->
         <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2.5">
-          <button type="button" onclick="closeModal('uploadPaymentModal')" class="px-4 py-2 text-xs font-semibold text-slate-500 hover:bg-slate-100 rounded-full transition">
+          <button type="button" onclick="closeModal('uploadPaymentModal')"
+            class="px-4 py-2 text-xs font-semibold text-slate-500 hover:bg-slate-100 rounded-full transition">
             Batal
           </button>
-          <button type="submit" id="btnSubmitPaymentProof" class="px-5 py-2.5 text-xs font-bold bg-amber-500 hover:bg-amber-600 text-white rounded-full transition shadow-md active:scale-95 flex items-center gap-1.5 cursor-pointer">
+          <button type="submit" id="btnSubmitPaymentProof"
+            class="px-5 py-2.5 text-xs font-bold bg-amber-500 hover:bg-amber-600 text-white rounded-full transition shadow-md active:scale-95 flex items-center gap-1.5 cursor-pointer">
             <i data-lucide="check-circle" class="w-4 h-4"></i>
             <span>Kirim Bukti Pembayaran</span>
           </button>
@@ -2744,7 +2769,7 @@
     async function handleNotificationClick(notifId, linkUrl) {
       try {
         await fetch(`api/investor/notifications.php?action=mark_read&id=${notifId}`, { method: 'POST' });
-      } catch (e) {}
+      } catch (e) { }
 
       const menu = document.getElementById('notificationDropdownMenu');
       if (menu) menu.classList.add('hidden');
@@ -2809,9 +2834,9 @@
 
         try {
           // Hit server dashboard endpoint
-          const res = await fetch(`api/investor/dashboard.php?action=get&_t=${Date.now()}`, { 
-            cache: 'no-store', 
-            credentials: 'same-origin' 
+          const res = await fetch(`api/investor/dashboard.php?action=get&_t=${Date.now()}`, {
+            cache: 'no-store',
+            credentials: 'same-origin'
           });
 
           if (res.ok) {
@@ -3462,7 +3487,7 @@
           }).then(() => {
             p.phone = phoneVal;
             if (actVal) p.business_activity = actVal;
-          }).catch(() => {});
+          }).catch(() => { });
         }
 
         // Dynamic NIK / Paspor
@@ -3858,7 +3883,7 @@
       const userPortfolios = dashboardState.portfolios || [];
       const userProjects = dashboardState.projects || [];
       const hasRealAllocatedProject = userPortfolios.some(pf => (pf.project_id === projectId || pf.id === projectId) && Number(pf.amount || 0) > 0) ||
-                                     userProjects.some(pr => (pr.project_id === projectId || pr.id === projectId) && Number(pr.total_dana_investor || 0) > 0);
+        userProjects.some(pr => (pr.project_id === projectId || pr.id === projectId) && Number(pr.total_dana_investor || 0) > 0);
 
       if (!hasRealAllocatedProject) {
         // Investor belum terikat dengan proyek ini. Jangan buka modal pembukuan / preview proyek fiktif.
@@ -3922,7 +3947,7 @@
     // Comprehensive Fallback Project Dashboard Generator
     async function generateFallbackProjectDashboardData(projectId) {
       let pObj = (typeof catalogProjects !== 'undefined' && catalogProjects && catalogProjects.find(p => p.id === projectId)) ||
-                 (dashboardState.projects && dashboardState.projects.find(p => p.id === projectId || p.project_id === projectId));
+        (dashboardState.projects && dashboardState.projects.find(p => p.id === projectId || p.project_id === projectId));
 
       if (!pObj && projectId) {
         try {
@@ -3932,7 +3957,7 @@
             const list = raw.projects || [];
             pObj = list.find(p => p.id === projectId) || null;
           }
-        } catch (e) {}
+        } catch (e) { }
       }
 
       if (!pObj) return null;
@@ -3948,12 +3973,12 @@
       const rab = (isAllocated && pObj.detail && pObj.detail.rab_executive) ? pObj.detail.rab_executive : null;
       const fundingItems = (isAllocated && pObj.detail && pObj.detail.funding_target && pObj.detail.funding_target.rows)
         ? pObj.detail.funding_target.rows.map((r, i) => ({
-            no_urut: i + 1,
-            item_name: r.item || `Alokasi Anggaran ${i + 1}`,
-            quantity: r.volume || '1 Paket',
-            unit_price: Number(r.harga_satuan || 0),
-            total: Number(r.total || 0)
-          }))
+          no_urut: i + 1,
+          item_name: r.item || `Alokasi Anggaran ${i + 1}`,
+          quantity: r.volume || '1 Paket',
+          unit_price: Number(r.harga_satuan || 0),
+          total: Number(r.total || 0)
+        }))
         : [];
 
       return {
@@ -4740,8 +4765,8 @@
       const inv = data.inventory || {};
       const items = inv.items || [];
       const charts = data.charts || {};
-      const labels = (hasCapital && charts.labels && charts.labels.length > 0) 
-        ? charts.labels 
+      const labels = (hasCapital && charts.labels && charts.labels.length > 0)
+        ? charts.labels
         : ['Bln 1', 'Bln 2', 'Bln 3', 'Bln 4', 'Bln 5', 'Bln 6'];
 
       // Chart A: Inventory / Stok & Status
