@@ -301,6 +301,44 @@ class Database {
         } catch (Throwable $e) {
             error_log("Schema update warning (lead_history): " . $e->getMessage());
         }
+
+        // Security rate limits table for anti brute-force protection
+        try {
+            $db->exec("
+                CREATE TABLE IF NOT EXISTS `security_rate_limits` (
+                    `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+                    `rate_key` VARCHAR(64) NOT NULL,
+                    `action_type` VARCHAR(32) NOT NULL,
+                    `identifier` VARCHAR(128) NOT NULL DEFAULT '',
+                    `ip_address` VARCHAR(45) NOT NULL,
+                    `attempts` INT(10) UNSIGNED NOT NULL DEFAULT 1,
+                    `first_attempt_at` INT(10) UNSIGNED NOT NULL,
+                    `last_attempt_at` INT(10) UNSIGNED NOT NULL,
+                    `locked_until` INT(10) UNSIGNED NOT NULL DEFAULT 0,
+                    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                    PRIMARY KEY (`id`),
+                    UNIQUE KEY `uq_rate_key` (`rate_key`),
+                    KEY `idx_action_id` (`action_type`, `identifier`),
+                    KEY `idx_ip` (`ip_address`),
+                    KEY `idx_lock` (`locked_until`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            ");
+        } catch (Throwable $e) {
+            error_log("Schema update warning (security_rate_limits): " . $e->getMessage());
+        }
+
+        // Ensure admin_users has MFA columns
+        try {
+            $colsMfa = $db->query("SHOW COLUMNS FROM `admin_users` LIKE 'mfa_secret'")->fetchAll();
+            if (empty($colsMfa)) {
+                $db->exec("ALTER TABLE `admin_users` ADD COLUMN `mfa_secret` VARCHAR(64) NULL AFTER `is_active`");
+            }
+            $colsMfaEn = $db->query("SHOW COLUMNS FROM `admin_users` LIKE 'mfa_enabled'")->fetchAll();
+            if (empty($colsMfaEn)) {
+                $db->exec("ALTER TABLE `admin_users` ADD COLUMN `mfa_enabled` TINYINT(1) NOT NULL DEFAULT 0 AFTER `mfa_secret`");
+            }
+        } catch (Throwable $_) {}
     }
 
     public static function getConnectedPort(): ?int {
