@@ -482,6 +482,25 @@
   "real_assets": "Aset nyata.",
   "sustainable_value": "Nilai berkelanjutan.",
   "strategic_partnership_desc": "Kemitraan strategis pada aset produktif dengan tata kelola institusional.",
-  "portal_button": "Portal"
+  "portal_button": "Portal",
+  "active_funding": "PENDANAAN AKTIF",
+  "collected_funds": "Dana terkumpul",
+  "target_funding": "Target pendanaan",
+  "fulfilled": "terpenuhi",
+  "partners_joined": "mitra bergabung",
+  "tenor_label": "TENOR",
+  "target_roi_label": "TARGET ROI",
+  "heavy_equipment_unit_label": "UNIT ALAT BERAT",
+  "scheme_label": "SKEMA",
+  "project_overview": "Project Overview",
+  "cash_flow_projection": "Cash Flow Projection",
+  "risk_mitigation": "Risk Mitigation",
+  "fixed_asset_collateral": "Fixed Asset Collateral",
+  "due_diligence_verified": "Due diligence terverifikasi",
+  "due_diligence_desc": "Legal, finansial, dan kelayakan aset telah melalui pemeriksaan independen.",
+  "proposal": "Proposal",
+  "consultation_ticket": "Konsultasi Tiket",
+  "exclusive_partner": "Eksklusif Mitra",
+  "profit_sharing": "Bagi Hasil"
 }
 

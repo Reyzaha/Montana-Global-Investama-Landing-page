@@ -102,6 +102,12 @@ class ProjectDetail {
   String? viewerWatermark;
   FundingTargetDetail? fundingTarget;
   ProjectSimulation? simulation;
+  String? whatWillProvideTitle;
+  String? whatWillProvideContent;
+  String? sinergiTitle;
+  String? sinergiContent;
+  String? summaryTitle;
+  String? summaryContent;
 
   ProjectDetail parse(Map<String, dynamic> json) {
     tagline = json["tagline"];
@@ -120,9 +126,28 @@ class ProjectDetail {
       );
     }
 
+    if (json["what_will_provide"] is Map) {
+      final Map wwp = json["what_will_provide"] as Map;
+      whatWillProvideTitle = wwp["title"];
+      whatWillProvideContent = wwp["content"];
+    }
+
+    if (json["about_sinergi_foundation"] is Map) {
+      final Map asf = json["about_sinergi_foundation"] as Map;
+      sinergiTitle = asf["title"];
+      sinergiContent = asf["content"];
+    }
+
+    if (json["summary"] is Map) {
+      final Map sm = json["summary"] as Map;
+      summaryTitle = sm["title"];
+      summaryContent = sm["content"];
+    }
+
     return this;
   }
 }
+
 
 class ProjectInfo {
   String? lokasi;
