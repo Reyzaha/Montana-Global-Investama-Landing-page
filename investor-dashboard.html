@@ -376,7 +376,7 @@
             PORTAL INVESTOR MGI • KEPATUHAN TATA KELOLA (TARIF)
           </div>
           <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 leading-snug">
-            Selamat Datang di Portofolio Investor
+            Selamat Datang di Portofolio <span id="heroPortfolioOwnerName" class="text-amber-600">Investor</span>
           </h2>
           <p class="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-xl">
             Silakan pilih salah satu proyek penempatan modal Anda di bawah ini untuk membuka <strong
@@ -3396,15 +3396,26 @@
         document.getElementById('dropdownUserEmail').innerText = p.email || '';
         document.getElementById('dashInvestorGreeting').innerText = fullName + '!';
         document.getElementById('heroInvestorName').innerText = fullName;
+        const heroPortOwnerEl = document.getElementById('heroPortfolioOwnerName');
+        if (heroPortOwnerEl) {
+          heroPortOwnerEl.innerText = fullName;
+        }
+
+        // Ambil data sesi lokal sebagai fallback jika data profil di server masih dalam proses sinkronisasi
+        const stored = localStorage.getItem('mgi_auth_user');
+        let localUser = {};
+        if (stored) {
+          try { localUser = JSON.parse(stored); } catch (e) { }
+        }
 
         // Profile tab fields
         document.getElementById('profNameDisplay').innerText = fullName;
         document.getElementById('profTypeDisplay').innerText = isCorp ? 'Perusahaan (Institusi / Korporasi)' : 'Perorangan (Individu)';
-        document.getElementById('profEmailDisplay').innerText = p.email || '-';
+        document.getElementById('profEmailDisplay').innerText = p.email || localUser.email || '-';
 
-        // Phone
+        // Phone: Prioritaskan dari database server, jika belum ada ambil dari sesi lokal registrasi
         const phoneEl = document.getElementById('profPhoneDisplay');
-        const phoneVal = p.phone || p.company_phone || '';
+        const phoneVal = p.phone || p.company_phone || localUser.phone || localUser.companyPhone || '';
         if (phoneVal) {
           phoneEl.innerHTML = `<span class="font-mono text-slate-800 font-semibold">${phoneVal}</span>`;
         } else {
@@ -3426,14 +3437,32 @@
         const npwpDisp = document.getElementById('profNpwpDisplay');
         const authDisp = document.getElementById('profAuthMethodDisplay');
 
-        // Dynamic Kegiatan / Usaha
-        const actVal = p.business_activity || p.businessActivity || '';
+        // Dynamic Kegiatan / Usaha: Prioritaskan dari database server, jika belum ada ambil dari sesi lokal
+        const actVal = p.business_activity || p.businessActivity || localUser.businessActivity || localUser.business_activity || '';
         if (actDisp) {
           if (actVal) {
             actDisp.innerHTML = `<span class="font-medium text-slate-800">${actVal}</span>`;
           } else {
             actDisp.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">Belum Dilengkapi</span>`;
           }
+        }
+
+        // Auto-sinkronisasi ke server jika di database belum tersimpan tetapi di browser sudah ada
+        if ((!p.phone || p.phone.trim() === '') && phoneVal) {
+          fetch('api/investor/dashboard.php?action=update_profile', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              full_name: fullName,
+              phone: phoneVal,
+              business_activity: actVal || '',
+              nik_paspor: p.nik_paspor || localUser.nik_paspor || '',
+              npwp: p.npwp || localUser.npwp || ''
+            })
+          }).then(() => {
+            p.phone = phoneVal;
+            if (actVal) p.business_activity = actVal;
+          }).catch(() => {});
         }
 
         // Dynamic NIK / Paspor

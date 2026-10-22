@@ -315,15 +315,30 @@ try {
                 sendJsonError('Akun Anda sedang ditangguhkan. Silakan hubungi relationship manager MGI.', 403);
             }
 
-            // Update google_id, avatar_url, dan full_name jika sebelumnya belum ada
+            $inPhone = trim($input['phone'] ?? ($input['company_phone'] ?? ''));
+            $inActivity = trim($input['business_activity'] ?? ($input['businessActivity'] ?? ''));
+            $inCitizenship = trim($input['citizenship'] ?? '');
+
+            // Update google_id, avatar_url, full_name, dan biodata jika di database masih kosong
             $upd = $db->prepare("
                 UPDATE investors 
                 SET google_id = COALESCE(google_id, ?),
                     avatar_url = COALESCE(avatar_url, ?),
-                    full_name = COALESCE(full_name, ?)
+                    full_name = COALESCE(full_name, ?),
+                    phone = CASE WHEN (phone IS NULL OR phone = '') AND ? != '' THEN ? ELSE phone END,
+                    business_activity = CASE WHEN (business_activity IS NULL OR business_activity = '') AND ? != '' THEN ? ELSE business_activity END,
+                    citizenship = CASE WHEN (citizenship IS NULL OR citizenship = '') AND ? != '' THEN ? ELSE citizenship END
                 WHERE id = ?
             ");
-            $upd->execute([$googleId, $avatarUrl, $fullName, $user['id']]);
+            $upd->execute([
+                $googleId,
+                $avatarUrl,
+                $fullName,
+                $inPhone, $inPhone,
+                $inActivity, $inActivity,
+                $inCitizenship, $inCitizenship,
+                $user['id']
+            ]);
 
             // Jika akun adalah perusahaan tetapi belum ada record investor_companies, buatkan default profil perusahaan
             if ($user['account_type'] === 'perusahaan') {
@@ -335,9 +350,16 @@ try {
                         INSERT INTO investor_companies (
                             investor_id, business_name, business_activity, legal_entity,
                             company_address, pic_name, pic_position, company_phone, annual_turnover
-                        ) VALUES (?, ?, 'Investasi Sektor Riil', 'Perseroan Terbatas (PT)', 'Alamat operasional belum dilengkapi', ?, 'Perwakilan Resmi', '-', 'Rp10 Miliar – Rp50 Miliar')
+                        ) VALUES (?, ?, 'Investasi Sektor Riil', 'Perseroan Terbatas (PT)', 'Alamat operasional belum dilengkapi', ?, 'Perwakilan Resmi', ?, 'Rp10 Miliar – Rp50 Miliar')
                     ");
-                    $stmtMakeComp->execute([$user['id'], $cName, $cName]);
+                    $stmtMakeComp->execute([$user['id'], $cName, $cName, $inPhone ?: '-']);
+                } else if (!empty($inPhone)) {
+                    $stmtUpdComp = $db->prepare("
+                        UPDATE investor_companies 
+                        SET company_phone = CASE WHEN (company_phone IS NULL OR company_phone = '' OR company_phone = '-') THEN ? ELSE company_phone END 
+                        WHERE investor_id = ?
+                    ");
+                    $stmtUpdComp->execute([$inPhone, $user['id']]);
                 }
             }
 
