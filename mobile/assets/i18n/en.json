@@ -450,6 +450,7 @@
   "watermarked": "Watermarked",
   "running_value": "running value",
   "updated": "Updated",
+  "not_associated_with_project_yet": "Not yet associated with any project",
   "field_intelligence": "Field Intelligence",
   "operational_updates": "Operational Updates",
   "project_progress": "Project progress",

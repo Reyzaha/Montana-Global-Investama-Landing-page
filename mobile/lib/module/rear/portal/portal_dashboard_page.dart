@@ -361,22 +361,34 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
             ],
           ),
         ),
-        if (docs.isEmpty && activeProjects.isEmpty)
-          Padding(
+        if (loading)
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.all(Dimensions.size20),
+            decoration: portalCardDecoration(),
+            alignment: Alignment.center,
+            child: const CircularProgressIndicator(
+              color: portalGold,
+            ),
+          )
+        else if (docs.isEmpty)
+          Container(
+            width: double.infinity,
             padding: EdgeInsets.all(Dimensions.size15),
+            decoration: portalCardDecoration(),
             child: Text(
-              "loading".tr(),
+              "not_associated_with_project_yet".tr(),
               style: TextStyle(
                 fontSize: Dimensions.text12,
                 color: AppColors.onSurfaceVariant(),
               ),
             ),
           )
-        else if (docs.isNotEmpty)
+        else
           ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: docs.take(3).length,
+            itemCount: docs.length,
             separatorBuilder: (_, __) => SizedBox(height: Dimensions.size10),
             itemBuilder: (BuildContext context, int index) {
               final InvestorDocumentItem doc = docs[index];
@@ -398,27 +410,6 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
                 onTap: () {
                   context.push("/portal/proposal-watermark");
                 },
-              );
-            },
-          )
-        else
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: activeProjects.take(2).length,
-            separatorBuilder: (_, __) => SizedBox(height: Dimensions.size10),
-            itemBuilder: (BuildContext context, int index) {
-              final Project project = activeProjects[index];
-              final bool isFirst = index == 0;
-
-              return DocumentTile(
-                title: project.title ?? "Investment Memorandum",
-                meta:
-                    "PDF • 4.8 MB • ${project.city ?? "Indonesia"} • ${"watermarked".tr()}",
-                actionIcon: isFirst
-                    ? Icons.visibility_outlined
-                    : Icons.file_download_outlined,
-                onTap: () => context.push("/portal/proposal-watermark"),
               );
             },
           ),
