@@ -251,6 +251,17 @@ try {
             if (empty($n['is_read'])) $unreadNotifCount++;
         }
 
+        // H. Project Documents for Confidential Center
+        $stmtDocs = $db->prepare("
+            SELECT id, project_id, doc_number, doc_title, doc_type, file_path, file_size, published_at, created_at
+            FROM project_documents
+            WHERE investor_id = ? OR investor_id IS NULL
+            ORDER BY created_at DESC
+            LIMIT 10
+        ");
+        $stmtDocs->execute([$investorId]);
+        $documentsList = $stmtDocs->fetchAll() ?: [];
+
         $needsBio = !isInvestorBiodataComplete($profile);
         $needsPriv = !isInvestorPrivacyAccepted($profile);
 
@@ -325,6 +336,7 @@ try {
                 'branch' => $bankAccount['branch'] ?? ''
             ] : null,
             'campaign_updates' => $campaignUpdates,
+            'documents' => $documentsList,
             'notifications' => $notificationsList,
             'unread_notifications_count' => $unreadNotifCount,
             'open_projects' => $openProjects,

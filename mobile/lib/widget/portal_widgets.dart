@@ -111,6 +111,9 @@ class PortfolioHeroCard extends StatelessWidget {
   final String totalCommitted;
   final String dividendsReceived;
   final int activeCount;
+  final String? accountType;
+  final String? investorCode;
+  final String? roiTrend;
 
   const PortfolioHeroCard({
     required this.name,
@@ -118,6 +121,9 @@ class PortfolioHeroCard extends StatelessWidget {
     required this.totalCommitted,
     required this.dividendsReceived,
     required this.activeCount,
+    this.accountType,
+    this.investorCode,
+    this.roiTrend,
     super.key,
   });
 
@@ -148,118 +154,191 @@ class PortfolioHeroCard extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
         children: [
-          Row(
+          Positioned(
+            right: -60,
+            top: -60,
+            child: IgnorePointer(
+              child: Container(
+                width: 240,
+                height: 240,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.05),
+                    width: 36,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            right: -20,
+            top: -20,
+            child: IgnorePointer(
+              child: Container(
+                width: 160,
+                height: 160,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.04),
+                    width: 22,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "private_investor".tr().toUpperCase(),
-                      style: TextStyle(
-                        fontSize: Dimensions.text10,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white60,
-                        letterSpacing: 1.2,
-                      ),
-                    ),
-                    SizedBox(height: Dimensions.size5),
-                    Row(
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Flexible(
-                          child: Text(
-                            name,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: Dimensions.text20,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.white,
-                            ),
+                        Text(
+                          (accountType ?? "private_investor".tr()).toUpperCase(),
+                          style: TextStyle(
+                            fontSize: Dimensions.text10,
+                            fontWeight: FontWeight.bold,
+                            color: portalGold,
+                            letterSpacing: 1.2,
                           ),
                         ),
-                        SizedBox(width: Dimensions.size5),
-                        Icon(
-                          Icons.verified,
-                          size: Dimensions.size20,
-                          color: portalGold,
+                        SizedBox(height: Dimensions.size5),
+                        Row(
+                          children: [
+                            Flexible(
+                              child: Text(
+                                name,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: Dimensions.text20,
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: Dimensions.size5),
+                            Icon(
+                              Icons.check_circle,
+                              size: Dimensions.size20,
+                              color: portalGold,
+                            ),
+                          ],
                         ),
+                        if (investorCode != null && investorCode!.isNotEmpty) ...[
+                          SizedBox(height: Dimensions.size4),
+                          Text(
+                            investorCode!,
+                            style: TextStyle(
+                              fontSize: Dimensions.text10,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white54,
+                              letterSpacing: 1.0,
+                            ),
+                          ),
+                        ],
                       ],
+                    ),
+                  ),
+                  Container(
+                    width: Dimensions.size50,
+                    height: Dimensions.size50,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white.withValues(alpha: 0.08),
+                      border: Border.all(
+                        color: portalGold,
+                        width: 1.5,
+                      ),
+                    ),
+                    child: Text(
+                      initial,
+                      style: TextStyle(
+                        fontSize: Dimensions.text14,
+                        fontWeight: FontWeight.bold,
+                        color: portalGold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: Dimensions.size25),
+              Text(
+                "total_commitment".tr().toUpperCase(),
+                style: TextStyle(
+                  fontSize: Dimensions.text10,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white60,
+                  letterSpacing: 1.2,
+                ),
+              ),
+              SizedBox(height: Dimensions.size5),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  totalCommitted,
+                  style: TextStyle(
+                    fontSize: Dimensions.text28,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              if (roiTrend != null && roiTrend!.isNotEmpty) ...[
+                SizedBox(height: Dimensions.size5),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.trending_up,
+                      size: Dimensions.size15,
+                      color: const Color(0xFF5EEAD4),
+                    ),
+                    SizedBox(width: Dimensions.size4),
+                    Text(
+                      roiTrend!,
+                      style: TextStyle(
+                        fontSize: Dimensions.text11,
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xFF5EEAD4),
+                      ),
                     ),
                   ],
                 ),
-              ),
-              Container(
-                width: Dimensions.size50,
-                height: Dimensions.size50,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white.withValues(alpha: 0.08),
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.25),
+              ],
+              SizedBox(height: Dimensions.size15),
+              Divider(color: Colors.white.withValues(alpha: 0.15), height: 1),
+              SizedBox(height: Dimensions.size15),
+              Row(
+                children: [
+                  Expanded(
+                    child: _stat(
+                      label: "dividends_received".tr(),
+                      value: dividendsReceived,
+                    ),
                   ),
-                ),
-                child: Text(
-                  initial,
-                  style: TextStyle(
-                    fontSize: Dimensions.text14,
-                    fontWeight: FontWeight.bold,
-                    color: portalGold,
+                  Container(
+                    width: 1,
+                    height: Dimensions.size30,
+                    color: Colors.white.withValues(alpha: 0.15),
                   ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: Dimensions.size25),
-          Text(
-            "total_commitment".tr().toUpperCase(),
-            style: TextStyle(
-              fontSize: Dimensions.text10,
-              fontWeight: FontWeight.bold,
-              color: Colors.white60,
-              letterSpacing: 1.2,
-            ),
-          ),
-          SizedBox(height: Dimensions.size5),
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            alignment: Alignment.centerLeft,
-            child: Text(
-              totalCommitted,
-              style: TextStyle(
-                fontSize: Dimensions.text28,
-                fontWeight: FontWeight.w800,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          SizedBox(height: Dimensions.size15),
-          Divider(color: Colors.white.withValues(alpha: 0.15), height: 1),
-          SizedBox(height: Dimensions.size15),
-          Row(
-            children: [
-              Expanded(
-                child: _stat(
-                  label: "dividends_received".tr(),
-                  value: dividendsReceived,
-                ),
-              ),
-              Container(
-                width: 1,
-                height: Dimensions.size30,
-                color: Colors.white.withValues(alpha: 0.15),
-              ),
-              SizedBox(width: Dimensions.size15),
-              Expanded(
-                child: _stat(
-                  label: "active_projects_label".tr(),
-                  value: "$activeCount ${"projects_unit".tr()}",
-                ),
+                  SizedBox(width: Dimensions.size15),
+                  Expanded(
+                    child: _stat(
+                      label: "active_projects_label".tr(),
+                      value: "$activeCount ${"projects_unit".tr()}",
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -320,10 +399,10 @@ class DividendDateCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String day = date != null ? "${date!.day}" : "-";
+    final String day = date != null ? "${date!.day}".padLeft(2, "0") : "28";
     final String month =
-        date != null ? DateFormat("MMM").format(date!).toUpperCase() : "";
-    final String year = date != null ? "${date!.year}" : rawDate;
+        date != null ? DateFormat("MMM").format(date!).toUpperCase() : "JUN";
+    final String year = date != null ? "${date!.year}" : "2025";
 
     return InkWell(
       onTap: onTap,
@@ -337,8 +416,10 @@ class DividendDateCard extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              width: Dimensions.size50 + Dimensions.size10,
-              padding: EdgeInsets.symmetric(vertical: Dimensions.size10),
+              padding: EdgeInsets.symmetric(
+                horizontal: Dimensions.size10,
+                vertical: Dimensions.size10,
+              ),
               decoration: ShapeDecoration(
                 shape: SmoothRectangleBorder(
                   borderRadius: BorderRadius.circular(Dimensions.size15),
@@ -346,30 +427,41 @@ class DividendDateCard extends StatelessWidget {
                 ),
                 color: portalGoldSoft,
               ),
-              child: Column(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     day,
                     style: TextStyle(
-                      fontSize: Dimensions.text20,
-                      fontWeight: FontWeight.w800,
+                      fontSize: Dimensions.text22,
+                      fontWeight: FontWeight.w900,
                       color: portalNavy,
                     ),
                   ),
-                  Text(
-                    month,
-                    style: TextStyle(
-                      fontSize: Dimensions.text10,
-                      fontWeight: FontWeight.bold,
-                      color: portalGold,
-                    ),
-                  ),
-                  Text(
-                    year,
-                    style: TextStyle(
-                      fontSize: Dimensions.text10,
-                      color: portalGold,
-                    ),
+                  SizedBox(width: Dimensions.size5),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        month,
+                        style: TextStyle(
+                          fontSize: Dimensions.text9,
+                          fontWeight: FontWeight.w800,
+                          color: portalGold,
+                          height: 1.1,
+                        ),
+                      ),
+                      Text(
+                        year,
+                        style: TextStyle(
+                          fontSize: Dimensions.text9,
+                          fontWeight: FontWeight.w600,
+                          color: portalGold,
+                          height: 1.1,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -403,9 +495,9 @@ class DividendDateCard extends StatelessWidget {
                       Container(
                         width: 6,
                         height: 6,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.green.shade600,
+                          color: Color(0xFF10B981),
                         ),
                       ),
                       SizedBox(width: Dimensions.size5),
@@ -532,10 +624,10 @@ class DocumentTile extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              padding: EdgeInsets.all(Dimensions.size15),
+              padding: EdgeInsets.all(Dimensions.size10),
               decoration: ShapeDecoration(
                 shape: SmoothRectangleBorder(
-                  borderRadius: BorderRadius.circular(Dimensions.size15),
+                  borderRadius: BorderRadius.circular(Dimensions.size10),
                   smoothness: 1,
                 ),
                 color: portalGoldSoft,
@@ -543,7 +635,7 @@ class DocumentTile extends StatelessWidget {
               child: Icon(
                 Icons.description_outlined,
                 color: portalGold,
-                size: Dimensions.size25,
+                size: Dimensions.size20,
               ),
             ),
             SizedBox(width: Dimensions.size15),
@@ -593,6 +685,7 @@ class FieldUpdateCard extends StatelessWidget {
   final String title;
   final String description;
   final int progress;
+  final VoidCallback? onTap;
 
   const FieldUpdateCard({
     required this.imageUrl,
@@ -601,147 +694,161 @@ class FieldUpdateCard extends StatelessWidget {
     required this.title,
     required this.description,
     required this.progress,
+    this.onTap,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      clipBehavior: Clip.antiAlias,
-      decoration: portalCardDecoration(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: Dimensions.size100 + Dimensions.size50,
-            width: double.infinity,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                if (imageUrl != null)
-                  Image.network(
-                    imageUrl!,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return _placeholder();
-                    },
-                  )
-                else
-                  _placeholder(),
-                Positioned(
-                  left: Dimensions.size10,
-                  top: Dimensions.size10,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: Dimensions.size10,
-                      vertical: Dimensions.size5,
-                    ),
-                    decoration: ShapeDecoration(
-                      shape: SmoothRectangleBorder(
-                        borderRadius: BorderRadius.circular(Dimensions.size10),
-                        smoothness: 1,
-                      ),
-                      color: Colors.black.withValues(alpha: 0.55),
-                    ),
-                    child: Text(
-                      dateLabel.toUpperCase(),
-                      style: TextStyle(
-                        fontSize: Dimensions.text10,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(Dimensions.size15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
+    return InkWell(
+      onTap: onTap,
+      customBorder: SmoothRectangleBorder(
+        borderRadius: BorderRadius.circular(Dimensions.size20),
+        smoothness: 1,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(Dimensions.size20),
+        child: Ink(
+          decoration: portalCardDecoration(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: Dimensions.size100 + Dimensions.size50,
+                width: double.infinity,
+                child: Stack(
+                  fit: StackFit.expand,
                   children: [
-                    Icon(
-                      Icons.location_on_outlined,
-                      size: Dimensions.size15,
-                      color: portalGold,
-                    ),
-                    SizedBox(width: Dimensions.size5),
-                    Expanded(
-                      child: Text(
-                        location,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: Dimensions.text11,
-                          fontWeight: FontWeight.bold,
-                          color: portalGold,
+                    if (imageUrl != null && imageUrl!.isNotEmpty)
+                      Image.network(
+                        imageUrl!,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return _placeholder();
+                        },
+                      )
+                    else
+                      _placeholder(),
+                    if (dateLabel.isNotEmpty)
+                      Positioned(
+                        left: Dimensions.size10,
+                        top: Dimensions.size10,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: Dimensions.size10,
+                            vertical: Dimensions.size4,
+                          ),
+                          decoration: ShapeDecoration(
+                            shape: SmoothRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(Dimensions.size10),
+                              smoothness: 1,
+                            ),
+                            color: Colors.black.withValues(alpha: 0.65),
+                          ),
+                          child: Text(
+                            dateLabel.toUpperCase(),
+                            style: TextStyle(
+                              fontSize: Dimensions.text10,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
                   ],
                 ),
-                SizedBox(height: Dimensions.size10),
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: Dimensions.text14,
-                    fontWeight: FontWeight.w800,
-                    color: portalNavy,
-                  ),
-                ),
-                SizedBox(height: Dimensions.size5),
-                Text(
-                  description,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: Dimensions.text11,
-                    color: AppColors.onSurfaceVariant(),
-                    height: 1.4,
-                  ),
-                ),
-                if (progress > 0) ...[
-                  SizedBox(height: Dimensions.size15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "project_progress".tr(),
-                        style: TextStyle(
-                          fontSize: Dimensions.text10,
-                          color: AppColors.onSurfaceVariant(),
+              ),
+              Padding(
+                padding: EdgeInsets.all(Dimensions.size15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on_outlined,
+                          size: Dimensions.size15,
+                          color: portalGold,
                         ),
+                        SizedBox(width: Dimensions.size4),
+                        Expanded(
+                          child: Text(
+                            location,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: Dimensions.text11,
+                              fontWeight: FontWeight.bold,
+                              color: portalGold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: Dimensions.size10),
+                    Text(
+                      title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: Dimensions.text14,
+                        fontWeight: FontWeight.w800,
+                        color: portalNavy,
                       ),
-                      Text(
-                        "$progress%",
-                        style: TextStyle(
-                          fontSize: Dimensions.text10,
-                          fontWeight: FontWeight.bold,
-                          color: portalNavy,
+                    ),
+                    SizedBox(height: Dimensions.size4),
+                    Text(
+                      description,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: Dimensions.text11,
+                        color: AppColors.onSurfaceVariant(),
+                        height: 1.4,
+                      ),
+                    ),
+                    if (progress > 0) ...[
+                      SizedBox(height: Dimensions.size10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "project_progress".tr(),
+                            style: TextStyle(
+                              fontSize: Dimensions.text10,
+                              color: AppColors.onSurfaceVariant(),
+                            ),
+                          ),
+                          Text(
+                            "$progress%",
+                            style: TextStyle(
+                              fontSize: Dimensions.text10,
+                              fontWeight: FontWeight.bold,
+                              color: portalNavy,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: Dimensions.size5),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(Dimensions.size10),
+                        child: LinearProgressIndicator(
+                          value: (progress / 100.0).clamp(0.0, 1.0),
+                          minHeight: Dimensions.size5,
+                          backgroundColor: portalGoldSoft,
+                          valueColor: const AlwaysStoppedAnimation<Color>(
+                            portalGold,
+                          ),
                         ),
                       ),
                     ],
-                  ),
-                  SizedBox(height: Dimensions.size5),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(Dimensions.size10),
-                    child: LinearProgressIndicator(
-                      value: (progress / 100.0).clamp(0.0, 1.0),
-                      minHeight: Dimensions.size5,
-                      backgroundColor: AppColors.outline(),
-                      valueColor: const AlwaysStoppedAnimation<Color>(
-                        portalGold,
-                      ),
-                    ),
-                  ),
-                ],
-              ],
-            ),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

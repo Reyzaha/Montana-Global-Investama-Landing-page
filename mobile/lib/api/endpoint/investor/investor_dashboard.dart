@@ -136,11 +136,37 @@ class InvestorBankAccount {
   }
 }
 
+class InvestorDocumentItem {
+  int id = 0;
+  String? projectId;
+  String? docNumber;
+  String? docTitle;
+  String? docType;
+  String? filePath;
+  String? fileSize;
+  String? publishedAt;
+
+  InvestorDocumentItem parse(Map<String, dynamic> json) {
+    id = Formats.tryParseNumber(json["id"]).toInt();
+    projectId = json["project_id"]?.toString();
+    docNumber = json["doc_number"]?.toString();
+    docTitle = json["doc_title"]?.toString();
+    docType = json["doc_type"]?.toString();
+    filePath = json["file_path"]?.toString();
+    fileSize = json["file_size"]?.toString() ?? "2.4 MB";
+    publishedAt =
+        json["published_at"]?.toString() ?? json["created_at"]?.toString();
+
+    return this;
+  }
+}
+
 class InvestorDashboardResponse {
   InvestorMetrics metrics = InvestorMetrics();
   List<InvestorPortfolioItem> portfolios = [];
   List<InvestorBillingItem> billings = [];
   List<CampaignUpdateItem> campaignUpdates = [];
+  List<InvestorDocumentItem> documents = [];
   InvestorBankAccount? bankAccount;
   int unreadNotificationsCount = 0;
 
@@ -175,6 +201,14 @@ class InvestorDashboardResponse {
       campaignUpdates = List<CampaignUpdateItem>.from(
         (json["campaign_updates"] as List).map(
           (x) => CampaignUpdateItem().parse(x as Map<String, dynamic>),
+        ),
+      );
+    }
+
+    if (json["documents"] != null && json["documents"] is List) {
+      documents = List<InvestorDocumentItem>.from(
+        (json["documents"] as List).map(
+          (x) => InvestorDocumentItem().parse(x as Map<String, dynamic>),
         ),
       );
     }

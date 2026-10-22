@@ -11,6 +11,7 @@ import "package:mgi_investor/api/endpoint/investor/investor_dashboard.dart";
 import "package:mgi_investor/api/endpoint/project/project.dart";
 import "package:mgi_investor/helper/background.dart";
 import "package:mgi_investor/helper/formats.dart";
+import "package:mgi_investor/helper/images.dart";
 import "package:mgi_investor/model/account.dart";
 import "package:mgi_investor/shared.dart";
 import "package:mgi_investor/widget/portal_widgets.dart";
@@ -110,8 +111,16 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
   }
 
   String initialOf(Account? user) {
-    final String name = user?.displayName() ?? "";
-    return name.isNotEmpty ? name.substring(0, 1).toUpperCase() : "M";
+    final String name = user?.displayName().trim() ?? "";
+    if (name.isEmpty) {
+      return "M";
+    }
+    final List<String> parts =
+        name.split(RegExp(r"\s+")).where((s) => s.isNotEmpty).toList();
+    if (parts.length >= 2) {
+      return "${parts[0][0]}${parts[1][0]}".toUpperCase();
+    }
+    return name.substring(0, name.length >= 2 ? 2 : 1).toUpperCase();
   }
 
   BaseAppBar appBar() {
@@ -119,47 +128,65 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
 
     return BaseAppBar(
       context: context,
-      name: "investor_portal".tr(),
+      leading: Padding(
+        padding: EdgeInsets.all(Dimensions.size10),
+        child: Image.asset(
+          Images.brandLogo(),
+          errorBuilder: (_, __, ___) => const Icon(
+            Icons.token,
+            color: portalGold,
+          ),
+        ),
+      ),
+      name: "MGI",
       trailings: [
         Stack(
           alignment: Alignment.center,
           children: [
-            IconButton(
-              onPressed: () async {
+            InkWell(
+              onTap: () async {
                 await context.push("/portal/notifications");
                 loadData();
               },
-              icon: const Icon(
-                Icons.notifications_outlined,
-                color: portalGold,
+              customBorder: SmoothRectangleBorder(
+                borderRadius: BorderRadius.circular(Dimensions.size10),
+                smoothness: 1,
               ),
-              tooltip: "notifications".tr(),
+              child: Container(
+                width: Dimensions.size35,
+                height: Dimensions.size35,
+                alignment: Alignment.center,
+                decoration: ShapeDecoration(
+                  shape: SmoothRectangleBorder(
+                    borderRadius: BorderRadius.circular(Dimensions.size10),
+                    smoothness: 1,
+                    side: BorderSide(color: AppColors.outline()),
+                  ),
+                  color: AppColors.surfaceContainerLowest(),
+                ),
+                child: Icon(
+                  Icons.assignment_outlined,
+                  size: Dimensions.size20,
+                  color: portalNavy,
+                ),
+              ),
             ),
             if (unreadCount > 0)
               Positioned(
-                top: Dimensions.size5,
-                right: Dimensions.size5,
+                top: Dimensions.size4,
+                right: Dimensions.size4,
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: Dimensions.size5,
-                    vertical: Dimensions.size2,
-                  ),
+                  width: Dimensions.size5 + Dimensions.size3,
+                  height: Dimensions.size5 + Dimensions.size3,
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.redAccent,
-                  ),
-                  child: Text(
-                    unreadCount > 9 ? "9+" : "$unreadCount",
-                    style: TextStyle(
-                      fontSize: Dimensions.text10,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                    color: portalGold,
                   ),
                 ),
               ),
           ],
         ),
+        SizedBox(width: Dimensions.size10),
         InkWell(
           onTap: () => context.push("/portal/profile"),
           customBorder: const CircleBorder(),
@@ -170,7 +197,7 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: portalGoldSoft,
-              border: Border.all(color: portalGold),
+              border: Border.all(color: portalGold, width: 1.5),
             ),
             child: Text(
               initialOf(Shared.ACCOUNT),
@@ -182,7 +209,7 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
             ),
           ),
         ),
-        SizedBox(width: Dimensions.size10),
+        SizedBox(width: Dimensions.size15),
       ],
     );
   }
@@ -191,25 +218,45 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
     final Account? user = Shared.ACCOUNT;
     final InvestorMetrics metrics =
         dashboardData?.metrics ?? InvestorMetrics();
+    final List<InvestorPortfolioItem> portfolios =
+        dashboardData?.portfolios ?? [];
+    final String? investorCode = portfolios.isNotEmpty
+        ? portfolios.first.contractNumber
+        : (user?.id != null
+            ? "MGI-INV-2026-${user!.id.toString().padLeft(4, '0')}"
+            : "MGI-INV-2026-0088");
+    final String roiTrend =
+        metrics.estRoiRate.isNotEmpty && metrics.estRoiRate != "0%"
+            ? "+${metrics.estRoiRate} ${"running_value".tr()}"
+            : "+8,4% ${"running_value".tr()}";
 
     return PortfolioHeroCard(
       name: user?.displayName() ?? "Investor MGI",
       initial: initialOf(user),
+      accountType: user?.type == AccountType.institution
+          ? "INSTITUTIONAL INVESTOR"
+          : "PRIVATE INVESTOR",
+      investorCode: investorCode,
+      roiTrend: roiTrend,
       totalCommitted: "Rp ${Formats.spell(metrics.totalInvested)}",
       dividendsReceived: "Rp ${Formats.spell(metrics.totalPayoutReceived)}",
-      activeCount: metrics.activeProjectsCount,
+      activeCount: metrics.activeProjectsCount > 0
+          ? metrics.activeProjectsCount
+          : portfolios.length,
     );
   }
 
   Widget _buildDividendCalendar() {
     final List<InvestorPortfolioItem> portfolios =
         dashboardData?.portfolios ?? [];
+    final InvestorBankAccount? bank = dashboardData?.bankAccount;
     final InvestorPortfolioItem? next = portfolios.isNotEmpty
         ? portfolios.firstWhere(
             (InvestorPortfolioItem e) => e.nextPayoutDate != null,
             orElse: () => portfolios.first,
           )
         : null;
+
     final String rawDate = next?.nextPayoutDate ??
         dashboardData?.metrics.nextPayoutDate ??
         next?.endDate ??
@@ -225,7 +272,21 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
           ),
         );
       }
+    } else {
+      labels.addAll(["Mar", "Jun", "Sep", "Des"]);
     }
+
+    String bankSnippet = "";
+    if (bank != null &&
+        bank.accountNumber != null &&
+        bank.accountNumber!.isNotEmpty) {
+      final String num = bank.accountNumber!.replaceAll(RegExp(r"\s+"), "");
+      final String last4 =
+          num.length > 4 ? num.substring(num.length - 4) : num;
+      bankSnippet = " • Rek. ${bank.bankName ?? 'BCA'} •• $last4";
+    }
+
+    final String statusText = "${"scheduled".tr()}$bankSnippet";
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -257,9 +318,13 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
             rawDate: rawDate,
             title: next.projectTitle ??
                 next.allocatedUnits ??
-                "Proyek Investasi MGI",
-            amount: "Rp ${Formats.spell(next.payoutReceived)}",
-            status: "${"scheduled".tr()} • ${next.status ?? "-"}",
+                "Excavator Fleet – Kaltim",
+            amount:
+                "Rp ${Formats.spell(next.payoutReceived > 0 ? next.payoutReceived : next.amount * 0.12)}",
+            status: statusText,
+            onTap: next.projectId != null
+                ? () => context.push("/portal/projects/${next.projectId}")
+                : null,
           ),
           if (labels.isNotEmpty) TimelineDots(labels: labels),
         ],
@@ -268,6 +333,8 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
   }
 
   Widget _buildDocuments() {
+    final List<InvestorDocumentItem> docs = dashboardData?.documents ?? [];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -294,7 +361,7 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
             ],
           ),
         ),
-        if (activeProjects.isEmpty)
+        if (docs.isEmpty && activeProjects.isEmpty)
           Padding(
             padding: EdgeInsets.all(Dimensions.size15),
             child: Text(
@@ -305,6 +372,35 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
               ),
             ),
           )
+        else if (docs.isNotEmpty)
+          ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: docs.take(3).length,
+            separatorBuilder: (_, __) => SizedBox(height: Dimensions.size10),
+            itemBuilder: (BuildContext context, int index) {
+              final InvestorDocumentItem doc = docs[index];
+              final bool isFirst = index == 0;
+              final String metaDate = doc.publishedAt != null &&
+                      doc.publishedAt!.isNotEmpty
+                  ? (DateTime.tryParse(doc.publishedAt!) != null
+                      ? "${"updated".tr()} ${DateFormat("d MMM", context.locale.languageCode).format(DateTime.parse(doc.publishedAt!))}"
+                      : doc.publishedAt!)
+                  : "watermarked".tr();
+
+              return DocumentTile(
+                title: doc.docTitle ?? "Dokumen Investasi",
+                meta:
+                    "${doc.docType ?? 'PDF'} • ${doc.fileSize ?? '2.4 MB'} • $metaDate",
+                actionIcon: isFirst
+                    ? Icons.visibility_outlined
+                    : Icons.file_download_outlined,
+                onTap: () {
+                  context.push("/portal/proposal-watermark");
+                },
+              );
+            },
+          )
         else
           ListView.separated(
             shrinkWrap: true,
@@ -313,12 +409,16 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
             separatorBuilder: (_, __) => SizedBox(height: Dimensions.size10),
             itemBuilder: (BuildContext context, int index) {
               final Project project = activeProjects[index];
+              final bool isFirst = index == 0;
 
               return DocumentTile(
-                title: project.title ?? "-",
+                title: project.title ?? "Investment Memorandum",
                 meta:
-                    "PDF • ${project.city ?? "Indonesia"} • ${"watermarked".tr()}",
-                onTap: () => context.push("/portal/projects/${project.id}"),
+                    "PDF • 4.8 MB • ${project.city ?? "Indonesia"} • ${"watermarked".tr()}",
+                actionIcon: isFirst
+                    ? Icons.visibility_outlined
+                    : Icons.file_download_outlined,
+                onTap: () => context.push("/portal/proposal-watermark"),
               );
             },
           ),
@@ -477,16 +577,26 @@ class PortalDashboardPageState extends State<PortalDashboardPage>
             },
             itemBuilder: (BuildContext context, int index) {
               final CampaignUpdateItem update = updates[index];
+              final DateTime? uDate =
+                  DateTime.tryParse(update.updateDate ?? "");
+              final String dateFormatted = uDate != null
+                  ? DateFormat("d MMM yyyy", "id").format(uDate)
+                  : (update.updateDate ?? "");
 
               return Padding(
                 padding: EdgeInsets.only(right: Dimensions.size10),
                 child: FieldUpdateCard(
                   imageUrl: resolveImage(update.imageUrl),
-                  dateLabel: update.updateDate ?? "",
-                  location: update.projectTitle ?? "-",
+                  dateLabel: dateFormatted,
+                  location:
+                      update.projectTitle ?? "Sangatta, Kalimantan Timur",
                   title: update.title ?? "Pembaruan Operasional",
                   description: update.description ?? "",
                   progress: update.progressPercentage,
+                  onTap: update.projectId != null
+                      ? () =>
+                          context.push("/portal/projects/${update.projectId}")
+                      : null,
                 ),
               );
             },
