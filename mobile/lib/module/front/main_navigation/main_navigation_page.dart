@@ -3,10 +3,11 @@
 import "package:base/base.dart";
 import "package:easy_localization/easy_localization.dart";
 import "package:flutter/material.dart";
+import "package:mgi_investor/helper/auth_guard.dart";
 import "package:mgi_investor/module/front/company_profile/company_profile_page.dart";
 import "package:mgi_investor/module/front/home/home_page.dart";
-import "package:mgi_investor/module/front/news/news_list_page.dart";
 import "package:mgi_investor/module/front/project_list/project_list_page.dart";
+import "package:mgi_investor/module/rear/portal/portal_dashboard_page.dart";
 
 class MainNavigationPage extends StatefulWidget {
   final int initialIndex;
@@ -24,18 +25,14 @@ class MainNavigationPageState extends State<MainNavigationPage>
     with WidgetsBindingObserver {
   late int currentIndex;
 
-  final List<Widget> pages = const [
-    HomePage(),
-    ProjectListPage(),
-    CompanyProfilePage(),
-    NewsListPage(),
-  ];
-
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     currentIndex = widget.initialIndex.clamp(0, 3);
+    if (currentIndex == 3 && !AuthGuard.isAuthenticated) {
+      currentIndex = 0;
+    }
   }
 
   @override
@@ -56,7 +53,15 @@ class MainNavigationPageState extends State<MainNavigationPage>
       backgroundColor: Colors.transparent,
       body: IndexedStack(
         index: currentIndex,
-        children: pages,
+        children: [
+          const HomePage(),
+          const ProjectListPage(),
+          const CompanyProfilePage(),
+          if (AuthGuard.isAuthenticated)
+            const PortalDashboardPage()
+          else
+            const SizedBox.shrink(),
+        ],
       ),
       bottomNavigationBar: SafeArea(
         top: false,
@@ -114,6 +119,14 @@ class MainNavigationPageState extends State<MainNavigationPage>
               elevation: 0,
               height: Dimensions.size50 + Dimensions.size15,
               onDestinationSelected: (int index) {
+                if (index == 3 && !AuthGuard.isAuthenticated) {
+                  AuthGuard.promptLogin(
+                    context,
+                    title: "investor_dashboard".tr(),
+                    message: "investor_dashboard_login_desc".tr(),
+                  );
+                  return;
+                }
                 setState(() {
                   currentIndex = index;
                 });
@@ -135,9 +148,9 @@ class MainNavigationPageState extends State<MainNavigationPage>
                   label: "company_profile".tr(),
                 ),
                 NavigationDestination(
-                  icon: const Icon(Icons.newspaper_outlined),
-                  selectedIcon: const Icon(Icons.newspaper),
-                  label: "news".tr(),
+                  icon: const Icon(Icons.dashboard_outlined),
+                  selectedIcon: const Icon(Icons.dashboard),
+                  label: "investor_dashboard".tr(),
                 ),
               ],
             ),

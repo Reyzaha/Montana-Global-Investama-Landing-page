@@ -326,7 +326,7 @@ class SignInPageState extends State<SignInPage> with WidgetsBindingObserver {
           await BaseOverlays.success(
             message: "Selamat datang kembali, ${state.account.displayName()}",
           );
-          context.go("/portal");
+          context.go("/dashboard");
         }
       },
       child: Background(

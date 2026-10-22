@@ -573,7 +573,7 @@ class RegisterPageState extends State<RegisterPage> with WidgetsBindingObserver 
           await BaseOverlays.success(
             message: "Pendaftaran akun investor berhasil diverifikasi!",
           );
-          context.go("/portal");
+          context.go("/dashboard");
         }
       },
       child: Background(

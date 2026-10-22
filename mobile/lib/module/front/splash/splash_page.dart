@@ -8,7 +8,6 @@ import "package:lottie/lottie.dart";
 import "package:mgi_investor/helper/background.dart";
 import "package:mgi_investor/helper/generals.dart";
 import "package:mgi_investor/helper/images.dart";
-import "package:mgi_investor/shared.dart";
 import "package:smooth_corner/smooth_corner.dart";
 
 class SplashPage extends StatefulWidget {
@@ -94,11 +93,7 @@ class SplashPageState extends State<SplashPage>
       return;
     }
 
-    if (Shared.ACCOUNT != null) {
-      context.go("/portal");
-    } else {
-      context.go("/");
-    }
+    context.go("/");
   }
 
   @override

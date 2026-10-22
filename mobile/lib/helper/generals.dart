@@ -69,7 +69,7 @@ class Generals {
 
     Shared.ACCOUNT = null;
 
-    context.go("/sign-in");
+    context.go("/");
   }
 
   static Future<void> changeLanguage(

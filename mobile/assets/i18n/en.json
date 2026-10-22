@@ -432,6 +432,8 @@
   "i_have_read_and_agree": "I have read and agree to",
   "please_accept_privacy_policy": "You must agree to the Privacy Policy before registering.",
   "privacy_policy_agree": "I Agree",
+  "investor_dashboard": "Dashboard",
+  "investor_dashboard_login_desc": "Sign in as a registered investor to view your portfolio, dividends and confidential documents.",
   "private_investor": "Private Investor",
   "total_commitment": "Total Capital Commitment",
   "dividends_received": "Dividends Received",

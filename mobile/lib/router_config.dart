@@ -46,6 +46,12 @@ final GoRouter goRouter = GoRouter(
       },
     ),
     GoRoute(
+      path: "/dashboard",
+      builder: (context, state) {
+        return const MainNavigationPage(initialIndex: 3);
+      },
+    ),
+    GoRoute(
       path: "/tarif-governance",
       builder: (context, state) {
         return const TarifGovernancePage();
@@ -86,6 +92,12 @@ final GoRouter goRouter = GoRouter(
           builder: (context, state) {
             String id = state.pathParameters["id"] ?? "";
             return ProjectDetailPage(id: id);
+          },
+          redirect: (context, state) {
+            if (Shared.ACCOUNT == null) {
+              return "/sign-in";
+            }
+            return null;
           },
         ),
       ],

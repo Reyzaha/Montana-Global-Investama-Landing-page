@@ -164,10 +164,7 @@ class ProjectCard extends StatelessWidget {
       return;
     }
     if (Shared.ACCOUNT == null) {
-      AuthGuard.promptLogin(
-        context,
-        onContinueGuest: () => context.push("/projects/${project.id}"),
-      );
+      AuthGuard.promptLogin(context);
     } else {
       context.push("/projects/${project.id}");
     }
