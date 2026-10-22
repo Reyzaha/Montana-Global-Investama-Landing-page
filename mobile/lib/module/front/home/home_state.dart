@@ -13,10 +13,13 @@ class HomeLoadSuccess extends HomeState {
   final List<Project> featuredProjects;
   final List<City> cities;
 
+  final String? disclaimerText;
+
   HomeLoadSuccess({
     required this.companyProfile,
     required this.featuredProjects,
     required this.cities,
+    this.disclaimerText,
   });
 }
 

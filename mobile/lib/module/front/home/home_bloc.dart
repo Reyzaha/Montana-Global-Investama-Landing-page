@@ -29,12 +29,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
         final Response projectRes = await ApiManager.projects();
         List<Project> projects = [];
+        String? disclaimerText;
         if (projectRes.statusCode == 200 &&
             projectRes.data is Map<String, dynamic>) {
           final ProjectListResponse listRes = ProjectListResponse().parse(
             projectRes.data as Map<String, dynamic>,
           );
           projects = listRes.projects;
+          disclaimerText = listRes.disclaimerText;
         }
 
         final Response cityRes = await ApiManager.cities();
@@ -51,6 +53,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             companyProfile: profile,
             featuredProjects: projects,
             cities: cities,
+            disclaimerText: disclaimerText,
           ),
         );
       } catch (e) {

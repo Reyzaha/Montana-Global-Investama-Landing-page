@@ -33,6 +33,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
   bool isError = false;
   CompanyProfile? companyProfile;
   List<Project>? projects;
+  String? disclaimerText;
 
   int heroSlideIndex = 0;
   int pillarIndex = 0;
@@ -204,29 +205,81 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
     );
   }
 
-  Widget _buildHero() {
-    final List<Map<String, String>> slides = [
-      {
-        "eyebrow": "real_sector_assets".tr().toUpperCase(),
+  List<Map<String, String>> _getHeroSlides(bool isId) {
+    final List<Map<String, String>> slides = [];
+
+    if (companyProfile != null) {
+      final String groupEyebrow =
+          (companyProfile?.groupName ?? companyProfile?.shortName ?? "MGI")
+              .toUpperCase();
+      final String mainTagline = isId
+          ? (companyProfile?.taglineId ?? "")
+          : (companyProfile?.taglineEn ?? "");
+      final String subtitle = companyProfile?.aboutGroup?.subtitle ??
+          companyProfile?.companyName ??
+          "";
+      final String desc = companyProfile?.aboutGroup?.positioning ??
+          companyProfile?.aboutGroup?.description ??
+          "";
+
+      slides.add({
+        "eyebrow": groupEyebrow,
+        "line1": mainTagline.isNotEmpty
+            ? mainTagline
+            : (companyProfile?.companyName ?? "PT Montana Global Investama"),
+        "line2": subtitle,
+        "desc": desc,
+      });
+
+      for (final entity in companyProfile!.entities) {
+        if ((entity.code ?? "").toUpperCase() == "MGI") {
+          continue;
+        }
+        slides.add({
+          "eyebrow": (entity.badge ?? entity.code ?? "").toUpperCase(),
+          "line1": entity.name ?? entity.code ?? "",
+          "line2": entity.slogan ?? "",
+          "desc": entity.description ?? entity.focus ?? "",
+        });
+      }
+
+      for (final section in companyProfile!.sections) {
+        if (section.id == "nilai-utama") {
+          final String letters = section.items
+              .map((i) => i.name ?? "")
+              .take(3)
+              .join(" • ");
+          slides.add({
+            "eyebrow": (section.title ?? "TATA KELOLA").toUpperCase(),
+            "line1": section.subtitle ?? "Prinsip TARIF",
+            "line2": letters,
+            "desc": section.items.isNotEmpty
+                ? (section.items.first.desc ?? "")
+                : (section.content ?? ""),
+          });
+          break;
+        }
+      }
+    }
+
+    if (slides.isEmpty) {
+      slides.add({
+        "eyebrow": "PT MONTANA GLOBAL INVESTAMA",
         "line1": "real_assets".tr(),
         "line2": "sustainable_value".tr(),
         "desc": "strategic_partnership_desc".tr(),
-      },
-      {
-        "eyebrow": "WORKSHOP SENTRAL KEBUMEN",
-        "line1": "Ekosistem MIU.",
-        "line2": "Kesiapan Armada 100%.",
-        "desc":
-            "Pusat rekondisi, suku cadang & pemeliharaan armada alat berat untuk kontinuitas operasional mitra.",
-      },
-      {
-        "eyebrow": "TATA KELOLA TARIF",
-        "line1": "Transparansi.",
-        "line2": "Keamanan Pokok Investasi.",
-        "desc":
-            "Prinsip Good Corporate Governance dengan laporan berkala, fidusia & pembagian dividen tepat waktu.",
-      },
-    ];
+      });
+    }
+
+    return slides;
+  }
+
+  Widget _buildHero() {
+    final String currentLang = context.locale.languageCode;
+    final bool isId = currentLang == "id";
+    final List<Map<String, String>> slides = _getHeroSlides(isId);
+    final int safeSlideIndex =
+        slides.isEmpty ? 0 : heroSlideIndex.clamp(0, slides.length - 1);
 
     return Container(
       clipBehavior: Clip.antiAlias,
@@ -287,9 +340,10 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
             padding: EdgeInsets.all(Dimensions.size20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  height: Dimensions.size100 + Dimensions.size50,
+                  height: 185,
                   child: PageView.builder(
                     controller: heroController,
                     itemCount: slides.length,
@@ -305,6 +359,8 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                         children: [
                           Text(
                             slide["eyebrow"]!,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: Dimensions.text10,
                               fontWeight: FontWeight.bold,
@@ -315,31 +371,38 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           SizedBox(height: Dimensions.size10),
                           Text(
                             slide["line1"]!,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              fontSize: Dimensions.text28,
+                              fontSize: Dimensions.text20,
                               fontWeight: FontWeight.w900,
                               color: Colors.white,
                               height: 1.15,
                             ),
                           ),
-                          Text(
-                            slide["line2"]!,
-                            style: TextStyle(
-                              fontSize: Dimensions.text28,
-                              fontWeight: FontWeight.w900,
-                              color: const Color(0xFFC5A059),
-                              height: 1.15,
+                          if ((slide["line2"] ?? "").isNotEmpty) ...[
+                            SizedBox(height: Dimensions.size4),
+                            Text(
+                              slide["line2"]!,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: Dimensions.text14,
+                                fontWeight: FontWeight.bold,
+                                color: const Color(0xFFC5A059),
+                                height: 1.15,
+                              ),
                             ),
-                          ),
+                          ],
                           SizedBox(height: Dimensions.size10),
                           Text(
                             slide["desc"]!,
-                            maxLines: 2,
+                            maxLines: 3,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              fontSize: Dimensions.text12,
+                              fontSize: Dimensions.text11,
                               color: Colors.white70,
-                              height: 1.5,
+                              height: 1.4,
                             ),
                           ),
                         ],
@@ -360,7 +423,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       ),
                       child: Ink(
                         padding: EdgeInsets.symmetric(
-                          horizontal: Dimensions.size15,
+                          horizontal: Dimensions.size20,
                           vertical: Dimensions.size10,
                         ),
                         decoration: ShapeDecoration(
@@ -382,7 +445,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                 color: const Color(0xFF0F2C59),
                               ),
                             ),
-                            const SizedBox(width: 4),
+                            SizedBox(width: Dimensions.size5),
                             const Icon(
                               Icons.chevron_right,
                               size: 16,
@@ -393,9 +456,9 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       ),
                     ),
                     Text(
-                      "0${heroSlideIndex + 1} / 0${slides.length}",
+                      "0${safeSlideIndex + 1} / 0${slides.length}",
                       style: TextStyle(
-                        fontSize: Dimensions.text10,
+                        fontSize: Dimensions.text11,
                         fontWeight: FontWeight.bold,
                         color: Colors.white54,
                         letterSpacing: 1.5,
@@ -412,6 +475,20 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
   }
 
   Widget _buildStats() {
+    final List<CompanyStat> stats = companyProfile?.stats ?? [];
+    if (stats.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    final List<IconData> statIcons = [
+      Icons.precision_manufacturing_outlined,
+      Icons.trending_up,
+      Icons.apartment_outlined,
+      Icons.hub_outlined,
+      Icons.account_balance_wallet_outlined,
+      Icons.check_circle_outline,
+    ];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -438,151 +515,111 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 color: const Color(0xFF0F2C59),
               ),
             ),
-            Text(
-              "Per Q2 2025",
-              style: TextStyle(
-                fontSize: Dimensions.text11,
-                color: AppColors.onSurfaceVariant(),
-                fontWeight: FontWeight.w500,
+            if (companyProfile?.foundedYear != null)
+              Text(
+                "Est. ${companyProfile!.foundedYear}",
+                style: TextStyle(
+                  fontSize: Dimensions.text11,
+                  color: AppColors.onSurfaceVariant(),
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
           ],
         ),
         SizedBox(height: Dimensions.size15),
-        GridView.count(
-          crossAxisCount: 2,
+        GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          crossAxisSpacing: Dimensions.size10,
-          mainAxisSpacing: Dimensions.size10,
-          childAspectRatio: 1.35,
-          children: [
-            _buildStatCard(
-              value: "47",
-              unit: "Unit",
-              label: "heavy_equipment_fleet".tr(),
-              icon: Icons.precision_manufacturing_outlined,
-            ),
-            _buildStatCard(
-              value: "24,8",
-              unit: "%",
-              label: "historical_roi".tr(),
-              icon: Icons.trending_up,
-            ),
-            _buildStatCard(
-              value: "32",
-              unit: "+",
-              label: "successful_projects".tr(),
-              icon: Icons.check,
-            ),
-            _buildStatCard(
-              value: "12.000",
-              unit: "m²",
-              label: "kebumen_central_workshop".tr(),
-              icon: Icons.apartment_outlined,
-            ),
-          ],
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: Dimensions.size10,
+            mainAxisSpacing: Dimensions.size10,
+            childAspectRatio: 1.25,
+          ),
+          itemCount: stats.length,
+          itemBuilder: (BuildContext context, int index) {
+            final stat = stats[index];
+            final icon = statIcons[index % statIcons.length];
+
+            return Container(
+              padding: EdgeInsets.all(Dimensions.size15),
+              decoration: ShapeDecoration(
+                shape: SmoothRectangleBorder(
+                  borderRadius: BorderRadius.circular(Dimensions.size20),
+                  smoothness: 1,
+                  side: BorderSide(color: AppColors.outline()),
+                ),
+                color: AppColors.surfaceContainerLowest(),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(
+                        icon,
+                        size: Dimensions.size20,
+                        color: const Color(0xFFC5A059),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    stat.value ?? "-",
+                    style: TextStyle(
+                      fontSize: Dimensions.text20,
+                      fontWeight: FontWeight.w900,
+                      color: const Color(0xFF0F2C59),
+                      height: 1.0,
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        stat.label ?? "-",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: Dimensions.text11,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.onSurface(),
+                          height: 1.2,
+                        ),
+                      ),
+                      if ((stat.desc ?? "").isNotEmpty)
+                        Text(
+                          stat.desc!,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: Dimensions.text10,
+                            color: AppColors.onSurfaceVariant(),
+                            height: 1.2,
+                          ),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          },
         ),
       ],
     );
   }
 
-  Widget _buildStatCard({
-    required String value,
-    required String unit,
-    required String label,
-    required IconData icon,
-  }) {
-    return Container(
-      padding: EdgeInsets.all(Dimensions.size15),
-      decoration: ShapeDecoration(
-        shape: SmoothRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimensions.size20),
-          smoothness: 1,
-          side: BorderSide(color: AppColors.outline()),
-        ),
-        color: AppColors.surfaceContainerLowest(),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Icon(
-                icon,
-                size: Dimensions.size20,
-                color: const Color(0xFFC5A059),
-              ),
-            ],
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
-            children: [
-              Text(
-                value,
-                style: TextStyle(
-                  fontSize: Dimensions.text24,
-                  fontWeight: FontWeight.w900,
-                  color: const Color(0xFF0F2C59),
-                  height: 1.0,
-                ),
-              ),
-              SizedBox(width: Dimensions.size4),
-              Text(
-                unit,
-                style: TextStyle(
-                  fontSize: Dimensions.text11,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xFFC5A059),
-                ),
-              ),
-            ],
-          ),
-          Text(
-            label,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: Dimensions.text11,
-              color: AppColors.onSurfaceVariant(),
-              height: 1.2,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildPillars() {
-    final List<Map<String, dynamic>> pillars = [
-      {
-        "badge": "MIU",
-        "badgeColor": const Color(0xFF0F2C59),
-        "title": "miu_title".tr(),
-        "subtitle":
-            "Solusi Alat Berat Terintegrasi — Ketersediaan Armada, Workshop Sentral Kebumen & Penempatan Lapangan Sektor Riil.",
-        "tag": "Armada & Workshop",
-      },
-      {
-        "badge": "MSI",
-        "badgeColor": const Color(0xFF1E3A8A),
-        "title": "msi_title".tr(),
-        "subtitle":
-            "Mitra Impor & Logistik Terpadu — Izin Kepabeanan Pelabuhan & Jalur Distribusi Proyek Industri Nasional.",
-        "tag": "Logistik & Pelabuhan",
-      },
-      {
-        "badge": "Mypurcase",
-        "badgeColor": const Color(0xFFC5A059),
-        "title": "mypurcase_title".tr(),
-        "subtitle":
-            "Platform Pengadaan Digital B2B — Transparansi Rantai Pasok Pengadaan Alat Berat, Suku Cadang & Pelumas Resmi.",
-        "tag": "Digital Procurement",
-      },
-    ];
+    final List<EcosystemEntity> pillars = (companyProfile?.entities ?? [])
+        .where((e) => (e.code ?? "").toUpperCase() != "MGI")
+        .toList();
+
+    if (pillars.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    final int safePillarIndex = pillarIndex.clamp(0, pillars.length - 1);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -610,7 +647,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               ),
             ),
             Text(
-              "${pillarIndex + 1} / ${pillars.length}",
+              "${safePillarIndex + 1} / ${pillars.length}",
               style: TextStyle(
                 fontSize: Dimensions.text11,
                 fontWeight: FontWeight.bold,
@@ -632,7 +669,13 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               });
             },
             itemBuilder: (BuildContext context, int index) {
-              final item = pillars[index];
+              final entity = pillars[index];
+              final Color badgeColor = (entity.code ?? "").toUpperCase() == "MIU"
+                  ? const Color(0xFF0F2C59)
+                  : ((entity.code ?? "").toUpperCase() == "MSI"
+                      ? const Color(0xFF1E3A8A)
+                      : const Color(0xFFC5A059));
+
               return Padding(
                 padding: EdgeInsets.only(right: Dimensions.size10),
                 child: InkWell(
@@ -669,10 +712,10 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                       BorderRadius.circular(Dimensions.size5),
                                   smoothness: 1,
                                 ),
-                                color: item["badgeColor"] as Color,
+                                color: badgeColor,
                               ),
                               child: Text(
-                                item["badge"] as String,
+                                entity.badge ?? entity.code ?? "Unit",
                                 style: TextStyle(
                                   fontSize: Dimensions.text10,
                                   fontWeight: FontWeight.bold,
@@ -680,18 +723,32 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                 ),
                               ),
                             ),
-                            Text(
-                              item["tag"] as String,
-                              style: TextStyle(
-                                fontSize: Dimensions.text10,
-                                fontWeight: FontWeight.w600,
-                                color: const Color(0xFFC5A059),
+                            if ((entity.location ?? "").isNotEmpty)
+                              Text(
+                                "Kebumen",
+                                style: TextStyle(
+                                  fontSize: Dimensions.text10,
+                                  fontWeight: FontWeight.w600,
+                                  color: const Color(0xFFC5A059),
+                                ),
+                              )
+                            else if ((entity.slogan ?? "").isNotEmpty)
+                              Flexible(
+                                child: Text(
+                                  entity.slogan!,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: Dimensions.text10,
+                                    fontWeight: FontWeight.w600,
+                                    color: const Color(0xFFC5A059),
+                                  ),
+                                ),
                               ),
-                            ),
                           ],
                         ),
                         Text(
-                          item["title"] as String,
+                          entity.name ?? entity.code ?? "",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -701,7 +758,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           ),
                         ),
                         Text(
-                          item["subtitle"] as String,
+                          entity.description ?? entity.focus ?? "",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -719,78 +776,6 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildTarifTeaser() {
-    return Container(
-      margin: EdgeInsets.only(top: Dimensions.size25),
-      padding: EdgeInsets.all(Dimensions.size15),
-      decoration: ShapeDecoration(
-        shape: SmoothRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimensions.size20),
-          smoothness: 1,
-          side: BorderSide(color: AppColors.outline()),
-        ),
-        color: AppColors.surfaceContainerLowest(),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(
-                Icons.verified_user_outlined,
-                color: const Color(0xFF0F2C59),
-                size: Dimensions.size20,
-              ),
-              SizedBox(width: Dimensions.size10),
-              Text(
-                "governance_tarif".tr(),
-                style: TextStyle(
-                  fontSize: Dimensions.text14,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xFF0F2C59),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: Dimensions.size10),
-          Text(
-            "Transparency • Accountability • Responsibility • Independency • Fairness",
-            style: TextStyle(
-              fontSize: Dimensions.text11,
-              fontWeight: FontWeight.w600,
-              color: const Color(0xFFC5A059),
-            ),
-          ),
-          SizedBox(height: Dimensions.size4),
-          Text(
-            "Prinsip tata kelola yang baik diterapkan secara konsisten dalam alokasi modal dan laporan kinerja berkala.",
-            style: TextStyle(
-              fontSize: Dimensions.text11,
-              color: AppColors.onSurfaceVariant(),
-              height: 1.4,
-            ),
-          ),
-          SizedBox(height: Dimensions.size15),
-          SizedBox(
-            width: double.infinity,
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Color(0xFF0F2C59)),
-                foregroundColor: const Color(0xFF0F2C59),
-                shape: SmoothRectangleBorder(
-                  borderRadius: BorderRadius.circular(Dimensions.size10),
-                  smoothness: 1,
-                ),
-              ),
-              onPressed: () => context.push("/tarif-governance"),
-              child: Text("learn_more".tr()),
-            ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -843,7 +828,105 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
     );
   }
 
+  Widget _buildTarifTeaser() {
+    ProfileSection? tarifSection;
+    if (companyProfile != null) {
+      for (final s in companyProfile!.sections) {
+        if (s.id == "nilai-utama") {
+          tarifSection = s;
+          break;
+        }
+      }
+    }
+
+    final String title = tarifSection?.title ?? "governance_tarif".tr();
+    final String principles =
+        tarifSection != null && tarifSection.items.isNotEmpty
+            ? tarifSection.items.map((i) => i.name ?? "").join(" • ")
+            : "Transparency • Accountability • Responsibility • Independency • Fairness";
+    final String desc = tarifSection?.subtitle ??
+        tarifSection?.content ??
+        (companyProfile?.aboutGroup?.positioning ?? "");
+
+    return Container(
+      margin: EdgeInsets.only(top: Dimensions.size25),
+      padding: EdgeInsets.all(Dimensions.size15),
+      decoration: ShapeDecoration(
+        shape: SmoothRectangleBorder(
+          borderRadius: BorderRadius.circular(Dimensions.size20),
+          smoothness: 1,
+          side: BorderSide(color: AppColors.outline()),
+        ),
+        color: AppColors.surfaceContainerLowest(),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.verified_user_outlined,
+                color: const Color(0xFF0F2C59),
+                size: Dimensions.size20,
+              ),
+              SizedBox(width: Dimensions.size10),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: Dimensions.text14,
+                  fontWeight: FontWeight.bold,
+                  color: const Color(0xFF0F2C59),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: Dimensions.size10),
+          Text(
+            principles,
+            style: TextStyle(
+              fontSize: Dimensions.text11,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xFFC5A059),
+            ),
+          ),
+          SizedBox(height: Dimensions.size4),
+          if (desc.isNotEmpty)
+            Text(
+              desc,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: Dimensions.text11,
+                color: AppColors.onSurfaceVariant(),
+                height: 1.4,
+              ),
+            ),
+          SizedBox(height: Dimensions.size15),
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: Color(0xFF0F2C59)),
+                foregroundColor: const Color(0xFF0F2C59),
+                shape: SmoothRectangleBorder(
+                  borderRadius: BorderRadius.circular(Dimensions.size10),
+                  smoothness: 1,
+                ),
+              ),
+              onPressed: () => context.push("/tarif-governance"),
+              child: Text("learn_more".tr()),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildDisclaimer() {
+    final String text = (disclaimerText != null && disclaimerText!.isNotEmpty)
+        ? disclaimerText!
+        : "disclaimer_investment_risk".tr();
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: Dimensions.size25),
       padding: EdgeInsets.all(Dimensions.size15),
@@ -868,7 +951,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
           SizedBox(width: Dimensions.size10),
           Expanded(
             child: Text(
-              "disclaimer_investment_risk".tr(),
+              text,
               style: TextStyle(
                 fontSize: Dimensions.text10,
                 color: AppColors.onSurfaceVariant(),
@@ -942,6 +1025,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
           setState(() {
             companyProfile = state.companyProfile;
             projects = state.featuredProjects;
+            disclaimerText = state.disclaimerText;
             isError = false;
           });
         } else if (state is HomeLoadFinished) {
