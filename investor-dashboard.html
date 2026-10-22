@@ -2473,6 +2473,94 @@
     </div>
   </div>
 
+  <!-- 4. MODAL: Upload Bukti Pembayaran / Pelunasan Modal -->
+  <div id="uploadPaymentModal"
+    class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 transition-all">
+    <div class="bg-white rounded-3xl max-w-lg w-full max-h-[92vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50 shrink-0">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-2xl bg-amber-500 text-white flex items-center justify-center shadow-sm">
+            <i data-lucide="upload-cloud" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-slate-900 text-base">Unggah Bukti Pembayaran / Transfer</h3>
+            <p class="text-xs text-slate-500">Konfirmasi pelunasan alokasi modal via Escrow MGI</p>
+          </div>
+        </div>
+        <button onclick="closeModal('uploadPaymentModal')"
+          class="p-1.5 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 transition cursor-pointer">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <form id="uploadPaymentForm" onsubmit="submitPaymentProof(event)" class="p-6 overflow-y-auto space-y-4 flex-1 text-slate-800">
+        <input type="hidden" id="upPayBillingId">
+
+        <!-- Target Rekening Escrow MGI -->
+        <div class="bg-blue-50/70 border border-blue-200/80 rounded-2xl p-4 text-xs space-y-2">
+          <div class="font-bold text-blue-900 flex items-center gap-1.5">
+            <i data-lucide="shield-check" class="w-4 h-4 text-blue-600"></i> Rekening Escrow Resmi MGI:
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-slate-700 pt-1">
+            <div class="bg-white/80 p-2.5 rounded-xl border border-blue-100">
+              <span class="text-[10px] text-slate-400 font-semibold block">Bank Tujuan</span>
+              <strong class="text-slate-900">Bank Mandiri (Persero)</strong>
+            </div>
+            <div class="bg-white/80 p-2.5 rounded-xl border border-blue-100">
+              <span class="text-[10px] text-slate-400 font-semibold block">Nomor Rekening Escrow</span>
+              <strong class="text-blue-900 font-mono text-sm">122-00-1199887-2</strong>
+            </div>
+          </div>
+          <div class="text-[11px] text-slate-500">
+            Atas Nama: <strong class="text-slate-900">PT Montana Global Investama</strong>
+          </div>
+        </div>
+
+        <!-- Detail Tagihan -->
+        <div class="border border-slate-200 rounded-2xl p-3.5 space-y-1.5 bg-slate-50/50">
+          <div class="flex justify-between items-center text-xs">
+            <span class="text-slate-500">No. Billing / Ref:</span>
+            <span class="font-mono font-bold text-slate-900" id="upPayRecordNo">-</span>
+          </div>
+          <div class="flex justify-between items-center text-xs">
+            <span class="text-slate-500">Nominal Tagihan:</span>
+            <span class="font-mono font-extrabold text-emerald-700 text-sm" id="upPayAmount">Rp 0</span>
+          </div>
+        </div>
+
+        <!-- File Upload Input -->
+        <div class="space-y-1.5">
+          <label class="text-xs font-bold text-slate-700 block">Berkas Bukti Transfer (JPG, PNG, WebP, PDF) <span class="text-rose-500">*</span></label>
+          <div class="border-2 border-dashed border-slate-300 hover:border-blue-500 rounded-2xl p-4 text-center cursor-pointer transition bg-white" onclick="document.getElementById('upPayFileInput').click()">
+            <input type="file" id="upPayFileInput" accept="image/*,application/pdf" class="hidden" onchange="handleProofFileSelect(this)" required>
+            <i data-lucide="file-up" class="w-8 h-8 text-slate-400 mx-auto mb-1.5"></i>
+            <span class="text-xs font-bold text-blue-900 block" id="upPayFileNameText">Pilih foto atau dokumen bukti transfer</span>
+            <span class="text-[10px] text-slate-400 block mt-0.5">Maksimal ukuran file: 15 MB</span>
+          </div>
+        </div>
+
+        <!-- Notes Input -->
+        <div class="space-y-1.5">
+          <label class="text-xs font-bold text-slate-700 block">Catatan Pemodal / Rekening Pengirim (Opsional)</label>
+          <input type="text" id="upPayNotes" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Contoh: Transfer via BCA a.n. Budi Santoso">
+        </div>
+
+        <!-- Modal Footer Buttons -->
+        <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2.5">
+          <button type="button" onclick="closeModal('uploadPaymentModal')" class="px-4 py-2 text-xs font-semibold text-slate-500 hover:bg-slate-100 rounded-full transition">
+            Batal
+          </button>
+          <button type="submit" id="btnSubmitPaymentProof" class="px-5 py-2.5 text-xs font-bold bg-amber-500 hover:bg-amber-600 text-white rounded-full transition shadow-md active:scale-95 flex items-center gap-1.5 cursor-pointer">
+            <i data-lucide="check-circle" class="w-4 h-4"></i>
+            <span>Kirim Bukti Pembayaran</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Interactive Toast Notification -->
   <div id="toastNotification"
     class="fixed bottom-6 right-6 z-50 hidden max-w-sm bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl border border-slate-700 flex items-center gap-3 transition-transform transform translate-y-4">
@@ -3996,14 +4084,34 @@
         billingTbody.innerHTML = `<tr><td colspan="7" class="py-6 text-center text-slate-400">Belum ada alokasi billing tercatat.</td></tr>`;
       } else {
         billingTbody.innerHTML = billingRecords.map(b => {
-          const isLunas = b.billing_status === 'settled' || b.billing_status === 'paid' || b.flow_type === 'out';
-          const badgeClass = isLunas ? 'bg-emerald-100 text-emerald-800 border-emerald-200' : 'bg-amber-100 text-amber-800 border-amber-200';
-          const badgeText = isLunas ? 'TEREALISASI' : 'DIPROSES';
+          let badgeClass = 'bg-slate-100 text-slate-700 border-slate-200';
+          let badgeText = 'TERCATAT';
+          if (b.billing_status === 'settled') {
+            badgeClass = 'bg-emerald-100 text-emerald-800 border-emerald-200';
+            badgeText = 'LUNAS / TEREALISASI';
+          } else if (b.billing_status === 'paid') {
+            badgeClass = 'bg-blue-100 text-blue-800 border-blue-200';
+            badgeText = 'VERIFIKASI FINANCE';
+          } else if (b.billing_status === 'unpaid') {
+            if (b.rejection_reason) {
+              badgeClass = 'bg-rose-100 text-rose-800 border-rose-200';
+              badgeText = 'REVISI BUKTI';
+            } else {
+              badgeClass = 'bg-amber-100 text-amber-800 border-amber-200';
+              badgeText = 'MENUNGGU BAYAR';
+            }
+          } else if (b.flow_type === 'out') {
+            badgeClass = 'bg-emerald-100 text-emerald-800 border-emerald-200';
+            badgeText = 'TEREALISASI';
+          }
           const recJson = JSON.stringify(b).replace(/"/g, '&quot;');
           return `
             <tr class="hover:bg-slate-50 transition">
               <td class="py-3 px-4 font-mono font-bold text-slate-900">${b.record_number || 'BILL-MGI-001'}</td>
-              <td class="py-3 px-4 font-semibold text-slate-900">${b.title || '-'}</td>
+              <td class="py-3 px-4 font-semibold text-slate-900">
+                ${b.title || '-'}
+                ${b.rejection_reason ? `<span class="block text-[10px] text-rose-600 font-normal mt-0.5"><i data-lucide="alert-circle" class="w-3 h-3 inline mr-0.5"></i>Alasan revisi: ${b.rejection_reason}</span>` : ''}
+              </td>
               <td class="py-3 px-4 text-slate-600">${b.vendor_client || 'PT Montana Sentra Industri'}</td>
               <td class="py-3 px-4 text-slate-500 whitespace-nowrap">${b.transaction_date || '-'}</td>
               <td class="py-3 px-4 text-right font-mono font-bold text-slate-900">${formatRupiahExact(b.amount)}</td>
@@ -4011,13 +4119,26 @@
                 <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${badgeClass}">${badgeText}</span>
               </td>
               <td class="py-3 px-4 text-center">
-                <button onclick="viewProjectPdfDocumentFromRecord(${recJson})" class="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 px-2.5 py-1 rounded-lg transition">
-                  <i data-lucide="file-text" class="w-3.5 h-3.5"></i> Faktur
-                </button>
+                <div class="inline-flex items-center gap-1.5 justify-center">
+                  ${(b.billing_status === 'unpaid' || (b.billing_status !== 'settled' && !b.payment_proof_url)) ? `
+                    <button onclick="openUploadPaymentModal(${b.id}, '${b.record_number || ''}', ${b.amount})" class="inline-flex items-center gap-1 text-[11px] font-bold text-amber-700 hover:text-amber-900 bg-amber-50 hover:bg-amber-100 border border-amber-200 px-2.5 py-1 rounded-lg transition shadow-sm cursor-pointer" title="Unggah Bukti Bayar">
+                      <i data-lucide="upload" class="w-3.5 h-3.5"></i> Bayar
+                    </button>
+                  ` : ''}
+                  ${b.payment_proof_url ? `
+                    <a href="${b.payment_proof_url}" target="_blank" class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2 py-1 rounded-lg transition" title="Lihat Bukti Transfer">
+                      <i data-lucide="image" class="w-3 h-3"></i> Bukti
+                    </a>
+                  ` : ''}
+                  <button onclick="viewProjectPdfDocumentFromRecord(${recJson})" class="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 px-2.5 py-1 rounded-lg transition cursor-pointer" title="Lihat Faktur Digital">
+                    <i data-lucide="file-text" class="w-3.5 h-3.5"></i> Faktur
+                  </button>
+                </div>
               </td>
             </tr>
           `;
         }).join('');
+        if (window.lucide) lucide.createIcons();
       }
 
       // Badges
@@ -7018,6 +7139,75 @@
         } catch (e) {
           showToast('Ledger keuangan berhasil diekspor.');
         }
+      }
+    }
+
+    // ========================================================
+    // PAYMENT PROOF UPLOAD HANDLERS
+    // ========================================================
+    let selectedProofFile = null;
+
+    function openUploadPaymentModal(billingId, recordNo, amount) {
+      document.getElementById('upPayBillingId').value = billingId;
+      document.getElementById('upPayRecordNo').innerText = recordNo || 'BILL-MGI';
+      document.getElementById('upPayAmount').innerText = formatRupiahExact(amount);
+      document.getElementById('upPayNotes').value = '';
+      document.getElementById('upPayFileInput').value = '';
+      document.getElementById('upPayFileNameText').innerText = 'Pilih foto atau dokumen bukti transfer';
+      selectedProofFile = null;
+      openModal('uploadPaymentModal');
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function handleProofFileSelect(input) {
+      if (input.files && input.files[0]) {
+        selectedProofFile = input.files[0];
+        document.getElementById('upPayFileNameText').innerText = `Dipilih: ${selectedProofFile.name} (${(selectedProofFile.size / 1024 / 1024).toFixed(2)} MB)`;
+      }
+    }
+
+    async function submitPaymentProof(e) {
+      e.preventDefault();
+      const billingId = document.getElementById('upPayBillingId').value;
+      const notes = document.getElementById('upPayNotes').value;
+      const fileInput = document.getElementById('upPayFileInput');
+
+      if (!fileInput.files || !fileInput.files[0]) {
+        showToast('Harap pilih berkas foto atau dokumen bukti transfer.');
+        return;
+      }
+
+      const btn = document.getElementById('btnSubmitPaymentProof');
+      btn.disabled = true;
+      btn.innerHTML = `<span class="inline-block animate-spin mr-1">⏳</span> Mengunggah...`;
+
+      try {
+        const formData = new FormData();
+        formData.append('billing_id', billingId);
+        formData.append('notes', notes);
+        formData.append('proof_file', fileInput.files[0]);
+
+        const res = await fetch('api/investor/dashboard.php?action=upload_payment_proof', {
+          method: 'POST',
+          body: formData
+        });
+        const json = await res.json();
+
+        if (!json.success) {
+          showToast(json.message || 'Gagal mengunggah bukti pembayaran.');
+          return;
+        }
+
+        showToast(json.message || 'Bukti pembayaran berhasil diunggah.');
+        closeModal('uploadPaymentModal');
+        await initDashboardData();
+      } catch (err) {
+        console.error(err);
+        showToast('Terjadi kesalahan jaringan saat mengunggah bukti.');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4"></i><span>Kirim Bukti Pembayaran</span>`;
+        if (window.lucide) lucide.createIcons();
       }
     }
 

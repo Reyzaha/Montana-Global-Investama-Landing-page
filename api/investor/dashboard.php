@@ -460,14 +460,15 @@ try {
         // 1. Simpan ke tabel leads agar langsung masuk ke CRM Admin (leads.php)
         $stmtLead = $db->prepare("
             INSERT INTO leads (
-                account_type, full_name, phone, email, business_name, legal_entity, pic_position,
-                city, investment_range, status, admin_notes, utm_source, utm_campaign, landing_page, consent_at
+                investor_id, account_type, full_name, phone, email, business_name, legal_entity, pic_position,
+                city, investment_range, project_id, status, admin_notes, utm_source, utm_campaign, landing_page, consent_at
             ) VALUES (
-                ?, ?, ?, ?, ?, ?, ?,
-                ?, ?, 'new', ?, 'Portal Investor', ?, '/investor-dashboard.html', NOW()
+                ?, ?, ?, ?, ?, ?, ?, ?,
+                ?, ?, ?, 'new', ?, 'Portal Investor', ?, '/investor-dashboard.html', NOW()
             )
         ");
         $stmtLead->execute([
+            $investorId,
             $inv['account_type'],
             $fullName,
             $phone,
@@ -477,6 +478,7 @@ try {
             $picPosition,
             $city,
             $rangeStr,
+            $projectId ?: null,
             $adminNotes,
             $projectTitle
         ]);
@@ -504,6 +506,117 @@ try {
             'package_label' => $packageLabel,
             'nominal' => $nominal
         ], 201, 'Minat penempatan modal berhasil dicatat dan diteruskan ke Relationship Manager (RM) Prioritas MGI.');
+    }
+
+    // 6. POST upload_payment_proof: Unggah bukti pembayaran / transfer pelunasan billing
+    if ($action === 'upload_payment_proof') {
+        if ($method !== 'POST') sendJsonError('Method harus POST.', 405);
+
+        $billingId = (int)($_POST['billing_id'] ?? 0);
+        $notes = trim($_POST['notes'] ?? '');
+        $proofUrl = null;
+
+        // Jika request berformat JSON
+        if (!$billingId) {
+            $input = getJsonInput();
+            $billingId = (int)($input['billing_id'] ?? 0);
+            $notes = trim($input['notes'] ?? '');
+            $proofUrl = trim($input['payment_proof_url'] ?? '');
+        }
+
+        if (!$billingId) {
+            sendJsonError('ID billing tagihan wajib disertakan.');
+        }
+
+        // Pastikan billing ada dan benar-benar milik investor ini
+        $stmtCheck = $db->prepare("SELECT * FROM financial_records WHERE id = ? AND investor_id = ?");
+        $stmtCheck->execute([$billingId, $investorId]);
+        $bill = $stmtCheck->fetch();
+
+        if (!$bill) {
+            sendJsonError('Tagihan / billing tidak ditemukan atau bukan milik akun Anda.', 404);
+        }
+
+        // Tangani upload file jika ada di $_FILES
+        if (!empty($_FILES['proof_file']) && $_FILES['proof_file']['error'] === UPLOAD_ERR_OK) {
+            $file = $_FILES['proof_file'];
+            if ($file['size'] > 15 * 1024 * 1024) {
+                sendJsonError('Ukuran file bukti bayar maksimal 15 MB.');
+            }
+
+            $allowedMimes = [
+                'image/jpeg' => 'jpg',
+                'image/pjpeg' => 'jpg',
+                'image/png'  => 'png',
+                'image/webp' => 'webp',
+                'application/pdf' => 'pdf'
+            ];
+
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $mime = $finfo->file($file['tmp_name']);
+
+            if (!array_key_exists($mime, $allowedMimes)) {
+                sendJsonError('Format bukti bayar tidak didukung. Harap unggah gambar JPG, PNG, WebP, atau dokumen PDF.');
+            }
+
+            $ext = $allowedMimes[$mime];
+            $baseDir = __DIR__ . '/../../assets/uploads/payments';
+            if (!is_dir($baseDir)) {
+                @mkdir($baseDir, 0777, true);
+            }
+
+            $uniqueName = 'PAY_PROOF_' . $billingId . '_' . time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
+            $destination = $baseDir . '/' . $uniqueName;
+
+            if (!@move_uploaded_file($file['tmp_name'], $destination)) {
+                sendJsonError('Gagal memindahkan file bukti bayar ke server penyimpanan.');
+            }
+
+            $proofUrl = 'assets/uploads/payments/' . $uniqueName;
+        }
+
+        if (empty($proofUrl)) {
+            sendJsonError('Bukti transfer / dokumen pembayaran wajib diunggah.');
+        }
+
+        // Update status di financial_records menjadi 'paid' (menunggu verifikasi admin)
+        $stmtUp = $db->prepare("
+            UPDATE financial_records SET
+                payment_proof_url = ?,
+                paid_at = NOW(),
+                payment_notes = ?,
+                billing_status = 'paid',
+                status = 'sent',
+                rejection_reason = NULL,
+                updated_at = NOW()
+            WHERE id = ? AND investor_id = ?
+        ");
+        $stmtUp->execute([$proofUrl, $notes, $billingId, $investorId]);
+
+        // Touch SSE stream file agar real-time sync berjalan
+        $cacheDir = __DIR__ . '/../../backend/cache';
+        if (!is_dir($cacheDir)) {
+            @mkdir($cacheDir, 0777, true);
+        }
+        @file_put_contents($cacheDir . "/project_{$bill['project_id']}_stream.txt", time() . '|' . microtime(true));
+
+        // Buat notifikasi internal akun investor
+        createNotification(
+            $db,
+            $investorId,
+            $bill['project_id'],
+            'billing',
+            'Bukti Pembayaran Terkirim',
+            "Bukti transfer untuk {$bill['title']} ({$bill['record_number']}) telah berhasil dikirim dan sedang dalam antrean verifikasi Finance MGI.",
+            "investor-dashboard.html?tab=pembukuan"
+        );
+
+        sendJsonResponse([
+            'billing_id' => $billingId,
+            'payment_proof_url' => $proofUrl,
+            'paid_at' => date('Y-m-d H:i:s'),
+            'billing_status' => 'paid'
+        ], 200, 'Bukti pembayaran berhasil diunggah. Tim Finance MGI akan segera memverifikasi transaksi Anda.');
     }
 
     sendJsonError('Aksi tidak dikenali.', 400);

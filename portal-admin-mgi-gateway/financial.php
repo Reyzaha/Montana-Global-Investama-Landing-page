@@ -650,6 +650,111 @@ require_once __DIR__ . '/includes/header.php';
   </div>
 </div>
 
+<!-- ======================================================== -->
+<!-- MODAL: VERIFIKASI PEMBAYARAN & BUKTI TRANSFER PEMODAL   -->
+<!-- ======================================================== -->
+<div class="modal fade" id="verifyPaymentModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+      <div class="modal-header text-white" style="background: #142563;">
+        <div>
+          <h5 class="modal-title fw-bold mb-0">
+            <i class="bi bi-patch-check-fill me-2 text-warning" style="color: #C5A059 !important;"></i>
+            Verifikasi Pembayaran &amp; Bukti Transfer Investor
+          </h5>
+          <small class="text-white-50">Tinjau kesesuaian struk transfer pelunasan modal investor sebelum disetujui lunas.</small>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body p-4 bg-light">
+        <div class="row g-3">
+          <!-- Left: Investor & Billing Information -->
+          <div class="col-md-6">
+            <div class="card p-3 border-0 rounded-3 shadow-sm bg-white h-100">
+              <h6 class="fw-bold text-dark border-bottom pb-2 mb-3">
+                <i class="bi bi-person-badge me-1 text-primary"></i> Data Pemodal &amp; Tagihan
+              </h6>
+              <table class="table table-sm table-borderless small mb-0">
+                <tr>
+                  <td class="text-muted" style="width: 120px;">Investor:</td>
+                  <td class="fw-bold text-dark" id="verInvestorName">-</td>
+                </tr>
+                <tr>
+                  <td class="text-muted">Email:</td>
+                  <td class="text-dark" id="verInvestorEmail">-</td>
+                </tr>
+                <tr>
+                  <td class="text-muted">Proyek:</td>
+                  <td class="fw-semibold text-primary" id="verProjectTitle">-</td>
+                </tr>
+                <tr>
+                  <td class="text-muted">No. Billing:</td>
+                  <td class="font-monospace fw-bold text-dark" id="verRecordNumber">-</td>
+                </tr>
+                <tr>
+                  <td class="text-muted">Perihal:</td>
+                  <td class="text-dark" id="verBillingTitle">-</td>
+                </tr>
+                <tr>
+                  <td class="text-muted">Tanggal Bayar:</td>
+                  <td class="text-dark" id="verPaidAt">-</td>
+                </tr>
+                <tr>
+                  <td class="text-muted">Catatan Pemodal:</td>
+                  <td class="text-secondary fst-italic" id="verNotes">-</td>
+                </tr>
+              </table>
+
+              <div class="mt-3 p-3 bg-light rounded-3 border">
+                <small class="text-muted text-uppercase fw-bold d-block" style="font-size: 0.7rem;">Nominal Tagihan Diverifikasi:</small>
+                <div class="fs-4 fw-bold text-success font-monospace" id="verAmount">Rp 0</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Payment Proof Document / Image -->
+          <div class="col-md-6">
+            <div class="card p-3 border-0 rounded-3 shadow-sm bg-white h-100">
+              <h6 class="fw-bold text-dark border-bottom pb-2 mb-3">
+                <i class="bi bi-file-earmark-image me-1 text-danger"></i> Berkas Bukti Transfer
+              </h6>
+              <div id="verProofPreview" class="d-flex align-items-center justify-content-center" style="min-height: 220px;">
+                <span class="text-muted small">Memuat berkas bukti...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom: Rejection Reason (If rejecting) -->
+        <div class="card p-3 border-0 rounded-3 shadow-sm bg-white mt-3">
+          <label class="form-label small fw-bold text-dark mb-1">
+            Catatan Verifikasi / Alasan Penolakan (Hanya wajib jika ditolak):
+          </label>
+          <input type="text" id="verRejectionReason" class="form-control" placeholder="Contoh: Nominal transfer tidak sesuai tagihan / struk transfer tidak jelas terbaca...">
+          <small class="text-muted mt-1" style="font-size: 0.75rem;">
+            Jika ditolak, email resmi beserta instruksi revisi akan otomatis dikirimkan ke email investor pemodal.
+          </small>
+        </div>
+      </div>
+
+      <div class="modal-footer bg-white border-top p-3 d-flex justify-content-between">
+        <button type="button" class="btn btn-light px-4" data-bs-dismiss="modal">Tutup</button>
+        <div class="d-flex gap-2">
+          <button type="button" id="btnVerReject" class="btn btn-outline-danger px-3 d-inline-flex align-items-center gap-1" onclick="submitVerifyPayment('reject')">
+            <i class="bi bi-x-circle"></i>
+            <span>Tolak Bukti Bayar</span>
+          </button>
+          <button type="button" id="btnVerApprove" class="btn btn-success px-4 fw-bold d-inline-flex align-items-center gap-1 shadow-sm" onclick="submitVerifyPayment('approve')">
+            <i class="bi bi-check-circle-fill"></i>
+            <span>Setujui &amp; Konfirmasi Lunas</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   let financialRecordsData = [];
   let currentModuleFilter = '';
@@ -657,6 +762,8 @@ require_once __DIR__ . '/includes/header.php';
   let viewModalInstance = null;
   let inventoryModalInstance = null;
   let publishDocModalInstance = null;
+  let verifyPaymentModalInstance = null;
+  let currentVerifyingRecord = null;
   let activeInvestors = [];
   let activeProjects = [];
 
@@ -665,6 +772,7 @@ require_once __DIR__ . '/includes/header.php';
     viewModalInstance = new bootstrap.Modal(document.getElementById('billingViewModal'));
     inventoryModalInstance = new bootstrap.Modal(document.getElementById('inventoryModal'));
     publishDocModalInstance = new bootstrap.Modal(document.getElementById('publishDocModal'));
+    verifyPaymentModalInstance = new bootstrap.Modal(document.getElementById('verifyPaymentModal'));
 
     // Check URL parameters for pre-selected investor or project
     const urlParams = new URLSearchParams(window.location.search);
@@ -777,11 +885,39 @@ require_once __DIR__ . '/includes/header.php';
         if (r.flow_type === 'balance_asset') flowBadge = `<span class="badge bg-primary-subtle text-primary border border-primary-subtle">ASET</span>`;
 
         let billBadge = `<span class="badge bg-light text-muted border">Tercatat</span>`;
+        let dueBadge = '';
         if (r.is_billing) {
-          if (r.billing_status === 'settled' || r.billing_status === 'paid') {
-            billBadge = `<span class="badge bg-success text-white"><i class="bi bi-check-circle-fill me-1"></i>Billing Lunas</span>`;
+          if (r.billing_status === 'settled') {
+            billBadge = `<span class="badge bg-success text-white"><i class="bi bi-check-circle-fill me-1"></i>Lunas &amp; Diverifikasi</span>`;
+          } else if (r.billing_status === 'paid') {
+            billBadge = `<span class="badge bg-warning text-dark border border-warning shadow-sm"><i class="bi bi-clock-history me-1"></i>Menunggu Verifikasi</span>`;
+          } else if (r.billing_status === 'unpaid') {
+            if (r.rejection_reason) {
+              billBadge = `<span class="badge bg-danger text-white" title="${r.rejection_reason}"><i class="bi bi-exclamation-triangle-fill me-1"></i>Revisi Bukti</span>`;
+            } else {
+              billBadge = `<span class="badge bg-secondary text-white"><i class="bi bi-hourglass me-1"></i>Menunggu Bayar</span>`;
+            }
           } else {
-            billBadge = `<span class="badge bg-warning text-dark"><i class="bi bi-send-fill me-1"></i>Billing Terkirim</span>`;
+            billBadge = `<span class="badge bg-info text-dark"><i class="bi bi-send-fill me-1"></i>Billing Terkirim</span>`;
+          }
+
+          if (r.due_date && r.billing_status !== 'settled') {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const dueDateObj = new Date(r.due_date);
+            dueDateObj.setHours(0, 0, 0, 0);
+            const diffDays = Math.round((dueDateObj - today) / (1000 * 60 * 60 * 24));
+            const dueFormatted = dueDateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+
+            if (diffDays < 0) {
+              dueBadge = `<span class="badge bg-danger text-white mt-1 d-block" title="Lewat ${Math.abs(diffDays)} hari dari tanggal jatuh tempo"><i class="bi bi-exclamation-octagon-fill me-1"></i>Telat ${Math.abs(diffDays)}h (${dueFormatted})</span>`;
+            } else if (diffDays === 0) {
+              dueBadge = `<span class="badge bg-danger text-white mt-1 d-block"><i class="bi bi-alarm-fill me-1"></i>Jatuh Tempo Hari Ini</span>`;
+            } else if (diffDays <= 3) {
+              dueBadge = `<span class="badge bg-warning text-dark mt-1 d-block" title="Mendekati batas waktu pembayaran"><i class="bi bi-clock-history me-1"></i>H-${diffDays} (${dueFormatted})</span>`;
+            } else {
+              dueBadge = `<small class="text-muted d-block mt-0.5" style="font-size: 0.72rem;">Jatuh tempo: ${dueFormatted}</small>`;
+            }
           }
         }
 
@@ -793,7 +929,8 @@ require_once __DIR__ . '/includes/header.php';
           <tr>
             <td>
               <div class="fw-bold text-dark font-monospace">${r.record_number}</div>
-              <small class="text-muted">${dateFormatted}</small>
+              <small class="text-muted d-block">${dateFormatted}</small>
+              ${r.payment_proof_url ? `<a href="../${r.payment_proof_url}" target="_blank" class="badge bg-primary-subtle text-primary border border-primary-subtle text-decoration-none mt-1" title="Lihat Bukti Transfer"><i class="bi bi-image me-1"></i>Bukti Transfer</a>` : ''}
             </td>
             <td>
               <div class="fw-bold text-dark small">${r.investor_name || r.investor_company || r.investor_email}</div>
@@ -807,6 +944,7 @@ require_once __DIR__ . '/includes/header.php';
               <div class="fw-semibold text-dark small">${r.title}</div>
               ${r.unit_detail ? `<small class="text-primary d-block"><i class="bi bi-truck me-1"></i>${r.unit_detail}</small>` : ''}
               ${r.description ? `<small class="text-muted d-block text-truncate" style="max-width: 260px;" title="${r.description}">${r.description}</small>` : ''}
+              ${r.rejection_reason ? `<small class="text-danger d-block mt-0.5"><i class="bi bi-info-circle me-1"></i>Catatan Revisi: ${r.rejection_reason}</small>` : ''}
             </td>
             <td>
               <div class="small fw-semibold text-dark">${r.vendor_client || '-'}</div>
@@ -815,9 +953,22 @@ require_once __DIR__ . '/includes/header.php';
               <div class="fw-bold fs-6 text-dark">${formatIDR(r.amount)}</div>
             </td>
             <td>${flowBadge}</td>
-            <td>${billBadge}</td>
+            <td>
+              ${billBadge}
+              ${dueBadge}
+            </td>
             <td class="text-end">
               <div class="btn-group btn-group-sm">
+                ${(r.is_billing && (r.billing_status === 'paid' || r.payment_proof_url)) ? `
+                  <button type="button" class="btn btn-warning text-dark fw-bold" onclick="openVerifyModal(${r.id})" title="Verifikasi Pembayaran">
+                    <i class="bi bi-patch-check-fill me-1"></i>Verifikasi
+                  </button>
+                ` : ''}
+                ${(r.is_billing && r.billing_status === 'unpaid') ? `
+                  <button type="button" class="btn btn-outline-warning text-dark" onclick="sendDueReminder(${r.id})" title="Kirim Pengingat Tagihan ke Investor">
+                    <i class="bi bi-bell-fill"></i>
+                  </button>
+                ` : ''}
                 <button type="button" class="btn btn-outline-primary" onclick="viewBillingDetail(${r.id})" title="Lihat E-Billing / Faktur">
                   <i class="bi bi-file-earmark-text"></i>
                 </button>
@@ -1189,6 +1340,138 @@ require_once __DIR__ . '/includes/header.php';
     } finally {
       btn.disabled = false;
       btn.innerHTML = `<i class="bi bi-send-fill me-1"></i> Terbitkan PDF ke Investor`;
+    }
+  }
+
+  // ========================================================
+  // VERIFIKASI PEMBAYARAN BUKTI TRANSFER INVESTOR
+  // ========================================================
+  function openVerifyModal(recordId) {
+    const r = financialRecordsData.find(item => Number(item.id) === Number(recordId));
+    if (!r) return;
+    currentVerifyingRecord = r;
+
+    document.getElementById('verRecordNumber').textContent = r.record_number;
+    document.getElementById('verInvestorName').textContent = r.investor_name || r.investor_company || 'Investor MGI';
+    document.getElementById('verInvestorEmail').textContent = r.investor_email || '-';
+    document.getElementById('verProjectTitle').textContent = r.project_title || '-';
+    document.getElementById('verBillingTitle').textContent = r.title;
+    document.getElementById('verAmount').textContent = formatIDR(r.amount);
+    document.getElementById('verPaidAt').textContent = r.paid_at ? new Date(r.paid_at).toLocaleString('id-ID') : '-';
+    document.getElementById('verNotes').textContent = r.payment_notes || 'Tidak ada catatan khusus dari pemodal.';
+    document.getElementById('verRejectionReason').value = r.rejection_reason || '';
+
+    const previewContainer = document.getElementById('verProofPreview');
+    if (r.payment_proof_url) {
+      const isPdf = r.payment_proof_url.toLowerCase().endsWith('.pdf');
+      if (isPdf) {
+        previewContainer.innerHTML = `
+          <div class="text-center p-4 bg-light rounded-3 border w-100">
+            <i class="bi bi-file-earmark-pdf-fill text-danger" style="font-size: 3.5rem;"></i>
+            <div class="fw-bold mt-2 text-dark">Dokumen Bukti Transfer (PDF)</div>
+            <a href="../${r.payment_proof_url}" target="_blank" class="btn btn-sm btn-outline-danger mt-3 fw-bold px-3">
+              <i class="bi bi-box-arrow-up-right me-1"></i> Buka Dokumen PDF Bukti Transfer
+            </a>
+          </div>
+        `;
+      } else {
+        previewContainer.innerHTML = `
+          <div class="text-center w-100">
+            <img src="../${r.payment_proof_url}" alt="Bukti Transfer" class="img-fluid rounded-3 border shadow-sm" style="max-height: 260px; object-fit: contain;">
+            <div class="mt-2">
+              <a href="../${r.payment_proof_url}" target="_blank" class="btn btn-sm btn-outline-primary fw-bold">
+                <i class="bi bi-arrows-fullscreen me-1"></i> Buka Ukuran Penuh
+              </a>
+            </div>
+          </div>
+        `;
+      }
+    } else {
+      previewContainer.innerHTML = `
+        <div class="alert alert-warning mb-0 text-center py-4 w-100">
+          <i class="bi bi-exclamation-circle-fill fs-3 d-block mb-1"></i>
+          Investor belum mengunggah file bukti transfer.
+        </div>
+      `;
+    }
+
+    verifyPaymentModalInstance.show();
+  }
+
+  async function submitVerifyPayment(status) {
+    if (!currentVerifyingRecord) return;
+    const reason = document.getElementById('verRejectionReason').value.trim();
+
+    if (status === 'reject' && !reason) {
+      AdminApp.showToast('Harap isi alasan penolakan agar investor dapat memperbaikinya.', 'danger');
+      document.getElementById('verRejectionReason').focus();
+      return;
+    }
+
+    const confirmMsg = status === 'approve'
+      ? `Verifikasi lunas untuk billing ${currentVerifyingRecord.record_number} senilai ${formatIDR(currentVerifyingRecord.amount)}? Email tanda terima resmi akan otomatis dikirimkan ke investor.`
+      : `Tolak bukti pembayaran untuk billing ${currentVerifyingRecord.record_number}? Notifikasi revisi akan dikirim ke investor.`;
+
+    if (!confirm(confirmMsg)) return;
+
+    const btnApprove = document.getElementById('btnVerApprove');
+    const btnReject = document.getElementById('btnVerReject');
+    btnApprove.disabled = true;
+    btnReject.disabled = true;
+
+    try {
+      const res = await fetch('../api/admin/financial.php?action=verify_payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: currentVerifyingRecord.id,
+          verification_status: status,
+          rejection_reason: reason
+        })
+      });
+      const json = await res.json();
+
+      if (!json.success) {
+        AdminApp.showToast(json.message || 'Gagal memverifikasi pembayaran.', 'danger');
+        return;
+      }
+
+      AdminApp.showToast(json.message, 'success');
+      verifyPaymentModalInstance.hide();
+      loadFinancialData();
+    } catch (err) {
+      console.error(err);
+      AdminApp.showToast('Terjadi kesalahan jaringan.', 'danger');
+    } finally {
+      btnApprove.disabled = false;
+      btnReject.disabled = false;
+    }
+  }
+
+  async function sendDueReminder(recordId) {
+    const r = financialRecordsData.find(item => Number(item.id) === Number(recordId));
+    if (!r) return;
+
+    const invName = r.investor_name || r.investor_company || 'Pemodal';
+    if (!confirm(`Kirim email & notifikasi pengingat jatuh tempo untuk tagihan ${r.record_number} kepada ${invName}?`)) {
+      return;
+    }
+
+    try {
+      const res = await fetch('../api/admin/financial.php?action=send_due_reminder', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: recordId })
+      });
+      const json = await res.json();
+      if (json.success) {
+        AdminApp.showToast(json.message || 'Pengingat tagihan berhasil dikirimkan.', 'success');
+      } else {
+        AdminApp.showToast(json.message || 'Gagal mengirim pengingat.', 'danger');
+      }
+    } catch(err) {
+      console.error(err);
+      AdminApp.showToast('Terjadi kesalahan jaringan.', 'danger');
     }
   }
 </script>

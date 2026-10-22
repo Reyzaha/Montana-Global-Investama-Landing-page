@@ -19,52 +19,73 @@ class StatusBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final String s = (status ?? "").toLowerCase().trim();
 
-    Color color;
-    String label;
+    final Color color;
+    final Color bgColor;
+    final Color borderColor;
+    final IconData icon;
+    final String label;
 
-    if (s.contains("open") || s.contains("buka")) {
-      color = const Color(0xFF059669);
-      label = "status_open".tr();
-    } else if (s.contains("fully") ||
+    if (s.contains("fully") ||
         s.contains("fund") ||
         s.contains("secured") ||
         s.contains("terkunci") ||
         s.contains("closed") ||
         s.contains("tutup")) {
-      color = const Color(0xFF2563EB);
-      label = "status_secured".tr();
+      color = const Color(0xFF475569);
+      bgColor = const Color(0xFFF1F5F9);
+      borderColor = const Color(0xFFCBD5E1);
+      icon = Icons.lock;
+      label = "slot_locked".tr();
     } else if (s.contains("soon") ||
         s.contains("coming") ||
         s.contains("segera")) {
       color = const Color(0xFFD97706);
-      label = "status_coming_soon".tr();
+      bgColor = const Color(0xFFFEF3C7);
+      borderColor = const Color(0xFFFDE68A);
+      icon = Icons.access_time;
+      label = "slot_opening_soon".tr();
     } else {
-      color = AppColors.onSurfaceVariant();
-      label = (status ?? "-").toUpperCase();
+      color = const Color(0xFF047857);
+      bgColor = const Color(0xFFECFDF5);
+      borderColor = const Color(0xFFA7F3D0);
+      icon = Icons.person_add_alt_1_outlined;
+      label = "slot_available".tr();
     }
 
     return Container(
       padding: padding ??
           EdgeInsets.symmetric(
             horizontal: Dimensions.size10,
-            vertical: Dimensions.size4,
+            vertical: Dimensions.size5,
           ),
       decoration: ShapeDecoration(
         shape: SmoothRectangleBorder(
           borderRadius: BorderRadius.circular(Dimensions.size20),
           smoothness: 1,
+          side: BorderSide(color: borderColor),
         ),
-        color: color.withValues(alpha: 0.12),
+        color: bgColor,
       ),
-      child: Text(
-        label,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(
-          fontSize: fontSize ?? Dimensions.text10,
-          fontWeight: FontWeight.bold,
-          color: color,
-        ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            icon,
+            size: Dimensions.size10,
+            color: color,
+          ),
+          SizedBox(width: Dimensions.size4),
+          Text(
+            label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: fontSize ?? Dimensions.text10,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
+        ],
       ),
     );
   }

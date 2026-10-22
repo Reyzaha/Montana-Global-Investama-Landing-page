@@ -10,14 +10,27 @@ require_once __DIR__ . '/../../backend/config/db.php';
 require_once __DIR__ . '/../../backend/helpers/response.php';
 require_once __DIR__ . '/../../backend/helpers/auth_helper.php';
 require_once __DIR__ . '/../../backend/helpers/lead_helper.php';
+require_once __DIR__ . '/../../backend/helpers/notification_helper.php';
 
-$admin = requireAdminAuth();
+$admin = requireAdminMutationAuth(['superadmin', 'admin', 'editor']);
 $method = $_SERVER['REQUEST_METHOD'];
 
 try {
     $db = getDB();
 
     if ($method === 'GET') {
+        // Riwayat timeline tindak lanjut lead
+        if (($_GET['action'] ?? '') === 'history') {
+            $leadId = (int)($_GET['lead_id'] ?? 0);
+            if (!$leadId) sendJsonError('ID lead wajib disertakan.');
+
+            $stmtHist = $db->prepare("SELECT * FROM lead_history WHERE lead_id = ? ORDER BY created_at DESC, id DESC");
+            $stmtHist->execute([$leadId]);
+            $history = $stmtHist->fetchAll();
+
+            sendJsonResponse(['history' => $history]);
+        }
+
         $status = $_GET['status'] ?? '';
         $search = trim($_GET['search'] ?? '');
         $from   = $_GET['from'] ?? '';
@@ -27,29 +40,40 @@ try {
         $params = [];
 
         if ($status !== '' && array_key_exists($status, LEAD_STATUSES)) {
-            $where .= ' AND status = ?';
+            $where .= ' AND l.status = ?';
             $params[] = $status;
         }
         $type = $_GET['type'] ?? '';
         if ($type !== '' && array_key_exists($type, LEAD_ACCOUNT_TYPES)) {
-            $where .= ' AND account_type = ?';
+            $where .= ' AND l.account_type = ?';
             $params[] = $type;
         }
         if ($search !== '') {
-            $where .= ' AND (full_name LIKE ? OR email LIKE ? OR business_name LIKE ? OR city LIKE ? OR utm_campaign LIKE ? OR utm_term LIKE ?)';
+            $where .= ' AND (l.full_name LIKE ? OR l.email LIKE ? OR l.business_name LIKE ? OR l.city LIKE ? OR l.utm_campaign LIKE ? OR l.utm_term LIKE ?)';
             $term = '%' . $search . '%';
             array_push($params, $term, $term, $term, $term, $term, $term);
         }
         if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $from)) {
-            $where .= ' AND created_at >= ?';
+            $where .= ' AND l.created_at >= ?';
             $params[] = $from . ' 00:00:00';
         }
         if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $to)) {
-            $where .= ' AND created_at <= ?';
+            $where .= ' AND l.created_at <= ?';
             $params[] = $to . ' 23:59:59';
         }
 
-        $stmt = $db->prepare('SELECT * FROM leads' . $where . ' ORDER BY created_at DESC LIMIT 1000');
+        $sql = "
+            SELECT l.*,
+                   i.status AS investor_account_status,
+                   i.email AS investor_account_email,
+                   pr.title AS project_title
+            FROM leads l
+            LEFT JOIN investors i ON l.investor_id = i.id
+            LEFT JOIN projects pr ON l.project_id = pr.id
+            {$where}
+            ORDER BY l.created_at DESC LIMIT 1000
+        ";
+        $stmt = $db->prepare($sql);
         $stmt->execute($params);
         $leads = $stmt->fetchAll();
 
@@ -126,9 +150,125 @@ try {
         $params[] = $id;
         $db->prepare('UPDATE leads SET ' . implode(', ', $fields) . ' WHERE id = ?')->execute($params);
 
+        // Catat riwayat audit CRM ke lead_history
+        $notesToLog = trim((string)($input['admin_notes'] ?? ''));
+        if ($lead['status'] !== $newStatus || !empty($notesToLog)) {
+            try {
+                $stmtHist = $db->prepare("
+                    INSERT INTO lead_history (lead_id, admin_name, old_status, new_status, notes)
+                    VALUES (?, ?, ?, ?, ?)
+                ");
+                $stmtHist->execute([
+                    $id,
+                    $admin['name'] ?? ($admin['username'] ?? 'Admin MGI'),
+                    $lead['status'],
+                    $newStatus,
+                    $notesToLog ?: null
+                ]);
+            } catch (Throwable $_) {}
+        }
+
         logAdminActivity('update_lead', 'leads', (string)$id, "Lead {$lead['full_name']} → {$newStatus}");
 
         sendJsonResponse(['id' => $id, 'status' => $newStatus], 200, 'Lead berhasil diperbarui.');
+    }
+
+    if ($method === 'POST') {
+        $input = getJsonInput();
+        $action = trim($_GET['action'] ?? ($input['action'] ?? ''));
+
+        if ($action === 'convert_to_investor') {
+            requireAdminRole(['superadmin', 'admin']);
+            $leadId = (int)($input['lead_id'] ?? ($_GET['lead_id'] ?? 0));
+            if (!$leadId) {
+                sendJsonError('ID lead wajib disertakan.');
+            }
+
+            $stmt = $db->prepare('SELECT * FROM leads WHERE id = ?');
+            $stmt->execute([$leadId]);
+            $lead = $stmt->fetch();
+            if (!$lead) {
+                sendJsonError('Lead tidak ditemukan.', 404);
+            }
+
+            $email = trim($lead['email'] ?? '');
+            if (empty($email)) {
+                sendJsonError('Lead tidak memiliki alamat email valid untuk dijadikan akun investor.');
+            }
+
+            $db->beginTransaction();
+            try {
+                // Cek apakah akun investor dengan email ini sudah ada
+                $stmtCheck = $db->prepare('SELECT id, email, full_name, status FROM investors WHERE email = ?');
+                $stmtCheck->execute([$email]);
+                $existingInv = $stmtCheck->fetch();
+
+                if ($existingInv) {
+                    $investorId = (int)$existingInv['id'];
+                    $db->prepare('UPDATE leads SET investor_id = ?, status = "deal" WHERE id = ?')->execute([$investorId, $leadId]);
+                    $message = "Lead berhasil ditautkan ke akun investor terdaftar (#ID {$investorId} - {$existingInv['email']}).";
+                } else {
+                    $accountType = $lead['account_type'] ?: 'perorangan';
+                    $fullName = $lead['full_name'] ?: 'Investor MGI';
+                    $phone = $lead['phone'] ?? null;
+                    $notes = "Dikonversi dari Lead CRM #{$leadId} (" . ($lead['utm_source'] ?: 'Konsultasi') . ")";
+
+                    $stmtIns = $db->prepare("
+                        INSERT INTO investors (account_type, email, full_name, phone, status, notes, created_at)
+                        VALUES (?, ?, ?, ?, 'active', ?, NOW())
+                    ");
+                    $stmtIns->execute([$accountType, $email, $fullName, $phone, $notes]);
+                    $investorId = (int)$db->lastInsertId();
+
+                    if ($accountType === 'perusahaan') {
+                        $businessName = $lead['business_name'] ?: $fullName;
+                        $legalEntity = in_array($lead['legal_entity'] ?? '', ['Perseroan Terbatas (PT)', 'Persekutuan Komanditer (CV)', 'PT Perorangan', 'Usaha Dagang (UD)']) ? $lead['legal_entity'] : 'Perseroan Terbatas (PT)';
+                        $picName = $fullName;
+                        $picPos = $lead['pic_position'] ?: 'Direktur / Penanggung Jawab';
+                        $compPhone = $phone ?: '-';
+                        $address = $lead['city'] ?: 'Indonesia';
+
+                        $stmtComp = $db->prepare("
+                            INSERT INTO investor_companies (
+                                investor_id, business_name, legal_entity, company_address, pic_name, pic_position, company_phone, annual_turnover
+                            ) VALUES (?, ?, ?, ?, ?, ?, ?, 'Rp5 Miliar – Rp10 Miliar')
+                        ");
+                        $stmtComp->execute([$investorId, $businessName, $legalEntity, $address, $picName, $picPos, $compPhone]);
+                    }
+
+                    $db->prepare('UPDATE leads SET investor_id = ?, status = "deal" WHERE id = ?')->execute([$investorId, $leadId]);
+
+                    $message = "Akun Investor baru (#ID {$investorId}) berhasil dibuat dari Lead ini dan langsung berstatus Aktif.";
+                }
+
+                $db->commit();
+            } catch (Throwable $e) {
+                if ($db->inTransaction()) {
+                    $db->rollBack();
+                }
+                throw $e;
+            }
+
+            createNotification(
+                $db,
+                $investorId,
+                null,
+                'system',
+                'Selamat Datang di Portal Investor MGI',
+                'Akun kemitraan Anda telah diverifikasi dan siap digunakan untuk memilih proyek investasi.',
+                'investor-dashboard.html'
+            );
+
+            logAdminActivity('convert_lead', 'leads', (string)$leadId, "Admin converted lead #{$leadId} to investor #{$investorId}");
+
+            sendJsonResponse([
+                'lead_id'     => $leadId,
+                'investor_id' => $investorId,
+                'email'       => $email,
+            ], 200, $message);
+        }
+
+        sendJsonError('Action POST tidak valid.', 400);
     }
 
     sendJsonError('Method tidak didukung.', 405);

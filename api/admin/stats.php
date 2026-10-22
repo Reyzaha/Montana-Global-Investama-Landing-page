@@ -56,6 +56,60 @@ try {
     ");
     $recentLogs = $stmtLogs->fetchAll();
 
+    // 5. Action Items (Perlu Tindakan Operasional Segera)
+    $stmtActLeads = $db->query("
+        SELECT id, full_name, email, account_type, created_at,
+               (created_at < (NOW() - INTERVAL 24 HOUR)) as is_over_24h
+        FROM leads 
+        WHERE status = 'new'
+        ORDER BY created_at ASC
+        LIMIT 5
+    ");
+    $actionLeads = $stmtActLeads ? $stmtActLeads->fetchAll() : [];
+
+    $leadsOver24h = (int)$db->query("
+        SELECT COUNT(*) FROM leads WHERE status = 'new' AND created_at < (NOW() - INTERVAL 24 HOUR)
+    ")->fetchColumn();
+    $leadsNewTotal = (int)$db->query("
+        SELECT COUNT(*) FROM leads WHERE status = 'new'
+    ")->fetchColumn();
+
+    $stmtActInv = $db->query("
+        SELECT id, full_name, email, account_type, created_at
+        FROM investors
+        WHERE status = 'pending_verification'
+        ORDER BY created_at ASC
+        LIMIT 5
+    ");
+    $actionInvestors = $stmtActInv ? $stmtActInv->fetchAll() : [];
+
+    $stmtActPay = $db->query("
+        SELECT f.id, f.record_number, f.title, f.amount, f.paid_at, f.payment_proof_url,
+               i.full_name as investor_name, p.title as project_title
+        FROM financial_records f
+        JOIN investors i ON f.investor_id = i.id
+        JOIN projects p ON f.project_id = p.id
+        WHERE f.is_billing = 1 AND f.billing_status = 'paid'
+        ORDER BY f.paid_at ASC
+        LIMIT 5
+    ");
+    $actionPayments = $stmtActPay ? $stmtActPay->fetchAll() : [];
+
+    $stmtActOverdue = $db->query("
+        SELECT f.id, f.record_number, f.title, f.amount, f.due_date,
+               DATEDIFF(CURDATE(), f.due_date) as days_overdue,
+               i.full_name as investor_name, p.title as project_title
+        FROM financial_records f
+        JOIN investors i ON f.investor_id = i.id
+        JOIN projects p ON f.project_id = p.id
+        WHERE f.is_billing = 1 AND f.billing_status = 'unpaid' AND f.due_date IS NOT NULL AND f.due_date < CURDATE()
+        ORDER BY f.due_date ASC
+        LIMIT 5
+    ");
+    $actionOverdue = $stmtActOverdue ? $stmtActOverdue->fetchAll() : [];
+
+    $totalActionRequired = count($actionPayments) + count($actionOverdue) + $leadsOver24h + (int)$invStats['pending_investors'];
+
     sendJsonResponse([
         'metrics' => [
             'total_projects' => (int)$projStats['total_projects'],
@@ -73,7 +127,19 @@ try {
             'pending_investors' => (int)$invStats['pending_investors']
         ],
         'recent_projects' => $recentProjects,
-        'recent_logs' => $recentLogs
+        'recent_logs' => $recentLogs,
+        'action_center' => [
+            'total_actions_count' => $totalActionRequired,
+            'leads_new_count' => $leadsNewTotal,
+            'leads_over_24h_count' => $leadsOver24h,
+            'pending_investors_count' => (int)$invStats['pending_investors'],
+            'unverified_payments_count' => count($actionPayments),
+            'overdue_billings_count' => count($actionOverdue),
+            'action_leads' => $actionLeads,
+            'action_investors' => $actionInvestors,
+            'action_payments' => $actionPayments,
+            'action_overdue' => $actionOverdue
+        ]
     ]);
 
 } catch (Exception $e) {

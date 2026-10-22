@@ -64,39 +64,57 @@ class SkeletonLoader extends StatefulWidget {
       padding: EdgeInsets.all(Dimensions.size15),
       decoration: ShapeDecoration(
         shape: SmoothRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimensions.size10),
+          borderRadius: BorderRadius.circular(Dimensions.size15),
           smoothness: 1,
-          side: BorderSide(color: AppColors.outline()),
+          side: const BorderSide(color: Color(0xFFE2E8F0), width: 1.2),
         ),
         color: AppColors.surfaceContainerLowest(),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SkeletonLoader.card(height: Dimensions.size100 + Dimensions.size40),
-          SizedBox(height: Dimensions.size10),
-          SkeletonLoader.line(
-            width: double.infinity,
-            height: Dimensions.size15,
+          SkeletonLoader(
+            height: Dimensions.size100 + Dimensions.size50,
+            borderRadius: BorderRadius.circular(Dimensions.size10),
           ),
           SizedBox(height: Dimensions.size15),
-          SkeletonLoader.line(
-            width: double.infinity,
-            height: Dimensions.size5,
-          ),
-          SizedBox(height: Dimensions.size10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SkeletonLoader.line(
-                width: Dimensions.size100,
-                height: Dimensions.size10,
+                width: Dimensions.size80,
+                height: Dimensions.size20,
               ),
               SkeletonLoader.line(
-                width: Dimensions.size40,
-                height: Dimensions.size10,
+                width: Dimensions.size100,
+                height: Dimensions.size20,
               ),
             ],
+          ),
+          SizedBox(height: Dimensions.size10),
+          SkeletonLoader.line(
+            width: double.infinity,
+            height: Dimensions.size20,
+          ),
+          SizedBox(height: Dimensions.size10),
+          SkeletonLoader.line(
+            width: Dimensions.size100 + Dimensions.size40,
+            height: Dimensions.size25,
+          ),
+          SizedBox(height: Dimensions.size10),
+          SkeletonLoader(
+            height: Dimensions.size80,
+            borderRadius: BorderRadius.circular(Dimensions.size10),
+          ),
+          SizedBox(height: Dimensions.size10),
+          SkeletonLoader(
+            height: Dimensions.size50,
+            borderRadius: BorderRadius.circular(Dimensions.size10),
+          ),
+          SizedBox(height: Dimensions.size15),
+          SkeletonLoader(
+            height: Dimensions.size40,
+            borderRadius: BorderRadius.circular(Dimensions.size50),
           ),
         ],
       ),

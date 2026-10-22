@@ -132,11 +132,24 @@ class Database {
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
             ");
 
-            // Seed initial 5M allocation and MIU unit purchase records if empty
-            // (Removed to prevent dummy data from being automatically populated in production)
+            // Ensure financial_records payment proof & verification columns exist
+            $finCols = [
+                'payment_proof_url' => "VARCHAR(255) NULL AFTER `attachment_url`",
+                'paid_at'           => "DATETIME NULL AFTER `payment_proof_url`",
+                'payment_notes'     => "TEXT NULL AFTER `paid_at`",
+                'verified_at'       => "DATETIME NULL AFTER `payment_notes`",
+                'verified_by'       => "VARCHAR(100) NULL AFTER `verified_at`",
+                'rejection_reason'  => "TEXT NULL AFTER `verified_by`",
+            ];
+            foreach ($finCols as $col => $def) {
+                $exists = $db->query("SHOW COLUMNS FROM `financial_records` LIKE '{$col}'")->fetchAll();
+                if (empty($exists)) {
+                    $db->exec("ALTER TABLE `financial_records` ADD COLUMN `{$col}` {$def}");
+                }
+            }
         } catch (Throwable $e) {
             // Silently ignore or log during initial installation
-            error_log("Schema update warning: " . $e->getMessage());
+            error_log("Schema update warning (financial_records): " . $e->getMessage());
         }
 
         // Lead capture table (Landing Page Konsultasi / Google Ads).
@@ -185,13 +198,20 @@ class Database {
                 $db->exec("ALTER TABLE `leads` MODIFY COLUMN `phone` VARCHAR(20) NULL DEFAULT NULL");
             } catch (Throwable $_) {}
 
-            // Tambah kolom Perorangan/Perusahaan bila tabel sudah terlanjur dibuat versi lama
+            // Ensure investor_portfolios status supports 'cancelled' for unassign feature
+            try {
+                $db->exec("ALTER TABLE `investor_portfolios` MODIFY COLUMN `status` ENUM('active','completed','pending_allocation','cancelled') NOT NULL DEFAULT 'active'");
+            } catch (Throwable $_) {}
+
+            // Tambah kolom Perorangan/Perusahaan & Foreign keys bila tabel sudah terlanjur dibuat versi lama
             $leadCols = [
                 'account_type'  => "ENUM('perorangan','perusahaan') NOT NULL DEFAULT 'perorangan' AFTER `id`",
+                'investor_id'   => "INT NULL DEFAULT NULL AFTER `account_type`",
                 'email'         => "VARCHAR(150) NULL AFTER `phone`",
                 'business_name' => "VARCHAR(150) NULL AFTER `email`",
                 'legal_entity'  => "VARCHAR(50) NULL AFTER `business_name`",
                 'pic_position'  => "VARCHAR(100) NULL AFTER `legal_entity`",
+                'project_id'    => "VARCHAR(50) NULL DEFAULT NULL AFTER `investment_range`",
             ];
             foreach ($leadCols as $col => $def) {
                 $exists = $db->query("SHOW COLUMNS FROM `leads` LIKE '{$col}'")->fetchAll();
@@ -199,6 +219,44 @@ class Database {
                     $db->exec("ALTER TABLE `leads` ADD COLUMN `{$col}` {$def}");
                 }
             }
+
+            try {
+                $idxInv = $db->query("SHOW INDEX FROM `leads` WHERE Key_name = 'idx_leads_investor'")->fetchAll();
+                if (empty($idxInv)) {
+                    $db->exec("ALTER TABLE `leads` ADD INDEX `idx_leads_investor` (`investor_id`)");
+                }
+                $idxProj = $db->query("SHOW INDEX FROM `leads` WHERE Key_name = 'idx_leads_project'")->fetchAll();
+                if (empty($idxProj)) {
+                    $db->exec("ALTER TABLE `leads` ADD INDEX `idx_leads_project` (`project_id`)");
+                }
+            } catch (Throwable $_) {}
+
+            // Ensure KYC columns on investors and investor_companies
+            try {
+                $invKycCols = [
+                    'nik_paspor'      => "VARCHAR(50) NULL AFTER `citizenship`",
+                    'npwp'            => "VARCHAR(50) NULL AFTER `nik_paspor`",
+                    'kyc_checklist'   => "TEXT NULL AFTER `notes`",
+                    'kyc_verified_at' => "DATETIME NULL AFTER `kyc_checklist`",
+                ];
+                foreach ($invKycCols as $col => $def) {
+                    $exists = $db->query("SHOW COLUMNS FROM `investors` LIKE '{$col}'")->fetchAll();
+                    if (empty($exists)) {
+                        $db->exec("ALTER TABLE `investors` ADD COLUMN `{$col}` {$def}");
+                    }
+                }
+
+                $compKycCols = [
+                    'nib'             => "VARCHAR(50) NULL AFTER `legal_entity`",
+                    'npwp_perusahaan' => "VARCHAR(50) NULL AFTER `nib`",
+                ];
+                foreach ($compKycCols as $col => $def) {
+                    $exists = $db->query("SHOW COLUMNS FROM `investor_companies` LIKE '{$col}'")->fetchAll();
+                    if (empty($exists)) {
+                        $db->exec("ALTER TABLE `investor_companies` ADD COLUMN `{$col}` {$def}");
+                    }
+                }
+            } catch (Throwable $_) {}
         } catch (Throwable $e) {
             error_log("Schema update warning (leads): " . $e->getMessage());
         }
@@ -223,6 +281,25 @@ class Database {
             ");
         } catch (Throwable $e) {
             error_log("Schema update warning (notifications): " . $e->getMessage());
+        }
+
+        // Lead history / CRM follow-up audit table
+        try {
+            $db->exec("
+                CREATE TABLE IF NOT EXISTS `lead_history` (
+                    `id` INT AUTO_INCREMENT PRIMARY KEY,
+                    `lead_id` INT NOT NULL,
+                    `admin_name` VARCHAR(100) NULL,
+                    `old_status` VARCHAR(50) NULL,
+                    `new_status` VARCHAR(50) NOT NULL,
+                    `notes` TEXT NULL,
+                    `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    INDEX `idx_lead_hist_id` (`lead_id`),
+                    INDEX `idx_lead_hist_created` (`created_at`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            ");
+        } catch (Throwable $e) {
+            error_log("Schema update warning (lead_history): " . $e->getMessage());
         }
     }
 

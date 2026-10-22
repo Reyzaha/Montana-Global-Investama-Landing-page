@@ -157,6 +157,11 @@ const AdminApp = {
     }, 4500);
   },
 
+  getCsrfToken: function () {
+    const meta = document.querySelector('meta[name="csrf-token"]');
+    return meta ? meta.getAttribute('content') : '';
+  },
+
   logout: async function () {
     if (!confirm('Apakah Anda yakin ingin keluar dari dashboard administrator?')) return;
     try {
@@ -167,5 +172,25 @@ const AdminApp = {
     }
   }
 };
+
+// Automatically inject X-CSRF-Token into all non-GET fetch requests in Admin Portal
+(function () {
+  const origFetch = window.fetch;
+  window.fetch = function (url, options = {}) {
+    const method = (options && options.method ? options.method : 'GET').toUpperCase();
+    if (!['GET', 'HEAD', 'OPTIONS'].includes(method)) {
+      const token = AdminApp.getCsrfToken();
+      if (token) {
+        options.headers = options.headers || {};
+        if (options.headers instanceof Headers) {
+          if (!options.headers.has('X-CSRF-Token')) options.headers.set('X-CSRF-Token', token);
+        } else {
+          if (!options.headers['X-CSRF-Token']) options.headers['X-CSRF-Token'] = token;
+        }
+      }
+    }
+    return origFetch.call(this, url, options);
+  };
+})();
 
 window.AdminApp = AdminApp;

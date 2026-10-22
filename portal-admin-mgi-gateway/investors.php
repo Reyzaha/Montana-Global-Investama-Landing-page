@@ -87,6 +87,16 @@ require_once __DIR__ . '/includes/header.php';
             </div>
           </div>
 
+          <div id="assignActiveBanner" class="alert alert-info py-2 px-3 small d-none mb-3 d-flex align-items-center justify-content-between rounded-3 border-info">
+            <div>
+              <i class="bi bi-info-circle-fill me-1 text-primary"></i>
+              <span>Memegang proyek aktif: <strong id="assignCurrentProjTitle">-</strong></span>
+            </div>
+            <button type="button" class="btn btn-sm btn-outline-danger py-0.5 px-2 fw-semibold" id="btnModalUnassign" onclick="unassignFromModal()">
+              <i class="bi bi-x-circle me-1"></i>Lepaskan Proyek Ini
+            </button>
+          </div>
+
           <div class="card p-4 border-0 rounded-3 shadow-sm bg-white mb-3">
             <h6 class="fw-bold text-dark border-bottom pb-2 mb-3">
               <i class="bi bi-gear-wide-connected text-primary me-2"></i>Parameter Kemitraan Proyek
@@ -186,6 +196,71 @@ require_once __DIR__ . '/includes/header.php';
 
           <div class="row g-3" id="modalInvDetailsGrid">
             <!-- Dynamic profile details populated here -->
+          </div>
+        </div>
+
+        <!-- Checklist Verifikasi Due Diligence / KYC -->
+        <div class="card p-4 border-0 rounded-3 shadow-sm bg-white mb-3" id="modalKycCard">
+          <div class="d-flex align-items-center justify-content-between border-bottom pb-2 mb-3">
+            <h6 class="fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+              <i class="bi bi-patch-check-fill text-success"></i>
+              <span>Checklist Kepatuhan &amp; Uji Kelayakan (KYC / Due Diligence)</span>
+            </h6>
+            <span class="badge bg-light text-muted border small" id="modalKycVerifiedBadge">Belum Diverifikasi</span>
+          </div>
+
+          <div class="row g-2 mb-3">
+            <div class="col-12 col-md-6">
+              <div class="p-2.5 rounded-2 border bg-light d-flex align-items-center gap-2">
+                <input class="form-check-input mt-0" type="checkbox" id="chkKycIdentity" style="width: 18px; height: 18px;">
+                <label class="form-check-label small fw-semibold text-dark cursor-pointer" for="chkKycIdentity">
+                  Identitas Sah (KTP / Paspor valid)
+                </label>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="p-2.5 rounded-2 border bg-light d-flex align-items-center gap-2">
+                <input class="form-check-input mt-0" type="checkbox" id="chkKycTax" style="width: 18px; height: 18px;">
+                <label class="form-check-label small fw-semibold text-dark cursor-pointer" for="chkKycTax">
+                  NPWP / Pajak Terverifikasi Sah
+                </label>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="p-2.5 rounded-2 border bg-light d-flex align-items-center gap-2">
+                <input class="form-check-input mt-0" type="checkbox" id="chkKycBank" style="width: 18px; height: 18px;">
+                <label class="form-check-label small fw-semibold text-dark cursor-pointer" for="chkKycBank">
+                  Rekening Bank &amp; Sumber Dana Sah
+                </label>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6" id="wrapKycCorporate">
+              <div class="p-2.5 rounded-2 border bg-light d-flex align-items-center gap-2">
+                <input class="form-check-input mt-0" type="checkbox" id="chkKycCorporate" style="width: 18px; height: 18px;">
+                <label class="form-check-label small fw-semibold text-dark cursor-pointer" for="chkKycCorporate">
+                  Legalitas Perusahaan (NIB &amp; Akta)
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Identity Data Fields -->
+          <div class="row g-2 pt-2 border-top">
+            <div class="col-md-6" id="wrapNikInput">
+              <label class="form-label small fw-bold text-muted mb-1">No. KTP / NIK / Paspor</label>
+              <input type="text" id="modalInvNik" class="form-control form-control-sm" placeholder="Contoh: 3171xxxxxxxxxxxx">
+            </div>
+            <div class="col-md-6" id="wrapNpwpInput">
+              <label class="form-label small fw-bold text-muted mb-1">No. Pokok Wajib Pajak (NPWP)</label>
+              <input type="text" id="modalInvNpwp" class="form-control form-control-sm" placeholder="Contoh: 01.xxx.xxx.x-xxx.xxx">
+            </div>
+            <div class="col-md-6 d-none" id="wrapNibInput">
+              <label class="form-label small fw-bold text-muted mb-1">Nomor Induk Berusaha (NIB Perusahaan)</label>
+              <input type="text" id="modalInvNib" class="form-control form-control-sm" placeholder="Contoh: 1234567890123">
+            </div>
           </div>
         </div>
 
@@ -307,7 +382,12 @@ require_once __DIR__ . '/includes/header.php';
               <div class="small text-muted">
                 Rp ${formatRupiah(inv.portfolio_amount)} • <span class="badge bg-success text-white py-0.5 px-1.5" style="font-size:0.7rem;">${inv.portfolio_status || 'Aktif'}</span>
               </div>
-              <small class="text-muted font-monospace" style="font-size:0.7rem;">${inv.contract_number || '-'}</small>
+              <div class="d-flex align-items-center gap-2 mt-1">
+                <small class="text-muted font-monospace" style="font-size:0.7rem;">${inv.contract_number || '-'}</small>
+                <button type="button" class="btn btn-xs btn-outline-danger py-0 px-1.5 fw-semibold" style="font-size: 0.68rem;" onclick="confirmUnassignProject(${inv.id}, '${inv.project_id}', '${(inv.project_title || '').replace(/'/g, "\\'")}')" title="Lepaskan kemitraan dari proyek ini">
+                  <i class="bi bi-x-circle me-1"></i>Lepas
+                </button>
+              </div>
             </div>
           `;
         } else {
@@ -372,6 +452,10 @@ require_once __DIR__ . '/includes/header.php';
   function openAssignModal(investorId) {
     const inv = investorsData.find(i => Number(i.id) === Number(investorId));
     if (!inv) return;
+    if (inv.status !== 'active') {
+      AdminApp.showToast('Investor belum berstatus Active. Verifikasi akun terlebih dahulu (tombol Tinjau).', 'warning');
+      return;
+    }
 
     const isCorp = inv.account_type === 'perusahaan';
     document.getElementById('assignInvId').value = inv.id;
@@ -399,12 +483,16 @@ require_once __DIR__ . '/includes/header.php';
       projSelect.appendChild(opt);
     });
 
-    if (inv.project_id) {
+    const activeBanner = document.getElementById('assignActiveBanner');
+    if (inv.project_id && inv.project_title) {
+      activeBanner.classList.remove('d-none');
+      document.getElementById('assignCurrentProjTitle').textContent = inv.project_title;
       document.getElementById('assignContractNumber').value = inv.contract_number || '';
       document.getElementById('assignAmount').value = formatRupiah(inv.portfolio_amount || 500000000);
       document.getElementById('assignReturnRate').value = inv.portfolio_return_rate || '≥30% (p.a.)';
       document.getElementById('assignTenor').value = inv.portfolio_tenor || '36 Bulan';
     } else {
+      activeBanner.classList.add('d-none');
       document.getElementById('assignContractNumber').value = '';
       document.getElementById('assignAmount').value = '500.000.000';
       document.getElementById('assignReturnRate').value = '≥30% (p.a.)';
@@ -494,6 +582,44 @@ require_once __DIR__ . '/includes/header.php';
     }
   }
 
+  async function confirmUnassignProject(investorId, projectId, projectTitle) {
+    if (!confirm(`Apakah Anda yakin ingin melepaskan kemitraan pada proyek "${projectTitle}"?\n\nProyek akan kembali terbuka (Open) dan portofolio kemitraan investor ini dinonaktifkan.`)) {
+      return;
+    }
+    const reason = prompt('Masukkan alasan atau catatan pelepasan proyek (opsional):', 'Pergantian / pembatalan kemitraan');
+    if (reason === null) return;
+
+    try {
+      const res = await fetch('../api/admin/investors.php?action=unassign_project', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          investor_id: investorId,
+          project_id: projectId,
+          reason: reason.trim() || 'Dilepaskan oleh admin'
+        })
+      });
+      const json = await res.json();
+      if (json.success) {
+        AdminApp.showToast(json.message, 'success');
+        if (assignModalInstance) assignModalInstance.hide();
+        loadInvestors();
+      } else {
+        AdminApp.showToast(json.message || 'Gagal melepaskan kemitraan proyek.', 'danger');
+      }
+    } catch (e) {
+      console.error(e);
+      AdminApp.showToast('Terjadi kesalahan koneksi server.', 'danger');
+    }
+  }
+
+  function unassignFromModal() {
+    const invId = document.getElementById('assignInvId').value;
+    const inv = investorsData.find(i => Number(i.id) === Number(invId));
+    if (!inv || !inv.project_id) return;
+    confirmUnassignProject(inv.id, inv.project_id, inv.project_title || inv.project_id);
+  }
+
   function viewInvestorDetail(id) {
     const inv = investorsData.find(i => Number(i.id) === Number(id));
     if (!inv) return;
@@ -519,8 +645,16 @@ require_once __DIR__ . '/includes/header.php';
           <strong>${inv.legal_entity || '-'}</strong>
         </div>
         <div class="col-md-6">
+          <small class="text-muted d-block">Nomor Induk Berusaha (NIB)</small>
+          <strong class="font-monospace text-primary">${inv.nib || '<span class="text-muted fst-italic">Belum dicatat</span>'}</strong>
+        </div>
+        <div class="col-md-6">
+          <small class="text-muted d-block">NPWP Perusahaan</small>
+          <strong class="font-monospace">${inv.npwp_perusahaan || inv.npwp || '<span class="text-muted fst-italic">Belum dicatat</span>'}</strong>
+        </div>
+        <div class="col-md-6">
           <small class="text-muted d-block">Bidang Usaha / Sektor Industri</small>
-          <strong class="text-primary">${inv.business_activity || '-'}</strong>
+          <strong>${inv.business_activity || '-'}</strong>
         </div>
         <div class="col-md-6">
           <small class="text-muted d-block">Rentang Omzet Tahunan</small>
@@ -558,6 +692,14 @@ require_once __DIR__ . '/includes/header.php';
           <strong>${inv.citizenship || 'Indonesia (WNI)'}</strong>
         </div>
         <div class="col-md-6">
+          <small class="text-muted d-block">Nomor Identitas (NIK / No. Paspor)</small>
+          <strong class="font-monospace text-primary">${inv.nik_paspor || '<span class="text-muted fst-italic">Belum dicatat</span>'}</strong>
+        </div>
+        <div class="col-md-6">
+          <small class="text-muted d-block">Nomor Pokok Wajib Pajak (NPWP)</small>
+          <strong class="font-monospace">${inv.npwp || '<span class="text-muted fst-italic">Belum dicatat</span>'}</strong>
+        </div>
+        <div class="col-md-6">
           <small class="text-muted d-block">Nomor Telepon / WhatsApp</small>
           <strong>${inv.phone || '-'}</strong>
         </div>
@@ -572,6 +714,48 @@ require_once __DIR__ . '/includes/header.php';
       `;
     }
 
+    // Populate KYC Checklist & Input Fields
+    let kycList = [];
+    try {
+      if (inv.kyc_checklist) {
+        kycList = typeof inv.kyc_checklist === 'string' ? JSON.parse(inv.kyc_checklist) : inv.kyc_checklist;
+      }
+    } catch (e) {
+      kycList = [];
+    }
+
+    document.getElementById('chkKycIdentity').checked = Array.isArray(kycList) && kycList.includes('identity');
+    document.getElementById('chkKycTax').checked = Array.isArray(kycList) && kycList.includes('tax');
+    document.getElementById('chkKycBank').checked = Array.isArray(kycList) && kycList.includes('bank');
+    document.getElementById('chkKycCorporate').checked = Array.isArray(kycList) && kycList.includes('corporate');
+
+    document.getElementById('modalInvNik').value = inv.nik_paspor || '';
+    document.getElementById('modalInvNpwp').value = isCorp ? (inv.npwp_perusahaan || inv.npwp || '') : (inv.npwp || '');
+    document.getElementById('modalInvNib').value = inv.nib || '';
+
+    const wrapNib = document.getElementById('wrapNibInput');
+    const wrapKycCorp = document.getElementById('wrapKycCorporate');
+    const wrapNik = document.getElementById('wrapNikInput');
+
+    if (isCorp) {
+      wrapNib.classList.remove('d-none');
+      wrapKycCorp.classList.remove('d-none');
+      wrapNik.classList.add('d-none');
+    } else {
+      wrapNib.classList.add('d-none');
+      wrapKycCorp.classList.add('d-none');
+      wrapNik.classList.remove('d-none');
+    }
+
+    const kycBadge = document.getElementById('modalKycVerifiedBadge');
+    if (inv.kyc_verified_at) {
+      kycBadge.textContent = 'Diverifikasi: ' + new Date(inv.kyc_verified_at).toLocaleDateString('id-ID');
+      kycBadge.className = 'badge bg-success-subtle text-success border border-success-subtle small';
+    } else {
+      kycBadge.textContent = 'Menunggu Uji Kelayakan';
+      kycBadge.className = 'badge bg-warning-subtle text-dark border border-warning-subtle small';
+    }
+
     detailModalInstance.show();
   }
 
@@ -582,6 +766,17 @@ require_once __DIR__ . '/includes/header.php';
     const notes = document.getElementById('modalInvNotes').value.trim();
     const btn = document.getElementById('btnUpdateInvStatus');
 
+    // Gather KYC Checklist
+    const kycChecklist = [];
+    if (document.getElementById('chkKycIdentity').checked) kycChecklist.push('identity');
+    if (document.getElementById('chkKycTax').checked) kycChecklist.push('tax');
+    if (document.getElementById('chkKycBank').checked) kycChecklist.push('bank');
+    if (document.getElementById('chkKycCorporate').checked) kycChecklist.push('corporate');
+
+    const nikPaspor = document.getElementById('modalInvNik').value.trim();
+    const npwp = document.getElementById('modalInvNpwp').value.trim();
+    const nib = document.getElementById('modalInvNib').value.trim();
+
     btn.disabled = true;
     btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span> Menyimpan...`;
 
@@ -589,7 +784,16 @@ require_once __DIR__ . '/includes/header.php';
       const res = await fetch('../api/admin/investors.php', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, status, notes })
+        body: JSON.stringify({ 
+          id, 
+          status, 
+          notes,
+          kyc_checklist: kycChecklist,
+          nik_paspor: nikPaspor,
+          npwp: npwp,
+          nib: nib,
+          npwp_perusahaan: npwp
+        })
       });
       const json = await res.json();
 

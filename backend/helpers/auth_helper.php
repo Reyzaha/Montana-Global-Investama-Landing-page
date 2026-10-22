@@ -465,6 +465,29 @@ function requireAdminAuth(): array {
     return $admin;
 }
 
+function requireAdminRole(array $allowedRoles): array {
+    $admin = requireAdminAuth();
+    $role = $admin['role'] ?? 'editor';
+    if (!in_array($role, $allowedRoles, true)) {
+        require_once __DIR__ . '/response.php';
+        sendJsonError("Akses ditolak. Peran Anda ({$role}) tidak memiliki wewenang untuk tindakan ini.", 403);
+    }
+    return $admin;
+}
+
+function requireAdminMutationAuth(array $allowedRoles = ['superadmin', 'admin']): array {
+    $admin = requireAdminRole($allowedRoles);
+    $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+    if (!in_array($method, ['GET', 'HEAD', 'OPTIONS'], true)) {
+        // Jika token CSRF sesi ada, validasi integritas token
+        if (!empty($_SESSION['mgi_csrf_token']) && !validateCsrfToken()) {
+            require_once __DIR__ . '/response.php';
+            sendJsonError('Validasi token keamanan (CSRF) gagal. Silakan muat ulang halaman.', 403);
+        }
+    }
+    return $admin;
+}
+
 function clearAdminSession(): void {
     unset($_SESSION['mgi_admin_logged_in']);
     unset($_SESSION['mgi_admin_id']);

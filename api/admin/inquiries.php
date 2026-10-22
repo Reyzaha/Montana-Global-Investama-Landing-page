@@ -18,6 +18,10 @@ if (isset($input['_method'])) {
     $method = strtoupper($_GET['_method']);
 }
 
+// Vocabulary UI -> nilai enum DB (new/read/replied/archived, ada di semua varian schema)
+const INQUIRY_STATUS_TO_DB = ['unread' => 'new', 'read' => 'read', 'contacted' => 'replied', 'archived' => 'archived'];
+const INQUIRY_STATUS_FROM_DB = ['new' => 'unread', 'unread' => 'unread', 'read' => 'read', 'replied' => 'contacted', 'contacted' => 'contacted', 'archived' => 'archived'];
+
 try {
     $db = getDB();
 
@@ -30,9 +34,10 @@ try {
         $sql = "SELECT * FROM contact_inquiries WHERE 1=1";
         $params = [];
 
-        if ($status !== '' && in_array($status, ['unread', 'read', 'contacted', 'archived'])) {
-            $sql .= " AND status = ?";
-            $params[] = $status;
+        if ($status !== '' && isset(INQUIRY_STATUS_TO_DB[$status])) {
+            $dbValues = array_keys(array_filter(INQUIRY_STATUS_FROM_DB, fn($ui) => $ui === $status));
+            $sql .= " AND status IN (" . implode(',', array_fill(0, count($dbValues), '?')) . ")";
+            array_push($params, ...$dbValues);
         }
 
         if ($search !== '') {
@@ -46,6 +51,10 @@ try {
         $stmt = $db->prepare($sql);
         $stmt->execute($params);
         $inquiries = $stmt->fetchAll();
+        foreach ($inquiries as &$row) {
+            $row['status'] = INQUIRY_STATUS_FROM_DB[$row['status']] ?? 'unread';
+        }
+        unset($row);
 
         // Export to CSV
         if ($export === 'csv') {
@@ -77,9 +86,9 @@ try {
         $countsStmt = $db->query("
             SELECT
                 COUNT(*) AS total,
-                SUM(CASE WHEN status = 'unread' THEN 1 ELSE 0 END) AS unread,
+                SUM(CASE WHEN status IN ('new', 'unread') THEN 1 ELSE 0 END) AS unread,
                 SUM(CASE WHEN status = 'read' THEN 1 ELSE 0 END) AS `read`,
-                SUM(CASE WHEN status = 'contacted' THEN 1 ELSE 0 END) AS contacted,
+                SUM(CASE WHEN status IN ('replied', 'contacted') THEN 1 ELSE 0 END) AS contacted,
                 SUM(CASE WHEN status = 'archived' THEN 1 ELSE 0 END) AS archived
             FROM contact_inquiries
         ");
@@ -102,12 +111,12 @@ try {
         $id = (int)($input['id'] ?? ($_GET['id'] ?? 0));
         $newStatus = trim($input['status'] ?? '');
 
-        if (!$id || !in_array($newStatus, ['unread', 'read', 'contacted', 'archived'])) {
+        if (!$id || !isset(INQUIRY_STATUS_TO_DB[$newStatus])) {
             sendJsonError('ID pesan atau status tidak valid.');
         }
 
         $stmt = $db->prepare("UPDATE contact_inquiries SET status = ? WHERE id = ?");
-        $stmt->execute([$newStatus, $id]);
+        $stmt->execute([INQUIRY_STATUS_TO_DB[$newStatus], $id]);
 
         logAdminActivity('update', 'contact_inquiries', (string)$id, "Admin mengubah status pesan #{$id} menjadi {$newStatus}");
         sendJsonResponse(['id' => $id, 'status' => $newStatus], 200, 'Status pesan berhasil diperbarui.');

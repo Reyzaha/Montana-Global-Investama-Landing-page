@@ -139,6 +139,32 @@ require_once __DIR__ . '/includes/header.php';
           </div>
         </div>
 
+        <!-- Linked Investor Box or Convert Deal Banner -->
+        <div id="mLeadInvestorBox" class="card p-3 border-0 rounded-3 shadow-sm bg-white mb-3 d-none border-start border-4 border-success">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-person-check-fill text-success fs-3"></i>
+              <div>
+                <small class="text-muted d-block">Terhubung dengan Akun Investor Resmi</small>
+                <strong class="text-dark" id="mLeadInvestorText">-</strong>
+              </div>
+            </div>
+            <a href="#" id="mLeadInvestorLink" class="btn btn-sm btn-outline-success fw-bold">
+              <i class="bi bi-person-bounding-box me-1"></i> Buka Profil Investor &rarr;
+            </a>
+          </div>
+        </div>
+
+        <div id="mLeadConvertBanner" class="alert alert-success py-2 px-3 small d-none mb-3 d-flex align-items-center justify-content-between rounded-3 border-success">
+          <div>
+            <i class="bi bi-stars text-success me-1 fs-5 align-middle"></i>
+            <span>Lead ini berstatus <strong>Deal</strong>. Anda dapat mengonversinya langsung menjadi akun investor resmi aktif.</span>
+          </div>
+          <button type="button" class="btn btn-sm btn-success py-1 px-3 fw-bold" id="btnModalConvert" onclick="convertLeadFromModal()">
+            <i class="bi bi-person-plus-fill me-1"></i>Konversi ke Investor
+          </button>
+        </div>
+
         <!-- Follow-up Form -->
         <div class="card p-4 border-0 rounded-3 shadow-sm bg-white">
           <h6 class="fw-bold text-dark border-bottom pb-2 mb-3">Update Status Pipeline &amp; Catatan Tim</h6>
@@ -176,6 +202,17 @@ require_once __DIR__ . '/includes/header.php';
               </div>
             </div>
           </form>
+        </div>
+
+        <!-- Timeline Riwayat Tindak Lanjut CRM -->
+        <div class="card p-4 border-0 rounded-3 shadow-sm bg-white mt-3">
+          <h6 class="fw-bold text-dark border-bottom pb-2 mb-3 d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-clock-history me-1 text-primary"></i> Timeline Riwayat Tindak Lanjut CRM</span>
+            <span class="badge bg-light text-muted border small fw-normal" id="mLeadHistCount">0 Riwayat</span>
+          </h6>
+          <div id="mLeadTimelineList" class="position-relative ps-2" style="max-height: 250px; overflow-y: auto;">
+            <div class="text-center py-3 text-muted small">Memuat riwayat aktivitas...</div>
+          </div>
         </div>
       </div>
     </div>
@@ -280,8 +317,28 @@ require_once __DIR__ . '/includes/header.php';
               <span class="badge bg-light text-secondary border small">${sourceLabel}</span>
               ${l.utm_campaign ? `<div class="text-muted" style="font-size:0.7rem;">${l.utm_campaign}</div>` : ''}
             </td>
-            <td>${statusBadge}</td>
+            <td>
+              <div>${statusBadge}</div>
+              ${l.investor_id ? `
+                <div class="mt-1">
+                  <a href="investors.php?search=${encodeURIComponent(l.email)}" class="badge bg-success text-white text-decoration-none py-1 px-1.5" style="font-size: 0.68rem;" title="Klik untuk kelola di data Investor">
+                    <i class="bi bi-person-check-fill me-1"></i>Investor #${l.investor_id}
+                  </a>
+                </div>
+              ` : ''}
+              ${l.project_title ? `
+                <div class="small text-muted text-truncate mt-0.5" style="max-width: 150px; font-size: 0.72rem;" title="${l.project_title}">
+                  <i class="bi bi-briefcase me-1"></i>${l.project_title}
+                </div>
+              ` : ''}
+            </td>
             <td class="text-end" style="white-space: nowrap;">
+              ${!l.investor_id && (l.status === 'deal' || l.status === 'site_visit') ? `
+                <button type="button" class="btn btn-sm btn-success py-1 px-2.5 d-inline-flex align-items-center gap-1 me-1" onclick="convertLeadToInvestor(${l.id}, '${(displayName || '').replace(/'/g, "\\'")}')" title="Konversi Lead ke Akun Investor Resmi">
+                  <i class="bi bi-person-plus-fill"></i>
+                  <span class="small fw-semibold">Jadikan Investor</span>
+                </button>
+              ` : ''}
               ${l.email ? `
                 <a href="${mailtoLink}" class="btn btn-sm btn-outline-secondary py-1 px-2.5 d-inline-flex align-items-center gap-1 me-1" title="Kirim Email Resmi">
                   <i class="bi bi-envelope-fill"></i>
@@ -362,13 +419,79 @@ require_once __DIR__ . '/includes/header.php';
         <span class="badge bg-light text-dark border">${l.utm_source || (l.gclid ? 'Google Ads' : 'Organik')}</span>
         ${l.utm_term ? `<small class="text-muted d-block mt-1">Keyword: <em>${l.utm_term}</em></small>` : ''}
       </div>
+      ${l.project_title ? `
+        <div class="col-md-6">
+          <small class="text-muted d-block">Proyek yang Diminati</small>
+          <strong class="text-primary"><i class="bi bi-briefcase me-1"></i>${l.project_title}</strong>
+        </div>
+      ` : ''}
       <div class="col-md-6">
         <small class="text-muted d-block">Waktu Konsultasi Masuk</small>
         <small class="text-secondary">${new Date(l.created_at).toLocaleString('id-ID')}</small>
       </div>
     `;
 
+    const investorBox = document.getElementById('mLeadInvestorBox');
+    const convertBanner = document.getElementById('mLeadConvertBanner');
+
+    if (l.investor_id) {
+      investorBox.classList.remove('d-none');
+      document.getElementById('mLeadInvestorText').textContent = `Investor ID #${l.investor_id} (${l.investor_account_email || l.email})`;
+      document.getElementById('mLeadInvestorLink').href = `investors.php?search=${encodeURIComponent(l.email)}`;
+      convertBanner.classList.add('d-none');
+    } else {
+      investorBox.classList.add('d-none');
+      if (l.status === 'deal') {
+        convertBanner.classList.remove('d-none');
+      } else {
+        convertBanner.classList.add('d-none');
+      }
+    }
+
+    loadLeadHistory(l.id);
     leadModalInstance.show();
+  }
+
+  async function loadLeadHistory(id) {
+    const container = document.getElementById('mLeadTimelineList');
+    const countBadge = document.getElementById('mLeadHistCount');
+    container.innerHTML = `<div class="text-center py-3 text-muted small"><span class="spinner-border spinner-border-sm me-1"></span> Memuat riwayat...</div>`;
+    
+    try {
+      const res = await fetch(`../api/admin/leads.php?action=history&lead_id=${id}`);
+      const json = await res.json();
+      if (!json.success || !json.data.history || json.data.history.length === 0) {
+        container.innerHTML = `<div class="text-center py-3 text-muted small fst-italic">Belum ada catatan riwayat tindak lanjut sebelumnya.</div>`;
+        countBadge.textContent = '0 Riwayat';
+        return;
+      }
+      const hists = json.data.history;
+      countBadge.textContent = `${hists.length} Riwayat`;
+      container.innerHTML = hists.map(h => {
+        const dt = new Date(h.created_at).toLocaleString('id-ID', {
+          day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
+        });
+        let statusBadge = `<span class="badge bg-secondary">${h.new_status || 'UPDATE'}</span>`;
+        if (h.new_status === 'new') statusBadge = `<span class="badge bg-warning text-dark">Baru</span>`;
+        if (h.new_status === 'contacted') statusBadge = `<span class="badge bg-info text-white">Dihubungi</span>`;
+        if (h.new_status === 'meeting') statusBadge = `<span class="badge bg-primary text-white">Meeting</span>`;
+        if (h.new_status === 'site_visit') statusBadge = `<span class="badge bg-purple text-white" style="background:#6f42c1;">Site Visit</span>`;
+        if (h.new_status === 'deal') statusBadge = `<span class="badge bg-success text-white">Deal</span>`;
+        if (h.new_status === 'lost') statusBadge = `<span class="badge bg-secondary text-white">Tidak Lanjut</span>`;
+
+        return `
+          <div class="mb-3 border-start border-3 border-primary ps-3 position-relative">
+            <div class="d-flex align-items-center gap-2">
+              ${statusBadge}
+              <span class="small text-muted" style="font-size: 0.75rem;">Oleh <strong>${h.admin_name || 'Admin'}</strong> • ${dt}</span>
+            </div>
+            ${h.notes ? `<div class="small text-dark mt-1 bg-light p-2 rounded-2 border">${h.notes}</div>` : ''}
+          </div>
+        `;
+      }).join('');
+    } catch (e) {
+      container.innerHTML = `<div class="text-center py-2 text-danger small">Gagal memuat timeline.</div>`;
+    }
   }
 
   async function saveLeadStatus(e) {
@@ -403,6 +526,39 @@ require_once __DIR__ . '/includes/header.php';
       btn.disabled = false;
       btn.innerHTML = `<i class="bi bi-check2-circle me-1"></i> Simpan Catatan`;
     }
+  }
+
+  async function convertLeadToInvestor(leadId, leadName) {
+    if (!confirm(`Konversi calon investor "${leadName}" menjadi akun Investor resmi?\n\nSistem akan membuatkan akun investor berstatus Aktif (atau menautkan ke akun jika sudah ada) dan menghubungkannya dengan CRM.`)) {
+      return;
+    }
+
+    try {
+      const res = await fetch('../api/admin/leads.php?action=convert_to_investor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ lead_id: leadId })
+      });
+      const json = await res.json();
+      if (json.success) {
+        AdminApp.showToast(json.message, 'success');
+        if (leadModalInstance) leadModalInstance.hide();
+        loadLeads();
+      } else {
+        AdminApp.showToast(json.message || 'Gagal mengonversi lead ke akun investor.', 'danger');
+      }
+    } catch (e) {
+      console.error(e);
+      AdminApp.showToast('Terjadi kesalahan koneksi server.', 'danger');
+    }
+  }
+
+  function convertLeadFromModal() {
+    const id = document.getElementById('mLeadId').value;
+    const l = leadsData.find(i => Number(i.id) === Number(id));
+    if (!l) return;
+    const name = l.account_type === 'perusahaan' ? (l.business_name || l.full_name) : l.full_name;
+    convertLeadToInvestor(l.id, name);
   }
 </script>
 

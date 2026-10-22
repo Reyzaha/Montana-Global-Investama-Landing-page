@@ -81,6 +81,8 @@ class PackageOption {
   String? nominalDisplay;
   int unitQty = 0;
   String? operatorPerk;
+  String? label;
+  String? badge;
 
   PackageOption parse(Map<String, dynamic> json) {
     title = json["title"] ?? json["label"];
@@ -88,6 +90,8 @@ class PackageOption {
     nominalDisplay = json["nominal_display"];
     unitQty = Formats.tryParseNumber(json["unit_qty"]).toInt();
     operatorPerk = json["operator_perk"] ?? json["badge"];
+    label = json["label"];
+    badge = json["badge"];
     return this;
   }
 }
@@ -170,6 +174,7 @@ class Project {
   String? model;
   String? packageOptionsMode;
   List<PackageOption> packageOptions = [];
+  String? operatorFacility;
   String? fundingRange;
   double fundingCollected = 0.0;
   double fundingTarget = 0.0;
@@ -191,11 +196,25 @@ class Project {
     category = json["category"];
     image = json["image"];
     model = json["model"];
-    packageOptionsMode = json["package_options_mode"];
+    final Map? detailMap = json["detail"] is Map ? json["detail"] as Map : null;
+    final Map? rabExecMap =
+        (detailMap != null && detailMap["rab_executive"] is Map)
+            ? detailMap["rab_executive"] as Map
+            : null;
 
-    packageOptions = json["package_options"] != null
+    packageOptionsMode =
+        json["package_options_mode"] ?? rabExecMap?["package_options_mode"];
+    operatorFacility =
+        json["operator_facility"] ?? rabExecMap?["operator_facility"];
+
+    final dynamic rawOptions = json["package_options"] ??
+        json["tiers"] ??
+        rabExecMap?["package_options"] ??
+        rabExecMap?["tiers"];
+
+    packageOptions = rawOptions != null && rawOptions is List
         ? List<PackageOption>.from(
-            (json["package_options"] as List).map(
+            rawOptions.map(
               (x) => PackageOption().parse(x as Map<String, dynamic>),
             ),
           )
@@ -242,10 +261,9 @@ class ProjectListResponse {
   List<Project> projects = [];
 
   ProjectListResponse parse(Map<String, dynamic> json) {
-    final Map<String, dynamic> target =
-        json["data"] is Map<String, dynamic>
-            ? json["data"] as Map<String, dynamic>
-            : json;
+    final Map<String, dynamic> target = json["data"] is Map<String, dynamic>
+        ? json["data"] as Map<String, dynamic>
+        : json;
 
     currency = target["currency"];
     isAuthenticated = Formats.tryParseBool(target["is_authenticated"]);

@@ -8,6 +8,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="<?= htmlspecialchars(getCsrfToken()) ?>">
   <title><?= htmlspecialchars($pageTitle ?? 'Admin Dashboard') ?> — PT Montana Global Investama</title>
   <!-- Favicon Icons -->
   <link rel="icon" type="image/png" href="../assets/img/mgi-official-logo.png">
