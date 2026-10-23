@@ -1,39 +1,20 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import "package:flutter/material.dart";
-import "package:get/get.dart";
-import "package:mgi_investor/constant/preference_key.dart";
-import "package:mgi_investor/helper/preferences.dart";
 
 class AppColors {
   static Brightness brightness() {
-    if (Get.context != null) {
-      return MediaQuery.of(Get.context!).platformBrightness;
-    }
-
-    return WidgetsBinding.instance.platformDispatcher.platformBrightness;
+    return Brightness.light;
   }
 
   static Brightness brightnessInverse() {
-    if (darkMode()) {
-      return Brightness.light;
-    } else {
-      return Brightness.dark;
-    }
+    return Brightness.dark;
   }
 
   static bool darkMode() {
-    return brightness() == Brightness.dark;
+    return false;
   }
 
   static ThemeMode themeMode() {
-    int? pref = Preferences.getInt(PreferenceKey.THEME_MODE);
-    if (pref == ThemeMode.light.index) {
-      return ThemeMode.light;
-    } else if (pref == ThemeMode.dark.index) {
-      return ThemeMode.dark;
-    }
-    return ThemeMode.system;
+    return ThemeMode.light;
   }
 
   static Color primary() {

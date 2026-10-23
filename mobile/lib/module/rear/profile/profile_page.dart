@@ -11,7 +11,6 @@ import "package:mgi_investor/api/endpoint/investor/investor_dashboard.dart";
 import "package:mgi_investor/helper/background.dart";
 import "package:mgi_investor/helper/generals.dart";
 import "package:mgi_investor/main_bloc.dart";
-import "package:mgi_investor/main_event.dart";
 import "package:mgi_investor/main_state.dart";
 import "package:mgi_investor/model/account.dart";
 import "package:mgi_investor/shared.dart";
@@ -466,7 +465,6 @@ class ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
   Widget _buildPreferencesSection() {
     return BlocBuilder<MainBloc, MainState>(
       builder: (context, state) {
-        final ThemeMode currentMode = state.themeMode;
         final String currentLang = context.locale.languageCode;
         final Widget divider = Divider(
           height: 1,
@@ -532,37 +530,7 @@ class ProfilePageState extends State<ProfilePage> with WidgetsBindingObserver {
                       );
                     },
                   ),
-                  divider,
-                  SettingsTile(
-                    icon: Icons.brightness_6_outlined,
-                    title: "theme_settings".tr(),
-                    subtitle: "theme_settings".tr(),
-                    trailing: DropdownButton<ThemeMode>(
-                      value: currentMode,
-                      underline: const SizedBox(),
-                      items: [
-                        DropdownMenuItem(
-                          value: ThemeMode.system,
-                          child: Text("system_mode".tr()),
-                        ),
-                        DropdownMenuItem(
-                          value: ThemeMode.light,
-                          child: Text("light_mode".tr()),
-                        ),
-                        DropdownMenuItem(
-                          value: ThemeMode.dark,
-                          child: Text("dark_mode".tr()),
-                        ),
-                      ],
-                      onChanged: (ThemeMode? mode) {
-                        if (mode != null) {
-                          context.read<MainBloc>().add(
-                                MainThemeChanged(value: mode.index),
-                              );
-                        }
-                      },
-                    ),
-                  ),
+
                   divider,
                   SettingsTile(
                     icon: Icons.notifications_none,

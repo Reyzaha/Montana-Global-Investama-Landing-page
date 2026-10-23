@@ -320,7 +320,7 @@ class AppState extends State<App> {
                       ),
                     ),
                   ),
-                  themeMode: state.themeMode,
+                  themeMode: ThemeMode.light,
                 );
               },
             ),
