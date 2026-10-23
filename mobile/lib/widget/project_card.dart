@@ -259,7 +259,7 @@ class ProjectCard extends StatelessWidget {
               Center(
                 child: Image.asset(
                   "assets/image/closed-stamp.png",
-                  width: Dimensions.size100 + Dimensions.size20,
+                  width: Dimensions.size100 + Dimensions.size50,
                   fit: BoxFit.contain,
                 ),
               ),

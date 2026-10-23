@@ -721,12 +721,12 @@ const MGIComponents = {
     const isFullyFunded = (project.status === 'Fully Funded') || (String(project.status || '').toLowerCase().includes('funded'));
 
     return `
-      <div class="card mgi-card h-100 shadow-sm border-0 d-flex flex-column">
+      <div class="card mgi-card project-card-clickable h-100 shadow-sm border-0 d-flex flex-column" onclick="MGIAuth.handleProtectedDetail('${project.id}')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();MGIAuth.handleProtectedDetail('${project.id}');}" aria-label="Lihat rancangan anggaran ${project.title}">
         <div class="project-card-cover position-relative">
           <img src="${project.image || 'assets/img/1.png'}" alt="${project.title}" onerror="this.onerror=null;this.src='assets/img/1.png'">
           ${isFullyFunded ? `
             <div class="position-absolute top-50 start-50 translate-middle pointer-events-none" style="z-index: 4; pointer-events: none;">
-              <img src="assets/img/closed-stamp.png" alt="Fully Funded / Ditutup" style="width: 150px; max-width: 65%; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.45));">
+              <img src="assets/img/closed-stamp.png" alt="Fully Funded / Ditutup" style="width: 240px; max-width: 88%; filter: drop-shadow(0 6px 20px rgba(0,0,0,0.55)); transform: scale(1.15);">
             </div>
           ` : ''}
           
@@ -765,7 +765,7 @@ const MGIComponents = {
           ${MGIComponents.renderMetaRow(info)}
 
           <div class="mt-auto pt-1">
-            <button type="button" onclick="MGIAuth.handleProtectedDetail('${project.id}')" class="btn btn-outline-mgi w-100 py-2.5 fw-semibold d-flex align-items-center justify-content-center gap-2">
+            <button type="button" onclick="event.stopPropagation(); MGIAuth.handleProtectedDetail('${project.id}')" class="btn btn-outline-mgi w-100 py-2.5 fw-semibold d-flex align-items-center justify-content-center gap-2">
               <span>${ctaText}</span>
               <i class="bi bi-arrow-right"></i>
             </button>

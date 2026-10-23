@@ -5748,7 +5748,7 @@
         const unitAllocText = catFirstRabQty ? `${catFirstRabQty} Unit Fisik CBU` : (tierOne ? `${tierOne.unit_qty} Unit Fisik CBU` : (rab?.spesifikasi?.estimasi_unit ? rab.spesifikasi.estimasi_unit.split(' ')[0] + ' Unit' : 'Unit CBU Grade A'));
 
         html += `
-          <div class="catalog-card bg-white rounded-3xl border border-slate-200/90 shadow-md hover:shadow-xl hover:border-slate-300 transition-all duration-300 flex flex-col justify-between overflow-hidden" data-title="${(p.title || p.nama_project || '').toLowerCase()} ${(info.lokasi || p.city || '').toLowerCase()}">
+          <div class="catalog-card bg-white rounded-3xl border border-slate-200/90 shadow-md hover:shadow-xl hover:border-blue-900/40 transition-all duration-300 flex flex-col justify-between overflow-hidden cursor-pointer" onclick="openProjectDetailModal('${p.id}')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProjectDetailModal('${p.id}');}" data-title="${(p.title || p.nama_project || '').toLowerCase()} ${(info.lokasi || p.city || '').toLowerCase()}">
             <!-- Thumbnail Banner -->
             <div class="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900 group">
               <img 
@@ -5760,7 +5760,7 @@
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent"></div>
               ${isFullyFunded ? `
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10">
-                  <img src="assets/img/closed-stamp.png" alt="Fully Funded / Ditutup" class="w-36 max-w-[65%] drop-shadow-2xl" />
+                  <img src="assets/img/closed-stamp.png" alt="Fully Funded / Ditutup" class="w-52 sm:w-60 max-w-[85%] drop-shadow-2xl" />
                 </div>
               ` : ''}
 
@@ -5835,7 +5835,7 @@
               <div class="pt-2 border-t border-slate-100 flex items-center gap-2">
                 <button 
                   type="button"
-                  onclick="openProjectDetailModal('${p.id}')" 
+                  onclick="event.stopPropagation(); openProjectDetailModal('${p.id}')" 
                   class="flex-1 py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 transition text-center cursor-pointer"
                 >
                   <i data-lucide="file-text" class="w-3.5 h-3.5 text-blue-600"></i>
@@ -6067,7 +6067,7 @@
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent"></div>
             ${isFullyFunded ? `
               <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10">
-                <img src="assets/img/closed-stamp.png" alt="Fully Funded / Ditutup" class="w-48 max-w-[65%] drop-shadow-2xl" />
+                <img src="assets/img/closed-stamp.png" alt="Fully Funded / Ditutup" class="w-60 sm:w-72 max-w-[88%] drop-shadow-2xl" />
               </div>
             ` : ''}
             
