@@ -63,6 +63,54 @@ function sendStaticInvestorDashboardFallback(?array $session): void {
     $name = $session ? ($session['name'] ?? 'Investor MGI') : 'Investor MGI';
     $type = $session ? ($session['type'] ?? 'individual') : 'individual';
 
+    $fallbackTotal = 0.0;
+    $fallbackCount = 0;
+    $fallbackNextPayout = null;
+    $fallbackPortfolios = [];
+
+    try {
+        $db = getDB();
+        $stmtF = $db->prepare("
+            SELECT p.*, pr.title as project_title, pr.category as project_category,
+                   pr.image as project_image, pr.status as project_status, pr.lokasi as project_lokasi
+            FROM investor_portfolios p
+            LEFT JOIN projects pr ON p.project_id = pr.id
+            WHERE p.investor_id = ?
+            ORDER BY p.start_date DESC
+        ");
+        $stmtF->execute([$invId]);
+        $rows = $stmtF->fetchAll();
+        foreach ($rows as $r) {
+            $amt = (float)($r['amount'] ?? 0);
+            $fallbackTotal += $amt;
+            if (($r['status'] ?? 'active') === 'active') {
+                $fallbackCount++;
+            }
+            if (!empty($r['next_payout_date']) && !$fallbackNextPayout) {
+                $fallbackNextPayout = $r['next_payout_date'];
+            }
+            $fallbackPortfolios[] = [
+                'id' => (int)$r['id'],
+                'project_id' => $r['project_id'],
+                'project_title' => $r['project_title'] ?: 'Proyek Penempatan Modal',
+                'project_category' => $r['project_category'] ?: 'Alat Berat',
+                'project_image' => $r['project_image'] ?: 'assets/img/1.png',
+                'contract_number' => $r['contract_number'],
+                'amount' => $amt,
+                'return_rate' => $r['return_rate'],
+                'tenor' => $r['tenor'],
+                'start_date' => $r['start_date'],
+                'end_date' => $r['end_date'],
+                'next_payout_date' => $r['next_payout_date'],
+                'payout_received' => (float)($r['payout_received'] ?? 0),
+                'allocated_units' => $r['allocated_units'],
+                'status' => $r['status']
+            ];
+        }
+    } catch (Throwable $e) {
+        error_log("Static dashboard fallback DB warning: " . $e->getMessage());
+    }
+
     sendJsonResponse([
         'profile' => [
             'id' => $invId,
@@ -83,17 +131,25 @@ function sendStaticInvestorDashboardFallback(?array $session): void {
         ],
         'bankAccount' => null,
         'summary' => [
-            'totalInvested' => 0,
-            'total_investasi' => 0,
+            'totalInvested' => $fallbackTotal,
+            'total_investasi' => $fallbackTotal,
             'totalPayoutReceived' => 0,
             'totalNetProfit' => 0,
-            'activeProjectsCount' => 0,
-            'nextPayoutDate' => null,
+            'activeProjectsCount' => $fallbackCount,
+            'nextPayoutDate' => $fallbackNextPayout,
             'totalUnitsAllocated' => 0,
             'totalPurchasesMIU' => 0,
             'cashEscrowBalance' => 0
         ],
-        'portfolios' => [],
+        'metrics' => [
+            'total_invested' => $fallbackTotal,
+            'total_payout_received' => 0,
+            'total_purchases_miu' => 0,
+            'active_projects_count' => $fallbackCount,
+            'next_payout_date' => $fallbackNextPayout,
+            'est_roi_rate' => $fallbackCount > 0 ? '≥32% (p.a.)' : '0%'
+        ],
+        'portfolios' => $fallbackPortfolios,
         'billings' => [],
         'notifications' => [
             [
@@ -146,12 +202,12 @@ try {
             SELECT p.*, pr.title as project_title, pr.category as project_category,
                    pr.image as project_image, pr.status as project_status, pr.lokasi as project_lokasi
             FROM investor_portfolios p
-            JOIN projects pr ON p.project_id = pr.id
+            LEFT JOIN projects pr ON p.project_id = pr.id
             WHERE p.investor_id = ?
             ORDER BY p.start_date DESC
         ");
         $stmtPort->execute([$investorId]);
-        $rawPortfolios = $stmtPort->fetchAll();
+        $rawPortfolios = $stmtPort->fetchAll() ?: [];
 
         $portfolios = [];
         $totalInvested = 0;
@@ -159,21 +215,21 @@ try {
         $nextPayoutDates = [];
 
         foreach ($rawPortfolios as $port) {
-            $amt = (float)$port['amount'];
-            $payout = (float)$port['payout_received'];
+            $amt = (float)($port['amount'] ?? 0);
+            $payout = (float)($port['payout_received'] ?? 0);
             $totalInvested += $amt;
             $totalPayoutReceived += $payout;
 
-            if (!empty($port['next_payout_date']) && $port['status'] === 'active') {
+            if (!empty($port['next_payout_date']) && ($port['status'] ?? 'active') === 'active') {
                 $nextPayoutDates[] = $port['next_payout_date'];
             }
 
             $portfolios[] = [
                 'id' => (int)$port['id'],
                 'project_id' => $port['project_id'],
-                'project_title' => $port['project_title'],
-                'project_category' => $port['project_category'],
-                'project_image' => $port['project_image'],
+                'project_title' => $port['project_title'] ?: 'Proyek Penempatan Modal',
+                'project_category' => $port['project_category'] ?: 'Alat Berat',
+                'project_image' => $port['project_image'] ?: 'assets/img/1.png',
                 'contract_number' => $port['contract_number'],
                 'amount' => $amt,
                 'return_rate' => $port['return_rate'],
@@ -192,75 +248,101 @@ try {
         $earliestNextPayout = !empty($nextPayoutDates) ? $nextPayoutDates[0] : null;
 
         // D. Campaign Updates
-        $stmtCamp = $db->query("
-            SELECT cu.*, pr.title as project_title
-            FROM campaign_updates cu
-            LEFT JOIN projects pr ON cu.project_id = pr.id
-            ORDER BY cu.update_date DESC, cu.sort_order ASC
-            LIMIT 10
-        ");
-        $campaignUpdates = $stmtCamp->fetchAll();
+        $campaignUpdates = [];
+        try {
+            $stmtCamp = $db->query("
+                SELECT cu.*, pr.title as project_title
+                FROM campaign_updates cu
+                LEFT JOIN projects pr ON cu.project_id = pr.id
+                ORDER BY cu.update_date DESC, cu.sort_order ASC
+                LIMIT 10
+            ");
+            $campaignUpdates = $stmtCamp ? $stmtCamp->fetchAll() : [];
+        } catch (Throwable $e) {
+            error_log("Dashboard warning (campaign_updates): " . $e->getMessage());
+        }
 
         // E. Catalog Projects (All projects for exploration, search & filter: Open, Coming Soon, Closed, Full)
-        $stmtCatalog = $db->query("
-            SELECT id, title, category, image, status, funding_collected, funding_target,
-                   lokasi, tenor, return_rate, min_investment, remaining_days, asset_backed
-            FROM projects
-            ORDER BY sort_order ASC
-        ");
-        $catalogProjects = $stmtCatalog ? $stmtCatalog->fetchAll() : [];
-        $openProjects = array_values(array_filter($catalogProjects, function ($p) {
-            return ($p['status'] ?? '') === 'Open';
-        }));
+        $catalogProjects = [];
+        $openProjects = [];
+        try {
+            $stmtCatalog = $db->query("
+                SELECT id, title, category, image, status, funding_collected, funding_target,
+                       lokasi, tenor, return_rate, min_investment, remaining_days, asset_backed
+                FROM projects
+                ORDER BY sort_order ASC
+            ");
+            $catalogProjects = $stmtCatalog ? $stmtCatalog->fetchAll() : [];
+            $openProjects = array_values(array_filter($catalogProjects, function ($p) {
+                return ($p['status'] ?? '') === 'Open';
+            }));
+        } catch (Throwable $e) {
+            error_log("Dashboard warning (catalog_projects): " . $e->getMessage());
+        }
 
         // F. Financial Records & Billings for Odoo/Kledo style reporting
-        $stmtFin = $db->prepare("
-            SELECT f.*, pr.title as project_title, pr.category as project_category
-            FROM financial_records f
-            JOIN projects pr ON f.project_id = pr.id
-            WHERE f.investor_id = ?
-            ORDER BY f.transaction_date DESC, f.id DESC
-        ");
-        $stmtFin->execute([$investorId]);
-        $allFinRecords = $stmtFin->fetchAll() ?: [];
-
+        $allFinRecords = [];
         $billingsList = [];
         $totalPurchasesMIU = 0.0;
-        foreach ($allFinRecords as $fr) {
-            if (!empty($fr['is_billing'])) {
-                $billingsList[] = $fr;
+        try {
+            $stmtFin = $db->prepare("
+                SELECT f.*, pr.title as project_title, pr.category as project_category
+                FROM financial_records f
+                LEFT JOIN projects pr ON f.project_id = pr.id
+                WHERE f.investor_id = ?
+                ORDER BY f.transaction_date DESC, f.id DESC
+            ");
+            $stmtFin->execute([$investorId]);
+            $allFinRecords = $stmtFin->fetchAll() ?: [];
+
+            foreach ($allFinRecords as $fr) {
+                if (!empty($fr['is_billing'])) {
+                    $billingsList[] = $fr;
+                }
+                if ($fr['module'] === 'pembelian' && (strpos(strtolower($fr['vendor_client'] ?? ''), 'miu') !== false || strpos(strtolower($fr['category'] ?? ''), 'miu') !== false)) {
+                    $totalPurchasesMIU += (float)$fr['amount'];
+                }
             }
-            if ($fr['module'] === 'pembelian' && (strpos(strtolower($fr['vendor_client'] ?? ''), 'miu') !== false || strpos(strtolower($fr['category'] ?? ''), 'miu') !== false)) {
-                $totalPurchasesMIU += (float)$fr['amount'];
-            }
+        } catch (Throwable $e) {
+            error_log("Dashboard warning (financial_records): " . $e->getMessage());
         }
 
         // G. Real-time Notifications for Investor Notification Box
-        $stmtNotif = $db->prepare("
-            SELECT n.*, p.title as project_title
-            FROM notifications n
-            LEFT JOIN projects p ON n.project_id = p.id
-            WHERE n.investor_id = ?
-            ORDER BY n.created_at DESC, n.id DESC
-            LIMIT 30
-        ");
-        $stmtNotif->execute([$investorId]);
-        $notificationsList = $stmtNotif->fetchAll() ?: [];
+        $notificationsList = [];
         $unreadNotifCount = 0;
-        foreach ($notificationsList as $n) {
-            if (empty($n['is_read'])) $unreadNotifCount++;
+        try {
+            $stmtNotif = $db->prepare("
+                SELECT n.*, p.title as project_title
+                FROM notifications n
+                LEFT JOIN projects p ON n.project_id = p.id
+                WHERE n.investor_id = ?
+                ORDER BY n.created_at DESC, n.id DESC
+                LIMIT 30
+            ");
+            $stmtNotif->execute([$investorId]);
+            $notificationsList = $stmtNotif->fetchAll() ?: [];
+            foreach ($notificationsList as $n) {
+                if (empty($n['is_read'])) $unreadNotifCount++;
+            }
+        } catch (Throwable $e) {
+            error_log("Dashboard warning (notifications): " . $e->getMessage());
         }
 
         // H. Project Documents for Confidential Center
-        $stmtDocs = $db->prepare("
-            SELECT id, project_id, doc_number, doc_title, doc_type, file_path, file_size, published_at, created_at
-            FROM project_documents
-            WHERE investor_id = ? OR investor_id IS NULL
-            ORDER BY created_at DESC
-            LIMIT 10
-        ");
-        $stmtDocs->execute([$investorId]);
-        $documentsList = $stmtDocs->fetchAll() ?: [];
+        $documentsList = [];
+        try {
+            $stmtDocs = $db->prepare("
+                SELECT id, project_id, doc_number, doc_title, doc_type, file_path, file_size, published_at, created_at
+                FROM project_documents
+                WHERE investor_id = ? OR investor_id IS NULL
+                ORDER BY created_at DESC
+                LIMIT 10
+            ");
+            $stmtDocs->execute([$investorId]);
+            $documentsList = $stmtDocs->fetchAll() ?: [];
+        } catch (Throwable $e) {
+            error_log("Dashboard warning (project_documents): " . $e->getMessage());
+        }
 
         $needsBio = !isInvestorBiodataComplete($profile);
         $needsPriv = !isInvestorPrivacyAccepted($profile);
@@ -677,7 +759,8 @@ try {
 
     sendJsonError('Aksi tidak dikenali.', 400);
 
-} catch (Exception $e) {
+} catch (Throwable $e) {
+    error_log("API Investor Dashboard Exception: " . $e->getMessage() . " in " . $e->getFile() . ":" . $e->getLine());
     if ($action === 'get') {
         sendStaticInvestorDashboardFallback($session);
         exit;
