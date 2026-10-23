@@ -62,7 +62,9 @@ try {
     $extraProjectInfo = [];
     $staticFile = __DIR__ . '/../data/projects.json';
     if (file_exists($staticFile)) {
-        $rawStatic = json_decode(file_get_contents($staticFile), true);
+        $staticContent = file_get_contents($staticFile);
+        $staticContent = preg_replace('/^\xEF\xBB\xBF/', '', $staticContent);
+        $rawStatic = json_decode($staticContent, true);
         if (!empty($rawStatic['projects'])) {
             foreach ($rawStatic['projects'] as $sp) {
                 if (!empty($sp['id'])) {

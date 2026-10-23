@@ -24,8 +24,18 @@ try {
         die("Error: File data/projects.json tidak ditemukan!\n");
     }
 
-    $raw = json_decode(file_get_contents($jsonFile), true);
+    $fileContent = file_get_contents($jsonFile);
+    // Strip UTF-8 BOM if present
+    $fileContent = preg_replace('/^\xEF\xBB\xBF/', '', $fileContent);
+    $raw = json_decode($fileContent, true);
+    if ($raw === null) {
+        die("Error: Gagal melakukan parse JSON dari data/projects.json! Pesan: " . json_last_error_msg() . "\n");
+    }
     $projects = $raw['projects'] ?? [];
+
+    if (empty($projects)) {
+        die("Error: Tidak ada proyek yang ditemukan di data/projects.json! Pembatalan sinkronisasi demi keamanan data.\n");
+    }
 
     echo "Memuat " . count($projects) . " proyek dari data/projects.json...\n";
 
