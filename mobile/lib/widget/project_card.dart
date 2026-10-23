@@ -124,7 +124,7 @@ class ProjectCard extends StatelessWidget {
     final String raw = (project.info?.returnRate != null &&
             project.info!.returnRate!.trim().isNotEmpty)
         ? project.info!.returnRate!.trim()
-        : "30,9% – 46,3%";
+        : "25,9% – 35,3%";
     return raw
         .replaceAll(RegExp(r"\s*\(p\.a\.\)", caseSensitive: false), "")
         .trim();
@@ -258,7 +258,7 @@ class ProjectCard extends StatelessWidget {
             if ((project.status ?? "").toLowerCase().contains("funded"))
               Center(
                 child: Image.asset(
-                  "assets/image/closed-stamp.png",
+                  "assets/image/closed-stamp1.png",
                   width: Dimensions.size100 + Dimensions.size50,
                   fit: BoxFit.contain,
                 ),

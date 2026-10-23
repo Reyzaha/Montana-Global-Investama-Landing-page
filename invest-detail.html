@@ -85,7 +85,7 @@
               onerror="this.onerror=null;this.src='assets/img/1.png';">
             <!-- Fully Funded / Closed Stamp Overlay -->
             <div id="detailClosedStamp" class="position-absolute top-50 start-50 translate-middle pointer-events-none" style="display: none; z-index: 4; pointer-events: none;">
-              <img src="assets/img/closed-stamp.png" alt="Fully Funded / Ditutup" style="width: 290px; max-width: 85%; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.6)); transform: scale(1.15);">
+              <img src="assets/img/closed-stamp1.png" alt="Fully Funded / Ditutup" style="width: 290px; max-width: 85%; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.6)); transform: scale(1.15);">
             </div>
             <div class="position-absolute bottom-0 end-0 m-3 px-3 py-1.5 rounded-pill bg-dark bg-opacity-75 text-white small d-flex align-items-center gap-1 shadow-sm" style="backdrop-filter: blur(4px); font-size: 0.78rem;">
               <i class="bi bi-arrows-fullscreen"></i>
@@ -403,7 +403,7 @@
       const mode = project.package_options_mode || (rab && rab.package_options_mode) || ((project.package_options && project.package_options.length === 2) || (rab && rab.tiers && rab.tiers.length === 2) ? '2' : ((project.package_options && project.package_options.length === 1) || (rab && rab.tiers && rab.tiers.length === 1) ? '1' : 'none'));
       const options = project.package_options || (rab && (rab.package_options || rab.tiers)) || project.tiers || [];
 
-      const rawReturn = (project.info && project.info.return) ? project.info.return.replace(/\s*\(p\.a\.\)/i, '').trim() : '28,6% – 42,9%';
+      const rawReturn = (project.info && project.info.return) ? project.info.return.replace(/\s*\(p\.a\.\)/i, '').trim() : '25,9% – 35,3%';
       const rawTenor = (project.info && project.info.tenor) ? project.info.tenor.replace(/\s*\(Target\s*2[–\-]3x\s*Putaran\/Tahun\)/gi, '').trim() : '12 Bulan';
 
       let headerOptionsPillHtml = '';
@@ -653,7 +653,7 @@
           <img id="modalPreviewImgSrc" src="" alt="Preview" class="img-fluid w-100 object-fit-contain" style="max-height: 80vh;">
           <!-- Stamp in Preview Modal -->
           <div id="modalPreviewClosedStamp" class="position-absolute top-50 start-50 translate-middle pointer-events-none" style="display: none; z-index: 5; pointer-events: none;">
-            <img src="assets/img/closed-stamp.png" alt="Fully Funded / Ditutup" style="width: 360px; max-width: 85vw; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.65)); transform: scale(1.1);">
+            <img src="assets/img/closed-stamp1.png" alt="Fully Funded / Ditutup" style="width: 360px; max-width: 85vw; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.65)); transform: scale(1.1);">
           </div>
         </div>
       </div>

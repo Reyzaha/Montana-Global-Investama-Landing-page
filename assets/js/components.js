@@ -520,7 +520,7 @@ const MGIComponents = {
     if (!info) return '';
 
     // 1. Clean ROI Return
-    let rawRet = (info.return || '28,6% – 42,9%').replace(/\s*\(p\.a\.\)/i, '').trim();
+    let rawRet = (info.return || '25,9% – 35,3%').replace(/\s*\(p\.a\.\)/i, '').trim();
 
     // 2. Clean Tenor
     let rawTenor = info.tenor || '12 Bulan';
@@ -726,7 +726,7 @@ const MGIComponents = {
           <img src="${project.image || 'assets/img/1.png'}" alt="${project.title}" onerror="this.onerror=null;this.src='assets/img/1.png'">
           ${isFullyFunded ? `
             <div class="position-absolute top-50 start-50 translate-middle pointer-events-none" style="z-index: 4; pointer-events: none;">
-              <img src="assets/img/closed-stamp.png" alt="Fully Funded / Ditutup" style="width: 240px; max-width: 88%; filter: drop-shadow(0 6px 20px rgba(0,0,0,0.55)); transform: scale(1.15);">
+              <img src="assets/img/closed-stamp1.png" alt="Fully Funded / Ditutup" style="width: 240px; max-width: 88%; filter: drop-shadow(0 6px 20px rgba(0,0,0,0.55)); transform: scale(1.15);">
             </div>
           ` : ''}
           

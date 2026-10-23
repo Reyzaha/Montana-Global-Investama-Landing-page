@@ -22,7 +22,7 @@
                 "lokasi": "DKI Jakarta & Koridor Industri Jabodetabek - Jawa Barat",
                 "target": "Rp 45.000.000.000",
                 "tenor": "12 Bulan",
-                "return": "30,9% â€“ 46,3%",
+                "return": "25,9% – 35,3%",
                 "min_investment": "Rp 45.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -108,11 +108,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Jabodetabek menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 30,9% â€“ 46,3%"
+                    "content": "Proyek investasi armada alat berat di Jabodetabek menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 25,9% – 35,3%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 30.87,
+                    "estimasi_return_persen": 25.9,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 45000000000,
                     "maximum_investasi": 45000000000,
@@ -274,7 +274,7 @@
                 "lokasi": "Denpasar & Bali",
                 "target": "Rp 5.000.000.000",
                 "tenor": "12 Bulan",
-                "return": "30,9% â€“ 46,3%",
+                "return": "25,5% – 35,2%",
                 "min_investment": "Rp 5.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -360,11 +360,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Denpasar menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 30,9% â€“ 46,3%"
+                    "content": "Proyek investasi armada alat berat di Denpasar menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 25,5% – 35,2%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 30.87,
+                    "estimasi_return_persen": 25.5,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 5000000000,
                     "maximum_investasi": 5000000000,
@@ -526,7 +526,7 @@
                 "lokasi": "Jawa Tengah & Koridor Industri",
                 "target": "Rp 15.000.000.000",
                 "tenor": "12 Bulan",
-                "return": "31,6% â€“ 47,4%",
+                "return": "25,2% – 35,4%",
                 "min_investment": "Rp 15.000.000.000 (Terdanai Penuh)",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Terdanai Penuh",
@@ -612,11 +612,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Kebumen menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 31,6% â€“ 47,4%"
+                    "content": "Proyek investasi armada alat berat di Kebumen menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 25,2% – 35,4%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 31.6,
+                    "estimasi_return_persen": 25.2,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 15000000000,
                     "maximum_investasi": 15000000000,
@@ -778,7 +778,7 @@
                 "lokasi": "Medan & Koridor Industri Sumatra",
                 "target": "Rp 7.000.000.000",
                 "tenor": "12 Bulan",
-                "return": "31,5% â€“ 47,2%",
+                "return": "25,7% – 35,1%",
                 "min_investment": "Rp 7.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -864,11 +864,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Sumatra menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 31,5% â€“ 47,2%"
+                    "content": "Proyek investasi armada alat berat di Sumatra menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 25,7% – 35,1%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 31.5,
+                    "estimasi_return_persen": 25.7,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 7000000000,
                     "maximum_investasi": 7000000000,
@@ -1030,7 +1030,7 @@
                 "lokasi": "Pontianak & Kalimantan Barat",
                 "target": "Rp 2.000.000.000",
                 "tenor": "12 Bulan",
-                "return": "27,6% â€“ 41,3%",
+                "return": "25,3% – 35,5%",
                 "min_investment": "Rp 2.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -1116,11 +1116,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Pontianak menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 27,6% â€“ 41,3%"
+                    "content": "Proyek investasi armada alat berat di Pontianak menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 25,3% – 35,5%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 27.56,
+                    "estimasi_return_persen": 25.3,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 2000000000,
                     "maximum_investasi": 2000000000,
@@ -1282,7 +1282,7 @@
                 "lokasi": "Banjarmasin & Kalimantan Selatan",
                 "target": "Rp 3.000.000.000",
                 "tenor": "12 Bulan",
-                "return": "29,4% â€“ 44,1%",
+                "return": "25,8% – 35,2%",
                 "min_investment": "Rp 3.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -1368,11 +1368,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Banjarmasin menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 29,4% â€“ 44,1%"
+                    "content": "Proyek investasi armada alat berat di Banjarmasin menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 25,8% – 35,2%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 29.4,
+                    "estimasi_return_persen": 25.8,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 3000000000,
                     "maximum_investasi": 3000000000,
@@ -1534,7 +1534,7 @@
                 "lokasi": "Banda Aceh & Wilayah Aceh",
                 "target": "Rp 7.500.000.000",
                 "tenor": "12 Bulan",
-                "return": "30,9% â€“ 46,3%",
+                "return": "25,4% – 35,3%",
                 "min_investment": "Rp 7.500.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -1620,11 +1620,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Aceh menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 30,9% â€“ 46,3%"
+                    "content": "Proyek investasi armada alat berat di Aceh menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 25,4% – 35,3%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 30.87,
+                    "estimasi_return_persen": 25.4,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 7500000000,
                     "maximum_investasi": 7500000000,
@@ -1786,7 +1786,7 @@
                 "lokasi": "Makassar & Sulawesi Selatan",
                 "target": "Rp 3.000.000.000",
                 "tenor": "12 Bulan",
-                "return": "29,4% â€“ 44,1%",
+                "return": "25,6% – 35,4%",
                 "min_investment": "Rp 3.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -1872,11 +1872,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Makassar menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 29,4% â€“ 44,1%"
+                    "content": "Proyek investasi armada alat berat di Makassar menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 25,6% – 35,4%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 29.4,
+                    "estimasi_return_persen": 25.6,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 3000000000,
                     "maximum_investasi": 3000000000,
@@ -2038,7 +2038,7 @@
                 "lokasi": "Palu & Sulawesi Tengah",
                 "target": "Rp 2.000.000.000",
                 "tenor": "12 Bulan",
-                "return": "27,6% â€“ 41,3%",
+                "return": "25,1% – 35,5%",
                 "min_investment": "Rp 2.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -2124,11 +2124,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Palu menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 27,6% â€“ 41,3%"
+                    "content": "Proyek investasi armada alat berat di Palu menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 25,1% – 35,5%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 27.56,
+                    "estimasi_return_persen": 25.1,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 2000000000,
                     "maximum_investasi": 2000000000,
@@ -2290,7 +2290,7 @@
                 "lokasi": "Surabaya & Jawa Timur",
                 "target": "Rp 15.000.000.000",
                 "tenor": "12 Bulan",
-                "return": "30,9% â€“ 46,3%",
+                "return": "25,8% – 35,4%",
                 "min_investment": "Rp 15.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -2376,11 +2376,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Surabaya menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 30,9% â€“ 46,3%"
+                    "content": "Proyek investasi armada alat berat di Surabaya menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 25,8% – 35,4%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 30.87,
+                    "estimasi_return_persen": 25.8,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 15000000000,
                     "maximum_investasi": 15000000000,
@@ -2542,7 +2542,7 @@
                 "lokasi": "Kupang & Wilayah Nusa Tenggara Timur",
                 "target": "Rp 5.000.000.000",
                 "tenor": "12 Bulan",
-                "return": "30,9% â€“ 46,3%",
+                "return": "25,2% – 35,1%",
                 "min_investment": "Rp 5.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -2628,11 +2628,11 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di NTT menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 30,9% â€“ 46,3%"
+                    "content": "Proyek investasi armada alat berat di NTT menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 25,2% – 35,1%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
-                    "estimasi_return_persen": 30.87,
+                    "estimasi_return_persen": 25.2,
                     "modal_kerja_bulanan_persen": 2.38,
                     "minimum_investasi": 5000000000,
                     "maximum_investasi": 5000000000,

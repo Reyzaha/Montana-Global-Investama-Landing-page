@@ -3993,7 +3993,7 @@
           contract_number: isAllocated ? ((port && port.contract_number) || `MGI/INV/2026/${pObj.id.toUpperCase()}-BP`) : '-',
           status: isAllocated ? (pObj.status || 'Active') : 'Belum Aktif',
           tenor: (pObj.info && pObj.info.tenor) || '12 Bulan',
-          return_rate: (pObj.info && pObj.info.return) || '≥30% (p.a.)',
+          return_rate: (pObj.info && pObj.info.return) || '25,9% – 35,3%',
           payout: (pObj.info && pObj.info.payout) || 'Tutup Buku Laporan Tahunan',
           funding_target: targetFunding,
           funding_collected: collectedFunding
@@ -4049,13 +4049,13 @@
             realisasi_diterima: isAllocated ? Number(port.payout_received || 0) : 0,
             estimasi_kuartal_berikutnya: isAllocated ? Math.round(cap * 0.08) : 0,
             jadwal_berikutnya: isAllocated ? '15 Oktober 2026' : '-',
-            target_roi_tahunan: (pObj.info && pObj.info.return) || '≥30% (p.a.)'
+            target_roi_tahunan: (pObj.info && pObj.info.return) || '25,9% – 35,3%'
           },
           dividen: {
             realisasi_diterima: isAllocated ? Number(port.payout_received || 0) : 0,
             estimasi_kuartal_berikutnya: isAllocated ? Math.round(cap * 0.08) : 0,
             jadwal_berikutnya: isAllocated ? '15 Oktober 2026' : '-',
-            target_roi_tahunan: (pObj.info && pObj.info.return) || '≥30% (p.a.)'
+            target_roi_tahunan: (pObj.info && pObj.info.return) || '25,9% – 35,3%'
           }
         },
         rab_executive: rab,
@@ -5740,7 +5740,7 @@
           : `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-black bg-blue-600 text-white shadow-sm"><span class="w-2 h-2 rounded-full bg-white animate-ping"></span> Terbuka (${pct}%)</span>`;
 
         const assetBadge = info.brand || info.asset_backed || 'Unit Alat Berat Siap Operasi';
-        const returnText = info.return || '20,0% – 25,0%';
+        const returnText = info.return || '25,9% – 35,3%';
         const tenorText = (info.tenor || '12 Bulan').replace(/\s*\(Target\s*2[–\-]3x\s*Putaran\/Tahun\)/gi, '').trim();
         const minInvText = info.min_investment || p.min_investment || (tierOne?.nominal ? formatRupiahExact(tierOne.nominal) : (targetVal > 0 ? formatRupiahExact(targetVal) : 'Rp 15.000.000.000'));
         const catFundingRows = p.detail?.funding_target?.rows || p.funding_items || [];
@@ -5760,7 +5760,7 @@
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent"></div>
               ${isFullyFunded ? `
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10">
-                  <img src="assets/img/closed-stamp.png" alt="Fully Funded / Ditutup" class="w-52 sm:w-60 max-w-[85%] drop-shadow-2xl" />
+                  <img src="assets/img/closed-stamp1.png" alt="Fully Funded / Ditutup" class="w-52 sm:w-60 max-w-[85%] drop-shadow-2xl" />
                 </div>
               ` : ''}
 
@@ -5893,7 +5893,7 @@
       const imgUrl = p.image || 'assets/img/1.png';
       const locText = info.lokasi || p.lokasi || p.city || 'Indonesia';
       const tenorText = (info.tenor || p.tenor || '12 Bulan').replace(/\s*\(Target\s*2[–\-]3x\s*Putaran\/Tahun\)/gi, '').trim();
-      const returnText = info.return || p.return_rate || '20,0% – 25,0%';
+      const returnText = info.return || p.return_rate || '25,9% – 35,3%';
 
       const modalOptions = p.package_options || (rab && (rab.package_options || rab.tiers)) || p.tiers || [];
       const modalMode = p.package_options_mode || (rab && rab.package_options_mode) || (modalOptions.length === 2 ? '2' : (modalOptions.length === 1 ? '1' : 'none'));
@@ -6067,7 +6067,7 @@
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent"></div>
             ${isFullyFunded ? `
               <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10">
-                <img src="assets/img/closed-stamp.png" alt="Fully Funded / Ditutup" class="w-60 sm:w-72 max-w-[88%] drop-shadow-2xl" />
+                <img src="assets/img/closed-stamp1.png" alt="Fully Funded / Ditutup" class="w-60 sm:w-72 max-w-[88%] drop-shadow-2xl" />
               </div>
             ` : ''}
             
