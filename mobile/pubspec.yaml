@@ -1,6 +1,6 @@
 name: mgi_investor
 description: "Aplikasi Mobile Investor PT Montana Global Investama"
-version: 1.0.0+1
+version: 2.1.0+1
 publish_to: none
 
 environment:
