@@ -276,7 +276,7 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
             Center(
               child: IgnorePointer(
                 child: Image.asset(
-                  "assets/image/closed-stamp1.png",
+                  "assets/image/closed-stamp.png",
                   width: Dimensions.size100 * 2,
                   fit: BoxFit.contain,
                 ),
