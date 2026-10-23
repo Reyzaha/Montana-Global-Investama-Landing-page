@@ -41,7 +41,7 @@ class StatTile extends StatelessWidget {
             style: TextStyle(
               fontSize: Dimensions.text16,
               fontWeight: FontWeight.bold,
-              color: valueColor ?? const Color(0xFF0F2C59),
+              color: valueColor ?? AppColors.onSurface(),
             ),
           ),
           SizedBox(height: Dimensions.size4),

@@ -162,7 +162,7 @@ class SignInPageState extends State<SignInPage> with WidgetsBindingObserver {
             smoothness: 1,
           ),
           color: isSelected
-              ? const Color(0xFF0F2C59)
+              ? AppColors.primary()
               : Colors.transparent,
         ),
         child: Center(
@@ -171,7 +171,7 @@ class SignInPageState extends State<SignInPage> with WidgetsBindingObserver {
             style: TextStyle(
               fontSize: Dimensions.text12,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-              color: isSelected ? Colors.white : AppColors.onSurfaceVariant(),
+              color: isSelected ? AppColors.onPrimary() : AppColors.onSurfaceVariant(),
             ),
           ),
         ),
@@ -200,7 +200,7 @@ class SignInPageState extends State<SignInPage> with WidgetsBindingObserver {
                 style: TextStyle(
                   fontSize: Dimensions.text16,
                   fontWeight: FontWeight.bold,
-                  color: const Color(0xFF0F2C59),
+                  color: AppColors.onSurface(),
                 ),
               ),
             ),

@@ -92,7 +92,7 @@ class PortalSectionHeader extends StatelessWidget {
                   style: TextStyle(
                     fontSize: Dimensions.text20,
                     fontWeight: FontWeight.w800,
-                    color: portalNavy,
+                    color: AppColors.onSurface(),
                   ),
                 ),
               ],
@@ -435,7 +435,7 @@ class DividendDateCard extends StatelessWidget {
                     style: TextStyle(
                       fontSize: Dimensions.text22,
                       fontWeight: FontWeight.w900,
-                      color: portalNavy,
+                      color: AppColors.onSurface(),
                     ),
                   ),
                   SizedBox(width: Dimensions.size5),
@@ -486,7 +486,7 @@ class DividendDateCard extends StatelessWidget {
                     style: TextStyle(
                       fontSize: Dimensions.text14,
                       fontWeight: FontWeight.w800,
-                      color: portalNavy,
+                      color: AppColors.onSurface(),
                     ),
                   ),
                   SizedBox(height: Dimensions.size4),
@@ -519,7 +519,7 @@ class DividendDateCard extends StatelessWidget {
             ),
             Icon(
               Icons.chevron_right,
-              color: portalNavy,
+              color: AppColors.primary(),
               size: Dimensions.size25,
             ),
           ],
@@ -650,7 +650,7 @@ class DocumentTile extends StatelessWidget {
                     style: TextStyle(
                       fontSize: Dimensions.text12,
                       fontWeight: FontWeight.w800,
-                      color: portalNavy,
+                      color: AppColors.onSurface(),
                     ),
                   ),
                   SizedBox(height: Dimensions.size4),
@@ -794,7 +794,7 @@ class FieldUpdateCard extends StatelessWidget {
                       style: TextStyle(
                         fontSize: Dimensions.text14,
                         fontWeight: FontWeight.w800,
-                        color: portalNavy,
+                        color: AppColors.onSurface(),
                       ),
                     ),
                     SizedBox(height: Dimensions.size4),
@@ -825,7 +825,7 @@ class FieldUpdateCard extends StatelessWidget {
                             style: TextStyle(
                               fontSize: Dimensions.text10,
                               fontWeight: FontWeight.bold,
-                              color: portalNavy,
+                              color: AppColors.primary(),
                             ),
                           ),
                         ],
@@ -1032,7 +1032,7 @@ class SettingsTile extends StatelessWidget {
                     style: TextStyle(
                       fontSize: Dimensions.text12,
                       fontWeight: FontWeight.w800,
-                      color: portalNavy,
+                      color: AppColors.onSurface(),
                     ),
                   ),
                   SizedBox(height: Dimensions.size2),
@@ -1049,7 +1049,7 @@ class SettingsTile extends StatelessWidget {
             trailing ??
                 Icon(
                   Icons.chevron_right,
-                  color: portalNavy,
+                  color: AppColors.primary(),
                   size: Dimensions.size20,
                 ),
           ],

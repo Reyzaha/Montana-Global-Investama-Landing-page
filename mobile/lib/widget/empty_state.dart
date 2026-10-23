@@ -33,12 +33,12 @@ class EmptyState extends StatelessWidget {
               padding: EdgeInsets.all(Dimensions.size15),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: const Color(0xFF0F2C59).withValues(alpha: 0.08),
+                color: AppColors.primary().withValues(alpha: 0.12),
               ),
               child: Icon(
                 icon ?? Icons.folder_open_outlined,
                 size: Dimensions.size35,
-                color: const Color(0xFF0F2C59),
+                color: AppColors.primary(),
               ),
             ),
             SizedBox(height: Dimensions.size15),

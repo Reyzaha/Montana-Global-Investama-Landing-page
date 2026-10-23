@@ -160,7 +160,7 @@ class RoiCalculatorPageState extends State<RoiCalculatorPage>
             style: TextStyle(
               fontSize: Dimensions.text20,
               fontWeight: FontWeight.bold,
-              color: const Color(0xFF0F2C59),
+              color: AppColors.onSurface(),
             ),
           ),
           SizedBox(height: Dimensions.size15),

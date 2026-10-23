@@ -442,7 +442,7 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
       style: TextStyle(
         fontSize: Dimensions.text20,
         fontWeight: FontWeight.w800,
-        color: const Color(0xFF0F2C59),
+        color: AppColors.onSurface(),
         height: 1.25,
       ),
     );
@@ -458,7 +458,7 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
       subtitle,
       style: TextStyle(
         fontSize: Dimensions.text13,
-        color: const Color(0xFF64748B),
+        color: AppColors.onSurfaceVariant(),
         height: 1.4,
       ),
     );
@@ -477,9 +477,9 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
     return Container(
       padding: EdgeInsets.all(Dimensions.size15),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surfaceContainerLowest(),
         borderRadius: BorderRadius.circular(Dimensions.size15),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: AppColors.outline()),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -494,7 +494,7 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
                     "collected_funds".tr(),
                     style: TextStyle(
                       fontSize: Dimensions.text11,
-                      color: const Color(0xFF64748B),
+                      color: AppColors.onSurfaceVariant(),
                     ),
                   ),
                   SizedBox(height: Dimensions.size4),
@@ -503,7 +503,7 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
                     style: TextStyle(
                       fontSize: Dimensions.text16,
                       fontWeight: FontWeight.w800,
-                      color: const Color(0xFF0F2C59),
+                      color: AppColors.onSurface(),
                     ),
                   ),
                 ],
@@ -515,7 +515,7 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
                     "target_funding".tr(),
                     style: TextStyle(
                       fontSize: Dimensions.text11,
-                      color: const Color(0xFF64748B),
+                      color: AppColors.onSurfaceVariant(),
                     ),
                   ),
                   SizedBox(height: Dimensions.size4),
@@ -524,7 +524,7 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
                     style: TextStyle(
                       fontSize: Dimensions.text13,
                       fontWeight: FontWeight.w700,
-                      color: const Color(0xFF0F2C59),
+                      color: AppColors.onSurface(),
                     ),
                   ),
                 ],
@@ -577,9 +577,9 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
     return Container(
       padding: EdgeInsets.all(Dimensions.size15),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surfaceContainerLowest(),
         borderRadius: BorderRadius.circular(Dimensions.size15),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: AppColors.outline()),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -615,7 +615,7 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
             style: TextStyle(
               fontSize: Dimensions.text14,
               fontWeight: FontWeight.w800,
-              color: const Color(0xFF0F2C59),
+              color: AppColors.onSurface(),
             ),
           ),
         ],
@@ -697,14 +697,14 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
                   style: TextStyle(
                     fontSize: Dimensions.text14,
                     fontWeight: FontWeight.w800,
-                    color: const Color(0xFF0F2C59),
+                    color: AppColors.onSurface(),
                   ),
                 ),
                 Icon(
                   isExpanded
                       ? Icons.keyboard_arrow_up
                       : Icons.keyboard_arrow_down,
-                  color: const Color(0xFF0F2C59),
+                  color: AppColors.onSurface(),
                   size: Dimensions.size20,
                 ),
               ],
@@ -717,7 +717,7 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
             child: content,
           ),
         ],
-        const Divider(color: Color(0xFFE2E8F0), height: 1, thickness: 1),
+        Divider(color: AppColors.outline(), height: 1, thickness: 1),
       ],
     );
   }
@@ -850,7 +850,13 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
         vertical: Dimensions.size10,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surfaceContainerLowest(),
+        border: Border(
+          top: BorderSide(
+            color: AppColors.outline(),
+            width: 1.0,
+          ),
+        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
@@ -867,8 +873,8 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
               flex: 2,
               child: OutlinedButton(
                 style: OutlinedButton.styleFrom(
-                  foregroundColor: const Color(0xFF0F2C59),
-                  side: const BorderSide(color: Color(0xFFCBD5E1)),
+                  foregroundColor: AppColors.onSurface(),
+                  side: BorderSide(color: AppColors.outline()),
                   padding: EdgeInsets.symmetric(vertical: Dimensions.size15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(Dimensions.size10),
@@ -884,10 +890,10 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.file_download_outlined,
                       size: 18,
-                      color: Color(0xFF0F2C59),
+                      color: AppColors.onSurface(),
                     ),
                     SizedBox(width: Dimensions.size5),
                     Text(
@@ -895,7 +901,7 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
                       style: TextStyle(
                         fontSize: Dimensions.text13,
                         fontWeight: FontWeight.w700,
-                        color: const Color(0xFF0F2C59),
+                        color: AppColors.onSurface(),
                       ),
                     ),
                   ],

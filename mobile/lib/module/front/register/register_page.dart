@@ -280,7 +280,7 @@ class RegisterPageState extends State<RegisterPage> with WidgetsBindingObserver 
             borderRadius: BorderRadius.circular(Dimensions.size20),
             smoothness: 1,
           ),
-          color: isSelected ? const Color(0xFF0F2C59) : Colors.transparent,
+          color: isSelected ? AppColors.primary() : Colors.transparent,
         ),
         child: Center(
           child: Text(
@@ -288,7 +288,7 @@ class RegisterPageState extends State<RegisterPage> with WidgetsBindingObserver 
             style: TextStyle(
               fontSize: Dimensions.text12,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-              color: isSelected ? Colors.white : AppColors.onSurfaceVariant(),
+              color: isSelected ? AppColors.onPrimary() : AppColors.onSurfaceVariant(),
             ),
           ),
         ),
@@ -410,7 +410,7 @@ class RegisterPageState extends State<RegisterPage> with WidgetsBindingObserver 
               style: TextStyle(
                 fontSize: Dimensions.text16,
                 fontWeight: FontWeight.bold,
-                color: const Color(0xFF0F2C59),
+                color: AppColors.onSurface(),
               ),
             ),
             SizedBox(height: Dimensions.size5),

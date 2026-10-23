@@ -83,7 +83,7 @@ class CompanyProfilePageState extends State<CompanyProfilePage>
               style: TextStyle(
                 fontSize: Dimensions.text16,
                 fontWeight: FontWeight.bold,
-                color: const Color(0xFF0F2C59),
+                color: AppColors.onSurface(),
               ),
             ),
           ),
@@ -344,7 +344,7 @@ class CompanyProfilePageState extends State<CompanyProfilePage>
               Icon(
                 Icons.business,
                 size: Dimensions.size20,
-                color: const Color(0xFF0F2C59),
+                color: AppColors.primary(),
               ),
               SizedBox(width: Dimensions.size10),
               Text(
@@ -381,7 +381,7 @@ class CompanyProfilePageState extends State<CompanyProfilePage>
             style: TextStyle(
               fontSize: Dimensions.text11,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF0F2C59),
+              color: AppColors.primary(),
             ),
           ),
           SizedBox(height: Dimensions.size4),

@@ -138,14 +138,14 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       borderRadius: BorderRadius.circular(Dimensions.size20),
                       smoothness: 1,
                     ),
-                    color: const Color(0xFF0F2C59),
+                    color: AppColors.primary(),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.person_outline,
-                        color: Colors.white,
+                        color: AppColors.onPrimary(),
                         size: 15,
                       ),
                       const SizedBox(width: 4),
@@ -154,7 +154,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                         style: TextStyle(
                           fontSize: Dimensions.text11,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: AppColors.onPrimary(),
                         ),
                       ),
                     ],
@@ -190,14 +190,14 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
             borderRadius: BorderRadius.circular(Dimensions.size15),
             smoothness: 1,
           ),
-          color: active ? const Color(0xFF0F2C59) : Colors.transparent,
+          color: active ? AppColors.primary() : Colors.transparent,
         ),
         child: Text(
           label,
           style: TextStyle(
             fontSize: Dimensions.text10,
             fontWeight: FontWeight.bold,
-            color: active ? Colors.white : AppColors.onSurfaceVariant(),
+            color: active ? AppColors.onPrimary() : AppColors.onSurfaceVariant(),
             letterSpacing: 0.5,
           ),
         ),
@@ -508,7 +508,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               style: TextStyle(
                 fontSize: Dimensions.text20,
                 fontWeight: FontWeight.w900,
-                color: const Color(0xFF0F2C59),
+                color: AppColors.onSurface(),
               ),
             ),
             if (companyProfile?.foundedYear != null)
@@ -566,7 +566,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     style: TextStyle(
                       fontSize: Dimensions.text20,
                       fontWeight: FontWeight.w900,
-                      color: const Color(0xFF0F2C59),
+                      color: AppColors.onSurface(),
                       height: 1.0,
                     ),
                   ),
@@ -639,7 +639,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               style: TextStyle(
                 fontSize: Dimensions.text20,
                 fontWeight: FontWeight.w900,
-                color: const Color(0xFF0F2C59),
+                color: AppColors.onSurface(),
               ),
             ),
             Text(
@@ -667,7 +667,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
             itemBuilder: (BuildContext context, int index) {
               final entity = pillars[index];
               final Color badgeColor = (entity.code ?? "").toUpperCase() == "MIU"
-                  ? const Color(0xFF0F2C59)
+                  ? AppColors.primary()
                   : ((entity.code ?? "").toUpperCase() == "MSI"
                       ? const Color(0xFF1E3A8A)
                       : const Color(0xFFC5A059));
@@ -750,7 +750,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           style: TextStyle(
                             fontSize: Dimensions.text14,
                             fontWeight: FontWeight.bold,
-                            color: const Color(0xFF0F2C59),
+                            color: AppColors.onSurface(),
                           ),
                         ),
                         Text(
@@ -862,7 +862,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
             children: [
               Icon(
                 Icons.verified_user_outlined,
-                color: const Color(0xFF0F2C59),
+                color: AppColors.primary(),
                 size: Dimensions.size20,
               ),
               SizedBox(width: Dimensions.size10),
@@ -871,7 +871,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 style: TextStyle(
                   fontSize: Dimensions.text14,
                   fontWeight: FontWeight.bold,
-                  color: const Color(0xFF0F2C59),
+                  color: AppColors.onSurface(),
                 ),
               ),
             ],
@@ -902,8 +902,8 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
             width: double.infinity,
             child: OutlinedButton(
               style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Color(0xFF0F2C59)),
-                foregroundColor: const Color(0xFF0F2C59),
+                side: BorderSide(color: AppColors.primary()),
+                foregroundColor: AppColors.primary(),
                 shape: SmoothRectangleBorder(
                   borderRadius: BorderRadius.circular(Dimensions.size10),
                   smoothness: 1,

@@ -84,7 +84,7 @@ class MainNavigationPageState extends State<MainNavigationPage>
           ),
           child: NavigationBarTheme(
             data: NavigationBarThemeData(
-              indicatorColor: const Color(0xFFC5A059).withValues(alpha: 0.16),
+              indicatorColor: AppColors.secondary().withValues(alpha: 0.16),
               surfaceTintColor: Colors.transparent,
               backgroundColor: AppColors.surfaceContainerLowest(),
               labelTextStyle: WidgetStateProperty.resolveWith((states) {
@@ -92,7 +92,9 @@ class MainNavigationPageState extends State<MainNavigationPage>
                   return TextStyle(
                     fontSize: Dimensions.text11,
                     fontWeight: FontWeight.bold,
-                    color: const Color(0xFF0F2C59),
+                    color: AppColors.darkMode()
+                        ? AppColors.secondary()
+                        : AppColors.primary(),
                   );
                 }
                 return TextStyle(
@@ -103,8 +105,10 @@ class MainNavigationPageState extends State<MainNavigationPage>
               }),
               iconTheme: WidgetStateProperty.resolveWith((states) {
                 if (states.contains(WidgetState.selected)) {
-                  return const IconThemeData(
-                    color: Color(0xFF0F2C59),
+                  return IconThemeData(
+                    color: AppColors.darkMode()
+                        ? AppColors.secondary()
+                        : AppColors.primary(),
                     size: 24,
                   );
                 }

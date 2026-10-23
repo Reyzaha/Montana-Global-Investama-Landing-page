@@ -361,19 +361,21 @@ class ProjectCard extends StatelessWidget {
             shape: SmoothRectangleBorder(
               borderRadius: BorderRadius.circular(Dimensions.size5),
               smoothness: 1,
-              side: const BorderSide(
-                color: Color(0xFFCBD5E1),
+              side: BorderSide(
+                color: AppColors.outline(),
                 width: 1.0,
               ),
             ),
-            color: const Color(0xFFF8FAFC),
+            color: AppColors.darkMode()
+                ? const Color(0xFF0F172A)
+                : const Color(0xFFF8FAFC),
           ),
           child: Text(
             "${"project_code_prefix".tr()}: ${(project.id ?? "PROJ").toUpperCase()}",
             style: TextStyle(
               fontSize: Dimensions.text10,
               fontWeight: FontWeight.bold,
-              color: const Color(0xFF64748B),
+              color: AppColors.onSurfaceVariant(),
               letterSpacing: 0.5,
             ),
           ),
@@ -390,7 +392,7 @@ class ProjectCard extends StatelessWidget {
       style: TextStyle(
         fontSize: Dimensions.text16,
         fontWeight: FontWeight.bold,
-        color: const Color(0xFF0F172A),
+        color: AppColors.onSurface(),
         height: 1.3,
       ),
     );
@@ -429,9 +431,15 @@ class ProjectCard extends StatelessWidget {
               shape: SmoothRectangleBorder(
                 borderRadius: BorderRadius.circular(Dimensions.size5),
                 smoothness: 1,
-                side: const BorderSide(color: Color(0xFFBFDBFE)),
+                side: BorderSide(
+                  color: AppColors.darkMode()
+                      ? const Color(0xFF3B82F6)
+                      : const Color(0xFFBFDBFE),
+                ),
               ),
-              color: const Color(0xFFEFF6FF),
+              color: AppColors.darkMode()
+                  ? const Color(0xFF1D3589).withValues(alpha: 0.25)
+                  : const Color(0xFFEFF6FF),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -439,7 +447,9 @@ class ProjectCard extends StatelessWidget {
                 Icon(
                   Icons.check_circle_outline,
                   size: Dimensions.size10,
-                  color: const Color(0xFF1D3589),
+                  color: AppColors.darkMode()
+                      ? const Color(0xFF93C5FD)
+                      : const Color(0xFF1D3589),
                 ),
                 SizedBox(width: Dimensions.size4),
                 Text(
@@ -447,7 +457,9 @@ class ProjectCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: Dimensions.text10,
                     fontWeight: FontWeight.bold,
-                    color: const Color(0xFF1D3589),
+                    color: AppColors.darkMode()
+                        ? const Color(0xFF93C5FD)
+                        : const Color(0xFF1D3589),
                   ),
                 ),
               ],
@@ -462,9 +474,15 @@ class ProjectCard extends StatelessWidget {
               shape: SmoothRectangleBorder(
                 borderRadius: BorderRadius.circular(Dimensions.size5),
                 smoothness: 1,
-                side: const BorderSide(color: Color(0xFFFEF08A)),
+                side: BorderSide(
+                  color: AppColors.darkMode()
+                      ? const Color(0xFFF59E0B)
+                      : const Color(0xFFFEF08A),
+                ),
               ),
-              color: const Color(0xFFFEFCE8),
+              color: AppColors.darkMode()
+                  ? const Color(0xFF78350F).withValues(alpha: 0.25)
+                  : const Color(0xFFFEFCE8),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -472,7 +490,9 @@ class ProjectCard extends StatelessWidget {
                 Icon(
                   Icons.check_circle_outline,
                   size: Dimensions.size10,
-                  color: const Color(0xFF92400E),
+                  color: AppColors.darkMode()
+                      ? const Color(0xFFFDE68A)
+                      : const Color(0xFF92400E),
                 ),
                 SizedBox(width: Dimensions.size4),
                 Text(
@@ -480,7 +500,9 @@ class ProjectCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: Dimensions.text10,
                     fontWeight: FontWeight.bold,
-                    color: const Color(0xFF92400E),
+                    color: AppColors.darkMode()
+                        ? const Color(0xFFFDE68A)
+                        : const Color(0xFF92400E),
                   ),
                 ),
               ],
@@ -540,12 +562,14 @@ class ProjectCard extends StatelessWidget {
         shape: SmoothRectangleBorder(
           borderRadius: BorderRadius.circular(Dimensions.size10),
           smoothness: 1,
-          side: const BorderSide(
-            color: Color(0xFFE2E8F0),
+          side: BorderSide(
+            color: AppColors.outline(),
             width: 1.2,
           ),
         ),
-        color: const Color(0xFFF8FAFC),
+        color: AppColors.darkMode()
+            ? const Color(0xFF0F172A)
+            : const Color(0xFFF8FAFC),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -604,7 +628,7 @@ class ProjectCard extends StatelessWidget {
             style: TextStyle(
               fontSize: Dimensions.text18,
               fontWeight: FontWeight.w800,
-              color: const Color(0xFF1D3589),
+              color: AppColors.primary(),
               letterSpacing: -0.3,
             ),
           ),
@@ -740,7 +764,7 @@ class ProjectCard extends StatelessWidget {
           Container(
             width: 1.0,
             height: Dimensions.size30,
-            color: const Color(0xFFE2E8F0),
+            color: AppColors.outline(),
           ),
           Expanded(
             child: Column(
@@ -753,7 +777,7 @@ class ProjectCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: Dimensions.text13,
                     fontWeight: FontWeight.w800,
-                    color: const Color(0xFF0F172A),
+                    color: AppColors.onSurface(),
                   ),
                 ),
                 SizedBox(height: Dimensions.size3),
@@ -763,7 +787,7 @@ class ProjectCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: Dimensions.text10,
                     fontWeight: FontWeight.bold,
-                    color: const Color(0xFF64748B),
+                    color: AppColors.onSurfaceVariant(),
                     letterSpacing: 0.5,
                   ),
                 ),
@@ -773,7 +797,7 @@ class ProjectCard extends StatelessWidget {
           Container(
             width: 1.0,
             height: Dimensions.size30,
-            color: const Color(0xFFE2E8F0),
+            color: AppColors.outline(),
           ),
           Expanded(
             child: Column(
@@ -786,7 +810,7 @@ class ProjectCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: Dimensions.text13,
                     fontWeight: FontWeight.w800,
-                    color: const Color(0xFF1D3589),
+                    color: AppColors.primary(),
                   ),
                 ),
                 SizedBox(height: Dimensions.size3),
@@ -811,8 +835,8 @@ class ProjectCard extends StatelessWidget {
   Widget _buildMetaRows(String lokasi, String payout, String assetBadge) {
     return Column(
       children: [
-        const Divider(
-          color: Color(0xFFE2E8F0),
+        Divider(
+          color: AppColors.outline(),
           height: 1.0,
           thickness: 1.0,
         ),
@@ -824,7 +848,7 @@ class ProjectCard extends StatelessWidget {
               "project_region_label".tr(),
               style: TextStyle(
                 fontSize: Dimensions.text10,
-                color: const Color(0xFF64748B),
+                color: AppColors.onSurfaceVariant(),
               ),
             ),
             Flexible(
@@ -836,7 +860,7 @@ class ProjectCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: Dimensions.text10,
                   fontWeight: FontWeight.w600,
-                  color: const Color(0xFF0F172A),
+                  color: AppColors.onSurface(),
                 ),
               ),
             ),
@@ -918,9 +942,9 @@ class ProjectCard extends StatelessWidget {
         width: double.infinity,
         padding: EdgeInsets.symmetric(vertical: Dimensions.size10),
         decoration: ShapeDecoration(
-          shape: const StadiumBorder(
+          shape: StadiumBorder(
             side: BorderSide(
-              color: Color(0xFFCBD5E1),
+              color: AppColors.outline(),
               width: 1.2,
             ),
           ),
@@ -934,14 +958,14 @@ class ProjectCard extends StatelessWidget {
               style: TextStyle(
                 fontSize: Dimensions.text13,
                 fontWeight: FontWeight.bold,
-                color: const Color(0xFF0F172A),
+                color: AppColors.onSurface(),
               ),
             ),
             SizedBox(width: Dimensions.size5),
             Icon(
               Icons.arrow_forward,
               size: Dimensions.size15,
-              color: const Color(0xFF0F172A),
+              color: AppColors.onSurface(),
             ),
           ],
         ),
@@ -970,8 +994,8 @@ class ProjectCard extends StatelessWidget {
           shape: SmoothRectangleBorder(
             borderRadius: BorderRadius.circular(Dimensions.size15),
             smoothness: 1,
-            side: const BorderSide(
-              color: Color(0xFFE2E8F0),
+            side: BorderSide(
+              color: AppColors.outline(),
               width: 1.2,
             ),
           ),

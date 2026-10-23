@@ -322,15 +322,14 @@ class NewsListPageState extends State<NewsListPage>
                                 BorderRadius.circular(Dimensions.size5),
                             smoothness: 1,
                           ),
-                          color:
-                              const Color(0xFF0F2C59).withValues(alpha: 0.1),
+                          color: AppColors.primary().withValues(alpha: 0.12),
                         ),
                         child: Text(
                           article.category ?? "Wawasan",
                           style: TextStyle(
                             fontSize: Dimensions.text10,
                             fontWeight: FontWeight.bold,
-                            color: const Color(0xFF0F2C59),
+                            color: AppColors.primary(),
                           ),
                         ),
                       ),
@@ -401,14 +400,14 @@ class NewsListPageState extends State<NewsListPage>
                             style: TextStyle(
                               fontSize: Dimensions.text11,
                               fontWeight: FontWeight.bold,
-                              color: const Color(0xFF0F2C59),
+                              color: AppColors.primary(),
                             ),
                           ),
                           SizedBox(width: Dimensions.size2),
                           Icon(
                             Icons.arrow_forward_ios,
                             size: Dimensions.size10,
-                            color: const Color(0xFF0F2C59),
+                            color: AppColors.primary(),
                           ),
                         ],
                       ),
