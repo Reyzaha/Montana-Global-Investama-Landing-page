@@ -255,6 +255,14 @@ class ProjectCard extends StatelessWidget {
                 ),
               ),
             ),
+            if ((project.status ?? "").toLowerCase().contains("funded"))
+              Center(
+                child: Image.asset(
+                  "assets/image/closed-stamp.png",
+                  width: Dimensions.size100 + Dimensions.size20,
+                  fit: BoxFit.contain,
+                ),
+              ),
             Positioned(
               top: Dimensions.size10,
               left: Dimensions.size10,

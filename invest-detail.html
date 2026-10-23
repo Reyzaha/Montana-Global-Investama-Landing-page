@@ -77,11 +77,20 @@
 
         <!-- Visual Cover -->
         <div class="col-12 col-lg-5">
-          <div class="card mgi-card border-0 overflow-hidden shadow-sm"
-            style="border-top: 5px solid #1D3589 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
+          <div class="card mgi-card border-0 overflow-hidden shadow-sm position-relative group-cover-img"
+            style="border-top: 5px solid #1D3589 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1; cursor: pointer;"
+            onclick="openImagePreviewModal(document.getElementById('detailCoverImg').src, document.getElementById('detailTitle').textContent)">
             <img id="detailCoverImg" src="assets/img/1.png" alt="Cover Proyek"
-              class="w-100 object-fit-cover" style="height: 340px; background-color: #F8F9FA;"
+              class="w-100 object-fit-cover" style="height: 340px; background-color: #F8F9FA; transition: transform 0.3s ease;"
               onerror="this.onerror=null;this.src='assets/img/1.png';">
+            <!-- Fully Funded / Closed Stamp Overlay -->
+            <div id="detailClosedStamp" class="position-absolute top-50 start-50 translate-middle pointer-events-none" style="display: none; z-index: 4; pointer-events: none;">
+              <img src="assets/img/closed-stamp.png" alt="Fully Funded / Ditutup" style="width: 220px; max-width: 75%; filter: drop-shadow(0 6px 16px rgba(0,0,0,0.45));">
+            </div>
+            <div class="position-absolute bottom-0 end-0 m-3 px-3 py-1.5 rounded-pill bg-dark bg-opacity-75 text-white small d-flex align-items-center gap-1 shadow-sm" style="backdrop-filter: blur(4px); font-size: 0.78rem;">
+              <i class="bi bi-arrows-fullscreen"></i>
+              <span>Perbesar Foto</span>
+            </div>
           </div>
         </div>
       </div>
@@ -96,7 +105,7 @@
         <!-- 0. EXECUTIVE RAB 3-CARD HIGHLIGHT (Matching Proposal Document) -->
         <div id="sectionRabExecutiveMount"></div>
 
-        <!-- 0.1 TIER PARTISIPASI PEMODAL: NILAI ANGGARAN KEBUTUHAN PROYEK & FASILITAS OPERATOR -->
+        <!-- 0.1 TIER PARTISIPASI PEMODAL: NILAI ANGGARAN KEBUTUHAN INVESTASI & FASILITAS OPERATOR -->
         <section class="card mgi-card shadow-sm border-0 bg-white mb-4" id="sectionTiers"
           style="display: none; border-top: 5px solid #C5A059 !important; border-left: 1.5px solid #CBD5E1; border-right: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1;">
           <div
@@ -104,7 +113,7 @@
             <div>
               <h2 class="h5 mb-1 fw-bold text-dark d-flex align-items-center gap-2">
                 <i class="bi bi-layers-fill text-gold fs-5"></i>
-                Nilai Anggaran Kebutuhan Proyek &amp; Fasilitas Operator Profesional
+                Nilai Anggaran Kebutuhan Investasi &amp; Fasilitas Operator Profesional
               </h2>
               <div class="text-muted small">
                 Penempatan modal proyek dengan alokasi unit fisik riil, serta operator profesional resmi bersertifikat BNSP yang dikelola penuh oleh PT Montana Indo Utama.
@@ -292,6 +301,13 @@
       document.getElementById('detailTagline').textContent = (project.detail && project.detail.tagline) ? `"${project.detail.tagline}"` : '';
       document.getElementById('detailCoverImg').src = project.image || 'assets/img/1.png';
 
+      // Closed Stamp Overlay for Fully Funded Projects
+      const isFullyFunded = (project.status === 'Fully Funded') || (String(project.status || '').toLowerCase().includes('funded'));
+      const stampEl = document.getElementById('detailClosedStamp');
+      if (stampEl) {
+        stampEl.style.display = isFullyFunded ? 'block' : 'none';
+      }
+
       // If project content is gated, lock the detail view
       if (isGated) {
         // Render Locked Access Screen inside main content
@@ -415,7 +431,7 @@
         `;
 
         headerFundingTitle = `${nom1Compact} &amp; ${nom2Compact}`;
-        headerFundingSubtitle = `Tersedia 2 pilihan nilai anggaran kebutuhan proyek: Alokasi 1 (${nom1Disp}) atau Alokasi 2 (${nom2Disp}).`;
+        headerFundingSubtitle = `Tersedia 2 pilihan nilai anggaran kebutuhan investasi: Alokasi 1 (${nom1Disp}) atau Alokasi 2 (${nom2Disp}).`;
         headerOperatorHtml = `
           <div class="operator-facility-callout mt-3 p-2.5 rounded-3 d-flex align-items-center gap-2.5" style="background: #F8FAFC; border: 1.5px solid #CBD5E1;">
             <div class="operator-icon-circle" style="width: 40px; height: 40px; min-width: 40px; background: #FEFCE8; border: 1.5px solid #C5A059; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
@@ -435,13 +451,13 @@
         headerOptionsPillHtml = `
           <div class="project-options-pills mb-2">
             <span class="project-option-pill pill-single">
-              <i class="bi bi-check-circle-fill"></i> Nilai Anggaran Kebutuhan Proyek
+              <i class="bi bi-check-circle-fill"></i> Nilai Anggaran Kebutuhan Investasi
             </span>
           </div>
         `;
 
         headerFundingTitle = nomDisp;
-        headerFundingSubtitle = `Nilai Anggaran Kebutuhan Proyek senilai ${nomDisp} dengan ${opt.unit_qty || '20'} Unit Alat Berat siap operasi.`;
+        headerFundingSubtitle = `Nilai Anggaran Kebutuhan Investasi senilai ${nomDisp} dengan ${opt.unit_qty || '20'} Unit Alat Berat siap operasi.`;
         if (perk) {
           headerOperatorHtml = `
             <div class="operator-facility-callout mt-3 p-2.5 rounded-3 d-flex align-items-center gap-2.5" style="background: #F8FAFC; border: 1.5px solid #CBD5E1;">
@@ -604,7 +620,45 @@
         }
       }
     });
+
+    function openImagePreviewModal(imgSrc, title) {
+      const modalEl = document.getElementById("mgiImagePreviewModal");
+      if (!modalEl) return;
+      const modalImg = document.getElementById("modalPreviewImgSrc");
+      const modalTitle = document.getElementById("imagePreviewModalTitle");
+      if (modalImg) modalImg.src = imgSrc;
+      if (modalTitle && title) modalTitle.textContent = title;
+      const previewStamp = document.getElementById("modalPreviewClosedStamp");
+      if (previewStamp) {
+        const isCurrentFunded = window.currentProjectDetail && (
+          window.currentProjectDetail.status === 'Fully Funded' ||
+          String(window.currentProjectDetail.status || '').toLowerCase().includes('funded')
+        );
+        previewStamp.style.display = isCurrentFunded ? 'block' : 'none';
+      }
+      const bsModal = bootstrap.Modal.getOrCreateInstance(modalEl);
+      bsModal.show();
+    }
   </script>
+
+  <!-- Modal Image Preview -->
+  <div class="modal fade" id="mgiImagePreviewModal" tabindex="-1" aria-labelledby="imagePreviewModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+        <div class="modal-header border-0 bg-dark text-white py-2.5 px-3">
+          <h6 class="modal-title small fw-semibold" id="imagePreviewModalTitle">Preview Foto Proyek</h6>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0 bg-dark text-center position-relative">
+          <img id="modalPreviewImgSrc" src="" alt="Preview" class="img-fluid w-100 object-fit-contain" style="max-height: 80vh;">
+          <!-- Stamp in Preview Modal -->
+          <div id="modalPreviewClosedStamp" class="position-absolute top-50 start-50 translate-middle pointer-events-none" style="display: none; z-index: 5; pointer-events: none;">
+            <img src="assets/img/closed-stamp.png" alt="Fully Funded / Ditutup" style="width: 280px; max-width: 75vw; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.5));">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>

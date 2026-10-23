@@ -76,20 +76,7 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
     if (proj?.image != null && proj!.image!.trim().isNotEmpty) {
       list.add(_resolveImageUrl(proj.image!));
     }
-    final List<String> galleryPool = [
-      "assets/img/1.png",
-      "assets/img/2.png",
-      "assets/img/3.png",
-      "assets/img/6.png",
-      "assets/img/8.png",
-    ];
-    for (final String path in galleryPool) {
-      final String resolved = _resolveImageUrl(path);
-      if (!list.contains(resolved) && list.length < 5) {
-        list.add(resolved);
-      }
-    }
-    return list.isEmpty ? ["assets/img/1.png"] : list;
+    return list.isEmpty ? [_resolveImageUrl("assets/img/1.png")] : list;
   }
 
   String _resolveUnitsDisplay(Project proj) {
@@ -141,49 +128,56 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
   }
 
   Widget _buildCarouselImage(String imageUrl) {
-    return Container(
-      color: const Color(0xFF0F2C59),
-      child: Image.network(
-        imageUrl,
-        fit: BoxFit.cover,
-        errorBuilder: (
-          BuildContext context,
-          Object error,
-          StackTrace? stackTrace,
-        ) {
-          return Container(
-            color: const Color(0xFF0F2C59),
-            child: Center(
-              child: Icon(
-                Icons.precision_manufacturing_outlined,
-                size: Dimensions.size50,
-                color: const Color(0xFFC5A059),
+    return GestureDetector(
+      onTap: () {
+        BaseSheets.imagePreview(
+          imageProvider: NetworkImage(imageUrl),
+        );
+      },
+      child: Container(
+        color: const Color(0xFF0F2C59),
+        child: Image.network(
+          imageUrl,
+          fit: BoxFit.cover,
+          errorBuilder: (
+            BuildContext context,
+            Object error,
+            StackTrace? stackTrace,
+          ) {
+            return Container(
+              color: const Color(0xFF0F2C59),
+              child: Center(
+                child: Icon(
+                  Icons.precision_manufacturing_outlined,
+                  size: Dimensions.size50,
+                  color: const Color(0xFFC5A059),
+                ),
               ),
-            ),
-          );
-        },
-        loadingBuilder: (
-          BuildContext context,
-          Widget child,
-          ImageChunkEvent? loadingProgress,
-        ) {
-          if (loadingProgress == null) {
-            return child;
-          }
-          return Container(
-            color: const Color(0xFF0F2C59),
-            child: Center(
-              child: CircularProgressIndicator(
-                value: loadingProgress.expectedTotalBytes != null
-                    ? loadingProgress.cumulativeBytesLoaded /
-                        loadingProgress.expectedTotalBytes!
-                    : null,
-                strokeWidth: 2,
-                color: const Color(0xFFC5A059),
+            );
+          },
+          loadingBuilder: (
+            BuildContext context,
+            Widget child,
+            ImageChunkEvent? loadingProgress,
+          ) {
+            if (loadingProgress == null) {
+              return child;
+            }
+            return Container(
+              color: const Color(0xFF0F2C59),
+              child: Center(
+                child: CircularProgressIndicator(
+                  value: loadingProgress.expectedTotalBytes != null
+                      ? loadingProgress.cumulativeBytesLoaded /
+                          loadingProgress.expectedTotalBytes!
+                      : null,
+                  strokeWidth: 2,
+                  color: const Color(0xFFC5A059),
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
@@ -237,23 +231,29 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
 
   Widget _buildHeroCarousel(Project proj) {
     final List<String> images = _getProjectImages(proj);
+    final bool hasMultipleImages = images.length > 1;
 
     return SizedBox(
       height: 330,
       child: Stack(
         children: [
-          PageView.builder(
-            controller: _pageController,
-            onPageChanged: (int index) {
-              setState(() {
-                _currentImageIndex = index;
-              });
-            },
-            itemCount: images.length,
-            itemBuilder: (BuildContext context, int index) {
-              return _buildCarouselImage(images[index]);
-            },
-          ),
+          if (hasMultipleImages)
+            PageView.builder(
+              controller: _pageController,
+              onPageChanged: (int index) {
+                setState(() {
+                  _currentImageIndex = index;
+                });
+              },
+              itemCount: images.length,
+              itemBuilder: (BuildContext context, int index) {
+                return _buildCarouselImage(images[index]);
+              },
+            )
+          else
+            Positioned.fill(
+              child: _buildCarouselImage(images.first),
+            ),
           Positioned.fill(
             child: IgnorePointer(
               child: Container(
@@ -272,6 +272,16 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
               ),
             ),
           ),
+          if ((proj.status ?? "").toLowerCase().contains("funded"))
+            Center(
+              child: IgnorePointer(
+                child: Image.asset(
+                  "assets/image/closed-stamp.png",
+                  width: Dimensions.size100 * 2,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
           Positioned(
             top: 0,
             left: 0,
@@ -290,42 +300,63 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
                       icon: Icons.chevron_left,
                       onTap: () => context.pop(),
                     ),
-                    _buildPageCounterPill(
-                      current: _currentImageIndex + 1,
-                      total: images.length,
-                    ),
-                    _buildFloatingButton(
-                      icon: Icons.business_center_outlined,
-                      onTap: () => context.push("/portal/portfolio"),
+                    if (hasMultipleImages)
+                      _buildPageCounterPill(
+                        current: _currentImageIndex + 1,
+                        total: images.length,
+                      )
+                    else
+                      const SizedBox(),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _buildFloatingButton(
+                          icon: Icons.fullscreen,
+                          onTap: () {
+                            final int idx = hasMultipleImages
+                                ? _currentImageIndex.clamp(0, images.length - 1)
+                                : 0;
+                            BaseSheets.imagePreview(
+                              imageProvider: NetworkImage(images[idx]),
+                            );
+                          },
+                        ),
+                        SizedBox(width: Dimensions.size10),
+                        _buildFloatingButton(
+                          icon: Icons.business_center_outlined,
+                          onTap: () => context.push("/portal/portfolio"),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
             ),
           ),
-          Positioned(
-            bottom: 38,
-            left: 0,
-            right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                images.length,
-                (int i) => AnimatedContainer(
-                  duration: const Duration(milliseconds: 250),
-                  margin: const EdgeInsets.symmetric(horizontal: 3),
-                  width: _currentImageIndex == i ? 18 : 6,
-                  height: 6,
-                  decoration: BoxDecoration(
-                    color: _currentImageIndex == i
-                        ? const Color(0xFFC5A059)
-                        : Colors.white.withValues(alpha: 0.6),
-                    borderRadius: BorderRadius.circular(3),
+          if (hasMultipleImages)
+            Positioned(
+              bottom: 38,
+              left: 0,
+              right: 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(
+                  images.length,
+                  (int i) => AnimatedContainer(
+                    duration: const Duration(milliseconds: 250),
+                    margin: const EdgeInsets.symmetric(horizontal: 3),
+                    width: _currentImageIndex == i ? 18 : 6,
+                    height: 6,
+                    decoration: BoxDecoration(
+                      color: _currentImageIndex == i
+                          ? const Color(0xFFC5A059)
+                          : Colors.white.withValues(alpha: 0.6),
+                      borderRadius: BorderRadius.circular(3),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
         ],
       ),
     );
@@ -554,17 +585,21 @@ class ProjectDetailPageState extends State<ProjectDetailPage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: Dimensions.text10,
-                  fontWeight: FontWeight.w700,
-                  color: const Color(0xFF94A3B8),
-                  letterSpacing: 0.5,
+              Expanded(
+                child: Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: Dimensions.text10,
+                    fontWeight: FontWeight.w700,
+                    color: const Color(0xFF94A3B8),
+                    letterSpacing: 0.5,
+                  ),
                 ),
               ),
+              SizedBox(width: Dimensions.size4),
               Icon(
                 icon,
                 size: Dimensions.size15,

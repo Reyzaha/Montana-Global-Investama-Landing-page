@@ -633,7 +633,7 @@ const MGIComponents = {
       fundingBoxHtml = `
         <div class="project-funding-range-box">
           <div class="funding-range-label">
-            <span>Nilai Anggaran Kebutuhan Proyek:</span>
+            <span>Nilai Anggaran Kebutuhan Investasi:</span>
             <span class="badge bg-gold text-dark fw-bold px-2 py-0.5 rounded-pill" style="font-size: 0.65rem;">2 Pilihan Anggaran</span>
           </div>
           <div class="funding-range-value">${nom1Disp} &amp; ${nom2Disp}</div>
@@ -673,7 +673,7 @@ const MGIComponents = {
       fundingBoxHtml = `
         <div class="project-funding-range-box">
           <div class="funding-range-label">
-            <span>Nilai Anggaran Kebutuhan Proyek:</span>
+            <span>Nilai Anggaran Kebutuhan Investasi:</span>
             <span class="badge bg-royal text-white fw-bold px-2 py-0.5 rounded-pill" style="font-size: 0.65rem;">Alokasi Penuh</span>
           </div>
           <div class="funding-range-value">${nomDisp}</div>
@@ -705,7 +705,7 @@ const MGIComponents = {
       fundingBoxHtml = `
         <div class="project-funding-range-box">
           <div class="funding-range-label">
-            <span>Nilai Anggaran Kebutuhan Proyek:</span>
+            <span>Nilai Anggaran Kebutuhan Investasi:</span>
             <span class="badge bg-secondary text-white fw-bold px-2 py-0.5 rounded-pill" style="font-size: 0.65rem;">Target Riil</span>
           </div>
           <div class="funding-range-value">${targetVal}</div>
@@ -718,10 +718,17 @@ const MGIComponents = {
       ctaText = 'Rancangan Anggaran Modal';
     }
 
+    const isFullyFunded = (project.status === 'Fully Funded') || (String(project.status || '').toLowerCase().includes('funded'));
+
     return `
       <div class="card mgi-card h-100 shadow-sm border-0 d-flex flex-column">
         <div class="project-card-cover position-relative">
           <img src="${project.image || 'assets/img/1.png'}" alt="${project.title}" onerror="this.onerror=null;this.src='assets/img/1.png'">
+          ${isFullyFunded ? `
+            <div class="position-absolute top-50 start-50 translate-middle pointer-events-none" style="z-index: 4; pointer-events: none;">
+              <img src="assets/img/closed-stamp.png" alt="Fully Funded / Ditutup" style="width: 150px; max-width: 65%; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.45));">
+            </div>
+          ` : ''}
           
           <!-- Pojok Kiri Atas: Lokasi -->
           <div class="position-absolute top-0 start-0 m-3 d-flex flex-column gap-1" style="z-index: 3;">
@@ -1084,7 +1091,7 @@ const MGIComponents = {
               <div class="p-4 bg-light border-bottom d-flex justify-content-between align-items-center flex-wrap gap-2">
                 <div>
                   <span class="badge bg-royal text-white rounded-pill px-3 py-1 small fw-bold mb-1">
-                    <i class="bi bi-star-fill text-gold me-1"></i> Nilai Anggaran Kebutuhan Proyek
+                    <i class="bi bi-star-fill text-gold me-1"></i> Nilai Anggaran Kebutuhan Investasi
                   </span>
                   <h3 class="fw-bold text-dark mt-1 mb-0" style="font-family: 'Outfit', sans-serif;">${nomDisp}</h3>
                   <div class="text-royal small mt-1 fw-bold text-uppercase" style="letter-spacing: 0.5px;">${t.label}</div>

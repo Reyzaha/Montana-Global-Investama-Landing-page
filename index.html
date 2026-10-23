@@ -1335,6 +1335,11 @@
                 <div class="position-relative" style="height: 190px; background-color: #0E1B48;">
                   <img src="${featured.image || 'assets/img/1.png'}" alt="${featured.title}" class="w-100 h-100 object-fit-cover"
                     onerror="this.onerror=null;this.src='assets/img/1.png';">
+                  ${(featured.status === 'Fully Funded' || String(featured.status || '').toLowerCase().includes('funded')) ? `
+                    <div class="position-absolute top-50 start-50 translate-middle pointer-events-none" style="z-index: 4; pointer-events: none;">
+                      <img src="assets/img/closed-stamp.png" alt="Fully Funded / Ditutup" style="width: 135px; max-width: 60%; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.45));">
+                    </div>
+                  ` : ''}
                   <div class="position-absolute top-0 start-0 m-3">
                     <span class="badge bg-gold text-white px-2.5 py-1 text-uppercase fw-bold rounded-1" style="font-size: 0.7rem; letter-spacing: 0.5px;">
                       <i class="bi bi-shield-check me-1"></i> Proyek Terverifikasi

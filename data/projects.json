@@ -1,6 +1,6 @@
-{
+﻿{
     "currency": "IDR",
-    "disclaimer_text": "Target ilustratif berdasarkan proyeksi kinerja, bukan jaminan — hasil aktual mengikuti kinerja riil usaha dan dapat lebih rendah dari target. Investasi pada instrumen sektor riil mengandung risiko fluktuasi pasar dan operasional. Harap membaca seluruh dokumen penawaran dan Risk Disclosure Statement secara cermat.",
+    "disclaimer_text": "Target ilustratif berdasarkan proyeksi kinerja, bukan jaminan â€” hasil aktual mengikuti kinerja riil usaha dan dapat lebih rendah dari target. Investasi pada instrumen sektor riil mengandung risiko fluktuasi pasar dan operasional. Harap membaca seluruh dokumen penawaran dan Risk Disclosure Statement secara cermat.",
     "projects": [
         {
             "id": "proj-jkt-jabar",
@@ -22,7 +22,7 @@
                 "lokasi": "DKI Jakarta & Koridor Industri Jabodetabek - Jawa Barat",
                 "target": "Rp 45.000.000.000",
                 "tenor": "12 Bulan",
-                "return": "30,9% – 46,3%",
+                "return": "30,9% â€“ 46,3%",
                 "min_investment": "Rp 45.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -35,7 +35,7 @@
                 {
                     "nominal": 45000000000,
                     "nominal_display": "Rp 45.000.000.000",
-                    "label": "Nilai Anggaran Kebutuhan Proyek (45 Miliar)",
+                    "label": "Nilai Anggaran Kebutuhan Investasi (45 Miliar)",
                     "badge": "Bonus 3 Operator Profesional (Rotasi Shift)",
                     "featured": true,
                     "unit_qty": 126,
@@ -108,7 +108,7 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Jabodetabek menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 30,9% – 46,3%"
+                    "content": "Proyek investasi armada alat berat di Jabodetabek menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 30,9% â€“ 46,3%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
@@ -132,7 +132,7 @@
                         "kapasitas_container": "4 Unit / Container",
                         "catatan": "126 unit merupakan alokasi tahap awal dari dana investasi Rp 45.000.000.000 (modal operasional Rp 43.470.000.000); sisa dana Rp 1.530.000.000 dialokasikan sebagai dana pencadangan pada awal project. Rincian perhitungan pada bagian berikut.",
                         "model_kemitraan": "Eksklusif (Exclusive Partnership)",
-                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Proyek: Rp 45.000.000.000",
+                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Investasi: Rp 45.000.000.000",
                         "fasilitas_operator": "Bonus 3 Operator Profesional Resmi MGI"
                     },
                     "alokasi_dana": {
@@ -164,7 +164,7 @@
                         {
                             "nominal": 45000000000,
                             "nominal_display": "Rp 45.000.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (45 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (45 Miliar)",
                             "badge": "Bonus 3 Operator Profesional (Rotasi Shift)",
                             "featured": true,
                             "unit_qty": 126,
@@ -182,7 +182,7 @@
                         {
                             "nominal": 45000000000,
                             "nominal_display": "Rp 45.000.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (45 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (45 Miliar)",
                             "badge": "Bonus 3 Operator Profesional (Rotasi Shift)",
                             "featured": true,
                             "unit_qty": 126,
@@ -221,7 +221,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% â€“ 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
@@ -274,7 +274,7 @@
                 "lokasi": "Denpasar & Bali",
                 "target": "Rp 5.000.000.000",
                 "tenor": "12 Bulan",
-                "return": "30,9% – 46,3%",
+                "return": "30,9% â€“ 46,3%",
                 "min_investment": "Rp 5.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -287,7 +287,7 @@
                 {
                     "nominal": 5000000000,
                     "nominal_display": "Rp 5.000.000.000",
-                    "label": "Nilai Anggaran Kebutuhan Proyek (5 Miliar)",
+                    "label": "Nilai Anggaran Kebutuhan Investasi (5 Miliar)",
                     "badge": "Bonus 1 Operator Profesional",
                     "featured": true,
                     "unit_qty": 14,
@@ -360,7 +360,7 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Denpasar menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 30,9% – 46,3%"
+                    "content": "Proyek investasi armada alat berat di Denpasar menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 30,9% â€“ 46,3%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
@@ -384,7 +384,7 @@
                         "kapasitas_container": "4 Unit / Container",
                         "catatan": "14 unit merupakan alokasi tahap awal dari dana investasi Rp 5.000.000.000 (modal operasional Rp 4.830.000.000); sisa dana Rp 170.000.000 dialokasikan sebagai dana pencadangan pada awal project. Rincian perhitungan pada bagian berikut.",
                         "model_kemitraan": "Eksklusif (Exclusive Partnership)",
-                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Proyek: Rp 5.000.000.000",
+                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Investasi: Rp 5.000.000.000",
                         "fasilitas_operator": "Bonus 1 Operator Profesional Resmi MGI"
                     },
                     "alokasi_dana": {
@@ -416,7 +416,7 @@
                         {
                             "nominal": 5000000000,
                             "nominal_display": "Rp 5.000.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (5 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (5 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
                             "unit_qty": 14,
@@ -434,7 +434,7 @@
                         {
                             "nominal": 5000000000,
                             "nominal_display": "Rp 5.000.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (5 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (5 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
                             "unit_qty": 14,
@@ -473,7 +473,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% â€“ 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
@@ -526,7 +526,7 @@
                 "lokasi": "Jawa Tengah & Koridor Industri",
                 "target": "Rp 15.000.000.000",
                 "tenor": "12 Bulan",
-                "return": "31,6% – 47,4%",
+                "return": "31,6% â€“ 47,4%",
                 "min_investment": "Rp 15.000.000.000 (Terdanai Penuh)",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Terdanai Penuh",
@@ -539,7 +539,7 @@
                 {
                     "nominal": 15000000000,
                     "nominal_display": "Rp 15.000.000.000",
-                    "label": "Nilai Anggaran Kebutuhan Proyek (15 Miliar)",
+                    "label": "Nilai Anggaran Kebutuhan Investasi (15 Miliar)",
                     "badge": "Bonus 2 Operator Profesional (Double Shift)",
                     "featured": true,
                     "unit_qty": 43,
@@ -612,7 +612,7 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Kebumen menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 31,6% – 47,4%"
+                    "content": "Proyek investasi armada alat berat di Kebumen menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 31,6% â€“ 47,4%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
@@ -636,7 +636,7 @@
                         "kapasitas_container": "4 Unit / Container",
                         "catatan": "42 unit merupakan alokasi tahap awal dari dana investasi Rp 15.000.000.000 (modal operasional Rp 14.490.000.000); sisa dana Rp 510.000.000 dialokasikan sebagai dana pencadangan pada awal project. Rincian perhitungan pada bagian berikut.",
                         "model_kemitraan": "Eksklusif (Exclusive Partnership)",
-                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Proyek: Rp 15.000.000.000",
+                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Investasi: Rp 15.000.000.000",
                         "fasilitas_operator": "Bonus 2 Operator Profesional Resmi MGI"
                     },
                     "alokasi_dana": {
@@ -668,7 +668,7 @@
                         {
                             "nominal": 15000000000,
                             "nominal_display": "Rp 15.000.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (15 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (15 Miliar)",
                             "badge": "Bonus 2 Operator Profesional (Double Shift)",
                             "featured": true,
                             "unit_qty": 43,
@@ -686,7 +686,7 @@
                         {
                             "nominal": 15000000000,
                             "nominal_display": "Rp 15.000.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (15 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (15 Miliar)",
                             "badge": "Bonus 2 Operator Profesional (Double Shift)",
                             "featured": true,
                             "unit_qty": 43,
@@ -725,7 +725,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% â€“ 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
@@ -778,7 +778,7 @@
                 "lokasi": "Medan & Koridor Industri Sumatra",
                 "target": "Rp 7.000.000.000",
                 "tenor": "12 Bulan",
-                "return": "31,5% – 47,2%",
+                "return": "31,5% â€“ 47,2%",
                 "min_investment": "Rp 7.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -791,7 +791,7 @@
                 {
                     "nominal": 7000000000,
                     "nominal_display": "Rp 7.000.000.000",
-                    "label": "Nilai Anggaran Kebutuhan Proyek (7 Miliar)",
+                    "label": "Nilai Anggaran Kebutuhan Investasi (7 Miliar)",
                     "badge": "Bonus 1 Operator Profesional",
                     "featured": true,
                     "unit_qty": 20,
@@ -864,7 +864,7 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Sumatra menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 31,5% – 47,2%"
+                    "content": "Proyek investasi armada alat berat di Sumatra menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 31,5% â€“ 47,2%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
@@ -888,7 +888,7 @@
                         "kapasitas_container": "4 Unit / Container",
                         "catatan": "19 unit merupakan alokasi tahap awal dari dana investasi Rp 7.000.000.000 (modal operasional Rp 6.555.000.000); sisa dana Rp 445.000.000 dialokasikan sebagai dana pencadangan pada awal project. Rincian perhitungan pada bagian berikut.",
                         "model_kemitraan": "Eksklusif (Exclusive Partnership)",
-                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Proyek: Rp 7.000.000.000",
+                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Investasi: Rp 7.000.000.000",
                         "fasilitas_operator": "Bonus 1 Operator Profesional Resmi MGI"
                     },
                     "alokasi_dana": {
@@ -920,7 +920,7 @@
                         {
                             "nominal": 7000000000,
                             "nominal_display": "Rp 7.000.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (7 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (7 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
                             "unit_qty": 20,
@@ -938,7 +938,7 @@
                         {
                             "nominal": 7000000000,
                             "nominal_display": "Rp 7.000.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (7 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (7 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
                             "unit_qty": 20,
@@ -977,7 +977,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% â€“ 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
@@ -1030,7 +1030,7 @@
                 "lokasi": "Pontianak & Kalimantan Barat",
                 "target": "Rp 2.000.000.000",
                 "tenor": "12 Bulan",
-                "return": "27,6% – 41,3%",
+                "return": "27,6% â€“ 41,3%",
                 "min_investment": "Rp 2.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -1043,7 +1043,7 @@
                 {
                     "nominal": 2000000000,
                     "nominal_display": "Rp 2.000.000.000",
-                    "label": "Nilai Anggaran Kebutuhan Proyek (2 Miliar)",
+                    "label": "Nilai Anggaran Kebutuhan Investasi (2 Miliar)",
                     "badge": "Bonus 1 Operator Profesional",
                     "featured": true,
                     "unit_qty": 5,
@@ -1116,7 +1116,7 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Pontianak menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 27,6% – 41,3%"
+                    "content": "Proyek investasi armada alat berat di Pontianak menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 27,6% â€“ 41,3%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
@@ -1140,7 +1140,7 @@
                         "kapasitas_container": "4 Unit / Container",
                         "catatan": "5 unit merupakan alokasi tahap awal dari dana investasi Rp 2.000.000.000 (modal operasional Rp 1.725.000.000); sisa dana Rp 275.000.000 dialokasikan sebagai dana pencadangan pada awal project. Rincian perhitungan pada bagian berikut.",
                         "model_kemitraan": "Eksklusif (Exclusive Partnership)",
-                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Proyek: Rp 2.000.000.000",
+                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Investasi: Rp 2.000.000.000",
                         "fasilitas_operator": "Bonus 1 Operator Profesional Resmi MGI"
                     },
                     "alokasi_dana": {
@@ -1172,7 +1172,7 @@
                         {
                             "nominal": 2000000000,
                             "nominal_display": "Rp 2.000.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (2 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (2 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
                             "unit_qty": 5,
@@ -1190,7 +1190,7 @@
                         {
                             "nominal": 2000000000,
                             "nominal_display": "Rp 2.000.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (2 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (2 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
                             "unit_qty": 5,
@@ -1229,7 +1229,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% â€“ 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
@@ -1282,7 +1282,7 @@
                 "lokasi": "Banjarmasin & Kalimantan Selatan",
                 "target": "Rp 3.000.000.000",
                 "tenor": "12 Bulan",
-                "return": "29,4% – 44,1%",
+                "return": "29,4% â€“ 44,1%",
                 "min_investment": "Rp 3.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -1295,7 +1295,7 @@
                 {
                     "nominal": 3000000000,
                     "nominal_display": "Rp 3.000.000.000",
-                    "label": "Nilai Anggaran Kebutuhan Proyek (3 Miliar)",
+                    "label": "Nilai Anggaran Kebutuhan Investasi (3 Miliar)",
                     "badge": "Bonus 1 Operator Profesional",
                     "featured": true,
                     "unit_qty": 8,
@@ -1368,7 +1368,7 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Banjarmasin menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 29,4% – 44,1%"
+                    "content": "Proyek investasi armada alat berat di Banjarmasin menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 29,4% â€“ 44,1%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
@@ -1392,7 +1392,7 @@
                         "kapasitas_container": "4 Unit / Container",
                         "catatan": "8 unit merupakan alokasi tahap awal dari dana investasi Rp 3.000.000.000 (modal operasional Rp 2.760.000.000); sisa dana Rp 240.000.000 dialokasikan sebagai dana pencadangan pada awal project. Rincian perhitungan pada bagian berikut.",
                         "model_kemitraan": "Eksklusif (Exclusive Partnership)",
-                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Proyek: Rp 3.000.000.000",
+                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Investasi: Rp 3.000.000.000",
                         "fasilitas_operator": "Bonus 1 Operator Profesional Resmi MGI"
                     },
                     "alokasi_dana": {
@@ -1424,7 +1424,7 @@
                         {
                             "nominal": 3000000000,
                             "nominal_display": "Rp 3.000.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (3 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (3 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
                             "unit_qty": 8,
@@ -1442,7 +1442,7 @@
                         {
                             "nominal": 3000000000,
                             "nominal_display": "Rp 3.000.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (3 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (3 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
                             "unit_qty": 8,
@@ -1481,7 +1481,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% â€“ 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
@@ -1534,7 +1534,7 @@
                 "lokasi": "Banda Aceh & Wilayah Aceh",
                 "target": "Rp 7.500.000.000",
                 "tenor": "12 Bulan",
-                "return": "30,9% – 46,3%",
+                "return": "30,9% â€“ 46,3%",
                 "min_investment": "Rp 7.500.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -1547,7 +1547,7 @@
                 {
                     "nominal": 7500000000,
                     "nominal_display": "Rp 7.500.000.000",
-                    "label": "Nilai Anggaran Kebutuhan Proyek (7.5 Miliar)",
+                    "label": "Nilai Anggaran Kebutuhan Investasi (7.5 Miliar)",
                     "badge": "Bonus 1 Operator Profesional",
                     "featured": true,
                     "unit_qty": 21,
@@ -1620,7 +1620,7 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Aceh menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 30,9% – 46,3%"
+                    "content": "Proyek investasi armada alat berat di Aceh menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 30,9% â€“ 46,3%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
@@ -1644,7 +1644,7 @@
                         "kapasitas_container": "4 Unit / Container",
                         "catatan": "21 unit merupakan alokasi tahap awal dari dana investasi Rp 7.500.000.000 (modal operasional Rp 7.245.000.000); sisa dana Rp 255.000.000 dialokasikan sebagai dana pencadangan pada awal project. Rincian perhitungan pada bagian berikut.",
                         "model_kemitraan": "Eksklusif (Exclusive Partnership)",
-                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Proyek: Rp 7.500.000.000",
+                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Investasi: Rp 7.500.000.000",
                         "fasilitas_operator": "Bonus 1 Operator Profesional Resmi MGI"
                     },
                     "alokasi_dana": {
@@ -1676,7 +1676,7 @@
                         {
                             "nominal": 7500000000,
                             "nominal_display": "Rp 7.500.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (7.5 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (7.5 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
                             "unit_qty": 21,
@@ -1694,7 +1694,7 @@
                         {
                             "nominal": 7500000000,
                             "nominal_display": "Rp 7.500.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (7.5 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (7.5 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
                             "unit_qty": 21,
@@ -1733,7 +1733,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% â€“ 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
@@ -1786,7 +1786,7 @@
                 "lokasi": "Makassar & Sulawesi Selatan",
                 "target": "Rp 3.000.000.000",
                 "tenor": "12 Bulan",
-                "return": "29,4% – 44,1%",
+                "return": "29,4% â€“ 44,1%",
                 "min_investment": "Rp 3.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -1799,7 +1799,7 @@
                 {
                     "nominal": 3000000000,
                     "nominal_display": "Rp 3.000.000.000",
-                    "label": "Nilai Anggaran Kebutuhan Proyek (3 Miliar)",
+                    "label": "Nilai Anggaran Kebutuhan Investasi (3 Miliar)",
                     "badge": "Bonus 1 Operator Profesional",
                     "featured": true,
                     "unit_qty": 8,
@@ -1872,7 +1872,7 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Makassar menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 29,4% – 44,1%"
+                    "content": "Proyek investasi armada alat berat di Makassar menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 29,4% â€“ 44,1%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
@@ -1896,7 +1896,7 @@
                         "kapasitas_container": "4 Unit / Container",
                         "catatan": "8 unit merupakan alokasi tahap awal dari dana investasi Rp 3.000.000.000 (modal operasional Rp 2.760.000.000); sisa dana Rp 240.000.000 dialokasikan sebagai dana pencadangan pada awal project. Rincian perhitungan pada bagian berikut.",
                         "model_kemitraan": "Eksklusif (Exclusive Partnership)",
-                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Proyek: Rp 3.000.000.000",
+                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Investasi: Rp 3.000.000.000",
                         "fasilitas_operator": "Bonus 1 Operator Profesional Resmi MGI"
                     },
                     "alokasi_dana": {
@@ -1928,7 +1928,7 @@
                         {
                             "nominal": 3000000000,
                             "nominal_display": "Rp 3.000.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (3 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (3 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
                             "unit_qty": 8,
@@ -1946,7 +1946,7 @@
                         {
                             "nominal": 3000000000,
                             "nominal_display": "Rp 3.000.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (3 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (3 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
                             "unit_qty": 8,
@@ -1985,7 +1985,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% â€“ 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
@@ -2038,7 +2038,7 @@
                 "lokasi": "Palu & Sulawesi Tengah",
                 "target": "Rp 2.000.000.000",
                 "tenor": "12 Bulan",
-                "return": "27,6% – 41,3%",
+                "return": "27,6% â€“ 41,3%",
                 "min_investment": "Rp 2.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -2051,7 +2051,7 @@
                 {
                     "nominal": 2000000000,
                     "nominal_display": "Rp 2.000.000.000",
-                    "label": "Nilai Anggaran Kebutuhan Proyek (2 Miliar)",
+                    "label": "Nilai Anggaran Kebutuhan Investasi (2 Miliar)",
                     "badge": "Bonus 1 Operator Profesional",
                     "featured": true,
                     "unit_qty": 5,
@@ -2124,7 +2124,7 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Palu menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 27,6% – 41,3%"
+                    "content": "Proyek investasi armada alat berat di Palu menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 27,6% â€“ 41,3%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
@@ -2148,7 +2148,7 @@
                         "kapasitas_container": "4 Unit / Container",
                         "catatan": "5 unit merupakan alokasi tahap awal dari dana investasi Rp 2.000.000.000 (modal operasional Rp 1.725.000.000); sisa dana Rp 275.000.000 dialokasikan sebagai dana pencadangan pada awal project. Rincian perhitungan pada bagian berikut.",
                         "model_kemitraan": "Eksklusif (Exclusive Partnership)",
-                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Proyek: Rp 2.000.000.000",
+                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Investasi: Rp 2.000.000.000",
                         "fasilitas_operator": "Bonus 1 Operator Profesional Resmi MGI"
                     },
                     "alokasi_dana": {
@@ -2180,7 +2180,7 @@
                         {
                             "nominal": 2000000000,
                             "nominal_display": "Rp 2.000.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (2 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (2 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
                             "unit_qty": 5,
@@ -2198,7 +2198,7 @@
                         {
                             "nominal": 2000000000,
                             "nominal_display": "Rp 2.000.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (2 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (2 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
                             "unit_qty": 5,
@@ -2237,7 +2237,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% â€“ 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
@@ -2290,7 +2290,7 @@
                 "lokasi": "Surabaya & Jawa Timur",
                 "target": "Rp 15.000.000.000",
                 "tenor": "12 Bulan",
-                "return": "30,9% – 46,3%",
+                "return": "30,9% â€“ 46,3%",
                 "min_investment": "Rp 15.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -2303,7 +2303,7 @@
                 {
                     "nominal": 15000000000,
                     "nominal_display": "Rp 15.000.000.000",
-                    "label": "Nilai Anggaran Kebutuhan Proyek (15 Miliar)",
+                    "label": "Nilai Anggaran Kebutuhan Investasi (15 Miliar)",
                     "badge": "Bonus 2 Operator Profesional (Double Shift)",
                     "featured": true,
                     "unit_qty": 42,
@@ -2376,7 +2376,7 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di Surabaya menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 30,9% – 46,3%"
+                    "content": "Proyek investasi armada alat berat di Surabaya menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 30,9% â€“ 46,3%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
@@ -2400,7 +2400,7 @@
                         "kapasitas_container": "4 Unit / Container",
                         "catatan": "42 unit merupakan alokasi tahap awal dari dana investasi Rp 15.000.000.000 (modal operasional Rp 14.490.000.000); sisa dana Rp 510.000.000 dialokasikan sebagai dana pencadangan pada awal project. Rincian perhitungan pada bagian berikut.",
                         "model_kemitraan": "Eksklusif (Exclusive Partnership)",
-                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Proyek: Rp 15.000.000.000",
+                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Investasi: Rp 15.000.000.000",
                         "fasilitas_operator": "Bonus 2 Operator Profesional Resmi MGI"
                     },
                     "alokasi_dana": {
@@ -2432,7 +2432,7 @@
                         {
                             "nominal": 15000000000,
                             "nominal_display": "Rp 15.000.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (15 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (15 Miliar)",
                             "badge": "Bonus 2 Operator Profesional (Double Shift)",
                             "featured": true,
                             "unit_qty": 42,
@@ -2450,7 +2450,7 @@
                         {
                             "nominal": 15000000000,
                             "nominal_display": "Rp 15.000.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (15 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (15 Miliar)",
                             "badge": "Bonus 2 Operator Profesional (Double Shift)",
                             "featured": true,
                             "unit_qty": 42,
@@ -2489,7 +2489,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% â€“ 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
@@ -2542,7 +2542,7 @@
                 "lokasi": "Kupang & Wilayah Nusa Tenggara Timur",
                 "target": "Rp 5.000.000.000",
                 "tenor": "12 Bulan",
-                "return": "30,9% – 46,3%",
+                "return": "30,9% â€“ 46,3%",
                 "min_investment": "Rp 5.000.000.000",
                 "payout": "Tutup Buku Laporan Tahunan",
                 "remaining_days": "Slot Kemitraan Terbuka",
@@ -2555,7 +2555,7 @@
                 {
                     "nominal": 5000000000,
                     "nominal_display": "Rp 5.000.000.000",
-                    "label": "Nilai Anggaran Kebutuhan Proyek (5 Miliar)",
+                    "label": "Nilai Anggaran Kebutuhan Investasi (5 Miliar)",
                     "badge": "Bonus 1 Operator Profesional",
                     "featured": true,
                     "unit_qty": 14,
@@ -2628,7 +2628,7 @@
                 "summary": {
                     "type": "text",
                     "title": "Ringkasan Kelayakan Investasi & Profil Risiko",
-                    "content": "Proyek investasi armada alat berat di NTT menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 30,9% – 46,3%"
+                    "content": "Proyek investasi armada alat berat di NTT menawarkan struktur permodalan terukur dengan proteksi aset riil fisik. Dengan model perputaran modal terukur dan efisiensi logistik kontainer 40FT HC, investor menikmati proyeksi imbal hasil bersih tahunan sebesar 30,9% â€“ 46,3%"
                 },
                 "simulation": {
                     "tenor_bulan": 12,
@@ -2652,7 +2652,7 @@
                         "kapasitas_container": "4 Unit / Container",
                         "catatan": "14 unit merupakan alokasi tahap awal dari dana investasi Rp 5.000.000.000 (modal operasional Rp 4.830.000.000); sisa dana Rp 170.000.000 dialokasikan sebagai dana pencadangan pada awal project. Rincian perhitungan pada bagian berikut.",
                         "model_kemitraan": "Eksklusif (Exclusive Partnership)",
-                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Proyek: Rp 5.000.000.000",
+                        "kebutuhan_modal_range": "Nilai Anggaran Kebutuhan Investasi: Rp 5.000.000.000",
                         "fasilitas_operator": "Bonus 1 Operator Profesional Resmi MGI"
                     },
                     "alokasi_dana": {
@@ -2684,7 +2684,7 @@
                         {
                             "nominal": 5000000000,
                             "nominal_display": "Rp 5.000.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (5 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (5 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
                             "unit_qty": 14,
@@ -2702,7 +2702,7 @@
                         {
                             "nominal": 5000000000,
                             "nominal_display": "Rp 5.000.000.000",
-                            "label": "Nilai Anggaran Kebutuhan Proyek (5 Miliar)",
+                            "label": "Nilai Anggaran Kebutuhan Investasi (5 Miliar)",
                             "badge": "Bonus 1 Operator Profesional",
                             "featured": true,
                             "unit_qty": 14,
@@ -2741,7 +2741,7 @@
                         {
                             "step": 5,
                             "title": "Bagi Hasil Pemodal",
-                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% – 25,0% disetahunkan)."
+                            "desc": "Pengembalian modal pokok per unit dan pencairan bagi hasil bersih investor (14,31% per siklus atau 20,0% â€“ 25,0% disetahunkan)."
                         }
                     ],
                     "breakdown_pembayaran_unit": [
