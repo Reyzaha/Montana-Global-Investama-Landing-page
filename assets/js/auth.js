@@ -237,10 +237,22 @@ const MGIAuth = {
     }
   },
 
-  // Show Mandatory Google Onboarding Modal (Biodata -> Privacy Policy Consent)
+  // Show Mandatory Google / Registration Onboarding Modal (Biodata -> Privacy Policy Consent)
   showOnboardingModal: function (options = {}) {
-    const user = options.user || this.getCurrentUser() || {};
-    const needsBiodata = options.needsBiodata !== undefined ? !!options.needsBiodata : !user.phone;
+    const user = options.user || (options.data && options.data.user) || this.getCurrentUser() || {};
+    const rawPhone = user.phone || user.companyPhone || user.company_phone || '';
+    const phoneDigits = rawPhone.replace(/\D/g, '');
+    const isPhoneMissing = !rawPhone || rawPhone.trim() === '' || rawPhone.trim() === '-' || phoneDigits.length < 8;
+    const rawEmail = user.email || '';
+    const isEmailMissing = !rawEmail || rawEmail.trim() === '' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(rawEmail.trim());
+
+    // Wajib mengisi email aktif dan nomor telepon/WhatsApp
+    const needsBiodata = options.needsBiodata !== undefined 
+      ? (!!options.needsBiodata || isPhoneMissing || isEmailMissing)
+      : (options.data && options.data.needs_biodata !== undefined 
+          ? (!!options.data.needs_biodata || isPhoneMissing || isEmailMissing)
+          : (isPhoneMissing || isEmailMissing));
+
     const onComplete = typeof options.onComplete === 'function' ? options.onComplete : () => {
       window.location.href = MGIAuth.getRedirectUrl() || 'investor-dashboard.html';
     };
@@ -258,8 +270,10 @@ const MGIAuth = {
     const existing = document.getElementById('mgiOnboardingModal');
     if (existing) {
       try {
-        const inst = bootstrap.Modal.getInstance(existing);
-        if (inst) inst.dispose();
+        if (window.bootstrap && bootstrap.Modal) {
+          const inst = bootstrap.Modal.getInstance(existing);
+          if (inst) inst.dispose();
+        }
       } catch (e) {}
       existing.remove();
     }
@@ -275,6 +289,8 @@ const MGIAuth = {
 
     const defaultType = (user.type === 'perusahaan' || user.account_type === 'perusahaan' || user.accountType === 'corporate') ? 'perusahaan' : 'perorangan';
     const fullNameVal = user.fullName || user.full_name || '';
+    const emailVal = user.email || '';
+    const phoneVal = (rawPhone !== '-' && phoneDigits.length >= 8) ? rawPhone : '';
 
     modalDiv.innerHTML = `
       <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
@@ -284,10 +300,10 @@ const MGIAuth = {
           <div class="modal-header bg-royal text-white py-3 px-4 d-flex justify-content-between align-items-center">
             <div>
               <span class="badge bg-gold text-dark small fw-bold px-2 py-1 mb-1">
-                <i class="bi bi-shield-check me-1"></i> Kepatuhan UU PDP No. 27/2022
+                <i class="bi bi-shield-check me-1"></i> Kepatuhan UU PDP No. 27/2022 &amp; APU-PPT
               </span>
               <h5 class="modal-title fw-bold text-white mb-0" id="onboardingModalTitle">
-                ${needsBiodata ? 'Lengkapi Profil &amp; Kebijakan Privasi' : 'Persetujuan Kebijakan Privasi'}
+                ${needsBiodata ? 'Lengkapi Data Akun &amp; Kebijakan Privasi' : 'Persetujuan Kebijakan Privasi'}
               </h5>
             </div>
           </div>
@@ -301,10 +317,10 @@ const MGIAuth = {
               <div class="p-3 bg-white rounded-3 border border-subtle mb-3">
                 <div class="d-flex align-items-center gap-2 mb-2 text-royal fw-bold">
                   <i class="bi bi-person-lines-fill fs-5 text-gold"></i>
-                  <span>Lengkapi Data Identitas Investor</span>
+                  <span>Verifikasi Identitas &amp; Kontak Investor</span>
                 </div>
                 <p class="text-secondary small mb-0 lh-base">
-                  Sesuai prinsip kehati-hatian APU-PPT dan tata kelola penempatan modal, seluruh pemodal wajib melengkapi data kontak dan aktivitas usaha resmi sebelum mengakses portal portofolio.
+                  Sesuai prinsip kehati-hatian APU-PPT dan tata kelola penempatan modal, seluruh pemodal <strong>wajib mengisi alamat email aktif dan nomor telepon/WhatsApp resmi</strong> sebelum dapat mengakses portal portofolio &amp; Dashboard Investor.
                 </p>
               </div>
 
@@ -332,9 +348,20 @@ const MGIAuth = {
                     <div class="invalid-feedback">Nama lengkap wajib diisi.</div>
                   </div>
                   <div class="col-12 col-md-6">
+                    <label class="form-label small fw-bold text-dark">Alamat Email Aktif <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light text-muted"><i class="bi bi-envelope"></i></span>
+                      <input type="email" class="form-control" id="onbEmail" value="${MGIComponents.escapeHtml(emailVal)}" placeholder="nama@email.com" required>
+                    </div>
+                    <div class="invalid-feedback">Alamat email wajib diisi dengan format valid.</div>
+                  </div>
+                  <div class="col-12 col-md-6">
                     <label class="form-label small fw-bold text-dark">Nomor Telepon / WhatsApp <span class="text-danger">*</span></label>
-                    <input type="tel" class="form-control" id="onbPhone" placeholder="08xxxxxxxxxx" required>
-                    <div class="invalid-feedback">Nomor telepon / WhatsApp wajib diisi.</div>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light text-muted"><i class="bi bi-telephone"></i></span>
+                      <input type="tel" class="form-control" id="onbPhone" value="${MGIComponents.escapeHtml(phoneVal)}" placeholder="08xxxxxxxxxx" required>
+                    </div>
+                    <div class="invalid-feedback">Nomor telepon / WhatsApp wajib diisi (minimal 8 digit angka).</div>
                   </div>
                   <div class="col-12 col-md-6">
                     <label class="form-label small fw-bold text-dark">Kewarganegaraan <span class="text-danger">*</span></label>
@@ -343,7 +370,7 @@ const MGIAuth = {
                       <option value="Warga Negara Asing (WNA)">Warga Negara Asing (WNA)</option>
                     </select>
                   </div>
-                  <div class="col-12 col-md-6">
+                  <div class="col-12">
                     <label class="form-label small fw-bold text-dark">Bidang Usaha / Profesi <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="onbBusinessActivity" placeholder="Contoh: Wiraswasta / Profesional / Swasta" required>
                     <div class="invalid-feedback">Bidang usaha atau profesi wajib diisi.</div>
@@ -358,6 +385,14 @@ const MGIAuth = {
                     <label class="form-label small fw-bold text-dark">Nama Badan Usaha / PT <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="onbBusinessName" placeholder="Contoh: PT Investama Makmur Jaya" required>
                     <div class="invalid-feedback">Nama badan usaha wajib diisi.</div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label small fw-bold text-dark">Alamat Email Perusahaan / PIC <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light text-muted"><i class="bi bi-envelope"></i></span>
+                      <input type="email" class="form-control" id="onbCompanyEmail" value="${MGIComponents.escapeHtml(emailVal)}" placeholder="corporate@domain.com" required>
+                    </div>
+                    <div class="invalid-feedback">Alamat email perusahaan/PIC wajib diisi dengan format valid.</div>
                   </div>
                   <div class="col-12 col-md-6">
                     <label class="form-label small fw-bold text-dark">Bentuk Entitas Hukum <span class="text-danger">*</span></label>
@@ -380,20 +415,18 @@ const MGIAuth = {
                   </div>
                   <div class="col-12 col-md-6">
                     <label class="form-label small fw-bold text-dark">Nomor Telepon Kantor / PIC <span class="text-danger">*</span></label>
-                    <input type="tel" class="form-control" id="onbCompanyPhone" placeholder="08xxxxxxxxxx / 021-xxxx" required>
-                    <div class="invalid-feedback">Nomor telepon kantor / PIC wajib diisi.</div>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light text-muted"><i class="bi bi-telephone"></i></span>
+                      <input type="tel" class="form-control" id="onbCompanyPhone" value="${MGIComponents.escapeHtml(phoneVal)}" placeholder="08xxxxxxxxxx / 021-xxxx" required>
+                    </div>
+                    <div class="invalid-feedback">Nomor telepon kantor / PIC wajib diisi (minimal 8 digit angka).</div>
                   </div>
                   <div class="col-12 col-md-6">
                     <label class="form-label small fw-bold text-dark">Bidang Usaha Perusahaan <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="onbCompanyBusinessActivity" value="Investasi Sektor Riil" placeholder="Contoh: Konstruksi / Logistik" required>
                     <div class="invalid-feedback">Bidang usaha perusahaan wajib diisi.</div>
                   </div>
-                  <div class="col-12">
-                    <label class="form-label small fw-bold text-dark">Alamat Domisili Kantor Operasional <span class="text-danger">*</span></label>
-                    <textarea class="form-control" id="onbCompanyAddress" rows="2" placeholder="Alamat lengkap kantor operasional perusahaan" required></textarea>
-                    <div class="invalid-feedback">Alamat kantor operasional wajib diisi.</div>
-                  </div>
-                  <div class="col-12">
+                  <div class="col-12 col-md-6">
                     <label class="form-label small fw-bold text-dark">Kisaran Omzet Tahunan Usaha <span class="text-danger">*</span></label>
                     <select class="form-select" id="onbAnnualTurnover">
                       <option value="Di bawah Rp500 Juta">Di bawah Rp500 Juta</option>
@@ -403,6 +436,11 @@ const MGIAuth = {
                       <option value="Rp50 Miliar – Rp250 Miliar">Rp50 Miliar – Rp250 Miliar</option>
                       <option value="Di atas Rp250 Miliar">Di atas Rp250 Miliar</option>
                     </select>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label small fw-bold text-dark">Alamat Domisili Kantor Operasional <span class="text-danger">*</span></label>
+                    <textarea class="form-control" id="onbCompanyAddress" rows="2" placeholder="Alamat lengkap kantor operasional perusahaan" required></textarea>
+                    <div class="invalid-feedback">Alamat kantor operasional wajib diisi.</div>
                   </div>
                 </div>
               </div>
@@ -503,13 +541,15 @@ const MGIAuth = {
         const selectedType = modalDiv.querySelector('input[name="onbAccountType"]:checked')?.value || 'perorangan';
         let isValid = true;
         alertBox.innerHTML = '';
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (selectedType === 'perorangan') {
           const fn = modalDiv.querySelector('#onbFullName');
+          const em = modalDiv.querySelector('#onbEmail');
           const ph = modalDiv.querySelector('#onbPhone');
           const ba = modalDiv.querySelector('#onbBusinessActivity');
 
-          [fn, ph, ba].forEach(el => {
+          [fn, em, ph, ba].forEach(el => {
             if (!el || !el.value.trim()) {
               if (el) el.classList.add('is-invalid');
               isValid = false;
@@ -517,15 +557,27 @@ const MGIAuth = {
               el.classList.remove('is-invalid');
             }
           });
+
+          if (em && em.value.trim() && !emailRegex.test(em.value.trim())) {
+            em.classList.add('is-invalid');
+            isValid = false;
+          }
+
+          const digits = ph ? ph.value.replace(/\D/g, '') : '';
+          if (ph && (digits.length < 8 || digits.length > 16)) {
+            ph.classList.add('is-invalid');
+            isValid = false;
+          }
         } else {
           const bn = modalDiv.querySelector('#onbBusinessName');
+          const cem = modalDiv.querySelector('#onbCompanyEmail');
           const pn = modalDiv.querySelector('#onbPicName');
           const pp = modalDiv.querySelector('#onbPicPosition');
           const cp = modalDiv.querySelector('#onbCompanyPhone');
           const ca = modalDiv.querySelector('#onbCompanyAddress');
           const cba = modalDiv.querySelector('#onbCompanyBusinessActivity');
 
-          [bn, pn, pp, cp, ca, cba].forEach(el => {
+          [bn, cem, pn, pp, cp, ca, cba].forEach(el => {
             if (!el || !el.value.trim()) {
               if (el) el.classList.add('is-invalid');
               isValid = false;
@@ -533,13 +585,24 @@ const MGIAuth = {
               el.classList.remove('is-invalid');
             }
           });
+
+          if (cem && cem.value.trim() && !emailRegex.test(cem.value.trim())) {
+            cem.classList.add('is-invalid');
+            isValid = false;
+          }
+
+          const digits = cp ? cp.value.replace(/\D/g, '') : '';
+          if (cp && (digits.length < 8 || digits.length > 16)) {
+            cp.classList.add('is-invalid');
+            isValid = false;
+          }
         }
 
         if (!isValid) {
           alertBox.innerHTML = `
             <div class="alert alert-danger border-0 p-3 small rounded-3 mb-3 d-flex align-items-center gap-2">
-              <i class="bi bi-exclamation-circle-fill text-danger fs-5"></i>
-              <div>Harap lengkapi semua kolom wajib bertanda bintang (*) sebelum melanjutkan.</div>
+              <i class="bi bi-exclamation-circle-fill text-danger fs-5 flex-shrink-0"></i>
+              <div><strong>Data Belum Lengkap:</strong> Anda wajib mengisi alamat email aktif yang valid dan nomor telepon/WhatsApp resmi (minimal 8 digit angka) sebelum dapat melanjutkan ke Dashboard Investor.</div>
             </div>
           `;
           return;
@@ -575,7 +638,7 @@ const MGIAuth = {
         btnSubmit.disabled = true;
         btnSubmit.innerHTML = `
           <span class="spinner-border spinner-border-sm me-1" role="status"></span>
-          Menyimpan persetujuan...
+          Menyimpan data &amp; persetujuan...
         `;
 
         const selectedType = modalDiv.querySelector('input[name="onbAccountType"]:checked')?.value || defaultType;
@@ -590,11 +653,13 @@ const MGIAuth = {
 
           if (selectedType === 'perorangan') {
             payload.full_name = modalDiv.querySelector('#onbFullName')?.value?.trim();
+            payload.email = modalDiv.querySelector('#onbEmail')?.value?.trim();
             payload.phone = modalDiv.querySelector('#onbPhone')?.value?.trim();
             payload.citizenship = modalDiv.querySelector('#onbCitizenship')?.value;
             payload.business_activity = modalDiv.querySelector('#onbBusinessActivity')?.value?.trim();
           } else {
             payload.business_name = modalDiv.querySelector('#onbBusinessName')?.value?.trim();
+            payload.email = modalDiv.querySelector('#onbCompanyEmail')?.value?.trim();
             payload.legal_entity = modalDiv.querySelector('#onbLegalEntity')?.value;
             payload.company_address = modalDiv.querySelector('#onbCompanyAddress')?.value?.trim();
             payload.pic_name = modalDiv.querySelector('#onbPicName')?.value?.trim();
@@ -605,6 +670,20 @@ const MGIAuth = {
             payload.business_activity = modalDiv.querySelector('#onbCompanyBusinessActivity')?.value?.trim();
           }
 
+          // Double check email & phone before submitting
+          const emailCheck = payload.email || '';
+          const phoneCheck = (payload.phone || '').replace(/\D/g, '');
+          if (!emailCheck || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailCheck) || phoneCheck.length < 8) {
+            btnSubmit.disabled = false;
+            btnSubmit.innerHTML = `<i class="bi bi-check-circle-fill me-1"></i> Setuju &amp; Lanjutkan ke Dashboard`;
+            alertBox.innerHTML = `
+              <div class="alert alert-danger border-0 p-3 small rounded-3 mb-3">
+                Alamat email aktif dan nomor telepon/WhatsApp resmi (minimal 8 digit) wajib diisi. Silakan klik "Ubah Biodata" untuk melengkapi.
+              </div>
+            `;
+            return;
+          }
+
           const res = await MGIAuth.completeGoogleSignup(payload);
           if (res.success) {
             alertBox.innerHTML = `
@@ -613,8 +692,11 @@ const MGIAuth = {
               </div>
             `;
             setTimeout(() => {
-              const bModal = bootstrap.Modal.getInstance(modalDiv);
-              if (bModal) bModal.hide();
+              if (window.bootstrap && bootstrap.Modal) {
+                const bModal = bootstrap.Modal.getInstance(modalDiv);
+                if (bModal) bModal.hide();
+              }
+              modalDiv.remove();
               onComplete(res.user);
             }, 600);
           } else {
@@ -636,8 +718,11 @@ const MGIAuth = {
               </div>
             `;
             setTimeout(() => {
-              const bModal = bootstrap.Modal.getInstance(modalDiv);
-              if (bModal) bModal.hide();
+              if (window.bootstrap && bootstrap.Modal) {
+                const bModal = bootstrap.Modal.getInstance(modalDiv);
+                if (bModal) bModal.hide();
+              }
+              modalDiv.remove();
               onComplete(MGIAuth.getCurrentUser());
             }, 600);
           } else {
@@ -653,11 +738,21 @@ const MGIAuth = {
       });
     }
 
-    const modalInstance = new bootstrap.Modal(modalDiv, {
-      backdrop: 'static',
-      keyboard: false
-    });
-    modalInstance.show();
+    if (window.bootstrap && window.bootstrap.Modal) {
+      const modalInstance = new bootstrap.Modal(modalDiv, {
+        backdrop: 'static',
+        keyboard: false
+      });
+      modalInstance.show();
+    } else {
+      modalDiv.style.display = 'block';
+      modalDiv.classList.add('show');
+      modalDiv.style.backgroundColor = 'rgba(11, 29, 58, 0.85)';
+      modalDiv.style.zIndex = '99999';
+      modalDiv.style.position = 'fixed';
+      modalDiv.style.inset = '0';
+      modalDiv.style.overflowY = 'auto';
+    }
   },
 
   // Render official Google Sign-In button into container

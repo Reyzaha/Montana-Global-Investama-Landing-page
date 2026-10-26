@@ -332,12 +332,19 @@
           submitBtn.innerHTML = `<i class="bi bi-box-arrow-in-right me-2"></i> Masuk ke Akun`;
 
           if (result.success) {
-            if (result.data && result.data.needs_privacy_consent) {
+            const rawPhone = result.user?.phone || result.user?.companyPhone || '';
+            const phoneDigits = rawPhone.replace(/\D/g, '');
+            const hasPhone = rawPhone !== '' && rawPhone !== '-' && phoneDigits.length >= 8;
+            const hasEmail = result.user?.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(result.user.email);
+            const needsBio = (result.data && result.data.needs_biodata) || !hasPhone || !hasEmail;
+            const needsPriv = result.data ? !!result.data.needs_privacy_consent : false;
+
+            if (needsBio || needsPriv) {
               alertContainer.innerHTML = '';
               MGIAuth.showOnboardingModal({
                 user: result.user,
-                needsBiodata: false,
-                needsPrivacyConsent: true,
+                needsBiodata: !!needsBio,
+                needsPrivacyConsent: !!needsPriv,
                 onComplete: () => {
                   const targetUrl = MGIAuth.getRedirectUrl() || 'investor-dashboard.html';
                   window.location.href = targetUrl;
@@ -394,15 +401,19 @@
 
         MGIAuth.loginWithGoogle(googleResponse.credential, loginType).then((res) => {
           if (res.success) {
-            const needsBio = res.data ? !!res.data.needs_biodata : false;
+            const rawPhone = res.user?.phone || res.user?.companyPhone || '';
+            const phoneDigits = rawPhone.replace(/\D/g, '');
+            const hasPhone = rawPhone !== '' && rawPhone !== '-' && phoneDigits.length >= 8;
+            const hasEmail = res.user?.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(res.user.email);
+            const needsBio = (res.data && res.data.needs_biodata) || !hasPhone || !hasEmail;
             const needsPriv = res.data ? !!res.data.needs_privacy_consent : false;
 
             if (needsBio || needsPriv) {
               alertContainer.innerHTML = '';
               MGIAuth.showOnboardingModal({
                 user: res.user,
-                needsBiodata: needsBio,
-                needsPrivacyConsent: needsPriv,
+                needsBiodata: !!needsBio,
+                needsPrivacyConsent: !!needsPriv,
                 onComplete: () => {
                   const targetUrl = MGIAuth.getRedirectUrl() || 'investor-dashboard.html';
                   window.location.href = targetUrl;

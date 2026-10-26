@@ -943,10 +943,19 @@
 
         MGIAuth.loginWithGoogle(googleResponse.credential, accountType, extraData).then((res) => {
           if (res.success) {
-            // Cek jika akun Google memerlukan pengisian biodata atau persetujuan kebijakan privasi
-            if (res.data && (res.data.needs_biodata || res.data.needs_privacy_consent)) {
+            const rawPhone = res.user?.phone || res.user?.companyPhone || '';
+            const phoneDigits = rawPhone.replace(/\D/g, '');
+            const hasPhone = rawPhone !== '' && rawPhone !== '-' && phoneDigits.length >= 8;
+            const hasEmail = res.user?.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(res.user.email);
+            const needsBio = (res.data && res.data.needs_biodata) || !hasPhone || !hasEmail;
+            const needsPriv = res.data ? !!res.data.needs_privacy_consent : false;
+
+            // Cek jika akun Google memerlukan pengisian biodata, email, telepon atau persetujuan kebijakan privasi
+            if (needsBio || needsPriv) {
               MGIAuth.showOnboardingModal({
-                data: res.data,
+                user: res.user,
+                needsBiodata: !!needsBio,
+                needsPrivacyConsent: !!needsPriv,
                 onComplete: () => {
                   alertContainer.innerHTML = `
                     <div class="alert alert-success border-0 shadow-sm rounded-3 p-4 d-flex align-items-start gap-3 mb-4" role="alert">
@@ -954,7 +963,7 @@
                       <div>
                         <h5 class="alert-heading fw-bold mb-1">Pendaftaran Google Berhasil!</h5>
                         <p class="small mb-0 lh-base">
-                          Biodata dan persetujuan Kebijakan Privasi Anda telah tersimpan. Mengalihkan ke Dashboard...
+                          Data kontak dan persetujuan Kebijakan Privasi Anda telah tersimpan. Mengalihkan ke Dashboard...
                         </p>
                       </div>
                     </div>

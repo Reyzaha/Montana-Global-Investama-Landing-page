@@ -17,22 +17,28 @@ const CURRENT_PRIVACY_POLICY_VERSION = '1.0';
 
 function isInvestorBiodataComplete(?array $user): bool {
     if (!$user) return false;
+    $email = trim($user['email'] ?? '');
+    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return false;
+    }
     $type = $user['account_type'] ?? 'perorangan';
     if ($type === 'perusahaan') {
         $bName = trim($user['business_name'] ?? '');
         $picName = trim($user['pic_name'] ?? '');
         $phone = trim($user['company_phone'] ?? ($user['phone'] ?? ''));
+        $phoneDigits = preg_replace('/\D/', '', $phone);
         $address = trim($user['company_address'] ?? '');
         $bAct = trim($user['business_activity'] ?? '');
-        return !empty($bName) && !empty($picName) && !empty($phone) && $phone !== '-'
+        return !empty($bName) && !empty($picName) && !empty($phone) && $phone !== '-' && strlen($phoneDigits) >= 8
             && !empty($address) && $address !== 'Alamat operasional belum dilengkapi'
             && !empty($bAct);
     } else {
         $fullName = trim($user['full_name'] ?? '');
         $phone = trim($user['phone'] ?? '');
+        $phoneDigits = preg_replace('/\D/', '', $phone);
         $bAct = trim($user['business_activity'] ?? '');
         $citizenship = trim($user['citizenship'] ?? '');
-        return !empty($fullName) && !empty($phone) && $phone !== '-'
+        return !empty($fullName) && !empty($phone) && $phone !== '-' && strlen($phoneDigits) >= 8
             && !empty($bAct) && !empty($citizenship);
     }
 }

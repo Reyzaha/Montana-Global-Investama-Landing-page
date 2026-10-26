@@ -25,6 +25,8 @@
     href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
     rel="stylesheet">
 
+  <!-- Bootstrap Icons 1.11.3 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons CDN -->
@@ -2593,6 +2595,8 @@
     <span class="text-xs font-medium" id="toastText">Operasi berhasil dijalankan</span>
   </div>
 
+  <!-- Bootstrap 5 Bundle JS for Modal Dialogs -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Client-side Logic & API Integrations -->
   <script src="assets/js/renderer.js"></script>
   <script src="assets/js/privacy-policy-content.js"></script>
@@ -2614,8 +2618,11 @@
         lucide.createIcons();
       }
 
-      // 2. Auth Verification & Data Fetching
-      await initDashboardData();
+      // 2. Auth Verification & Data Fetching (Strict Route Guard)
+      const canProceed = await initDashboardData();
+      if (!canProceed) {
+        return;
+      }
 
       // 3. Load & Render Open Projects Catalog (Area C)
       await loadAndRenderCatalog();
@@ -3290,9 +3297,79 @@
 
     // Fetch and Sync Dashboard Data from backend API
     async function initDashboardData() {
+      // 0. Pre-flight session check
+      const cachedUser = (window.MGIAuth && typeof MGIAuth.getCurrentUser === 'function')
+        ? MGIAuth.getCurrentUser()
+        : JSON.parse(localStorage.getItem('mgi_auth_user') || 'null');
+
+      if (!cachedUser) {
+        window.location.replace('login.html?redirect=investor-dashboard.html');
+        return false;
+      }
+
+      // 1. Fetch User Profile & Bank Details FIRST
+      let dashboardData = null;
+      try {
+        const res = await fetch(`api/investor/dashboard.php?action=get&_t=${Date.now()}`, { cache: 'no-store', credentials: 'same-origin' });
+        if (res.status === 401) {
+          localStorage.removeItem('mgi_auth_user');
+          window.location.replace('login.html?redirect=investor-dashboard.html');
+          return false;
+        }
+        if (res.ok) {
+          const json = await res.json();
+          if (json && json.success && json.data) {
+            dashboardData = json.data;
+          }
+        }
+      } catch (err) {
+        console.warn('API sync profile warning:', err);
+      }
+
+      // Determine profile data from backend or local session
+      const prof = (dashboardData && dashboardData.profile) ? dashboardData.profile : cachedUser;
+      const rawPhone = (prof.phone || prof.company_phone || prof.companyPhone || '').trim();
+      const phoneDigits = rawPhone.replace(/\D/g, '');
+      const hasPhone = rawPhone !== '' && rawPhone !== '-' && phoneDigits.length >= 8;
+      const rawEmail = (prof.email || '').trim();
+      const hasEmail = rawEmail !== '' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(rawEmail);
+
+      const needsBio = (dashboardData && dashboardData.needs_biodata !== undefined ? dashboardData.needs_biodata : prof.needs_biodata) || !hasPhone || !hasEmail;
+      const needsPriv = (dashboardData && dashboardData.needs_privacy_consent !== undefined ? dashboardData.needs_privacy_consent : prof.needs_privacy_consent);
+
+      // Route / Page Guard: Wajib email dan nomor telepon terisi sebelum dapat masuk dashboard
+      if (needsBio || needsPriv) {
+        if (window.MGIAuth && typeof MGIAuth.showOnboardingModal === 'function') {
+          MGIAuth.showOnboardingModal({
+            user: prof,
+            needsBiodata: !!needsBio,
+            needsPrivacyConsent: !!needsPriv,
+            missing_fields: prof.missing_fields || [],
+            onComplete: async () => {
+              const ok = await initDashboardData();
+              if (ok && typeof loadAndRenderCatalog === 'function') {
+                await loadAndRenderCatalog();
+              }
+            }
+          });
+        }
+        return false; // STRICT BLOCK: Stop execution, do not render dashboard!
+      }
+
+      // Apply Profile & Summary Data
+      if (dashboardData) {
+        Object.assign(dashboardState, dashboardData);
+        applyDataToUI(dashboardState);
+
+        // Render Notifications on load
+        if (dashboardData.notifications) {
+          renderNotifications(dashboardData.notifications, dashboardData.unread_notifications_count || 0);
+        }
+      }
+
       let projectsLoaded = false;
 
-      // 1. Fetch Investor's Projects list (GET /api/investor/projects.php with fallback to /api/investor/projects)
+      // 2. Fetch Investor's Projects list (GET /api/investor/projects.php with fallback to /api/investor/projects)
       try {
         let projRes = await fetch(`api/investor/projects.php?_t=${Date.now()}`, { cache: 'no-store', credentials: 'same-origin' });
         if (!projRes.ok) {
@@ -3331,93 +3408,51 @@
         console.warn('Gagal mengambil daftar proyek dari API:', err);
       }
 
-      // 2. Fetch User Profile and Bank Details
-      try {
-        const res = await fetch(`api/investor/dashboard.php?action=get&_t=${Date.now()}`, { cache: 'no-store', credentials: 'same-origin' });
-        if (res.ok) {
-          const json = await res.json();
-          if (json && json.success && json.data) {
-            // Route/Page Guard: Pastikan biodata lengkap dan kebijakan privasi telah disetujui
-            const prof = json.data.profile || {};
-            if (prof.needs_biodata || prof.needs_privacy_consent) {
-              if (window.MGIAuth && typeof MGIAuth.showOnboardingModal === 'function') {
-                MGIAuth.showOnboardingModal({
-                  data: {
-                    user: prof,
-                    needs_biodata: prof.needs_biodata,
-                    needs_privacy_consent: prof.needs_privacy_consent,
-                    missing_fields: prof.missing_fields || []
-                  },
-                  onComplete: () => {
-                    initDashboardData();
-                  }
-                });
-              }
+      // If projects were not loaded yet, map portfolios from dashboard response or render them
+      if (!projectsLoaded && dashboardData && dashboardData.portfolios && dashboardData.portfolios.length > 0) {
+        const mappedProjects = dashboardData.portfolios.map(p => {
+          const amt = Number(p.amount || 0);
+          return {
+            id: p.id,
+            project_id: p.project_id,
+            nama_project: p.project_title,
+            kategori: p.project_category,
+            lokasi: p.project_lokasi || 'DKI Jakarta & Jawa Barat',
+            image: p.project_image || 'assets/img/1.png',
+            contract_number: p.contract_number,
+            status: p.status,
+            total_dana_investor: amt,
+            ringkasan: {
+              sisa_dana: amt,
+              total_pembelian: 0,
+              total_penjualan: 0,
+              total_biaya: 0,
+              total_terpakai: 0,
+              payout_received: Number(p.payout_received || 0),
+              return_rate: p.return_rate,
+              tenor: p.tenor,
+              next_payout_date: p.next_payout_date,
+              allocated_units: p.allocated_units || 'Unit Alat Berat Siap Operasi',
+              total_units: 0,
+              active_units: 0,
+              utilization_rate: '-'
             }
-
-            Object.assign(dashboardState, json.data);
-            applyDataToUI(dashboardState);
-
-            // Render Notifications on load
-            if (json.data.notifications) {
-              renderNotifications(json.data.notifications, json.data.unread_notifications_count || 0);
-            }
-
-            // If projects were not loaded yet, map portfolios from dashboard response or render them
-            if (!projectsLoaded && json.data.portfolios && json.data.portfolios.length > 0) {
-              const mappedProjects = json.data.portfolios.map(p => {
-                const amt = Number(p.amount || 0);
-                return {
-                  id: p.id,
-                  project_id: p.project_id,
-                  nama_project: p.project_title,
-                  kategori: p.project_category,
-                  lokasi: p.project_lokasi || 'DKI Jakarta & Jawa Barat',
-                  image: p.project_image || 'assets/img/1.png',
-                  contract_number: p.contract_number,
-                  status: p.status,
-                  total_dana_investor: amt,
-                  ringkasan: {
-                    sisa_dana: amt,
-                    total_pembelian: 0,
-                    total_penjualan: 0,
-                    total_biaya: 0,
-                    total_terpakai: 0,
-                    payout_received: Number(p.payout_received || 0),
-                    return_rate: p.return_rate,
-                    tenor: p.tenor,
-                    next_payout_date: p.next_payout_date,
-                    allocated_units: p.allocated_units || 'Unit Alat Berat Siap Operasi',
-                    total_units: 0,
-                    active_units: 0,
-                    utilization_rate: '-'
-                  }
-                };
-              });
-              dashboardState.projects = mappedProjects;
-              renderProjectCards(mappedProjects);
-              projectsLoaded = true;
-            } else if (!projectsLoaded) {
-              dashboardState.projects = [];
-              renderProjectCards([]);
-              projectsLoaded = true;
-            }
-            return;
-          }
-        } else if (res.status === 401) {
-          localStorage.removeItem('mgi_auth_user');
-          window.location.replace('login.html?redirect=investor-dashboard.html');
-          return;
-        }
-      } catch (err) {
-        console.warn('API sync warning (falling back to cached/demo state):', err);
+          };
+        });
+        dashboardState.projects = mappedProjects;
+        renderProjectCards(mappedProjects);
+        projectsLoaded = true;
+      } else if (!projectsLoaded) {
+        dashboardState.projects = [];
+        renderProjectCards([]);
+        projectsLoaded = true;
       }
 
-      // Fallback to local session or rich demo state
-      applyFallbackData();
-      if (!projectsLoaded) {
-        renderProjectCards(dashboardState.projects || []);
+      if (!dashboardData) {
+        applyFallbackData();
       }
+
+      return true;
     }
 
     // Apply Live Data to UI

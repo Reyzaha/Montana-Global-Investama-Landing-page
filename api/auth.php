@@ -12,22 +12,28 @@ const CURRENT_PRIVACY_POLICY_VERSION = '1.0';
 
 function isInvestorBiodataComplete(?array $user): bool {
     if (!$user) return false;
+    $email = trim($user['email'] ?? '');
+    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return false;
+    }
     $type = $user['account_type'] ?? 'perorangan';
     if ($type === 'perusahaan') {
         $bName = trim($user['business_name'] ?? '');
         $picName = trim($user['pic_name'] ?? '');
         $phone = trim($user['company_phone'] ?? ($user['phone'] ?? ''));
+        $phoneDigits = preg_replace('/\D/', '', $phone);
         $address = trim($user['company_address'] ?? '');
         $bAct = trim($user['business_activity'] ?? '');
-        return !empty($bName) && !empty($picName) && !empty($phone) && $phone !== '-'
+        return !empty($bName) && !empty($picName) && !empty($phone) && $phone !== '-' && strlen($phoneDigits) >= 8
             && !empty($address) && $address !== 'Alamat operasional belum dilengkapi'
             && !empty($bAct);
     } else {
         $fullName = trim($user['full_name'] ?? '');
         $phone = trim($user['phone'] ?? '');
+        $phoneDigits = preg_replace('/\D/', '', $phone);
         $bAct = trim($user['business_activity'] ?? '');
         $citizenship = trim($user['citizenship'] ?? '');
-        return !empty($fullName) && !empty($phone) && $phone !== '-'
+        return !empty($fullName) && !empty($phone) && $phone !== '-' && strlen($phoneDigits) >= 8
             && !empty($bAct) && !empty($citizenship);
     }
 }
@@ -548,6 +554,20 @@ try {
         }
 
         $accountType = $input['account_type'] ?? ($input['type'] ?? ($session['type'] ?? 'perorangan'));
+
+        // Validasi wajib Email aktif & valid
+        $emailInput = trim(strtolower($input['email'] ?? ($session['email'] ?? '')));
+        if (empty($emailInput) || !filter_var($emailInput, FILTER_VALIDATE_EMAIL)) {
+            sendJsonError('Alamat email aktif wajib diisi dengan format yang valid.', 422);
+        }
+
+        // Cek jika email telah digunakan oleh investor lain
+        $stmtEmailCheck = $db->prepare("SELECT id FROM investors WHERE LOWER(email) = ? AND id != ?");
+        $stmtEmailCheck->execute([$emailInput, $investorId]);
+        if ($stmtEmailCheck->fetch()) {
+            sendJsonError('Alamat email ini sudah terdaftar pada akun lain. Silakan gunakan alamat email Anda lainnya.', 422);
+        }
+
         $db->beginTransaction();
 
         if ($accountType === 'perusahaan') {
@@ -555,18 +575,20 @@ try {
             $picName = trim($input['pic_name'] ?? ($input['picName'] ?? ''));
             $picPosition = trim($input['pic_position'] ?? ($input['picPosition'] ?? 'Direktur Utama'));
             $companyPhone = trim($input['company_phone'] ?? ($input['phone'] ?? ''));
+            $phoneDigits = preg_replace('/\D/', '', $companyPhone);
             $companyAddress = trim($input['company_address'] ?? ($input['companyAddress'] ?? ''));
             $businessActivity = trim($input['business_activity'] ?? ($input['businessActivity'] ?? 'Investasi Sektor Riil'));
             $legalEntity = trim($input['legal_entity'] ?? ($input['legalEntity'] ?? 'Perseroan Terbatas (PT)'));
             $annualTurnover = trim($input['annual_turnover'] ?? ($input['annualTurnover'] ?? 'Rp10 Miliar – Rp50 Miliar'));
 
-            if (empty($businessName) || empty($picName) || empty($companyPhone) || empty($companyAddress) || empty($businessActivity)) {
-                sendJsonError('Seluruh data institusi/perusahaan (Nama PT, PIC, Telepon, Bidang Usaha, Alamat) wajib diisi lengkap.', 422);
+            if (empty($businessName) || empty($picName) || empty($companyPhone) || strlen($phoneDigits) < 8 || empty($companyAddress) || empty($businessActivity)) {
+                sendJsonError('Seluruh data institusi/perusahaan (Nama PT, PIC, Telepon valid min 8 digit, Bidang Usaha, Alamat) wajib diisi lengkap.', 422);
             }
 
             $stmtUpd = $db->prepare("
                 UPDATE investors 
-                SET account_type = 'perusahaan',
+                SET email = ?,
+                    account_type = 'perusahaan',
                     full_name = ?,
                     phone = ?,
                     business_activity = ?,
@@ -575,7 +597,7 @@ try {
                     privacy_policy_version = ?
                 WHERE id = ?
             ");
-            $stmtUpd->execute([$businessName, $companyPhone, $businessActivity, CURRENT_PRIVACY_POLICY_VERSION, $investorId]);
+            $stmtUpd->execute([$emailInput, $businessName, $companyPhone, $businessActivity, CURRENT_PRIVACY_POLICY_VERSION, $investorId]);
 
             $checkC = $db->prepare("SELECT id FROM investor_companies WHERE investor_id = ?");
             $checkC->execute([$investorId]);
@@ -598,16 +620,18 @@ try {
             // Perorangan
             $fullName = trim($input['full_name'] ?? ($input['fullName'] ?? ''));
             $phone = trim($input['phone'] ?? '');
+            $phoneDigits = preg_replace('/\D/', '', $phone);
             $citizenship = trim($input['citizenship'] ?? 'Indonesia (WNI)');
             $businessActivity = trim($input['business_activity'] ?? ($input['businessActivity'] ?? ''));
 
-            if (empty($fullName) || empty($phone) || empty($businessActivity)) {
-                sendJsonError('Nama lengkap, nomor telepon / WhatsApp, dan bidang usaha wajib diisi lengkap.', 422);
+            if (empty($fullName) || empty($phone) || strlen($phoneDigits) < 8 || empty($businessActivity)) {
+                sendJsonError('Nama lengkap, nomor telepon / WhatsApp valid (minimal 8 digit), dan bidang usaha wajib diisi lengkap.', 422);
             }
 
             $stmtUpd = $db->prepare("
                 UPDATE investors 
-                SET account_type = 'perorangan',
+                SET email = ?,
+                    account_type = 'perorangan',
                     full_name = ?,
                     phone = ?,
                     citizenship = ?,
@@ -617,7 +641,7 @@ try {
                     privacy_policy_version = ?
                 WHERE id = ?
             ");
-            $stmtUpd->execute([$fullName, $phone, $citizenship, $businessActivity, CURRENT_PRIVACY_POLICY_VERSION, $investorId]);
+            $stmtUpd->execute([$emailInput, $fullName, $phone, $citizenship, $businessActivity, CURRENT_PRIVACY_POLICY_VERSION, $investorId]);
         }
 
         $db->commit();
