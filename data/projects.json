@@ -250,8 +250,32 @@
                     "total_miu_per_unit": 406880721,
                     "total_msi_per_unit": 70000000,
                     "dana_cadangan_per_unit": 3837209,
-                    "total_biaya_per_unit": 476880721
+                    "total_biaya_per_unit": 476880721,
+                    "simulation_rates": {
+                        "rate_1y_2x": 14,
+                        "rate_1y_3x": 16,
+                        "rate_2y_2x": 23,
+                        "rate_2y_3x": 25,
+                        "rate_3y_2x": 33,
+                        "rate_3y_3x": 35
+                    }
+                },
+                "simulation_rates": {
+                    "rate_1y_2x": 14,
+                    "rate_1y_3x": 16,
+                    "rate_2y_2x": 23,
+                    "rate_2y_3x": 25,
+                    "rate_3y_2x": 33,
+                    "rate_3y_3x": 35
                 }
+            },
+            "simulation_rates": {
+                "rate_1y_2x": 14,
+                "rate_1y_3x": 16,
+                "rate_2y_2x": 23,
+                "rate_2y_3x": 25,
+                "rate_3y_2x": 33,
+                "rate_3y_3x": 35
             }
         },
         {
@@ -502,8 +526,32 @@
                     "total_miu_per_unit": 406880721,
                     "total_msi_per_unit": 70000000,
                     "dana_cadangan_per_unit": 12142857,
-                    "total_biaya_per_unit": 476880721
+                    "total_biaya_per_unit": 476880721,
+                    "simulation_rates": {
+                        "rate_1y_2x": 14,
+                        "rate_1y_3x": 16,
+                        "rate_2y_2x": 23,
+                        "rate_2y_3x": 25,
+                        "rate_3y_2x": 33,
+                        "rate_3y_3x": 35
+                    }
+                },
+                "simulation_rates": {
+                    "rate_1y_2x": 14,
+                    "rate_1y_3x": 16,
+                    "rate_2y_2x": 23,
+                    "rate_2y_3x": 25,
+                    "rate_3y_2x": 33,
+                    "rate_3y_3x": 35
                 }
+            },
+            "simulation_rates": {
+                "rate_1y_2x": 14,
+                "rate_1y_3x": 16,
+                "rate_2y_2x": 23,
+                "rate_2y_3x": 25,
+                "rate_3y_2x": 33,
+                "rate_3y_3x": 35
             }
         },
         {
@@ -754,8 +802,32 @@
                     "total_miu_per_unit": 406880721,
                     "total_msi_per_unit": 70000000,
                     "dana_cadangan_per_unit": 3837209,
-                    "total_biaya_per_unit": 476880721
+                    "total_biaya_per_unit": 476880721,
+                    "simulation_rates": {
+                        "rate_1y_2x": 14,
+                        "rate_1y_3x": 16,
+                        "rate_2y_2x": 23,
+                        "rate_2y_3x": 25,
+                        "rate_3y_2x": 33,
+                        "rate_3y_3x": 35
+                    }
+                },
+                "simulation_rates": {
+                    "rate_1y_2x": 14,
+                    "rate_1y_3x": 16,
+                    "rate_2y_2x": 23,
+                    "rate_2y_3x": 25,
+                    "rate_3y_2x": 33,
+                    "rate_3y_3x": 35
                 }
+            },
+            "simulation_rates": {
+                "rate_1y_2x": 14,
+                "rate_1y_3x": 16,
+                "rate_2y_2x": 23,
+                "rate_2y_3x": 25,
+                "rate_3y_2x": 33,
+                "rate_3y_3x": 35
             }
         },
         {
@@ -1006,8 +1078,32 @@
                     "total_miu_per_unit": 406880721,
                     "total_msi_per_unit": 70000000,
                     "dana_cadangan_per_unit": 5000000,
-                    "total_biaya_per_unit": 476880721
+                    "total_biaya_per_unit": 476880721,
+                    "simulation_rates": {
+                        "rate_1y_2x": 14,
+                        "rate_1y_3x": 16,
+                        "rate_2y_2x": 23,
+                        "rate_2y_3x": 25,
+                        "rate_3y_2x": 33,
+                        "rate_3y_3x": 35
+                    }
+                },
+                "simulation_rates": {
+                    "rate_1y_2x": 14,
+                    "rate_1y_3x": 16,
+                    "rate_2y_2x": 23,
+                    "rate_2y_3x": 25,
+                    "rate_3y_2x": 33,
+                    "rate_3y_3x": 35
                 }
+            },
+            "simulation_rates": {
+                "rate_1y_2x": 14,
+                "rate_1y_3x": 16,
+                "rate_2y_2x": 23,
+                "rate_2y_3x": 25,
+                "rate_3y_2x": 33,
+                "rate_3y_3x": 35
             }
         },
         {
@@ -1258,8 +1354,32 @@
                     "total_miu_per_unit": 406880721,
                     "total_msi_per_unit": 70000000,
                     "dana_cadangan_per_unit": 55000000,
-                    "total_biaya_per_unit": 476880721
+                    "total_biaya_per_unit": 476880721,
+                    "simulation_rates": {
+                        "rate_1y_2x": 14,
+                        "rate_1y_3x": 16,
+                        "rate_2y_2x": 23,
+                        "rate_2y_3x": 25,
+                        "rate_3y_2x": 33,
+                        "rate_3y_3x": 35
+                    }
+                },
+                "simulation_rates": {
+                    "rate_1y_2x": 14,
+                    "rate_1y_3x": 16,
+                    "rate_2y_2x": 23,
+                    "rate_2y_3x": 25,
+                    "rate_3y_2x": 33,
+                    "rate_3y_3x": 35
                 }
+            },
+            "simulation_rates": {
+                "rate_1y_2x": 14,
+                "rate_1y_3x": 16,
+                "rate_2y_2x": 23,
+                "rate_2y_3x": 25,
+                "rate_3y_2x": 33,
+                "rate_3y_3x": 35
             }
         },
         {
@@ -1510,8 +1630,32 @@
                     "total_miu_per_unit": 406880721,
                     "total_msi_per_unit": 70000000,
                     "dana_cadangan_per_unit": 30000000,
-                    "total_biaya_per_unit": 476880721
+                    "total_biaya_per_unit": 476880721,
+                    "simulation_rates": {
+                        "rate_1y_2x": 14,
+                        "rate_1y_3x": 16,
+                        "rate_2y_2x": 23,
+                        "rate_2y_3x": 25,
+                        "rate_3y_2x": 33,
+                        "rate_3y_3x": 35
+                    }
+                },
+                "simulation_rates": {
+                    "rate_1y_2x": 14,
+                    "rate_1y_3x": 16,
+                    "rate_2y_2x": 23,
+                    "rate_2y_3x": 25,
+                    "rate_3y_2x": 33,
+                    "rate_3y_3x": 35
                 }
+            },
+            "simulation_rates": {
+                "rate_1y_2x": 14,
+                "rate_1y_3x": 16,
+                "rate_2y_2x": 23,
+                "rate_2y_3x": 25,
+                "rate_3y_2x": 33,
+                "rate_3y_3x": 35
             }
         },
         {
@@ -1762,8 +1906,32 @@
                     "total_miu_per_unit": 406880721,
                     "total_msi_per_unit": 70000000,
                     "dana_cadangan_per_unit": 12142857,
-                    "total_biaya_per_unit": 476880721
+                    "total_biaya_per_unit": 476880721,
+                    "simulation_rates": {
+                        "rate_1y_2x": 14,
+                        "rate_1y_3x": 16,
+                        "rate_2y_2x": 23,
+                        "rate_2y_3x": 25,
+                        "rate_3y_2x": 33,
+                        "rate_3y_3x": 35
+                    }
+                },
+                "simulation_rates": {
+                    "rate_1y_2x": 14,
+                    "rate_1y_3x": 16,
+                    "rate_2y_2x": 23,
+                    "rate_2y_3x": 25,
+                    "rate_3y_2x": 33,
+                    "rate_3y_3x": 35
                 }
+            },
+            "simulation_rates": {
+                "rate_1y_2x": 14,
+                "rate_1y_3x": 16,
+                "rate_2y_2x": 23,
+                "rate_2y_3x": 25,
+                "rate_3y_2x": 33,
+                "rate_3y_3x": 35
             }
         },
         {
@@ -2014,8 +2182,32 @@
                     "total_miu_per_unit": 406880721,
                     "total_msi_per_unit": 70000000,
                     "dana_cadangan_per_unit": 30000000,
-                    "total_biaya_per_unit": 476880721
+                    "total_biaya_per_unit": 476880721,
+                    "simulation_rates": {
+                        "rate_1y_2x": 14,
+                        "rate_1y_3x": 16,
+                        "rate_2y_2x": 23,
+                        "rate_2y_3x": 25,
+                        "rate_3y_2x": 33,
+                        "rate_3y_3x": 35
+                    }
+                },
+                "simulation_rates": {
+                    "rate_1y_2x": 14,
+                    "rate_1y_3x": 16,
+                    "rate_2y_2x": 23,
+                    "rate_2y_3x": 25,
+                    "rate_3y_2x": 33,
+                    "rate_3y_3x": 35
                 }
+            },
+            "simulation_rates": {
+                "rate_1y_2x": 14,
+                "rate_1y_3x": 16,
+                "rate_2y_2x": 23,
+                "rate_2y_3x": 25,
+                "rate_3y_2x": 33,
+                "rate_3y_3x": 35
             }
         },
         {
@@ -2266,8 +2458,32 @@
                     "total_miu_per_unit": 406880721,
                     "total_msi_per_unit": 70000000,
                     "dana_cadangan_per_unit": 55000000,
-                    "total_biaya_per_unit": 476880721
+                    "total_biaya_per_unit": 476880721,
+                    "simulation_rates": {
+                        "rate_1y_2x": 14,
+                        "rate_1y_3x": 16,
+                        "rate_2y_2x": 23,
+                        "rate_2y_3x": 25,
+                        "rate_3y_2x": 33,
+                        "rate_3y_3x": 35
+                    }
+                },
+                "simulation_rates": {
+                    "rate_1y_2x": 14,
+                    "rate_1y_3x": 16,
+                    "rate_2y_2x": 23,
+                    "rate_2y_3x": 25,
+                    "rate_3y_2x": 33,
+                    "rate_3y_3x": 35
                 }
+            },
+            "simulation_rates": {
+                "rate_1y_2x": 14,
+                "rate_1y_3x": 16,
+                "rate_2y_2x": 23,
+                "rate_2y_3x": 25,
+                "rate_3y_2x": 33,
+                "rate_3y_3x": 35
             }
         },
         {
@@ -2518,8 +2734,32 @@
                     "total_miu_per_unit": 406880721,
                     "total_msi_per_unit": 70000000,
                     "dana_cadangan_per_unit": 12142857,
-                    "total_biaya_per_unit": 476880721
+                    "total_biaya_per_unit": 476880721,
+                    "simulation_rates": {
+                        "rate_1y_2x": 14,
+                        "rate_1y_3x": 16,
+                        "rate_2y_2x": 23,
+                        "rate_2y_3x": 25,
+                        "rate_3y_2x": 33,
+                        "rate_3y_3x": 35
+                    }
+                },
+                "simulation_rates": {
+                    "rate_1y_2x": 14,
+                    "rate_1y_3x": 16,
+                    "rate_2y_2x": 23,
+                    "rate_2y_3x": 25,
+                    "rate_3y_2x": 33,
+                    "rate_3y_3x": 35
                 }
+            },
+            "simulation_rates": {
+                "rate_1y_2x": 14,
+                "rate_1y_3x": 16,
+                "rate_2y_2x": 23,
+                "rate_2y_3x": 25,
+                "rate_3y_2x": 33,
+                "rate_3y_3x": 35
             }
         },
         {
@@ -2770,8 +3010,32 @@
                     "total_miu_per_unit": 406880721,
                     "total_msi_per_unit": 70000000,
                     "dana_cadangan_per_unit": 12142857,
-                    "total_biaya_per_unit": 476880721
+                    "total_biaya_per_unit": 476880721,
+                    "simulation_rates": {
+                        "rate_1y_2x": 14,
+                        "rate_1y_3x": 16,
+                        "rate_2y_2x": 23,
+                        "rate_2y_3x": 25,
+                        "rate_3y_2x": 33,
+                        "rate_3y_3x": 35
+                    }
+                },
+                "simulation_rates": {
+                    "rate_1y_2x": 14,
+                    "rate_1y_3x": 16,
+                    "rate_2y_2x": 23,
+                    "rate_2y_3x": 25,
+                    "rate_3y_2x": 33,
+                    "rate_3y_3x": 35
                 }
+            },
+            "simulation_rates": {
+                "rate_1y_2x": 14,
+                "rate_1y_3x": 16,
+                "rate_2y_2x": 23,
+                "rate_2y_3x": 25,
+                "rate_3y_2x": 33,
+                "rate_3y_3x": 35
             }
         }
     ]

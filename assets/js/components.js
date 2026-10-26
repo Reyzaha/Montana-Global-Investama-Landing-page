@@ -718,10 +718,34 @@ const MGIComponents = {
       ctaText = 'Rancangan Anggaran Modal';
     }
 
-    const isFullyFunded = (project.status === 'Fully Funded') || (String(project.status || '').toLowerCase().includes('funded'));
+    const statusStr = String(project.status || '').toLowerCase();
+    const isFullyFunded = (project.status === 'Fully Funded') || (project.status === 'Closed') || statusStr.includes('funded') || statusStr.includes('closed') || statusStr.includes('tutup');
+
+    if (isFullyFunded) {
+      fundingBoxHtml = `
+        <div class="project-funding-range-box">
+          <div class="funding-range-label">
+            <span>Nilai Anggaran Kebutuhan Investasi:</span>
+            <span class="badge bg-secondary text-white fw-bold px-2 py-0.5 rounded-pill" style="font-size: 0.65rem;">Ditutup</span>
+          </div>
+          <div class="funding-range-value text-secondary font-monospace">Rp 0</div>
+          <div class="small text-muted mt-1 text-truncate" style="font-size: 0.75rem;">
+            <i class="bi bi-lock-fill me-1 text-secondary"></i>Kebutuhan investasi telah terpenuhi penuh (0 Slot Tersisa)
+          </div>
+        </div>
+      `;
+      optionsPillsHtml = `
+        <div class="project-options-pills">
+          <span class="project-option-pill pill-single" style="background:#F1F5F9; border-color:#CBD5E1; color:#64748B;">
+            <i class="bi bi-lock-fill"></i> Alokasi Kebutuhan: Rp 0
+          </span>
+        </div>
+      `;
+      ctaText = 'Rancangan Anggaran Modal';
+    }
 
     return `
-      <div class="card mgi-card project-card-clickable h-100 shadow-sm border-0 d-flex flex-column" onclick="MGIAuth.handleProtectedDetail('${project.id}')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();MGIAuth.handleProtectedDetail('${project.id}');}" aria-label="Lihat rancangan anggaran ${project.title}">
+      <div class="card mgi-card ${isFullyFunded ? 'opacity-90' : 'project-card-clickable'} h-100 shadow-sm border-0 d-flex flex-column" ${isFullyFunded ? '' : `onclick="MGIAuth.handleProtectedDetail('${project.id}')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();MGIAuth.handleProtectedDetail('${project.id}');}"`} aria-label="Lihat rancangan anggaran ${project.title}">
         <div class="project-card-cover position-relative">
           <img src="${project.image || 'assets/img/1.png'}" alt="${project.title}" onerror="this.onerror=null;this.src='assets/img/1.png'">
           ${isFullyFunded ? `
@@ -765,10 +789,17 @@ const MGIComponents = {
           ${MGIComponents.renderMetaRow(info)}
 
           <div class="mt-auto pt-1">
-            <button type="button" onclick="event.stopPropagation(); MGIAuth.handleProtectedDetail('${project.id}')" class="btn btn-outline-mgi w-100 py-2.5 fw-semibold d-flex align-items-center justify-content-center gap-2">
-              <span>${ctaText}</span>
-              <i class="bi bi-arrow-right"></i>
-            </button>
+            ${isFullyFunded ? `
+              <button type="button" disabled class="btn btn-light border border-secondary-subtle text-secondary w-100 py-2.5 fw-semibold d-flex align-items-center justify-content-center gap-2 cursor-not-allowed opacity-75">
+                <i class="bi bi-lock-fill"></i>
+                <span>Rancangan Anggaran Modal</span>
+              </button>
+            ` : `
+              <button type="button" onclick="event.stopPropagation(); MGIAuth.handleProtectedDetail('${project.id}')" class="btn btn-outline-mgi w-100 py-2.5 fw-semibold d-flex align-items-center justify-content-center gap-2">
+                <span>${ctaText}</span>
+                <i class="bi bi-arrow-right"></i>
+              </button>
+            `}
           </div>
         </div>
       </div>

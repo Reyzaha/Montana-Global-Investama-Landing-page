@@ -5773,26 +5773,27 @@
         const targetVal = Number(f.target || 0);
         const collectedVal = Number(f.collected || 0);
         const pct = targetVal > 0 ? Math.min(100, Math.round((collectedVal / targetVal) * 100)) : 0;
-        const isFullyFunded = p.status === 'Fully Funded' || pct >= 100;
+        const statusLower = String(p.status || '').toLowerCase();
+        const isFullyFunded = p.status === 'Fully Funded' || p.status === 'Closed' || statusLower.includes('funded') || statusLower.includes('closed') || statusLower.includes('tutup') || pct >= 100;
         const imgUrl = p.image || 'assets/img/1.png';
         const info = p.info || {};
         const rab = p.detail?.rab_executive || null;
         const tierOne = rab?.tiers?.[0] || null;
 
         const statusBadge = isFullyFunded
-          ? '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-black bg-emerald-600 text-white shadow-sm"><i data-lucide="check-check" class="w-3.5 h-3.5"></i> Terdanai Penuh</span>'
+          ? '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-black bg-slate-700 text-white shadow-sm"><i data-lucide="lock" class="w-3.5 h-3.5 text-amber-400"></i> Ditutup (Terdanai)</span>'
           : `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-black bg-blue-600 text-white shadow-sm"><span class="w-2 h-2 rounded-full bg-white animate-ping"></span> Terbuka (${pct}%)</span>`;
 
         const assetBadge = info.brand || info.asset_backed || 'Unit Alat Berat Siap Operasi';
         const returnText = info.return || '25,9% – 35,3%';
         const tenorText = (info.tenor || '12 Bulan').replace(/\s*\(Target\s*2[–\-]3x\s*Putaran\/Tahun\)/gi, '').trim();
-        const minInvText = info.min_investment || p.min_investment || (tierOne?.nominal ? formatRupiahExact(tierOne.nominal) : (targetVal > 0 ? formatRupiahExact(targetVal) : 'Rp 15.000.000.000'));
+        const minInvText = isFullyFunded ? 'Rp 0' : (info.min_investment || p.min_investment || (tierOne?.nominal ? formatRupiahExact(tierOne.nominal) : (targetVal > 0 ? formatRupiahExact(targetVal) : 'Rp 15.000.000.000')));
         const catFundingRows = p.detail?.funding_target?.rows || p.funding_items || [];
         const catFirstRabQty = (catFundingRows && catFundingRows.length > 0 && catFundingRows[0]?.quantity) ? Number(catFundingRows[0].quantity) : null;
         const unitAllocText = catFirstRabQty ? `${catFirstRabQty} Unit Fisik CBU` : (tierOne ? `${tierOne.unit_qty} Unit Fisik CBU` : (rab?.spesifikasi?.estimasi_unit ? rab.spesifikasi.estimasi_unit.split(' ')[0] + ' Unit' : 'Unit CBU Grade A'));
 
         html += `
-          <div class="catalog-card bg-white rounded-3xl border border-slate-200/90 shadow-md hover:shadow-xl hover:border-blue-900/40 transition-all duration-300 flex flex-col justify-between overflow-hidden cursor-pointer" onclick="openProjectDetailModal('${p.id}')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProjectDetailModal('${p.id}');}" data-title="${(p.title || p.nama_project || '').toLowerCase()} ${(info.lokasi || p.city || '').toLowerCase()}">
+          <div class="catalog-card bg-white rounded-3xl border border-slate-200/90 shadow-md hover:shadow-xl hover:border-blue-900/40 transition-all duration-300 flex flex-col justify-between overflow-hidden ${isFullyFunded ? 'opacity-90' : 'cursor-pointer'}" ${isFullyFunded ? '' : `onclick="openProjectDetailModal('${p.id}')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProjectDetailModal('${p.id}');}"`} data-title="${(p.title || p.nama_project || '').toLowerCase()} ${(info.lokasi || p.city || '').toLowerCase()}">
             <!-- Thumbnail Banner -->
             <div class="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900 group">
               <img 
@@ -5843,7 +5844,7 @@
                 <div class="mt-3.5 p-3 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1.5">
                   <div class="flex items-center justify-between text-xs font-bold">
                     <span class="text-slate-500">Target Pendanaan:</span>
-                    <span class="text-slate-900 font-mono">${formatRupiahExact(targetVal)}</span>
+                    <span class="text-slate-900 font-mono">${isFullyFunded ? 'Rp 0' : formatRupiahExact(targetVal)}</span>
                   </div>
                   <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
                     <div class="h-2 rounded-full ${isFullyFunded ? 'bg-emerald-500' : 'bg-gradient-to-r from-blue-600 to-indigo-600'}" style="width: ${pct}%"></div>
@@ -5877,31 +5878,35 @@
 
               <!-- Action CTAs -->
               <div class="pt-2 border-t border-slate-100 flex items-center gap-2">
-                <button 
-                  type="button"
-                  onclick="event.stopPropagation(); openProjectDetailModal('${p.id}')" 
-                  class="flex-1 py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 transition text-center cursor-pointer"
-                >
-                  <i data-lucide="file-text" class="w-3.5 h-3.5 text-blue-600"></i>
-                  <span>Rancangan Anggaran Modal</span>
-                </button>
                 ${isFullyFunded
-            ? `
-                      <button disabled class="flex-1 py-2.5 px-3 rounded-xl bg-slate-100 text-slate-400 font-bold text-xs flex items-center justify-center gap-1.5 cursor-not-allowed">
-                        <i data-lucide="lock" class="w-3.5 h-3.5"></i>
-                        <span>Terdanai Penuh</span>
-                      </button>
-                    `
-            : `
-                      <button 
-                        onclick="openInvestModalForProject('${p.id}')" 
-                        class="flex-1 py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer"
-                      >
-                        <i data-lucide="plus-circle" class="w-3.5 h-3.5 text-amber-300"></i>
-                        <span>Simulasi &amp; Ikut</span>
-                      </button>
-                    `
-          }
+                  ? `
+                    <button disabled class="flex-1 py-2.5 px-3 rounded-xl bg-slate-100 text-slate-400 font-bold text-xs flex items-center justify-center gap-1.5 cursor-not-allowed border border-slate-200">
+                      <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+                      <span>Rancangan Anggaran Modal</span>
+                    </button>
+                    <button disabled class="flex-1 py-2.5 px-3 rounded-xl bg-slate-100 text-slate-400 font-bold text-xs flex items-center justify-center gap-1.5 cursor-not-allowed border border-slate-200">
+                      <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+                      <span>Terdanai Penuh</span>
+                    </button>
+                  `
+                  : `
+                    <button 
+                      type="button"
+                      onclick="event.stopPropagation(); openProjectDetailModal('${p.id}')" 
+                      class="flex-1 py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 transition text-center cursor-pointer"
+                    >
+                      <i data-lucide="file-text" class="w-3.5 h-3.5 text-blue-600"></i>
+                      <span>Rancangan Anggaran Modal</span>
+                    </button>
+                    <button 
+                      onclick="openInvestModalForProject('${p.id}')" 
+                      class="flex-1 py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer"
+                    >
+                      <i data-lucide="plus-circle" class="w-3.5 h-3.5 text-amber-300"></i>
+                      <span>Simulasi &amp; Ikut</span>
+                    </button>
+                  `
+                }
               </div>
             </div>
           </div>
@@ -5913,6 +5918,7 @@
     }
 
     let activeDetailProjectId = null;
+    let activeDetailSimRates = null;
 
     // Open Comprehensive In-Dashboard Project Detail & Prospectus Modal
     function openProjectDetailModal(projectId) {
@@ -5925,12 +5931,21 @@
       }
       if (!p) return;
       activeDetailProjectId = projectId;
+      activeDetailSimRates = p.simulation_rates || p.detail?.simulation_rates || p.detail?.rab_executive?.simulation_rates || {
+        rate_1y_2x: 14.00,
+        rate_1y_3x: 16.00,
+        rate_2y_2x: 23.00,
+        rate_2y_3x: 25.00,
+        rate_3y_2x: 33.00,
+        rate_3y_3x: 35.00
+      };
 
       const f = p.funding || {};
       const targetVal = Number(f.target || p.funding_target || 7000000000);
       const collectedVal = Number(f.collected || p.funding_collected || 0);
       const pct = targetVal > 0 ? Math.min(100, Math.round((collectedVal / targetVal) * 100)) : 0;
-      const isFullyFunded = p.status === 'Fully Funded' || pct >= 100;
+      const statusLower = String(p.status || '').toLowerCase();
+      const isFullyFunded = p.status === 'Fully Funded' || p.status === 'Closed' || statusLower.includes('funded') || statusLower.includes('closed') || statusLower.includes('tutup') || pct >= 100;
       const info = p.info || {};
       const rab = p.detail?.rab_executive || null;
       const tier1 = rab?.tiers?.[0] || null;
@@ -6268,23 +6283,23 @@
               ${simPackageButtonsHtml}
             </div>
 
-            <!-- 2-Scenario Cards (Sesuai Brosur Resmi Halaman 2 & 4) -->
+            <!-- 2-Scenario Cards (Skenario 2x vs 3x Putaran) -->
             <div class="space-y-2">
               <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">Simulasi Skenario Perputaran Modal (Estimasi 12 Bulan):</span>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                 <!-- Skenario 2x Putaran -->
                 <div class="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
                   <div class="flex justify-between items-center text-[10px] font-bold text-slate-600">
-                    <span class="tracking-wider uppercase flex items-center gap-1"><i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-600"></i> SKENARIO 2x PERPUTARAN (SIMULASI 20%)</span>
-                    <span class="text-blue-800 bg-blue-50 px-2.5 py-0.5 rounded-full font-bold text-xs" id="modalSim2xRoiBadge">20,00%</span>
+                    <span class="tracking-wider uppercase flex items-center gap-1"><i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-600"></i> <span id="modalSim2xTitle">SKENARIO 2x PERPUTARAN (14%)</span></span>
+                    <span class="text-blue-800 bg-blue-50 px-2.5 py-0.5 rounded-full font-bold text-xs" id="modalSim2xRoiBadge">14,00%</span>
                   </div>
                   <div class="space-y-0.5">
                     <span class="text-[10px] text-slate-400 block font-medium">Estimasi Profit Bersih Tahunan:</span>
-                    <span class="text-base sm:text-lg font-black text-slate-900 block" id="modalSim2xProfit">Rp 3.000.000.000</span>
+                    <span class="text-base sm:text-lg font-black text-slate-900 block" id="modalSim2xProfit">Rp 2.100.000.000</span>
                   </div>
                   <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
                     <span class="text-slate-500 font-medium">Estimasi Total Diterima (Pokok + Profit):</span>
-                    <strong class="text-blue-900 font-bold" id="modalSim2xTotal">Rp 18.000.000.000</strong>
+                    <strong class="text-blue-900 font-bold" id="modalSim2xTotal">Rp 17.100.000.000</strong>
                   </div>
                   <span class="text-[10px] text-slate-400 block">*Simulasi: 100% Modal Pokok kembali utuh saat tutup buku laporan tahunan.</span>
                 </div>
@@ -6292,16 +6307,16 @@
                 <!-- Skenario 3x Putaran -->
                 <div class="p-4 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50/50 border border-amber-200 shadow-2xs space-y-2">
                   <div class="flex justify-between items-center text-[10px] font-bold text-amber-900">
-                    <span class="tracking-wider uppercase flex items-center gap-1"><i data-lucide="zap" class="w-3.5 h-3.5 text-amber-600"></i> SKENARIO 3x PERPUTARAN (SIMULASI 25%)</span>
-                    <span class="text-emerald-800 bg-emerald-100/90 px-2.5 py-0.5 rounded-full font-bold text-xs" id="modalSim3xRoiBadge">25,00%</span>
+                    <span class="tracking-wider uppercase flex items-center gap-1"><i data-lucide="zap" class="w-3.5 h-3.5 text-amber-600"></i> <span id="modalSim3xTitle">SKENARIO 3x PERPUTARAN (16%)</span></span>
+                    <span class="text-emerald-800 bg-emerald-100/90 px-2.5 py-0.5 rounded-full font-bold text-xs" id="modalSim3xRoiBadge">16,00%</span>
                   </div>
                   <div class="space-y-0.5">
                     <span class="text-[10px] text-amber-800 block font-medium">Estimasi Profit Bersih Tahunan:</span>
-                    <span class="text-base sm:text-lg font-black text-emerald-700 block" id="modalSim3xProfit">Rp 3.750.000.000</span>
+                    <span class="text-base sm:text-lg font-black text-emerald-700 block" id="modalSim3xProfit">Rp 2.400.000.000</span>
                   </div>
                   <div class="pt-2 border-t border-amber-200/60 flex items-center justify-between text-[11px]">
                     <span class="text-amber-900 font-medium">Estimasi Total Diterima (Pokok + Profit):</span>
-                    <strong class="text-emerald-900 font-bold" id="modalSim3xTotal">Rp 18.750.000.000</strong>
+                    <strong class="text-emerald-900 font-bold" id="modalSim3xTotal">Rp 17.400.000.000</strong>
                   </div>
                   <span class="text-[10px] text-amber-800/80 block">*Simulasi: 100% Modal Pokok kembali utuh saat tutup buku laporan tahunan.</span>
                 </div>
@@ -6446,40 +6461,59 @@
     function updateModalSimulator(val) {
       const num = Number(val) || 15000000000;
 
-      // Skenario ROI perputaran modal:
-      // 1 Tahun: 20% s/d 25% (Putaran 2x - 3x)
-      // 2 Tahun: 25% s/d 30% (Akumulasi 2 Tahun: 50% s/d 60%)
-      // 3 Tahun: 30% s/d 35% (Akumulasi 3 Tahun: 90% s/d 105%)
-      const rate1yMin = 0.20;
-      const rate1yMax = 0.25;
-      const rate2yMin = 0.25;
-      const rate2yMax = 0.30;
-      const rate3yMin = 0.30;
-      const rate3yMax = 0.35;
+      // Skenario ROI perputaran modal armada:
+      // 1 Tahun: 14% (2x) & 16% (3x)
+      // 2 Tahun: 23% (2x) & 25% (3x)
+      // 3 Tahun: 33% (2x) & 35% (3x)
+      const r = activeDetailSimRates || {
+        rate_1y_2x: 14.00,
+        rate_1y_3x: 16.00,
+        rate_2y_2x: 23.00,
+        rate_2y_3x: 25.00,
+        rate_3y_2x: 33.00,
+        rate_3y_3x: 35.00
+      };
 
-      const profit2x = Math.round(num * rate1yMin); // Skenario 1 Tahun (20%)
-      const profit3x = Math.round(num * rate1yMax); // Skenario 1 Tahun Optimal (25%)
+      const rate1yMin = (Number(r.rate_1y_2x) || 14.00) / 100;
+      const rate1yMax = (Number(r.rate_1y_3x) || 16.00) / 100;
+      const rate2yMin = (Number(r.rate_2y_2x) || 23.00) / 100;
+      const rate2yMax = (Number(r.rate_2y_3x) || 25.00) / 100;
+      const rate3yMin = (Number(r.rate_3y_2x) || 33.00) / 100;
+      const rate3yMax = (Number(r.rate_3y_3x) || 35.00) / 100;
+
+      const profit2x = Math.round(num * rate1yMin); // Skenario 1 Tahun 2x
+      const profit3x = Math.round(num * rate1yMax); // Skenario 1 Tahun 3x
       const total2x = num + profit2x;
       const total3x = num + profit3x;
 
       const nomEl = document.getElementById('modalSimNominalDisplay');
       if (nomEl) nomEl.innerText = formatRupiahExact(num);
 
-      // Skenario 2x (Standar 20%)
+      // Skenario 2x
       const sim2xProfit = document.getElementById('modalSim2xProfit');
       const sim2xTotal = document.getElementById('modalSim2xTotal');
       const sim2xBadge = document.getElementById('modalSim2xRoiBadge');
+      const sim2xTitle = document.getElementById('modalSim2xTitle');
       if (sim2xProfit) sim2xProfit.innerText = formatRupiahExact(profit2x);
       if (sim2xTotal) sim2xTotal.innerText = formatRupiahExact(total2x);
       if (sim2xBadge) sim2xBadge.innerText = `${(rate1yMin * 100).toFixed(2).replace('.', ',')}%`;
+      if (sim2xTitle) sim2xTitle.innerText = `SKENARIO 2x PERPUTARAN (${(rate1yMin * 100).toFixed(0)}%)`;
 
-      // Skenario 3x (Optimal 25%)
+      // Skenario 3x
       const sim3xProfit = document.getElementById('modalSim3xProfit');
       const sim3xTotal = document.getElementById('modalSim3xTotal');
       const sim3xBadge = document.getElementById('modalSim3xRoiBadge');
+      const sim3xTitle = document.getElementById('modalSim3xTitle');
       if (sim3xProfit) sim3xProfit.innerText = formatRupiahExact(profit3x);
       if (sim3xTotal) sim3xTotal.innerText = formatRupiahExact(total3x);
       if (sim3xBadge) sim3xBadge.innerText = `${(rate1yMax * 100).toFixed(2).replace('.', ',')}%`;
+      if (sim3xTitle) sim3xTitle.innerText = `SKENARIO 3x PERPUTARAN (${(rate1yMax * 100).toFixed(0)}%)`;
+
+      // Header rate badge
+      const simRateBadge = document.getElementById('modalSimRateBadge');
+      if (simRateBadge) {
+        simRateBadge.innerText = `Simulasi Indikatif: ${(rate1yMin * 100).toFixed(0)}% – ${(rate1yMax * 100).toFixed(0)}% (Estimasi Tahunan)`;
+      }
 
       // Summary boxes
       const simSumCapital = document.getElementById('modalSimSumCapital');
@@ -6495,13 +6529,13 @@
       const dt12min = total2x;
       const dt12max = total3x;
 
-      const dp24min = Math.round(num * rate2yMin * 2);
-      const dp24max = Math.round(num * rate2yMax * 2);
+      const dp24min = Math.round(num * rate2yMin);
+      const dp24max = Math.round(num * rate2yMax);
       const dt24min = num + dp24min;
       const dt24max = num + dp24max;
 
-      const dp36min = Math.round(num * rate3yMin * 3);
-      const dp36max = Math.round(num * rate3yMax * 3);
+      const dp36min = Math.round(num * rate3yMin);
+      const dp36max = Math.round(num * rate3yMax);
       const dt36min = num + dp36min;
       const dt36max = num + dp36max;
 
@@ -6517,15 +6551,15 @@
 
       if (dm12p) dm12p.innerText = `${formatRupiahExact(dp12min)} – ${formatRupiahExact(dp12max)}`;
       if (dm12t) dm12t.innerText = `${formatRupiahExact(dt12min)} – ${formatRupiahExact(dt12max)}`;
-      if (dm12r) dm12r.innerText = `Simulasi 20% – 25%`;
+      if (dm12r) dm12r.innerText = `Simulasi ${(rate1yMin * 100).toFixed(0)}% – ${(rate1yMax * 100).toFixed(0)}% (2x & 3x Putaran)`;
 
       if (dm24p) dm24p.innerText = `${formatRupiahExact(dp24min)} – ${formatRupiahExact(dp24max)}`;
       if (dm24t) dm24t.innerText = `${formatRupiahExact(dt24min)} – ${formatRupiahExact(dt24max)}`;
-      if (dm24r) dm24r.innerText = `Simulasi 25% – 30% (Akumulasi 50% – 60%)`;
+      if (dm24r) dm24r.innerText = `Simulasi ${(rate2yMin * 100).toFixed(0)}% – ${(rate2yMax * 100).toFixed(0)}% (2x & 3x Putaran)`;
 
       if (dm36p) dm36p.innerText = `${formatRupiahExact(dp36min)} – ${formatRupiahExact(dp36max)}`;
       if (dm36t) dm36t.innerText = `${formatRupiahExact(dt36min)} – ${formatRupiahExact(dt36max)}`;
-      if (dm36r) dm36r.innerText = `Simulasi 30% – 35% (Akumulasi 90% – 105%)`;
+      if (dm36r) dm36r.innerText = `Simulasi ${(rate3yMin * 100).toFixed(0)}% – ${(rate3yMax * 100).toFixed(0)}% (2x & 3x Putaran)`;
     }
 
     // Populate Select in Invest Modal
@@ -6827,33 +6861,49 @@
         if (quartEl) quartEl.innerText = 'Tutup buku tahunan';
         if (div3YEl) div3YEl.innerText = 'Rp 0';
         if (grandEl) grandEl.innerText = 'Rp 0';
-        if (roiBadge) roiBadge.innerText = 'Estimasi 20,0% – 25,0%';
+        if (roiBadge) roiBadge.innerText = 'Estimasi 14,0% – 16,0%';
         return;
       }
 
       // Skenario ROI perputaran modal:
-      // 1 Tahun: 20% s/d 25% (Putaran 2x - 3x)
-      // 2 Tahun: 25% s/d 30% (Akumulasi 2 Tahun: 50% s/d 60%)
-      // 3 Tahun: 30% s/d 35% (Akumulasi 3 Tahun: 90% s/d 105%)
-      const rate1yMin = 0.20;
-      const rate1yMax = 0.25;
-      const rate2yMin = 0.25;
-      const rate2yMax = 0.30;
-      const rate3yMin = 0.30;
-      const rate3yMax = 0.35;
+      // 1 Tahun: 14% (2x) & 16% (3x)
+      // 2 Tahun: 23% (2x) & 25% (3x)
+      // 3 Tahun: 33% (2x) & 35% (3x)
+      let projectSimRates = null;
+      if (select && select.value) {
+        const selProj = catalogProjects.find(x => x.id === select.value) || (dashboardState.open_projects && dashboardState.open_projects.find(x => x.id === select.value));
+        if (selProj) {
+          projectSimRates = selProj.simulation_rates || selProj.detail?.simulation_rates || selProj.detail?.rab_executive?.simulation_rates;
+        }
+      }
+      const r = projectSimRates || {
+        rate_1y_2x: 14.00,
+        rate_1y_3x: 16.00,
+        rate_2y_2x: 23.00,
+        rate_2y_3x: 25.00,
+        rate_3y_2x: 33.00,
+        rate_3y_3x: 35.00
+      };
+
+      const rate1yMin = (Number(r.rate_1y_2x) || 14.00) / 100;
+      const rate1yMax = (Number(r.rate_1y_3x) || 16.00) / 100;
+      const rate2yMin = (Number(r.rate_2y_2x) || 23.00) / 100;
+      const rate2yMax = (Number(r.rate_2y_3x) || 25.00) / 100;
+      const rate3yMin = (Number(r.rate_3y_2x) || 33.00) / 100;
+      const rate3yMax = (Number(r.rate_3y_3x) || 35.00) / 100;
 
       const p12min = Math.round(val * rate1yMin);
       const p12max = Math.round(val * rate1yMax);
       const t12min = val + p12min;
       const t12max = val + p12max;
 
-      const p24min = Math.round(val * rate2yMin * 2);
-      const p24max = Math.round(val * rate2yMax * 2);
+      const p24min = Math.round(val * rate2yMin);
+      const p24max = Math.round(val * rate2yMax);
       const t24min = val + p24min;
       const t24max = val + p24max;
 
-      const p36min = Math.round(val * rate3yMin * 3);
-      const p36max = Math.round(val * rate3yMax * 3);
+      const p36min = Math.round(val * rate3yMin);
+      const p36max = Math.round(val * rate3yMax);
       const t36min = val + p36min;
       const t36max = val + p36max;
 
@@ -6873,10 +6923,10 @@
         curProfitMax = p24max;
         curTotalMin = t24min;
         curTotalMax = t24max;
-        curRoiText = 'Estimasi 25,0% – 30,0%';
+        curRoiText = `Estimasi ${(rate2yMin * 100).toFixed(0)}% – ${(rate2yMax * 100).toFixed(0)}%`;
         curTenorTitle = 'Tenor 24 Bulan (2 Tahun)';
-        curLblStd = 'Skenario Standar (Simulasi 25%):';
-        curLblOpt = 'Skenario Optimal (Simulasi 30%):';
+        curLblStd = `Skenario 2x Putaran (Simulasi ${(rate2yMin * 100).toFixed(0)}%):`;
+        curLblOpt = `Skenario 3x Putaran (Simulasi ${(rate2yMax * 100).toFixed(0)}%):`;
         curSubStd = 'Akumulasi 2 Tahun (4–6x putaran)';
         curSubOpt = 'Target perputaran optimal 2 tahun';
         curNote = '*100% Pokok kembali di akhir tenor 24 bulan';
@@ -6885,10 +6935,10 @@
         curProfitMax = p36max;
         curTotalMin = t36min;
         curTotalMax = t36max;
-        curRoiText = 'Estimasi 30,0% – 35,0%';
+        curRoiText = `Estimasi ${(rate3yMin * 100).toFixed(0)}% – ${(rate3yMax * 100).toFixed(0)}%`;
         curTenorTitle = 'Tenor 36 Bulan (3 Tahun)';
-        curLblStd = 'Skenario Standar (Simulasi 30%):';
-        curLblOpt = 'Skenario Optimal (Simulasi 35%):';
+        curLblStd = `Skenario 2x Putaran (Simulasi ${(rate3yMin * 100).toFixed(0)}%):`;
+        curLblOpt = `Skenario 3x Putaran (Simulasi ${(rate3yMax * 100).toFixed(0)}%):`;
         curSubStd = 'Akumulasi 3 Tahun (6–9x putaran)';
         curSubOpt = 'Target perputaran optimal 3 tahun';
         curNote = '*100% Pokok kembali di akhir tenor 36 bulan';
@@ -6897,10 +6947,10 @@
         curProfitMax = p12max;
         curTotalMin = t12min;
         curTotalMax = t12max;
-        curRoiText = 'Estimasi 20,0% – 25,0%';
+        curRoiText = `Estimasi ${(rate1yMin * 100).toFixed(0)}% – ${(rate1yMax * 100).toFixed(0)}%`;
         curTenorTitle = 'Tenor 12 Bulan (1 Tahun)';
-        curLblStd = 'Skenario Standar (Simulasi 20%):';
-        curLblOpt = 'Skenario Optimal (Simulasi 25%):';
+        curLblStd = `Skenario 2x Putaran (Simulasi ${(rate1yMin * 100).toFixed(0)}%):`;
+        curLblOpt = `Skenario 3x Putaran (Simulasi ${(rate1yMax * 100).toFixed(0)}%):`;
         curSubStd = 'Tutup buku tahunan';
         curSubOpt = 'Target estimasi optimal';
         curNote = '*100% Pokok kembali di akhir tenor 12 bulan';

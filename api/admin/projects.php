@@ -722,6 +722,17 @@ function syncProjectToJson(string $id, array $payload): void {
                 if (!empty($rab['operator_perk'])) {
                     $p['info']['operator_perk'] = $rab['operator_perk'];
                 }
+                if (!empty($rab['simulation_rates'])) {
+                    $p['simulation_rates'] = $rab['simulation_rates'];
+                    $p['detail']['simulation_rates'] = $rab['simulation_rates'];
+                }
+            }
+            if (!empty($payload['simulation_rates'])) {
+                $p['simulation_rates'] = $payload['simulation_rates'];
+                $p['detail']['simulation_rates'] = $payload['simulation_rates'];
+                if (isset($p['detail']['rab_executive']) && is_array($p['detail']['rab_executive'])) {
+                    $p['detail']['rab_executive']['simulation_rates'] = $payload['simulation_rates'];
+                }
             }
 
             if (isset($payload['funding_items']) && is_array($payload['funding_items'])) {

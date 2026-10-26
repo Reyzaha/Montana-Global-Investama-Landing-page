@@ -312,6 +312,93 @@ require_once __DIR__ . '/includes/header.php';
                     </tfoot>
                   </table>
                 </div>
+
+                <!-- Pengaturan Simulasi ROI Skenario Perputaran (1, 2, 3 Tahun) -->
+                <div class="mt-4 pt-3 border-top">
+                  <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                    <div>
+                      <h6 class="fw-bold text-dark mb-1">
+                        <i class="bi bi-graph-up-arrow text-primary me-2"></i>Pengaturan Simulasi Imbal Hasil (ROI Simulation Rates)
+                      </h6>
+                      <small class="text-muted">Tentukan persentase simulasi perputaran modal armada yang akan tampil di proposal proyek investor (Skenario 2x vs 3x putaran).</small>
+                    </div>
+                    <span class="badge bg-light text-dark border px-3 py-1.5 small fw-semibold">Multi-Tenor Skenario Perputaran</span>
+                  </div>
+
+                  <div class="row g-3">
+                    <!-- 1 Tahun -->
+                    <div class="col-md-4">
+                      <div class="p-3 rounded-3 bg-light border border-subtle h-100">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                          <span class="badge bg-primary text-white">Tenor 12 Bulan (1 Tahun)</span>
+                          <small class="text-muted fw-semibold">2x &amp; 3x Putaran</small>
+                        </div>
+                        <div class="mb-2">
+                          <label class="form-label small mb-1 fw-semibold text-dark">Skenario 2x Putaran (%):</label>
+                          <div class="input-group input-group-sm">
+                            <input type="number" step="0.01" id="simRate1y2x" class="form-control" value="14.00" placeholder="14.00">
+                            <span class="input-group-text">%</span>
+                          </div>
+                        </div>
+                        <div>
+                          <label class="form-label small mb-1 fw-semibold text-dark">Skenario 3x Putaran (%):</label>
+                          <div class="input-group input-group-sm">
+                            <input type="number" step="0.01" id="simRate1y3x" class="form-control" value="16.00" placeholder="16.00">
+                            <span class="input-group-text">%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- 2 Tahun -->
+                    <div class="col-md-4">
+                      <div class="p-3 rounded-3 bg-light border border-subtle h-100">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                          <span class="badge text-white" style="background-color: #4F46E5;">Tenor 24 Bulan (2 Tahun)</span>
+                          <small class="text-muted fw-semibold">4–6x Putaran</small>
+                        </div>
+                        <div class="mb-2">
+                          <label class="form-label small mb-1 fw-semibold text-dark">Skenario 2x Putaran (%):</label>
+                          <div class="input-group input-group-sm">
+                            <input type="number" step="0.01" id="simRate2y2x" class="form-control" value="23.00" placeholder="23.00">
+                            <span class="input-group-text">%</span>
+                          </div>
+                        </div>
+                        <div>
+                          <label class="form-label small mb-1 fw-semibold text-dark">Skenario 3x Putaran (%):</label>
+                          <div class="input-group input-group-sm">
+                            <input type="number" step="0.01" id="simRate2y3x" class="form-control" value="25.00" placeholder="25.00">
+                            <span class="input-group-text">%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- 3 Tahun -->
+                    <div class="col-md-4">
+                      <div class="p-3 rounded-3 bg-light border border-subtle h-100">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                          <span class="badge bg-warning text-dark">Tenor 36 Bulan (3 Tahun)</span>
+                          <small class="text-muted fw-semibold">6–9x Putaran</small>
+                        </div>
+                        <div class="mb-2">
+                          <label class="form-label small mb-1 fw-semibold text-dark">Skenario 2x Putaran (%):</label>
+                          <div class="input-group input-group-sm">
+                            <input type="number" step="0.01" id="simRate3y2x" class="form-control" value="33.00" placeholder="33.00">
+                            <span class="input-group-text">%</span>
+                          </div>
+                        </div>
+                        <div>
+                          <label class="form-label small mb-1 fw-semibold text-dark">Skenario 3x Putaran (%):</label>
+                          <div class="input-group input-group-sm">
+                            <input type="number" step="0.01" id="simRate3y3x" class="form-control" value="35.00" placeholder="35.00">
+                            <span class="input-group-text">%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -968,6 +1055,15 @@ require_once __DIR__ . '/includes/header.php';
 
     const packageOptions = buildPackageOptionsFromForm();
 
+    const simRatesObj = {
+      rate_1y_2x: Number(document.getElementById('simRate1y2x')?.value) || 14.00,
+      rate_1y_3x: Number(document.getElementById('simRate1y3x')?.value) || 16.00,
+      rate_2y_2x: Number(document.getElementById('simRate2y2x')?.value) || 23.00,
+      rate_2y_3x: Number(document.getElementById('simRate2y3x')?.value) || 25.00,
+      rate_3y_2x: Number(document.getElementById('simRate3y2x')?.value) || 33.00,
+      rate_3y_3x: Number(document.getElementById('simRate3y3x')?.value) || 35.00
+    };
+
     currentRabExecutive = {
       package_options_mode: currentPackageMode,
       package_options: packageOptions,
@@ -983,6 +1079,7 @@ require_once __DIR__ . '/includes/header.php';
       selling_price_per_unit: 346000000,
       investor_net_profit_per_unit: 35771712,
       investor_roi_per_cycle_pct: "14.31%",
+      simulation_rates: simRatesObj,
       spesifikasi: {
         barang: model,
         target_perputaran: targetPerputaran,
@@ -1045,6 +1142,14 @@ require_once __DIR__ . '/includes/header.php';
     updateMoneyPreview('simMin', 'previewSimMin');
     updateMoneyPreview('simMax', 'previewSimMax');
     updateMoneyPreview('simDefault', 'previewSimDefault');
+
+    // Default Simulasi ROI Rates
+    document.getElementById('simRate1y2x').value = '14.00';
+    document.getElementById('simRate1y3x').value = '16.00';
+    document.getElementById('simRate2y2x').value = '23.00';
+    document.getElementById('simRate2y3x').value = '25.00';
+    document.getElementById('simRate3y2x').value = '33.00';
+    document.getElementById('simRate3y3x').value = '35.00';
 
     // Default preset 2 pilihan paket (5M & 10M)
     loadDefaultMgiPresets();
@@ -1146,6 +1251,15 @@ require_once __DIR__ . '/includes/header.php';
       updateMoneyPreview('simMin', 'previewSimMin');
       updateMoneyPreview('simMax', 'previewSimMax');
       updateMoneyPreview('simDefault', 'previewSimDefault');
+
+      // Populate Simulation Rates (Skenario 2x & 3x Multi-Tenor)
+      const simRates = (d && d.rab_executive && d.rab_executive.simulation_rates) || (p && p.simulation_rates) || json.data.simulation_rates || {};
+      document.getElementById('simRate1y2x').value = simRates.rate_1y_2x ?? '14.00';
+      document.getElementById('simRate1y3x').value = simRates.rate_1y_3x ?? '16.00';
+      document.getElementById('simRate2y2x').value = simRates.rate_2y_2x ?? '23.00';
+      document.getElementById('simRate2y3x').value = simRates.rate_2y_3x ?? '25.00';
+      document.getElementById('simRate3y2x').value = simRates.rate_3y_2x ?? '33.00';
+      document.getElementById('simRate3y3x').value = simRates.rate_3y_3x ?? '35.00';
 
       // Populate Tab 5: Opsi Paket Investasi & Fasilitas Operator
       if (d && d.rab_executive && typeof d.rab_executive === 'object') {
@@ -1301,7 +1415,8 @@ require_once __DIR__ . '/includes/header.php';
         notes: document.getElementById('simNotes').value
       },
       package_options_mode: currentPackageMode,
-      rab_executive: currentRabExecutive
+      rab_executive: currentRabExecutive,
+      simulation_rates: currentRabExecutive.simulation_rates
     };
 
     const btn = document.getElementById('btnSaveProject');

@@ -248,6 +248,26 @@ try {
             'capitalization_value' => $extra['info']['capitalization_value'] ?? ''
         ];
 
+        $simRates = $rabExec['simulation_rates'] ?? ($extra['simulation_rates'] ?? ($extra['detail']['simulation_rates'] ?? [
+            'rate_1y_2x' => 14.0,
+            'rate_1y_3x' => 16.0,
+            'rate_2y_2x' => 23.0,
+            'rate_2y_3x' => 25.0,
+            'rate_3y_2x' => 33.0,
+            'rate_3y_3x' => 35.0,
+        ]));
+        $detail['simulation_rates'] = $simRates;
+
+        $statusLower = strtolower(trim($p['status'] ?? ''));
+        $isClosedOrFunded = ($statusLower === 'closed') || ($statusLower === 'fully funded') || (strpos($statusLower, 'funded') !== false) || (strpos($statusLower, 'tutup') !== false);
+        if ($isClosedOrFunded) {
+            $fRange = 'Rp 0';
+            $infoArray['target'] = 'Rp 0';
+            $infoArray['target_range'] = 'Rp 0';
+            $infoArray['min_investment'] = 'Rp 0';
+            $infoArray['investor_slot'] = 'Mitra Terkunci (Ditutup)';
+        }
+
         $projects[] = [
             'id' => $p['id'],
             'city_id' => !empty($p['city_id']) ? (int)$p['city_id'] : null,
@@ -262,13 +282,14 @@ try {
             'package_options_mode' => $packageOptionsMode,
             'package_options' => $packageOptions,
             'tiers' => $packageOptions,
+            'simulation_rates' => $simRates,
             'funding_range' => $fRange,
             'funding_min' => $extra['funding_min'] ?? (float)$p['funding_collected'],
             'funding_max' => $extra['funding_max'] ?? (float)$p['funding_target'],
             'operator_facility' => $opFacility,
             'funding' => [
                 'collected' => (float)$p['funding_collected'],
-                'target' => (float)$p['funding_target'],
+                'target' => $isClosedOrFunded ? 0 : (float)$p['funding_target'],
                 'currency' => $p['currency'] ?? 'IDR'
             ],
             'status' => $p['status'],
