@@ -723,6 +723,32 @@ function syncProjectToJson(string $id, array $payload): void {
                     $p['info']['operator_perk'] = $rab['operator_perk'];
                 }
             }
+
+            if (isset($payload['funding_items']) && is_array($payload['funding_items'])) {
+                $syncedRows = [];
+                $gTotal = 0;
+                foreach ($payload['funding_items'] as $idx => $fi) {
+                    $qty = max(1, (int)($fi['quantity'] ?? 1));
+                    $price = (float)cleanMoney($fi['unit_price'] ?? 0);
+                    $tot = (float)cleanMoney($fi['total'] ?? ($qty * $price));
+                    $gTotal += $tot;
+                    $syncedRows[] = [
+                        'no' => $idx + 1,
+                        'item' => $fi['item_name'] ?? '',
+                        'quantity' => $qty,
+                        'unit_price' => $price,
+                        'total' => $tot
+                    ];
+                }
+                $p['detail']['funding_target'] = [
+                    'type' => 'table',
+                    'title' => 'Target Pendanaan & Rencana Anggaran Biaya (CAPEX Breakdown)',
+                    'columns' => ['No', 'Item Pengadaan / Spesifikasi', 'Qty', 'Harga Satuan (IDR)', 'Total Alokasi (IDR)'],
+                    'rows' => $syncedRows,
+                    'grand_total' => $gTotal > 0 ? $gTotal : (float)($payload['funding_target'] ?? 0),
+                    'is_gated' => false
+                ];
+            }
             break;
         }
     }

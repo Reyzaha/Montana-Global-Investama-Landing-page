@@ -324,8 +324,8 @@
                             "no": 1,
                             "item": "Harga Pokok Pembelian (HPP) Unit Alat Berat",
                             "quantity": 14,
-                            "unit_price": 250000000,
-                            "total": 3500000000
+                            "unit_price": 255000000,
+                            "total": 3570000000
                         },
                         {
                             "no": 2,
@@ -345,8 +345,8 @@
                             "no": 4,
                             "item": "Dana Pencadangan & Likuiditas Operasional (3,40%)",
                             "quantity": 1,
-                            "unit_price": 170000000,
-                            "total": 170000000
+                            "unit_price": 100000000,
+                            "total": 100000000
                         }
                     ],
                     "grand_total": 5000000000,

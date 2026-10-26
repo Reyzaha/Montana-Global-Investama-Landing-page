@@ -6028,6 +6028,17 @@
       const rabQtyFromTable = (fundingRows && fundingRows.length > 0 && fundingRows[0]?.quantity) ? Number(fundingRows[0].quantity) : 0;
       const unitQty = (rabQtyFromTable > 0) ? rabQtyFromTable : (tier1?.unit_qty || (rab?.alokasi_dana?.total_unit) || 25);
 
+      // Ambil rincian biaya satuan per komponen secara dinamis dari baris RAB
+      const hppRow = (fundingRows && fundingRows.length > 0) ? fundingRows[0] : null;
+      const kRow = (fundingRows && fundingRows.length > 1) ? fundingRows[1] : null;
+      const rRow = (fundingRows && fundingRows.length > 2) ? fundingRows[2] : null;
+
+      const hppUnitPrice = (hppRow && hppRow.unit_price) ? Number(hppRow.unit_price) : 250000000;
+      const kUnitPrice = (kRow && kRow.unit_price) ? Number(kRow.unit_price) : 70000000;
+      const rUnitPrice = (rRow && rRow.unit_price) ? Number(rRow.unit_price) : 25000000;
+      const workshopLogistikUnitPrice = kUnitPrice + rUnitPrice;
+      const modalOperasionalDasarUnitPrice = hppUnitPrice + workshopLogistikUnitPrice;
+
       let rabRowsHtml = '';
       if (fundingRows && fundingRows.length > 0) {
         rabRowsHtml = fundingRows.map((r, idx) => {
@@ -6182,12 +6193,12 @@
               </span>
             </div>
 
-            <!-- 2 Pilar Ekosistem Operasional (Hapus Kartu ke-3 Pasar Penyerapan Kontrak) -->
+            <!-- 2 Pilar Ekosistem Operasional (Dinamis dari RAB Backend) -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-1">
                 <div class="flex items-center justify-between">
                   <span class="text-[10px] font-bold text-blue-700 uppercase">1. Pengadaan Unit (PT MIU)</span>
-                  <span class="text-xs font-black text-slate-900">Rp 250.000.000 / Unit</span>
+                  <span class="text-xs font-black text-slate-900">${formatRupiahExact(hppUnitPrice)} / Unit</span>
                 </div>
                 <div class="text-base font-black text-slate-900">Alat Berat</div>
                 <p class="text-[11px] text-slate-500 leading-snug">Harga Pokok Pembelian (HPP) pengadaan alat berat dalam kondisi prima dan lulus uji kelayakan operasional.</p>
@@ -6196,10 +6207,10 @@
               <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-1">
                 <div class="flex items-center justify-between">
                   <span class="text-[10px] font-bold text-amber-700 uppercase">2. Workshop &amp; Logistik (PT MSI &amp; MIU)</span>
-                  <span class="text-xs font-black text-slate-900">Rp 95.000.000 / Unit</span>
+                  <span class="text-xs font-black text-slate-900">${formatRupiahExact(workshopLogistikUnitPrice)} / Unit</span>
                 </div>
                 <div class="text-base font-black text-slate-900">Kontainer 40FT HC &amp; Rekondisi</div>
-                <p class="text-[11px] text-slate-500 leading-snug">Alokasi kontainer 40ft HC door-to-door (Rp 70 jt/unit) dan ongkos rekondisi workshop overhaul (Rp 25 jt/unit). Total modal operasional dasar: Rp 345 jt/unit.</p>
+                <p class="text-[11px] text-slate-500 leading-snug">Alokasi kontainer 40ft HC door-to-door (${formatRupiahExact(kUnitPrice)}/unit) dan ongkos rekondisi workshop overhaul (${formatRupiahExact(rUnitPrice)}/unit). Total modal operasional dasar: ${formatRupiahExact(modalOperasionalDasarUnitPrice)}/unit.</p>
               </div>
             </div>
 
